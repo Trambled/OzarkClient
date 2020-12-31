@@ -1,0 +1,15 @@
+[{
+	"modid"        : "ozarkclient",
+	"name"         : "OzarkClient",
+	"description"  : "ebic ozarkclient",
+	"version"      : "1.8.4",
+	"mcversion"    : "1.12.2-14.23.5.2772",
+	"url"          : "https://wurst.plus",
+	"updateUrl"    : "https://wurst.plus",
+	"authorList"   : ["Trambled"],
+	"credits"      : "Trambled, SirRina, salhack devs, travis, and hoosiers, emphack devs",
+	"logoFile"     : "logo.png",
+	"screenshots"  : [],
+	"dependencies" : []
+
+}]

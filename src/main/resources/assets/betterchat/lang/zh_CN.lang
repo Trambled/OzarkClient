@@ -1,0 +1,14 @@
+gui.betterchat.text.title=%1$s 的作者为 %2$s
+gui.betterchat.text.drag=你可以拖拽聊天栏去设置它的位置
+gui.betterchat.text.clear.name=透明聊天背景:
+gui.betterchat.text.clear.enabled=启用
+gui.betterchat.text.clear.disabled=禁用
+gui.betterchat.text.smooth.name=将聊天栏动画化平滑聊天:
+gui.betterchat.text.smooth.enabled=启用
+gui.betterchat.text.smooth.disabled=禁用
+gui.betterchat.text.scale.name=聊天栏比例:
+gui.betterchat.text.width.name=聊天栏宽度:
+gui.betterchat.text.reset.name=恢复到默认配置
+gui.betterchat.text.example1=示例聊天
+gui.betterchat.text.example2=测试，测试，一，二，三
+gui.betterchat.text.example3=玩家留言会出现这里

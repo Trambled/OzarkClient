@@ -1,0 +1,14 @@
+gui.betterchat.text.title=%1$s hecho por %2$s
+gui.betterchat.text.drag=Mueve el chat para reposicionar lo
+gui.betterchat.text.clear.name=Transparente Fondo del Chat:
+gui.betterchat.text.clear.enabled=Habilitado
+gui.betterchat.text.clear.disabled=Deshabilitado
+gui.betterchat.text.smooth.name=Fluido Chat:
+gui.betterchat.text.smooth.enabled=Habilitado
+gui.betterchat.text.smooth.disabled=Deshabilitado
+gui.betterchat.text.scale.name=Escala:
+gui.betterchat.text.width.name=Anchura:
+gui.betterchat.text.reset.name=Reinicia Configuraciones
+gui.betterchat.text.example1=Ejemplo del chat
+gui.betterchat.text.example2=Test, test, 1, 2, 3
+gui.betterchat.text.example3=Los mensajes de los jugadores se van a mirar así

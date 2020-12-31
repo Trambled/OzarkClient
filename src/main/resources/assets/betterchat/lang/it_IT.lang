@@ -1,0 +1,14 @@
+gui.betterchat.text.title=%1$s realizzata da %2$s
+gui.betterchat.text.drag=Sposta la chat per riposizionarla
+gui.betterchat.text.clear.name=Sfondo Chat Trasparente:
+gui.betterchat.text.clear.enabled=Abilitato
+gui.betterchat.text.clear.disabled=Disabilitato
+gui.betterchat.text.smooth.name=Chat Animata:
+gui.betterchat.text.smooth.enabled=Abilitata
+gui.betterchat.text.smooth.disabled=Disabilitata
+gui.betterchat.text.scale.name=Zoom:
+gui.betterchat.text.width.name=Larghezza:
+gui.betterchat.text.reset.name=Reimposta Configurazione
+gui.betterchat.text.example1=Chat di Esempio
+gui.betterchat.text.example2=Prova, prova, 1, 2, 3
+gui.betterchat.text.example3=I messaggi dei giocatori appariranno così
