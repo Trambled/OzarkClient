@@ -14,7 +14,7 @@ public class WurstplusFakePlayer extends WurstplusHack {
 
 		this.name        = "Fake Player";
 		this.tag         = "FakePlayer";
-		this.description = "hahahaaha what a noob its in beta ahahahahaha";
+		this.description = "working fine";
     }
 
     private EntityOtherPlayerMP fake_player;

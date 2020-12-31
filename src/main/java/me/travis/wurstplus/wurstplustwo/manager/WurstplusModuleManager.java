@@ -93,6 +93,7 @@ public class WurstplusModuleManager {
                 add_hack(new Flight());
                 add_hack(new NoFall());
                 add_hack(new OldElytraFly());
+                add_hack(new NoPush());
 
 		// Render.
 		add_hack(new WurstplusHighlight());
