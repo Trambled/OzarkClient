@@ -5,6 +5,7 @@ import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventMotionUpdate;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventMove;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventSwing;
 import me.travis.wurstplus.wurstplustwo.event.events.UpdateWalkingPlayerEvent;
+import me.travis.wurstplus.wurstplustwo.event.events.EventPlayerPushOutOfBlocks;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.MoverType;
 import net.minecraft.util.EnumHand;
@@ -66,6 +67,15 @@ public class WurstplusMixinEntitySP extends WurstplusMixinEntity {
         if (l_Event.isCancelled())
             p_Info.cancel();
 
+    }
+
+    @Inject(method = "pushOutOfBlocks(DDD)Z", at = @At("HEAD"), cancellable = true)
+    public void pushOutOfBlocks(double x, double y, double z, CallbackInfoReturnable<Boolean> callbackInfo)
+    {
+        EventPlayerPushOutOfBlocks l_Event = new EventPlayerPushOutOfBlocks(x, y, z);
+        WurstplusEventBus.EVENT_BUS.post(l_Event);
+        if (l_Event.isCancelled())
+            callbackInfo.setReturnValue(false);
     }
 
     @Inject(method = "swingArm", at = @At("RETURN"), cancellable = true)
