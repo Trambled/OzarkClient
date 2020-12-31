@@ -30,6 +30,7 @@ public class WurstplusCommands {
 		add_command(new WurstplusEzMessage());
 		add_command(new WurstplusEnemy());
 		add_command(new WurstplusConfig());
+                add_command(new Server());
 
 		command_list.sort(Comparator.comparing(WurstplusCommand::get_name));
 	}
