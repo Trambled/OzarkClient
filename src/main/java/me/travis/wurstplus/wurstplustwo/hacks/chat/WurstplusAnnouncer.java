@@ -44,6 +44,7 @@ public class WurstplusAnnouncer extends WurstplusHack {
     WurstplusSetting movement_string = create("Movement", "AnnouncerMovement", "Aha x", combobox("Aha x", "Leyta", "FUCK"));
     WurstplusSetting suffix = create("Suffix", "AnnouncerSuffix", true);
     WurstplusSetting smol = create("Small Text", "AnnouncerSmallText", false);
+    WurstplusSetting world_time = create("World Time", "WorldTime", true);
 
     private static DecimalFormat df = new DecimalFormat();
 
@@ -74,27 +75,7 @@ public class WurstplusAnnouncer extends WurstplusHack {
 
         if (event.get_packet() instanceof SPacketUseBed) {
             queue_message("I am going to bed now, goodnight");
-        }
-        
-        //experimental
-        if (World.getWorldTime() = 12000) {
-            queue_message("Sunset has now started, you may eat if you are a muslim");
-        }
-        if (World.getWorldTime() = 13000) {
-            queue_message("You survived another day!");
-        }
-        if (World.getWorldTime() = 18000) {
-            queue_message("It's so dark outside...");
-        }
-        if (World.getWorldTime() = 22009) {
-            queue_message("Top of the morning to you!");
-        }    
-        if (World.getWorldTime() = 1000) {
-            queue_message("Good bye, zombies!");
-        }
-        if (World.getWorldTime() = 6000) {
-            queue_message("Good afternoon!");
-        }    
+        } 
     });
 
     @EventHandler
@@ -168,7 +149,29 @@ public class WurstplusAnnouncer extends WurstplusHack {
             this.set_disable();
             return;
         }
-
+        
+        //experimental
+        if (world_time.get_value(true) {
+            if (World.getWorldTime() = 12000) {
+               queue_message("Sunset has now started, you may eat if you are a muslim"); 
+            }
+            if (World.getWorldTime() = 13000) {
+               queue_message("You survived another day!");
+            }          
+            if (World.getWorldTime() = 18000) {
+               queue_message("It's so dark outside...");
+            }
+            if (World.getWorldTime() = 22009) {
+               queue_message("Top of the morning to you!");
+            }
+            if (World.getWorldTime() = 1000) {
+               queue_message("Good bye, zombies!");
+            }
+            if (World.getWorldTime() = 6000) {
+               queue_message("Good afternoon!");
+            }
+        }   
+            
         send_cycle();
     }
 
