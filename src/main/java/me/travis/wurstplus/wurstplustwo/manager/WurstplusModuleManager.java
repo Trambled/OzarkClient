@@ -108,13 +108,13 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusSkyColour());
 		add_hack(new WurstplusChams());
 		add_hack(new WurstplusCapes());
-		add_hack(new WurstplusAlwaysNight());
 		add_hack(new WurstplusCityEsp());
                 add_hack(new FOVSlider());
                 add_hack(new StorageESP());
                 add_hack(new NoRender());
                 add_hack(new FullBright());
                 add_hack(new LowHands());
+		add_hack(new Timechanger());
 
 		// Misc.
 		add_hack(new WurstplusMiddleClickFriends());
