@@ -29,6 +29,7 @@ public class WurstplusAutoEz extends WurstplusHack {
 
     int delay_count = 0;
     public String killed_player;
+	public String say_player;
 
     WurstplusSetting discord = create("Discord", "EzDiscord", false);
     WurstplusSetting custom = create("Custom", "EzCustom", false);
@@ -82,6 +83,9 @@ public class WurstplusAutoEz extends WurstplusHack {
                     if (targeted_players.containsKey(player.getName())) {
                         announce(player.getName());
                         killed_player = player.getName();
+                        if (killed_player != "null") {
+							say_player = killed_player;
+						}
                     }
                 }
             }
@@ -110,7 +114,7 @@ public class WurstplusAutoEz extends WurstplusHack {
         if (custom.get_value(true)) {
             message += WurstplusEzMessageUtil.get_message().replace("[", "").replace("]", "");
         } else {
-            message += killed_player + " just got niggered by Ozark Client";
+            message += say_player + " just got niggered by Ozark Client";
         }
         if (discord.get_value(true)) {
             message += " - https://discord.gg/SBYb2vBDwm";
