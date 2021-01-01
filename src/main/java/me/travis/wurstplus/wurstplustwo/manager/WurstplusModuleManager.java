@@ -34,7 +34,7 @@ public class WurstplusModuleManager {
 		// Click GUI and HUD.
 		add_hack(new WurstplusClickGUI());
 		add_hack(new WurstplusClickHUD());
-        add_hack(new HUDEditor());
+                add_hack(new HUDEditor());
 
 		// Chat.
 		add_hack(new WurstplusChatSuffix());
@@ -77,7 +77,7 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusCoordExploit());
 		add_hack(new WurstplusNoHandshake());
 		add_hack(new AutoDupe());
-        add_hack(new EntityDesync());
+                add_hack(new EntityDesync());
                 add_hack(new Timer());
                 add_hack(new Burrow());
 
@@ -87,7 +87,7 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusSprint());
 		add_hack(new IceSpeed());
 		add_hack(new FastSwim());
-        add_hack(new HoleTP());
+                add_hack(new HoleTP());
 		add_hack(new FastFall());
                 add_hack(new ElytraFly());
                 add_hack(new Flight());
@@ -108,13 +108,13 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusSkyColour());
 		add_hack(new WurstplusChams());
 		add_hack(new WurstplusCapes());
-		add_hack(new WurstplusAlwaysNight());
 		add_hack(new WurstplusCityEsp());
                 add_hack(new FOVSlider());
                 add_hack(new StorageESP());
                 add_hack(new NoRender());
                 add_hack(new FullBright());
                 add_hack(new LowHands());
+		add_hack(new Timechanger());
 
 		// Misc.
 		add_hack(new WurstplusMiddleClickFriends());

@@ -16,6 +16,7 @@ import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.network.play.client.CPacketUpdateSign;
 import net.minecraft.network.play.server.SPacketUseBed;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -43,6 +44,7 @@ public class WurstplusAnnouncer extends WurstplusHack {
     WurstplusSetting movement_string = create("Movement", "AnnouncerMovement", "Aha x", combobox("Aha x", "Leyta", "FUCK"));
     WurstplusSetting suffix = create("Suffix", "AnnouncerSuffix", true);
     WurstplusSetting smol = create("Small Text", "AnnouncerSmallText", false);
+    WurstplusSetting world_time = create("World Time", "WorldTime", true);
 
     private static DecimalFormat df = new DecimalFormat();
 
@@ -73,7 +75,7 @@ public class WurstplusAnnouncer extends WurstplusHack {
 
         if (event.get_packet() instanceof SPacketUseBed) {
             queue_message("I am going to bed now, goodnight");
-        }
+        } 
     });
 
     @EventHandler
@@ -145,7 +147,7 @@ public class WurstplusAnnouncer extends WurstplusHack {
             this.set_disable();
             return;
         }
-
+            
         send_cycle();
     }
 
@@ -305,5 +307,4 @@ public class WurstplusAnnouncer extends WurstplusHack {
             consumed_items.remove(kv.getKey());
         }
     }
-
 }
