@@ -81,8 +81,6 @@ public class WurstplusAnnouncer extends WurstplusHack {
     @EventHandler
     private Listener<WurstplusEventPacket.SendPacket> send_listener = new Listener<>(event -> {
         if (mc.world == null) return;
-        
-        
 
         if (event.get_packet() instanceof CPacketPlayerDigging) {
             CPacketPlayerDigging packet = (CPacketPlayerDigging) event.get_packet();
