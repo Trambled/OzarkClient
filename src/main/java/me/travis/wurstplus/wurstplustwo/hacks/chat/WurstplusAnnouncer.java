@@ -94,10 +94,7 @@ public class WurstplusAnnouncer extends WurstplusHack {
         }
         if (World.getWorldTime() = 6000) {
             queue_message("Good afternoon!");
-        }
-        
-        
-        
+        }    
     });
 
     @EventHandler
