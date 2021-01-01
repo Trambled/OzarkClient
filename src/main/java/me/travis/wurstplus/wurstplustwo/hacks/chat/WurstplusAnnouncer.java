@@ -306,5 +306,26 @@ public class WurstplusAnnouncer extends WurstplusHack {
             this.queue_message("NOM NOM, I just ate " + kv.getValue() + " " + kv.getKey() + ", yummy");
             consumed_items.remove(kv.getKey());
         }
+                //experimental
+        if (world_time.get_value(true) {
+            if (mc.world.getWorldTime(12000)) {
+               queue_message("Sunset has now started, you may eat if you are a muslim"); 
+            }
+            if (mc.world.getWorldTime(13000)) {
+               queue_message("You survived another day!");
+            }          
+            if (mc.world.getWorldTime(18000)) {
+               queue_message("It's so dark outside...");
+            }
+            if (mc.world.getWorldTime(22009)) {
+               queue_message("Top of the morning to you!");
+            }
+            if (mc.world.getWorldTime(1000)) {
+               queue_message("Good bye, zombies!");
+            }
+            if (mc.world.getWorldTime(6000)) {
+               queue_message("Good afternoon!");
+            }
+        }   
     }
 }
