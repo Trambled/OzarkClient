@@ -16,7 +16,6 @@ import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.network.play.client.CPacketUpdateSign;
 import net.minecraft.network.play.server.SPacketUseBed;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -150,22 +149,22 @@ public class WurstplusAnnouncer extends WurstplusHack {
         
         //experimental
         if (world_time.get_value(true) {
-            if (World.getWorldTime() = 12000) {
+            if (mc.world.getWorldTime(12000)) {
                queue_message("Sunset has now started, you may eat if you are a muslim"); 
             }
-            if (World.getWorldTime() = 13000) {
+            if (mc.world.getWorldTime(13000)) {
                queue_message("You survived another day!");
             }          
-            if (World.getWorldTime() = 18000) {
+            if (mc.world.getWorldTime(18000)) {
                queue_message("It's so dark outside...");
             }
-            if (World.getWorldTime() = 22009) {
+            if (mc.world.getWorldTime(22009)) {
                queue_message("Top of the morning to you!");
             }
-            if (World.getWorldTime() = 1000) {
+            if (mc.world.getWorldTime(1000)) {
                queue_message("Good bye, zombies!");
             }
-            if (World.getWorldTime() = 6000) {
+            if (mc.world.getWorldTime(6000)) {
                queue_message("Good afternoon!");
             }
         }   
