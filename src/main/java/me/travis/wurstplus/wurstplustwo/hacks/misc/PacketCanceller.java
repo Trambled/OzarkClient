@@ -21,17 +21,17 @@ public class PacketCanceller extends WurstplusHack {
 		this.description = "use things faster";
 	}
 
-	WurstplusSetting CancelCPacketInput = create("CancelCPacketInput", "CancelCPacketInput", true);
-	WurstplusSetting CancelPosition = create("CancelPosition", "CancelPosition", true);
-	WurstplusSetting CancelPositionRotation = create("CancelPositionRotation", "CancelPositionRotation", true);
-        WurstplusSetting CancelRotation = create("CancelRotation", "CancelRotation", true);
-	WurstplusSetting CancelCPacketPlayerAbilities = create("CancelCPacketPlayerAbilities", "CancelCPacketPlayerAbilities", true);
-	WurstplusSetting CancelCPacketPlayerDigging = create("CancelCPacketPlayerDigging", "CancelCPacketPlayerDigging", true);
-	WurstplusSetting CancelCPacketPlayerTryUseItem = create("CancelCPacketPlayerTryUseItem", "CancelCPacketPlayerTryUseItem", true);
-	WurstplusSetting CancelCPacketPlayerTryUseItemOnBlock = create("CancelCPacketPlayerTryUseItemOnBlock", "CancelCPacketPlayerTryUseItemOnBlock", true);
-	WurstplusSetting CancelCPacketEntityAction = create("CancelCPacketEntityAction", "CancelCPacketEntityAction", true);
-	WurstplusSetting CancelCPacketUseEntity = create("CancelCPacketUseEntity", "CancelCPacketUseEntity", true);
-	WurstplusSetting CancelCPacketVehicleMove = create("CancelCPacketVehicleMove", "CancelCPacketVehicleMove", true);
+	WurstplusSetting CancelCPacketInput = create("CPacketInput", "CancelCPacketInput", true);
+	WurstplusSetting CancelPosition = create("Position", "CancelPosition", true);
+	WurstplusSetting CancelPositionRotation = create("PositionRotation", "CancelPositionRotation", true);
+        WurstplusSetting CancelRotation = create("Rotation", "CancelRotation", true);
+	WurstplusSetting CancelCPacketPlayerAbilities = create("CPacketPlayerAbilities", "CancelCPacketPlayerAbilities", true);
+	WurstplusSetting CancelCPacketPlayerDigging = create("CPacketPlayerDigging", "CancelCPacketPlayerDigging", true);
+	WurstplusSetting CancelCPacketPlayerTryUseItem = create("CPlayerTryUseItem", "CancelCPacketPlayerTryUseItem", true);
+	WurstplusSetting CancelCPacketPlayerTryUseItemOnBlock = create("CPacketPlayerTryUseItemOnBlock", "CancelCPacketPlayerTryUseItemOnBlock", true);
+	WurstplusSetting CancelCPacketEntityAction = create("CPacketEntityAction", "CancelCPacketEntityAction", true);
+	WurstplusSetting CancelCPacketUseEntity = create("CPacketUseEntity", "CancelCPacketUseEntity", true);
+	WurstplusSetting CancelCPacketVehicleMove = create("CPacketVehicleMove", "CancelCPacketVehicleMove", true);
 
     private int PacketsCanelled = 0;
     private ArrayList<Packet> PacketsToIgnore = new ArrayList<Packet>();
