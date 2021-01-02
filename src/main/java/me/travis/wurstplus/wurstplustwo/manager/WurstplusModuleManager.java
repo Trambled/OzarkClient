@@ -125,6 +125,8 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusSpeedmine());
                 add_hack(new RPCModule());
 		add_hack(new WurstplusFakePlayer());
+                add_hack(new EntityControl());
+                add_hack(new PacketCanceller());
 
 		array_hacks.sort(Comparator.comparing(WurstplusHack::get_name));
 	}

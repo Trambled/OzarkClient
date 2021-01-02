@@ -18,6 +18,9 @@
 		"WurstplusMixinItemRenderer",
 		"WurstplusMixinGuiPlayerTabOverlay",
 		"WurstplusMixinRenderLivingBase",
-		"WurstplusMixinAbstractClientPlayer"
+		"WurstplusMixinAbstractClientPlayer",
+ 	        "MixinAbstractHorse",
+                "MixinEntityLlama",
+                "MixinEntityPig"                  
 	]
 }
