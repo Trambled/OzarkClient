@@ -16,9 +16,9 @@ public class PacketCanceller extends WurstplusHack {
 	public PacketCanceller() {
 		super(WurstplusCategory.WURSTPLUS_MISC);
 
-		this.name        = "Fast Util"; 
-		this.tag         = "FastUtil";
-		this.description = "use things faster";
+		this.name        = "PacketCanceller"; 
+		this.tag         = "PacketCanceller";
+		this.description = "cancels packets";
 	}
 
 	WurstplusSetting CancelCPacketInput = create("CPacketInput", "CancelCPacketInput", true);
