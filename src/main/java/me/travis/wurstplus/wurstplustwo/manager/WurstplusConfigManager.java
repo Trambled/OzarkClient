@@ -11,6 +11,7 @@ import me.travis.wurstplus.wurstplustwo.util.WurstplusDrawnUtil;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusEnemyUtil;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusEzMessageUtil;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusFriendUtil;
+import me.travis.wurstplus.wurstplustwo.util.AutoKitUtil;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -34,6 +35,7 @@ public class WurstplusConfigManager {
     private final String CONFIG_FILE = "config.txt";
     private final String DRAWN_FILE = "drawn.txt";
     private final String EZ_FILE = "ez.txt";
+    private final String KIT_FILE = "kit.txt";
     private final String ENEMIES_FILE = "enemies.json";
     private final String FRIENDS_FILE = "friends.json";
     private final String HUD_FILE = "hud.json";
@@ -44,6 +46,7 @@ public class WurstplusConfigManager {
     private final String CONFIG_DIR = MAIN_FOLDER + CONFIG_FILE;
     private final String DRAWN_DIR = MAIN_FOLDER + DRAWN_FILE;
     private final String EZ_DIR = MAIN_FOLDER + EZ_FILE;
+    private final String KIT_DIR = MAIN_FOLDER + KIT_FILE;
     private final String ENEMIES_DIR = MAIN_FOLDER + ENEMIES_FILE;
     private final String FRIENDS_DIR = MAIN_FOLDER + FRIENDS_FILE;
     private final String HUD_DIR = MAIN_FOLDER + HUD_FILE;
@@ -95,7 +98,7 @@ public class WurstplusConfigManager {
         try {
             writer.write(WurstplusEzMessageUtil.get_message());
         } catch (Exception ignored) {
-            writer.write("test message");
+            writer.write("kit");
         }
 
         writer.close();
@@ -108,6 +111,28 @@ public class WurstplusConfigManager {
             sb.append(s);
         }
         WurstplusEzMessageUtil.set_message(sb.toString());
+    }
+
+    private void save_kitmessage() throws IOException {
+
+        FileWriter writer = new FileWriter(KIT_DIR);
+
+        try {
+            writer.write(AutoKitUtil.get_message());
+        } catch (Exception ignored) {
+            writer.write("kit");
+        }
+
+        writer.close();
+
+    }
+
+    private void load_kitmessage() throws IOException {
+        StringBuilder ki = new StringBuilder();
+        for (String s : Files.readAllLines(EZ_PATH)) {
+            ki.append(s);
+        }
+        AutoKitUtil.set_message(ki.toString());
     }
 
     // LOAD & SAVE DRAWN
@@ -452,6 +477,7 @@ public class WurstplusConfigManager {
             save_drawn();
             save_ezmessage();
             save_hud();
+            save_kitmessage();
         } catch (IOException e) {
             send_minecraft_log("Something has gone wrong while saving settings");
             send_minecraft_log(e.toString());
@@ -469,6 +495,7 @@ public class WurstplusConfigManager {
             load_friends();
             load_hacks();
             load_hud();
+            load_kitmessage();
         } catch (IOException e) {
             send_minecraft_log("Something has gone wrong while loading settings");
             send_minecraft_log(e.toString());

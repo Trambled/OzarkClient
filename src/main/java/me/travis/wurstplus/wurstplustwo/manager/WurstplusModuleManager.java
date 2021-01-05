@@ -94,6 +94,7 @@ public class WurstplusModuleManager {
                 add_hack(new NoFall());
                 add_hack(new OldElytraFly());
                 add_hack(new NoPush());
+                add_hack(new NoSlowDown());
 
 		// Render.
 		add_hack(new WurstplusHighlight());
@@ -127,6 +128,7 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusFakePlayer());
                 add_hack(new EntityControl());
                 add_hack(new PacketCanceller());
+                add_hack(new AutoKit());
 
 		array_hacks.sort(Comparator.comparing(WurstplusHack::get_name));
 	}
