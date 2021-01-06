@@ -70,9 +70,9 @@ public class WurstplusVoidESP extends WurstplusHack {
     @Override
 	public void render(WurstplusEventRender event) {
 
-        int r = Wurstplus.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorR").get_value(1);
-        int g = Wurstplus.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorG").get_value(1);
-        int b = Wurstplus.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
+        int r = Wurstplus.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorR").get_value(1);
+        int g = Wurstplus.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorG").get_value(1);
+        int b = Wurstplus.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorB").get_value(1);
 
         new ArrayList<>(void_blocks).forEach(pos -> {
 

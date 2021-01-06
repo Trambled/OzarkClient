@@ -63,7 +63,7 @@ public class WurstplusCompass extends WurstplusPinnable {
 
         final double epic_pitch = WurstplusMathUtil.clamp2(mc.getRenderViewEntity().rotationPitch + 30f, -90f, 90f);
         final double pitch_radians = Math.toRadians(epic_pitch);
-        return Math.cos(rad) * Math.sin(pitch_radians) * (Wurstplus.get_setting_manager().get_setting_with_tag("HUD", "HUDCompassScale").get_value(1));
+        return Math.cos(rad) * Math.sin(pitch_radians) * (Wurstplus.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDCompassScale").get_value(1));
 
     }
 
