@@ -56,7 +56,7 @@ public class WurstplusCompass extends WurstplusPinnable {
     }
 
     private double get_x(double rad) {
-        return Math.sin(rad) * (Wurstplus.get_setting_manager().get_setting_with_tag("HUD", "HUDCompassScale").get_value(1));
+        return Math.sin(rad) * (Wurstplus.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDCompassScale").get_value(1));
     }
 
     private double get_y(double rad) {

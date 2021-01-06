@@ -80,7 +80,6 @@ public class WurstplusModuleManager {
                 add_hack(new EntityDesync());
                 add_hack(new Timer());
                 add_hack(new Burrow());
-                add_hack(new BurrowTP());
 
 		// Movement.
 		add_hack(new WurstplusStrafe());

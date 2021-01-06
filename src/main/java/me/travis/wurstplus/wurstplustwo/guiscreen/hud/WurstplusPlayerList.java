@@ -65,7 +65,7 @@ public class WurstplusPlayerList extends WurstplusPinnable {
 
         players = sortByValue(players);
 
-        int max = Wurstplus.get_setting_manager().get_setting_with_tag("HUD", "HUDMaxPlayers").get_value(1);
+        int max = Wurstplus.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDMaxPlayers").get_value(1);
         int count = 0;
 
         for (Map.Entry<String, Integer> player : players.entrySet()) {
