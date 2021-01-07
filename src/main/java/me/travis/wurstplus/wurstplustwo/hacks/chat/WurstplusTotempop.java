@@ -32,7 +32,8 @@ public class WurstplusTotempop extends WurstplusHack {
     public static ChatFormatting gold = ChatFormatting.GOLD;
     public static ChatFormatting grey = ChatFormatting.GRAY;
     public static ChatFormatting bold = ChatFormatting.BOLD;
-    public static ChatFormatting black = ChatFormatting.BLACK;
+    public static ChatFormatting white = ChatFormatting.BLACK;
+    public static ChatFormatting black = ChatFormatting.WHITE;
     public static ChatFormatting reset = ChatFormatting.RESET;
 
     @EventHandler
@@ -58,9 +59,9 @@ public class WurstplusTotempop extends WurstplusHack {
                 if (entity == mc.player) return;
 
                 if (WurstplusFriendUtil.isFriend(entity.getName())) {
-                    WurstplusMessageUtil.send_client_message( red + "" + bold + "[TotemPop] " + reset + black + entity.getName() + " has popped " + count + " totems");
+                    WurstplusMessageUtil.send_client_message( red + "" + bold + "[TotemPop] " + reset + white + entity.getName() + " has popped " + count + " totems");
                 } else {
-                    WurstplusMessageUtil.send_client_message( red + "" + bold + "[TotemPop] " + reset + black + entity.getName() + " has popped " + count + " totems");
+                    WurstplusMessageUtil.send_client_message( red + "" + bold + "[TotemPop] " + reset + white + entity.getName() + " has popped " + count + " totems");
                 }
 
             }

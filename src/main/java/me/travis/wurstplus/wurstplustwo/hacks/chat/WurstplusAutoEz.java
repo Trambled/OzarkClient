@@ -115,7 +115,7 @@ public class WurstplusAutoEz extends WurstplusHack {
             message += WurstplusEzMessageUtil.get_message().replace("[", "").replace("]", "");
         } else {
 			if (say_player != null && say_player != "null") {
-                message += say_player + " just got niggered by Ozark Client";
+                message += "You just got niggered by Ozark Client";
 			}
         }
         if (discord.get_value(true)) {
