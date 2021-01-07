@@ -27,7 +27,16 @@ import static java.lang.Double.isNaN;
 
 public class ScaffoldModule extends Module
 {
-    public final Value<Modes> Mode = new Value<Modes>("Mode", new String[]
+    
+    public ScaffoldModule()
+    {
+        super(WurstplusCategory.WURSTPLUS_MISC);
+        this.name = "Scaffold";
+        this.tag = "Scaffold";
+        this.description = "blocks go brrr";
+    }
+        
+        public final Value<Modes> Mode = new Value<Modes>("Mode", new String[]
     { "" }, "Tower lets you go up fast when holding space and placing blocks, normal will disable that", Modes.Tower);
     public final Value<Boolean> StopMotion = new Value<Boolean>("StopMotion", new String[] {""}, "Stops you from moving if the block isn't placed yet", true);
     public final Value<Float> Delay = new Value<Float>("Delay", new String[]
@@ -38,14 +47,8 @@ public class ScaffoldModule extends Module
         Tower,
         Normal,
     }
-
-    public ScaffoldModule()
-    {
-        super("Scaffold", new String[]
-        { "Scaffold" }, "Places blocks under you", "NONE", 0x36DB24, ModuleType.WORLD);
-    }
     
-    private Timer _timer = new Timer();
+ {  private Timer _timer = new Timer();
     private Timer _towerPauseTimer = new Timer();
     private Timer _towerTimer = new Timer();
     
