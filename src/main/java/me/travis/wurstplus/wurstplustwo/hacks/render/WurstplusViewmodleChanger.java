@@ -1,55 +1,82 @@
-package me.travis.wurstplus.wurstplustwo.hacks.render;
+package com.gamesense.client.module.modules.render;
 
-
-import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
-import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
-import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
+import com.gamesense.api.event.events.TransformSideFirstPersonEvent;
+import com.gamesense.api.setting.Setting;
+import com.gamesense.client.GameSense;
+import com.gamesense.client.module.Module;
+import me.zero.alpine.listener.EventHandler;
+import me.zero.alpine.listener.Listener;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.EnumHandSide;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class WurstplusViewmodleChanger extends WurstplusHack {
-    public WurstplusViewmodleChanger() {
-        super(WurstplusCategory.WURSTPLUS_RENDER);
+import java.util.ArrayList;
 
-        this.name = "Custom Viewmodel";
-        this.tag = "CustomViewmodel";
-        this.description = "anti chad";
-    }
+/**
+ * @Author GL_DONT_CARE (Viewmodel Transformations)
+ * @Author NekoPvP (Item FOV)
+ */
 
-    WurstplusSetting custom_fov = create("FOV", "FOVSlider", 130, 110, 170);
-    WurstplusSetting items = create("Items", "FOVItems", false);
-    WurstplusSetting viewmodle_fov = create("Items FOV", "ItemsFOVSlider", 130, 110, 170);
-    WurstplusSetting normal_offset = create("Offset", "FOVOffset", true);
-    WurstplusSetting offset = create("Offset Main", "FOVOffsetMain", 0.7, 0.0, 1.0);
-    WurstplusSetting offset_x = create("Offset X", "FOVOffsetX", 0.0, -1.0, 1.0);
-    WurstplusSetting offset_y = create("Offset Y", "FOVOffsetY", 0.0, -1.0, 1.0);
-    WurstplusSetting main_x = create("Main X", "FOVMainX", 0.0, -1.0, 1.0);
-    WurstplusSetting main_y = create("Main Y", "FOVMainY", 0.0, -1.0, 1.0);
+public class ViewModel extends Module {
 
-    private float fov;
+	public ViewModel() {
+		super("ViewModel", Category.Render);
+	}
 
-    @Override
-    protected void enable() {
-        fov = mc.gameSettings.fovSetting;
-        MinecraftForge.EVENT_BUS.register(this);
-    }
+	public Setting.Boolean cancelEating;
+	Setting.Mode type;
+	Setting.Double xRight;
+	Setting.Double yRight;
+	Setting.Double zRight;
+	Setting.Double xLeft;
+	Setting.Double yLeft;
+	Setting.Double zLeft;
+	Setting.Double fov;
 
-    @Override
-    protected void disable() {
-        mc.gameSettings.fovSetting = fov;
-        MinecraftForge.EVENT_BUS.unregister(this);
-    }
+	public void setup() {
+		ArrayList<String> types = new ArrayList<>();
+		types.add("Value");
+		types.add("FOV");
+		types.add("Both");
 
-    @Override
-    public void update() {
-        mc.gameSettings.fovSetting = custom_fov.get_value(1);
-    }
+		type = registerMode("Type", "Type", types, "Value");
+		cancelEating = registerBoolean("No Eat", "NoEat", false);
+		xLeft = registerDouble("Left X", "LeftX", 0.0, -2.0, 2.0);
+		yLeft = registerDouble("Left Y", "LeftY", 0.2, -2.0, 2.0);
+		zLeft = registerDouble("Left Z", "LeftZ", -1.2, -2.0, 2.0);
+		xRight = registerDouble("Right X", "RightX", 0.0, -2.0, 2.0);
+		yRight = registerDouble("Right Y", "RightY", 0.2, -2.0, 2.0);
+		zRight = registerDouble("Right Z", "RightZ", -1.2, -2.0, 2.0);
+		fov = registerDouble("Item FOV", "ItemFOV", 130, 70, 200);
+	}
 
-    @SubscribeEvent
-    public void fov_event(final EntityViewRenderEvent.FOVModifier m) {
-        if (items.get_value(true))
-            m.setFOV(viewmodle_fov.get_value(1));
-    }
+	@EventHandler
+	private final Listener<TransformSideFirstPersonEvent> eventListener = new Listener<>(event -> {
+		if (type.getValue().equalsIgnoreCase("Value") || type.getValue().equalsIgnoreCase("Both")) {
+			if (event.getEnumHandSide() == EnumHandSide.RIGHT) {
+				GlStateManager.translate(xRight.getValue(), yRight.getValue(), zRight.getValue());
+			} else if (event.getEnumHandSide() == EnumHandSide.LEFT) {
+				GlStateManager.translate(xLeft.getValue(), yLeft.getValue(), zLeft.getValue());
+			}
+		}
+	});
 
+	@SubscribeEvent
+	public void onFov(EntityViewRenderEvent.FOVModifier event) {
+		if (type.getValue().equalsIgnoreCase("FOV") || type.getValue().equalsIgnoreCase("Both")) {
+			event.setFOV((float) fov.getValue());
+		}
+	}
+
+	public void onEnable(){
+		GameSense.EVENT_BUS.subscribe(this);
+		MinecraftForge.EVENT_BUS.register(this);
+	}
+
+	public void onDisable(){
+		GameSense.EVENT_BUS.unsubscribe(this);
+		MinecraftForge.EVENT_BUS.unregister(this);
+	}
 }
