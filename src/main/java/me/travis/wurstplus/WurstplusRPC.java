@@ -26,9 +26,9 @@ public class WurstplusRPC
         WurstplusRPC.rpc.Discord_Initialize("785682576110518293", handlers, true, "");
         WurstplusRPC.presence.startTimestamp = System.currentTimeMillis() / 1000L;
         WurstplusRPC.presence.details = "Version " + Wurstplus.WURSTPLUS_VERSION;
-        WurstplusRPC.presence.largeImageKey = "yes";
+        WurstplusRPC.presence.largeImageKey = "ozark_2";
         WurstplusRPC.presence.largeImageText = "ozark client on top";
-        WurstplusRPC.presence.smallImageKey = "ozarkclient";
+        WurstplusRPC.presence.smallImageKey = "troll";
         WurstplusRPC.presence.smallImageText = "ez";
         WurstplusRPC.rpc.Discord_UpdatePresence(WurstplusRPC.presence);
         new Thread(() -> {

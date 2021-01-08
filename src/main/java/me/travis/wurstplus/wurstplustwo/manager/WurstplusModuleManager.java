@@ -131,6 +131,7 @@ public class WurstplusModuleManager {
                 add_hack(new PacketCanceller());
                 add_hack(new AutoKit());
 
+
 		array_hacks.sort(Comparator.comparing(WurstplusHack::get_name));
 	}
 
