@@ -10,7 +10,7 @@ literal sex
 
 4. do gradlew build, after that it should build
 
-5. Go into the file, look for build > libs > then you should see three .jar files, the one that has -all in front of it
+5. Go into the file, look for build > libs > then you should see three .jar files, the one that has -all in end of it
 is the jar file you should use.
 
 u also need a JDK, a free one is adopt open jdk https://adoptopenjdk.net/
