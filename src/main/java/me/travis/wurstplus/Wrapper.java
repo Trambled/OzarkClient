@@ -18,7 +18,7 @@ public class Wrapper {
     public static Minecraft mc = Minecraft.getMinecraft();
 
     public static Minecraft getMinecraft() {
-        return Minecraft.getMinecraft();
+        return Minecraft.getMinecraft(); //a lot of stuff was from a lot of clients
     }
 
     public static EntityPlayerSP getPlayer() {
