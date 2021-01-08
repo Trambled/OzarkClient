@@ -1,9 +1,6 @@
 # Ozark Client
 literal sex
 
-If you wanna build the src, here's a quick run of the
-mill explanation on how to build (altough idk why you would)
-
 # building the sex 😎
 
 1. go into command prompt
