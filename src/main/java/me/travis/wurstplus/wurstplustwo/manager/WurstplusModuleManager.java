@@ -66,6 +66,10 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusAutoGapple());
 		add_hack(new WurstplusAutoTotem());
 		add_hack(new WurstplusAutoMine());
+                add_hack(new OffhandBypass());
+                add_hack(new ManualQuiver());
+                add_hack(new FastBow());
+ 
 
 		// Exploit.
 		add_hack(new WurstplusXCarry());

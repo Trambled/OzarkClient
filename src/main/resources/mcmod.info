@@ -2,7 +2,7 @@
 	"modid"        : "ozarkclient",
 	"name"         : "OzarkClient",
 	"description"  : "ebic ozarkclient",
-	"version"      : "1.8.7",
+	"version"      : "1.8.8",
 	"mcversion"    : "1.12.2-14.23.5.2772",
 	"url"          : "https://wurst.plus",
 	"updateUrl"    : "https://wurst.plus",
