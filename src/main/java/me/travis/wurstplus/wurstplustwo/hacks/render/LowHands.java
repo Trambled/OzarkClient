@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.util.EnumHand;
 
 public class LowHands extends WurstplusHack {
-
+//floppahack
     public LowHands() {
         super(WurstplusCategory.WURSTPLUS_RENDER);
 
@@ -16,16 +16,11 @@ public class LowHands extends WurstplusHack {
         this.description = "someone cut off me hand ";
     }
 	
-	WurstplusSetting mainhand_height = create("Mainhand", "Mainhand", 5, 0, 10);
-	WurstplusSetting offhand_height = create("Offhand", "Offhand", 5, 0, 10);
+	WurstplusSetting offset = create("Offset", "SmallHandOffset", 90, 0, 360);
 	
 
     @Override
     public void update() {
-		mc.entityRenderer.itemRenderer.equippedProgressMainHand = mainhand_height.get_value(1) / 10;
-        mc.entityRenderer.itemRenderer.equippedProgressOffHand = offhand_height.get_value(1) / 10;
-		
-        mc.entityRenderer.itemRenderer.itemStackMainHand = mc.player.getHeldItem(EnumHand.MAIN_HAND);
-        mc.entityRenderer.itemRenderer.itemStackOffHand = mc.player.getHeldItem(EnumHand.OFF_HAND);
+		mc.player.renderArmPitch = offset.get_value(1);
     }
 }
