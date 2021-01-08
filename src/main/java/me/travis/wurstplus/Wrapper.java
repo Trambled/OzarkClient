@@ -8,9 +8,9 @@ import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 
 /**
- * Created by 086 on 11/11/2017. 
+ * Created by 086 on 11/11/2017.
  */
-//this is from a lot of clients
+
 public class Wrapper {
 
     private static FontRenderer fontRenderer;

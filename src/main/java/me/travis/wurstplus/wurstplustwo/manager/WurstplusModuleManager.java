@@ -69,6 +69,8 @@ public class WurstplusModuleManager {
                 add_hack(new OffhandBypass());
                 add_hack(new ManualQuiver());
                 add_hack(new FastBow());
+                add_hack(new AntiCrystal());
+                add_hack(new AntiHoleFill());
  
 
 		// Exploit.
