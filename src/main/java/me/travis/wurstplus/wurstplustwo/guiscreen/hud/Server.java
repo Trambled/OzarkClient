@@ -4,9 +4,9 @@ import me.travis.wurstplus.Wurstplus;
 import me.travis.wurstplus.wurstplustwo.guiscreen.render.WurstplusDraw;
 import me.travis.wurstplus.wurstplustwo.guiscreen.render.pinnables.WurstplusPinnable;
 
-public class WurstplusUser extends WurstplusPinnable {
-	public WurstplusUser() {
-		super("User", "User", 1, 0, 0);
+public class Server extends WurstplusPinnable {
+	public Server() {
+		super("Server", "Server", 1, 0, 0);
 	}
 
 	@Override
@@ -16,7 +16,7 @@ public class WurstplusUser extends WurstplusPinnable {
 		int nl_b = Wurstplus.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorB").get_value(1);
 		int nl_a = Wurstplus.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorA").get_value(1);
 
-		String line = "Welcome, " + mc.player.getName();
+		String line = mc.getCurrentServerData().serverIP;
 
 		create_line(line, this.docking(1, line), 2, nl_r, nl_g, nl_b, nl_a);
 

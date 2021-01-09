@@ -1,6 +1,5 @@
 package me.travis.wurstplus.wurstplustwo.util;
 
-
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -29,6 +28,22 @@ public class WurstplusEntityUtil {
         if (setting.in("Offhand") || setting.in("Both")) {
             mc.player.swingArm(EnumHand.OFF_HAND);
         }
+    }
+
+    public static double getDirection() {
+        float rotationYaw = mc.player.rotationYaw;
+
+        if (mc.player.moveForward < 0f) rotationYaw += 180f;
+
+        float forward = 1f;
+
+        if (mc.player.moveForward < 0f) forward = -0.5f;
+        else if (mc.player.moveForward > 0f) forward = 0.5f;
+
+        if (mc.player.moveStrafing > 0f) rotationYaw -= 90f * forward;
+        if (mc.player.moveStrafing < 0f) rotationYaw += 90f * forward;
+
+        return Math.toRadians(rotationYaw);
     }
 
     public static boolean isLiving(Entity e)

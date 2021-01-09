@@ -102,6 +102,7 @@ public class WurstplusModuleManager {
                 add_hack(new OldElytraFly());
                 add_hack(new NoPush());
                 add_hack(new NoSlowDown());
+                add_hack(new LongJump());
 
 		// Render.
 		add_hack(new WurstplusHighlight());
