@@ -24,12 +24,10 @@ public class WurstplusAutoEz extends WurstplusHack {
 
         this.name = "Auto Ez";
         this.tag = "AutoEz";
-        this.description = "you just got nae nae'd by ozarkclient";
+        this.description = "you just got nae nae'd by wurst+... 2";
     }
 
     int delay_count = 0;
-    public String killed_player;
-	public String say_player;
 
     WurstplusSetting discord = create("Discord", "EzDiscord", false);
     WurstplusSetting custom = create("Custom", "EzCustom", false);
@@ -82,10 +80,6 @@ public class WurstplusAutoEz extends WurstplusHack {
                 if (player.getHealth() <= 0) {
                     if (targeted_players.containsKey(player.getName())) {
                         announce(player.getName());
-                        killed_player = player.getName();
-                        if (killed_player != "null") {
-							say_player = killed_player;
-						}
                     }
                 }
             }
@@ -114,12 +108,10 @@ public class WurstplusAutoEz extends WurstplusHack {
         if (custom.get_value(true)) {
             message += WurstplusEzMessageUtil.get_message().replace("[", "").replace("]", "");
         } else {
-			if (say_player != null && say_player != "null") {
-                message += "You just got niggered by Ozark Client";
-			}
+            message += "you just got nae nae'd by wurst+2";
         }
         if (discord.get_value(true)) {
-            message += " - https://discord.gg/SBYb2vBDwm";
+            message += " - discord.gg/wurst";
         }
         mc.player.connection.sendPacket(new CPacketChatMessage(message));
     }

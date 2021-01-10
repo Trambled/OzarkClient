@@ -1,6 +1,5 @@
-package me.travis.wurstplus.wurstplustwo.hacks.combat;
+package me.travis.wurstplus.wurstplustwo.hacks.memes;
 
-import com.mojang.realmsclient.gui.ChatFormatting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusTextureHelper;
@@ -19,16 +18,14 @@ import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 
 import java.util.function.Predicate;
 
-//floppahack
 public class OffhandBypass extends WurstplusHack {
     private final Listener<PlayerDestroyItemEvent> sendListener;
 
     public OffhandBypass() {
-
         super(WurstplusCategory.WURSTPLUS_COMBAT);
         this.name = "OffhandBypass";
         this.tag = "OffhandBypass";
-        this.description = "dsadawdawdas";
+        this.description = "cum";
         
         Listener<PlayerDestroyItemEvent> sendListener;
 
@@ -39,13 +36,7 @@ public class OffhandBypass extends WurstplusHack {
         }, (Predicate<PlayerDestroyItemEvent>[])new Predicate[0]);
         
     }
-
-    @Override
-    public void update() {
-        if (OffhandBypass.mc.player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL && OffhandBypass.mc.player.getHeldItemOffhand().getItem() == Items.GOLDEN_APPLE && OffhandBypass.mc.gameSettings.keyBindUseItem.isKeyDown() && OffhandBypass.mc.player.getActiveHand() == EnumHand.MAIN_HAND) {
-            OffhandBypass.mc.player.setActiveHand(EnumHand.OFF_HAND);
-        }
-    }
+    //idfk if this shit will work now
 
 
 
