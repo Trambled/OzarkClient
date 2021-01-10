@@ -1,4 +1,4 @@
-package me.travis.wurstplus.wurstplustwo.hacks.memes;
+package me.travis.wurstplus.wurstplustwo.hacks.combat;
 
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
