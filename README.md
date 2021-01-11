@@ -1,3 +1,9 @@
+w+2 with a load of shit from xenon, salhack, xulu, and bope
+
+blah blah ozarkclient got leaked so fart.
+
+heres the original read me for ozark client
+
 # Ozark Client
 literal sex
 
@@ -44,7 +50,9 @@ for offhand use crystal mode and gapple in hole if u want, health is based on pr
 
 default burrow delay is fine, but you can change it if it doesnt work for u that good
 
-elytrafly set the speed to 1.8 - 2.0, go higher if the server anticheat allows it, if it lags back with normal speed, set glide speed higher, superior mode is the best mode btw
+elytrafly set the speed to 1.8 - 2.0, go higher if the server anticheat allows it, if it lags back with normal speed, set glide speed higher, superior mode is the best mode btw, elytrafly isn't compatible with nofall, thats why ozark elytrafly auto toggles ozark nofall, so make sure that no other clients have the nofall module toggled when you're using elytra fly.
 
 # capes
-dm me or start an issue if u want to be part of cape club
+even tho client is leaked dm if u want to have cape
+
+I'll also be making more capes!
