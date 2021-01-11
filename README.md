@@ -37,4 +37,4 @@ It should be but still may crash.
 
 # configing
 
-no config for you make your own config >:(
+![cfg1](https://media.discordapp.net/attachments/774445515629920260/797986249112944660/heres_lil_cheesy_config.PNG)  
