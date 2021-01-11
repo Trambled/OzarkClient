@@ -37,4 +37,14 @@ It should be but still may crash.
 
 # configing
 
+heres lil cheesy config
 ![cfg1](https://media.discordapp.net/attachments/774445515629920260/797986249112944660/heres_lil_cheesy_config.PNG)  
+
+for offhand use crystal mode and gapple in hole if u want, health is based on preference
+
+default burrow delay is fine, but you can change it if it doesnt work for u that good
+
+elytrafly set the speed to 1.8 - 2.0, go higher if the server anticheat allows it, if it lags back with normal speed, set glide speed higher, superior mode is the best mode btw
+
+# capes
+dm me or start an issue if u want to be part of cape club
