@@ -54,4 +54,5 @@ elytrafly set the speed to 1.8 - 2.0, go higher if the server anticheat allows i
 
 # capes
 even tho client is leaked dm if u want to have cape
+
 I'll also be making more capes!
