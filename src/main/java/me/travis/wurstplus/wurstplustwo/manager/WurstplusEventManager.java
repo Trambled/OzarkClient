@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -131,6 +132,12 @@ public class WurstplusEventManager {
 	public void onInputUpdate(InputUpdateEvent event) {
 		WurstplusEventBus.EVENT_BUS.post(event);
 	}
+
+    @SubscribeEvent
+    public void onRenderBlockOverlay(RenderBlockOverlayEvent event)
+    {
+        WurstplusEventBus.EVENT_BUS.post(event);
+    }
 
 
 }

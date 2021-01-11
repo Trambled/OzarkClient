@@ -71,7 +71,6 @@ public class WurstplusModuleManager {
                 add_hack(new FastBow());
                 add_hack(new AntiCrystal());
                 add_hack(new AntiHoleFill());
- 
 
 		// Exploit.
 		add_hack(new WurstplusXCarry());
@@ -87,6 +86,7 @@ public class WurstplusModuleManager {
                 add_hack(new Timer());
                 add_hack(new Burrow());
                 add_hack(new Freecam());
+                add_hack(new AntiHunger());
 
 		// Movement.
 		add_hack(new WurstplusStrafe());
@@ -103,6 +103,7 @@ public class WurstplusModuleManager {
                 add_hack(new NoPush());
                 add_hack(new NoSlowDown());
                 add_hack(new LongJump());
+                add_hack(new Anchor());
 
 		// Render.
 		add_hack(new WurstplusHighlight());
