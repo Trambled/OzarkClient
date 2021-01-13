@@ -20,10 +20,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
 import static me.travis.wurstplus.Wurstplus.send_minecraft_log;
 
 public class WurstplusConfigManager {
+
+    public File WurstplusFile;
 
     // FOLDERS
     private final String MAIN_FOLDER = "OZARKCLIENT/";
@@ -126,6 +129,7 @@ public class WurstplusConfigManager {
         writer.close();
 
     }
+
 
     private void load_kitmessage() throws IOException {
         StringBuilder ki = new StringBuilder();

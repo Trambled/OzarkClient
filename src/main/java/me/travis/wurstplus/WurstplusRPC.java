@@ -25,9 +25,9 @@ public class WurstplusRPC
         handlers.disconnected = ((var1, var2) -> System.out.println("Discord RPC disconnected, var1: " + String.valueOf(var1) + ", var2: " + var2));
         WurstplusRPC.rpc.Discord_Initialize("785682576110518293", handlers, true, "");
         WurstplusRPC.presence.startTimestamp = System.currentTimeMillis() / 1000L;
-        WurstplusRPC.presence.details = "Version " + Wurstplus.WURSTPLUS_VERSION;
+        WurstplusRPC.presence.details = mc.player.getHealth()+mc.player.getAbsorptionAmount() + " HP";
         WurstplusRPC.presence.largeImageKey = "ozark_2";
-        WurstplusRPC.presence.largeImageText = "ozark client on top";
+        WurstplusRPC.presence.largeImageText = "OzarkClient" + Wurstplus.WURSTPLUS_VERSION;
         WurstplusRPC.presence.smallImageKey = "troll";
         WurstplusRPC.presence.smallImageText = "ez";
         WurstplusRPC.rpc.Discord_UpdatePresence(WurstplusRPC.presence);
@@ -35,7 +35,7 @@ public class WurstplusRPC
             while (!Thread.currentThread().isInterrupted()) {
                 try {
                     WurstplusRPC.rpc.Discord_RunCallbacks();
-                    WurstplusRPC.details = "Version " + Wurstplus.WURSTPLUS_VERSION;
+                    WurstplusRPC.details = mc.player.getHealth()+mc.player.getAbsorptionAmount() + " HP";
                     WurstplusRPC.state = "";
                     if (WurstplusRPC.mc.isIntegratedServerRunning()) {
                         WurstplusRPC.state = "Playing Singleplayer";

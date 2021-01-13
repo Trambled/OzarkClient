@@ -46,6 +46,7 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusAnnouncer());
 		add_hack(new AutoExcuse());
 		add_hack(new DesktopNotifs());
+                add_hack(new WeaknessAlert());
 
 		// Combat.
 		add_hack(new WurstplusCriticals());
@@ -67,10 +68,9 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusAutoTotem());
 		add_hack(new WurstplusAutoMine());
                 add_hack(new OffhandBypass());
-                add_hack(new ManualQuiver());
                 add_hack(new FastBow());
                 add_hack(new AntiCrystal());
-                add_hack(new AntiHoleFill());
+                add_hack(new ManualQuiver());
 
 		// Exploit.
 		add_hack(new WurstplusXCarry());

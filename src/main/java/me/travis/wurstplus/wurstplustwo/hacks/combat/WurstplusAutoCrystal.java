@@ -52,6 +52,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
     WurstplusSetting break_crystal = create("Break", "CaBreak", true);
     WurstplusSetting break_trys = create("Break Attempts", "CaBreakAttempts", 2, 1, 6);
     WurstplusSetting anti_weakness = create("Anti-Weakness", "CaAntiWeakness", true);
+    WurstplusSetting module_check = create("Module Check", "CaModuleCheck", true);
 
     WurstplusSetting hit_range = create("Hit Range", "CaHitRange", 5.2f, 1f, 6f);
     WurstplusSetting place_range = create("Place Range", "CaPlaceRange", 5.2f, 1f, 6f);
@@ -604,21 +605,21 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 			return true;
 		}
 
-        if (Wurstplus.get_hack_manager().get_module_with_tag("Surround").is_active()) {
+        if (Wurstplus.get_hack_manager().get_module_with_tag("Surround").is_active() && module_check.get_value(true)) {
             if (old_render.get_value(true)) {
                 render_block_init = null;
             }
             return true;
         }
 
-        if (Wurstplus.get_hack_manager().get_module_with_tag("HoleFill").is_active()) {
+        if (Wurstplus.get_hack_manager().get_module_with_tag("HoleFill").is_active() && module_check.get_value(true)) {
             if (old_render.get_value(true)) {
                 render_block_init = null;
             }
             return true;
         }
 
-        if (Wurstplus.get_hack_manager().get_module_with_tag("Trap").is_active()) {
+        if (Wurstplus.get_hack_manager().get_module_with_tag("Trap").is_active() && module_check.get_value(true)) {
             if (old_render.get_value(true)) {
                 render_block_init = null;
             }

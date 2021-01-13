@@ -5,6 +5,10 @@ import me.travis.wurstplus.wurstplustwo.guiscreen.render.WurstplusDraw;
 import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.widgets.*;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.ISound;
+import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.init.SoundEvents;
 
 import java.util.ArrayList;
 
@@ -14,6 +18,7 @@ import java.util.ArrayList;
 public class WurstplusModuleButton {
 	private WurstplusHack module;
 	private WurstplusFrame  master;
+	private static final Minecraft mc;
 
 	private ArrayList<WurstplusAbstractWidget> widget;
 
@@ -226,6 +231,8 @@ public class WurstplusModuleButton {
 				this.master.does_can(false);
 
 				set_pressed(!get_state());
+				
+				mc.getSoundHandler().playSound((ISound)PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0f));
 			}
 		}
 
@@ -236,6 +243,8 @@ public class WurstplusModuleButton {
 				set_open(!is_open());
 
 				this.master.refresh_frame(this, 0);
+				
+				mc.getSoundHandler().playSound((ISound)PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0f));
 			}
 		}
 	}
@@ -293,4 +302,7 @@ public class WurstplusModuleButton {
 			}
 		}
 	}
+    static {
+        mc = Minecraft.getMinecraft();
+    }
 }

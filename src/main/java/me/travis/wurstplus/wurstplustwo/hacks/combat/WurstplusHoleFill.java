@@ -9,6 +9,8 @@ import me.travis.wurstplus.wurstplustwo.util.WurstplusBlockUtil;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusMessageUtil;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusPlayerUtil;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockButtonWood;
+import net.minecraft.block.BlockButtonStone;
 import net.minecraft.block.BlockEnderChest;
 import net.minecraft.block.BlockObsidian;
 import net.minecraft.init.Blocks;
@@ -30,6 +32,7 @@ public class WurstplusHoleFill extends WurstplusHack {
     
     WurstplusSetting hole_toggle = create("Toggle", "HoleFillToggle", true);
     WurstplusSetting hole_rotate = create("Rotate", "HoleFillRotate", true);
+    WurstplusSetting button = create("Button", "HoleFillButton", false);
     WurstplusSetting hole_range = create("Range", "HoleFillRange", 4, 1, 6);
     WurstplusSetting swing = create("Swing", "HoleFillSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
 
@@ -144,11 +147,19 @@ public class WurstplusHoleFill extends WurstplusHack {
             if (stack != ItemStack.EMPTY && stack.getItem() instanceof ItemBlock) {
                 final Block block = ((ItemBlock) stack.getItem()).getBlock();
 
-                if (block instanceof BlockEnderChest) {
+                if (block instanceof BlockEnderChest && !button.get_value(true)) {
                     return i;
                 }
 
-                if (block instanceof BlockObsidian) {
+                if (block instanceof BlockObsidian && !button.get_value(true)) {
+                    return i;
+                }
+
+                if (block instanceof BlockButtonStone && button.get_value(true)) {
+                    return i;
+                }
+
+                if (block instanceof BlockButtonWood && button.get_value(true)) {
                     return i;
                 }
             }
