@@ -27,7 +27,7 @@ public class WurstplusRPC
         WurstplusRPC.presence.startTimestamp = System.currentTimeMillis() / 1000L;
         WurstplusRPC.presence.details = mc.player.getHealth()+mc.player.getAbsorptionAmount() + " HP";
         WurstplusRPC.presence.largeImageKey = "ozark_2";
-        WurstplusRPC.presence.largeImageText = "OzarkClient" + Wurstplus.WURSTPLUS_VERSION;
+        WurstplusRPC.presence.largeImageText = "OzarkClient " + Wurstplus.WURSTPLUS_VERSION;
         WurstplusRPC.presence.smallImageKey = "troll";
         WurstplusRPC.presence.smallImageText = "ez";
         WurstplusRPC.rpc.Discord_UpdatePresence(WurstplusRPC.presence);
@@ -67,6 +67,15 @@ public class WurstplusRPC
             }
         }, "Discord-RPC-Callback-Handler").start();
     }
+
+    public static void stop() {
+        DiscordRPC.INSTANCE.Discord_ClearPresence();
+        DiscordRPC.INSTANCE.Discord_Shutdown();
+    }
+    /**@Floppinqq
+      @12/29/2020
+      @FloppaHack-b1.1
+     **/
     
     static {
         mc = Minecraft.getMinecraft();

@@ -67,7 +67,6 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusAutoGapple());
 		add_hack(new WurstplusAutoTotem());
 		add_hack(new WurstplusAutoMine());
-                add_hack(new OffhandBypass());
                 add_hack(new FastBow());
                 add_hack(new AntiCrystal());
                 add_hack(new ManualQuiver());
@@ -86,7 +85,6 @@ public class WurstplusModuleManager {
                 add_hack(new Timer());
                 add_hack(new Burrow());
                 add_hack(new Freecam());
-                add_hack(new AntiHunger());
 
 		// Movement.
 		add_hack(new WurstplusStrafe());

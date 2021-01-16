@@ -22,7 +22,21 @@ import me.travis.turok.draw.RenderHelp;
 *
 */
 public class StorageESP extends WurstplusHack {
-	WurstplusSetting shu_ = create("Shulker Color", "StorageESPShulker", "HUD", combobox("HUD", "Client"));
+	
+	WurstplusSetting shulker_r = create("Shulker R", "ShulkerR", 56, 0, 255);
+    WurstplusSetting shulker_g = create("Shulker G", "ShulkerG", 212, 0, 255);
+	WurstplusSetting shulker_b = create("Shulker B", "ShulkerB", 151, 0, 255);
+	WurstplusSetting other_r = create("Other R", "OtherR", 190, 0, 255);
+	WurstplusSetting other_g = create("Other G", "OtherG", 190, 0, 255);
+	WurstplusSetting other_b = create("Other B", "OtherB", 190, 0, 255);
+	WurstplusSetting echest_r = create("Echest R", "EchestR", 204, 0, 255);
+	WurstplusSetting echest_g = create("Echest G", "EchestG", 0, 0, 255);
+	WurstplusSetting echest_b = create("Echest B", "EchestB", 255, 0, 255);
+	WurstplusSetting chest_r = create("Chest R", "ChestR", 153, 0, 255);
+    WurstplusSetting chest_g = create("Chest G", "ChestG", 102, 0, 255);
+	WurstplusSetting chest_b = create("Chest B", "ChestB", 0, 0, 255);
+
+	WurstplusSetting shu_ = create("Shulker Color", "StorageESPShulker", "Client", combobox("HUD", "Client"));
 	WurstplusSetting enc_ = create("Enchest Color", "StorageESPEnchest", "Client", combobox("HUD", "Client"));
 	WurstplusSetting che_ = create("Chest Color", "StorageESPChest", "Client", combobox("HUD", "Client"));
 	WurstplusSetting oth_ = create("Others Color", "StorageESPOthers", "Client", combobox("HUD", "Client"));
@@ -34,7 +48,6 @@ public class StorageESP extends WurstplusHack {
 	public StorageESP() {
 		super(WurstplusCategory.WURSTPLUS_RENDER);
 
-		// Info.
 		this.name        = "Storage ESP";
 		this.tag         = "StorageESP";
 		this.description = "Is able to see storages in world";
@@ -50,14 +63,10 @@ public class StorageESP extends WurstplusHack {
 
 		for (TileEntity tiles : mc.world.loadedTileEntityList) {
 			if (tiles instanceof TileEntityShulkerBox) {
-				final TileEntityShulkerBox shulker = (TileEntityShulkerBox) tiles;
-
-				int hex = (255 << 24) | shulker.getColor().getColorValue() & 0xFFFFFFFF;
-
 				if (shu_.in("HUD")) {
 					draw(tiles, nl_r, nl_g, nl_b);
 				} else {
-					draw(tiles, (hex & 0xFF0000) >> 16, (hex & 0xFF00) >> 8, (hex & 0xFF));
+					draw(tiles, shulker_r.get_value(1), shulker_g.get_value(1), shulker_b.get_value(1));
 				}
 			}
 
@@ -65,7 +74,7 @@ public class StorageESP extends WurstplusHack {
 				if (enc_.in("HUD")) {
 					draw(tiles, nl_r, nl_g, nl_b);
 				} else {
-					draw(tiles, 204, 0, 255);
+					draw(tiles, echest_r.get_value(1), echest_g.get_value(1), echest_b.get_value(1));
 				}
 			}
 
@@ -73,7 +82,7 @@ public class StorageESP extends WurstplusHack {
 				if (che_.in("HUD")) {
 					draw(tiles, nl_r, nl_g, nl_b);
 				} else {
-					draw(tiles, 153, 102, 0);
+					draw(tiles, chest_r.get_value(1), chest_g.get_value(1), chest_b.get_value(1));
 				}
 			}
 
@@ -85,7 +94,7 @@ public class StorageESP extends WurstplusHack {
 				if (oth_.in("HUD")) {
 					draw(tiles, nl_r, nl_g, nl_b);
 				} else {
-					draw(tiles, 190, 190, 190);
+					draw(tiles, other_r.get_value(1), other_g.get_value(1), other_b.get_value(1));
 				}
 			}
 		}

@@ -44,7 +44,7 @@ import me.zero.alpine.fork.listener.Listener;
 
 public final class ElytraFly extends WurstplusHack
 {
-	WurstplusSetting mode = create("Mode", "ElytraFlyMode", "Superior", combobox("Superior", "Packet", "Control"));
+	WurstplusSetting mode = create("Mode", "ElytraFlyMode", "Superior", combobox("Superior", "Packet", "Control", "None"));
     WurstplusSetting speed = create("Speed", "ElytraFlySpeed", 1.82f, 0f, 10f);
     WurstplusSetting DownSpeed = create("DownSpeed", "ElytraFlyDownSpeed", 1.82f, 0f, 10f);
     WurstplusSetting GlideSpeed = create("GlideSpeed", "ElytraFlyGlideSpeed", 1f, 0f, 10f);

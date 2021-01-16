@@ -43,7 +43,7 @@ public class AutoExcuse extends WurstplusHack
                 AutoExcuse.mc.player.sendChatMessage("i was was deSynced :(");
             }
             if (randomNum == 6) {
-                AutoExcuse.mc.player.sendChatMessage("youre hacking bro not cool :/");
+                AutoExcuse.mc.player.sendChatMessage("imagine hacking nub");
             }
             this.diedTime = 0;
         }

@@ -29,7 +29,7 @@ public class WurstplusSurround extends WurstplusHack {
 	WurstplusSetting rotate = create("Rotate", "SurroundSmoth", true);
 	WurstplusSetting hybrid = create("Hybrid", "SurroundHybrid", true);
 	WurstplusSetting triggerable = create("Toggle", "SurroundToggle", true);
-	WurstplusSetting center = create("Center", "SurroundCenter", false);
+	WurstplusSetting center = create("Center", "SurroundCenter", true);
 	WurstplusSetting block_head = create("Block Face", "SurroundBlockFace", false);
 	WurstplusSetting tick_for_place = create("Blocks per tick","SurroundTickToPlace", 2, 1, 8);
 	WurstplusSetting tick_timeout = create("Ticks til timeout","SurroundTicks", 20, 10,50);

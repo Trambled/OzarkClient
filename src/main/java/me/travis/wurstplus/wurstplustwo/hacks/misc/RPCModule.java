@@ -13,9 +13,14 @@ public class RPCModule extends WurstplusHack
         this.description = "show people how cool you are";
     }
     
-    public void enable() {
+    @Override
+    protected void enable() {
         WurstplusRPC.init();
-        if (RPCModule.mc.player != null) {
-        }
     }
+
+    @Override
+    protected void disable() {
+        WurstplusRPC.stop();
+    }	
+	
 }

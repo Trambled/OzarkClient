@@ -28,7 +28,7 @@ public class WurstplusHoleESP extends WurstplusHack {
 
 	WurstplusSetting mode 				= create("Mode", "HoleESPMode", "Pretty", combobox("Pretty", "Solid", "Outline"));
 	WurstplusSetting off_set 			= create("Height", "HoleESPOffSetSide", 0.2, 0.0, 1.0);
-	WurstplusSetting range   			= create("Range", "HoleESPRange", 6, 1, 12);
+	WurstplusSetting range   			= create("Range", "HoleESPRange", 8, 1, 32);
 	WurstplusSetting hide_own         	= create("Hide Own", "HoleESPHideOwn", true);
 
 	WurstplusSetting bedrock_view 		= create("info", "HoleESPbedrock", "Bedrock");
