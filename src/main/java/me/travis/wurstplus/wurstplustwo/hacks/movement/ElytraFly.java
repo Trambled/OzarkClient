@@ -54,6 +54,8 @@ public final class ElytraFly extends WurstplusHack
 	WurstplusSetting RotationPitch = create("RotationPitch", "ElytraPitch", 0f, -90f, 90f);
 	WurstplusSetting InstantFly = create("InstantFly", "ElytraFlyInstant", true);
     WurstplusSetting EquipElytra = create("EquipElytra", "ElytraFlyEquip", true);
+	WurstplusSetting use_timer = create("Use Timer", "UseTimer", true);
+	WurstplusSetting timer_speed = create("Timer Speed", "TimerSpeed", 0, 0, 4);
 	
     private Timer PacketTimer = new Timer();
     private Timer AccelerationTimer = new Timer();
@@ -67,7 +69,7 @@ public final class ElytraFly extends WurstplusHack
 
         this.name = "NewElytraFly";
         this.tag = "NewElytraFly";
-        this.description = "OH YEA!";
+        this.description = "based";
     }
     
     private int ElytraSlot = -1;
@@ -75,6 +77,12 @@ public final class ElytraFly extends WurstplusHack
 	@Override
 	public void update() {
 		Wurstplus.get_hack_manager().get_module_with_tag("NoFall").set_active(false);
+		
+		if (use_timer.get_value(true) && !mc.player.isElytraFlying()) {
+			mc.timer.tickLength = 50.0f / ((timer_speed.get_value(1) == 0f) ? 0.1f : timer_speed.get_value(1));
+		} else if (use_timer.get_value(true) && mc.player.isElytraFlying()) {
+			mc.timer.tickLength = 50.0f;
+		}
 	}
 	
     
@@ -116,7 +124,10 @@ public final class ElytraFly extends WurstplusHack
 
     @Override
     protected void disable()
-    {   
+    {
+		
+		mc.timer.tickLength = 50.0f; // in case if the player disables elyfly during takeoff
+		
         if (mc.player == null)
             return;
         

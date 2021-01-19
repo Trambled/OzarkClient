@@ -5,12 +5,14 @@ import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventPlayerJump;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
+import me.travis.wurstplus.wurstplustwo.util.WorldUtil;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.init.MobEffects;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.MathHelper;
-
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.math.BlockPos;
 
 public class WurstplusStrafe extends WurstplusHack {
 
@@ -81,6 +83,7 @@ public class WurstplusStrafe extends WurstplusHack {
 		}
 
 	});
+
 
 	@EventHandler
 	private Listener<WurstplusEventMove> player_move = new Listener<>(event -> {
