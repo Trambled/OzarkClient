@@ -4,6 +4,7 @@ import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRichPresence;
 import club.minnced.discord.rpc.DiscordRPC;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.*;
 import me.travis.wurstplus.Wurstplus;
 
 public class WurstplusRPC 
@@ -45,8 +46,17 @@ public class WurstplusRPC
                             WurstplusRPC.state = "Playing " + WurstplusRPC.mc.getCurrentServerData().serverIP;
                         }
                     }
+		            else if (mc.currentScreen instanceof GuiWorldSelection) {
+			            WurstplusRPC.state = "In the menus";
+		            }
+		            else if (mc.currentScreen instanceof GuiMultiplayer) {
+		                WurstplusRPC.state = "In the menus";
+		            }
+		            else if (mc.currentScreen instanceof GuiMainMenu) {
+			            WurstplusRPC.state = "In the menus";
+		            }
                     else {
-                        WurstplusRPC.state = "Main Menu";
+                        WurstplusRPC.state = "In the menus"; 
                     }
                     if (!WurstplusRPC.details.equals(WurstplusRPC.presence.details) || !WurstplusRPC.state.equals(WurstplusRPC.presence.state)) {
                         WurstplusRPC.presence.startTimestamp = System.currentTimeMillis() / 1000L;

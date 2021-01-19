@@ -61,7 +61,7 @@ public class WurstplusHoleFill extends WurstplusHack {
         }
 
         if (holes.isEmpty()) {
-            if (!hole_toggle.get_value(true)) {
+            if (hole_toggle.get_value(true)) {
                 this.set_disable();
                 WurstplusMessageUtil.toggle_message(this);
                 return;

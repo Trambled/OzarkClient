@@ -24,10 +24,11 @@ public class FastFall extends WurstplusHack
     }
 	
 	private boolean inLiquid;
+	private boolean onLiquid;
 	
 	@Override
 	public void update() {
-        if (mc.player.onGround && !inLiquid) {
+        if (mc.player.onGround && !inLiquid && !onLiquid) {
             --mc.player.motionY;
 		}
 		
@@ -40,6 +41,16 @@ public class FastFall extends WurstplusHack
 					inLiquid = true;
 				} else {
 					inLiquid = false;
+				}
+			}
+		}
+		for (int x = MathHelper.floor(HoleTP.mc.player.posX); x < MathHelper.ceil(HoleTP.mc.player.posX); x++){
+			for (int z = MathHelper.floor(HoleTP.mc.player.posZ); z < MathHelper.ceil(HoleTP.mc.player.posZ); z++){
+				final BlockPos pos = new BlockPos(x, (int)y, z);
+				if (HoleTP.mc.world.getBlockState(pos).getBlock() instanceof BlockLiquid){
+					onLiquid = true;
+				} else {
+					onLiquid = false;
 				}
 			}
 		}

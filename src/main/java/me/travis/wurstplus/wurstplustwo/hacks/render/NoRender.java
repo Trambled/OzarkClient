@@ -3,6 +3,8 @@ package me.travis.wurstplus.wurstplustwo.hacks.render;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
+import me.travis.wurstplus.wurstplustwo.event.events.EventRenderBossHealth;
+import me.travis.wurstplus.wurstplustwo.event.events.EventRenderHurtCameraEffect;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import java.util.Iterator;
@@ -22,6 +24,8 @@ public class NoRender extends WurstplusHack {
 	WurstplusSetting sand = create("Sand", "Sand", true);
 	WurstplusSetting fire = create("Fire", "Fire", true);
 	WurstplusSetting pumpkin = create("Pumpkin", "Pumpkin", true);
+	WurstplusSetting boss_health = create("Boss Health", "BossHealth", true);
+        WurstplusSetting hurt_cam = create("Hurt Cam", "HurtCam", true);
 
 	public NoRender() {
 		super(WurstplusCategory.WURSTPLUS_RENDER);
@@ -69,5 +73,17 @@ public class NoRender extends WurstplusHack {
             p_Event.setCanceled(true);
         if (pumpkin.get_value(true) && p_Event.getOverlayType() == OverlayType.BLOCK)
             p_Event.setCanceled(true);
+    });
+    @EventHandler
+    private Listener<EventRenderBossHealth> renderbosshealth = new Listener<>(p_Event ->
+    {
+        if (boss_health.get_value(true))
+            p_Event.cancel();
+    });
+    @EventHandler
+    private Listener<EventRenderHurtCameraEffect> renderhurtcam= new Listener<>(p_Event ->
+    {
+        if (hurt_cam.get_value(true))
+            p_Event.cancel();
     });
 }

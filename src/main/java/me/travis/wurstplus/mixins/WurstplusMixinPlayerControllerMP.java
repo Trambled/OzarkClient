@@ -4,21 +4,27 @@ import me.travis.wurstplus.Wurstplus;
 import me.travis.wurstplus.wurstplustwo.event.WurstplusEventBus;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventBlock;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventDamageBlock;
+import me.travis.wurstplus.wurstplustwo.event.events.EventGetBlockReachDistance;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.item.ItemFood;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(value = PlayerControllerMP.class)
 public class WurstplusMixinPlayerControllerMP {
+
+	@Shadow public abstract void syncCurrentPlayItem();
 
 	// Player damage fix the hit.
 	@Redirect(method = "onPlayerDamageBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/state/IBlockState;getPlayerRelativeBlockHardness(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)F"))
@@ -46,6 +52,28 @@ public class WurstplusMixinPlayerControllerMP {
 	private void clickBlockHook(final BlockPos pos, final EnumFacing face, final CallbackInfoReturnable<Boolean> info) {
 		final WurstplusEventBlock event = new WurstplusEventBlock(3, pos, face);
 		WurstplusEventBus.EVENT_BUS.post(event);
+	}
+
+    @Inject(method = "getBlockReachDistance", at = @At("HEAD"), cancellable = true)
+    public void getBlockReachDistance(CallbackInfoReturnable<Float> callback)
+    {
+        EventGetBlockReachDistance l_Event = new EventGetBlockReachDistance();
+        WurstplusEventBus.EVENT_BUS.post(l_Event);
+        if (l_Event.BlockReachDistance > 0.0f)
+        {
+            callback.setReturnValue(l_Event.BlockReachDistance);
+            callback.cancel();
+        }
+    }
+	@Inject(method = "onStoppedUsingItem", at = @At("HEAD"), cancellable = true)
+	public void onStoppedUsingItem(EntityPlayer playerIn, CallbackInfo ci) {
+		if (playerIn.getHeldItem(playerIn.getActiveHand()).getItem() instanceof ItemFood) {
+			if (Wurstplus.get_hack_manager().get_module_with_tag("PacketEat").is_active()) {
+				this.syncCurrentPlayItem();
+				playerIn.stopActiveHand();
+				ci.cancel();
+			}
+		}
 	}
 
 

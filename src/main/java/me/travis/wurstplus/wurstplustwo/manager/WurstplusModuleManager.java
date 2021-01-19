@@ -47,6 +47,7 @@ public class WurstplusModuleManager {
 		add_hack(new AutoExcuse());
 		add_hack(new DesktopNotifs());
                 add_hack(new WeaknessAlert());
+                add_hack(new RetardChat());
 
 		// Combat.
 		add_hack(new WurstplusCriticals());
@@ -85,6 +86,8 @@ public class WurstplusModuleManager {
                 add_hack(new Timer());
                 add_hack(new Burrow());
                 add_hack(new Freecam());
+                add_hack(new EChestBP());
+                add_hack(new PacketEat());
 
 		// Movement.
 		add_hack(new WurstplusStrafe());
@@ -102,6 +105,8 @@ public class WurstplusModuleManager {
                 add_hack(new NoSlowDown());
                 add_hack(new LongJump());
                 add_hack(new Anchor());
+                add_hack(new AntiLevitation());
+                add_hack(new EntitySpeed());
 
 		// Render.
 		add_hack(new WurstplusHighlight());
@@ -123,6 +128,7 @@ public class WurstplusModuleManager {
                 add_hack(new FullBright());
                 add_hack(new LowHands());
 		add_hack(new Timechanger());
+                add_hack(new BurrowESP());
 
 		// Misc.
 		add_hack(new WurstplusMiddleClickFriends());
@@ -136,7 +142,6 @@ public class WurstplusModuleManager {
                 add_hack(new EntityControl());
                 add_hack(new PacketCanceller());
                 add_hack(new AutoKit());
-
 
 		array_hacks.sort(Comparator.comparing(WurstplusHack::get_name));
 	}

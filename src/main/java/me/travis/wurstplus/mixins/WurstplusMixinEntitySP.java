@@ -6,6 +6,7 @@ import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventMove;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventSwing;
 import me.travis.wurstplus.wurstplustwo.event.events.UpdateWalkingPlayerEvent;
 import me.travis.wurstplus.wurstplustwo.event.events.EventPlayerPushOutOfBlocks;
+import me.travis.wurstplus.wurstplustwo.event.events.EventPlayerSendChatMessage;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.MoverType;
 import net.minecraft.util.EnumHand;
@@ -87,6 +88,16 @@ public class WurstplusMixinEntitySP extends WurstplusMixinEntity {
         if (l_Event.isCancelled())
             p_Info.cancel();
 
+    }
+
+
+    @Inject(method = "sendChatMessage", at = @At("HEAD"), cancellable = true)
+    public void swingArm(String p_Message, CallbackInfo p_Info)
+    {
+        EventPlayerSendChatMessage l_Event = new EventPlayerSendChatMessage(p_Message);
+        WurstplusEventBus.EVENT_BUS.post(l_Event);
+        if (l_Event.isCancelled())
+            p_Info.cancel();
     }
 
 }
