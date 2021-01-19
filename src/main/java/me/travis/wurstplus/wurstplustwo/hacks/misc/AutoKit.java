@@ -25,6 +25,7 @@ public class AutoKit extends WurstplusHack{
 	}
 	
 	WurstplusSetting delay = create("Delay", "Delay", 1250, 0, 5000);
+	WurstplusSetting aurora = create("Aurora", "Aurora", false);
 	
 	@EventHandler
     private Listener<WurstplusEventPacket.ReceivePacket> receiveListener = new Listener<>(event -> {
@@ -32,7 +33,11 @@ public class AutoKit extends WurstplusHack{
             new Thread( ()->{
                 try {
                     Thread.sleep(delay.get_value(1));
-                    mc.player.sendChatMessage("/kit " + AutoKitUtil.get_message());
+					if (aurora.get_value(true)) {
+						mc.player.sendChatMessage("/pvpkit " + AutoKitUtil.get_message());
+					} else {
+						mc.player.sendChatMessage("/kit " + AutoKitUtil.get_message());
+					}
                 } catch (InterruptedException e) {
                 e.printStackTrace();
                 }

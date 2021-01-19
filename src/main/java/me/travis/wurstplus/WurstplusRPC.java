@@ -36,34 +36,35 @@ public class WurstplusRPC
             while (!Thread.currentThread().isInterrupted()) {
                 try {
                     WurstplusRPC.rpc.Discord_RunCallbacks();
-                    WurstplusRPC.details = mc.player.getHealth()+mc.player.getAbsorptionAmount() + " HP";
+                    WurstplusRPC.details = "";
                     WurstplusRPC.state = "";
-                    if (WurstplusRPC.mc.isIntegratedServerRunning()) {
-                        WurstplusRPC.state = "Playing Singleplayer";
-                    }
-                    else if (WurstplusRPC.mc.getCurrentServerData() != null) {
-                        if (!WurstplusRPC.mc.getCurrentServerData().serverIP.equals("")) {
-                            WurstplusRPC.state = "Playing " + WurstplusRPC.mc.getCurrentServerData().serverIP;
-                        }
-                    }
-		            else if (mc.currentScreen instanceof GuiWorldSelection) {
-			            WurstplusRPC.state = "In the menus";
-		            }
-		            else if (mc.currentScreen instanceof GuiMultiplayer) {
-		                WurstplusRPC.state = "In the menus";
-		            }
-		            else if (mc.currentScreen instanceof GuiMainMenu) {
-			            WurstplusRPC.state = "In the menus";
-		            }
-                    else {
-                        WurstplusRPC.state = "In the menus"; 
-                    }
-                    if (!WurstplusRPC.details.equals(WurstplusRPC.presence.details) || !WurstplusRPC.state.equals(WurstplusRPC.presence.state)) {
-                        WurstplusRPC.presence.startTimestamp = System.currentTimeMillis() / 1000L;
-                    }
+					
+					if (mc.world == null) {
+						WurstplusRPC.details = "In the menus";
+						if (mc.currentScreen instanceof GuiWorldSelection) {
+							WurstplusRPC.state = "Selecting a world to play";
+						} else if (mc.currentScreen instanceof GuiWorldSelection) {
+							WurstplusRPC.state = "Selecting a server to play";
+						} else if (mc.currentScreen instanceof GuiMainMenu) {
+							WurstplusRPC.state = "In the Main Menu";
+						} else {
+							WurstplusRPC.state = "Selecting a server to play on";
+						}
+					} else {
+						if (mc.player != null) {
+							WurstplusRPC.state = mc.player.getHealth()+mc.player.getAbsorptionAmount() + " HP";
+							if (mc.isIntegratedServerRunning()) {
+								WurstplusRPC.details = "Playing Singleplayer";
+							} else {
+								WurstplusRPC.details = "Playing " + mc.getCurrentServerData().serverIP;
+							}
+						}
+					}
+
                     WurstplusRPC.presence.details = WurstplusRPC.details;
                     WurstplusRPC.presence.state = WurstplusRPC.state;
                     WurstplusRPC.rpc.Discord_UpdatePresence(WurstplusRPC.presence);
+                    
                 }
                 catch (Exception e2) {
                     e2.printStackTrace();
