@@ -78,11 +78,12 @@ public final class ElytraFly extends WurstplusHack
 	public void update() {
 		Wurstplus.get_hack_manager().get_module_with_tag("NoFall").set_active(false);
 		
-		if (use_timer.get_value(true) && !mc.player.isElytraFlying()) {
+		if (use_timer.get_value(true) && !mc.player.isElytraFlying() && (mc.player.getHealth() > 0)) {
 			mc.timer.tickLength = 50.0f / ((timer_speed.get_value(1) == 0f) ? 0.1f : timer_speed.get_value(1));
 		} else if (use_timer.get_value(true) && mc.player.isElytraFlying()) {
 			mc.timer.tickLength = 50.0f;
 		}
+		
 	}
 	
     
@@ -166,7 +167,6 @@ public final class ElytraFly extends WurstplusHack
 
             return;
         }
-		
 		if (mode.in("Packet")) {
 			HandleNormalModeElytra(p_Event);
 		}

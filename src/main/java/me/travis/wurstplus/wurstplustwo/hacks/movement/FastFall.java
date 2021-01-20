@@ -2,6 +2,7 @@ package me.travis.wurstplus.wurstplustwo.hacks.movement;
 
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
+import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.Wurstplus;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.BlockSlab;
@@ -14,6 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 
+//gamesense
 public class FastFall extends WurstplusHack
 {
     public FastFall() {
@@ -23,31 +25,38 @@ public class FastFall extends WurstplusHack
         this.description = "I broke my legs";
     }
 	
+	WurstplusSetting height = create("Height", "Height", 3.25, 0, 10);
+	
 	private boolean inLiquid;
 	private boolean onLiquid;
 	
 	@Override
 	public void update() {
         if (mc.player.onGround && !inLiquid && !onLiquid) {
-            --mc.player.motionY;
+			for (double y = 0.0; y < this.height.get_value(1) + 0.5; y += 0.01) {
+				if (!mc.world.getCollisionBoxes(mc.player, mc.player.getEntityBoundingBox().offset(0.0, -y, 0.0)).isEmpty()) {
+					--mc.player.motionY;
+					break;
+				}
+			}
 		}
 		
 		final double y = mc.player.posY + 0.01;
 		
-		for (int x = MathHelper.floor(HoleTP.mc.player.posX); x < MathHelper.ceil(HoleTP.mc.player.posX); x++){
-			for (int z = MathHelper.floor(HoleTP.mc.player.posZ); z < MathHelper.ceil(HoleTP.mc.player.posZ); z++){
+		for (int x = MathHelper.floor(mc.player.posX); x < MathHelper.ceil(mc.player.posX); x++){
+			for (int z = MathHelper.floor(mc.player.posZ); z < MathHelper.ceil(mc.player.posZ); z++){
 				final BlockPos pos = new BlockPos(x, (int)y, z);
-				if (HoleTP.mc.world.getBlockState(pos).getBlock() instanceof BlockLiquid){
+				if (mc.world.getBlockState(pos).getBlock() instanceof BlockLiquid){
 					inLiquid = true;
 				} else {
 					inLiquid = false;
 				}
 			}
 		}
-		for (int x = MathHelper.floor(HoleTP.mc.player.posX); x < MathHelper.ceil(HoleTP.mc.player.posX); x++){
-			for (int z = MathHelper.floor(HoleTP.mc.player.posZ); z < MathHelper.ceil(HoleTP.mc.player.posZ); z++){
+		for (int x = MathHelper.floor(mc.player.posX); x < MathHelper.ceil(mc.player.posX); x++){
+			for (int z = MathHelper.floor(mc.player.posZ); z < MathHelper.ceil(mc.player.posZ); z++){
 				final BlockPos pos = new BlockPos(x, (int)y, z);
-				if (HoleTP.mc.world.getBlockState(pos).getBlock() instanceof BlockLiquid){
+				if (mc.world.getBlockState(pos).getBlock() instanceof BlockLiquid){
 					onLiquid = true;
 				} else {
 					onLiquid = false;

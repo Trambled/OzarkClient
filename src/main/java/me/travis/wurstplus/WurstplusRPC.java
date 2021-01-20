@@ -42,11 +42,11 @@ public class WurstplusRPC
 					if (mc.world == null) {
 						WurstplusRPC.details = "In the menus";
 						if (mc.currentScreen instanceof GuiWorldSelection) {
-							WurstplusRPC.state = "Selecting a world to play";
-						} else if (mc.currentScreen instanceof GuiWorldSelection) {
-							WurstplusRPC.state = "Selecting a server to play";
+							WurstplusRPC.state = "Selecting a world to play on";
 						} else if (mc.currentScreen instanceof GuiMainMenu) {
-							WurstplusRPC.state = "In the Main Menu";
+                            WurstplusRPC.state = "In the Main Menu";
+                        } else if (mc.currentScreen instanceof GuiOptions) {
+                            WurstplusRPC.state = "Configuring options";
 						} else {
 							WurstplusRPC.state = "Selecting a server to play on";
 						}
@@ -83,10 +83,6 @@ public class WurstplusRPC
         DiscordRPC.INSTANCE.Discord_ClearPresence();
         DiscordRPC.INSTANCE.Discord_Shutdown();
     }
-    /**@Floppinqq
-      @12/29/2020
-      @FloppaHack-b1.1
-     **/
     
     static {
         mc = Minecraft.getMinecraft();
