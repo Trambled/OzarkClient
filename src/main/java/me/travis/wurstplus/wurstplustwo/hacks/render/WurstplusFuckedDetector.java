@@ -79,10 +79,6 @@ public class WurstplusFuckedDetector extends WurstplusHack {
         if (WurstplusCrystalUtil.canPlaceCrystal(pos.south()) || (WurstplusCrystalUtil.canPlaceCrystal(pos.south().south()) && mc.world.getBlockState(pos.add(0, 1, 1)).getBlock() == Blocks.AIR)) {
             return true;
         }
-
-        if (!mc.world.getBlockState(pos).getBlock().equals(Blocks.OBSIDIAN)) { //make sure is not burrowed
-            return true;
-        }
             
         if (WurstplusCrystalUtil.canPlaceCrystal(pos.east()) || (WurstplusCrystalUtil.canPlaceCrystal(pos.east().east()) && mc.world.getBlockState(pos.add(1, 1, 0)).getBlock() == Blocks.AIR)) {
             return true;
@@ -94,6 +90,10 @@ public class WurstplusFuckedDetector extends WurstplusHack {
             
         if (WurstplusCrystalUtil.canPlaceCrystal(pos.north()) || (WurstplusCrystalUtil.canPlaceCrystal(pos.north().north()) && mc.world.getBlockState(pos.add(0, 1, -1)).getBlock() == Blocks.AIR)) {
             return true;
+        }
+
+        if (mc.world.getBlockState(pos).getBlock().equals(Blocks.OBSIDIAN)) {
+            return false;
         }
 
 
