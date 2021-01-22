@@ -19,10 +19,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemPickaxe;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
-import net.minecraft.item.ItemTool;
+import net.minecraft.item.*;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.network.play.server.SPacketSoundEffect;
@@ -71,6 +68,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
     WurstplusSetting rotate_mode = create("Rotate", "CaRotateMode", "Good", combobox("Off", "Old", "Const", "Good"));
     WurstplusSetting raytrace = create("Raytrace", "CaRaytrace", false);
 
+    WurstplusSetting switch_mode = create("Mode", "Mode", "Normal", combobox("Normal", "Ghost"));
     WurstplusSetting auto_switch = create("Auto Switch", "CaAutoSwitch", true);
     WurstplusSetting anti_suicide = create("Anti Suicide", "CaAntiSuicide", true);
 
@@ -484,10 +482,14 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
         boolean offhand_check = false;
         if (mc.player.getHeldItemOffhand().getItem() != Items.END_CRYSTAL) {
-            if (mc.player.getHeldItemMainhand().getItem() != Items.END_CRYSTAL && auto_switch.get_value(true)) {
-                if (find_crystals_hotbar() == -1) return;
-                mc.player.inventory.currentItem = find_crystals_hotbar();
-                return;
+            if (mc.player.getHeldItemMainhand().getItem() != Items.END_CRYSTAL && auto_switch.get_value(true) && switch_mode.in("Normal")) {
+                if (switch_mode.in("Normal")) {
+                    if (find_crystals_hotbar() == -1) return;
+                    mc.player.inventory.currentItem = find_crystals_hotbar();
+                    return;
+                } else {
+                    InventoryUtils.switchToSlotGhost(Items.END_CRYSTAL);
+                }
             }
         } else {
             offhand_check = true;

@@ -18,7 +18,7 @@ public class FastBow extends WurstplusHack {
 
         this.name = "Fast Bow";
         this.tag = "FastBow";
-        this.description = "weakness go brrrr";
+        this.description = "bow spam go brrrr";
 
     }
 

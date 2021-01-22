@@ -22,9 +22,7 @@ public class AutoKit extends WurstplusHack{
         this.name = "Auto Kit";
         this.tag = "AutoKit";
         this.description = "automatically selects a kit";
-	}
-	
-	WurstplusSetting delay = create("Delay", "Delay", 1250, 0, 5000);
+    }
 	WurstplusSetting aurora = create("Aurora", "Aurora", false);
 	
 	@EventHandler
@@ -32,7 +30,7 @@ public class AutoKit extends WurstplusHack{
         if (event.get_packet() instanceof SPacketRespawn && mc.player.isDead) {
             new Thread( ()->{
                 try {
-                    Thread.sleep(delay.get_value(1));
+                    Thread.sleep(4000);
 					if (aurora.get_value(true)) {
 						mc.player.sendChatMessage("/pvpkit " + AutoKitUtil.get_message());
 					} else {

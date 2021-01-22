@@ -34,7 +34,7 @@ public class WurstplusModuleManager {
 		// Click GUI and HUD.
 		add_hack(new WurstplusClickGUI());
 		add_hack(new WurstplusClickHUD());
-                add_hack(new HUDEditor());
+		add_hack(new HUDEditor());
 
 		// Chat.
 		add_hack(new WurstplusChatSuffix());
@@ -46,8 +46,8 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusAnnouncer());
 		add_hack(new AutoExcuse());
 		add_hack(new DesktopNotifs());
-                add_hack(new WeaknessAlert());
-                add_hack(new RetardChat());
+		add_hack(new WeaknessAlert());
+		add_hack(new RetardChat());
 
 		// Combat.
 		add_hack(new WurstplusCriticals());
@@ -68,9 +68,10 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusAutoGapple());
 		add_hack(new WurstplusAutoTotem());
 		add_hack(new WurstplusAutoMine());
-                add_hack(new FastBow());
-                add_hack(new AntiCrystal());
-                add_hack(new ManualQuiver());
+		add_hack(new FastBow());
+		add_hack(new AntiCrystal());
+		add_hack(new ManualQuiver());
+		add_hack(new OffhandBypass());
 
 		// Exploit.
 		add_hack(new WurstplusXCarry());
@@ -82,12 +83,12 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusCoordExploit());
 		add_hack(new WurstplusNoHandshake());
 		add_hack(new AutoDupe());
-                add_hack(new EntityDesync());
-                add_hack(new Timer());
-                add_hack(new Burrow());
-                add_hack(new Freecam());
-                add_hack(new EChestBP());
-                add_hack(new PacketEat());
+		add_hack(new EntityDesync());
+		add_hack(new Timer());
+		add_hack(new Burrow());
+		add_hack(new Freecam());
+		add_hack(new EChestBP());
+		add_hack(new Scaffold());
 
 		// Movement.
 		add_hack(new WurstplusStrafe());
@@ -95,18 +96,18 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusSprint());
 		add_hack(new IceSpeed());
 		add_hack(new FastSwim());
-                add_hack(new HoleTP());
+		add_hack(new HoleTP());
 		add_hack(new FastFall());
-                add_hack(new ElytraFly());
-                add_hack(new Flight());
-                add_hack(new NoFall());
-                add_hack(new OldElytraFly());
-                add_hack(new NoPush());
-                add_hack(new NoSlowDown());
-                add_hack(new LongJump());
-                add_hack(new Anchor());
-                add_hack(new AntiLevitation());
-                add_hack(new EntitySpeed());
+		add_hack(new ElytraFly());
+		add_hack(new Flight());
+		add_hack(new NoFall());
+		add_hack(new OldElytraFly());
+		add_hack(new NoPush());
+		add_hack(new NoSlowDown());
+		add_hack(new LongJump());
+		add_hack(new Anchor());
+		add_hack(new AntiLevitation());
+		add_hack(new EntitySpeed());
 
 		// Render.
 		add_hack(new WurstplusHighlight());
@@ -122,13 +123,13 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusChams());
 		add_hack(new WurstplusCapes());
 		add_hack(new WurstplusCityEsp());
-                add_hack(new FOVSlider());
-                add_hack(new StorageESP());
-                add_hack(new NoRender());
-                add_hack(new FullBright());
-                add_hack(new LowHands());
+		add_hack(new FOVSlider());
+		add_hack(new StorageESP());
+		add_hack(new NoRender());
+		add_hack(new FullBright());
+		add_hack(new LowHands());
 		add_hack(new Timechanger());
-                add_hack(new BurrowESP());
+		add_hack(new BurrowESP());
 
 		// Misc.
 		add_hack(new WurstplusMiddleClickFriends());
@@ -137,11 +138,12 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusAutoNomadHut());
 		add_hack(new WurstplusFastUtil());
 		add_hack(new WurstplusSpeedmine());
-                add_hack(new RPCModule());
+		add_hack(new RPCModule());
 		add_hack(new WurstplusFakePlayer());
-                add_hack(new EntityControl());
-                add_hack(new PacketCanceller());
-                add_hack(new AutoKit());
+		add_hack(new EntityControl());
+		add_hack(new PacketCanceller());
+		add_hack(new AutoKit());
+		add_hack(new DonkeyAlert());
 
 		array_hacks.sort(Comparator.comparing(WurstplusHack::get_name));
 	}
