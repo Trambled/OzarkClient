@@ -6,7 +6,9 @@ import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 // Hacks.
@@ -142,6 +144,22 @@ public class WurstplusGUI extends GuiScreen {
 
 		set_current(this.current);
 	}
+
+    public void handleMouseInput() throws IOException {
+        int scrollAmount = 5;
+        if (Mouse.getEventDWheel() > 0) {
+            for (WurstplusFrame frames : this.frame) {
+                frames.set_y(frames.get_y() + scrollAmount);
+            }
+        }
+        if (Mouse.getEventDWheel() < 0) {
+            for (WurstplusFrame frames : this.frame) {
+                frames.set_y(frames.get_y() - scrollAmount);
+            }
+        }
+
+        super.handleMouseInput();
+    }
 
 	@Override
 	public void drawScreen(int mx, int my, float tick) {
