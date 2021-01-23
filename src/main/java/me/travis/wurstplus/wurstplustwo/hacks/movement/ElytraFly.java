@@ -55,13 +55,14 @@ public final class ElytraFly extends WurstplusHack
 	WurstplusSetting InstantFly = create("InstantFly", "ElytraFlyInstant", true);
     WurstplusSetting EquipElytra = create("EquipElytra", "ElytraFlyEquip", true);
 	WurstplusSetting use_timer = create("Use Timer", "UseTimer", true);
-	WurstplusSetting timer_speed = create("Timer Speed", "TimerSpeed", 0, 0, 4);
+	WurstplusSetting timer_speed = create("Timer Speed", "TimerSpeed", 0.01, 0, 4);
 	
     private Timer PacketTimer = new Timer();
     private Timer AccelerationTimer = new Timer();
     private Timer AccelerationResetTimer = new Timer();
     private Timer InstantFlyTimer = new Timer();
     private boolean SendMessage = false;
+    private boolean has_elytra;
 
     public ElytraFly()
     {
@@ -78,7 +79,11 @@ public final class ElytraFly extends WurstplusHack
 	public void update() {
 		Wurstplus.get_hack_manager().get_module_with_tag("NoFall").set_active(false);
 		
-		if (use_timer.get_value(true) && !mc.player.isElytraFlying() && (mc.player.getHealth() > 0)) {
+		if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() != Items.ELYTRA) {
+			has_elytra = true;
+		}
+		
+		if (use_timer.get_value(true) && !mc.player.isElytraFlying() && (mc.player.getHealth() > 0) && has_elytra) {
 			mc.timer.tickLength = 50.0f / ((timer_speed.get_value(1) == 0f) ? 0.1f : timer_speed.get_value(1));
 		} else if (use_timer.get_value(true) && mc.player.isElytraFlying()) {
 			mc.timer.tickLength = 50.0f;
@@ -96,6 +101,7 @@ public final class ElytraFly extends WurstplusHack
         {
             if (mc.player != null && mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() != Items.ELYTRA)
             {
+				
                 for (int l_I = 0; l_I < 44; ++l_I)
                 {
                     ItemStack l_Stack = mc.player.inventory.getStackInSlot(l_I);

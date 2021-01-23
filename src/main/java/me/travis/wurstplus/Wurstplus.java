@@ -7,6 +7,7 @@ import me.travis.wurstplus.wurstplustwo.event.WurstplusEventHandler;
 import me.travis.wurstplus.wurstplustwo.event.WurstplusEventRegister;
 import me.travis.wurstplus.wurstplustwo.guiscreen.WurstplusGUI;
 import me.travis.wurstplus.wurstplustwo.guiscreen.WurstplusHUD;
+import me.travis.wurstplus.WurstplusRPC;
 import me.travis.wurstplus.wurstplustwo.manager.*;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.Mod;
@@ -102,6 +103,10 @@ public class Wurstplus {
 
 		if (module_manager.get_module_with_tag("HUD").is_active()) {
 			module_manager.get_module_with_tag("HUD").set_active(false);
+		}
+		
+		if (module_manager.get_module_with_tag("DiscordRPC").is_active()) {
+			WurstplusRPC.init();
 		}
 		
 		
