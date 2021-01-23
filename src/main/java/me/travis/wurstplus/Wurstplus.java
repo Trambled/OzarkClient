@@ -104,10 +104,7 @@ public class Wurstplus {
 		if (module_manager.get_module_with_tag("HUD").is_active()) {
 			module_manager.get_module_with_tag("HUD").set_active(false);
 		}
-		
-		if (module_manager.get_module_with_tag("DiscordRPC").is_active()) {
-			WurstplusRPC.init();
-		}
+
 		
 		
 		client_r = get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorR").get_value(1);
