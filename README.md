@@ -12,7 +12,7 @@ literal sex
 
 2. go into command prompt
 
-3. do cd (directory) until you get to the directory where the file is and then do cd (file name)
+3. do cd (directory) of the shit
 
 4. do gradlew build, after that it should build
 
@@ -53,6 +53,4 @@ default burrow delay is fine, but you can change it if it doesnt work for u that
 elytrafly set the speed to 1.8 - 2.0, go higher if the server anticheat allows it, if it lags back with normal speed, set glide speed higher, superior mode is the best mode btw, elytrafly isn't compatible with nofall, thats why ozark elytrafly auto toggles ozark nofall, so make sure that no other clients have the nofall module toggled when you're using elytra fly.
 
 # capes
-even tho client is leaked dm if u want to have cape
-
-I'll also be making more capes!
+give me cape designs ill also add u to the repo
