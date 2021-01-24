@@ -113,7 +113,8 @@ public class Wurstplus {
 		
 		send_minecraft_log("client started");
 		send_minecraft_log("we gaming");
-
+		send_minecraft_log("TRAMBLED IS BASEDDD");
+                send_minecraft_log("i bet u are here to see eror");
 	}
 
 	public void init_log(String name) {
