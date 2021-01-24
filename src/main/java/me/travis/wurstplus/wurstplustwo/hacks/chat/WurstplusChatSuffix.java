@@ -34,10 +34,22 @@ public class WurstplusChatSuffix extends WurstplusHack {
 
 	String[] random_client_name = {
 		"OzarkClient",
+		"KKKHack",
+		"Trambhack",
+		"Chimpware",
+		"Naziware",
+		"Jihadhack",
+		"Allahhack"	
 	};
 
 	String[] random_client_finish = {
-		" 1.2.2",
+		" sponsored by trambled",
+		" sponsored by chimpware",
+		" sponsored by allah",
+		" sponsored by the kkk",
+		" sponsored by hitler",
+		" sponsored by ozark",
+		" version " + Wurstplus.WURSTPLUS_VERSION
 	};
 
 	@EventHandler
@@ -55,7 +67,7 @@ public class WurstplusChatSuffix extends WurstplusHack {
 
 		String message = ((CPacketChatMessage) event.get_packet()).getMessage();
 
-		// If is with some caracther.
+		// If is with some characther.
 		if (message.startsWith("/")  && ignore_prefix) accept_suffix = false;
 		if (message.startsWith("\\") && ignore_prefix) accept_suffix = false;
 		if (message.startsWith("!")  && ignore_prefix) accept_suffix = false;
@@ -86,7 +98,7 @@ public class WurstplusChatSuffix extends WurstplusHack {
 		if (accept_suffix) {
 			if (suffix_default) {
 				// Just default.
-				message += Wurstplus.WURSTPLUS_SIGN + convert_base("OzarkClient");
+				message += Wurstplus.WURSTPLUS_SIGN + convert_base("OzarkClient " + Wurstplus.WURSTPLUS_VERSION);
 			}
 
 			if (suffix_random) {
