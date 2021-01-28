@@ -39,7 +39,6 @@ public class WurstplusTrap extends WurstplusHack {
     WurstplusSetting blocks_per_tick = create("Speed", "TrapSpeed", 4, 0, 8);
     WurstplusSetting rotate = create("Rotation", "TrapRotation", true);
     WurstplusSetting chad_mode = create("Chad Mode", "TrapChadMode", true);
-    WurstplusSetting range = create("Range", "TrapRange", 4, 1, 6);
     WurstplusSetting swing = create("Swing", "TrapSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
 
     private final Vec3d[] offsets_default = new Vec3d[]{

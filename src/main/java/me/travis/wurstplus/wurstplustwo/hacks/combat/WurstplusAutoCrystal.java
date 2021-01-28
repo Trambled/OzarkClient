@@ -10,7 +10,9 @@ import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import me.travis.wurstplus.wurstplustwo.hacks.chat.WurstplusAutoEz;
+import me.travis.wurstplus.wurstplustwo.hacks.combat.AntiTrap;
 import me.travis.wurstplus.wurstplustwo.util.*;
+
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.entity.Entity;
@@ -308,7 +310,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
             for (Entity player : mc.world.playerEntities) {
 
-                if (player == mc.player || !(player instanceof EntityPlayer)) continue;
+                if (player == mc.player && !Wurstplus.get_hack_manager().get_module_with_tag("SelfCrystal").is_active() || !(player instanceof EntityPlayer)) continue;
 
                 if (WurstplusFriendUtil.isFriend(player.getName())) continue;
 
@@ -625,6 +627,10 @@ public class WurstplusAutoCrystal extends WurstplusHack {
             if (old_render.get_value(true)) {
                 render_block_init = null;
             }
+            return true;
+        }
+
+        if (AntiTrap.is_trapped && Wurstplus.get_hack_manager().get_module_with_tag("AntiTrap").is_active() && module_check.get_value(true)) {
             return true;
         }
 

@@ -8,6 +8,7 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.MathHelper;
@@ -188,5 +189,10 @@ public class WurstplusPlayerUtil  //merged with past
         South, 
         East, 
         West;
+    }
+
+    public static boolean IsEating()
+    {
+        return mc.player != null && mc.player.getHeldItemMainhand().getItem() instanceof ItemFood && mc.player.isHandActive();
     }
 }

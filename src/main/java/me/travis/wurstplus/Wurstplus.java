@@ -113,13 +113,14 @@ public class Wurstplus {
 		
 		send_minecraft_log("client started");
 		send_minecraft_log("we gaming");
+		send_minecraft_log("trambled is cool");
 
 	}
 
 	public void init_log(String name) {
 		wurstplus_register_log = LogManager.getLogger(name);
 
-		send_minecraft_log("starting wurstplustwo");
+		send_minecraft_log("starting ozarkclient");
 	}
 
 	public static void send_minecraft_log(String log) {

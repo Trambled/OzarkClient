@@ -49,10 +49,8 @@ public abstract class WurstplusMixinAbstractClientPlayer {
                 r = new ResourceLocation("custom/mojang.png");
             } else if (Wurstplus.get_setting_manager().get_setting_with_tag("Capes", "CapeCape").in("Amazon")) {
                 r = new ResourceLocation("custom/amazon.png");
-            } else if (Wurstplus.get_setting_manager().get_setting_with_tag("Capes", "CapeCape").in("Lightning")) {
-                r = new ResourceLocation("custom/lightning.gif");
-            } else if (Wurstplus.get_setting_manager().get_setting_with_tag("Capes", "CapeCape").in("Agraesthetic")) {
-                r = new ResourceLocation("custom/aesthetic.gif");
+            } else if (Wurstplus.get_setting_manager().get_setting_with_tag("Capes", "CapeCape").in("ComDoge")) {
+                r = new ResourceLocation("custom/doge.gif");
             } else {
                 r = new ResourceLocation("custom/ahegao.png"); //must have else or the variable might not be initialized 
             }
