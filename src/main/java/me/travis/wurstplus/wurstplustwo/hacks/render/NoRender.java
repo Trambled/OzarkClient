@@ -3,11 +3,11 @@ package me.travis.wurstplus.wurstplustwo.hacks.render;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
-import me.travis.wurstplus.wurstplustwo.event.events.EventRenderBossHealth;
-import me.travis.wurstplus.wurstplustwo.event.events.EventRenderHurtCameraEffect;
+import me.travis.wurstplus.wurstplustwo.event.events.*;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
-import java.util.Iterator;
+
+import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.EntityWitherSkull;
@@ -16,6 +16,7 @@ import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent.OverlayType;
 
+//mostly from salhack and creepy salhack
 public class NoRender extends WurstplusHack {
 	
 	WurstplusSetting items = create("Items", "Items", false);
@@ -23,9 +24,15 @@ public class NoRender extends WurstplusHack {
 	WurstplusSetting wither_skulls = create("Wither Skulls", "WitherSkulls", true);
 	WurstplusSetting sand = create("Sand", "Sand", true);
 	WurstplusSetting fire = create("Fire", "Fire", true);
-	WurstplusSetting pumpkin = create("Pumpkin", "Pumpkin", true);
+    WurstplusSetting water = create("Water", "Water", true);
+    WurstplusSetting pumpkin = create("Pumpkin", "Pumpkin", true);
 	WurstplusSetting boss_health = create("Boss Health", "BossHealth", true);
-        WurstplusSetting hurt_cam = create("Hurt Cam", "HurtCam", true);
+    WurstplusSetting firework_rocket = create("Firework Rocket", "FireworksRockets", false);
+    WurstplusSetting hurt_cam = create("Hurt Cam", "HurtCam", true);
+    WurstplusSetting skylight = create("Skylight", "Skylight", false);
+    WurstplusSetting armor = create("Armor", "Armor", true);
+    WurstplusSetting enchanting_table = create("Enchanting Table", "EnchantingTable", true);
+    WurstplusSetting beacon = create("Beacon", "Beacon", false);
 
 	public NoRender() {
 		super(WurstplusCategory.WURSTPLUS_RENDER);
@@ -51,6 +58,13 @@ public class NoRender extends WurstplusHack {
 				}
             }
         }
+        if (firework_rocket.get_value(true)) {
+            for (final Entity e : mc.world.loadedEntityList) {
+                if (e instanceof EntityFireworkRocket) {
+                    mc.world.removeEntity(e);
+                }
+            }
+        }
 	    if (wither_skulls.get_value(true)) {
 			for (final Entity e : mc.world.loadedEntityList) {
                 if (e instanceof EntityWitherSkull) {
@@ -73,6 +87,8 @@ public class NoRender extends WurstplusHack {
             p_Event.setCanceled(true);
         if (pumpkin.get_value(true) && p_Event.getOverlayType() == OverlayType.BLOCK)
             p_Event.setCanceled(true);
+        if (water.get_value(true) && p_Event.getOverlayType() == OverlayType.WATER)
+            p_Event.setCanceled(true);
     });
     @EventHandler
     private Listener<EventRenderBossHealth> renderbosshealth = new Listener<>(p_Event ->
@@ -86,4 +102,38 @@ public class NoRender extends WurstplusHack {
         if (hurt_cam.get_value(true))
             p_Event.cancel();
     });
+
+    @EventHandler
+    private Listener<EventRenderUpdateLightMap>  white_power = new Listener<>(p_Event ->
+    {
+        if (skylight.get_value(true)) {
+            p_Event.cancel();
+        }
+    });
+
+    @EventHandler
+    private final Listener<EventRenderArmorLayer> on_render_armor = new Listener<>(p_Event ->
+    {
+        if (armor.get_value(true)) {
+            p_Event.cancel();
+        }
+    });
+
+    @EventHandler
+    private final Listener<EventRenderBeacon> on_render_beacon = new Listener<>(p_Event ->
+    {
+        if (beacon.get_value(true)) {
+            p_Event.cancel();
+        }
+    });
+
+    @EventHandler
+    private final Listener<EventRenderEnchantingTable> on_render_enchanting_table = new Listener<>(p_Event ->
+    {
+        if (enchanting_table.get_value(true)) {
+            p_Event.cancel();
+        }
+    });
+
+
 }

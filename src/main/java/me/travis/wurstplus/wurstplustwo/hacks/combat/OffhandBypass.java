@@ -12,12 +12,11 @@ import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 public class OffhandBypass extends WurstplusHack
 {	
     public OffhandBypass() {
-
         super(WurstplusCategory.WURSTPLUS_COMBAT);
 
         this.name = "OffhandBypass";
         this.tag = "OffhandBypass";
-        this.description = "cum"; 
+        this.description = "makes your hand that u use set to offhand for gapple offhand"; 
     }
 	
     @EventHandler

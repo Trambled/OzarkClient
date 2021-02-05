@@ -64,7 +64,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
     WurstplusSetting min_player_break = create("Min Enemy Break", "CaMinEnemyBreak", 6, 0, 20);
     WurstplusSetting max_self_damage = create("Max Self Damage", "CaMaxSelfDamage", 6, 0, 20);
 	
-	WurstplusSetting min_health_pause = create("Min Health Pause", "CaMinHealthPause", true);
+	WurstplusSetting min_health_pause = create("Min Health Pause", "CaMinHealthPause", false);
 	WurstplusSetting required_health = create("Required Health", "CaRequiredHealth", 12f, 1f, 36f);
 
     WurstplusSetting rotate_mode = create("Rotate", "CaRotateMode", "Good", combobox("Off", "Old", "Const", "Good"));
@@ -381,7 +381,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
             for (BlockPos block : blocks) {
 
-                if (player == mc.player || !(player instanceof EntityPlayer)) continue;
+                if (player == mc.player && !Wurstplus.get_hack_manager().get_module_with_tag("SelfCrystal").is_active() || !(player instanceof EntityPlayer)) continue;
 
                 if (player.getDistance(mc.player) >= 11) continue;
 
@@ -624,6 +624,13 @@ public class WurstplusAutoCrystal extends WurstplusHack {
         }
 
         if (Wurstplus.get_hack_manager().get_module_with_tag("Trap").is_active() && module_check.get_value(true)) {
+            if (old_render.get_value(true)) {
+                render_block_init = null;
+            }
+            return true;
+        }
+		
+		if (Wurstplus.get_hack_manager().get_module_with_tag("AutoAnvil").is_active() && module_check.get_value(true)) {
             if (old_render.get_value(true)) {
                 render_block_init = null;
             }

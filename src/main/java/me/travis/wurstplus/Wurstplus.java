@@ -12,6 +12,7 @@ import me.travis.wurstplus.wurstplustwo.manager.*;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
@@ -24,7 +25,7 @@ public class Wurstplus {
 	private static Wurstplus MASTER;
 
 	public static final String WURSTPLUS_NAME = "OzarkClient";
-	public static final String WURSTPLUS_VERSION = "1.9.3";
+	public static final String WURSTPLUS_VERSION = "1.10";
 	public static final String WURSTPLUS_SIGN = " ";
 	public static final String WURSTPLUS_SPACE   = " ";
 
@@ -38,6 +39,7 @@ public class Wurstplus {
 	private static WurstplusConfigManager config_manager;
 	private static WurstplusModuleManager module_manager;
 	private static WurstplusHUDManager hud_manager;
+	//private static WurstplusRPC discord_rpc;
 
 	public static WurstplusGUI click_gui;
 	public static WurstplusHUD click_hud;
@@ -96,16 +98,33 @@ public class Wurstplus {
 		config_manager.load_settings();
 
 		send_minecraft_log("done");
-
+		
+		
+		// this was my second way of fixing the discord rpc problem; it didnt work
+		
+		//send_minecraft_log("preparing discord rpc");
+		
+		//discord_rpc = new WurstplusRPC("RPC");
+		
+		//send_minecraft_log("done");
+		
+		//if (module_manager.get_module_with_tag("DiscordRPC").is_active()) {
+		//	discord_rpc.init();
+		//}
+		
 		if (module_manager.get_module_with_tag("GUI").is_active()) {
 			module_manager.get_module_with_tag("GUI").set_active(false);
 		}
 
 		if (module_manager.get_module_with_tag("HUD").is_active()) {
 			module_manager.get_module_with_tag("HUD").set_active(false);
-		}
-
+		}	
 		
+		//discord rpc crashes on startup for some reason?
+		
+	    //if (module_manager.get_module_with_tag("DiscordRPC").is_active()) {
+		//	DiscordRPC.init();
+		//}	
 		
 		client_r = get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorR").get_value(1);
 		client_g = get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorG").get_value(1);
@@ -113,11 +132,14 @@ public class Wurstplus {
 		
 		send_minecraft_log("client started");
 		send_minecraft_log("we gaming");
-		send_minecraft_log("trambled is cool");
-		send_minecraft_log("TRAMBLED IS BASEDDD");
+		send_minecraft_log("trambled is cool and pog - no one");
+		send_minecraft_log("TRAMBLED IS BASEDDD - trampled");
         send_minecraft_log("i bet u are here to see eror");
+		
+		//sorry for clouding the startup thing with my failed discord rpc
+		//lmk of way to initialize rpc during startup
 	}
-
+	
 	public void init_log(String name) {
 		wurstplus_register_log = LogManager.getLogger(name);
 

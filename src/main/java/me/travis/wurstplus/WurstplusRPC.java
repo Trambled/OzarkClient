@@ -7,19 +7,25 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import me.travis.wurstplus.Wurstplus;
 
+// mostly from emphack and bope, i modified some shit tho :D
 public class WurstplusRPC 
 {
     private static final String ClientId = "785682576110518293";
 
     private static final Minecraft mc;
 
-    private static final DiscordRPC rpc;
+    private static DiscordRPC rpc;
 
     public static DiscordRichPresence presence;
 
     private static String details;
 
     private static String state;
+	
+	public WurstplusRPC(String tag) {
+		presence = new DiscordRichPresence(); 
+		rpc = DiscordRPC.INSTANCE;
+	}
     
     public static void init() {
         final DiscordEventHandlers handlers = new DiscordEventHandlers();
@@ -29,7 +35,6 @@ public class WurstplusRPC
         WurstplusRPC.presence.details = mc.player.getHealth()+mc.player.getAbsorptionAmount() + " HP";
         WurstplusRPC.presence.largeImageKey = "ozark_2";
         WurstplusRPC.presence.largeImageText = "OzarkClient " + Wurstplus.WURSTPLUS_VERSION;
-        WurstplusRPC.presence.smallImageKey = "troll";
         WurstplusRPC.presence.smallImageText = "ez";
         WurstplusRPC.rpc.Discord_UpdatePresence(WurstplusRPC.presence);
         new Thread(() -> {
@@ -40,6 +45,9 @@ public class WurstplusRPC
                     WurstplusRPC.state = "";
 					
 					if (mc.world == null) {
+						
+						WurstplusRPC.presence.smallImageKey = "troll";
+						
 						WurstplusRPC.details = "In the menus";
 						if (mc.currentScreen instanceof GuiWorldSelection) {
 							WurstplusRPC.state = "Selecting a world to play on";
@@ -47,16 +55,22 @@ public class WurstplusRPC
                             WurstplusRPC.state = "In the Main Menu";
                         } else if (mc.currentScreen instanceof GuiOptions) {
                             WurstplusRPC.state = "Configuring options";
-						} else {
+						} else if (mc.currentScreen instanceof GuiMultiplayer) {
 							WurstplusRPC.state = "Selecting a server to play on";
+						} else {
+							WurstplusRPC.state = "idk what hes doing";
 						}
 					} else {
 						if (mc.player != null) {
 							WurstplusRPC.state = mc.player.getHealth()+mc.player.getAbsorptionAmount() + " HP";
 							if (mc.isIntegratedServerRunning()) {
 								WurstplusRPC.details = "Playing Singleplayer";
+								WurstplusRPC.presence.smallImageKey = "troll";
 							} else {
 								WurstplusRPC.details = "Playing " + mc.getCurrentServerData().serverIP;
+								WurstplusRPC.presence.smallImageKey = "troll";
+								
+								//rip small image didnt work cuz idk how to get server images :c
 							}
 						}
 					}
@@ -86,7 +100,5 @@ public class WurstplusRPC
     
     static {
         mc = Minecraft.getMinecraft();
-        rpc = DiscordRPC.INSTANCE;
-        WurstplusRPC.presence = new DiscordRichPresence();
     }
 }

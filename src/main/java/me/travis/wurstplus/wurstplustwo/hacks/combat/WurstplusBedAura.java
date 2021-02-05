@@ -19,6 +19,7 @@ import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.BlockPos;
 
+import java.awt.*;
 import java.util.stream.Collectors;
 
 public class WurstplusBedAura extends WurstplusHack {
@@ -35,6 +36,11 @@ public class WurstplusBedAura extends WurstplusHack {
     WurstplusSetting range = create("Range", "BedAuraRange", 5, 0, 6);
     WurstplusSetting hard = create("Hard Rotate", "BedAuraRotate", false);
     WurstplusSetting swing = create("Swing", "BedAuraSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
+    WurstplusSetting r = create("R", "R", 20, 0, 255);
+    WurstplusSetting g = create("G", "G", 20, 0, 255);
+    WurstplusSetting b = create("B", "B", 180, 0, 255);
+    WurstplusSetting a = create("A", "A", 255, 0, 255);
+    WurstplusSetting rainbow_mode = create("Rainbow", "Rainbow", true);
 
     private BlockPos render_pos;
     private int counter;
@@ -55,6 +61,10 @@ public class WurstplusBedAura extends WurstplusHack {
     @Override
     public void update() {
 
+        if (rainbow_mode.get_value(true)) {
+            cycle_rainbow();
+        }
+
         if (mc.player == null) return;
 
         if (counter > delay.get_value(1)) {
@@ -65,6 +75,20 @@ public class WurstplusBedAura extends WurstplusHack {
         }
 
         counter++;
+
+    }
+
+    public void cycle_rainbow() {
+
+        float[] tick_color = {
+                (System.currentTimeMillis() % (360 * 32)) / (360f * 32)
+        };
+
+        int color_rgb_o = Color.HSBtoRGB(tick_color[0], 0.8f, 0.8f);
+
+        r.set_value((color_rgb_o >> 16) & 0xFF);
+        g.set_value((color_rgb_o >> 8) & 0xFF);
+        b.set_value(color_rgb_o & 0xFF);
 
     }
 
@@ -224,7 +248,7 @@ public class WurstplusBedAura extends WurstplusHack {
         RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
                 render_pos.getX(), render_pos.getY(), render_pos.getZ(),
             1, .2f, 1,
-            255, 20, 20, 180,
+            r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1),
             "all"
         );
         RenderHelp.release();

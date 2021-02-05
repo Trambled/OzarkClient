@@ -74,6 +74,7 @@ public class WurstplusModuleManager {
 		add_hack(new OffhandBypass());
 		add_hack(new SelfCrystal());
 		add_hack(new AntiTrap());
+		add_hack(new AutoAnvil());
 
 		// Exploit.
 		add_hack(new WurstplusXCarry());
@@ -90,6 +91,8 @@ public class WurstplusModuleManager {
 		add_hack(new Burrow());
 		add_hack(new Freecam());
 		add_hack(new EChestBP());
+		add_hack(new Ghost());
+		add_hack(new MountBypass());
 
 		// Movement.
 		add_hack(new WurstplusStrafe());
@@ -133,6 +136,7 @@ public class WurstplusModuleManager {
 		add_hack(new BurrowESP());
 
 		// Misc.
+		//add_hack(new WurstplusAutoWither());
 		add_hack(new WurstplusMiddleClickFriends());
 		add_hack(new WurstplusStopEXP());
 		add_hack(new WurstplusAutoReplenish());
@@ -145,7 +149,9 @@ public class WurstplusModuleManager {
 		add_hack(new PacketCanceller());
 		add_hack(new AutoKit());
 		add_hack(new AutoEat());
-
+		add_hack(new AutoDupe2());
+		add_hack(new AutoTool());
+		
 		array_hacks.sort(Comparator.comparing(WurstplusHack::get_name));
 	}
 

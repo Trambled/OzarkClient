@@ -11,6 +11,7 @@ import net.minecraft.network.play.client.*;
 
 import java.util.ArrayList;
 
+//salhack
 public class PacketCanceller extends WurstplusHack {
 
 	public PacketCanceller() {
@@ -40,8 +41,9 @@ public class PacketCanceller extends WurstplusHack {
     protected void disable()
     {
         PacketsCanelled = 0;
-    } //TODO: add arraylist shit
+    } 
 
+    
     @EventHandler
     private Listener<EventNetworkPacketEvent> PacketEvent = new Listener<>(p_Event ->
     {

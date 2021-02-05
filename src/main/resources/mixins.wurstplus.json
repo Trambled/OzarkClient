@@ -19,9 +19,12 @@
 		"WurstplusMixinGuiPlayerTabOverlay",
 		"WurstplusMixinRenderLivingBase",
 		"WurstplusMixinAbstractClientPlayer",
- 	        "MixinAbstractHorse",
-                "MixinEntityLlama",
-                "MixinEntityPig",
-                "MixinBossHealth"                  
+		"MixinAbstractHorse",
+		"MixinEntityLlama",
+		"MixinEntityPig",
+		"MixinBossHealth",
+		"MixinEnchantmentTable",
+		"MixinBeacon",
+		"MixinLayerArmorBase"
 	]
 }

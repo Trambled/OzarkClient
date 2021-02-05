@@ -3,6 +3,7 @@ package me.travis.wurstplus.mixins;
 import me.travis.wurstplus.wurstplustwo.event.WurstplusEventBus;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventSetupFog;
 import me.travis.wurstplus.wurstplustwo.event.events.EventRenderHurtCameraEffect;
+import me.travis.wurstplus.wurstplustwo.event.events.EventRenderUpdateLightMap;
 import net.minecraft.client.renderer.EntityRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -37,5 +38,17 @@ public class WurstplusMixinEntityRenderer {
         if (l_Event.isCancelled())
             info.cancel();
     }
+	
+	@Inject(method = "updateLightmap", at = @At("HEAD"), cancellable = true)
+    private void updateLightmap(float partialTicks, CallbackInfo p_Info)
+    {
+        EventRenderUpdateLightMap l_Event = new EventRenderUpdateLightMap(partialTicks);
+        
+        WurstplusEventBus.EVENT_BUS.post(l_Event);
+        
+        if (l_Event.isCancelled())
+            p_Info.cancel();
+    }
+
 
 }
