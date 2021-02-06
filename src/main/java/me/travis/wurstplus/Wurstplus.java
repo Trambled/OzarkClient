@@ -7,7 +7,6 @@ import me.travis.wurstplus.wurstplustwo.event.WurstplusEventHandler;
 import me.travis.wurstplus.wurstplustwo.event.WurstplusEventRegister;
 import me.travis.wurstplus.wurstplustwo.guiscreen.WurstplusGUI;
 import me.travis.wurstplus.wurstplustwo.guiscreen.WurstplusHUD;
-import me.travis.wurstplus.WurstplusRPC;
 import me.travis.wurstplus.wurstplustwo.manager.*;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.Mod;
