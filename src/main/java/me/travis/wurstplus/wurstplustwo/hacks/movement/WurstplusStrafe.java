@@ -5,6 +5,7 @@ import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventPlayerJump;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
+import me.travis.wurstplus.Wurstplus;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.init.MobEffects;
@@ -23,15 +24,24 @@ public class WurstplusStrafe extends WurstplusHack {
 		this.description = "its like running, but faster";
 	}
 
-	WurstplusSetting speed_mode = create("Mode", "StrafeMode", "Strafe", combobox("Strafe", "On Ground"));
+	WurstplusSetting speed_mode = create("Mode", "StrafeMode", "Strafe", combobox("Strafe", "On Ground", "None"));
 	WurstplusSetting auto_sprint = create("Auto Sprint", "StrafeSprint", true);
 	WurstplusSetting on_water = create("On Water", "StrafeOnWater", true);
 	WurstplusSetting auto_jump = create("Auto Jump", "StrafeAutoJump", true);
 	WurstplusSetting backward = create("Backwards", "StrafeBackwards", true);
 	WurstplusSetting bypass = create("Bypass", "StrafeBypass", false);
+	WurstplusSetting fucker = create("Fucker", "Fucker", false);
 
 	@Override
 	public void update() {
+
+		if (!Wurstplus.get_module_manager().get_module_with_tag("Fucker").is_active() && fucker.get_value(true)) {
+			Wurstplus.get_module_manager().get_module_with_tag("Fucker").set_active(true);
+		}
+
+		if (speed_mode.in("None")) {
+			return;
+		}
 		
 		if (mc.player.isRiding()) return;
 

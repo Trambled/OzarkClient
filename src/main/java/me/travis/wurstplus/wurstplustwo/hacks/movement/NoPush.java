@@ -4,13 +4,12 @@ import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.event.events.EventPlayerPushOutOfBlocks;
-import me.travis.wurstplus.wurstplustwo.util.Timer;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 
+//from salhack basically
 public class NoPush extends WurstplusHack {
     
     public NoPush() {
@@ -25,7 +24,7 @@ public class NoPush extends WurstplusHack {
     WurstplusSetting burrow_only = create("Burrow Only", "BurrowOnly", false);
 
     @EventHandler
-    private Listener<EventPlayerPushOutOfBlocks> PushOutOfBlocks = new Listener<>(p_Event ->
+    private Listener<EventPlayerPushOutOfBlocks> push_out_of_blocks = new Listener<>(p_Event ->
     {
 		if (mc.world.getBlockState(new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ)).getBlock().equals(Blocks.OBSIDIAN) && burrow_only.get_value(true))	{
 			p_Event.cancel();

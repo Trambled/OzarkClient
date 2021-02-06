@@ -151,6 +151,7 @@ public class WurstplusModuleManager {
 		add_hack(new AutoEat());
 		add_hack(new AutoDupe2());
 		add_hack(new AutoTool());
+		add_hack(new Fucker());
 		
 		array_hacks.sort(Comparator.comparing(WurstplusHack::get_name));
 	}
