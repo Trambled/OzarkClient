@@ -75,6 +75,7 @@ public class WurstplusModuleManager {
 		add_hack(new SelfCrystal());
 		add_hack(new AntiTrap());
 		add_hack(new AutoAnvil());
+		add_hack(new PistonCrystal());
 
 		// Exploit.
 		add_hack(new WurstplusXCarry());

@@ -21,7 +21,7 @@ public class AntiCrystal extends WurstplusHack
     public AntiCrystal() {
         super(WurstplusCategory.WURSTPLUS_COMBAT);
 
-        this.name        = "AntiCrystal";
+        this.name        = "Anti Crystal";
         this.tag         = "AntiCrystal";
         this.description = "based";
         this.index = 0;

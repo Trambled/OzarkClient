@@ -16,6 +16,8 @@ public class WurstplusClickGUI extends WurstplusHack {
 	}
 
 	WurstplusSetting label_frame = create("info", "ClickGUIInfoFrame", "Frames");
+	
+	WurstplusSetting scroll_speed = create("Scroll Speed", "ClickGUIScrollSpeed", 10, 0, 30);
 
 	WurstplusSetting name_frame_r = create("Name R", "ClickGUINameFrameR", 255, 0, 255);
 	WurstplusSetting name_frame_g = create("Name G", "ClickGUINameFrameG", 255, 0, 255);

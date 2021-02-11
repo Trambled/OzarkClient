@@ -145,8 +145,9 @@ public class WurstplusGUI extends GuiScreen {
 		set_current(this.current);
 	}
 
+	//from xulu
     public void handleMouseInput() throws IOException {
-        int scrollAmount = 5;
+        int scrollAmount = Wurstplus.get_setting_manager().get_setting_with_tag("GUI", "ClickGUIScrollSpeed").get_value(1);
         if (Mouse.getEventDWheel() > 0) {
             for (WurstplusFrame frames : this.frame) {
                 frames.set_y(frames.get_y() + scrollAmount);

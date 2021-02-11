@@ -70,7 +70,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
     WurstplusSetting rotate_mode = create("Rotate", "CaRotateMode", "Good", combobox("Off", "Old", "Const", "Good"));
     WurstplusSetting raytrace = create("Raytrace", "CaRaytrace", false);
 
-    WurstplusSetting switch_mode = create("Mode", "Mode", "Normal", combobox("Normal", "Ghost"));
+    WurstplusSetting switch_mode = create("Switch Mode", "Switch Mode", "Normal", combobox("Normal", "Ghost"));
     WurstplusSetting auto_switch = create("Auto Switch", "CaAutoSwitch", true);
     WurstplusSetting anti_suicide = create("Anti Suicide", "CaAntiSuicide", true);
 
@@ -631,6 +631,13 @@ public class WurstplusAutoCrystal extends WurstplusHack {
         }
 		
 		if (Wurstplus.get_hack_manager().get_module_with_tag("AutoAnvil").is_active() && module_check.get_value(true)) {
+            if (old_render.get_value(true)) {
+                render_block_init = null;
+            }
+            return true;
+        }
+		
+		if (Wurstplus.get_hack_manager().get_module_with_tag("PistonCrystal").is_active() && module_check.get_value(true)) {
             if (old_render.get_value(true)) {
                 render_block_init = null;
             }
