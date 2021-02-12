@@ -70,7 +70,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
     WurstplusSetting rotate_mode = create("Rotate", "CaRotateMode", "Good", combobox("Off", "Old", "Const", "Good"));
     WurstplusSetting raytrace = create("Raytrace", "CaRaytrace", false);
 
-    WurstplusSetting switch_mode = create("Switch Mode", "Switch Mode", "Normal", combobox("Normal", "Ghost"));
+    WurstplusSetting switch_mode = create("Switch Mode", "CaSwitchMode", "Normal", combobox("Normal", "Ghost"));
     WurstplusSetting auto_switch = create("Auto Switch", "CaAutoSwitch", true);
     WurstplusSetting anti_suicide = create("Anti Suicide", "CaAntiSuicide", true);
 
@@ -484,7 +484,8 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
         boolean offhand_check = false;
         if (mc.player.getHeldItemOffhand().getItem() != Items.END_CRYSTAL) {
-            if (mc.player.getHeldItemMainhand().getItem() != Items.END_CRYSTAL && auto_switch.get_value(true) && switch_mode.in("Normal")) {
+            if (mc.player.getHeldItemMainhand().getItem() != Items.END_CRYSTAL && 
+		.get_value(true) && switch_mode.in("Normal")) {
                 if (switch_mode.in("Normal")) {
                     if (find_crystals_hotbar() == -1) return;
                     mc.player.inventory.currentItem = find_crystals_hotbar();
