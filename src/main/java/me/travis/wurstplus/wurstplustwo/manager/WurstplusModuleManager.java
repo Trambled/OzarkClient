@@ -135,6 +135,7 @@ public class WurstplusModuleManager {
 		add_hack(new FullBright());
 		add_hack(new LowHands());
 		add_hack(new Timechanger());
+		add_hack(new BurrowESP());
 
 		// Misc.
 		add_hack(new WurstplusAutoWither());
