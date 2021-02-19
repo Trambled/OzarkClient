@@ -54,15 +54,15 @@ public class WurstplusMessageUtil {
 	}
 
 	public static void send_client_message_simple(String message) {
-		client_message(opener + r + message);
+		client_message(opener + message);
 	}
 
 	public static void send_client_message(String message) {
-		client_message(opener + r + message);
+		client_message(opener + message);
 	}
 
 	public static void send_client_error_message(String message) {
-		client_message(opener + r + message);
+		client_message(opener + "Error: "  + message);
 	}
 
 	public static class ChatMessage extends TextComponentBase {

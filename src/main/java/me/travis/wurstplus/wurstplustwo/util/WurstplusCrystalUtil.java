@@ -1,5 +1,6 @@
 package me.travis.wurstplus.wurstplustwo.util;
 
+import me.travis.wurstplus.Wurstplus;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -117,8 +118,7 @@ public class WurstplusCrystalUtil {
     public static float calculateDamage(double posX, double posY, double posZ, Entity entity) {
         if (entity == mc.player)
         {
-            if (mc.player.capabilities.isCreativeMode)
-                return 0.0f;
+            return 0.0f;
         }
         final float doubleExplosionSize = 12.0f;
         final double distancedsize = entity.getDistance(posX, posY, posZ) / doubleExplosionSize;

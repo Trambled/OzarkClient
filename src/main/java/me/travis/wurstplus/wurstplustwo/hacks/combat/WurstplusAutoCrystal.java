@@ -2,39 +2,39 @@ package me.travis.wurstplus.wurstplustwo.hacks.combat;
 
 import me.travis.turok.draw.RenderHelp;
 import me.travis.wurstplus.Wurstplus;
-import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventEntityRemoved;
-import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventMotionUpdate;
-import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventPacket;
-import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventRender;
+import me.travis.wurstplus.wurstplustwo.event.events.*;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import me.travis.wurstplus.wurstplustwo.hacks.chat.WurstplusAutoEz;
-import me.travis.wurstplus.wurstplustwo.hacks.combat.AntiTrap;
 import me.travis.wurstplus.wurstplustwo.util.*;
 
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.*;
-import net.minecraft.network.play.client.CPacketPlayer;
-import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
+import net.minecraft.network.play.client.*;
 import net.minecraft.network.play.server.SPacketSoundEffect;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class WurstplusAutoCrystal extends WurstplusHack {
 
@@ -52,10 +52,12 @@ public class WurstplusAutoCrystal extends WurstplusHack {
     WurstplusSetting break_trys = create("Break Attempts", "CaBreakAttempts", 2, 1, 6);
     WurstplusSetting anti_weakness = create("Anti-Weakness", "CaAntiWeakness", true);
     WurstplusSetting module_check = create("Module Check", "CaModuleCheck", true);
+	WurstplusSetting predict = create("Predict", "CaPredict", true);
 
     WurstplusSetting hit_range = create("Hit Range", "CaHitRange", 5.2f, 1f, 6f);
     WurstplusSetting place_range = create("Place Range", "CaPlaceRange", 5.2f, 1f, 6f);
     WurstplusSetting hit_range_wall = create("Range Wall", "CaRangeWall", 4f, 1f, 6f);
+    WurstplusSetting player_range = create("Player Range", "CaPlayerRange", 11f, 1f, 13f);
 
     WurstplusSetting place_delay = create("Place Delay", "CaPlaceDelay", 0, 0, 10);
     WurstplusSetting break_delay = create("Break Delay", "CaBreakDelay", 2, 0, 10);
@@ -67,16 +69,17 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 	WurstplusSetting min_health_pause = create("Min Health Pause", "CaMinHealthPause", false);
 	WurstplusSetting required_health = create("Required Health", "CaRequiredHealth", 12f, 1f, 36f);
 
-    WurstplusSetting rotate_mode = create("Rotate", "CaRotateMode", "Good", combobox("Off", "Old", "Const", "Good"));
+    WurstplusSetting rotate_mode = create("Rotate", "CaRotateMode", "Packet", combobox("Off", "Packet", "Const", "Seizure"));
     WurstplusSetting raytrace = create("Raytrace", "CaRaytrace", false);
 
-    WurstplusSetting switch_mode = create("Switch Mode", "Switch Mode", "Normal", combobox("Normal", "Ghost"));
+    WurstplusSetting switch_mode = create("Switch Mode", "CaSwitchMode", "Normal", combobox("Normal", "Ghost"));
     WurstplusSetting auto_switch = create("Auto Switch", "CaAutoSwitch", true);
     WurstplusSetting anti_suicide = create("Anti Suicide", "CaAntiSuicide", true);
 
     WurstplusSetting fast_mode = create("Fast Mode", "CaSpeed", true);
     WurstplusSetting client_side = create("Client Side", "CaClientSide", false);
     WurstplusSetting jumpy_mode = create("Jumpy Mode", "CaJumpyMode", false);
+    WurstplusSetting ares_mode = create("Ares Mode", "CaAresMode", false);
 
     WurstplusSetting anti_stuck = create("Anti Stuck", "CaAntiStuck", false);
     WurstplusSetting endcrystal = create("1.13 Mode", "CaThirteen", false);
@@ -142,17 +145,18 @@ public class WurstplusAutoCrystal extends WurstplusHack {
     private int break_timeout;
     private int break_delay_counter;
     private int place_delay_counter;
+//    private int packets;
 
     @EventHandler
-    private Listener<WurstplusEventEntityRemoved> on_entity_removed = new Listener<>(event -> {
+    private final Listener<WurstplusEventEntityRemoved> on_entity_removed = new Listener<>(event -> {
         if (event.get_entity() instanceof EntityEnderCrystal) {
             attacked_crystals.remove(event.get_entity());
         }
     });
 
     @EventHandler
-    private Listener<WurstplusEventPacket.SendPacket> send_listener = new Listener<>(event -> {
-        if (event.get_packet() instanceof CPacketPlayer && is_rotating && rotate_mode.in("Old")) {
+    private final Listener<WurstplusEventPacket.SendPacket> send_listener = new Listener<>(event -> {
+        if (event.get_packet() instanceof CPacketPlayer && is_rotating && rotate_mode.in("Packet")) {
             if (debug.get_value(true)) {
                 WurstplusMessageUtil.send_client_message("Rotating");
             }
@@ -161,7 +165,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
             p.pitch = pitch;
             is_rotating = false;
         }
-        if (event.get_packet() instanceof CPacketPlayerTryUseItemOnBlock && is_rotating && rotate_mode.in("Old")) {
+        if (event.get_packet() instanceof CPacketPlayerTryUseItemOnBlock && is_rotating && rotate_mode.in("Packet")) {
             if (debug.get_value(true)) {
                 WurstplusMessageUtil.send_client_message("Rotating");
             }
@@ -175,7 +179,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
     @EventHandler
     private Listener<WurstplusEventMotionUpdate> on_movement = new Listener<>(event -> {
-        if (event.stage == 0 && (rotate_mode.in("Good") || rotate_mode.in("Const"))) {
+        if (event.stage == 0 && (rotate_mode.in("Seizure") || rotate_mode.in("Const"))) {
             if (debug.get_value(true)) {
                 WurstplusMessageUtil.send_client_message("updating rotation");
             }
@@ -183,7 +187,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
             WurstplusRotationUtil.updateRotations();
             do_ca();
         }
-        if (event.stage == 1 && (rotate_mode.in("Good") || rotate_mode.in("Const"))) {
+        if (event.stage == 1 && (rotate_mode.in("Seizure") || rotate_mode.in("Const"))) {
             if (debug.get_value(true)) {
                 WurstplusMessageUtil.send_client_message("resetting rotation");
             }
@@ -263,7 +267,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
     @Override
     public void update() {
-        if (rotate_mode.in("Off") || rotate_mode.in("Old")) {
+        if (rotate_mode.in("Off") || rotate_mode.in("Packet")) {
             do_ca();
         }
     }
@@ -314,14 +318,14 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
                 if (WurstplusFriendUtil.isFriend(player.getName())) continue;
 
-                if (player.getDistance(mc.player) >= 11) continue; // stops lag
+                if (player.getDistance(mc.player) >= player_range.get_value(1)) continue;
 
                 final EntityPlayer target = (EntityPlayer) player;
 
                 if (target.isDead || target.getHealth() <= 0) continue;
 
                 boolean no_place = faceplace_check.get_value(true) && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD;
-                if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true)&& !no_place) || (get_armor_fucker(target) && !no_place)) {
+                if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true)&& !no_place) || (get_armor_fucker(target) && !no_place) || (predict.get_value(true) && target.onGround && !is_entity_trapped(target)) || (Wurstplus.get_hack_manager().get_module_with_tag("Faceplacer").is_active())) {
                     minimum_damage = 2;
                 } else {
                     minimum_damage = this.min_player_break.get_value(1);
@@ -353,6 +357,37 @@ public class WurstplusAutoCrystal extends WurstplusHack {
         return best_crystal;
 
     }
+	
+    //modified salhack
+	//there is a better way of doing this
+	//since its only one line
+	//but whatever
+	//the reason why this exists is so that we dont false flag a target not on ground and in a place where they cant jump out
+	//the false flag will only happen for a millisecond but whatever
+    public static boolean is_entity_trapped(EntityPlayer e)
+    {
+        BlockPos l_PlayerPos = EntityPosToFloorBlockPos(e);
+
+        final BlockPos[] l_trappped = {
+				l_PlayerPos.up().up(),
+        };
+
+        for (BlockPos l_Pos : l_trappped)
+        {
+            IBlockState l_State = mc.world.getBlockState(l_Pos);
+
+            if (l_State.getBlock() != Blocks.OBSIDIAN && mc.world.getBlockState(l_Pos).getBlock() != Blocks.BEDROCK)
+                return false;
+        }
+
+        return true;
+    }
+
+    //salhack
+    public static BlockPos EntityPosToFloorBlockPos(EntityPlayer e)
+    {
+        return new BlockPos(Math.floor(e.posX), Math.floor(e.posY), Math.floor(e.posZ));
+    }
 
     public BlockPos get_best_block() {
 
@@ -383,7 +418,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
                 if (player == mc.player && !Wurstplus.get_hack_manager().get_module_with_tag("SelfCrystal").is_active() || !(player instanceof EntityPlayer)) continue;
 
-                if (player.getDistance(mc.player) >= 11) continue;
+                if (player.getDistance(mc.player) >= player_range.get_value(1)) continue;
 
                 if (!WurstplusBlockUtil.rayTracePlaceCheck(block, this.raytrace.get_value(true))) {
                     continue;
@@ -452,6 +487,136 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
     }
 
+    public BlockPos get_best_block_ares() {
+
+        if (get_best_crystal() != null && !fast_mode.get_value(true)) {
+            place_timeout_flag = true;
+            return null;
+        }
+
+        if (place_timeout_flag) {
+            place_timeout_flag = false;
+            return null;
+        }
+
+        List<WurstplusPair<Double, BlockPos>> damage_blocks = new ArrayList<>();
+        double best_damage = 0;
+        double minimum_damage;
+        double maximum_damage_self = this.max_self_damage.get_value(1);
+
+        BlockPos best_block = null;
+
+        for (Entity player : mc.world.playerEntities) {
+
+            if (WurstplusFriendUtil.isFriend(player.getName())) continue;
+
+            if (player.isDead) continue;
+
+            final EntityPlayer target = (EntityPlayer) player;
+
+            List<BlockPos> targetsBlocks = getPlaceableBlocks(target);
+            List<BlockPos> blocks = getPlaceableBlocks(mc.player);
+
+            for (BlockPos block : blocks) {
+
+                if (player == mc.player && !Wurstplus.get_hack_manager().get_module_with_tag("SelfCrystal").is_active() || !(player instanceof EntityPlayer)) continue;
+
+                if (player.getDistance(mc.player) >= player_range.get_value(1)) continue;
+
+                if (!WurstplusBlockUtil.rayTracePlaceCheck(block, this.raytrace.get_value(true))) {
+                    continue;
+                }
+
+                if (!WurstplusBlockUtil.canSeeBlock(block) && mc.player.getDistance(block.getX(), block.getY(), block.getZ()) > hit_range_wall.get_value(1)) {
+                    continue;
+                }
+
+                if (target.isDead || target.getHealth() <= 0) continue;
+
+                if (!targetsBlocks.contains(block)) {
+                    continue;
+                }
+
+                boolean no_place = faceplace_check.get_value(true) && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD;
+                if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true)&& !no_place) || (get_armor_fucker(target) && !no_place)) {
+                    minimum_damage = 2;
+                } else {
+                    minimum_damage = this.min_player_place.get_value(1);
+                }
+
+                final double target_damage = WurstplusCrystalUtil.calculateDamage((double) block.getX() + 0.5, (double) block.getY() + 1, (double) block.getZ() + 0.5, target);
+
+                if (target_damage < minimum_damage) continue;
+
+                final double self_damage = WurstplusCrystalUtil.calculateDamage((double) block.getX() + 0.5, (double) block.getY() + 1, (double) block.getZ() + 0.5, mc.player);
+
+                if (self_damage > maximum_damage_self || (anti_suicide.get_value(true) && (mc.player.getHealth() + mc.player.getAbsorptionAmount()) - self_damage <= 0.5)) continue;
+
+                /** if (attempt_chain.get_value(true) && chain_step > 0) {
+                 damage_blocks.add(new WurstplusPair<>(best_damage, best_block));
+                 autoez_target = target;
+                 } else**/ if (target_damage > best_damage) {
+                    best_damage = target_damage;
+                    best_block = block;
+                    autoez_target = target;
+                }
+
+            }
+
+        }
+
+        if (chain_step == 1) {
+            current_chain_index = chain_length.get_value(1);
+        } else if (chain_step > 1) {
+            current_chain_index--;
+        }
+
+        render_damage_value = best_damage;
+        render_block_init = best_block;
+
+        damage_blocks = sort_best_blocks(damage_blocks);
+
+        //if (!attempt_chain.get_value(true)) {
+        return best_block;
+//        } else {
+//            if (damage_blocks.size() == 0) {
+//                return null;
+//            }
+//            if (damage_blocks.size() < current_chain_index) {
+//                return damage_blocks.get(0).getValue();
+//            }
+//            return damage_blocks.get(current_chain_index).getValue();
+//        }
+
+    }
+
+    private List<BlockPos> getPlaceableBlocks(EntityPlayer player) {
+        List<BlockPos> square = new ArrayList<>();
+
+        int range = place_range.get_value(1);
+
+        BlockPos pos = player.getPosition();
+        pos.add(new Vec3i(player.motionX, player.motionY, player.motionZ));
+
+        for(int x = -range; x <= range; x++)
+            for(int y = -range; y <= range; y++)
+                for(int z = -range; z <= range; z++)
+                    square.add(pos.add(x, y, z));
+
+        return square.stream().filter(blockPos -> canCrystalBePlacedHere(blockPos) && mc.player.getDistanceSq(blockPos) <= (range * range)).collect(Collectors.toList());
+    }
+
+    private boolean canCrystalBePlacedHere(BlockPos pos) {
+        BlockPos boost = pos.add(0, 1, 0);
+        BlockPos boost2 = pos.add(0, 2, 0);
+        return (mc.world.getBlockState(pos).getBlock() == Blocks.BEDROCK
+                || mc.world.getBlockState(pos).getBlock() == Blocks.OBSIDIAN)
+                && mc.world.getBlockState(boost).getBlock() == Blocks.AIR
+                && mc.world.getBlockState(boost2).getBlock() == Blocks.AIR
+                && mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(boost)).stream().allMatch(entity -> entity instanceof EntityEnderCrystal)
+                && mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(boost2)).stream().allMatch(entity -> entity instanceof EntityEnderCrystal);
+    }
+
     public List<WurstplusPair<Double, BlockPos>> sort_best_blocks(List<WurstplusPair<Double, BlockPos>> list) {
         List<WurstplusPair<Double, BlockPos>> new_list = new ArrayList<>();
         double damage_cap = 1000;
@@ -472,7 +637,13 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
     public void place_crystal() {
 
-        BlockPos target_block = get_best_block();
+        BlockPos target_block;
+
+        if (ares_mode.get_value(true)) {
+            target_block = get_best_block_ares();
+        } else {
+            target_block = get_best_block();
+        }
 
         if (target_block == null) {
             return;
@@ -609,6 +780,13 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 			return true;
 		}
 
+		if (AntiTrap.is_trapped && Wurstplus.get_hack_manager().get_module_with_tag("AntiTrap").is_active() && module_check.get_value(true)) {
+            if (old_render.get_value(true)) {
+                render_block_init = null;
+            }
+            return true;
+        }
+
         if (Wurstplus.get_hack_manager().get_module_with_tag("Surround").is_active() && module_check.get_value(true)) {
             if (old_render.get_value(true)) {
                 render_block_init = null;
@@ -682,10 +860,10 @@ public class WurstplusAutoCrystal extends WurstplusHack {
         if (rotate_mode.in("Off")) {
             is_rotating = false;
         }
-        if (rotate_mode.in("Good") || rotate_mode.in("Const")) {
+        if (rotate_mode.in("Seizure") || rotate_mode.in("Const")) {
             WurstplusRotationUtil.setPlayerRotations(angle[0], angle[1]);
         }
-        if (rotate_mode.in("Old")) {
+        if (rotate_mode.in("Packet")) {
             yaw = angle[0];
             pitch = angle[1];
             is_rotating = true;
@@ -697,10 +875,10 @@ public class WurstplusAutoCrystal extends WurstplusHack {
         if (rotate_mode.in("Off")) {
             is_rotating = false;
         }
-        if (rotate_mode.in("Good")) {
+        if (rotate_mode.in("Seizure")) {
             WurstplusRotationUtil.setPlayerRotations(angle[0], angle[1]);
         }
-        if (rotate_mode.in("Old") || rotate_mode.in("Cont")) {
+        if (rotate_mode.in("Packet") || rotate_mode.in("Const")) { //im p sure travis made a typo here, it said cons, might be him wanting it to not do that
             yaw = angle[0];
             pitch = angle[1];
             is_rotating = true;
@@ -782,6 +960,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
         remove_visual_timer.reset();
         detail_name = null;
         detail_hp = 20;
+//      packets = 0;
     }
 
     @Override

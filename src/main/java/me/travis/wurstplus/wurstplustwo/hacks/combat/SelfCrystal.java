@@ -8,7 +8,6 @@ import net.minecraft.init.Items;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 
-//vethack
 public class SelfCrystal extends WurstplusHack
 {
     public SelfCrystal() {

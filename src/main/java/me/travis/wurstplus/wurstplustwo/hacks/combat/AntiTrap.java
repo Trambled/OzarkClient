@@ -3,7 +3,6 @@ package me.travis.wurstplus.wurstplustwo.hacks.combat;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
-import me.travis.wurstplus.wurstplustwo.util.WurstplusPlayerUtil;
 
 import net.minecraft.init.Items;
 import net.minecraft.util.EnumHand;
@@ -13,7 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 
 /**
- * Made by @Trambled on 1/27/2020
+ * Made by @Trambled on 1/27/2021
  * Trap detect taken from Salhack playerutil
  */
 
@@ -36,7 +35,6 @@ public class AntiTrap extends WurstplusHack
 
     public static boolean is_trapped; // so autocrystal can detect that its antitrapping
 	private boolean was_eating = false;
-    private int last_slot;
 
     @Override
     public void update() {
@@ -48,14 +46,13 @@ public class AntiTrap extends WurstplusHack
         }
 
         if (is_entity_trapped(mc.player)) {
-            last_slot = mc.player.inventory.currentItem;
             mc.player.inventory.currentItem = find_chorus_hotbar();
             is_trapped = true;
             mc.playerController.processRightClick(mc.player, mc.world, EnumHand.MAIN_HAND);
 		    was_eating = true;
         }
 
-        if (!is_entity_trapped(mc.player) && !WurstplusPlayerUtil.IsEating()) {
+        if (!is_entity_trapped(mc.player)) {
             is_trapped = false;
 
             if (toggle.get_value(true)) {
@@ -65,8 +62,7 @@ public class AntiTrap extends WurstplusHack
 			
         }
 		
-        if (was_eating)
-        {
+        if (was_eating)	{
             was_eating = false;
             mc.gameSettings.keyBindUseItem.pressed = false;
         }

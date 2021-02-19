@@ -28,8 +28,8 @@ public class WurstplusKillAura extends WurstplusHack {
 	public WurstplusKillAura() {
 		super(WurstplusCategory.WURSTPLUS_COMBAT);
 
-		this.name        = "Kill Aura";
-		this.tag         = "KillAura";
+		this.name        = "Aura";
+		this.tag         = "Aura";
 		this.description = "To able hit enemies in a range.";
 	}
 

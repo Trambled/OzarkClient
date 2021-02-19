@@ -2,6 +2,7 @@ package me.travis.wurstplus.wurstplustwo.hacks.chat;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventPacket;
+import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusFriendUtil;
@@ -23,7 +24,11 @@ public class WurstplusTotempop extends WurstplusHack {
 		this.name        = "Totem Pop Counter";
 		this.tag         = "TotemPopCounter";
 		this.description = "dude idk wurst+ is just outdated";
+
     }
+
+    WurstplusSetting mode = create("Mode", "Mode", "Normal", combobox("Normal", "Lempity"));
+
 
     public static final HashMap<String, Integer> totem_pop_counter = new HashMap<String, Integer>();
     
@@ -85,10 +90,18 @@ public class WurstplusTotempop extends WurstplusHack {
 
                 if (player == mc.player) continue;
 
-                if (WurstplusFriendUtil.isFriend(player.getName())) {
-                    WurstplusMessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + green + player.getName() + reset + " just got fucked by OzarkClient after popping " + bold + count + reset + " totems. RIP :pray:");
+                if (mode.in("Lempity")) {
+                    if (WurstplusFriendUtil.isFriend(player.getName())) {
+                        WurstplusMessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + green + player.getName() + reset + " has popped " + bold + count + reset + " totems. so dog water but idk there a homie");
+                    } else {
+                        WurstplusMessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + red + player.getName() + reset + " has popped " + bold + count + reset + " totems. Stupid fucking retard");
+                    }
                 } else {
-                    WurstplusMessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + red + player.getName() + reset + " just got fucked by OzarkClient after popping " + bold + count + reset + " totems");
+                    if (WurstplusFriendUtil.isFriend(player.getName())) {
+                        WurstplusMessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + green + player.getName() + reset + " just got fucked by some retard after popping " + bold + count + reset + " totems. RIP :pray:");
+                    } else {
+                        WurstplusMessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + red + player.getName() + reset + " just got fucked by OzarkClient after popping " + bold + count + reset + " totems");
+                    }
                 }
 
             }

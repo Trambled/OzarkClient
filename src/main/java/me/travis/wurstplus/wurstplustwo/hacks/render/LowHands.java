@@ -7,7 +7,6 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.util.EnumHand;
 
 public class LowHands extends WurstplusHack {
-//floppahack
     public LowHands() {
         super(WurstplusCategory.WURSTPLUS_RENDER);
 

@@ -127,6 +127,46 @@ public class WurstplusBlockUtil {
         return false;
     }
 
+    public static boolean placeBlock(BlockPos pos, boolean rotate, boolean rotateBack, WurstplusSetting setting) {
+        if (isBlockEmpty(pos)) {
+            EnumFacing[] facings = EnumFacing.values();
+
+            for (EnumFacing f : facings) {
+                Block neighborBlock = mc.world.getBlockState(pos.offset(f)).getBlock();
+                Vec3d vec = new Vec3d(pos.getX() + 0.5D + (double) f.getXOffset() * 0.5D, pos.getY() + 0.5D + (double) f.getYOffset() * 0.5D, pos.getZ() + 0.5D + (double) f.getZOffset() * 0.5D);
+
+                if (!emptyBlocks.contains(neighborBlock) && mc.player.getPositionEyes(mc.getRenderPartialTicks()).distanceTo(vec) <= 4.25D) {
+                    float[] rot = new float[]{mc.player.rotationYaw, mc.player.rotationPitch};
+
+                    if (rotate) {
+                        rotatePacket(vec.x, vec.y, vec.z);
+                    }
+
+                    if (rightclickableBlocks.contains(neighborBlock)) {
+                        mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, Action.START_SNEAKING));
+                    }
+
+                    mc.playerController.processRightClickBlock(mc.player, mc.world, pos.offset(f), f.getOpposite(), new Vec3d(pos), EnumHand.MAIN_HAND);
+                    if (rightclickableBlocks.contains(neighborBlock)) {
+                        mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, Action.STOP_SNEAKING));
+                    }
+
+                    if (rotateBack) {
+                        mc.player.connection.sendPacket(new Rotation(rot[0], rot[1], mc.player.onGround));
+                    }
+
+                    swingArm(setting);
+
+                    return true;
+                }
+            }
+
+        }
+
+        return false;
+    }
+
+
     public static boolean isBlockEmpty(BlockPos pos) {
         try {
             if (emptyBlocks.contains(mc.world.getBlockState(pos).getBlock())) {

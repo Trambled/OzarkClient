@@ -14,7 +14,7 @@ public class OffhandBypass extends WurstplusHack
     public OffhandBypass() {
         super(WurstplusCategory.WURSTPLUS_COMBAT);
 
-        this.name = "OffhandBypass";
+        this.name = "Offhand Bypass";
         this.tag = "OffhandBypass";
         this.description = "makes your hand that u use set to offhand for gapple offhand"; 
     }

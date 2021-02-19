@@ -30,6 +30,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
+//gamesense fart
 public class PistonCrystal extends WurstplusHack
 {
     public PistonCrystal() {
@@ -39,21 +40,20 @@ public class PistonCrystal extends WurstplusHack
         this.tag = "PistonCrystal";
         this.description = "techale is samrt";
     }
-	
+
     private boolean noMaterials = false,
-                    hasMoved = false,
-                    isSneaking = false,
-                    yUnder = false,
-                    isHole = true,
-                    enoughSpace = true,
-                    redstoneBlockMode = false,
-                    fastModeActive = false,
-                    broken,
-                    brokenCrystalBug,
-                    brokenRedstoneTorch,
-                    stoppedCa,
-                    deadPl,
-                    rotationPlayerMoved;
+            hasMoved = false,
+            isSneaking = false,
+            yUnder = false,
+            isHole = true,
+            enoughSpace = true,
+            redstoneBlockMode = false,
+            fastModeActive = false,
+            broken,
+            brokenCrystalBug,
+            brokenRedstoneTorch,
+            deadPl,
+            rotationPlayerMoved;
 
     private int oldSlot = -1,
             stage,

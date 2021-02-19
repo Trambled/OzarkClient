@@ -12,6 +12,7 @@ public class HUDEditor extends WurstplusHack {
 		this.name        = "HUDEditor";
 		this.tag         = "HUDEditor";
 		this.description = "modifies hud";
+		this.toggle_message = false;
 	}
 
 	WurstplusSetting frame_view = create("info", "HUDStringsList", "Strings");
@@ -32,6 +33,12 @@ public class HUDEditor extends WurstplusHack {
 			cycle_rainbow();
 		}
     }
+
+    @Override
+	protected void disable() {
+    	//you can never defeat me
+    	this.set_enable();
+	}
 
     public void cycle_rainbow() {
 

@@ -48,7 +48,7 @@ public class WurstplusSelfTrap extends WurstplusHack {
         trap_pos = new BlockPos(pos.x, pos.y + 2, pos.z);
         if (is_trapped()) {
 
-            if (!toggle.get_value(true)) {
+            if (toggle.get_value(true)) {
                 toggle();
                 return;
             } 

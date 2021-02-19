@@ -30,6 +30,13 @@ public class WurstplusFakePlayer extends WurstplusHack {
     }
 
     @Override
+    public void update() {
+        if (nullCheck()) {
+            this.set_disable();
+        }
+    }
+
+    @Override
     protected void disable() {
         try {
             mc.world.removeEntity(fake_player);

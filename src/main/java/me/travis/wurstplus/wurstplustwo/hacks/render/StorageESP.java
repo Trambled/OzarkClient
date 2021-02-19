@@ -35,13 +35,8 @@ public class StorageESP extends WurstplusHack {
 	WurstplusSetting chest_r = create("Chest R", "ChestR", 153, 0, 255);
     WurstplusSetting chest_g = create("Chest G", "ChestG", 102, 0, 255);
 	WurstplusSetting chest_b = create("Chest B", "ChestB", 0, 0, 255);
-
-	WurstplusSetting shu_ = create("Shulker Color", "StorageESPShulker", "Client", combobox("HUD", "Client"));
-	WurstplusSetting enc_ = create("Enchest Color", "StorageESPEnchest", "Client", combobox("HUD", "Client"));
-	WurstplusSetting che_ = create("Chest Color", "StorageESPChest", "Client", combobox("HUD", "Client"));
-	WurstplusSetting oth_ = create("Others Color", "StorageESPOthers", "Client", combobox("HUD", "Client"));
-	WurstplusSetting ot_a = create("Outline A", "StorageESPOutlineA", 150, 0, 255);
-	WurstplusSetting a = create("Solid A", "StorageESPSolidA", 150, 0, 255);
+	WurstplusSetting outline_a = create("Outline A", "StorageESPOutlineA", 0, 0, 255);
+	WurstplusSetting solid_a = create("Solid A", "StorageESPSolidA", 150, 0, 255);
 
 	private int color_alpha;
 
@@ -59,31 +54,19 @@ public class StorageESP extends WurstplusHack {
 		int nl_g = Wurstplus.client_g;
 		int nl_b = Wurstplus.client_b;
 
-		color_alpha = a.get_value(1);
+		color_alpha = solid_a.get_value(1);
 
 		for (TileEntity tiles : mc.world.loadedTileEntityList) {
 			if (tiles instanceof TileEntityShulkerBox) {
-				if (shu_.in("HUD")) {
-					draw(tiles, nl_r, nl_g, nl_b);
-				} else {
-					draw(tiles, shulker_r.get_value(1), shulker_g.get_value(1), shulker_b.get_value(1));
-				}
+				draw(tiles, shulker_r.get_value(1), shulker_g.get_value(1), shulker_b.get_value(1));
 			}
 
 			if (tiles instanceof TileEntityEnderChest) {
-				if (enc_.in("HUD")) {
-					draw(tiles, nl_r, nl_g, nl_b);
-				} else {
-					draw(tiles, echest_r.get_value(1), echest_g.get_value(1), echest_b.get_value(1));
-				}
+				draw(tiles, echest_r.get_value(1), echest_g.get_value(1), echest_b.get_value(1));
 			}
 
 			if (tiles instanceof TileEntityChest) {
-				if (che_.in("HUD")) {
-					draw(tiles, nl_r, nl_g, nl_b);
-				} else {
-					draw(tiles, chest_r.get_value(1), chest_g.get_value(1), chest_b.get_value(1));
-				}
+				draw(tiles, chest_r.get_value(1), chest_g.get_value(1), chest_b.get_value(1));
 			}
 
 			if (tiles instanceof TileEntityDispenser ||
@@ -91,11 +74,7 @@ public class StorageESP extends WurstplusHack {
 				tiles instanceof TileEntityHopper    ||
 				tiles instanceof TileEntityFurnace   ||
 				tiles instanceof TileEntityBrewingStand) {
-				if (oth_.in("HUD")) {
-					draw(tiles, nl_r, nl_g, nl_b);
-				} else {
-					draw(tiles, other_r.get_value(1), other_g.get_value(1), other_b.get_value(1));
-				}
+				draw(tiles, other_r.get_value(1), other_g.get_value(1), other_b.get_value(1));
 			}
 		}
 	}
@@ -103,12 +82,12 @@ public class StorageESP extends WurstplusHack {
 	public void draw(TileEntity tile_entity, int r, int g, int b) {
 		// Solid.
 		RenderHelp.prepare("quads");
-		RenderHelp.draw_cube(tile_entity.getPos(), r, g, b, a.get_value(1), "all");
+		RenderHelp.draw_cube(tile_entity.getPos(), r, g, b, solid_a.get_value(1), "all");
 		RenderHelp.release();
 
 		// Outline.
 		RenderHelp.prepare("lines");
-		RenderHelp.draw_cube_line(tile_entity.getPos(), r, g, b, ot_a.get_value(1), "all");
-	        RenderHelp.release();
+		RenderHelp.draw_cube_line(tile_entity.getPos(), r, g, b, outline_a.get_value(1), "all");
+	    RenderHelp.release();
 	}
 }

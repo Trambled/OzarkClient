@@ -11,7 +11,7 @@ public class AutoExcuse extends WurstplusHack
     public AutoExcuse() {
         super(WurstplusCategory.WURSTPLUS_CHAT);
         this.diedTime = 0;
-        this.name = "AutoExcuse";
+        this.name = "Auto Excuse";
         this.tag = "AutoExcuse";
         this.description = "tell people why you died";
     }
@@ -25,8 +25,8 @@ public class AutoExcuse extends WurstplusHack
             this.diedTime = 500;
         }
         if (!AutoExcuse.mc.player.isDead && this.diedTime > 0) {
-            final Random rand = new Random();
-            final int randomNum = rand.nextInt(6) + 1;
+            int randomNum = (int )(Math.random() * 50 + 1);
+
             if (randomNum == 1) {
                 AutoExcuse.mc.player.sendChatMessage("your ping is so good :(((( why are you targeting me");
             }

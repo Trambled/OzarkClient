@@ -86,17 +86,15 @@ public class WurstplusStrafe extends WurstplusHack {
 
 	@EventHandler
 	private Listener<WurstplusEventPlayerJump> on_jump = new Listener<>(event -> {
-
 		if (speed_mode.in("Strafe")) {
 			event.cancel();
 		}
-
 	});
 
 
 	@EventHandler
 	private Listener<WurstplusEventMove> player_move = new Listener<>(event -> {
-
+		
 		if (speed_mode.in("On Ground")) return;
 
 		if (mc.player.isInWater() || mc.player.isInLava()) {
