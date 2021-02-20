@@ -1,6 +1,5 @@
 package me.travis.wurstplus.wurstplustwo.hacks.misc;
 
-import me.travis.wurstplus.WurstplusRPC;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import me.travis.wurstplus.wurstplustwo.event.events.EventSteerEntity;

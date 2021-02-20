@@ -22,9 +22,10 @@ public class WurstplusOffhand extends WurstplusHack {
         this.description = "Switches shit to ur offhand";
     }
 
-    WurstplusSetting switch_mode = create("Offhand", "OffhandOffhand", "Totem", combobox("Totem", "Crystal", "Gapple"));
+    WurstplusSetting switch_mode = create("Offhand", "OffhandOffhand", "Totem", combobox("Totem", "Crystal", "Gapple", "Pressure Plate"));
     WurstplusSetting totem_switch = create("Totem HP", "OffhandTotemHP", 16, 0, 36);
 
+    WurstplusSetting module_check = create("ModuleCheck", "OffhandModuleCheck", true);
     WurstplusSetting gapple_in_hole = create("Gapple In Hole", "OffhandGapple", false);
     WurstplusSetting gapple_hole_hp = create("Gapple Hole HP", "OffhandGappleHP", 8, 0, 36);
 
@@ -46,7 +47,12 @@ public class WurstplusOffhand extends WurstplusHack {
             float hp = mc.player.getHealth() + mc.player.getAbsorptionAmount();
 
             if (hp > totem_switch.get_value(1)) {
-                if (switch_mode.in("Crystal") && Wurstplus.get_hack_manager().get_module_with_tag("AutoCrystal").is_active()) {
+                if (module_check.get_value(true)) {
+                    if (switch_mode.in("Crystal") && Wurstplus.get_hack_manager().get_module_with_tag("AutoCrystal").is_active()) {
+                        swap_items(get_item_slot(Items.END_CRYSTAL),0);
+                        return;
+                    }
+                } else if (switch_mode.in("Crystal") && !module_check.get_value(true)){
                     swap_items(get_item_slot(Items.END_CRYSTAL),0);
                     return;
                 }
@@ -62,7 +68,7 @@ public class WurstplusOffhand extends WurstplusHack {
                     swap_items(get_item_slot(Items.GOLDEN_APPLE), delay.get_value(true) ? 1 : 0);
                     return;
                 }
-                if (switch_mode.in("Crystal") && !Wurstplus.get_hack_manager().get_module_with_tag("AutoCrystal").is_active()) {
+                if (switch_mode.in("Crystal") && !Wurstplus.get_hack_manager().get_module_with_tag("AutoCrystal").is_active() && module_check.get_value(true)) {
                     swap_items(get_item_slot(Items.TOTEM_OF_UNDYING),0);
                     return;
                 }

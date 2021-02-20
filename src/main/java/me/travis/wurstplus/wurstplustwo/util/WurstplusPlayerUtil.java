@@ -7,10 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.block.Block;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.EnumFacing;
@@ -18,7 +15,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 
-public class WurstplusPlayerUtil  //merged with past
+public class WurstplusPlayerUtil
 {
     private static final Minecraft mc;
     
@@ -50,27 +47,6 @@ public class WurstplusPlayerUtil  //merged with past
         }
     }
 
-    public static double getDirection() {
-        float rotationYaw = mc.player.rotationYaw;
-        if (mc.player.moveForward < 0.0f) {
-            rotationYaw += 180.0f;
-        }
-        float forward = 1.0f;
-        if (mc.player.moveForward < 0.0f) {
-            forward = -0.5f;
-        }
-        else if (mc.player.moveForward > 0.0f) {
-            forward = 0.5f;
-        }
-        if (mc.player.moveStrafing > 0.0f) {
-            rotationYaw -= 90.0f * forward;
-        }
-        if (mc.player.moveStrafing < 0.0f) {
-            rotationYaw += 90.0f * forward;
-        }
-        return Math.toRadians(rotationYaw);
-    }
-    
     public double getMoveYaw() {
         float strafe = 90.0f * WurstplusPlayerUtil.mc.player.moveStrafing;
         strafe *= (float)((WurstplusPlayerUtil.mc.player.moveForward != 0.0f) ? (WurstplusPlayerUtil.mc.player.moveForward * 0.5) : 1.0);
@@ -109,33 +85,8 @@ public class WurstplusPlayerUtil  //merged with past
         WurstplusPlayerUtil.mc.player.motionX = -Math.sin(yaw) * speed;
         WurstplusPlayerUtil.mc.player.motionZ = Math.cos(yaw) * speed;
     }
-    
-    public void setBoatSpeed(final Double speed, final Entity boat) {
-        final Double yaw = this.getMoveYaw();
-        boat.motionX = -Math.sin(yaw) * speed;
-        boat.motionZ = Math.cos(yaw) * speed;
-    }
 
 
-    public static int getBlockInHotbar(Block block) {
-        for (int i = 0; i < 9; i++) {
-            Item item = Minecraft.getMinecraft().player.inventory.getStackInSlot(i).getItem();
-            if (item instanceof ItemBlock && ((ItemBlock) item).getBlock().equals(block)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public static int getAnyBlockInHotbar() {
-        for (int i = 0; i < 9; i++) {
-            Item item = Minecraft.getMinecraft().player.inventory.getStackInSlot(i).getItem();
-            if (item instanceof ItemBlock) {
-                return i;
-            }
-        }
-        return -1;
-    }
 
     public static boolean isIntercepted(BlockPos pos) {
         for (Entity entity : Minecraft.getMinecraft().world.loadedEntityList) {
@@ -145,17 +96,6 @@ public class WurstplusPlayerUtil  //merged with past
         }
         return false;
     }
-
-    public static int getItemInHotbar(Item designatedItem) {
-        for (int i = 0; i < 9; i++) {
-            Item item = Minecraft.getMinecraft().player.inventory.getStackInSlot(i).getItem();
-            if (item instanceof Item && item.equals(designatedItem)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     
     public void addSpeed(final Double speed) {
         final Double yaw = this.getMoveYaw();
@@ -188,7 +128,7 @@ public class WurstplusPlayerUtil  //merged with past
         North, 
         South, 
         East, 
-        West;
+        West
     }
 
     public static boolean IsEating()

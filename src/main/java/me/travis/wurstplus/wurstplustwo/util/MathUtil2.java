@@ -5,7 +5,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
-import java.awt.Point;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 

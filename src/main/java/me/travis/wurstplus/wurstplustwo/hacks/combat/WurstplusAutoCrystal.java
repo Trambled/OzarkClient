@@ -11,7 +11,6 @@ import me.travis.wurstplus.wurstplustwo.util.*;
 
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -145,7 +144,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
     private int break_timeout;
     private int break_delay_counter;
     private int place_delay_counter;
-//    private int packets;
+//  private int packets;
 
     @EventHandler
     private final Listener<WurstplusEventEntityRemoved> on_entity_removed = new Listener<>(event -> {
@@ -324,8 +323,10 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
                 if (target.isDead || target.getHealth() <= 0) continue;
 
+                BlockPos player_pos = new BlockPos(player.posX, player.posY, player.posZ);
+
                 boolean no_place = faceplace_check.get_value(true) && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD;
-                if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true)&& !no_place) || (get_armor_fucker(target) && !no_place) || (predict.get_value(true) && target.onGround && !is_entity_trapped(target)) || (Wurstplus.get_hack_manager().get_module_with_tag("Faceplacer").is_active())) {
+                if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true)&& !no_place) || (get_armor_fucker(target) && !no_place) || (predict.get_value(true) && target.onGround && !mc.world.getBlockState(player_pos.add(0, 2, 0)).getBlock().equals(Blocks.AIR)) || (Wurstplus.get_hack_manager().get_module_with_tag("Faceplacer").is_active())) {
                     minimum_damage = 2;
                 } else {
                     minimum_damage = this.min_player_break.get_value(1);
@@ -356,37 +357,6 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
         return best_crystal;
 
-    }
-	
-    //modified salhack
-	//there is a better way of doing this
-	//since its only one line
-	//but whatever
-	//the reason why this exists is so that we dont false flag a target not on ground and in a place where they cant jump out
-	//the false flag will only happen for a millisecond but whatever
-    public static boolean is_entity_trapped(EntityPlayer e)
-    {
-        BlockPos l_PlayerPos = EntityPosToFloorBlockPos(e);
-
-        final BlockPos[] l_trappped = {
-				l_PlayerPos.up().up(),
-        };
-
-        for (BlockPos l_Pos : l_trappped)
-        {
-            IBlockState l_State = mc.world.getBlockState(l_Pos);
-
-            if (l_State.getBlock() != Blocks.OBSIDIAN && mc.world.getBlockState(l_Pos).getBlock() != Blocks.BEDROCK)
-                return false;
-        }
-
-        return true;
-    }
-
-    //salhack
-    public static BlockPos EntityPosToFloorBlockPos(EntityPlayer e)
-    {
-        return new BlockPos(Math.floor(e.posX), Math.floor(e.posY), Math.floor(e.posZ));
     }
 
     public BlockPos get_best_block() {

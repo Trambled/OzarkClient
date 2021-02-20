@@ -66,46 +66,6 @@ public class InventoryUtils
         return slot;
     }
     
-    public static void moveItemToOffhand(final int slot) {
-        boolean startMoving = true;
-        boolean moving = false;
-        boolean returning = false;
-        int returnSlot = 0;
-        if (slot == -1) {
-            return;
-        }
-        if (!moving && startMoving) {
-            InventoryUtils.mc.playerController.windowClick(0, (slot < 9) ? (slot + 36) : slot, 0, ClickType.PICKUP, (EntityPlayer)InventoryUtils.mc.player);
-            moving = true;
-            startMoving = false;
-        }
-        if (moving) {
-            InventoryUtils.mc.playerController.windowClick(0, 45, 0, ClickType.PICKUP, (EntityPlayer)InventoryUtils.mc.player);
-            moving = false;
-            returning = true;
-        }
-        if (returning) {
-            for (int i = 0; i < 45; ++i) {
-                if (InventoryUtils.mc.player.inventory.getStackInSlot(i).isEmpty()) {
-                    returnSlot = i;
-                    break;
-                }
-            }
-            if (returnSlot != -1) {
-                InventoryUtils.mc.playerController.windowClick(0, (returnSlot < 9) ? (returnSlot + 36) : returnSlot, 0, ClickType.PICKUP, (EntityPlayer)InventoryUtils.mc.player);
-            }
-            returning = false;
-        }
-        startMoving = true;
-    }
-    
-    public static void moveItemToOffhand(final Item item) {
-        final int slot = getInventoryItemSlot(item);
-        if (slot != -1) {
-            moveItemToOffhand(slot);
-        }
-    }
-    
     public static void moveItem(final int slot, final int slotOut) {
         boolean startMoving = true;
         boolean moving = false;

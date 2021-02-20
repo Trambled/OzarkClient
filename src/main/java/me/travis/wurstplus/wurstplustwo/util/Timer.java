@@ -16,7 +16,7 @@ public final class Timer
 
     public void reset()
     {
-        this.time = System.currentTimeMillis(); //TODO: remove this and put the code into WurstplusTimer
+        this.time = System.currentTimeMillis();
     }
 
     public void resetTimeSkipTo(long p_MS)

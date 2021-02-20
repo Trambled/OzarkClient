@@ -26,6 +26,7 @@ public class FastFall extends WurstplusHack
     }
 	
 	WurstplusSetting height = create("Height", "Height", 3.25, 0, 10);
+	WurstplusSetting strength = create("Strength", "Strength", 1.14, 0, 10);
 	
 	private boolean inLiquid;
 	private boolean onLiquid;
@@ -35,7 +36,7 @@ public class FastFall extends WurstplusHack
         if (mc.player.onGround && !inLiquid && !onLiquid) {
 			for (double y = 0.0; y < this.height.get_value(1) + 0.5; y += 0.01) {
 				if (!mc.world.getCollisionBoxes(mc.player, mc.player.getEntityBoundingBox().offset(0.0, -y, 0.0)).isEmpty()) {
-					--mc.player.motionY;
+					mc.player.motionY = strength.get_value(1) * -1;
 					break;
 				}
 			}

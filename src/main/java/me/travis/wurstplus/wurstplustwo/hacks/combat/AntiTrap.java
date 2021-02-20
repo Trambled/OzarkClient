@@ -4,6 +4,7 @@ import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 
+import me.travis.wurstplus.wurstplustwo.util.WurstplusPlayerUtil;
 import net.minecraft.init.Items;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -72,7 +73,7 @@ public class AntiTrap extends WurstplusHack
     //salhack
     public static boolean is_entity_trapped(EntityPlayer e)
     {
-        BlockPos l_PlayerPos = EntityPosToFloorBlockPos(e);
+        BlockPos l_PlayerPos = WurstplusPlayerUtil.GetLocalPlayerPosFloored();
 
         final BlockPos[] l_TrapPositions = {
                 l_PlayerPos.down(),
@@ -98,11 +99,6 @@ public class AntiTrap extends WurstplusHack
         return true;
     }
 
-    //salhack
-    public static BlockPos EntityPosToFloorBlockPos(EntityPlayer e)
-    {
-        return new BlockPos(Math.floor(e.posX), Math.floor(e.posY), Math.floor(e.posZ));
-    }
 
     private int find_chorus_hotbar() {
         for (int i = 0; i < 9; i++) {
