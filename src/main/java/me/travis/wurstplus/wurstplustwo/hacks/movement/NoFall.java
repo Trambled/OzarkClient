@@ -12,7 +12,7 @@ public class NoFall extends WurstplusHack {
 
 		this.name        = "NoFall";
 		this.tag         = "NoFall";
-		this.description = "fall go brrn't";
+		this.description = "prevents fall damage";
                 this.toggle_message = false;
     }
 

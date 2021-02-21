@@ -1,6 +1,5 @@
 package me.travis.wurstplus.wurstplustwo.hacks.render;
 
-import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventSetupFog;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import net.minecraft.init.MobEffects;

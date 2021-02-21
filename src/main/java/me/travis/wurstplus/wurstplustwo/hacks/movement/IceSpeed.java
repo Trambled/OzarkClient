@@ -14,7 +14,7 @@ public class IceSpeed extends WurstplusHack
         this.slipperiness = this.create("Slipperiness", "Slipperiness", 0.20000000298023224, 0.0, 10.0);
         this.name = "IceSpeed";
         this.tag = "IceSpeed";
-        this.description = "IceSpeed";
+        this.description = "speed on ice!";
     }
     
     @Override

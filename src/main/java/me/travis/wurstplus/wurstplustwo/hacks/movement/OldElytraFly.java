@@ -22,7 +22,7 @@ public class OldElytraFly extends WurstplusHack {
 
         this.name        = "Old ElytraFly";
         this.tag         = "OldElytraFly";
-        this.description = "we be zoomin";
+        this.description = "Kami Elytra Flight";
     }
     
     @Override

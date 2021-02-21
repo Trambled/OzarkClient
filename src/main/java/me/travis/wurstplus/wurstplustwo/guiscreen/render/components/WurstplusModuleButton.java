@@ -6,7 +6,6 @@ import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.widgets.*;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.init.SoundEvents;
 
@@ -16,13 +15,14 @@ import java.util.ArrayList;
 
 
 public class WurstplusModuleButton {
-	private WurstplusHack module;
-	private WurstplusFrame  master;
+	private final WurstplusHack module;
+	private final WurstplusFrame  master;
 	private static final Minecraft mc;
 
-	private ArrayList<WurstplusAbstractWidget> widget;
+	private final ArrayList<WurstplusAbstractWidget> widget;
 
-	private String module_name;
+	private final String module_name;
+	public static String module_description;
 
 	private boolean opened;
 
@@ -36,14 +36,15 @@ public class WurstplusModuleButton {
 
 	private int save_y;
 
-	private WurstplusDraw font = new WurstplusDraw(1);
+	private final WurstplusDraw font = new WurstplusDraw(1);
 
-	private int border_a    = 200;
-	private int border_size = 1;
+	private final int border_a    = 200;
+	private final int border_size = 1;
 
-	private int master_height_cache;
+	private final int master_height_cache;
 
 	public int settings_height;
+	public static boolean is_hovering;
 
 	private int count;
 
@@ -59,11 +60,13 @@ public class WurstplusModuleButton {
 		this.widget = new ArrayList();
 
 		this.module_name = module.get_name();
+		this.module_description = module.get_description();
 
 		this.x = 0;
 		this.y = 0;
 
 		this.width  = font.get_string_width(module.get_name()) + 5;
+
 		this.height = font.get_string_height();
 
 		this.opened_height = this.height;
@@ -202,11 +205,7 @@ public class WurstplusModuleButton {
 	}
 
 	public boolean motion(int mx, int my) {
-		if (mx >= get_x() && my >= get_save_y() && mx <= get_x() + get_width() && my <= get_save_y() + get_height()) {
-			return true;
-		}
-
-		return false;
+		return mx >= get_x() && my >= get_save_y() && mx <= get_x() + get_width() && my <= get_save_y() + get_height();
 	}
 
 	public void does_widgets_can(boolean can) {
@@ -226,13 +225,15 @@ public class WurstplusModuleButton {
 			widgets.mouse(mx, my, mouse);
 		}
 
+		is_hovering = motion(mx, my);
+
 		if (mouse == 0) {
 			if (motion(mx, my)) {
 				this.master.does_can(false);
 
 				set_pressed(!get_state());
 				
-				mc.getSoundHandler().playSound((ISound)PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0f));
+				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0f));
 			}
 		}
 
@@ -244,7 +245,7 @@ public class WurstplusModuleButton {
 
 				this.master.refresh_frame(this, 0);
 				
-				mc.getSoundHandler().playSound((ISound)PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0f));
+				mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0f));
 			}
 		}
 	}
@@ -279,15 +280,15 @@ public class WurstplusModuleButton {
 		if (this.module.is_active()) {
 			WurstplusDraw.draw_rect(this.x, this.save_y, this.x + this.width - separe, this.save_y + this.height, bg_r, bg_g, bg_b, bg_a);
 
-			font.draw_string(this.module_name, this.x + separe, this.save_y, nm_r, nm_g, nm_b, nm_a);
+			WurstplusDraw.draw_string(this.module_name, this.x + separe, this.save_y, nm_r, nm_g, nm_b, nm_a);
 		} else {
-			font.draw_string(this.module_name, this.x + separe, this.save_y, nm_r, nm_g, nm_b, nm_a);
+			WurstplusDraw.draw_string(this.module_name, this.x + separe, this.save_y, nm_r, nm_g, nm_b, nm_a);
 		}
 
 		for (WurstplusAbstractWidget widgets : this.widget) {
 			widgets.set_x(get_x());
 
-			boolean is_passing_in_widget = this.opened ? widgets.motion_pass(mx, my) : false;
+			boolean is_passing_in_widget = this.opened && widgets.motion_pass(mx, my);
 
 			if (motion(mx, my) || is_passing_in_widget) {
 				WurstplusDraw.draw_rect(this.master.get_x() - 1, this.save_y, this.master.get_width() + 1, this.opened_height, bd_r, bd_g, bd_b, border_a, this.border_size, "right-left");
@@ -302,6 +303,7 @@ public class WurstplusModuleButton {
 			}
 		}
 	}
+
     static {
         mc = Minecraft.getMinecraft();
     }

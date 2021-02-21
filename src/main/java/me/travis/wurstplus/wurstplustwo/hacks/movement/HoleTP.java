@@ -20,7 +20,7 @@ public class HoleTP extends WurstplusHack //made by gamesense
         super(WurstplusCategory.WURSTPLUS_MOVEMENT);
         this.name = "HoleTP";
         this.tag = "HoleTP";
-        this.description = "i want to get into ur hole";
+        this.description = "Gets into holes fast";
     }
     
     private int packets;

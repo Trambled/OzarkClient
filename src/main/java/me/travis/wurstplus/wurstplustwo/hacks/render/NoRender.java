@@ -7,6 +7,7 @@ import me.travis.wurstplus.wurstplustwo.event.events.*;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 
+import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.Entity;
@@ -39,7 +40,7 @@ public class NoRender extends WurstplusHack {
 
 		this.name        = "NoRender";
 		this.tag         = "NoRender";
-		this.description = "doesnt render certain shit";
+		this.description = "Doesnt render certain shit";
 	}
 	
 	@Override
@@ -97,14 +98,14 @@ public class NoRender extends WurstplusHack {
             p_Event.cancel();
     });
     @EventHandler
-    private Listener<EventRenderHurtCameraEffect> renderhurtcam= new Listener<>(p_Event ->
+    private Listener<EventRenderHurtCameraEffect> on_render_hurt_cam= new Listener<>(p_Event ->
     {
         if (hurt_cam.get_value(true))
             p_Event.cancel();
     });
 
     @EventHandler
-    private Listener<EventRenderUpdateLightMap>  white_power = new Listener<>(p_Event ->
+    private Listener<EventRenderUpdateLightMap>  on_update_light_map = new Listener<>(p_Event ->
     {
         if (skylight.get_value(true)) {
             p_Event.cancel();

@@ -1,22 +1,21 @@
 package me.travis.wurstplus.wurstplustwo.hacks.combat;
 
+import me.travis.wurstplus.wurstplustwo.util.WurstplusBlockInteractHelper;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusCrystalUtil;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusMessageUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPressurePlate;
 import net.minecraft.entity.Entity;
-import me.travis.wurstplus.wurstplustwo.util.BlockUtils;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
-import me.travis.wurstplus.wurstplustwo.util.InventoryUtils;
-import net.minecraft.item.Item;
 import net.minecraft.init.Blocks;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import java.util.ArrayList;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.CPacketHeldItemChange;
 
 //xenon
 public class AntiCrystal extends WurstplusHack
@@ -28,7 +27,7 @@ public class AntiCrystal extends WurstplusHack
 
         this.name        = "Anti Crystal";
         this.tag         = "AntiCrystal";
-        this.description = "based";
+        this.description = "Places a pressure plate below crystals to remove crystal damage";
         this.index = 0;
     }
 	
@@ -58,13 +57,13 @@ public class AntiCrystal extends WurstplusHack
         for (final EntityEnderCrystal cry : this.getExclusions()) {
             if (this.index % this.delay.get_value(1) == 0) {
                 if (switch_mode.in("Normal")) {
-                    InventoryUtils.switchToSlot(find_in_hotbar());
+                    mc.player.inventory.currentItem = find_in_hotbar();
+                } else if (switch_mode.in("Ghost")) {
+                    mc.player.connection.sendPacket((Packet)new CPacketHeldItemChange(find_in_hotbar()));
                 }
-                else if (switch_mode.in("Ghost")) {
-                    InventoryUtils.switchToSlotGhost(find_in_hotbar());
-                }
-                if (mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() == Item.getItemFromBlock(Blocks.WOODEN_PRESSURE_PLATE)) {
-                    BlockUtils.placeBlock(cry.getPosition(), this.rotate.get_value(true));
+
+                if (mc.player.inventory.currentItem == find_in_hotbar()) {
+                    WurstplusBlockInteractHelper.placeBlock(cry.getPosition(), this.rotate.get_value(true));
                     return;
                 }
             }

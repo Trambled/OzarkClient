@@ -21,7 +21,7 @@ public final class Timer
 
     public void resetTimeSkipTo(long p_MS)
     {
-        this.time = System.currentTimeMillis() + p_MS; //second timer bc its much easier to just put it in
+        this.time = System.currentTimeMillis() + p_MS;
     }
     
     public long getTime()

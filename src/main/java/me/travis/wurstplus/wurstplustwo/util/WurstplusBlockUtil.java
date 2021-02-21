@@ -6,21 +6,18 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
+import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketEntityAction.Action;
 import net.minecraft.network.play.client.CPacketPlayer.Rotation;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-
 
 public class WurstplusBlockUtil {
     private static final Minecraft mc = Minecraft.getMinecraft();
@@ -68,6 +65,24 @@ public class WurstplusBlockUtil {
             }
         }
     }
+
+    public static void openBlockOffhand(BlockPos pos)
+    {
+        EnumFacing[] facings = EnumFacing.values();
+
+        for (EnumFacing f : facings)
+        {
+            Block neighborBlock = mc.world.getBlockState(pos.offset(f)).getBlock();
+
+            if (emptyBlocks.contains(neighborBlock))
+            {
+                mc.playerController.processRightClickBlock(mc.player, mc.world, pos, f.getOpposite(), new Vec3d(pos), EnumHand.OFF_HAND);
+
+                return;
+            }
+        }
+    }
+
 
     public static void swingArm(WurstplusSetting setting) {
         if (setting.in("Mainhand") || setting.in("Both")) {

@@ -5,6 +5,7 @@ import club.minnced.discord.rpc.DiscordRichPresence;
 import club.minnced.discord.rpc.DiscordRPC;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
+import net.minecraft.client.multiplayer.GuiConnecting;
 
 public class RPC
 {
@@ -19,7 +20,6 @@ public class RPC
     private static String state;
     
     public static void init() {
-        //TODO: makes it so that it shows the server image on the small image
         final DiscordEventHandlers handlers = new DiscordEventHandlers();
         handlers.disconnected = ((var1, var2) -> System.out.println("Discord RPC disconnected, var1: " + String.valueOf(var1) + ", var2: " + var2));
         RPC.rpc.Discord_Initialize("785682576110518293", handlers, true, "");
@@ -28,7 +28,7 @@ public class RPC
         RPC.presence.largeImageKey = "ozark_2";
         RPC.presence.largeImageText = "OzarkClient " + Wurstplus.WURSTPLUS_VERSION;
         RPC.presence.smallImageKey = "troll";
-        RPC.presence.smallImageText = "ez";
+        RPC.presence.smallImageText = "ozark client on top!";
         RPC.rpc.Discord_UpdatePresence(RPC.presence);
         new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
@@ -36,22 +36,36 @@ public class RPC
                     RPC.rpc.Discord_RunCallbacks();
                     RPC.details = "";
                     RPC.state = "";
+
+                    if (Wurstplus.get_setting_manager().get_setting_with_tag("DiscordRPC", "RPCMode").in("Normal")) {
+                        RPC.presence.largeImageKey = "ozark_2";
+                    } else {
+                        RPC.presence.largeImageKey = "lempity";
+                    }
 					
 					if (mc.world == null) {
 						RPC.details = "In the menus";
                         RPC.presence.smallImageKey = "troll";
+
+                        //idk i just wanted it to do everything lol
 						if (mc.currentScreen instanceof GuiWorldSelection) {
 							RPC.state = "Selecting a world to play on";
 						} else if (mc.currentScreen instanceof GuiMainMenu) {
                             RPC.state = "In the Main Menu";
                         } else if (mc.currentScreen instanceof GuiOptions) {
                             RPC.state = "Configuring options";
-						} else if (mc.currentScreen instanceof GuiMultiplayer){
+						} else if (mc.currentScreen instanceof GuiMultiplayer || mc.currentScreen instanceof GuiScreenAddServer || mc.currentScreen instanceof GuiScreenServerList) {
 							RPC.state = "Selecting a server to play on";
 						} else if (mc.currentScreen instanceof GuiScreenResourcePacks) {
-						    RPC.state = "Selecting a resource pack";
+                            RPC.state = "Selecting a resource pack";
+                        } else if (mc.currentScreen instanceof GuiDisconnected) {
+                            RPC.state = "Disconnected from server :c";
+                        } else if (mc.currentScreen instanceof GuiConnecting) {
+                            RPC.state = "Connecting to a server";
+                        } else if (mc.currentScreen instanceof GuiCreateFlatWorld || mc.currentScreen instanceof GuiCreateWorld) {
+                            RPC.state = "Creating world";
                         } else {
-						    RPC.state = "Doing something";
+						    RPC.state = "Configuring options";
                         }
 					} else {
 						if (mc.player != null) {

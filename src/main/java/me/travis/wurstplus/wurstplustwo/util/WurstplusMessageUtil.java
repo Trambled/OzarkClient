@@ -58,11 +58,13 @@ public class WurstplusMessageUtil {
 	}
 
 	public static void send_client_message(String message) {
-		client_message(opener + message);
+		if (mc.player != null) {
+			client_message(opener + message);
+		}
 	}
 
 	public static void send_client_error_message(String message) {
-		client_message(opener + "Error: "  + message);
+		client_message(opener + r + "Error: "  + message);
 	}
 
 	public static class ChatMessage extends TextComponentBase {

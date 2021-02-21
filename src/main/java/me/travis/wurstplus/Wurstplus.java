@@ -11,7 +11,6 @@ import me.travis.wurstplus.wurstplustwo.manager.*;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
@@ -26,7 +25,6 @@ public class Wurstplus {
 	public static final String WURSTPLUS_NAME = "OzarkClient";
 	public static final String WURSTPLUS_VERSION = "1.10.4";
 	public static final String WURSTPLUS_SIGN = " ";
-	public static final String WURSTPLUS_SPACE   = " ";
 
 	public static final int WURSTPLUS_KEY_GUI = Keyboard.KEY_RSHIFT;
 	public static final int WURSTPLUS_KEY_DELETE = Keyboard.KEY_DELETE;

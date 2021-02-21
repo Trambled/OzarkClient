@@ -19,6 +19,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.*;
+import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.*;
 import net.minecraft.network.play.server.SPacketSoundEffect;
 import net.minecraft.util.EnumHand;
@@ -83,8 +84,8 @@ public class WurstplusAutoCrystal extends WurstplusHack {
     WurstplusSetting anti_stuck = create("Anti Stuck", "CaAntiStuck", false);
     WurstplusSetting endcrystal = create("1.13 Mode", "CaThirteen", false);
 
-    WurstplusSetting faceplace_mode = create("Tabbott Mode", "CaTabbottMode", true);
-    WurstplusSetting faceplace_mode_damage = create("T Health", "CaTabbottModeHealth", 8, 0, 36);
+    WurstplusSetting faceplace_mode = create("Faceplace Mode", "CaTabbottMode", true);
+    WurstplusSetting faceplace_mode_damage = create("Faceplace Health", "CaTabbottModeHealth", 8, 0, 36);
 
     WurstplusSetting fuck_armor_mode = create("Armor Destroy", "CaArmorDestory", true);
     WurstplusSetting fuck_armor_mode_precent = create("Armor %", "CaArmorPercent", 25, 0, 100);
@@ -109,8 +110,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
     WurstplusSetting height = create("Height", "CaHeight", 1.0, 0.0, 1.0);
 
     WurstplusSetting render_damage = create("Render Damage", "RenderDamage", true);
-
-    // WurstplusSetting attempt_chain = create("Chain Mode", "CaChainMode", false);
+//  WurstplusSetting attempt_chain = create("Chain Mode", "CaChainMode", false);
     WurstplusSetting chain_length = create("Chain Length", "CaChainLength", 3, 1, 6);
 
     private final ConcurrentHashMap<EntityEnderCrystal, Integer> attacked_crystals = new ConcurrentHashMap<>();
@@ -631,7 +631,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
                     mc.player.inventory.currentItem = find_crystals_hotbar();
                     return;
                 } else {
-                    InventoryUtils.switchToSlotGhost(Items.END_CRYSTAL);
+                    mc.player.connection.sendPacket((Packet)new CPacketHeldItemChange(find_crystals_hotbar()));
                 }
             }
         } else {

@@ -26,7 +26,7 @@ public class AntiTrap extends WurstplusHack
 
         this.name = "Anti Trap (WIP)";
         this.tag = "AntiTrap";
-        this.description = "here u go comdoge";
+        this.description = "Choruses out of a trap";
 
     }
 

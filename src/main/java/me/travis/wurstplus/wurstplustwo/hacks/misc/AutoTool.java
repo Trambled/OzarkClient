@@ -27,7 +27,7 @@ public class AutoTool extends WurstplusHack
         super(WurstplusCategory.WURSTPLUS_MISC);
         this.name = "Auto Tool";
         this.tag = "AutoTool";
-        this.description = "switches to shit";
+        this.description = "switches to the best tool for mining";
     }
 
     private boolean send;

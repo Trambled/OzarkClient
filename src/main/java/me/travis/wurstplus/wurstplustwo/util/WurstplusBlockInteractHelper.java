@@ -4,16 +4,15 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
+import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,6 +38,42 @@ public class WurstplusBlockInteractHelper {
         Neighbors,
         CantPlace,
         Placed,
+    }
+
+    public static void placeBlockScaffold(final BlockPos pos, final boolean rotate) {
+        for (final EnumFacing side : EnumFacing.values()) {
+            final BlockPos neighbor = pos.offset(side);
+            final EnumFacing side2 = side.getOpposite();
+            if (canBeClicked(neighbor)) {
+                final Vec3d hitVec = new Vec3d((Vec3i)neighbor).add(new Vec3d(0.5, 0.5, 0.5)).add(new Vec3d(side2.getDirectionVec()).scale(0.5));
+                if (rotate) {
+                    faceVectorPacketInstant(hitVec);
+                }
+                mc.player.connection.sendPacket((Packet)new CPacketEntityAction((Entity)mc.player, CPacketEntityAction.Action.START_SNEAKING));
+                mc.playerController.processRightClickBlock(mc.player, mc.world, pos, side, hitVec, EnumHand.MAIN_HAND);
+                mc.player.swingArm(EnumHand.MAIN_HAND);
+                mc.rightClickDelayTimer = 0;
+                mc.player.connection.sendPacket((Packet)new CPacketEntityAction((Entity)mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
+                return;
+            }
+        }
+    }
+
+    public static void placeBlock(final BlockPos pos, final boolean rotate) {
+        for (final EnumFacing side : EnumFacing.values()) {
+            final BlockPos neighbor = pos.offset(side);
+            final EnumFacing side2 = side.getOpposite();
+            if (canBeClicked(neighbor)) {
+                final Vec3d hitVec = new Vec3d((Vec3i)neighbor).add(new Vec3d(0.5, 0.5, 0.5)).add(new Vec3d(side2.getDirectionVec()).scale(0.5));
+                if (rotate) {
+                    faceVectorPacketInstant(hitVec);
+                }
+                mc.playerController.processRightClickBlock(mc.player, mc.world, pos, side, hitVec, EnumHand.MAIN_HAND);
+                mc.player.swingArm(EnumHand.MAIN_HAND);
+                mc.rightClickDelayTimer = 0;
+                return;
+            }
+        }
     }
 
     public static PlaceResult place(BlockPos pos, float p_Distance, boolean p_Rotate, boolean p_UseSlabRule)
@@ -183,6 +218,25 @@ public class WurstplusBlockInteractHelper {
             return false;
         }
         return true;
+    }
+
+    public static EnumFacing getPlaceableSide(BlockPos pos) {
+
+        for (EnumFacing side : EnumFacing.values()) {
+
+            BlockPos neighbour = pos.offset(side);
+
+            if (!mc.world.getBlockState(neighbour).getBlock().canCollideCheck(mc.world.getBlockState(neighbour), false)) {
+                continue;
+            }
+
+            IBlockState blockState = mc.world.getBlockState(neighbour);
+            if (!blockState.getMaterial().isReplaceable()) {
+                return side;
+            }
+        }
+
+        return null;
     }
     
     private static boolean hasNeighbour(final BlockPos blockPos) {

@@ -1,6 +1,5 @@
 package me.travis.wurstplus.wurstplustwo.hacks.misc;
 
-import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import net.minecraft.client.gui.GuiGameOver;
@@ -12,7 +11,7 @@ public class AutoRespawn extends WurstplusHack {
 
         this.name = "AutoRespawn";
         this.tag = "AutoRespawn";
-        this.description = "auto fart";
+        this.description = "Automatically respawns";
     }
 
     @Override

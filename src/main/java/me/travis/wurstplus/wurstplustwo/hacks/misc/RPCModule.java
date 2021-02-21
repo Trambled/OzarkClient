@@ -3,6 +3,7 @@ package me.travis.wurstplus.wurstplustwo.hacks.misc;
 import me.travis.wurstplus.RPC;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
+import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 
 public class RPCModule extends WurstplusHack
 {
@@ -12,6 +13,9 @@ public class RPCModule extends WurstplusHack
         this.tag = "DiscordRPC";
         this.description = "show people how cool you are";
     }
+
+    //lempity why
+    WurstplusSetting mode = create("Mode", "RPCMode", "Normal", combobox("Normal", "Lempity"));
     
     @Override
     protected void enable() {

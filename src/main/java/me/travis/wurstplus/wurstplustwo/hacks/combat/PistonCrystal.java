@@ -3,9 +3,9 @@ package me.travis.wurstplus.wurstplustwo.hacks.combat;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
+import me.travis.wurstplus.wurstplustwo.util.WurstplusBlockInteractHelper;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusFriendUtil;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusMessageUtil;
-import me.travis.wurstplus.wurstplustwo.util.BlockUtilsGS;
 import me.travis.wurstplus.wurstplustwo.event.events.EventNetworkPacketEvent;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
@@ -38,7 +38,7 @@ public class PistonCrystal extends WurstplusHack
 
         this.name = "Piston Crystal";
         this.tag = "PistonCrystal";
-        this.description = "techale is samrt";
+        this.description = "Automatically pushes crystals into holes";
     }
 
     private boolean noMaterials = false,
@@ -429,7 +429,7 @@ public class PistonCrystal extends WurstplusHack
                         brokenRedstoneTorch = false;
                     } else {
                         // Else, get the side
-                        EnumFacing side = BlockUtilsGS.getPlaceableSide(pos);
+                        EnumFacing side = WurstplusBlockInteractHelper.getPlaceableSide(pos);
                         if (side != null) {
                             breakRedstone();
                             /// Restart from the crystal
@@ -536,14 +536,14 @@ public class PistonCrystal extends WurstplusHack
             // Switch to the pick
             mc.player.inventory.currentItem = slot_mat[5];
         }
-        EnumFacing side = BlockUtilsGS.getPlaceableSide(pos);
+        EnumFacing side = WurstplusBlockInteractHelper.getPlaceableSide(pos);
         if (side != null) {
             // If rotate, look at the redstone torch
             if (rotate.get_value(true)) {
                 BlockPos neighbour = pos.offset(side);
                 EnumFacing opposite = side.getOpposite();
                 Vec3d hitVec = new Vec3d(neighbour).add(0.5, 1, 0.5).add(new Vec3d(opposite.getDirectionVec()).scale(0.5));
-                BlockUtilsGS.faceVectorPacketInstant(hitVec);
+                WurstplusBlockInteractHelper.faceVectorPacketInstant(hitVec);
 
             }
             // Destroy it
@@ -619,7 +619,7 @@ public class PistonCrystal extends WurstplusHack
         // Get the block
         Block block = mc.world.getBlockState(pos).getBlock();
         // Get all sides
-        EnumFacing side = BlockUtilsGS.getPlaceableSide(pos);
+        EnumFacing side = WurstplusBlockInteractHelper.getPlaceableSide(pos);
 
         // If there is a solid block
         if (!(block instanceof BlockAir) && !(block instanceof BlockLiquid)){
@@ -636,7 +636,7 @@ public class PistonCrystal extends WurstplusHack
 
 
         // If that block can be clicked
-        if (!BlockUtilsGS.canBeClicked(neighbour)){
+        if (!WurstplusBlockInteractHelper.canBeClicked(neighbour)){
             return false;
         }
 
@@ -686,7 +686,7 @@ public class PistonCrystal extends WurstplusHack
         }
 
         // Why?
-        if (!isSneaking && BlockUtilsGS.blackList.contains(neighbourBlock) || BlockUtilsGS.shulkerList.contains(neighbourBlock)){
+        if (!isSneaking && WurstplusBlockInteractHelper.blackList.contains(neighbourBlock) || WurstplusBlockInteractHelper.shulkerList.contains(neighbourBlock)){
             mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
             isSneaking = true;
         }
@@ -700,7 +700,7 @@ public class PistonCrystal extends WurstplusHack
                 positionHit = new Vec3d(mc.player.posX + offsetX, mc.player.posY + (offsetY == -1 ? offsetY : 0), mc.player.posZ + offsetZ);
             }
             // Look
-            BlockUtilsGS.faceVectorPacketInstant(positionHit);
+            WurstplusBlockInteractHelper.faceVectorPacketInstant(positionHit);
         }
         // If we are placing with the main hand
         EnumHand handSwing = EnumHand.MAIN_HAND;

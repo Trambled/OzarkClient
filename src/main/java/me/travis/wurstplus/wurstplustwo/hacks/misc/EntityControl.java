@@ -13,7 +13,7 @@ public class EntityControl extends WurstplusHack
         super(WurstplusCategory.WURSTPLUS_MISC);
         this.name = "EntityControl";
         this.tag = "EntityControl";
-        this.description = "cum";
+        this.description = "Controls entites without saddles";
     }
 
     @EventHandler

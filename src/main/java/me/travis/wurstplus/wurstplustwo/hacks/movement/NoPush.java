@@ -17,7 +17,7 @@ public class NoPush extends WurstplusHack {
 
 		this.name        = "NoPush";
 		this.tag         = "NoPush";
-		this.description = "prevents you getting raped by being stuck in a block";
+		this.description = "prevents you getting raped by being forced to get out of a block";
         this.toggle_message = false;
     }
 	

@@ -13,7 +13,7 @@ public class Faceplacer extends WurstplusHack
 
         this.name = "Faceplacer";
         this.tag = "Faceplacer";
-        this.description = "face places to be annoying";
+        this.description = "Faceplaces an opponent";
     }
 
     @Override

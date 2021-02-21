@@ -12,7 +12,7 @@ public class LowHands extends WurstplusHack {
 
         this.name = "LowHands";
         this.tag = "LowHands";
-        this.description = "someone cut off me hand ";
+        this.description = "someone cut off me hand";
     }
 	
 	WurstplusSetting offset = create("Offset", "SmallHandOffset", 90, 0, 360);

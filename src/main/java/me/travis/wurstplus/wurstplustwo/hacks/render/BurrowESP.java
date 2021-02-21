@@ -26,7 +26,7 @@ public class BurrowESP extends WurstplusHack {
         this.description = "see if people are burrowed";
     }
 
-    WurstplusSetting draw_own = create("Draw Own", "FuckedDrawOwn", false);
+    WurstplusSetting draw_own = create("Draw Own", "BurrowDrawOwn", false);
     WurstplusSetting draw_friends = create("Draw Friends", "BurrowDrawFriends", false);
 
     WurstplusSetting render_mode = create("Render Mode", "BurrowRenderMode", "Pretty", combobox("Pretty", "Solid", "Outline"));

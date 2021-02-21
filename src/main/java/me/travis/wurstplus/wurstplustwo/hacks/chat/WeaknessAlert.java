@@ -13,7 +13,7 @@ public class WeaknessAlert extends WurstplusHack {
 
         this.name = "Weakness Alert";
         this.tag = "WeaknessAlert";
-        this.description = "gives you weakness alerts";
+        this.description = "weakness alert more like fag alert";
     }
 
     private boolean hasAnnounced = false;

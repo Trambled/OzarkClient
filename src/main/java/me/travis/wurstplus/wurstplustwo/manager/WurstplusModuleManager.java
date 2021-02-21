@@ -45,7 +45,6 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusAntiRacist());
 		add_hack(new WurstplusAnnouncer());
 		add_hack(new AutoExcuse());
-		add_hack(new DesktopNotifs());
 		add_hack(new WeaknessAlert());
 		add_hack(new RetardChat());
 
@@ -155,6 +154,7 @@ public class WurstplusModuleManager {
 		add_hack(new AutoTool());
 		add_hack(new Fucker());
 		add_hack(new AutoBuilder());
+		add_hack(new AutoRespawn());
 		
 		array_hacks.sort(Comparator.comparing(WurstplusHack::get_name));
 	}

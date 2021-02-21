@@ -1,6 +1,5 @@
 package me.travis.wurstplus.wurstplustwo.util;
 
-import me.travis.wurstplus.Wurstplus;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;

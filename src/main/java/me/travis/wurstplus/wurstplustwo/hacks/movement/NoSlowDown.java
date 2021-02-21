@@ -28,7 +28,7 @@ public class NoSlowDown extends WurstplusHack {
 
 		this.name        = "NoSlowDown";
 		this.tag         = "NoSlowDown";
-		this.description = "doesnt slow you down in certain shit";
+		this.description = "Doesnt slow you down in certain shit";
     }
 	
 	WurstplusSetting webs = create("Webs", "Webs", true);

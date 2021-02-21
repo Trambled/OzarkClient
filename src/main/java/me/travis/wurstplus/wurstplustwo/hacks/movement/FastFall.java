@@ -22,11 +22,11 @@ public class FastFall extends WurstplusHack
         super(WurstplusCategory.WURSTPLUS_MOVEMENT);
         this.name = "FastFall";
         this.tag = "FastFall";
-        this.description = "I broke my legs";
+        this.description = "Increases fall speed";
     }
 	
 	WurstplusSetting height = create("Height", "Height", 3.25, 0, 10);
-	WurstplusSetting strength = create("Strength", "Strength", 1.14, 0, 10);
+	WurstplusSetting strength = create("Strength", "Strength", 1, 0, 10);
 	
 	private boolean inLiquid;
 	private boolean onLiquid;

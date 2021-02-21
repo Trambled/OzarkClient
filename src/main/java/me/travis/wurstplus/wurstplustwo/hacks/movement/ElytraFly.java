@@ -1,43 +1,19 @@
 package me.travis.wurstplus.wurstplustwo.hacks.movement;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.GuiDownloadTerrain;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.MoverType;
-import net.minecraft.entity.player.EntityPlayer;
+import me.travis.wurstplus.wurstplustwo.util.WurstplusMathUtil;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemElytra;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.play.client.CPacketConfirmTeleport;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketEntityAction.Action;
-import net.minecraft.network.play.client.CPacketPlayer;
-import net.minecraft.network.play.server.SPacketPlayerPosLook;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.mojang.realmsclient.gui.ChatFormatting;
 
 import me.travis.wurstplus.Wurstplus;
-import me.travis.wurstplus.wurstplustwo.event.events.EventNetworkPacketEvent;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventPlayerTravel;
-import me.travis.wurstplus.wurstplustwo.event.events.EventPlayerUpdate;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
-import me.travis.wurstplus.wurstplustwo.util.MathUtil2;
 import me.travis.wurstplus.wurstplustwo.util.Timer;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
@@ -70,7 +46,7 @@ public final class ElytraFly extends WurstplusHack
 
         this.name = "NewElytraFly";
         this.tag = "NewElytraFly";
-        this.description = "based";
+        this.description = "makes you fly with elytra";
     }
     
     private int ElytraSlot = -1;
@@ -231,7 +207,7 @@ public final class ElytraFly extends WurstplusHack
             }
             else
             {
-                double[] dir = MathUtil2.directionSpeedNoForward(speed.get_value(1));
+                double[] dir = WurstplusMathUtil.directionSpeedNoForward(speed.get_value(1));
                 
                 mc.player.motionX = dir[0];
                 mc.player.motionY = -(GlideSpeed.get_value(1) / 10000f);
@@ -246,7 +222,7 @@ public final class ElytraFly extends WurstplusHack
 
         p_Travel.cancel();
        
-        double[] dir = MathUtil2.directionSpeed(speed.get_value(1));
+        double[] dir = WurstplusMathUtil.directionSpeed(speed.get_value(1));
 
         if (mc.player.movementInput.moveStrafe != 0 || mc.player.movementInput.moveForward != 0)
         {
@@ -274,7 +250,7 @@ public final class ElytraFly extends WurstplusHack
 
         float l_Speed = this.speed.get_value(1);
 
-        final double[] dir = MathUtil2.directionSpeed(l_Speed);
+        final double[] dir = WurstplusMathUtil.directionSpeed(l_Speed);
 
         mc.player.motionY = -(GlideSpeed.get_value(1) / 10000f);
 
@@ -300,7 +276,7 @@ public final class ElytraFly extends WurstplusHack
 
     private void HandleControlMode(WurstplusEventPlayerTravel p_Event)
     {
-        final double[] dir = MathUtil2.directionSpeed(speed.get_value(1));
+        final double[] dir = WurstplusMathUtil.directionSpeed(speed.get_value(1));
         
         if (mc.player.movementInput.moveStrafe != 0 || mc.player.movementInput.moveForward != 0)
         {
@@ -316,7 +292,7 @@ public final class ElytraFly extends WurstplusHack
             mc.player.motionZ = 0;
         }
         
-        mc.player.motionY = (-MathUtil2.degToRad(mc.player.rotationPitch)) * mc.player.movementInput.moveForward;
+        mc.player.motionY = (-WurstplusMathUtil.degToRad(mc.player.rotationPitch)) * mc.player.movementInput.moveForward;
         
 
         mc.player.prevLimbSwingAmount = 0;

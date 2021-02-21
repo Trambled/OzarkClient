@@ -108,7 +108,7 @@ public class WurstplusBedAura extends WurstplusHack {
     public void place_bed() {
 
         if (find_bed() == -1) {
-            WurstplusMessageUtil.send_client_error_message("CANNOT FIND BEDS");
+            WurstplusMessageUtil.send_client_error_message("Cannot find beds in hotbar!");
             this.set_disable();
             return;
         }

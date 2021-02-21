@@ -29,7 +29,7 @@ public class AutoAnvil extends WurstplusHack
 
         this.name        = "Auto Anvil";
         this.tag         = "AutoAnvil";
-        this.description = "based";
+        this.description = "automatically anvils an opponent";
     }
 	
 	WurstplusSetting break_mode = create("Break Mode", "Break Mode", "Feet", combobox("Pick", "Feet", "None"));
@@ -322,7 +322,7 @@ public class AutoAnvil extends WurstplusHack
         // Get the block
         Block block = mc.world.getBlockState(pos).getBlock();
         // Get all sides
-        EnumFacing side = BlockUtilsGS.getPlaceableSide(pos);
+        EnumFacing side = WurstplusBlockInteractHelper.getPlaceableSide(pos);
         // If it is a ghostblock
         if (step == to_place.size() - 1 && block instanceof BlockAnvil && side != null) {
             // UnGlitch it with a left click
@@ -344,7 +344,7 @@ public class AutoAnvil extends WurstplusHack
         EnumFacing opposite = side.getOpposite();
 
         // If that block can be clicked
-        if (!BlockUtilsGS.canBeClicked(neighbour)) {
+        if (!WurstplusBlockInteractHelper.canBeClicked(neighbour)) {
             return false;
         }
 
@@ -375,14 +375,14 @@ public class AutoAnvil extends WurstplusHack
         else return false;
 
         // Why?
-        if (!isSneaking && BlockUtilsGS.blackList.contains(neighbourBlock) || BlockUtilsGS.shulkerList.contains(neighbourBlock)) {
+        if (!isSneaking && WurstplusBlockInteractHelper.blackList.contains(neighbourBlock) || WurstplusBlockInteractHelper.shulkerList.contains(neighbourBlock)) {
             mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
             isSneaking = true;
         }
 
         // For the rotation
         if (rotate.get_value(true)) {
-            BlockUtilsGS.faceVectorPacketInstant(hitVec);
+            WurstplusBlockInteractHelper.faceVectorPacketInstant(hitVec);
         }
 
         // FastAnvil
@@ -415,7 +415,7 @@ public class AutoAnvil extends WurstplusHack
 
         // Breaking the anvil
         if (pick_d && step == to_place.size() - 1) {
-            EnumFacing prova = BlockUtilsGS.getPlaceableSide(new BlockPos(enemyCoords[0], enemyCoords[1], enemyCoords[2]));
+            EnumFacing prova = WurstplusBlockInteractHelper.getPlaceableSide(new BlockPos(enemyCoords[0], enemyCoords[1], enemyCoords[2]));
             if (prova != null) {
                 mc.player.inventory.currentItem = slot_mat[3];
                 mc.player.swingArm(EnumHand.MAIN_HAND);

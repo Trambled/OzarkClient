@@ -18,7 +18,7 @@ public class ManualQuiver extends WurstplusHack
 
         this.name = "ManualQuiver";
         this.tag = "ManualQuiver";
-        this.description = "idk"; //works like half of the time
+        this.description = "shoots arrows over you"; //works like half of the time
 
     }
 

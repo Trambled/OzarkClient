@@ -1,17 +1,11 @@
 package me.travis.wurstplus.wurstplustwo.hacks.render;
 
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.tileentity.*;
-import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
-import java.awt.Color;
-import java.util.*;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventRender;
-import me.travis.wurstplus.Wurstplus;
 import me.travis.turok.draw.RenderHelp;
 
 /**
@@ -38,8 +32,6 @@ public class StorageESP extends WurstplusHack {
 	WurstplusSetting outline_a = create("Outline A", "StorageESPOutlineA", 0, 0, 255);
 	WurstplusSetting solid_a = create("Solid A", "StorageESPSolidA", 150, 0, 255);
 
-	private int color_alpha;
-
 	public StorageESP() {
 		super(WurstplusCategory.WURSTPLUS_RENDER);
 
@@ -50,11 +42,6 @@ public class StorageESP extends WurstplusHack {
 
 	@Override
 	public void render(WurstplusEventRender event) {
-		int nl_r = Wurstplus.client_r;
-		int nl_g = Wurstplus.client_g;
-		int nl_b = Wurstplus.client_b;
-
-		color_alpha = solid_a.get_value(1);
 
 		for (TileEntity tiles : mc.world.loadedTileEntityList) {
 			if (tiles instanceof TileEntityShulkerBox) {

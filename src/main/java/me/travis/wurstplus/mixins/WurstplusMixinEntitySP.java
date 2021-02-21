@@ -4,7 +4,6 @@ import me.travis.wurstplus.wurstplustwo.event.WurstplusEventBus;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventMotionUpdate;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventMove;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventSwing;
-import me.travis.wurstplus.wurstplustwo.event.events.UpdateWalkingPlayerEvent;
 import me.travis.wurstplus.wurstplustwo.event.events.EventPlayerPushOutOfBlocks;
 import me.travis.wurstplus.wurstplustwo.event.events.EventPlayerSendChatMessage;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -44,21 +43,6 @@ public class WurstplusMixinEntitySP extends WurstplusMixinEntity {
         if (l_Event.isCancelled())
             p_Info.cancel();
 
-    }
-	
-	@Inject(method={"onUpdateWalkingPlayer"}, at={@At(value="HEAD")}, cancellable=true)
-    private void preMotion(CallbackInfo info) {
-        UpdateWalkingPlayerEvent event = new UpdateWalkingPlayerEvent(0);
-        MinecraftForge.EVENT_BUS.post((Event)event);
-        if (event.isCanceled()) {
-            info.cancel();
-        }
-    }
-
-    @Inject(method={"onUpdateWalkingPlayer"}, at={@At(value="RETURN")})
-    private void postMotion(CallbackInfo info) {
-        UpdateWalkingPlayerEvent event = new UpdateWalkingPlayerEvent(1);
-        MinecraftForge.EVENT_BUS.post((Event)event);
     }
 
     @Inject(method = "onUpdateWalkingPlayer", at = @At("RETURN"), cancellable = true)
