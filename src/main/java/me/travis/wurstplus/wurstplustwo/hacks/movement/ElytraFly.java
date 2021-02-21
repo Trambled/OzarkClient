@@ -55,7 +55,7 @@ public final class ElytraFly extends WurstplusHack
 	public void update() {
 		Wurstplus.get_hack_manager().get_module_with_tag("NoFall").set_active(false);
 		
-		if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() != Items.ELYTRA) {
+		if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() == Items.ELYTRA) {
 			has_elytra = true;
 		}
 		
