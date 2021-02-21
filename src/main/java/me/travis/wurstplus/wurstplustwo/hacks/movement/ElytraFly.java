@@ -61,8 +61,8 @@ public final class ElytraFly extends WurstplusHack
 		
 		if (use_timer.get_value(true) && !mc.player.isElytraFlying() && (mc.player.getHealth() > 0) && has_elytra) {
 			mc.timer.tickLength = 50.0f / ((timer_speed.get_value(1) == 0f) ? 0.1f : timer_speed.get_value(1));
-		} else if (use_timer.get_value(true) && mc.player.isElytraFlying()) {
-			mc.timer.tickLength = 50.0f;
+		} else {
+            mc.timer.tickLength = 50.0f;
 		}
 		
 	}
