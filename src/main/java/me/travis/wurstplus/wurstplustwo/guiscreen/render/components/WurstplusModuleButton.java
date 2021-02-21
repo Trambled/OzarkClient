@@ -22,7 +22,6 @@ public class WurstplusModuleButton {
 	private final ArrayList<WurstplusAbstractWidget> widget;
 
 	private final String module_name;
-	public static String module_description;
 
 	private boolean opened;
 
@@ -60,7 +59,6 @@ public class WurstplusModuleButton {
 		this.widget = new ArrayList();
 
 		this.module_name = module.get_name();
-		this.module_description = module.get_description();
 
 		this.x = 0;
 		this.y = 0;

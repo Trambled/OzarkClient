@@ -1,9 +1,7 @@
 package me.travis.wurstplus.wurstplustwo.guiscreen;
 
 import me.travis.wurstplus.Wurstplus;
-import me.travis.wurstplus.wurstplustwo.guiscreen.render.WurstplusDraw;
 import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.WurstplusFrame;
-import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.WurstplusModuleButton;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -170,15 +168,6 @@ public class WurstplusGUI extends GuiScreen {
 
 		for (WurstplusFrame frames : this.frame) {
 			frames.render(mx, my);
-		}
-
-		int nm_r = Wurstplus.click_gui.theme_widget_name_r;
-		int nm_g = Wurstplus.click_gui.theme_widget_name_g;
-		int nm_b = Wurstplus.click_gui.theme_widget_name_b;
-		int nm_a = Wurstplus.click_gui.theme_widget_name_a;
-
-		if (WurstplusModuleButton.is_hovering) {
-			WurstplusDraw.draw_string(WurstplusModuleButton.module_description, 2, 516, 255, 255, 255, 255);
 		}
 	}
 
