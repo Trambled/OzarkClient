@@ -17,7 +17,9 @@ literal sex
 4. do gradlew build, after that it should build
 
 5. Go into the file, look for build > libs > then you should see three .jar files, the one that has -all in end of it
-is the jar file you should use.
+is the jar file you should use
+
+6. Accept ozark owns you
 
 u also need a JDK (we recommend JDK 1.8), a free one is adopt open jdk https://adoptopenjdk.net/
 
@@ -56,3 +58,5 @@ elytrafly set the speed to 1.8 - 2.0, go higher if the server anticheat allows i
 give me cape designs ill also add u to the cape club
 
 # Ozark on top
+Blacklarp on bottom 
+
