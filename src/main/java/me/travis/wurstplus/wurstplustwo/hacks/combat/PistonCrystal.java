@@ -86,7 +86,7 @@ public class PistonCrystal extends WurstplusHack
 	WurstplusSetting breakType = create("Break Types", "BreakTypes", "Swing", combobox("Swing", "Packet"));
 	WurstplusSetting placeMode = create("Place Mode", "PlaceMode", "Torch", combobox("Block", "Torch", "Both"));
 	WurstplusSetting target = create("Target Mode", "Target Mode", "Nearest", combobox("Nearest", "Looking"));
-	WurstplusSetting range = create("Range", "Range", 4.91, 0, 6f);
+	WurstplusSetting range = create("Range", "Range", 4.91, 0, 6);
 	WurstplusSetting torchRange = create("Torch Range", "TorchRange", 5.5, 0, 6);
 	WurstplusSetting crystalDeltaBreak = create("Center Break", "CenterBreak", 0.11, 0, 0.5);
 	WurstplusSetting blocksPerTick = create("Blocks Per Tick", "BPS", 4, 0, 20);
