@@ -5,7 +5,6 @@ import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventRender;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
-import me.travis.wurstplus.wurstplustwo.util.WurstplusCrystalUtil;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusEntityUtil;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusFriendUtil;
 import net.minecraft.entity.player.EntityPlayer;
@@ -74,7 +73,8 @@ public class BurrowESP extends WurstplusHack {
 
     public boolean is_burrowed(EntityPlayer player) {
 
-        BlockPos pos = new BlockPos(player.posX, player.posY, player.posZ);
+        //we need to add the 0.2 to prevent it from false flagging shifting
+        BlockPos pos = new BlockPos(player.posX, player.posY + 0.2, player.posZ);
 
         if (mc.world.getBlockState(pos).getBlock().equals(Blocks.OBSIDIAN)) {
             return true;

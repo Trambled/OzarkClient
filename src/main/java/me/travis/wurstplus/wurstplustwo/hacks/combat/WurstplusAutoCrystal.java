@@ -91,6 +91,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
     WurstplusSetting fuck_armor_mode_precent = create("Armor %", "CaArmorPercent", 25, 0, 100);
 
     WurstplusSetting stop_while_mining = create("Stop While Mining", "CaStopWhileMining", false);
+    WurstplusSetting stop_while_eating = create("Stop While Eating", "CaStopWhileEatin", false);
     WurstplusSetting faceplace_check = create("No Sword FP", "CaJumpyFaceMode", false);
 
     WurstplusSetting swing = create("Swing", "CaSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
@@ -740,6 +741,12 @@ public class WurstplusAutoCrystal extends WurstplusHack {
         }
 
         if (stop_while_mining.get_value(true) && mc.gameSettings.keyBindAttack.isKeyDown() && mc.player.getHeldItemMainhand().getItem() instanceof ItemPickaxe) {
+            if (old_render.get_value(true)) {
+                render_block_init = null;
+            }
+            return true;
+        }
+        if (stop_while_eating.get_value(true) && WurstplusPlayerUtil.IsEating()) {
             if (old_render.get_value(true)) {
                 render_block_init = null;
             }

@@ -12,6 +12,11 @@ public class WurstplusTimer {
         return this.getTime(System.nanoTime() - this.time) >= ms;
     }
 
+    public void resetTimeSkipTo(final long ms)
+    {
+        this.time = System.nanoTime() + ms;
+    }
+
     public void reset() {
         this.time = System.nanoTime();
     }

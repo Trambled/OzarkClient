@@ -1,11 +1,12 @@
 package me.travis.wurstplus.wurstplustwo.hacks.misc;
 
+import me.travis.wurstplus.Wurstplus;
 import me.travis.wurstplus.wurstplustwo.event.events.EventNetworkPacketEvent;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventDamageBlock;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
-import me.travis.wurstplus.wurstplustwo.util.Timer;
+import me.travis.wurstplus.wurstplustwo.util.WurstplusTimer;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.block.Block;
@@ -34,7 +35,7 @@ public class AutoTool extends WurstplusHack
     public BlockPos position;
     public EnumFacing facing;
     private int _previousSlot = -1;
-    private Timer _timer = new Timer();
+    private WurstplusTimer _timer = new WurstplusTimer();
 
     WurstplusSetting silent = create("Silent", "Silent", false);
     WurstplusSetting go_back = create("Go Back", "GoBack", false);

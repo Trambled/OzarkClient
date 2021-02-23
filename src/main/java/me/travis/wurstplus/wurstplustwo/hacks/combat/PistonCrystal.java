@@ -83,31 +83,31 @@ public class PistonCrystal extends WurstplusHack
 
     private EntityPlayer aimTarget;
 	
-	WurstplusSetting breakType = create("Break Types", "BreakTypes", "Swing", combobox("Swing", "Packet"));
-	WurstplusSetting placeMode = create("Place Mode", "PlaceMode", "Torch", combobox("Block", "Torch", "Both"));
-	WurstplusSetting target = create("Target Mode", "Target Mode", "Nearest", combobox("Nearest", "Looking"));
-	WurstplusSetting range = create("Range", "Range", 4.91, 0, 6);
-	WurstplusSetting torchRange = create("Torch Range", "TorchRange", 5.5, 0, 6);
-	WurstplusSetting crystalDeltaBreak = create("Center Break", "CenterBreak", 0.11, 0, 0.5);
-	WurstplusSetting blocksPerTick = create("Blocks Per Tick", "BPS", 4, 0, 20);
-	WurstplusSetting supBlocksDelay = create("Surround Delay", "SurroundDelay", 4, 0, 20);
-	WurstplusSetting startDelay = create("Start Delay", "StartDelay", 4, 0, 20);
-	WurstplusSetting pistonDelay = create("Piston Delay", "PistonDelay", 2, 0, 20);
-	WurstplusSetting crystalDelay = create("Crystal Delay", "CrystalDelay", 2, 0, 20);
-	WurstplusSetting midHitDelay = create("Mid HitDelay", "MidHitDelay", 5, 0, 20);
-	WurstplusSetting hitDelay = create("Hit Delay", "HitDelay", 2, 0, 20);
-	WurstplusSetting stuckDetector = create("Stuck Check", "StuckDetector", 35, 0, 200);
-	WurstplusSetting maxYincr = create("Max Y", "MaxY", 3, 0, 5);
-	WurstplusSetting blockPlayer = create("Block Player", "BlockPlayer", true);
-	WurstplusSetting rotate = create("Rotate", "Rotate", false);
-	WurstplusSetting confirmBreak = create("Confirm Break", "Confirm Break", true);
-	WurstplusSetting confirmPlace=  create("ConfirmBreak", "ConfirmBreak", true);
-	WurstplusSetting allowCheapMode = create("Cheap Mode", "Cheap Mode", false);
-	WurstplusSetting betterPlacement = create("Better Place", "BetterPlace", true);
-	WurstplusSetting bypassObsidian = create("Bypasss", "Bypass", false);
-	WurstplusSetting antiWeakness = create("Anti Weakness", "AntiWeakness", false);
-	WurstplusSetting chatMsg = create("Chat Messages", "ChatMSG", true);
-	
+	WurstplusSetting breakType = create("Break Types", "PistonCrystalBreakTypes", "Swing", combobox("Swing", "Packet"));
+	WurstplusSetting placeMode = create("Place Mode", "PistonCrystalPlaceMode", "Torch", combobox("Block", "Torch", "Both"));
+	WurstplusSetting target = create("Target Mode", "PistonCrystalTargetMode", "Nearest", combobox("Nearest", "Looking"));
+	WurstplusSetting range = create("Range", "PistonCrystalRange", 4.91, 0, 6);
+	WurstplusSetting crystalDeltaBreak = create("Center Break", "PistonCrystalCenterBreak", 1, 0, 5);
+	WurstplusSetting blocksPerTick = create("Blocks Per Tick", "PistonCrystalBPS", 4, 0, 20);
+	WurstplusSetting supBlocksDelay = create("Surround Delay", "PistonCrystalSurroundDelay", 4, 0, 20);
+	WurstplusSetting startDelay = create("Start Delay", "PistonCrystalStartDelay", 4, 0, 20);
+	WurstplusSetting pistonDelay = create("Piston Delay", "PistonCrystalPistonDelay", 2, 0, 20);
+	WurstplusSetting crystalDelay = create("Crystal Delay", "PistonCrystalCrystalDelay", 2, 0, 20);
+	WurstplusSetting midHitDelay = create("Mid HitDelay", "PistonCrystalMidHitDelay", 5, 0, 20);
+	WurstplusSetting hitDelay = create("Hit Delay", "PistonCrystalHitDelay", 2, 0, 20);
+	WurstplusSetting stuckDetector = create("Stuck Check", "PistonCrystalStuckDetector", 35, 0, 200);
+	WurstplusSetting maxYincr = create("Max Y", "PistonCrystalMaxY", 3, 0, 5);
+	WurstplusSetting blockPlayer = create("Block Player", "PistonCrystalBlockPlayer", true);
+	WurstplusSetting rotate = create("Rotate", "PistonCrystalRotate", false);
+	WurstplusSetting confirmBreak = create("Confirm Break", "PistonCrystalConfirmBreak", true);
+	WurstplusSetting confirmPlace=  create("Confirm Place", "PistonCrystalConfirmPlace", true);
+    WurstplusSetting allowCheapMode = create("Cheap Mode", "PistonCrystalCheapMode", false);
+	WurstplusSetting betterPlacement = create("Better Place", "PistonCrystalBetterPlace", true);
+	WurstplusSetting bypassObsidian = create("Bypass", "PistonCrystalBypass", false);
+	WurstplusSetting antiWeakness = create("Anti Weakness", "PistonCrystalAntiWeakness", false);
+	WurstplusSetting chatMsg = create("Chat Messages", "PistonCrystalChatMSG", true);
+
+    private double CrystalDeltaBreak = crystalDeltaBreak.get_value(1) * 0.1;
 
     @Override
     protected void enable() {
@@ -211,34 +211,37 @@ public class PistonCrystal extends WurstplusHack
         // If output
         if (chatMsg.get_value(true)){
             String output = "";
+            String materialsNeeded = "";
             // No target found
             if (aimTarget == null) {
                 output = "No target found...";
             }else
-            // H distance not avaible
-            if (yUnder) {
-                output = String.format("Sorry but you cannot be 2+ blocks under the enemy or %d above...", maxYincr.get_value(1));
-            // No Materials
-            }else if (noMaterials){
-                output = "No Materials Detected   ";
-            // No Hole
-            }else if (!isHole) {
-                output = "The enemy is not in a hole  ";
-            // No Space
-            }else if(!enoughSpace) {
-                output = "Not enough space   ";
-            // Has Moved
-            }else if(hasMoved) {
-               output = "Out of range";
-            }else if(deadPl) {
-                output = "Enemy is dead, ezzzzzzz! ";
-            }else if(rotationPlayerMoved) {
-                output = "You cannot move from your hole if you have rotation on. ";
-            }
+                // H distance not avaible
+                if (yUnder) {
+                    output = String.format("Sorry but you cannot be 2+ blocks under the enemy or %d above...", maxYincr.get_value(1));
+                }else if (noMaterials){
+                    output = "No Materials Detected   ";
+                    materialsNeeded = getMissingMaterials();
+                }else if (!isHole) {
+                    output = "The enemy is not in a hole  ";
+                    // No Space
+                }else if(!enoughSpace) {
+                    output = "Not enough space   ";
+                    // Has Moved
+                }else if(hasMoved) {
+                    output = "Out of range";
+                }else if(deadPl) {
+                    output = "Enemy is dead, ezzzzzzz! ";
+                }else if(rotationPlayerMoved) {
+                    output = "You cannot move from your hole if you have rotation on. ";
+                }
+
+            if (!materialsNeeded.equals(""))
+                WurstplusMessageUtil.send_client_error_message("Materials missing:" + materialsNeeded);
+
             // Output in chat
             WurstplusMessageUtil.send_client_message(output + "PistonCrystal turned off");
 
-            // Re-Active ca
         }
 
         if (isSneaking){
@@ -253,6 +256,7 @@ public class PistonCrystal extends WurstplusHack
 
         noMaterials = false;
     }
+
 
     // Every updates
 	@Override
@@ -372,9 +376,9 @@ public class PistonCrystal extends WurstplusHack
                 // We have to check if that coordinate is the same as the enemy. Ww add "crystalDeltaBreak" so we can break the crystal before
                 // It go to the hole, for a better speed (we find the frame perfect for every servers)
                 if (    (int) t.posX == enemyCoordsInt[0] &&
-                    ( (int) (t.posZ - crystalDeltaBreak.get_value(1)) == enemyCoordsInt[2] || (int) ( t.posZ + crystalDeltaBreak.get_value(1)) == enemyCoordsInt[2])
+                    ( (int) (t.posZ - CrystalDeltaBreak) == enemyCoordsInt[2] || (int) ( t.posZ + CrystalDeltaBreak) == enemyCoordsInt[2])
                     ||  (int) t.posZ == enemyCoordsInt[2] &&
-                    ( (int) ( t.posX - crystalDeltaBreak.get_value(1)) == enemyCoordsInt[0] || (int) ( t.posX + crystalDeltaBreak.get_value(1)) == enemyCoordsInt[0]))
+                    ( (int) ( t.posX - CrystalDeltaBreak) == enemyCoordsInt[0] || (int) ( t.posX + CrystalDeltaBreak) == enemyCoordsInt[0]))
                     // If found, yoink
                     crystal = t;
             }
@@ -476,6 +480,34 @@ public class PistonCrystal extends WurstplusHack
                 }
             }
         }
+    }
+
+    private String getMissingMaterials() {
+        /*
+			// I use this as a remind to which index refers to what
+			0 => obsidian
+			1 => piston
+			2 => Crystals
+			3 => redstone
+			4 => sword
+			5 => pick
+		 */
+        StringBuilder output = new StringBuilder();
+
+        if (slot_mat[0] == -1)
+            output.append(" Obsidian");
+        if (slot_mat[1] == -1)
+            output.append(" Piston");
+        if (slot_mat[2] == -1)
+            output.append(" Crystals");
+        if (slot_mat[3] == -1)
+            output.append(" Redstone");
+        if (antiWeakness.get_value(true) && slot_mat[4] == -1)
+            output.append(" Sword");
+        if (redstoneBlockMode && slot_mat[5] == -1)
+            output.append(" Pick");
+
+        return output.toString();
     }
 
     // Get time for 3 crystals

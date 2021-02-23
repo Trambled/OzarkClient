@@ -1,6 +1,7 @@
 package me.travis.wurstplus.wurstplustwo.hacks.movement;
 
 import me.travis.wurstplus.wurstplustwo.util.WurstplusMathUtil;
+import me.travis.wurstplus.wurstplustwo.util.WurstplusTimer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -14,7 +15,6 @@ import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventPlayerTravel;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
-import me.travis.wurstplus.wurstplustwo.util.Timer;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 
@@ -32,12 +32,10 @@ public final class ElytraFly extends WurstplusHack
     WurstplusSetting EquipElytra = create("EquipElytra", "ElytraFlyEquip", true);
 	WurstplusSetting use_timer = create("Use Timer", "UseTimer", true);
 	WurstplusSetting timer_speed = create("Timer Speed", "TimerSpeed", 0.01, 0, 4);
-	
-    private Timer PacketTimer = new Timer();
-    private Timer AccelerationTimer = new Timer();
-    private Timer AccelerationResetTimer = new Timer();
-    private Timer InstantFlyTimer = new Timer();
-    private boolean SendMessage = false;
+
+    private WurstplusTimer AccelerationTimer = new WurstplusTimer();
+    private WurstplusTimer AccelerationResetTimer = new WurstplusTimer();
+    private WurstplusTimer InstantFlyTimer = new WurstplusTimer();
     private boolean has_elytra;
 
     public ElytraFly()
@@ -247,7 +245,6 @@ public final class ElytraFly extends WurstplusHack
         {
             AccelerationResetTimer.reset();
             AccelerationTimer.reset();
-            SendMessage = false;
         }
 
         float l_Speed = this.speed.get_value(1);

@@ -3,8 +3,8 @@ package me.travis.wurstplus.wurstplustwo.hacks.misc;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
-import me.travis.wurstplus.wurstplustwo.util.Timer;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusMessageUtil;
+import me.travis.wurstplus.wurstplustwo.util.WurstplusTimer;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.block.*;
@@ -48,7 +48,7 @@ public class AutoDupe2 extends WurstplusHack {
     private int itemsDropped;
 
     private GuiScreenHorseInventory l_Chest;
-    private final Timer timer = new Timer(); //How long to wait.
+    private final WurstplusTimer timer = new WurstplusTimer(); //How long to wait.
 
     private boolean noBypass = false;
 
@@ -93,8 +93,9 @@ public class AutoDupe2 extends WurstplusHack {
             return;
         }
 
-        if (!timer.passed(delay.get_value(1) * 100f))
+        if (!timer.passed(delay.get_value(1) * 100L)) {
             return;
+        }
 
         timer.reset();
 
