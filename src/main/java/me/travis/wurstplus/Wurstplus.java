@@ -23,7 +23,7 @@ public class Wurstplus {
 	private static Wurstplus MASTER;
 
 	public static final String WURSTPLUS_NAME = "OzarkClient";
-	public static final String WURSTPLUS_VERSION = "1.10.4";
+	public static final String WURSTPLUS_VERSION = "1.10.5";
 	public static final String WURSTPLUS_SIGN = " ";
 
 	public static final int WURSTPLUS_KEY_GUI = Keyboard.KEY_RSHIFT;
@@ -56,7 +56,7 @@ public class Wurstplus {
 
 		WurstplusEventHandler.INSTANCE = new WurstplusEventHandler();
 
-		send_minecraft_log("initialising managers");
+		send_minecraft_log("Initialising managers");
 
 		setting_manager = new WurstplusSettingManager();
 		config_manager = new WurstplusConfigManager();
@@ -66,62 +66,69 @@ public class Wurstplus {
 		WurstplusEventManager event_manager = new WurstplusEventManager();
 		WurstplusCommandManager command_manager = new WurstplusCommandManager(); // hack
 
-		send_minecraft_log("done");
+		send_minecraft_log("Done");
 
-		send_minecraft_log("initialising guis");
+		send_minecraft_log("Initialising guis");
 
 		Display.setTitle("OzarkClient");
 		click_gui = new WurstplusGUI();
 		click_hud = new WurstplusHUD();
 
-		send_minecraft_log("done");
+		send_minecraft_log("Done");
 
-		send_minecraft_log("initialising skidded framework");
+		send_minecraft_log("Initialising skidded framework");
 
 		turok = new Turok("Turok");
 
-		send_minecraft_log("done");
+		send_minecraft_log("Done");
 
-		send_minecraft_log("initialising commands and events");
+		send_minecraft_log("Initialising commands and events");
 
 		// Register event modules and manager.
 		WurstplusEventRegister.register_command_manager(command_manager);
 		WurstplusEventRegister.register_module_manager(event_manager);
 
-		send_minecraft_log("done");
+		send_minecraft_log("Done");
 
-		send_minecraft_log("loading settings");
+		send_minecraft_log("Loading settings");
 
 		config_manager.load_settings();
 
 		send_minecraft_log("done");
 		
-		//fix for hud and gui
+
 		if (module_manager.get_module_with_tag("GUI").is_active()) {
+			send_minecraft_log("Fixing GUI");
 			module_manager.get_module_with_tag("GUI").set_active(false);
+			send_minecraft_log("Fixed");
 		}
 
 		if (module_manager.get_module_with_tag("HUD").is_active()) {
+			send_minecraft_log("Fixing HUD");
 			module_manager.get_module_with_tag("HUD").set_active(false);
+			send_minecraft_log("Fixed");
 		}
 
 		if (!module_manager.get_module_with_tag("HUDEditor").is_active()) {
+			send_minecraft_log("Fixing HUDEditor");
 			module_manager.get_module_with_tag("HUDEditor").set_active(true);
+			send_minecraft_log("Fixed");
 		}
 
-//		if (module_manager.get_module_with_tag("DiscordRPC").is_active()) {
-//			DiscordRPC.init();
-//		}
+		if (module_manager.get_module_with_tag("HUD").is_active()) {
+			send_minecraft_log("Loading discord rpc");
+			RPC.init();
+			send_minecraft_log("Done");
+		}
+
 		
 		client_r = get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorR").get_value(1);
 		client_g = get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorG").get_value(1);
 		client_b = get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorB").get_value(1);
 		
-		send_minecraft_log("client started");
-		send_minecraft_log("we gaming");
-		send_minecraft_log("trambled is cool and pog - no one");
-		send_minecraft_log("TRAMBLED IS BASEDDD - trampled");
-        send_minecraft_log("i bet u are here to see eror");
+		send_minecraft_log("Client started");
+		send_minecraft_log("We gaming");
+		send_minecraft_log("Produced by trambled!");
 	}
 	
 	public void init_log(String name) {

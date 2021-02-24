@@ -24,7 +24,6 @@ public class RPC
         handlers.disconnected = ((var1, var2) -> System.out.println("Discord RPC disconnected, var1: " + String.valueOf(var1) + ", var2: " + var2));
         RPC.rpc.Discord_Initialize("785682576110518293", handlers, true, "");
         RPC.presence.startTimestamp = System.currentTimeMillis() / 1000L;
-        RPC.presence.details = mc.player.getHealth()+mc.player.getAbsorptionAmount() + " HP";
         RPC.presence.largeImageKey = "ozark_2";
         RPC.presence.largeImageText = "OzarkClient " + Wurstplus.WURSTPLUS_VERSION;
         RPC.presence.smallImageKey = "troll";
@@ -72,7 +71,7 @@ public class RPC
 							RPC.state = mc.player.getHealth()+mc.player.getAbsorptionAmount() + " HP";
 							if (mc.isIntegratedServerRunning()) {
 								RPC.details = "Playing Singleplayer";
-							} else {
+							} else if (!mc.isIntegratedServerRunning()) {
 								RPC.details = "Playing " + mc.getCurrentServerData().serverIP;
 
 								if (mc.getCurrentServerData().serverIP.equals("aurorapvp.club") || mc.getCurrentServerData().serverIP.equals("auroraanarchy.org")) {
