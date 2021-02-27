@@ -22,7 +22,7 @@ public class FastSwim extends WurstplusHack
         this.down = this.create("Down", "Down", true);
         this.water = this.create("Water", "Water", true);
         this.lava = this.create("lava", "lava", true);
-        this.name = "FastSwim";
+        this.name = "Fast Swim";
         this.tag = "FastSwim";
         this.description = "swimming go brrrrrrrrr";
     }

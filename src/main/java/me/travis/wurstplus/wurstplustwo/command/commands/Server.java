@@ -1,13 +1,10 @@
 package me.travis.wurstplus.wurstplustwo.command.commands;
 
 import me.travis.wurstplus.wurstplustwo.command.WurstplusCommand;
-import me.travis.wurstplus.wurstplustwo.command.WurstplusCommands;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusMessageUtil;
-import net.minecraft.client.Minecraft;
 
 public class Server extends WurstplusCommand {
 
-        private static final Minecraft mc;
 
         public String serverip;
 
@@ -24,8 +21,4 @@ public class Server extends WurstplusCommand {
 
                 return true;
 	}
-
-    static {
-        mc = Minecraft.getMinecraft();
-    }
 }

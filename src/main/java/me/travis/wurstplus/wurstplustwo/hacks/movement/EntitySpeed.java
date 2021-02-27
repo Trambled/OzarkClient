@@ -14,7 +14,7 @@ public class EntitySpeed extends WurstplusHack
     public EntitySpeed() {
         super(WurstplusCategory.WURSTPLUS_MOVEMENT);
 
-        this.name = "EntitySpeed";
+        this.name = "Entity Speed";
         this.tag = "EntitySpeed";
         this.description = "will probably kill your horse";
     }

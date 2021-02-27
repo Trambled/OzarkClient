@@ -12,7 +12,7 @@ public class IceSpeed extends WurstplusHack
     public IceSpeed() {
         super(WurstplusCategory.WURSTPLUS_MOVEMENT);
         this.slipperiness = this.create("Slipperiness", "Slipperiness", 0.20000000298023224, 0.0, 10.0);
-        this.name = "IceSpeed";
+        this.name = "Ice Speed";
         this.tag = "IceSpeed";
         this.description = "speed on ice!";
     }

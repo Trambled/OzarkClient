@@ -20,7 +20,7 @@ public class LongJump extends WurstplusHack {
     public LongJump() {
         super(WurstplusCategory.WURSTPLUS_MOVEMENT);
 
-		this.name        = "LongJump";
+		this.name        = "Long Jump";
 		this.tag         = "LongJump";
 		this.description = "Makes you jump far";
     }

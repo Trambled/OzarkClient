@@ -8,9 +8,7 @@ import me.travis.wurstplus.wurstplustwo.util.AutoKitUtil;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.network.play.server.SPacketRespawn;
-import net.minecraft.world.GameType;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class AutoKit extends WurstplusHack{
 

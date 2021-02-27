@@ -16,7 +16,7 @@ public class ManualQuiver extends WurstplusHack
 
         super(WurstplusCategory.WURSTPLUS_COMBAT);
 
-        this.name = "ManualQuiver";
+        this.name = "Manual Quiver";
         this.tag = "ManualQuiver";
         this.description = "shoots arrows over you"; //works like half of the time
 

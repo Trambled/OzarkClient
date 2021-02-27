@@ -155,6 +155,7 @@ public class WurstplusModuleManager {
 		add_hack(new Fucker());
 		add_hack(new AutoBuilder());
 		add_hack(new AutoRespawn());
+		add_hack(new InventorySort());
 		
 		array_hacks.sort(Comparator.comparing(WurstplusHack::get_name));
 	}

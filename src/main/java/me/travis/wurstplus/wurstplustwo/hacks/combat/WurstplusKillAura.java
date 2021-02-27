@@ -30,7 +30,7 @@ public class WurstplusKillAura extends WurstplusHack {
 
 		this.name        = "Aura";
 		this.tag         = "Aura";
-		this.description = "To able hit enemies in a range.";
+		this.description = "Automatically hits enemies within a certain range.";
 	}
 
 	WurstplusSetting mode = create("Mode", "KillAuraMode", "A32k", combobox("A32k", "Normal"));

@@ -68,7 +68,8 @@ public class RPC
                         }
 					} else {
 						if (mc.player != null) {
-							RPC.state = mc.player.getHealth()+mc.player.getAbsorptionAmount() + " HP";
+						    int health = Math.round(mc.player.getHealth()+mc.player.getAbsorptionAmount());
+							RPC.state = health + " HP";
 							if (mc.isIntegratedServerRunning()) {
 								RPC.details = "Playing Singleplayer";
 							} else if (!mc.isIntegratedServerRunning()) {

@@ -47,6 +47,7 @@ public class WurstplusAutoWither extends WurstplusHack {
 
         if (find_witherskull_hotbar() == -1) {
             WurstplusMessageUtil.send_client_message("No Wither Skulls!");
+            this.set_disable();
         }
 
         if (did_soul_sand()) {

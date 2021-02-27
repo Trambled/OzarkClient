@@ -42,6 +42,7 @@ public class WurstplusHoleFill extends WurstplusHack {
     @Override
 	public void enable() {
 		if (find_in_hotbar() == -1) {
+		    WurstplusMessageUtil.send_client_error_message("No obby!");
 		    this.set_disable();
         }
         find_new_holes();
@@ -56,6 +57,7 @@ public class WurstplusHoleFill extends WurstplusHack {
 	public void update() {
 
         if (find_in_hotbar() == -1) {
+            WurstplusMessageUtil.send_client_error_message("No obby!");
             this.disable();
             return;
         }

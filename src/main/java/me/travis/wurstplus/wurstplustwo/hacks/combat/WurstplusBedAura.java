@@ -27,7 +27,7 @@ public class WurstplusBedAura extends WurstplusHack {
     public WurstplusBedAura() {
         super(WurstplusCategory.WURSTPLUS_COMBAT);
 
-        this.name        = "BedAura";
+        this.name        = "Bed Aura";
         this.tag         = "BedAura";
         this.description = "fucking endcrystal.me";
     }

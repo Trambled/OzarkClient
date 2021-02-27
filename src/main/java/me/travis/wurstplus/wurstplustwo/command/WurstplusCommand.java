@@ -2,11 +2,14 @@ package me.travis.wurstplus.wurstplustwo.command;
 
 
 import me.travis.wurstplus.wurstplustwo.manager.WurstplusCommandManager;
+import net.minecraft.client.Minecraft;
 
 
 public class WurstplusCommand {
 	String name;
 	String description;
+
+	public static final Minecraft mc;
 
 	public WurstplusCommand(String name, String description) {
 		this.name        = name;
@@ -27,5 +30,9 @@ public class WurstplusCommand {
 
 	public String current_prefix() {
 		return WurstplusCommandManager.get_prefix();
+	}
+
+	static {
+		mc = Minecraft.getMinecraft();
 	}
 }

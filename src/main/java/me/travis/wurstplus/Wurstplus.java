@@ -23,7 +23,7 @@ public class Wurstplus {
 	private static Wurstplus MASTER;
 
 	public static final String WURSTPLUS_NAME = "OzarkClient";
-	public static final String WURSTPLUS_VERSION = "1.10.5";
+	public static final String WURSTPLUS_VERSION = "1.10.6";
 	public static final String WURSTPLUS_SIGN = " ";
 
 	public static final int WURSTPLUS_KEY_GUI = Keyboard.KEY_RSHIFT;
@@ -36,7 +36,6 @@ public class Wurstplus {
 	private static WurstplusConfigManager config_manager;
 	private static WurstplusModuleManager module_manager;
 	private static WurstplusHUDManager hud_manager;
-//	private static WurstplusRPC discord_rpc;
 
 	public static WurstplusGUI click_gui;
 	public static WurstplusHUD click_hud;
@@ -115,7 +114,7 @@ public class Wurstplus {
 			send_minecraft_log("Fixed");
 		}
 
-		if (module_manager.get_module_with_tag("HUD").is_active()) {
+		if (module_manager.get_module_with_tag("DiscordRPC").is_active()) {
 			send_minecraft_log("Loading discord rpc");
 			RPC.init();
 			send_minecraft_log("Done");
@@ -128,7 +127,7 @@ public class Wurstplus {
 		
 		send_minecraft_log("Client started");
 		send_minecraft_log("We gaming");
-		send_minecraft_log("Produced by trambled!");
+		send_minecraft_log("Made by trambled!");
 	}
 	
 	public void init_log(String name) {

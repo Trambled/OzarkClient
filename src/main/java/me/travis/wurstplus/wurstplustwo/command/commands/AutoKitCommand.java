@@ -6,9 +6,9 @@ import me.travis.wurstplus.wurstplustwo.command.WurstplusCommand;
 import me.travis.wurstplus.wurstplustwo.util.AutoKitUtil;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusMessageUtil;
 
-public class AutoKit extends WurstplusCommand {
+public class AutoKitCommand extends WurstplusCommand {
 
-    public AutoKit() {
+    public AutoKitCommand() {
         super("autokit", "chooses a custom kit");
     }
 
