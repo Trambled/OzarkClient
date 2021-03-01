@@ -23,7 +23,7 @@ public class Wurstplus {
 	private static Wurstplus MASTER;
 
 	public static final String WURSTPLUS_NAME = "OzarkClient";
-	public static final String WURSTPLUS_VERSION = "1.10.6";
+	public static final String WURSTPLUS_VERSION = "1.10.7";
 	public static final String WURSTPLUS_SIGN = " ";
 
 	public static final int WURSTPLUS_KEY_GUI = Keyboard.KEY_RSHIFT;

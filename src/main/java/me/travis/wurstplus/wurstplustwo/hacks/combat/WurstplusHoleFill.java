@@ -3,16 +3,15 @@ package me.travis.wurstplus.wurstplustwo.hacks.combat;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
-import me.travis.wurstplus.wurstplustwo.util.WurstplusBlockInteractHelper;
+import me.travis.wurstplus.wurstplustwo.util.*;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusBlockInteractHelper.ValidResult;
-import me.travis.wurstplus.wurstplustwo.util.WurstplusBlockUtil;
-import me.travis.wurstplus.wurstplustwo.util.WurstplusMessageUtil;
-import me.travis.wurstplus.wurstplustwo.util.WurstplusPlayerUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockButtonWood;
 import net.minecraft.block.BlockButtonStone;
 import net.minecraft.block.BlockEnderChest;
 import net.minecraft.block.BlockObsidian;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -29,7 +28,9 @@ public class WurstplusHoleFill extends WurstplusHack {
 		this.tag         = "HoleFill";
 		this.description = "Turn holes into floors";
     }
-    
+
+    WurstplusSetting smart_mode = create("Smart Mode", "HoleFillSmart", true);
+    WurstplusSetting smart_range = create("Smart Range", "HoleFillSmartRange", 2.11, 0,6);
     WurstplusSetting hole_toggle = create("Toggle", "HoleFillToggle", true);
     WurstplusSetting hole_rotate = create("Rotate", "HoleFillRotate", true);
     WurstplusSetting button = create("Button", "HoleFillButton", false);
@@ -75,11 +76,31 @@ public class WurstplusHoleFill extends WurstplusHack {
 
         BlockPos pos_to_fill = null;
 
+        boolean do_smart = false;
+
         for (BlockPos pos : new ArrayList<>(holes)) {
 
             if (pos == null) continue;
 
             WurstplusBlockInteractHelper.ValidResult result = WurstplusBlockInteractHelper.valid(pos);
+
+            for (Entity player : mc.world.playerEntities) {
+                if (player == mc.player) continue;
+
+                if (WurstplusFriendUtil.isFriend(player.getName())) continue;
+
+                //stops lag maybe?
+                if (player.getDistance(mc.player) >= 11) continue;
+
+                final EntityPlayer target = (EntityPlayer) player;
+
+                if (target.isDead || target.getHealth() <= 0) continue;
+
+                if (target.getDistanceSqToCenter(pos) < smart_range.get_value(1)*2) {
+                    do_smart = true;
+                }
+            }
+
 
             if (result != ValidResult.Ok) {
                 holes.remove(pos);
@@ -90,23 +111,33 @@ public class WurstplusHoleFill extends WurstplusHack {
         }
 
         if (find_in_hotbar() == -1) {
+            WurstplusMessageUtil.send_client_error_message("No obby!");
             this.disable();
             return;
         }
 
-        if (pos_to_fill != null) {
-            if (WurstplusBlockUtil.placeBlock(pos_to_fill, find_in_hotbar(), hole_rotate.get_value(true), hole_rotate.get_value(true), swing)) {
-                holes.remove(pos_to_fill);
+        if (smart_mode.get_value(true)) {
+            if (do_smart) {
+                if (pos_to_fill != null) {
+                    if (WurstplusBlockUtil.placeBlock(pos_to_fill, find_in_hotbar(), hole_rotate.get_value(true), hole_rotate.get_value(true), swing)) {
+                        holes.remove(pos_to_fill);
+                    }
+                }
+            }
+        } else {
+            if (pos_to_fill != null) {
+                if (WurstplusBlockUtil.placeBlock(pos_to_fill, find_in_hotbar(), hole_rotate.get_value(true), hole_rotate.get_value(true), swing)) {
+                    holes.remove(pos_to_fill);
+                }
             }
         }
-
     }
 
     public void find_new_holes() {
 
         holes.clear();
 
-        for (BlockPos pos : WurstplusBlockInteractHelper.getSphere(WurstplusPlayerUtil.GetLocalPlayerPosFloored(), hole_range.get_value(1), (int) hole_range.get_value(1), false, true, 0)) {
+        for (BlockPos pos : WurstplusBlockInteractHelper.getSphere(WurstplusPlayerUtil.GetLocalPlayerPosFloored(), hole_range.get_value(1), hole_range.get_value(1), false, true, 0)) {
 
             if (!mc.world.getBlockState(pos).getBlock().equals(Blocks.AIR)) {
                 continue;

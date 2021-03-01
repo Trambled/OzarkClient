@@ -107,7 +107,7 @@ public class PistonCrystal extends WurstplusHack
 	WurstplusSetting antiWeakness = create("Anti Weakness", "PistonCrystalAntiWeakness", false);
 	WurstplusSetting chatMsg = create("Chat Messages", "PistonCrystalChatMSG", true);
 
-    private double CrystalDeltaBreak = crystalDeltaBreak.get_value(1) * 0.1;
+    private final double CrystalDeltaBreak = crystalDeltaBreak.get_value(1) * 0.1;
 
     @Override
     protected void enable() {

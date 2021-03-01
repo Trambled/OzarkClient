@@ -54,13 +54,13 @@ public class WurstplusAutoCrystal extends WurstplusHack {
     WurstplusSetting module_check = create("Module Check", "CaModuleCheck", true);
 	WurstplusSetting predict = create("Predict", "CaPredict", true);
 
-    WurstplusSetting hit_range = create("Hit Range", "CaHitRange", 5.2f, 1f, 6f);
-    WurstplusSetting place_range = create("Place Range", "CaPlaceRange", 5.2f, 1f, 6f);
-    WurstplusSetting hit_range_wall = create("Range Wall", "CaRangeWall", 4f, 1f, 6f);
+    WurstplusSetting hit_range = create("Hit Range", "CaHitRange", 5f, 1f, 6f);
+    WurstplusSetting place_range = create("Place Range", "CaPlaceRange", 5f, 1f, 6f);
+    WurstplusSetting hit_range_wall = create("Range Wall", "CaRangeWall", 3.5f, 1f, 6f);
     WurstplusSetting player_range = create("Player Range", "CaPlayerRange", 11f, 1f, 13f);
 
     WurstplusSetting place_delay = create("Place Delay", "CaPlaceDelay", 0, 0, 10);
-    WurstplusSetting break_delay = create("Break Delay", "CaBreakDelay", 2, 0, 10);
+    WurstplusSetting break_delay = create("Break Delay", "CaBreakDelay", 3, 0, 10);
 
     WurstplusSetting min_player_place = create("Min Enemy Place", "CaMinEnemyPlace", 8, 0, 20);
     WurstplusSetting min_player_break = create("Min Enemy Break", "CaMinEnemyBreak", 6, 0, 20);
@@ -77,11 +77,13 @@ public class WurstplusAutoCrystal extends WurstplusHack {
     WurstplusSetting anti_suicide = create("Anti Suicide", "CaAntiSuicide", true);
 
     WurstplusSetting fast_mode = create("Fast Mode", "CaSpeed", true);
+    WurstplusSetting dead_check = create("Dead Check", "CaDeadCheck", false);
     WurstplusSetting client_side = create("Client Side", "CaClientSide", false);
     WurstplusSetting jumpy_mode = create("Jumpy Mode", "CaJumpyMode", false);
-    WurstplusSetting ares_mode = create("Ares Mode", "CaAresMode", false);
+    WurstplusSetting ares_mode = create("Ares Mode", "CaAresMode", true);
 
-    WurstplusSetting anti_stuck = create("Anti Stuck", "CaAntiStuck", false);
+    WurstplusSetting anti_stuck = create("Anti Stuck", "CaAntiStuck", true);
+    WurstplusSetting anti_stuck_tries = create("Anti Stuck Tries", "CaAntiStuckTries", 5, 1, 15);
     WurstplusSetting endcrystal = create("1.13 Mode", "CaThirteen", false);
 
     WurstplusSetting faceplace_mode = create("Faceplace Mode", "CaTabbottMode", true);
@@ -308,9 +310,9 @@ public class WurstplusAutoCrystal extends WurstplusHack {
             if (!mc.player.canEntityBeSeen(crystal) && raytrace.get_value(true)) {
                 continue;
             }
-            if (crystal.isDead) continue;
+            if (crystal.isDead && dead_check.get_value(true)) continue;
 
-            if (attacked_crystals.containsKey(crystal) && attacked_crystals.get(crystal) > 5 && anti_stuck.get_value(true)) continue;
+            if (attacked_crystals.containsKey(crystal) && attacked_crystals.get(crystal) > anti_stuck_tries.get_value(1) && anti_stuck.get_value(true)) continue;
 
             for (Entity player : mc.world.playerEntities) {
 
@@ -771,7 +773,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
             return true;
         }
 
-        if (Wurstplus.get_hack_manager().get_module_with_tag("HoleFill").is_active() && module_check.get_value(true)) {
+        if (Wurstplus.get_hack_manager().get_module_with_tag("HoleFill").is_active() && !Wurstplus.get_setting_manager().get_setting_with_tag("HoleFill", "HoleFillSmart").get_value(true) && module_check.get_value(true)) {
             if (old_render.get_value(true)) {
                 render_block_init = null;
             }
@@ -800,6 +802,9 @@ public class WurstplusAutoCrystal extends WurstplusHack {
         }
 
         if (AntiTrap.is_trapped && Wurstplus.get_hack_manager().get_module_with_tag("AntiTrap").is_active() && module_check.get_value(true)) {
+            if (old_render.get_value(true)) {
+                render_block_init = null;
+            }
             return true;
         }
 

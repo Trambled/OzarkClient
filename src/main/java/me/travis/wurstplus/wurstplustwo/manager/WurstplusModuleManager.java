@@ -76,6 +76,7 @@ public class WurstplusModuleManager {
 		add_hack(new AutoAnvil());
 		add_hack(new PistonCrystal());
 		add_hack(new Faceplacer());
+		add_hack(new Blocker());
 
 		// Exploit.
 		add_hack(new WurstplusXCarry());
@@ -156,6 +157,7 @@ public class WurstplusModuleManager {
 		add_hack(new AutoBuilder());
 		add_hack(new AutoRespawn());
 		add_hack(new InventorySort());
+		add_hack(new AutoGear());
 		
 		array_hacks.sort(Comparator.comparing(WurstplusHack::get_name));
 	}
