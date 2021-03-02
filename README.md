@@ -25,7 +25,7 @@ u also need a JDK (we recommend JDK 1.8), a free one is adopt open jdk https://a
 
 # Issues and Crashes
 
-if you have certain issues, send someone who helps contribute to here your latest.log,
+if you have certain issues, send someone who helps contribute to here your crash log,
 this will help us know what caused said crash and why it happened,
 this client may not be compatible with certain clients. 
 
