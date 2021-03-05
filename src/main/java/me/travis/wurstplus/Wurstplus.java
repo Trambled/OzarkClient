@@ -2,11 +2,13 @@ package me.travis.wurstplus;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.travis.turok.Turok;
-import me.travis.turok.task.Font;
+import me.travis.turok.task.TurokFont;
 import me.travis.wurstplus.wurstplustwo.event.WurstplusEventHandler;
 import me.travis.wurstplus.wurstplustwo.event.WurstplusEventRegister;
 import me.travis.wurstplus.wurstplustwo.guiscreen.WurstplusGUI;
 import me.travis.wurstplus.wurstplustwo.guiscreen.WurstplusHUD;
+import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.past.PastGUI;
+import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.past.font.CustomFontRenderer;
 import me.travis.wurstplus.wurstplustwo.manager.*;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.Mod;
@@ -16,6 +18,8 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
+import java.awt.*;
+
 @Mod(modid = "ozarkclient", version = Wurstplus.WURSTPLUS_VERSION)
 public class Wurstplus {
 
@@ -23,7 +27,7 @@ public class Wurstplus {
 	private static Wurstplus MASTER;
 
 	public static final String WURSTPLUS_NAME = "OzarkClient";
-	public static final String WURSTPLUS_VERSION = "1.10.7";
+	public static final String WURSTPLUS_VERSION = "1.11";
 	public static final String WURSTPLUS_SIGN = " ";
 
 	public static final int WURSTPLUS_KEY_GUI = Keyboard.KEY_RSHIFT;
@@ -36,8 +40,14 @@ public class Wurstplus {
 	private static WurstplusConfigManager config_manager;
 	private static WurstplusModuleManager module_manager;
 	private static WurstplusHUDManager hud_manager;
+	public static PastGUI past_gui;
 
 	public static WurstplusGUI click_gui;
+
+	public static CustomFontRenderer latoFont;
+	public static CustomFontRenderer verdanaFont;
+	public static CustomFontRenderer arialFont;
+
 	public static WurstplusHUD click_hud;
 	public static Turok turok;
 
@@ -72,6 +82,7 @@ public class Wurstplus {
 		Display.setTitle("OzarkClient");
 		click_gui = new WurstplusGUI();
 		click_hud = new WurstplusHUD();
+		past_gui = new PastGUI();
 
 		send_minecraft_log("Done");
 
@@ -93,7 +104,14 @@ public class Wurstplus {
 
 		config_manager.load_settings();
 
-		send_minecraft_log("done");
+		send_minecraft_log("Done");
+
+		send_minecraft_log("Loading fonts");
+
+		latoFont = new CustomFontRenderer(new Font("Lato", 0, 18), true, false);
+		verdanaFont = new CustomFontRenderer(new Font("Verdana", 0, 18), true, false);
+		arialFont = new CustomFontRenderer(new Font("Arial", 0, 18), true, false);
+		send_minecraft_log("Custom fonts loaded (from past, however it was made by 086)");
 		
 
 		if (module_manager.get_module_with_tag("GUI").is_active()) {
@@ -105,6 +123,12 @@ public class Wurstplus {
 		if (module_manager.get_module_with_tag("HUD").is_active()) {
 			send_minecraft_log("Fixing HUD");
 			module_manager.get_module_with_tag("HUD").set_active(false);
+			send_minecraft_log("Fixed");
+		}
+
+		if (module_manager.get_module_with_tag("PastGUI").is_active()) {
+			send_minecraft_log("Fixing Past GUI");
+			module_manager.get_module_with_tag("PastGUI").set_active(false);
 			send_minecraft_log("Fixed");
 		}
 
@@ -175,6 +199,6 @@ public class Wurstplus {
 	}
 
 	public static String smoth(String base) {
-		return Font.smoth(base);
+		return TurokFont.smoth(base);
 	}
 }

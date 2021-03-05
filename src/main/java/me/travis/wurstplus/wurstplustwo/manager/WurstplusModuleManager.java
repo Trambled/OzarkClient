@@ -2,11 +2,7 @@ package me.travis.wurstplus.wurstplustwo.manager;
 
 import me.travis.turok.draw.RenderHelp;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventRender;
-import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
-import me.travis.wurstplus.wurstplustwo.hacks.WurstplusClickGUI;
-import me.travis.wurstplus.wurstplustwo.hacks.WurstplusClickHUD;
-import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
-import me.travis.wurstplus.wurstplustwo.hacks.HUDEditor;
+import me.travis.wurstplus.wurstplustwo.hacks.*;
 import me.travis.wurstplus.wurstplustwo.hacks.chat.*;
 import me.travis.wurstplus.wurstplustwo.hacks.combat.*;
 import me.travis.wurstplus.wurstplustwo.hacks.exploit.*;
@@ -35,6 +31,7 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusClickGUI());
 		add_hack(new WurstplusClickHUD());
 		add_hack(new HUDEditor());
+		add_hack(new PastGUIHack());
 
 		// Chat.
 		add_hack(new WurstplusChatSuffix());

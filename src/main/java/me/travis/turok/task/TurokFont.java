@@ -7,7 +7,7 @@ package me.travis.turok.task;
 * 08/05/20.
 *
 */
-public class Font {
+public class TurokFont {
 	public static String smoth(String base) {
 		String new_base = base;
 
