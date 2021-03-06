@@ -30,10 +30,6 @@ public class IntegerComponent extends Component {
         this.offset = offset;
     }
 
-    private final int past_gui_r = Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR").get_value(1);
-    private final int past_gui_g = Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG").get_value(1);
-    private final int past_gui_b = Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB").get_value(1);
-    private final int past_gui_a = Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA").get_value(1);
 
     @Override
     public void setOff(final int newOff) {

@@ -8,8 +8,11 @@ import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.past.font.Fo
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.PastGUIHack;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.init.SoundEvents;
 
 import java.util.ArrayList;
 
@@ -56,11 +59,6 @@ public class ModuleButton extends Component {
             opY += 15;
         }
     }
-
-    private final int past_gui_r = Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR").get_value(1);
-    private final int past_gui_g = Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG").get_value(1);
-    private final int past_gui_b = Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB").get_value(1);
-    private final int past_gui_a = Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA").get_value(1);
 
     @Override
     public void renderComponent() {
@@ -128,9 +126,17 @@ public class ModuleButton extends Component {
     public void mouseClicked(int mouseX, int mouseY, int button) {
         if (isMouseOnButton(mouseX, mouseY) && button == 0) {
             this.mod.toggle();
+
+            if (Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUISound").get_value(true)) {
+                Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0f));
+            }
         }
 
         if (isMouseOnButton(mouseX, mouseY) && button == 1) {
+            if (Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUISound").get_value(true)) {
+                Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0f));
+            }
+
             if (!this.isOpen()) {
                 parent.closeAllSetting();
                 this.setOpen(true);

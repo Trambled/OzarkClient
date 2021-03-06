@@ -25,6 +25,7 @@ public class PastGUIHack extends WurstplusHack {
 
 	WurstplusSetting font = create("Font", "PastGUIFont", "Lato", combobox("Lato", "Verdana", "Arial", "None"));
 	WurstplusSetting scroll_speed = create("Scroll Speed", "PastGUIScrollSpeed", 10, 0, 20);
+	WurstplusSetting button_sound = create("Button Sound", "PastGUISound", true);
 	WurstplusSetting font_shadow = create("Font Shadow", "PastGUIFontShadow", true);
 	WurstplusSetting descriptions = create("Descriptions", "PastGUIDescriptions", true);
 	WurstplusSetting hover_change = create("Hover Change", "PastGUIHoverChange", true);

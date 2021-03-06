@@ -60,13 +60,13 @@ public class Panel {
         Gui.drawRect(x, y, x + width, y + height, 0x75101010);
 
         if (Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIFont").in("Lato")) {
-            FontUtil.drawText(title, x + 2 + width / 2 - Wurstplus.latoFont.getStringWidth(title) / 2, y + height / 2 - FontUtil.getFontHeight() / 2, -1);
+            FontUtil.drawText(title, x + 4 , y + height / 2 - FontUtil.getFontHeight() / 2, -1);
         } else if (Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIFont").in("Verdana")) {
-            FontUtil.drawText(title, x + 2 + width / 2 - Wurstplus.verdanaFont.getStringWidth(title) / 2, y + height / 2 - FontUtil.getFontHeight() / 2, -1);
+            FontUtil.drawText(title, x + 4, y + height / 2 - FontUtil.getFontHeight() / 2, -1);
         } else if (Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIFont").in("Arial")) {
-            FontUtil.drawText(title, x + 2 + width / 2 - Wurstplus.arialFont.getStringWidth(title) / 2, y + height / 2 - FontUtil.getFontHeight() / 2, -1);
+            FontUtil.drawText(title, x + 4, y + height / 2 - FontUtil.getFontHeight() / 2, -1);
         } else {
-            FontUtil.drawText(title, x + 2 + width / 2 - mc.fontRenderer.getStringWidth(title) / 2, y + height / 2 - FontUtil.getFontHeight() / 2, -1);
+            FontUtil.drawText(title, x + 4, y + height / 2 - FontUtil.getFontHeight() / 2, -1);
         }
 
         if (this.open && !this.components.isEmpty()) {

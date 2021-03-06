@@ -126,12 +126,6 @@ public class Wurstplus {
 			send_minecraft_log("Fixed");
 		}
 
-		if (module_manager.get_module_with_tag("PastGUI").is_active()) {
-			send_minecraft_log("Fixing Past GUI");
-			module_manager.get_module_with_tag("PastGUI").set_active(false);
-			send_minecraft_log("Fixed");
-		}
-
 		if (!module_manager.get_module_with_tag("HUDEditor").is_active()) {
 			send_minecraft_log("Fixing HUDEditor");
 			module_manager.get_module_with_tag("HUDEditor").set_active(true);

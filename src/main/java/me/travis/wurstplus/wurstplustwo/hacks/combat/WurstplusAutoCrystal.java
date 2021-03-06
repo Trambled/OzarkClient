@@ -418,6 +418,8 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
                 final double self_damage = WurstplusCrystalUtil.calculateDamage((double) block.getX() + 0.5, (double) block.getY() + 1, (double) block.getZ() + 0.5, mc.player);
 
+
+
                 if (self_damage > maximum_damage_self || (anti_suicide.get_value(true) && (mc.player.getHealth() + mc.player.getAbsorptionAmount()) - self_damage <= 0.5)) continue;
 
                 /** if (attempt_chain.get_value(true) && chain_step > 0) {
@@ -851,6 +853,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
             is_rotating = true;
         }
     }
+
 
     public void rotate_to(final Entity entity) {
         final float[] angle = WurstplusMathUtil.calcAngle(mc.player.getPositionEyes(mc.getRenderPartialTicks()), entity.getPositionVector());

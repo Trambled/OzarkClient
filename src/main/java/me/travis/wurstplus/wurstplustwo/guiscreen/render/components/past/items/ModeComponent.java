@@ -35,11 +35,6 @@ public class ModeComponent extends Component {
     }
 
 
-    private final int past_gui_r = Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR").get_value(1);
-    private final int past_gui_g = Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG").get_value(1);
-    private final int past_gui_b = Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB").get_value(1);
-    private final int past_gui_a = Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA").get_value(1);
-
     @Override
     public void renderComponent() {
         WurstplusDraw.draw_rect(parent.parent.getX() - 1, parent.parent.getY() + offset, parent.parent.getX(), parent.parent.getY() + 15 + offset, Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR").get_value(1), Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG").get_value(1), Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB").get_value(1), Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA").get_value(1));

@@ -22,7 +22,7 @@ public class WurstplusPlayerUtil
     public static BlockPos GetLocalPlayerPosFloored() {
         return new BlockPos(Math.floor(WurstplusPlayerUtil.mc.player.posX), Math.floor(WurstplusPlayerUtil.mc.player.posY), Math.floor(WurstplusPlayerUtil.mc.player.posZ));
     }
-    
+
     public static FacingDirection GetFacing() {
         switch (MathHelper.floor(WurstplusPlayerUtil.mc.player.rotationYaw * 8.0f / 360.0f + 0.5) & 0x7) {
             case 0:

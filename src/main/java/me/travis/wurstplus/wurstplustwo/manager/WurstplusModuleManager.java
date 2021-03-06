@@ -74,6 +74,7 @@ public class WurstplusModuleManager {
 		add_hack(new PistonCrystal());
 		add_hack(new Faceplacer());
 		add_hack(new Blocker());
+		add_hack(new Quiver());
 
 		// Exploit.
 		add_hack(new WurstplusXCarry());
