@@ -7,14 +7,13 @@ import me.travis.wurstplus.wurstplustwo.guiscreen.render.WurstplusDraw;
 import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.past.Component;
 import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.past.font.FontUtil;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
-import me.travis.wurstplus.wurstplustwo.hacks.PastGUIHack;
 import net.minecraft.client.gui.Gui;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class DoubleComponent extends Component {
-    private WurstplusSetting set;
-    private ModuleButton parent;
+    private final WurstplusSetting set;
+    private final ModuleButton parent;
     private int offset;
     private int x;
     private int y;
@@ -97,10 +96,6 @@ public class DoubleComponent extends Component {
     }
 
     public boolean isMouseOnButton(int x, int y) {
-        if (x > this.x && x < this.x + 100 && y > this.y && y < this.y + 15) {
-            return true;
-        } else {
-            return false;
-        }
+        return x > this.x && x < this.x + 100 && y > this.y && y < this.y + 15;
     }
 }

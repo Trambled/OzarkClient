@@ -11,6 +11,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
+import java.util.List;
+
 public class WurstplusEntityUtil {
 
     public static final Minecraft mc = Minecraft.getMinecraft();
@@ -29,6 +31,60 @@ public class WurstplusEntityUtil {
             mc.player.swingArm(EnumHand.OFF_HAND);
         }
     }
+    public static void attackEntity(final Entity entity) {
+        mc.playerController.attackEntity(mc.player, entity);
+        mc.player.swingArm(EnumHand.MAIN_HAND);
+    }
+
+    public static double[] calculateLookAt(double px, double py, double pz, Entity me) {
+        double dirx = me.posX - px;
+        double diry = me.posY - py;
+        double dirz = me.posZ - pz;
+
+        double len = Math.sqrt(dirx*dirx + diry*diry + dirz*dirz);
+
+        dirx /= len;
+        diry /= len;
+        dirz /= len;
+
+        double pitch = Math.asin(diry);
+        double yaw = Math.atan2(dirz, dirx);
+
+        pitch = pitch * 180.0d / Math.PI;
+        yaw = yaw * 180.0d / Math.PI;
+
+        yaw += 90f;
+
+        return new double[]{yaw,pitch};
+    }
+
+
+    public static EntityPlayer findClosestTarget(double rangeMax, EntityPlayer aimTarget) {
+        rangeMax *= rangeMax;
+        List<EntityPlayer> playerList = mc.world.playerEntities;
+
+        EntityPlayer closestTarget = null;
+
+        for (EntityPlayer entityPlayer : playerList){
+
+            if (WurstplusEntityUtil.basicChecksEntity(entityPlayer))
+                continue;
+
+            if (aimTarget == null && mc.player.getDistanceSq(entityPlayer) <= rangeMax){
+                closestTarget = entityPlayer;
+                continue;
+            }
+            if (aimTarget != null && mc.player.getDistanceSq(entityPlayer) <= rangeMax && mc.player.getDistanceSq(entityPlayer) < mc.player.getDistanceSq(aimTarget)){
+                closestTarget = entityPlayer;
+            }
+        }
+        return closestTarget;
+    }
+
+    public static boolean basicChecksEntity(Entity pl) {
+        return pl.getName().equals(mc.player.getName()) || WurstplusFriendUtil.isFriend(pl.getName()) || pl.isDead;
+    }
+
 
     public static double getDirection() {
         float rotationYaw = mc.player.rotationYaw;
@@ -115,6 +171,10 @@ public class WurstplusEntityUtil {
 
         return null;
 
+    }
+
+    public static BlockPos getPosition(Entity pl) {
+        return new BlockPos(Math.floor(pl.posX), Math.floor(pl.posY), Math.floor(pl.posZ));
     }
 
 }

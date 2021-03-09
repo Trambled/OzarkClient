@@ -14,7 +14,7 @@ public class WurstplusViewmodleChanger extends WurstplusHack {
 
         this.name = "Custom Viewmodel";
         this.tag = "CustomViewmodel";
-        this.description = "anti chad";
+        this.description = "this is pretty bad lmao";
     }
 
     WurstplusSetting custom_fov = create("FOV", "FOVSlider", 130, 110, 170);

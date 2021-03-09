@@ -20,7 +20,7 @@ public class WurstplusStopEXP extends WurstplusHack {
 
 		this.name        = "Stop EXP";
 		this.tag         = "StopEXP";
-		this.description = "jumpy has a good idea?? (nvm this is dumb)";
+		this.description = "stops exp at a certain armor percent";
 	}
 	
 	WurstplusSetting helmet_boot_percent = create("Helment Boots %", "StopEXHelmet", 80, 0, 100);

@@ -14,7 +14,7 @@ public class WurstplusFakePlayer extends WurstplusHack {
 
 		this.name        = "Fake Player";
 		this.tag         = "FakePlayer";
-		this.description = "working fine";
+		this.description = "spawns a client-side player to config on";
     }
 
     private EntityOtherPlayerMP fake_player;

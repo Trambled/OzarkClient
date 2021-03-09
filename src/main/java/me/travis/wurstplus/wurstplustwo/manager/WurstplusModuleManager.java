@@ -75,6 +75,7 @@ public class WurstplusModuleManager {
 		add_hack(new Faceplacer());
 		add_hack(new Blocker());
 		add_hack(new Quiver());
+		add_hack(new CevBreaker());
 
 		// Exploit.
 		add_hack(new WurstplusXCarry());
@@ -84,7 +85,6 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusEntityMine());
 		add_hack(new WurstplusBuildHeight());
 		add_hack(new WurstplusCoordExploit());
-		add_hack(new WurstplusNoHandshake());
 		add_hack(new AutoDupe());
 		add_hack(new EntityDesync());
 		add_hack(new Timer());

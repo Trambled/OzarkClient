@@ -3,8 +3,10 @@ package me.travis.wurstplus.wurstplustwo.guiscreen.render.components.past;
 
 import me.travis.wurstplus.Wurstplus;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
-import me.travis.wurstplus.wurstplustwo.util.WurstplusMessageUtil;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.init.SoundEvents;
 
 import java.util.ArrayList;
 
@@ -54,6 +56,9 @@ public class PastGUI extends GuiScreen {
                 p.dragX = mouseX - p.getX();
                 p.dragY = mouseY - p.getY();
             } else if (p.isWithinHeader(mouseX, mouseY) && mouseButton == 1) {
+                if (Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUISound").get_value(true)) {
+                    Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0f));
+                }
                 p.setOpen(!p.isOpen());
             } else if (p.isOpen() && !p.getComponents().isEmpty()) {
                 for (Component component : p.getComponents()) {

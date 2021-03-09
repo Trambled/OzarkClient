@@ -46,7 +46,7 @@ public class WurstplusAutoWither extends WurstplusHack {
         }
 
         if (find_witherskull_hotbar() == -1) {
-            WurstplusMessageUtil.send_client_message("No Wither Skulls!");
+            WurstplusMessageUtil.send_client_error_message("No Wither Skulls!");
             this.set_disable();
         }
 
@@ -181,7 +181,6 @@ public class WurstplusAutoWither extends WurstplusHack {
 
                 if (block instanceof BlockSoulSand)
                     return i;
-
 
             }
         }

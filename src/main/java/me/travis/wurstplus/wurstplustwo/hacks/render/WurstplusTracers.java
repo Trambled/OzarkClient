@@ -20,7 +20,7 @@ public class WurstplusTracers extends WurstplusHack {
 
         this.name        = "Tracers";
         this.tag         = "Tracers";
-        this.description = "DRAWS LINES";
+        this.description = "draws lines`";
     }
 
     WurstplusSetting friends = create("Friends", "TracerFriends", false);

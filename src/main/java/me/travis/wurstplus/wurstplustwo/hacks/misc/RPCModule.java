@@ -11,7 +11,7 @@ public class RPCModule extends WurstplusHack
         super(WurstplusCategory.WURSTPLUS_MISC);
         this.name = "DiscordRPC";
         this.tag = "DiscordRPC";
-        this.description = "show people how cool you are";
+        this.description = "show people how cool you are (discord edition)";
     }
 
     //lempity why

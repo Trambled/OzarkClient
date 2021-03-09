@@ -27,7 +27,7 @@ public class Wurstplus {
 	private static Wurstplus MASTER;
 
 	public static final String WURSTPLUS_NAME = "OzarkClient";
-	public static final String WURSTPLUS_VERSION = "1.11";
+	public static final String WURSTPLUS_VERSION = "1.11.1";
 	public static final String WURSTPLUS_SIGN = " ";
 
 	public static final int WURSTPLUS_KEY_GUI = Keyboard.KEY_RSHIFT;
@@ -112,8 +112,8 @@ public class Wurstplus {
 		verdanaFont = new CustomFontRenderer(new Font("Verdana", 0, 18), true, false);
 		arialFont = new CustomFontRenderer(new Font("Arial", 0, 18), true, false);
 		send_minecraft_log("Custom fonts loaded (from past, however it was made by 086)");
-		
 
+		// module fixing
 		if (module_manager.get_module_with_tag("GUI").is_active()) {
 			send_minecraft_log("Fixing GUI");
 			module_manager.get_module_with_tag("GUI").set_active(false);
@@ -130,6 +130,12 @@ public class Wurstplus {
 			send_minecraft_log("Fixing HUDEditor");
 			module_manager.get_module_with_tag("HUDEditor").set_active(true);
 			send_minecraft_log("Fixed");
+		}
+
+		if (module_manager.get_module_with_tag("PastGUI").is_active()) {
+			send_minecraft_log("Fixing Past GUI");
+			module_manager.get_module_with_tag("PastGUI").set_active(false);
+			send_minecraft_log("Done");
 		}
 
 		if (module_manager.get_module_with_tag("DiscordRPC").is_active()) {

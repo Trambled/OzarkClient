@@ -24,7 +24,7 @@ public class WurstplusAutoEz extends WurstplusHack {
 
         this.name = "Auto Ez";
         this.tag = "AutoEz";
-        this.description = "you just got nae nae'd by ozark";
+        this.description = "You just got niggered by OzarkClient";
     }
 
     int delay_count = 0;
@@ -111,7 +111,7 @@ public class WurstplusAutoEz extends WurstplusHack {
             message += "You just got niggered by OzarkClient";
         }
         if (discord.get_value(true)) {
-            message += "https://discord.gg/SBYb2vBDwm";
+            message += "private disc not for u";
         }
         mc.player.connection.sendPacket(new CPacketChatMessage(message));
     }

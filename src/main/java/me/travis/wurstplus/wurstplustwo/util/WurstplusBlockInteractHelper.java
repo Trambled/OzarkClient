@@ -59,6 +59,11 @@ public class WurstplusBlockInteractHelper {
         }
     }
 
+    public static Block getBlock(double x, double y, double z) {
+        return mc.world.getBlockState(new BlockPos(x, y, z)).getBlock();
+    }
+
+
     public static void placeBlock(final BlockPos pos, final boolean rotate) {
         for (final EnumFacing side : EnumFacing.values()) {
             final BlockPos neighbor = pos.offset(side);
@@ -199,9 +204,35 @@ public class WurstplusBlockInteractHelper {
         return getBlock(pos).canCollideCheck(getState(pos), false);
     }
     
-    private static Block getBlock(final BlockPos pos) {
+    public static Block getBlock(final BlockPos pos) {
         return getState(pos).getBlock();
     }
+
+    public static void faceVectorPacketInstant(Vec3d vec, Boolean roundAngles) {
+        float[] rotations = getNeededRotations2(vec);
+
+        mc.player.connection.sendPacket(new CPacketPlayer.Rotation(rotations[0], roundAngles ? MathHelper.normalizeAngle((int) rotations[1], 360) : rotations[1], mc.player.onGround));
+    }
+
+    private static float[] getNeededRotations2(Vec3d vec) {
+        Vec3d eyesPos = getEyesPos();
+
+        double diffX = vec.x - eyesPos.x;
+        double diffY = vec.y - eyesPos.y;
+        double diffZ = vec.z - eyesPos.z;
+
+        double diffXZ = Math.sqrt(diffX * diffX + diffZ * diffZ);
+
+        float yaw = (float)Math.toDegrees(Math.atan2(diffZ, diffX)) - 90F;
+        float pitch = (float)-Math.toDegrees(Math.atan2(diffY, diffXZ));
+
+        return new float[] {
+                mc.player.rotationYaw + MathHelper.wrapDegrees(yaw - mc.player.rotationYaw),
+                mc.player.rotationPitch + MathHelper.wrapDegrees(pitch - mc.player.rotationPitch)
+        };
+    }
+
+
 
     private static IBlockState getState(final BlockPos pos) {
         return mc.world.getBlockState(pos);

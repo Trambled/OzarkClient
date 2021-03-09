@@ -21,7 +21,7 @@ public class WurstplusAutoReplenish extends WurstplusHack {
 
         this.name = "Hotbar Replenish";
         this.tag = "HotbarReplenish";
-        this.description = "chad this doesnt desync you i swear";
+        this.description = "automatically replaces a used stack with a fresh new one from ur inv";
     }
 
     WurstplusSetting mode = create("Mode", "AutoReplenishMode", "All", combobox("All", "Crystals", "Xp", "Both"));

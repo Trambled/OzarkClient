@@ -85,11 +85,7 @@ public class Panel {
     }
 
     public boolean isWithinHeader(int x, int y) {
-        if (x >= this.x && x <= this.x + this.width && y >= this.y && y <= this.y + this.height) {
-            return true;
-        } else {
-            return false;
-        }
+        return x >= this.x && x <= this.x + this.width && y >= this.y && y <= this.y + this.height;
     }
 
     public void updatePosition(int mouseX, int mouseY) {

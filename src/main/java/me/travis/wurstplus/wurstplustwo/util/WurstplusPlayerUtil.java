@@ -1,5 +1,6 @@
 package me.travis.wurstplus.wurstplustwo.util;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketEntityAction;
@@ -14,6 +15,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
+
+import java.util.ArrayList;
 
 public class WurstplusPlayerUtil
 {
@@ -134,5 +137,50 @@ public class WurstplusPlayerUtil
     public static boolean IsEating()
     {
         return mc.player != null && mc.player.getHeldItemMainhand().getItem() instanceof ItemFood && mc.player.isHandActive();
+    }
+
+    // Find player you are looking
+    public static EntityPlayer findLookingPlayer(double rangeMax) {
+        // Get player
+        ArrayList<EntityPlayer> listPlayer = new ArrayList<>();
+        // Only who is in a distance of enemyRange
+        for(EntityPlayer playerSin : mc.world.playerEntities) {
+            if (playerSin.getName().equals(mc.player.getName()) || WurstplusFriendUtil.isFriend(playerSin.getName()) || playerSin.isDead)
+                continue;
+            if (mc.player.getDistance(playerSin) <= rangeMax) {
+                listPlayer.add(playerSin);
+            }
+        }
+
+        EntityPlayer target = null;
+        // Get coordinate eyes + rotation
+        Vec3d positionEyes = mc.player.getPositionEyes(mc.getRenderPartialTicks());
+        Vec3d rotationEyes = mc.player.getLook(mc.getRenderPartialTicks());
+        // Precision
+        int precision = 2;
+        // Iterate for every blocks
+        for(int i = 0; i < (int) rangeMax; i++) {
+            // Iterate for the precision
+            for(int j = precision; j > 0 ; j--) {
+                // Iterate for all players
+                for(Entity targetTemp : listPlayer) {
+                    // Get box of the player
+                    AxisAlignedBB playerBox = targetTemp.getEntityBoundingBox();
+                    // Get coordinate of the vec3d
+                    double xArray = positionEyes.x + (rotationEyes.x * i) + rotationEyes.x/j;
+                    double yArray = positionEyes.y + (rotationEyes.y * i) + rotationEyes.y/j;
+                    double zArray = positionEyes.z + (rotationEyes.z * i) + rotationEyes.z/j;
+                    // If it's inside
+                    if (   playerBox.maxY >= yArray && playerBox.minY <= yArray
+                            && playerBox.maxX >= xArray && playerBox.minX <= xArray
+                            && playerBox.maxZ >= zArray && playerBox.minZ <= zArray) {
+                        // Get target
+                        target = (EntityPlayer) targetTemp;
+                    }
+                }
+            }
+        }
+
+        return target;
     }
 }

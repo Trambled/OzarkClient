@@ -29,7 +29,7 @@ public class WurstplusBedAura extends WurstplusHack {
 
         this.name        = "Bed Aura";
         this.tag         = "BedAura";
-        this.description = "fucking endcrystal.me";
+        this.description = "automatically places beds (works in 1.12.2 servers)";
     }
 
     WurstplusSetting delay = create("Delay", "BedAuraDelay", 6, 0 , 20);

@@ -59,7 +59,7 @@ public class WurstplusHoleFill extends WurstplusHack {
 
         if (find_in_hotbar() == -1) {
             WurstplusMessageUtil.send_client_error_message("No obby!");
-            this.disable();
+            this.set_disable();
             return;
         }
 
@@ -112,7 +112,7 @@ public class WurstplusHoleFill extends WurstplusHack {
 
         if (find_in_hotbar() == -1) {
             WurstplusMessageUtil.send_client_error_message("No obby!");
-            this.disable();
+            this.set_disable();
             return;
         }
 

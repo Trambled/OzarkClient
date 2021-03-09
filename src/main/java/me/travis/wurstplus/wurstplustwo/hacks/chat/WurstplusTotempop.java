@@ -23,7 +23,7 @@ public class WurstplusTotempop extends WurstplusHack {
 
 		this.name        = "Totem Pop Counter";
 		this.tag         = "TotemPopCounter";
-		this.description = "dude idk wurst+ is just outdated";
+		this.description = "automatically says who ur ezing";
 
     }
 

@@ -5,6 +5,7 @@ import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusBreakUtil;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusEntityUtil;
+import me.travis.wurstplus.wurstplustwo.util.WurstplusFriendUtil;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusMessageUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
@@ -16,7 +17,7 @@ public class WurstplusAutoMine extends WurstplusHack {
 
         this.name        = "Auto Mine";
         this.tag         = "AutoMine";
-        this.description = "jumpy is now never going to use the client again";
+        this.description = "automatically mines a cityable block";
     }
 
     WurstplusSetting end_crystal = create("End Crystal", "MineEndCrystal", false);
@@ -30,6 +31,8 @@ public class WurstplusAutoMine extends WurstplusHack {
         for (EntityPlayer player : mc.world.playerEntities) {
             if (mc.player.getDistance(player) > range.get_value(1)) continue;
 
+            if (WurstplusFriendUtil.isFriend(player.getName())) continue;
+
             BlockPos p = WurstplusEntityUtil.is_cityable(player, end_crystal.get_value(true));
 
             if (p != null) {
@@ -39,7 +42,7 @@ public class WurstplusAutoMine extends WurstplusHack {
 
         if (target_block == null) {
             WurstplusMessageUtil.send_client_message("cannot find block");
-            this.disable();
+            this.set_disable();
         }
 
         WurstplusBreakUtil.set_current_block(target_block);

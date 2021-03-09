@@ -5,12 +5,8 @@ import me.travis.wurstplus.Wurstplus;
 import me.travis.wurstplus.wurstplustwo.guiscreen.render.WurstplusDraw;
 import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.past.Component;
 import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.past.font.FontUtil;
-import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.past.items.ModuleButton;
-import me.travis.wurstplus.wurstplustwo.hacks.PastGUIHack;
-import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import net.minecraft.client.gui.Gui;
 import org.lwjgl.input.Keyboard;
-import sun.security.pkcs11.Secmod;
 
 public class KeybindComponent extends Component {
     private boolean isBinding;
@@ -99,10 +95,6 @@ public class KeybindComponent extends Component {
     }
 
     public boolean isMouseOnButton(int x, int y) {
-        if (x > this.x && x < this.x + 100 && y > this.y && y < this.y + 15) {
-            return true;
-        } else {
-            return false;
-        }
+        return x > this.x && x < this.x + 100 && y > this.y && y < this.y + 15;
     }
 }

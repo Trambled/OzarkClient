@@ -9,7 +9,7 @@ public class AutoRespawn extends WurstplusHack {
     public AutoRespawn() {
         super(WurstplusCategory.WURSTPLUS_MISC);
 
-        this.name = "AutoRespawn";
+        this.name = "Auto Respawn";
         this.tag = "AutoRespawn";
         this.description = "Automatically respawns";
     }

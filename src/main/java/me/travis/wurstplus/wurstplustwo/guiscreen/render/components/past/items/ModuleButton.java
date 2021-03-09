@@ -6,7 +6,6 @@ import me.travis.wurstplus.Wurstplus;
 import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.past.Panel;
 import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.past.font.FontUtil;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
-import me.travis.wurstplus.wurstplustwo.hacks.PastGUIHack;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -44,6 +43,9 @@ public class ModuleButton extends Component {
                     opY += 15;
                 } else if (settings.get_type().equals("combobox")) {
                     this.subcomponents.add(new ModeComponent(settings, this, opY));
+                    opY += 15;
+                } else if (settings.get_type().equals("label")) {
+                    this.subcomponents.add(new InfoComponent(settings, this, opY));
                     opY += 15;
                 }
             }
@@ -166,11 +168,7 @@ public class ModuleButton extends Component {
     }
 
     public boolean isMouseOnButton(int x, int y) {
-        if (x > parent.getX() && x < parent.getX() + 100 && y > this.parent.getY() + this.offset && y < this.parent.getY() + 15 + this.offset) {
-            return true;
-        } else {
-            return false;
-        }
+        return x > parent.getX() && x < parent.getX() + 100 && y > this.parent.getY() + this.offset && y < this.parent.getY() + 15 + this.offset;
     }
 
     public boolean isOpen() {

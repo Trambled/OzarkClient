@@ -6,6 +6,7 @@ import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusEntityUtil;
+import me.travis.wurstplus.wurstplustwo.util.WurstplusFriendUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 
@@ -19,7 +20,7 @@ public class WurstplusCityEsp extends WurstplusHack {
 
         this.name = "CityESP";
         this.tag = "City ESP";
-        this.description = "jumpy isnt gonna be happy about this";
+        this.description = "highlights cityable blocks";
 
     }
 
@@ -42,6 +43,8 @@ public class WurstplusCityEsp extends WurstplusHack {
         blocks.clear();
         for (EntityPlayer player : mc.world.playerEntities) {
             if (mc.player.getDistance(player) > range.get_value(1) || mc.player == player) continue;
+
+            if (WurstplusFriendUtil.isFriend(player.getName())) continue;
 
             BlockPos p = WurstplusEntityUtil.is_cityable(player, endcrystal_mode.get_value(true));
 
