@@ -3,14 +3,12 @@ package me.travis.wurstplus.wurstplustwo.hacks.movement;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.network.Packet;
-import net.minecraft.entity.Entity;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import me.travis.wurstplus.Wurstplus;
-//made by SirRina
 
+//from kami
 public class OldElytraFly extends WurstplusHack {
 	
 	WurstplusSetting mode = create("Mode", "Mode", "Boost", combobox("Boost", "Fly"));

@@ -37,7 +37,7 @@ public class WurstplusFuckedDetector extends WurstplusHack {
     private boolean solid;
     private boolean outline;
 
-    public Set<BlockPos> fucked_players = new HashSet<BlockPos>();
+    public Set<BlockPos> fucked_players = new HashSet<>();
 
     @Override
     protected void enable() {
@@ -75,6 +75,7 @@ public class WurstplusFuckedDetector extends WurstplusHack {
     public boolean is_fucked(EntityPlayer player) {
 
         BlockPos pos = new BlockPos(player.posX, player.posY - 1, player.posZ);
+        BlockPos player_pos = new BlockPos(player.posX, player.posY, player.posZ);
 
         if (WurstplusCrystalUtil.canPlaceCrystal(pos.south()) || (WurstplusCrystalUtil.canPlaceCrystal(pos.south().south()) && mc.world.getBlockState(pos.add(0, 1, 1)).getBlock() == Blocks.AIR)) {
             return true;
@@ -92,7 +93,7 @@ public class WurstplusFuckedDetector extends WurstplusHack {
             return true;
         }
 
-        if (mc.world.getBlockState(pos).getBlock().equals(Blocks.OBSIDIAN)) {
+        if (mc.world.getBlockState(player_pos).getBlock().equals(Blocks.OBSIDIAN)) {
             return false;
         }
 

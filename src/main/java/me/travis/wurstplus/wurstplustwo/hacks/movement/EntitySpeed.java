@@ -2,10 +2,7 @@ package me.travis.wurstplus.wurstplustwo.hacks.movement;
 
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
-import me.travis.wurstplus.wurstplustwo.util.WurstplusPlayerUtil;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.MovementInput;
 
 //salhack

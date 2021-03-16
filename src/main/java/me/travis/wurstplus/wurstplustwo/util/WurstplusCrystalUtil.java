@@ -68,19 +68,19 @@ public class WurstplusCrystalUtil {
                 return false;
             }
             if (!specialEntityCheck) {
-                return mc.world.getEntitiesWithinAABB((Class)Entity.class, new AxisAlignedBB(boost)).isEmpty() && mc.world.getEntitiesWithinAABB((Class)Entity.class, new AxisAlignedBB(boost2)).isEmpty();
+                return mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(boost)).isEmpty() && mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(boost2)).isEmpty();
             }
-            for (final Object entity : mc.world.getEntitiesWithinAABB((Class)Entity.class, new AxisAlignedBB(boost))) {
+            for (final Object entity : mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(boost))) {
                 if (!(entity instanceof EntityEnderCrystal)) {
                     return false;
                 }
             }
-            for (final Object entity : mc.world.getEntitiesWithinAABB((Class)Entity.class, new AxisAlignedBB(boost2))) {
+            for (final Object entity : mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(boost2))) {
                 if (!(entity instanceof EntityEnderCrystal)) {
                     return false;
                 }
             }
-            for (final Object entity : mc.world.getEntitiesWithinAABB((Class)Entity.class, new AxisAlignedBB(final_boost))) {
+            for (final Object entity : mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(final_boost))) {
                 if (entity instanceof EntityEnderCrystal) {
                     return false;
                 }
@@ -104,10 +104,7 @@ public class WurstplusCrystalUtil {
 
             if (floor == Blocks.AIR && ceil == Blocks.AIR)
             {
-                if (mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos.add(0, 1, 0))).isEmpty() && mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos.add(0, 2, 0))).isEmpty())
-                {
-                    return true;
-                }
+                return mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos.add(0, 1, 0))).isEmpty() && mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(pos.add(0, 2, 0))).isEmpty();
             }
         }
 

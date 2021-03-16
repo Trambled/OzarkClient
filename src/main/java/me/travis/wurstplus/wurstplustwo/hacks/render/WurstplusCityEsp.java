@@ -18,8 +18,8 @@ public class WurstplusCityEsp extends WurstplusHack {
     public WurstplusCityEsp() {
         super(WurstplusCategory.WURSTPLUS_RENDER);
 
-        this.name = "CityESP";
-        this.tag = "City ESP";
+        this.name = "City ESP";
+        this.tag = "CityESP";
         this.description = "highlights cityable blocks";
 
     }
@@ -33,7 +33,7 @@ public class WurstplusCityEsp extends WurstplusHack {
     WurstplusSetting b = create("B", "CityB", 0, 0, 255);
     WurstplusSetting a = create("A", "CityA", 50, 0, 255);
 
-    List<BlockPos> blocks = new ArrayList<>();
+    List<BlockPos> blocks = new ArrayList<BlockPos>();
 
     boolean outline = false;
     boolean solid   = false;

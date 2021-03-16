@@ -18,7 +18,7 @@ public class WurstplusAntifog extends WurstplusHack {
     }
 
     @EventHandler
-    private Listener<WurstplusEventSetupFog> setup_fog = new Listener<> (event -> {
+    private final Listener<WurstplusEventSetupFog> setup_fog = new Listener<> (event -> {
 
         event.cancel();
 

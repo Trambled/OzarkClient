@@ -125,7 +125,7 @@ public class WurstplusMathUtil {
         final double deltaX = pos.x - x;
         final double deltaY = pos.y - y;
         final double deltaZ = pos.z - z;
-        return (double) MathHelper.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
+        return MathHelper.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
     }
 
     public static double[] calcIntersection(double[] line, double[] line2)
@@ -332,7 +332,7 @@ public class WurstplusMathUtil {
     public static boolean areVec3dsAlignedRetarded(final Vec3d vec3d1, final Vec3d vec3d2) {
         final BlockPos pos1 = new BlockPos(vec3d1);
         final BlockPos pos2 = new BlockPos(vec3d2.x, vec3d1.y, vec3d2.z);
-        return pos1.equals((Object)pos2);
+        return pos1.equals(pos2);
     }
 
     public static float[] calcAngle(final Vec3d from, final Vec3d to) {

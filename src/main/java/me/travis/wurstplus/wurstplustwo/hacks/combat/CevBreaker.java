@@ -23,11 +23,10 @@ import net.minecraft.util.math.Vec3d;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static me.travis.wurstplus.wurstplustwo.util.RotationUtil.ROTATION_UTIL;
-
 //gamesense
 public class CevBreaker extends WurstplusHack
 {
+
 
     public CevBreaker() {
         super(WurstplusCategory.WURSTPLUS_COMBAT);
@@ -105,8 +104,6 @@ public class CevBreaker extends WurstplusHack
 
     @Override
     protected void enable() {
-
-        ROTATION_UTIL.onEnable();
         // Init values
         initValues();
         // Get Target
@@ -195,7 +192,6 @@ public class CevBreaker extends WurstplusHack
     // On disable of the module
     @Override
     protected void disable() {
-        ROTATION_UTIL.onDisable();
         if (mc.player == null){
             return;
         }
@@ -285,7 +281,6 @@ public class CevBreaker extends WurstplusHack
             delayTimeTicks = 0;
         }
 
-        ROTATION_UTIL.shouldSpoofAngles(true);
 
         // Check if something is not ok
         if (enemyCoordsDouble == null || aimTarget == null) {
@@ -451,6 +446,7 @@ public class CevBreaker extends WurstplusHack
         }else stage = 0;
     }
 
+
     // Actual break crystal
     private void breakCrystalPiston (Entity crystal) {
         // HitDelay
@@ -462,9 +458,6 @@ public class CevBreaker extends WurstplusHack
         if (antiWeakness.get_value(true))
             mc.player.inventory.currentItem = slot_mat[3];
         // If rotate
-        if (rotate.get_value(true)) {
-            ROTATION_UTIL.lookAtPacket(crystal.posX, crystal.posY, crystal.posZ, mc.player);
-        }
         /// Break type
         // Swing
         if (breakCrystal.in("Vanilla")) {
@@ -478,9 +471,6 @@ public class CevBreaker extends WurstplusHack
 
             }
         }
-        // Rotate
-        if (rotate.get_value(true))
-            ROTATION_UTIL.resetRotation();
     }
 
     // Place the supports blocks

@@ -1,8 +1,8 @@
 package me.travis.wurstplus.wurstplustwo.event.events;
 
-import me.travis.wurstplus.wurstplustwo.event.MinecraftEvent;
+import me.travis.wurstplus.wurstplustwo.event.WurstplusEventCancellable;
 
-public class EventRenderBossHealth extends MinecraftEvent
+public class EventRenderBossHealth extends WurstplusEventCancellable
 {
 
 }

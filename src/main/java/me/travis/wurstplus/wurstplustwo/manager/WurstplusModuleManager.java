@@ -93,6 +93,7 @@ public class WurstplusModuleManager {
 		add_hack(new EChestBP());
 		add_hack(new Ghost());
 		add_hack(new MountBypass());
+		add_hack(new Scaffold());
 
 		// Movement.
 		add_hack(new WurstplusStrafe());
@@ -134,6 +135,7 @@ public class WurstplusModuleManager {
 		add_hack(new LowHands());
 		add_hack(new Timechanger());
 		add_hack(new BurrowESP());
+		add_hack(new Xray());
 
 		// Misc.
 		add_hack(new WurstplusAutoWither());
@@ -156,6 +158,7 @@ public class WurstplusModuleManager {
 		add_hack(new AutoRespawn());
 		add_hack(new InventorySort());
 		add_hack(new AutoGear());
+		add_hack(new AntiSound());
 		
 		array_hacks.sort(Comparator.comparing(WurstplusHack::get_name));
 	}

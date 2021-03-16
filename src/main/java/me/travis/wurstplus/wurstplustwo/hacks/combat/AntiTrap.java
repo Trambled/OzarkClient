@@ -9,7 +9,6 @@ import net.minecraft.init.Items;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 
 /**
@@ -31,11 +30,10 @@ public class AntiTrap extends WurstplusHack
     }
 
     WurstplusSetting toggle = create("Toggle", "Toggle", false);
-    //WurstplusSetting switch_back = create("Switch Back", "SwitchBack", true);
-    //WurstplusSetting chat_msg = create("Chat Msg", "Chat Msg", true);
+//  WurstplusSetting switch_back = create("Switch Back", "SwitchBack", true);
+//  WurstplusSetting chat_msg = create("Chat Msg", "Chat Msg", true);
 
     public static boolean is_trapped; // so autocrystal can detect that its antitrapping
-	private boolean was_eating = false;
 
     @Override
     public void update() {
@@ -46,15 +44,17 @@ public class AntiTrap extends WurstplusHack
             this.set_disable();
         }
 
-        if (is_entity_trapped(mc.player)) {
+        if (is_entity_trapped()) {
             mc.player.inventory.currentItem = find_chorus_hotbar();
             is_trapped = true;
             mc.playerController.processRightClick(mc.player, mc.world, EnumHand.MAIN_HAND);
-		    was_eating = true;
         }
 
-        if (!is_entity_trapped(mc.player)) {
+        if (!is_entity_trapped()) {
             is_trapped = false;
+            if (mc.player.inventory.currentItem == find_chorus_hotbar()) {
+                mc.gameSettings.keyBindUseItem.pressed = false;
+            }
 
             if (toggle.get_value(true)) {
                 this.set_disable();
@@ -62,16 +62,15 @@ public class AntiTrap extends WurstplusHack
 			
 			
         }
-		
-        if (was_eating)	{
-            was_eating = false;
-            mc.gameSettings.keyBindUseItem.pressed = false;
-        }
-		
+    }
+
+    @Override
+    protected void enable() {
+        mc.gameSettings.keyBindUseItem.pressed = false;
     }
 
     //salhack
-    public static boolean is_entity_trapped(EntityPlayer e)
+    public static boolean is_entity_trapped()
     {
         BlockPos l_PlayerPos = WurstplusPlayerUtil.GetLocalPlayerPosFloored();
 

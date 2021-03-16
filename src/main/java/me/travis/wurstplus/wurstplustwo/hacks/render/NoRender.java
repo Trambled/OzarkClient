@@ -7,7 +7,6 @@ import me.travis.wurstplus.wurstplustwo.event.events.*;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 
-import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.Entity;
@@ -82,7 +81,7 @@ public class NoRender extends WurstplusHack {
 		}
 	}
     @EventHandler
-    private Listener<RenderBlockOverlayEvent> OnBlockOverlayEvent = new Listener<>(p_Event ->
+    private final Listener<RenderBlockOverlayEvent> OnBlockOverlayEvent = new Listener<>(p_Event ->
     {
         if (fire.get_value(true) && p_Event.getOverlayType() == OverlayType.FIRE)
             p_Event.setCanceled(true);
@@ -92,20 +91,20 @@ public class NoRender extends WurstplusHack {
             p_Event.setCanceled(true);
     });
     @EventHandler
-    private Listener<EventRenderBossHealth> renderbosshealth = new Listener<>(p_Event ->
+    private final Listener<EventRenderBossHealth> renderbosshealth = new Listener<>(p_Event ->
     {
         if (boss_health.get_value(true))
             p_Event.cancel();
     });
     @EventHandler
-    private Listener<EventRenderHurtCameraEffect> on_render_hurt_cam= new Listener<>(p_Event ->
+    private final Listener<EventRenderHurtCameraEffect> on_render_hurt_cam= new Listener<>(p_Event ->
     {
         if (hurt_cam.get_value(true))
             p_Event.cancel();
     });
 
     @EventHandler
-    private Listener<EventRenderUpdateLightMap>  on_update_light_map = new Listener<>(p_Event ->
+    private final Listener<EventRenderUpdateLightMap>  on_update_light_map = new Listener<>(p_Event ->
     {
         if (skylight.get_value(true)) {
             p_Event.cancel();

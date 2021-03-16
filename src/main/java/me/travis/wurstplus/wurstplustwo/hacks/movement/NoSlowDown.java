@@ -10,7 +10,6 @@ import net.minecraft.client.gui.GuiScreenOptionsSounds;
 import net.minecraft.client.gui.GuiVideoSettings;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketPlayerDigging;
 import net.minecraft.util.EnumFacing;
@@ -37,10 +36,10 @@ public class NoSlowDown extends WurstplusHack {
     WurstplusSetting h_web = create("Horizontal Web", "HorizontalWeb", 1.96, 0, 100);
 	WurstplusSetting v_web = create("Vertical Web", "VerticalWeb", 1.96, 0, 100);
 	
-	private static KeyBinding[] keys = new KeyBinding[]{NoSlowDown.mc.gameSettings.keyBindForward, NoSlowDown.mc.gameSettings.keyBindBack, NoSlowDown.mc.gameSettings.keyBindLeft, NoSlowDown.mc.gameSettings.keyBindRight, NoSlowDown.mc.gameSettings.keyBindJump, NoSlowDown.mc.gameSettings.keyBindSprint};
+	private final static KeyBinding[] keys = new KeyBinding[]{NoSlowDown.mc.gameSettings.keyBindForward, NoSlowDown.mc.gameSettings.keyBindBack, NoSlowDown.mc.gameSettings.keyBindLeft, NoSlowDown.mc.gameSettings.keyBindRight, NoSlowDown.mc.gameSettings.keyBindJump, NoSlowDown.mc.gameSettings.keyBindSprint};
 	
 	@EventHandler //bope
-	private Listener<InputUpdateEvent> listener = new Listener<>(event -> {
+	private final Listener<InputUpdateEvent> listener = new Listener<>(event -> {
 		if (mc.player.isHandActive() && !mc.player.isRiding()) {
 			event.getMovementInput().moveStrafe  *= 5;
 			event.getMovementInput().moveForward *= 5;
@@ -52,12 +51,12 @@ public class NoSlowDown extends WurstplusHack {
         if (gui_move.get_value(true)) {
             if (NoSlowDown.mc.currentScreen instanceof GuiOptions || NoSlowDown.mc.currentScreen instanceof GuiVideoSettings || NoSlowDown.mc.currentScreen instanceof GuiScreenOptionsSounds || NoSlowDown.mc.currentScreen instanceof GuiContainer || NoSlowDown.mc.currentScreen instanceof GuiIngameMenu) {
                 for (KeyBinding bind : keys) {
-                    KeyBinding.setKeyBindState((int)bind.getKeyCode(), (boolean)Keyboard.isKeyDown((int)bind.getKeyCode()));
+                    KeyBinding.setKeyBindState(bind.getKeyCode(), Keyboard.isKeyDown(bind.getKeyCode()));
                 }
             } else if (NoSlowDown.mc.currentScreen == null) {
                 for (KeyBinding bind : keys) {
-                    if (Keyboard.isKeyDown((int)bind.getKeyCode())) continue;
-                    KeyBinding.setKeyBindState((int)bind.getKeyCode(), (boolean)false);
+                    if (Keyboard.isKeyDown(bind.getKeyCode())) continue;
+                    KeyBinding.setKeyBindState(bind.getKeyCode(), false);
                 }
             }
         }
@@ -69,9 +68,9 @@ public class NoSlowDown extends WurstplusHack {
     }
 	
 	@EventHandler
-    private Listener<WurstplusEventPacket.SendPacket> dostrict = new Listener<>(event -> {
+    private final Listener<WurstplusEventPacket.SendPacket> dostrict = new Listener<>(event -> {
         if (event.get_packet() instanceof CPacketPlayer && this.strict.get_value(true) && NoSlowDown.mc.player.isHandActive() && !NoSlowDown.mc.player.isRiding()) {
-            NoSlowDown.mc.player.connection.sendPacket((Packet)new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, new BlockPos(Math.floor(NoSlowDown.mc.player.posX), Math.floor(NoSlowDown.mc.player.posY), Math.floor(NoSlowDown.mc.player.posZ)), EnumFacing.DOWN));
+            NoSlowDown.mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.ABORT_DESTROY_BLOCK, new BlockPos(Math.floor(NoSlowDown.mc.player.posX), Math.floor(NoSlowDown.mc.player.posY), Math.floor(NoSlowDown.mc.player.posZ)), EnumFacing.DOWN));
         }
     });
 }

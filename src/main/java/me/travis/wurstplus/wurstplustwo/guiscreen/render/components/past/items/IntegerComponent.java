@@ -50,7 +50,7 @@ public class IntegerComponent extends Component {
 
         Gui.drawRect(parent.parent.getX() + 1, parent.parent.getY() + offset, parent.parent.getX() + parent.parent.getWidth() -1, parent.parent.getY() + offset + 15, 0x75101010);
 
-        FontUtil.drawText(this.set.get_name() + ChatFormatting.GRAY + " " + this.set.get_value((int) 1), parent.parent.getX() + 4, parent.parent.getY() + offset + 3, -1);
+        FontUtil.drawText(this.set.get_name() + ChatFormatting.GRAY + " " + this.set.get_value(1), parent.parent.getX() + 4, parent.parent.getY() + offset + 3, -1);
     }
 
     @Override
@@ -59,13 +59,13 @@ public class IntegerComponent extends Component {
         this.x = parent.parent.getX();
 
         double diff = Math.min(100, Math.max(0, mouseX - this.x));
-        int min = this.set.get_min((int) 1);
-        int max = this.set.get_max((int) 1);
+        int min = this.set.get_min(1);
+        int max = this.set.get_max(1);
         this.sliderWidth = 100 * (this.set.get_value(1) - min) / (max - min);
 
         if (this.dragging) {
             if (diff == 0) {
-                this.set.set_value(this.set.get_min((int) 1));
+                this.set.set_value(this.set.get_min(1));
             } else {
                 int newValue = (int) roundToPlace(diff / 100 * (max - min) + min, 2);
                 this.set.set_value(newValue);

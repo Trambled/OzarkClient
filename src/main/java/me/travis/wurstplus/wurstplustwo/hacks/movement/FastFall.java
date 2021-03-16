@@ -3,17 +3,9 @@ package me.travis.wurstplus.wurstplustwo.hacks.movement;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
-import me.travis.wurstplus.Wurstplus;
 import net.minecraft.block.BlockLiquid;
-import net.minecraft.block.BlockSlab;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.IBlockAccess;
 
 //gamesense
 public class FastFall extends WurstplusHack
@@ -47,21 +39,13 @@ public class FastFall extends WurstplusHack
 		for (int x = MathHelper.floor(mc.player.posX); x < MathHelper.ceil(mc.player.posX); x++){
 			for (int z = MathHelper.floor(mc.player.posZ); z < MathHelper.ceil(mc.player.posZ); z++){
 				final BlockPos pos = new BlockPos(x, (int)y, z);
-				if (mc.world.getBlockState(pos).getBlock() instanceof BlockLiquid){
-					inLiquid = true;
-				} else {
-					inLiquid = false;
-				}
+				inLiquid = mc.world.getBlockState(pos).getBlock() instanceof BlockLiquid;
 			}
 		}
 		for (int x = MathHelper.floor(mc.player.posX); x < MathHelper.ceil(mc.player.posX); x++){
 			for (int z = MathHelper.floor(mc.player.posZ); z < MathHelper.ceil(mc.player.posZ); z++){
 				final BlockPos pos = new BlockPos(x, (int)y, z);
-				if (mc.world.getBlockState(pos).getBlock() instanceof BlockLiquid){
-					onLiquid = true;
-				} else {
-					onLiquid = false;
-				}
+				onLiquid = mc.world.getBlockState(pos).getBlock() instanceof BlockLiquid;
 			}
 		}
     }

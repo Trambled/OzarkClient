@@ -1,9 +1,9 @@
 package me.travis.wurstplus.wurstplustwo.event.events;
 
-import me.travis.wurstplus.wurstplustwo.event.MinecraftEvent;
+import me.travis.wurstplus.wurstplustwo.event.WurstplusEventCancellable;
 import net.minecraft.entity.MoverType;
 
-public class EventMove extends MinecraftEvent
+public class EventMove extends WurstplusEventCancellable
 {
     public MoverType Type;
     public double X;

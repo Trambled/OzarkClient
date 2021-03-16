@@ -23,7 +23,7 @@ public class WurstplusCriticals extends WurstplusHack {
 	WurstplusSetting mode = create("Mode", "CriticalsMode", "Packet", combobox("Packet", "Jump"));
 
 	@EventHandler
-	private Listener<WurstplusEventPacket.SendPacket> listener = new Listener<>(event -> {
+	private final Listener<WurstplusEventPacket.SendPacket> listener = new Listener<>(event -> {
 		if (event.get_packet() instanceof CPacketUseEntity) {
 			CPacketUseEntity event_entity = ((CPacketUseEntity) event.get_packet());
 

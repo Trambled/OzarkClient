@@ -15,6 +15,7 @@ public class PastGUIHack extends WurstplusHack {
 		this.tag         = "PastGUI";
 		this.description = "skidded past gui";
 		toggle_message = false;
+		set_bind(Wurstplus.WURSTPLUS_KEY_GUI);
 	}
 
 	WurstplusSetting red = create("Red", "PastGUIR", 255, 0, 255);
@@ -30,10 +31,6 @@ public class PastGUIHack extends WurstplusHack {
 	WurstplusSetting descriptions = create("Descriptions", "PastGUIDescriptions", true);
 	WurstplusSetting hover_change = create("Hover Change", "PastGUIHoverChange", true);
 	WurstplusSetting pause_game = create("Pause Game", "PastGUIPauseGame", true);
-
-	WurstplusTimer timer = new WurstplusTimer();
-
-
 
 	@Override
 	protected void enable() {

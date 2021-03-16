@@ -19,7 +19,7 @@ public class RetardChat extends WurstplusHack {
     }
  
     @EventHandler
-    private Listener<EventPlayerSendChatMessage> OnSendChatMsg = new Listener<>(p_Event ->
+    private final Listener<EventPlayerSendChatMessage> OnSendChatMsg = new Listener<>(p_Event ->
     {
         if (p_Event.Message.startsWith("/"))
             return;

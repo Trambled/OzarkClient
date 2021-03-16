@@ -1,8 +1,8 @@
 package me.travis.wurstplus.wurstplustwo.event.events;
 
-import me.travis.wurstplus.wurstplustwo.event.MinecraftEvent;
+import me.travis.wurstplus.wurstplustwo.event.WurstplusEventCancellable;
 
-public class EventPlayerPushOutOfBlocks extends MinecraftEvent
+public class EventPlayerPushOutOfBlocks extends WurstplusEventCancellable
 {
     public double X, Y, Z;
     

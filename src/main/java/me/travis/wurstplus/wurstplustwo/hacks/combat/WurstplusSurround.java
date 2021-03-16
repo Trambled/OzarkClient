@@ -26,11 +26,11 @@ public class WurstplusSurround extends WurstplusHack {
 		this.description = "surround urself with obi and such";
 	}
 
+	WurstplusSetting mode = create("Mode", "SurroundMode", "Normal", combobox("Normal", "Face", "Anticity"));
 	WurstplusSetting rotate = create("Rotate", "SurroundSmoth", true);
 	WurstplusSetting hybrid = create("Hybrid", "SurroundHybrid", true);
 	WurstplusSetting triggerable = create("Toggle", "SurroundToggle", true);
 	WurstplusSetting center = create("Center", "SurroundCenter", true);
-	WurstplusSetting block_head = create("Block Face", "SurroundBlockFace", false);
 	WurstplusSetting tick_for_place = create("Blocks per tick","SurroundTickToPlace", 2, 1, 8);
 	WurstplusSetting tick_timeout = create("Ticks til timeout","SurroundTicks", 20, 10,50);
 	WurstplusSetting swing = create("Swing", "SurroundSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
@@ -52,6 +52,26 @@ public class WurstplusSurround extends WurstplusHack {
 		new Vec3d(- 1, - 1,   0),
 		new Vec3d(  0, - 1, - 1),
 		new Vec3d(  0, - 1,   0)
+	};
+
+	Vec3d[] surround_targets_city = {
+			new Vec3d(  1,   0,   0),
+			new Vec3d(  0,   0,   1),
+			new Vec3d(- 1,   0,   0),
+			new Vec3d(  0,   0, - 1),
+			new Vec3d(  1, - 1,   0),
+			new Vec3d(  0, - 1,   1),
+			new Vec3d(- 1, - 1,   0),
+			new Vec3d(  0, - 1, - 1),
+			new Vec3d(  0, - 1,   0),
+			new Vec3d(  0, 0,   2),
+			new Vec3d(  0, 0,   -2),
+			new Vec3d(  -2, 0,   0),
+			new Vec3d(  2, 0,   0),
+			new Vec3d(  1, 0,   1),
+			new Vec3d(  -1, 0,   1),
+			new Vec3d(  1, 0,   -1),
+			new Vec3d(  -1, 0,   -1)
 	};
 
 	Vec3d[] surround_targets_face = {
@@ -127,12 +147,12 @@ public class WurstplusSurround extends WurstplusHack {
 
 			while (blocks_placed < this.tick_for_place.get_value(1)) {
 
-				if (this.offset_step >= (block_head.get_value(true) ? this.surround_targets_face.length : this.surround_targets.length)) {
+				if (this.offset_step >= (mode.in("Face") ? this.surround_targets_face.length : mode.in("Normal") ? surround_targets.length : surround_targets_city.length)) {
 					this.offset_step = 0;
 					break;
 				}
 
-				BlockPos offsetPos = new BlockPos(block_head.get_value(true) ? this.surround_targets_face[offset_step] : this.surround_targets[offset_step]);
+				BlockPos offsetPos = new BlockPos(mode.in("Face") ? this.surround_targets_face[offset_step] : mode.in("Normal") ? surround_targets[offset_step] : surround_targets_city[offset_step]);
 				BlockPos targetPos = new BlockPos(mc.player.getPositionVector()).add(offsetPos.getX(), offsetPos.getY(), offsetPos.getZ());
 
 				boolean try_to_place = true;

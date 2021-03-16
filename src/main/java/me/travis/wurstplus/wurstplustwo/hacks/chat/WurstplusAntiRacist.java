@@ -16,7 +16,7 @@ public class WurstplusAntiRacist extends WurstplusHack {
 
         this.name = "Anti Racist";
         this.tag = "AntiRacist";
-        this.description = "i love black squares (circles on the other hand...)";
+        this.description = "anti etho";
     }
 
     WurstplusSetting delay = create("Delay", "AntiRacistDelay", 10, 0, 100);
@@ -56,7 +56,7 @@ public class WurstplusAntiRacist extends WurstplusHack {
         String s = chants.get(r.nextInt(chants.size()));
         String name =  get_random_name();
         
-        if (name == mc.player.getName()) return;
+        if (name.equals(mc.player.getName())) return;
 
         mc.player.sendChatMessage(s.replace("<player>", name));
 

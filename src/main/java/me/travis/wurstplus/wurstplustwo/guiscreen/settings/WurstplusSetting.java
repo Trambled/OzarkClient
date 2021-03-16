@@ -1,6 +1,7 @@
 package me.travis.wurstplus.wurstplustwo.guiscreen.settings;
 
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
+import net.minecraft.client.Minecraft;
 
 import java.util.List;
 
@@ -81,10 +82,16 @@ public class WurstplusSetting {
 	}
 
 	public void set_value(boolean value) {
+		if (Minecraft.getMinecraft().world != null && master.is_active()) {
+			master.on_value_change();
+		}
 		this.button = value;
 	}
 
 	public void set_current_value(String value) {
+		if (Minecraft.getMinecraft().world != null && master.is_active()) {
+			master.on_value_change();
+		}
 		this.current = value;
 	}
 
@@ -93,6 +100,9 @@ public class WurstplusSetting {
 	}
 
 	public void set_value(double value) {
+		if (Minecraft.getMinecraft().world != null && master.is_active()) {
+			master.on_value_change();
+		}
 		if (value >= get_max(value)) {
 			this.slider = get_max(value);
 		} else if (value <= get_min(value)) {
@@ -103,6 +113,9 @@ public class WurstplusSetting {
 	}
 
 	public void set_value(int value) {
+		if (Minecraft.getMinecraft().world != null && master.is_active()) {
+			master.on_value_change();
+		}
 		if (value >= get_max(value)) {
 			this.slider = get_max(value);
 		} else if (value <= get_min(value)) {

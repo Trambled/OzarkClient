@@ -20,7 +20,7 @@ public class OffhandBypass extends WurstplusHack
     }
 	
     @EventHandler
-    private Listener<PlayerDestroyItemEvent> listener = new Listener<>(event ->
+    private final Listener<PlayerDestroyItemEvent> listener = new Listener<>(event ->
     {
         if (event.getHand() == EnumHand.MAIN_HAND && OffhandBypass.mc.player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL) {
             event.setCanceled(true);

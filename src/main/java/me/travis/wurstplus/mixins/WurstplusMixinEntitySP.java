@@ -1,11 +1,14 @@
 package me.travis.wurstplus.mixins;
 
+import me.travis.wurstplus.Wurstplus;
 import me.travis.wurstplus.wurstplustwo.event.WurstplusEventBus;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventMotionUpdate;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventMove;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventSwing;
 import me.travis.wurstplus.wurstplustwo.event.events.EventPlayerPushOutOfBlocks;
 import me.travis.wurstplus.wurstplustwo.event.events.EventPlayerSendChatMessage;
+import net.minecraft.client.audio.ISound;
+import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.MoverType;
 import net.minecraft.util.EnumHand;
@@ -14,6 +17,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -83,5 +87,4 @@ public class WurstplusMixinEntitySP extends WurstplusMixinEntity {
         if (l_Event.isCancelled())
             p_Info.cancel();
     }
-
 }

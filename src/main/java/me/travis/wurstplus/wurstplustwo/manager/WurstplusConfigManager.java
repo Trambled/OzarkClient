@@ -4,14 +4,20 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.*;
 import me.travis.wurstplus.Wurstplus;
 import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.WurstplusFrame;
+import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.past.Panel;
+import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.past.PastGUI;
 import me.travis.wurstplus.wurstplustwo.guiscreen.render.pinnables.WurstplusPinnable;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
+import me.travis.wurstplus.wurstplustwo.hacks.render.Xray;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusDrawnUtil;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusEnemyUtil;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusEzMessageUtil;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusFriendUtil;
 import me.travis.wurstplus.wurstplustwo.util.AutoKitUtil;
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.ResourceLocation;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -20,13 +26,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Iterator;
+import java.util.Objects;
 
 import static me.travis.wurstplus.Wurstplus.send_minecraft_log;
 
 public class WurstplusConfigManager {
 
     public File WurstplusFile;
+    public File FILE_DIRECTORY;
 
     // FOLDERS
     private final String MAIN_FOLDER = "OZARKCLIENT/";
@@ -66,6 +73,7 @@ public class WurstplusConfigManager {
     private final Path CLIENT_PATH = Paths.get(CLIENT_DIR);
     private final Path CONFIG_PATH = Paths.get(CONFIG_DIR);
     private final Path DRAWN_PATH = Paths.get(DRAWN_DIR);
+    private final Path KIT_PATH = Paths.get(KIT_DIR);
     private final Path EZ_PATH = Paths.get(EZ_DIR);
     private final Path ENEMIES_PATH = Paths.get(ENEMIES_DIR);
     private final Path FRIENDS_PATH = Paths.get(FRIENDS_DIR);
@@ -73,6 +81,10 @@ public class WurstplusConfigManager {
 
     private Path BINDS_PATH = Paths.get(BINDS_DIR);
     private Path CURRENT_CONFIG_PATH = Paths.get(CURRENT_CONFIG_DIR);
+
+    public WurstplusConfigManager() {
+        FILE_DIRECTORY = new File(Minecraft.getMinecraft().gameDir, "OZARKCLIENT");
+    }
 
     public boolean set_active_config_folder(String folder) {
         if (folder.equals(this.ACTIVE_CONFIG_FOLDER)) {
@@ -90,6 +102,43 @@ public class WurstplusConfigManager {
 
         load_settings();
         return true;
+    }
+
+    public void save_xray() {
+        try {
+            final File file = new File(FILE_DIRECTORY, "xray.txt");
+            final BufferedWriter out = new BufferedWriter(new FileWriter(file));
+            for (final Block block : Xray.getBLOCKS()) {
+                try {
+                    out.write(((ResourceLocation)Block.REGISTRY.getNameForObject(block)).getPath());
+                    out.write("\r\n");
+                }
+                catch (Exception ex) {}
+            }
+            out.close();
+        }
+        catch (Exception ex2) {}
+    }
+
+    public void load_xray() {
+        try {
+            final File file = new File(FILE_DIRECTORY, "xray.txt");
+            final FileInputStream fstream = new FileInputStream(file.getAbsolutePath());
+            final DataInputStream in = new DataInputStream(fstream);
+            final BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            Xray.getBLOCKS().clear();
+            String line;
+            while ((line = br.readLine()) != null) {
+                try {
+                    Xray.getBLOCKS().add(Objects.requireNonNull(Block.getBlockFromName(line)));
+                }
+                catch (NullPointerException ex) {}
+            }
+            br.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // LOAD & SAVE EZ MESSAGE
@@ -110,7 +159,7 @@ public class WurstplusConfigManager {
 
     private void load_ezmessage() throws IOException {
         StringBuilder sb = new StringBuilder();
-        for (String s : Files.readAllLines(EZ_PATH)) {
+        for (String s : Files.readAllLines(KIT_PATH)) {
             sb.append(s);
         }
         WurstplusEzMessageUtil.set_message(sb.toString());
@@ -133,7 +182,7 @@ public class WurstplusConfigManager {
 
     private void load_kitmessage() throws IOException {
         StringBuilder ki = new StringBuilder();
-        for (String s : Files.readAllLines(EZ_PATH)) {
+        for (String s : Files.readAllLines(KIT_PATH)) {
             ki.append(s);
         }
         AutoKitUtil.set_message(ki.toString());
@@ -153,6 +202,55 @@ public class WurstplusConfigManager {
 
     private void load_drawn() throws IOException {
         WurstplusDrawnUtil.hidden_tags = Files.readAllLines(DRAWN_PATH);
+    }
+
+    public void save_past_gui() {
+        try {
+            File file = new File(FILE_DIRECTORY, "pastgui.txt");
+            ArrayList<String> panelsToSave = new ArrayList<>();
+
+            for (Panel panel : PastGUI.panels) {
+                panelsToSave.add(panel.getCategory() + ":" + panel.getX() + ":" + panel.getY() + ":" + panel.isOpen());
+            }
+
+            try {
+                PrintWriter printWriter = new PrintWriter(file);
+                for (String string : panelsToSave) {
+                    printWriter.println(string);
+                }
+                printWriter.close();
+            } catch (FileNotFoundException e) {}
+        } catch (Exception e) {}
+    }
+
+    public void load_past_gui() {
+        try {
+            File file = new File(FILE_DIRECTORY, "pastgui.txt");
+            FileInputStream fstream = new FileInputStream(file.getAbsolutePath());
+            DataInputStream in = new DataInputStream(fstream);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                String curLine = line.trim();
+                String name = curLine.split(":")[0];
+                String x = curLine.split(":")[1];
+                String y = curLine.split(":")[2];
+                String open = curLine.split(":")[3];
+                int x1 = Integer.parseInt(x);
+                int y1 = Integer.parseInt(y);
+                boolean opened = Boolean.parseBoolean(open);
+                Panel p = Wurstplus.past_gui.getPanelByName(name);
+                if (p != null) {
+                    p.x = x1;
+                    p.y = y1;
+                    p.setOpen(opened);
+                }
+            }
+
+            br.close();
+        } catch (Exception e) {}
     }
 
     // LOAD & SAVE PALS
@@ -482,6 +580,8 @@ public class WurstplusConfigManager {
             save_ezmessage();
             save_hud();
             save_kitmessage();
+            save_past_gui();
+            save_xray();
         } catch (IOException e) {
             send_minecraft_log("Something has gone wrong while saving settings");
             send_minecraft_log(e.toString());
@@ -489,7 +589,6 @@ public class WurstplusConfigManager {
     }
 
     public void load_settings() {
-
         try {
             load_binds();
             load_client();
@@ -500,6 +599,8 @@ public class WurstplusConfigManager {
             load_hacks();
             load_hud();
             load_kitmessage();
+            load_past_gui();
+            load_xray();
         } catch (IOException e) {
             send_minecraft_log("Something has gone wrong while loading settings");
             send_minecraft_log(e.toString());

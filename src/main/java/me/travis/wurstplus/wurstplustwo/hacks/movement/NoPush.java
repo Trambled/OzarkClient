@@ -24,7 +24,7 @@ public class NoPush extends WurstplusHack {
     WurstplusSetting burrow_only = create("Burrow Only", "BurrowOnly", false);
 
     @EventHandler
-    private Listener<EventPlayerPushOutOfBlocks> push_out_of_blocks = new Listener<>(p_Event ->
+    private final Listener<EventPlayerPushOutOfBlocks> push_out_of_blocks = new Listener<>(p_Event ->
     {
 		if (mc.world.getBlockState(new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ)).getBlock().equals(Blocks.OBSIDIAN) && burrow_only.get_value(true))	{
 			p_Event.cancel();

@@ -13,8 +13,7 @@ public class WurstplusClickGUI extends WurstplusHack {
 		this.name        = "GUI";
 		this.tag         = "GUI";
 		this.description = "The main gui";
-
-		set_bind(Wurstplus.WURSTPLUS_KEY_GUI);
+		this.toggle_message = false;
 	}
 
 	WurstplusSetting scroll_speed = create("Scroll Speed", "ClickGUIScrollSpeed", 10, 0, 30);

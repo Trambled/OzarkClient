@@ -137,6 +137,11 @@ public class Panel {
 
     public void setOpen(boolean open) {
         this.open = open;
+        if (Wurstplus.get_config_manager() != null) {
+            try {
+                Wurstplus.get_config_manager().save_past_gui();
+            } catch (Exception e) {}
+        }
     }
 
     public int getX() {
@@ -149,10 +154,20 @@ public class Panel {
 
     public void setX(int newX) {
         this.x = newX;
+        if (Wurstplus.get_config_manager() != null) {
+            try {
+                Wurstplus.get_config_manager().save_past_gui();
+            } catch (Exception e) {}
+        }
     }
 
     public void setY(int newY) {
         this.y = newY;
+        if (Wurstplus.get_config_manager() != null) {
+            try {
+                Wurstplus.get_config_manager().save_past_gui();
+            } catch (Exception e) {}
+        }
     }
 
     public WurstplusCategory getCategory() {

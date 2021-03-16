@@ -1,7 +1,6 @@
 package me.travis.wurstplus.wurstplustwo.event;
 
-import me.travis.wurstplus.wurstplustwo.manager.WurstplusCommandManager;
-import me.travis.wurstplus.wurstplustwo.manager.WurstplusEventManager;
+import me.travis.wurstplus.wurstplustwo.manager.*;
 import net.minecraftforge.common.MinecraftForge;
 
 

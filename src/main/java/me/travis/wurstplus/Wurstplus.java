@@ -27,7 +27,7 @@ public class Wurstplus {
 	private static Wurstplus MASTER;
 
 	public static final String WURSTPLUS_NAME = "OzarkClient";
-	public static final String WURSTPLUS_VERSION = "1.11.1";
+	public static final String WURSTPLUS_VERSION = "1.11.2";
 	public static final String WURSTPLUS_SIGN = " ";
 
 	public static final int WURSTPLUS_KEY_GUI = Keyboard.KEY_RSHIFT;
@@ -62,6 +62,7 @@ public class Wurstplus {
 	public void WurstplusStarting(FMLInitializationEvent event) {
 
 		init_log(WURSTPLUS_NAME);
+		send_minecraft_log("Version " + WURSTPLUS_VERSION);
 
 		WurstplusEventHandler.INSTANCE = new WurstplusEventHandler();
 
@@ -151,7 +152,6 @@ public class Wurstplus {
 		
 		send_minecraft_log("Client started");
 		send_minecraft_log("We gaming");
-		send_minecraft_log("Made by trambled!");
 	}
 	
 	public void init_log(String name) {

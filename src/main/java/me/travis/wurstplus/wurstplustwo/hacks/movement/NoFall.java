@@ -1,6 +1,5 @@
 package me.travis.wurstplus.wurstplustwo.hacks.movement;
 
-import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import net.minecraft.network.play.client.CPacketPlayer;
@@ -13,7 +12,7 @@ public class NoFall extends WurstplusHack {
 		this.name        = "NoFall";
 		this.tag         = "NoFall";
 		this.description = "prevents fall damage";
-                this.toggle_message = false;
+		this.toggle_message = false;
     }
 
 

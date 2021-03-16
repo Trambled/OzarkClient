@@ -1,10 +1,10 @@
 package me.travis.wurstplus.wurstplustwo.event.events;
 
-import me.travis.wurstplus.wurstplustwo.event.MinecraftEvent;
+import me.travis.wurstplus.wurstplustwo.event.WurstplusEventCancellable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;
 
-public class EventRenderArmorLayer extends MinecraftEvent
+public class EventRenderArmorLayer extends WurstplusEventCancellable
 {
     public EntityLivingBase Entity;
 

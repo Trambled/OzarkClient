@@ -1,6 +1,5 @@
 package me.travis.wurstplus.wurstplustwo.hacks.chat;
 
-import java.util.Random;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 

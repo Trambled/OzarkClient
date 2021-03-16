@@ -533,11 +533,8 @@ public class WurstplusAutoCrystal extends WurstplusHack {
                  } else**/ if (target_damage > best_damage) {
                     best_damage = target_damage;
                     best_block = block;
-                    autoez_target = target;
-                }
-
+                }                autoez_target = target;
             }
-
         }
 
         if (chain_step == 1) {

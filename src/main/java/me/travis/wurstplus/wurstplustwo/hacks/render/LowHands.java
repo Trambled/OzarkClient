@@ -10,7 +10,7 @@ public class LowHands extends WurstplusHack {
     public LowHands() {
         super(WurstplusCategory.WURSTPLUS_RENDER);
 
-        this.name = "LowHands";
+        this.name = "Low Hand";
         this.tag = "LowHands";
         this.description = "someone cut off me hand";
     }

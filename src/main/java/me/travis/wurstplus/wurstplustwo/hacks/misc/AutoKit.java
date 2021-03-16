@@ -24,7 +24,7 @@ public class AutoKit extends WurstplusHack{
 	WurstplusSetting aurora = create("Aurora", "Aurora", false);
 	
 	@EventHandler
-    private Listener<WurstplusEventPacket.ReceivePacket> receiveListener = new Listener<>(event -> {
+    private final Listener<WurstplusEventPacket.ReceivePacket> receiveListener = new Listener<>(event -> {
         if (event.get_packet() instanceof SPacketRespawn && mc.player.isDead) {
             new Thread( ()->{
                 try {

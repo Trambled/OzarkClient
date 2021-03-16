@@ -447,7 +447,7 @@ public class AutoBuilder extends WurstplusHack {
         }
 
         if (delay_counter > delay.get_value(1)) {
-            WurstplusBlockUtil.placeBlock(pos_to_fill, rotate.get_value(true), rotate.get_value(true), swing);
+            WurstplusBlockUtil.placeBlock(pos_to_fill, rotate.get_value(true), false, swing);
             delay_counter = 0;
         }
 

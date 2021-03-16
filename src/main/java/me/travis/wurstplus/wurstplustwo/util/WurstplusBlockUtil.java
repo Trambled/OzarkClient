@@ -6,7 +6,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketEntityAction.Action;
 import net.minecraft.network.play.client.CPacketPlayer.Rotation;

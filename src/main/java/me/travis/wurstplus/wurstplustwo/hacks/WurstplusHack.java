@@ -189,6 +189,10 @@ public class WurstplusHack implements Listenable {
 
 	}
 
+	public void on_value_change() {
+
+	}
+
 	protected void enable() {
 
 	}

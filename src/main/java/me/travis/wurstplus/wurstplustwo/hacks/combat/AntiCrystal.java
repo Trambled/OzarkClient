@@ -14,21 +14,17 @@ import java.util.ArrayList;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketHeldItemChange;
 
 //xenon
 public class AntiCrystal extends WurstplusHack
 {
-    int index;
-    
     public AntiCrystal() {
         super(WurstplusCategory.WURSTPLUS_COMBAT);
 
         this.name        = "Anti Crystal";
         this.tag         = "AntiCrystal";
         this.description = "Places a pressure plate below crystals to remove crystal damage";
-        this.index = 0;
     }
 	
 	WurstplusSetting switch_mode = create("Mode", "Mode", "Normal", combobox("Normal", "Ghost", "None"));
@@ -37,6 +33,8 @@ public class AntiCrystal extends WurstplusHack
 	WurstplusSetting delay = create("Delay", "Delay", 2, 1, 20);
 	WurstplusSetting range = create("Range", "Range", 4, 0, 10);
 	WurstplusSetting rotate = create("Rotate", "Rotate", true);
+
+	private int index;
     
     @Override
     public void update() {
@@ -59,7 +57,7 @@ public class AntiCrystal extends WurstplusHack
                 if (switch_mode.in("Normal")) {
                     mc.player.inventory.currentItem = find_in_hotbar();
                 } else if (switch_mode.in("Ghost")) {
-                    mc.player.connection.sendPacket((Packet)new CPacketHeldItemChange(find_in_hotbar()));
+                    mc.player.connection.sendPacket(new CPacketHeldItemChange(find_in_hotbar()));
                 }
 
                 if (mc.player.inventory.currentItem == find_in_hotbar()) {
@@ -83,7 +81,7 @@ public class AntiCrystal extends WurstplusHack
     public ArrayList<EntityEnderCrystal> getInRange() {
         final ArrayList<EntityEnderCrystal> inRange = new ArrayList<EntityEnderCrystal>();
         for (final EntityEnderCrystal crystal : this.getCrystals()) {
-            if (mc.player.getDistance((Entity)crystal) <= this.range.get_value(1)) {
+            if (mc.player.getDistance(crystal) <= this.range.get_value(1)) {
                 inRange.add(crystal);
             }
         }

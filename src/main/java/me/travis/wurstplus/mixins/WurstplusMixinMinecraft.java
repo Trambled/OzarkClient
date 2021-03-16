@@ -15,12 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = Minecraft.class)
 public class WurstplusMixinMinecraft {
-	@Inject(method = "displayGuiScreen", at = @At("HEAD"))
-	private void displayGuiScreen(GuiScreen guiScreenIn, CallbackInfo info) {
-		WurstplusEventGUIScreen guiscreen = new WurstplusEventGUIScreen(guiScreenIn);
-
-		WurstplusEventBus.EVENT_BUS.post(guiscreen);
-	}
 
 	@Inject(method = "shutdown", at = @At("HEAD"))
 	private void shutdown(CallbackInfo info) {

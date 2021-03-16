@@ -1,8 +1,8 @@
 package me.travis.wurstplus.wurstplustwo.event.events;
 
-import me.travis.wurstplus.wurstplustwo.event.MinecraftEvent;
+import me.travis.wurstplus.wurstplustwo.event.WurstplusEventCancellable;
 
-public class EventPlayerSendChatMessage extends MinecraftEvent
+public class EventPlayerSendChatMessage extends WurstplusEventCancellable
 {
     public String Message;
 

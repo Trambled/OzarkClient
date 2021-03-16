@@ -32,7 +32,7 @@ public final class WurstplusChatMods extends WurstplusHack {
     WurstplusSetting name_highlight = create("Name Highlight", "ChatModsNameHighlight", true);
 
     @EventHandler
-    private Listener<WurstplusEventPacket.ReceivePacket> PacketEvent = new Listener<>(event -> {
+    private final Listener<WurstplusEventPacket.ReceivePacket> PacketEvent = new Listener<>(event -> {
 
         if (event.get_packet() instanceof SPacketChat) {
 

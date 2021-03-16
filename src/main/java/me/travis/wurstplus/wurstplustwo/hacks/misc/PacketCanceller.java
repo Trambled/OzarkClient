@@ -34,18 +34,12 @@ public class PacketCanceller extends WurstplusHack {
 	WurstplusSetting CancelCPacketUseEntity = create("CPacketUseEntity", "CancelCPacketUseEntity", true);
 	WurstplusSetting CancelCPacketVehicleMove = create("CPacketVehicleMove", "CancelCPacketVehicleMove", true);
 
-    private int PacketsCanelled = 0;
-    private ArrayList<Packet> PacketsToIgnore = new ArrayList<Packet>();
+    private final ArrayList<Packet> PacketsToIgnore = new ArrayList<Packet>();
 
-    @Override
-    protected void disable()
-    {
-        PacketsCanelled = 0;
-    } 
 
     
     @EventHandler
-    private Listener<EventNetworkPacketEvent> PacketEvent = new Listener<>(p_Event ->
+    private final Listener<EventNetworkPacketEvent> PacketEvent = new Listener<>(p_Event ->
     {
         if ((p_Event.getPacket() instanceof CPacketInput && CancelCPacketInput.get_value(true))//
             || (p_Event.getPacket() instanceof CPacketPlayer.Position && CancelPosition.get_value(true))//
@@ -64,15 +58,8 @@ public class PacketCanceller extends WurstplusHack {
                 PacketsToIgnore.remove(p_Event.getPacket());
                 return;
             }
-            
-            ++PacketsCanelled;
             p_Event.cancel();
             return;
         }
     });
-    
-    public void AddIgnorePacket(Packet p_Packet)
-    {
-        PacketsToIgnore.add(p_Packet);
-    }
 }

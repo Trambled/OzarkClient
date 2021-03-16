@@ -53,7 +53,7 @@ public class WurstplusChatSuffix extends WurstplusHack {
 	};
 
 	@EventHandler
-	private Listener<WurstplusEventPacket.SendPacket> listener = new Listener<>(event -> {
+	private final Listener<WurstplusEventPacket.SendPacket> listener = new Listener<>(event -> {
 		// If not be the CPacketChatMessage return.
 		if (!(event.get_packet() instanceof CPacketChatMessage)) {
 			return;

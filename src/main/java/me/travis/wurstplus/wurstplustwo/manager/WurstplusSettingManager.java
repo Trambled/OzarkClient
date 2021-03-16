@@ -22,11 +22,11 @@ public class WurstplusSettingManager {
 		return this.array_setting;
 	}
 
-	public WurstplusSetting get_setting_with_tag(WurstplusHack module, String tag) {
+	public WurstplusSetting get_setting_with_tag(WurstplusHack module, String setting_tag) {
 		WurstplusSetting setting_requested = null;
 
 		for (WurstplusSetting settings : get_array_settings()) {
-			if (settings.get_master().equals(module) && settings.get_tag().equalsIgnoreCase(tag)) {
+			if (settings.get_master().equals(module) && settings.get_tag().equalsIgnoreCase(setting_tag)) {
 				setting_requested = settings;
 			}
 		}
@@ -34,11 +34,11 @@ public class WurstplusSettingManager {
 		return setting_requested;
 	}
 
-	public WurstplusSetting get_setting_with_tag(String tag, String tag_) {
+	public WurstplusSetting get_setting_with_tag(String module_tag, String setting_tag) {
 		WurstplusSetting setting_requested = null;
 
 		for (WurstplusSetting settings : get_array_settings()) {
-			if (settings.get_master().get_tag().equalsIgnoreCase(tag) && settings.get_tag().equalsIgnoreCase(tag_)) {
+			if (settings.get_master().get_tag().equalsIgnoreCase(module_tag) && settings.get_tag().equalsIgnoreCase(setting_tag)) {
 				setting_requested = settings;
 				break;
 			}

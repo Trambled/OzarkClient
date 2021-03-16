@@ -24,8 +24,8 @@ public class WurstplusAutoReplenish extends WurstplusHack {
         this.description = "automatically replaces a used stack with a fresh new one from ur inv";
     }
 
-    WurstplusSetting mode = create("Mode", "AutoReplenishMode", "All", combobox("All", "Crystals", "Xp", "Both"));
     WurstplusSetting threshold = create("Threshold", "AutoReplenishThreshold", 32, 1, 63);
+    WurstplusSetting mode = create("Mode", "AutoReplenishMode", "All", combobox("All", "Crystals", "Xp", "Both"));
     WurstplusSetting tickdelay = create("Delay", "AutoReplenishDelay", 2, 1, 10);
 
     private int delay_step = 0;
@@ -129,7 +129,7 @@ public class WurstplusAutoReplenish extends WurstplusHack {
     private Map<Integer, ItemStack> get_inv_slots(int current, final int last) {
         final Map<Integer, ItemStack> fullInventorySlots = new HashMap<Integer, ItemStack>();
         while (current <= last) {
-            fullInventorySlots.put(current, (ItemStack) mc.player.inventoryContainer.getInventory().get(current));
+            fullInventorySlots.put(current, mc.player.inventoryContainer.getInventory().get(current));
             ++current;
         }
         return fullInventorySlots;

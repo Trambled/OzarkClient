@@ -1,11 +1,11 @@
 package me.travis.wurstplus.wurstplustwo.hacks.movement;
 
 import me.travis.wurstplus.wurstplustwo.util.WurstplusMathUtil;
+import me.travis.wurstplus.wurstplustwo.util.WurstplusMessageUtil;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusTimer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemElytra;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketEntityAction.Action;
@@ -24,19 +24,16 @@ public final class ElytraFly extends WurstplusHack
     WurstplusSetting speed = create("Speed", "ElytraFlySpeed", 1.82f, 0f, 10f);
     WurstplusSetting DownSpeed = create("DownSpeed", "ElytraFlyDownSpeed", 1.82f, 0f, 10f);
     WurstplusSetting GlideSpeed = create("GlideSpeed", "ElytraFlyGlideSpeed", 1f, 0f, 10f);
-	WurstplusSetting UpSpeed = create("UpSpeed", "ElytraFlyUpSpeed", 2f, 0f, 10f);
 	WurstplusSetting Accelerate = create("Accelerate", "ElytraFlyAccelerate", true);
 	WurstplusSetting vAccelerationTimer = create("Acceleration Timer", "ElytraFlyTimer", 1000, 0, 10000);
 	WurstplusSetting RotationPitch = create("RotationPitch", "ElytraPitch", 0f, -90f, 90f);
 	WurstplusSetting InstantFly = create("InstantFly", "ElytraFlyInstant", true);
     WurstplusSetting EquipElytra = create("EquipElytra", "ElytraFlyEquip", true);
 	WurstplusSetting use_timer = create("Use Timer", "UseTimer", true);
-	WurstplusSetting timer_speed = create("Timer Speed", "TimerSpeed", 0.01, 0, 4);
 
-    private WurstplusTimer AccelerationTimer = new WurstplusTimer();
-    private WurstplusTimer AccelerationResetTimer = new WurstplusTimer();
-    private WurstplusTimer InstantFlyTimer = new WurstplusTimer();
-    private boolean has_elytra;
+    private final WurstplusTimer AccelerationTimer = new WurstplusTimer();
+    private final WurstplusTimer AccelerationResetTimer = new WurstplusTimer();
+    private final WurstplusTimer InstantFlyTimer = new WurstplusTimer();
 
     public ElytraFly()
     {
@@ -51,22 +48,18 @@ public final class ElytraFly extends WurstplusHack
 	
 	@Override
 	public void update() {
-		Wurstplus.get_hack_manager().get_module_with_tag("NoFall").set_active(false);
-		
-		if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() == Items.ELYTRA) {
-			has_elytra = true;
-		} else {
-		    has_elytra = false;
+	    if (Wurstplus.get_hack_manager().get_module_with_tag("NoFall").is_active()) {
+            WurstplusMessageUtil.send_client_message("Nofall turned off because it does not work with elytrafly");
+            WurstplusMessageUtil.send_client_message("Make sure you dont have nofall or antihunger on on any other clients");
+            Wurstplus.get_hack_manager().get_module_with_tag("NoFall").set_active(false);
         }
-		
-		if (use_timer.get_value(true) && !mc.player.isElytraFlying() && (mc.player.getHealth() > 0) && has_elytra) {
-			mc.timer.tickLength = 50.0f / ((timer_speed.get_value(1) == 0f) ? 0.1f : timer_speed.get_value(1));
+
+		if (use_timer.get_value(true) && !mc.player.isElytraFlying() && (mc.player.getHealth() > 0) && mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() == Items.ELYTRA) {
+			mc.timer.tickLength = 5000f;
 		} else {
             mc.timer.tickLength = 50.0f;
 		}
-		
 	}
-	
     
     @Override
     protected void enable()
@@ -77,15 +70,12 @@ public final class ElytraFly extends WurstplusHack
         {
             if (mc.player != null && mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() != Items.ELYTRA)
             {
-				
                 for (int l_I = 0; l_I < 44; ++l_I)
                 {
                     ItemStack l_Stack = mc.player.inventory.getStackInSlot(l_I);
                     
                     if (l_Stack.isEmpty() || l_Stack.getItem() != Items.ELYTRA)
                         continue;
-                    
-                    ItemElytra l_Elytra = (ItemElytra)l_Stack.getItem();
                     
                     ElytraSlot = l_I;
                     break;
@@ -127,7 +117,7 @@ public final class ElytraFly extends WurstplusHack
     }
 
     @EventHandler
-    private Listener<WurstplusEventPlayerTravel> OnTravel = new Listener<>(p_Event ->
+    private final Listener<WurstplusEventPlayerTravel> OnTravel = new Listener<>(p_Event ->
     {
         if (mc.player == null)
             return;
@@ -162,8 +152,6 @@ public final class ElytraFly extends WurstplusHack
 
     public void HandleNormalModeElytra(WurstplusEventPlayerTravel p_Travel)
     {
-        double l_YHeight = mc.player.posY;
-
         boolean l_IsMoveKeyDown = mc.player.movementInput.moveForward > 0 || mc.player.movementInput.moveStrafe > 0;
 
         

@@ -25,7 +25,7 @@ public class AutoGearCommand extends WurstplusCommand {
 		}
 
 		if (msg.equals("null")) {
-			WurstplusMessageUtil.send_client_error_message(current_prefix() + "settings <save/load>");
+			WurstplusMessageUtil.send_client_error_message(current_prefix() + "autogear <save/set/list>");
 
 			return true;
 		}

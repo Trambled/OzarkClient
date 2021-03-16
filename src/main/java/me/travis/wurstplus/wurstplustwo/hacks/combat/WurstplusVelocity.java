@@ -22,7 +22,7 @@ public class WurstplusVelocity extends WurstplusHack {
 	}
 
 	@EventHandler
-	private Listener<WurstplusEventPacket.ReceivePacket> damage = new Listener<>(event -> {
+	private final Listener<WurstplusEventPacket.ReceivePacket> damage = new Listener<>(event -> {
 		if (event.get_era() == WurstplusEventCancellable.Era.EVENT_PRE) {
 			if (event.get_packet() instanceof SPacketEntityVelocity) {
 				SPacketEntityVelocity knockback = (SPacketEntityVelocity) event.get_packet();
@@ -47,7 +47,7 @@ public class WurstplusVelocity extends WurstplusHack {
 	});
 
 	@EventHandler
-	private Listener<WurstplusEventEntity.WurstplusEventColision> explosion = new Listener<>(event -> {
+	private final Listener<WurstplusEventEntity.WurstplusEventColision> explosion = new Listener<>(event -> {
 		if (event.get_entity() == mc.player) {
 			event.cancel();
 

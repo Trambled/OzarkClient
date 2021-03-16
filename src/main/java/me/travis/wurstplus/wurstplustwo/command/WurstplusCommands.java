@@ -33,6 +33,7 @@ public class WurstplusCommands {
 		add_command(new Server());
 		add_command(new AutoKitCommand());
 		add_command(new AutoGearCommand());
+		add_command(new XrayCommand());
 
 		command_list.sort(Comparator.comparing(WurstplusCommand::get_name));
 	}

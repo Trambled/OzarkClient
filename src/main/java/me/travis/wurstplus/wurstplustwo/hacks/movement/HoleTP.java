@@ -7,11 +7,9 @@ import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.IBlockAccess;
 import me.travis.wurstplus.Wurstplus;
 
 public class HoleTP extends WurstplusHack //made by gamesense
@@ -29,7 +27,7 @@ public class HoleTP extends WurstplusHack //made by gamesense
 	
     @Override
 	public void update(){
-		if (HoleTP.mc.world == null || HoleTP.mc.player == null || Wurstplus.get_hack_manager().get_module_with_tag("Strafe").is_active()){
+		if (mc.world == null || HoleTP.mc.player == null || Wurstplus.get_hack_manager().get_module_with_tag("Strafe").is_active()){
 			return;
 		}
 			if (!HoleTP.mc.player.onGround){
@@ -40,24 +38,24 @@ public class HoleTP extends WurstplusHack //made by gamesense
 			else{
 				this.jumped = false;
 			}
-			if (!this.jumped && HoleTP.mc.player.fallDistance < 0.5 && this.isInHole() && HoleTP.mc.player.posY - this.getNearestBlockBelow() <= 1.125 && HoleTP.mc.player.posY - this.getNearestBlockBelow() <= 0.95 && !this.isOnLiquid() && !this.isInLiquid()){
-				if (!HoleTP.mc.player.onGround){
+			if (!this.jumped && mc.player.fallDistance < 0.5 && this.isInHole() && HoleTP.mc.player.posY - this.getNearestBlockBelow() <= 1.125 && HoleTP.mc.player.posY - this.getNearestBlockBelow() <= 0.95 && !this.isOnLiquid() && !this.isInLiquid()){
+				if (!mc.player.onGround){
 					this.packets++;
 				}
-				if (!HoleTP.mc.player.onGround && !HoleTP.mc.player.isInsideOfMaterial(Material.WATER) && !HoleTP.mc.player.isInsideOfMaterial(Material.LAVA) && !HoleTP.mc.gameSettings.keyBindJump.isKeyDown() && !HoleTP.mc.player.isOnLadder() && this.packets > 0){
-					final BlockPos blockPos = new BlockPos(HoleTP.mc.player.posX, HoleTP.mc.player.posY, HoleTP.mc.player.posZ);
+				if (!mc.player.onGround && !mc.player.isInsideOfMaterial(Material.WATER) && !HoleTP.mc.player.isInsideOfMaterial(Material.LAVA) && !HoleTP.mc.gameSettings.keyBindJump.isKeyDown() && !HoleTP.mc.player.isOnLadder() && this.packets > 0){
+					final BlockPos blockPos = new BlockPos(mc.player.posX, HoleTP.mc.player.posY, HoleTP.mc.player.posZ);
 					for (final double position : this.oneblockPositions){
 						HoleTP.mc.player.connection.sendPacket(new CPacketPlayer.Position(blockPos.getX() + 0.5f, HoleTP.mc.player.posY - position, blockPos.getZ() + 0.5f, true));
 					}
-					HoleTP.mc.player.setPosition(blockPos.getX() + 0.5f, this.getNearestBlockBelow() + 0.1, blockPos.getZ() + 0.5f);
+					mc.player.setPosition(blockPos.getX() + 0.5f, this.getNearestBlockBelow() + 0.1, blockPos.getZ() + 0.5f);
 					this.packets = 0;
 				}
 			}
 		}
 
 	private boolean isInHole(){
-		final BlockPos blockPos = new BlockPos(HoleTP.mc.player.posX, HoleTP.mc.player.posY, HoleTP.mc.player.posZ);
-		final IBlockState blockState = HoleTP.mc.world.getBlockState(blockPos);
+		final BlockPos blockPos = new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ);
+		final IBlockState blockState = mc.world.getBlockState(blockPos);
 		return this.isBlockValid(blockState, blockPos);
 	}
 
@@ -75,8 +73,7 @@ public class HoleTP extends WurstplusHack //made by gamesense
 	}
 
 	private boolean isObbyHole(final BlockPos blockPos){
-		final BlockPos[] array;
-		final BlockPos[] touchingBlocks = array = new BlockPos[]{ blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()};
+		final BlockPos[] array = new BlockPos[]{ blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()};
 		for (final BlockPos touching : array){
 			final IBlockState touchingState = HoleTP.mc.world.getBlockState(touching);
 			if (touchingState.getBlock() == Blocks.AIR || touchingState.getBlock() != Blocks.OBSIDIAN){
@@ -87,8 +84,7 @@ public class HoleTP extends WurstplusHack //made by gamesense
 	}
 
 	private boolean isBedrockHole(final BlockPos blockPos){
-		final BlockPos[] array;
-		final BlockPos[] touchingBlocks = array = new BlockPos[]{ blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()};
+		final BlockPos[] array = new BlockPos[]{ blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()};
 		for (final BlockPos touching : array){
 			final IBlockState touchingState = HoleTP.mc.world.getBlockState(touching);
 			if (touchingState.getBlock() == Blocks.AIR || touchingState.getBlock() != Blocks.BEDROCK){
@@ -99,8 +95,7 @@ public class HoleTP extends WurstplusHack //made by gamesense
 	}
 
 	private boolean isBothHole(final BlockPos blockPos){
-		final BlockPos[] array;
-		final BlockPos[] touchingBlocks = array = new BlockPos[]{ blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()};
+		final BlockPos[] array = new BlockPos[]{ blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()};
 		for (final BlockPos touching : array){
 			final IBlockState touchingState = HoleTP.mc.world.getBlockState(touching);
 			if (touchingState.getBlock() == Blocks.AIR || (touchingState.getBlock() != Blocks.BEDROCK && touchingState.getBlock() != Blocks.OBSIDIAN)){
@@ -111,8 +106,7 @@ public class HoleTP extends WurstplusHack //made by gamesense
 	}
 
 	private boolean isElseHole(final BlockPos blockPos){
-		final BlockPos[] array;
-		final BlockPos[] touchingBlocks = array = new BlockPos[]{ blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()};
+		final BlockPos[] array = new BlockPos[]{ blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()};
 		for (final BlockPos touching : array){
 			final IBlockState touchingState = HoleTP.mc.world.getBlockState(touching);
 			if (touchingState.getBlock() == Blocks.AIR || !touchingState.isFullBlock()){

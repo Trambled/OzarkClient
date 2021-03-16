@@ -200,7 +200,7 @@ public class WurstplusTrap extends WurstplusHack {
             if (!mc.world.getBlockState(target_pos).getMaterial().isReplaceable()) 
                 should_try_place = false;
             
-                for (final Entity entity : mc.world.getEntitiesWithinAABBExcludingEntity((Entity) null, new AxisAlignedBB(target_pos))) {
+                for (final Entity entity : mc.world.getEntitiesWithinAABBExcludingEntity( null, new AxisAlignedBB(target_pos))) {
 
                     if (!(entity instanceof EntityItem) && !(entity instanceof EntityXPOrb)) {
                         should_try_place = false;
@@ -256,7 +256,7 @@ public class WurstplusTrap extends WurstplusHack {
             if (WurstplusFriendUtil.isFriend(target.getName()))
                 continue;
             
-            if (!WurstplusEntityUtil.isLiving((Entity)target))
+            if (!WurstplusEntityUtil.isLiving(target))
                 continue;
             
             if (target.getHealth() <= 0.0f)

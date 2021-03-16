@@ -1,8 +1,8 @@
 package me.travis.wurstplus.wurstplustwo.event.events;
 
-import me.travis.wurstplus.wurstplustwo.event.MinecraftEvent;
+import me.travis.wurstplus.wurstplustwo.event.WurstplusEventCancellable;
 
-public class EventGetBlockReachDistance extends MinecraftEvent
+public class EventGetBlockReachDistance extends WurstplusEventCancellable
 {
     public float BlockReachDistance = 0.0f;
     

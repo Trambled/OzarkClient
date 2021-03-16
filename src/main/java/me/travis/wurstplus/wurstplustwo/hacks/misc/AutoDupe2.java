@@ -1,5 +1,6 @@
 package me.travis.wurstplus.wurstplustwo.hacks.misc;
 
+import me.travis.wurstplus.Wurstplus;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
@@ -48,9 +49,7 @@ public class AutoDupe2 extends WurstplusHack {
     private int itemsDropped;
 
     private GuiScreenHorseInventory l_Chest;
-    private final WurstplusTimer timer = new WurstplusTimer(); //How long to wait.
-
-    private boolean noBypass = false;
+    private final WurstplusTimer timer = new WurstplusTimer(); //How long to wait
 
     @Override
     protected void enable() {
@@ -62,7 +61,6 @@ public class AutoDupe2 extends WurstplusHack {
 
     @Override
     protected void disable() {
-        noBypass = false;
         doDrop = false;
         doChest = false;
         doSneak = false;
@@ -79,7 +77,7 @@ public class AutoDupe2 extends WurstplusHack {
 
 	@Override
 	public void update() {
-        if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) //toggle on escape
+        if (Keyboard.isKeyDown(Wurstplus.WURSTPLUS_KEY_GUI_ESCAPE)) //toggle on escape
         {
             this.set_disable();
             return;
@@ -225,7 +223,7 @@ public class AutoDupe2 extends WurstplusHack {
     }
 
     @EventHandler
-    private final Listener<EntityJoinWorldEvent> OnWorldEvent = new Listener<>(p_Event ->
+    private final Listener<EntityJoinWorldEvent> on_world_event = new Listener<>(p_Event ->
     {
         if (p_Event.getEntity() == mc.player)
         {
@@ -282,8 +280,6 @@ public class AutoDupe2 extends WurstplusHack {
     }
 
     private void doDupe() {
-        noBypass = true; //turn off mount bypass
-
         Entity l_Entity = mc.world.loadedEntityList.stream() //declaring this variable for the entire class causes NullPointerException
                 .filter(this::isValidEntity)
                 .min(Comparator.comparing(p_Entity -> mc.player.getDistance(p_Entity)))
@@ -291,7 +287,6 @@ public class AutoDupe2 extends WurstplusHack {
 
         if (l_Entity instanceof AbstractChestHorse) {
             mc.player.connection.sendPacket(new CPacketUseEntity(l_Entity, EnumHand.MAIN_HAND, l_Entity.getPositionVector())); //Packet to break chest.
-            noBypass = false; //turn on mount bypass
             doDrop = true;
         }
 
@@ -343,10 +338,6 @@ public class AutoDupe2 extends WurstplusHack {
                 return true;
         }
         return false;
-    }
-
-    public boolean ignoreMountBypass() { //tell mount bypass when to disable
-        return noBypass;
     }
 
 }

@@ -7,6 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.multiplayer.GuiConnecting;
 
+//pretty much made by me
 public class RPC
 {
     private static final Minecraft mc;
@@ -64,6 +65,8 @@ public class RPC
                         } else if (mc.currentScreen instanceof GuiCreateFlatWorld || mc.currentScreen instanceof GuiCreateWorld) {
                             RPC.state = "Creating world";
                         } else {
+						    // im p sure i covered everything except the exact options
+                            // so ig this is here
 						    RPC.state = "Configuring options";
                         }
 					} else {
@@ -76,7 +79,9 @@ public class RPC
 								RPC.details = "Playing " + mc.getCurrentServerData().serverIP;
 
 								if (mc.getCurrentServerData().serverIP.equals("aurorapvp.club") || mc.getCurrentServerData().serverIP.equals("auroraanarchy.org")) {
-                                    RPC.presence.smallImageKey = "aurora";
+                                    // doesnt like aurora and aurora anarchy have a slightly different logo?
+                                    // either way idc lol
+								    RPC.presence.smallImageKey = "aurora";
                                 } else if (mc.getCurrentServerData().serverIP.equals("8b8t.xyz")) {
                                     RPC.presence.smallImageKey = "8b8t";
                                 } else if (mc.getCurrentServerData().serverIP.equals("0b0t.org")) {
@@ -107,9 +112,10 @@ public class RPC
                                     RPC.presence.smallImageKey = "2b2t";
                                 } else if (mc.getCurrentServerData().serverIP.equals("2b2tpvp.net")) {
                                     RPC.presence.smallImageKey = "2bpvp";
-                                } else if (mc.getCurrentServerData().serverIP.equals("us.crystalpvp.cc") || mc.getCurrentServerData().serverIP.equals("tcp.crystalpvp.cc") || mc.getCurrentServerData().serverIP.equals("crystalpvp.cc")) {
+                                } else if (mc.getCurrentServerData().serverIP.equals("us.crystalpvp.cc") || mc.getCurrentServerData().serverIP.equals("crystalpvp.cc")) {
                                     RPC.presence.smallImageKey = "cc";
                                 } else {
+								    //trol
                                     RPC.presence.smallImageKey = "troll";
                                 }
 							}

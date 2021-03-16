@@ -50,6 +50,7 @@ public class WurstplusAutoWither extends WurstplusHack {
             this.set_disable();
         }
 
+        // this shit is fucking stupodi m literaltl retarded
         if (did_soul_sand()) {
             do_wither_skull();
         } else {

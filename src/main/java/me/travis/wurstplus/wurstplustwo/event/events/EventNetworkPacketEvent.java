@@ -1,9 +1,9 @@
 package me.travis.wurstplus.wurstplustwo.event.events;
 
-import me.travis.wurstplus.wurstplustwo.event.MinecraftEvent;
+import me.travis.wurstplus.wurstplustwo.event.WurstplusEventCancellable;
 import net.minecraft.network.Packet;
 
-public class EventNetworkPacketEvent extends MinecraftEvent
+public class EventNetworkPacketEvent extends WurstplusEventCancellable
 {
     public Packet m_Packet;
     

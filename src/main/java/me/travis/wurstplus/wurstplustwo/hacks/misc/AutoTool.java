@@ -1,6 +1,5 @@
 package me.travis.wurstplus.wurstplustwo.hacks.misc;
 
-import me.travis.wurstplus.Wurstplus;
 import me.travis.wurstplus.wurstplustwo.event.events.EventNetworkPacketEvent;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventDamageBlock;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
@@ -35,7 +34,7 @@ public class AutoTool extends WurstplusHack
     public BlockPos position;
     public EnumFacing facing;
     private int _previousSlot = -1;
-    private WurstplusTimer _timer = new WurstplusTimer();
+    private final WurstplusTimer _timer = new WurstplusTimer();
 
     WurstplusSetting silent = create("Silent", "Silent", false);
     WurstplusSetting go_back = create("Go Back", "GoBack", false);
@@ -152,7 +151,7 @@ public class AutoTool extends WurstplusHack
     }
 
     @EventHandler
-    private Listener<WurstplusEventDamageBlock> DamageBlock = new Listener<>(p_Event ->
+    private final Listener<WurstplusEventDamageBlock> DamageBlock = new Listener<>(p_Event ->
     {
         if (this.silent.get_value(true))
         {
@@ -201,7 +200,7 @@ public class AutoTool extends WurstplusHack
     }
 
     @EventHandler
-    private Listener<EventNetworkPacketEvent> PacketEvent = new Listener<>(p_Event ->
+    private final Listener<EventNetworkPacketEvent> PacketEvent = new Listener<>(p_Event ->
     {
         if (this.send)
         {

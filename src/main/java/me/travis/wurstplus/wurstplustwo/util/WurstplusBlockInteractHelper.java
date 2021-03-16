@@ -4,9 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.EnumActionResult;
@@ -45,15 +43,15 @@ public class WurstplusBlockInteractHelper {
             final BlockPos neighbor = pos.offset(side);
             final EnumFacing side2 = side.getOpposite();
             if (canBeClicked(neighbor)) {
-                final Vec3d hitVec = new Vec3d((Vec3i)neighbor).add(new Vec3d(0.5, 0.5, 0.5)).add(new Vec3d(side2.getDirectionVec()).scale(0.5));
+                final Vec3d hitVec = new Vec3d(neighbor).add(new Vec3d(0.5, 0.5, 0.5)).add(new Vec3d(side2.getDirectionVec()).scale(0.5));
                 if (rotate) {
                     faceVectorPacketInstant(hitVec);
                 }
-                mc.player.connection.sendPacket((Packet)new CPacketEntityAction((Entity)mc.player, CPacketEntityAction.Action.START_SNEAKING));
+                mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
                 mc.playerController.processRightClickBlock(mc.player, mc.world, pos, side, hitVec, EnumHand.MAIN_HAND);
                 mc.player.swingArm(EnumHand.MAIN_HAND);
                 mc.rightClickDelayTimer = 0;
-                mc.player.connection.sendPacket((Packet)new CPacketEntityAction((Entity)mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
+                mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
                 return;
             }
         }
@@ -69,7 +67,7 @@ public class WurstplusBlockInteractHelper {
             final BlockPos neighbor = pos.offset(side);
             final EnumFacing side2 = side.getOpposite();
             if (canBeClicked(neighbor)) {
-                final Vec3d hitVec = new Vec3d((Vec3i)neighbor).add(new Vec3d(0.5, 0.5, 0.5)).add(new Vec3d(side2.getDirectionVec()).scale(0.5));
+                final Vec3d hitVec = new Vec3d(neighbor).add(new Vec3d(0.5, 0.5, 0.5)).add(new Vec3d(side2.getDirectionVec()).scale(0.5));
                 if (rotate) {
                     faceVectorPacketInstant(hitVec);
                 }

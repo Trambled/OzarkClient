@@ -14,14 +14,12 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 
 public class WurstplusAutoNomadHut extends WurstplusHack {
     
@@ -157,11 +155,11 @@ public class WurstplusAutoNomadHut extends WurstplusHack {
 			mc.player.inventory.currentItem = new_slot;
 
             if (WurstplusBlockInteractHelper.blackList.contains((Object)(neighborPos = mc.world.getBlockState(neighbor).getBlock()))) {
-                mc.player.connection.sendPacket((Packet)new CPacketEntityAction((Entity)mc.player, CPacketEntityAction.Action.START_SNEAKING));
+                mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
                 this.sneak = true;
 			}
 			
-			Vec3d hitVec = new Vec3d((Vec3i)neighbor).add(0.5, 0.5, 0.5).add(new Vec3d(side2.getDirectionVec()).scale(0.5));
+			Vec3d hitVec = new Vec3d(neighbor).add(0.5, 0.5, 0.5).add(new Vec3d(side2.getDirectionVec()).scale(0.5));
 			
             if (this.rotate.get_value(true)) {
                 WurstplusBlockInteractHelper.faceVectorPacketInstant(hitVec);

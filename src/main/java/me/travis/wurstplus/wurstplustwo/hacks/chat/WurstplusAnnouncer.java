@@ -16,7 +16,6 @@ import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.network.play.client.CPacketUpdateSign;
 import net.minecraft.network.play.server.SPacketUseBed;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -36,6 +35,15 @@ public class WurstplusAnnouncer extends WurstplusHack {
         this.description = "how to get muted 101";
     }
 
+    WurstplusSetting mining = create("Mining", "AnnouncerMining", true);
+    WurstplusSetting placing = create("Placing", "AnnouncerPlacing", true);
+    WurstplusSetting drops = create("Drops", "AnnouncerDrops", true);
+    WurstplusSetting eating = create("Eating", "AnnouncerEating", true);
+    WurstplusSetting beds = create("Beds", "AnnouncerBeds", true);
+    WurstplusSetting signs = create("Signs", "AnnouncerSigns", true);
+    WurstplusSetting movement = create("Movement", "AnnouncerMovement", true);
+    WurstplusSetting health = create("Health", "AnnouncerHealth", true);
+    WurstplusSetting world_time = create("World Time", "AnnouncerWorldTime", true);
     WurstplusSetting min_distance = create("Min Distance", "AnnouncerMinDist", 12, 1, 100);
     WurstplusSetting max_distance = create("Max Distance", "AnnouncerMaxDist", 144, 12, 1200);
     WurstplusSetting delay = create("Delay Seconds", "AnnouncerDelay", 4, 0, 20);
@@ -44,7 +52,7 @@ public class WurstplusAnnouncer extends WurstplusHack {
     WurstplusSetting movement_string = create("Movement", "AnnouncerMovement", "Aha x", combobox("Aha x", "Leyta", "FUCK"));
     WurstplusSetting suffix = create("Suffix", "AnnouncerSuffix", true);
     WurstplusSetting smol = create("Small Text", "AnnouncerSmallText", false);
-    WurstplusSetting world_time = create("World Time", "WorldTime", true);
+
 
     private static DecimalFormat df = new DecimalFormat();
 
@@ -70,18 +78,17 @@ public class WurstplusAnnouncer extends WurstplusHack {
     private static float lostHealth;
 
     @EventHandler
-    private Listener<WurstplusEventPacket.ReceivePacket> receive_listener = new Listener<>(event -> {
+    private final Listener<WurstplusEventPacket.ReceivePacket> receive_listener = new Listener<>(event -> {
         if (mc.world == null) return;
 
-        if (event.get_packet() instanceof SPacketUseBed) {
+        if (event.get_packet() instanceof SPacketUseBed && beds.get_value(true)) {
             queue_message("I am going to bed now, goodnight");
         } 
     });
 
     @EventHandler
-    private Listener<WurstplusEventPacket.SendPacket> send_listener = new Listener<>(event -> {
+    private final Listener<WurstplusEventPacket.SendPacket> send_listener = new Listener<>(event -> {
         if (mc.world == null) return;
-
         if (event.get_packet() instanceof CPacketPlayerDigging) {
             CPacketPlayerDigging packet = (CPacketPlayerDigging) event.get_packet();
 
@@ -106,7 +113,7 @@ public class WurstplusAnnouncer extends WurstplusHack {
 
         } else {
 
-            if (event.get_packet() instanceof CPacketUpdateSign) {
+            if (event.get_packet() instanceof CPacketUpdateSign && signs.get_value(true)) {
                 queue_message("I just updated a sign with some epic text");
             }
 
@@ -227,7 +234,26 @@ public class WurstplusAnnouncer extends WurstplusHack {
             first_run = false;
             return;
         }
-        if (distanceTraveled >= 1.0) {
+        // i got da messages fom sumit
+        if (world_time.get_value(true)) {
+            if (mc.world.getWorldTime() == 0) {
+                queue_message("Top of the morning to you!");
+            }
+            if (mc.world.getWorldTime() == 6000) {
+                queue_message("Good afternoon!");
+            }
+            if (mc.world.getWorldTime() == 13000) {
+                queue_message("Sunset has now ended! You may eat your lunch now if you are a muslim.");
+            }
+            if (mc.world.getWorldTime() == 1400) {
+                queue_message("Good night!");
+            }
+            if (mc.world.getWorldTime() == 18000) {
+                queue_message("Its so dark right now...");
+            }
+        }
+
+        if (distanceTraveled >= 1.0 && movement.get_value(true)) {
             if (distanceTraveled < (double)(this.delay.get_value(1) * this.min_distance.get_value(1))) {
                 return;
             }
@@ -277,34 +303,44 @@ public class WurstplusAnnouncer extends WurstplusHack {
             this.queue_message(sb.toString());
             distanceTraveled = 0.0;
         }
-        if (lostHealth != 0.0f) {
-            sb = "HECK! I just lost " + df.format(lostHealth) + " health D:";
-            this.queue_message((String)sb);
-            lostHealth = 0.0f;
-        }
-        if (gainedHealth != 0.0f) {
-            sb = "#ezmode I now have " + df.format(gainedHealth) + " more health";
-            this.queue_message((String)sb);
-            gainedHealth = 0.0f;
+        if (health.get_value(true)) {
+            if (lostHealth != 0.0f) {
+                sb = "HECK! I just lost " + df.format(lostHealth) + " health D:";
+                this.queue_message((String)sb);
+                lostHealth = 0.0f;
+            }
+            if (gainedHealth != 0.0f) {
+                sb = "#ezmode I now have " + df.format(gainedHealth) + " more health";
+                this.queue_message((String)sb);
+                gainedHealth = 0.0f;
+            }
         }
     }
 
     private void composeEventData() {
         for (Map.Entry<String, Integer> kv : mined_blocks.entrySet()) {
-            this.queue_message("We be mining " + kv.getValue() + " " + kv.getKey() + " out here");
-            mined_blocks.remove(kv.getKey());
+            if (mining.get_value(true)) {
+                this.queue_message("We be mining " + kv.getValue() + " " + kv.getKey() + " out here");
+                mined_blocks.remove(kv.getKey());
+            }
         }
         for (Map.Entry<String, Integer> kv : placed_blocks.entrySet()) {
-            this.queue_message("We be placing " + kv.getValue() + " " + kv.getKey() + " out here");
-            placed_blocks.remove(kv.getKey());
+            if (placing.get_value(true)) {
+                this.queue_message("We be placing " + kv.getValue() + " " + kv.getKey() + " out here");
+                placed_blocks.remove(kv.getKey());
+            }
         }
         for (Map.Entry<String, Integer> kv : dropped_items.entrySet()) {
-            this.queue_message("I just dropped " + kv.getValue() + " " + kv.getKey() + ", whoops!");
-            dropped_items.remove(kv.getKey());
+            if (drops.get_value(true)) {
+                this.queue_message("I just dropped " + kv.getValue() + " " + kv.getKey() + ", whoops!");
+                dropped_items.remove(kv.getKey());
+            }
         }
         for (Map.Entry<String, Integer> kv : consumed_items.entrySet()) {
-            this.queue_message("NOM NOM, I just ate " + kv.getValue() + " " + kv.getKey() + ", yummy");
-            consumed_items.remove(kv.getKey());
+            if (eating.get_value(true)) {
+                this.queue_message("NOM NOM, I just ate " + kv.getValue() + " " + kv.getKey() + ", yummy");
+                consumed_items.remove(kv.getKey());
+            }
         }
     }
 }

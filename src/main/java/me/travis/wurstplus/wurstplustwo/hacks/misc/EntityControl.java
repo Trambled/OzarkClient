@@ -17,13 +17,13 @@ public class EntityControl extends WurstplusHack
     }
 
     @EventHandler
-    private Listener<EventSteerEntity> OnSteerEntity = new Listener<>(p_Event ->
+    private final Listener<EventSteerEntity> OnSteerEntity = new Listener<>(p_Event ->
     {
         p_Event.cancel();
     });
 
     @EventHandler
-    private Listener<EventHorseSaddled> OnHorseSaddled = new Listener<>(p_Event ->
+    private final Listener<EventHorseSaddled> OnHorseSaddled = new Listener<>(p_Event ->
     {
         p_Event.cancel();
     });

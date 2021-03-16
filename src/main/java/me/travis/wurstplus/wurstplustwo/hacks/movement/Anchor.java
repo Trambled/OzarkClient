@@ -10,8 +10,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-import java.util.ArrayList;
-
 public class Anchor extends WurstplusHack {
 
     // Written by NathanW, thanks to my friend Ian for some hole shit.
@@ -27,7 +25,6 @@ public class Anchor extends WurstplusHack {
     WurstplusSetting Pitch = create("Pitch", "AnchorPitch", 60, 0, 90);
     WurstplusSetting Pull = create("Pull", "AnchorPull", true);
 
-    private final ArrayList<BlockPos> holes = new ArrayList<BlockPos>();
     int holeblocks;
 
 
@@ -52,9 +49,9 @@ public class Anchor extends WurstplusHack {
 
         if (mc.world.getBlockState(blockpos.add(0, 0, -1)).getBlock() == Blocks.OBSIDIAN ||mc.world.getBlockState(blockpos.add(0, 0, -1)).getBlock() == Blocks.BEDROCK) ++holeblocks;
 
-        if (holeblocks >= 9) return true;
-        else return false;
+        return holeblocks >= 9;
     }
+
     private Vec3d Center = Vec3d.ZERO;
 
     public Vec3d GetCenter(double posX, double posY, double posZ) {
@@ -66,7 +63,7 @@ public class Anchor extends WurstplusHack {
     }
 
     @EventHandler
-    private Listener<WurstplusEventMotionUpdate> OnClientTick = new Listener<>(event -> {
+    private final Listener<WurstplusEventMotionUpdate> OnClientTick = new Listener<>(event -> {
         if (mc.player.rotationPitch >= Pitch.get_value(60)) {
 
             if (isBlockHole(getPlayerPos().down(1)) || isBlockHole(getPlayerPos().down(2)) ||
@@ -96,7 +93,8 @@ public class Anchor extends WurstplusHack {
         }
     });
 
-    public void onDisable() {
+    @Override
+    protected void disable() {
         AnchorING = false;
         holeblocks = 0;
     }

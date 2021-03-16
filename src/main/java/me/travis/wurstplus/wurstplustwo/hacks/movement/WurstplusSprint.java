@@ -18,14 +18,10 @@ public class WurstplusSprint extends WurstplusHack {
 
     @Override
 	public void update() {
-
     	if (mc.player == null) return;
 
     	if (rage.get_value(true) && (mc.player.moveForward != 0 || mc.player.moveStrafing != 0)) {
 			mc.player.setSprinting(true);
 		} else mc.player.setSprinting(mc.player.moveForward > 0 || mc.player.moveStrafing > 0);
-		
 	}
-
-
 }

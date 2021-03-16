@@ -3,7 +3,7 @@ package me.travis.turok;
 // Draw.
 
 import me.travis.turok.draw.GL;
-import me.travis.turok.task.TurokFont;
+import me.travis.turok.task.Font;
 
 // Task.
 
@@ -17,7 +17,7 @@ import me.travis.turok.task.TurokFont;
 public class Turok {
 	private String tag;
 
-	private TurokFont font_manager;
+	private Font font_manager;
 
 	public Turok(String tag) {
 		this.tag = tag;
@@ -31,7 +31,7 @@ public class Turok {
 		GL.resize(x, y, size, "end");
 	}
 
-	public TurokFont get_font_manager() {
+	public Font get_font_manager() {
 		return this.font_manager;
 	}
 }

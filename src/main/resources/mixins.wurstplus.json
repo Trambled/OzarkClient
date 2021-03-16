@@ -24,6 +24,17 @@
     "MixinBossHealth",
     "MixinEnchantmentTable",
     "MixinBeacon",
-    "MixinLayerArmorBase"
+    "MixinLayerArmorBase",
+    "MixinNetHandlerPlayClient",
+    "MixinRenderGlobal",
+    "MixinEntityPlayerSP",
+    "MixinBlock",
+    "MixinBlockPortal",
+    "MixinBlockBush",
+    "MixinBlockCactus",
+    "MixinBlockGrass",
+    "MixinBlockReed",
+    "MixinBlockStairs",
+    "MixinBufferBuilder"
   ]
 }

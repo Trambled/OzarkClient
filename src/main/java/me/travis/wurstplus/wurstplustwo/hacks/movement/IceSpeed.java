@@ -7,26 +7,28 @@ import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 
 public class IceSpeed extends WurstplusHack
 {
-    WurstplusSetting slipperiness;
     
     public IceSpeed() {
         super(WurstplusCategory.WURSTPLUS_MOVEMENT);
-        this.slipperiness = this.create("Slipperiness", "Slipperiness", 0.20000000298023224, 0.0, 10.0);
         this.name = "Ice Speed";
         this.tag = "IceSpeed";
         this.description = "speed on ice!";
     }
+
+    WurstplusSetting slipperiness = create("slipperiness", "slipperiness", 0.2, 1, 10);
+
     
     @Override
     public void update() {
-        Blocks.ICE.slipperiness = (float)this.slipperiness.get_value(1);
-        Blocks.PACKED_ICE.slipperiness = (float)this.slipperiness.get_value(1);
-        Blocks.FROSTED_ICE.slipperiness = (float)this.slipperiness.get_value(1);
+        Blocks.ICE.setDefaultSlipperiness(slipperiness.get_value(1));
+        Blocks.PACKED_ICE.setDefaultSlipperiness(slipperiness.get_value(1));
+        Blocks.FROSTED_ICE.setDefaultSlipperiness(slipperiness.get_value(1));
     }
-    
-    public void disable() {
-        Blocks.ICE.slipperiness = 0.98f;
-        Blocks.PACKED_ICE.slipperiness = 0.98f;
-        Blocks.FROSTED_ICE.slipperiness = 0.98f;
+
+    @Override
+    protected void disable() {
+        Blocks.ICE.setDefaultSlipperiness(0.98f);
+        Blocks.PACKED_ICE.setDefaultSlipperiness(0.98f);
+        Blocks.FROSTED_ICE.setDefaultSlipperiness(0.98f);
     }
 }
