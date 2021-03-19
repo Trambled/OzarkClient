@@ -29,6 +29,9 @@ if you have certain issues, send someone who helps contribute to here your crash
 this will help us know what caused said crash and why it happened,
 this client may not be compatible with certain clients. 
 
+join this if u already arent in it for some reason:
+https://discord.gg/yHcBBDKDtY
+
 # basics ig
 
 What's the default bind for ClickGUI?
@@ -47,12 +50,19 @@ It should be but still may crash.
 
 heres lil cheesy config
 ![cfg1](https://media.discordapp.net/attachments/774445515629920260/797986249112944660/heres_lil_cheesy_config.PNG)  
+use predict, as well as ares mode, but it may drop frames. faceplace mode is decent try it out. 
 
-for offhand use crystal mode and gapple in hole if u want, health is based on preference
+for offhand use crystal mode and gapple in hole if u want, health is based on preference but 18-20 is probably the best
 
 default burrow delay is fine, but you can change it if it doesnt work for u that good
 
-elytrafly set the speed to 1.8 - 2.0, go higher if the server anticheat allows it, if it lags back with normal speed, set glide speed higher, superior mode is the best mode btw, elytrafly isn't compatible with nofall, thats why ozark elytrafly auto toggles ozark nofall, so make sure that no other clients have the nofall module toggled when you're using elytra fly.
+elytrafly set the speed to 1.8 - 2.0, go higher if the server anticheat allows it, if it lags back with normal speed, set glide speed higher, superior mode is the best mode btw, elytrafly isn't compatible with nofall, thats why ozark elytrafly auto toggles ozark nofall, so make sure that no other clients have the nofall module toggled when you're using elytra fly. the timer module in elytrafly is good for taking off easier
+
+for surround, set toggle, rotate, and all the other stuff off, and set swing to NONE, and mode normal
+
+turn off smart mode in auto armor, and turn off tps sync on kill aura UNLESS in low tps. 
+
+if you wanna use the cool past gui instead of the bad default bope/wp2 gui, remove the bind for the normal gui module, and set the bind in the past gui module. 
 
 # capes
 give me cape designs ill also add u to the cape club
