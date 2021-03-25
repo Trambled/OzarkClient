@@ -3,7 +3,10 @@ package me.travis.wurstplus.wurstplustwo.hacks.misc;
 import com.mojang.authlib.GameProfile;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
+import me.zero.alpine.fork.listener.EventHandler;
+import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
 import java.util.UUID;
 
@@ -30,17 +33,19 @@ public class WurstplusFakePlayer extends WurstplusHack {
     }
 
     @Override
-    public void update() {
-        if (nullCheck()) {
-            this.set_disable();
-        }
-    }
-
-    @Override
     protected void disable() {
         try {
             mc.world.removeEntity(fake_player);
         } catch (Exception ignored) {}
     }
+
+    @EventHandler
+    private final Listener<EntityJoinWorldEvent> on_world_event = new Listener<>(p_Event ->
+    {
+        if (p_Event.getEntity() == mc.player)
+        {
+            this.set_disable();
+        }
+    });
 
 }

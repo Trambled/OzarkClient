@@ -4,12 +4,14 @@ import me.travis.wurstplus.Wurstplus;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
+import me.travis.wurstplus.wurstplustwo.util.WurstplusMessageUtil;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusPlayerUtil;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
 public class WurstplusOffhand extends WurstplusHack {
@@ -39,6 +41,11 @@ public class WurstplusOffhand extends WurstplusHack {
 
         if (mc.currentScreen == null || mc.currentScreen instanceof GuiInventory) {
 
+            if (Wurstplus.get_hack_manager().get_module_with_tag("AutoTotem").is_active()) {
+                WurstplusMessageUtil.send_client_error_message("AutoTotem is not compatible with offhand anymore");
+                this.set_disable();
+            }
+
             if (switching) {
                 swap_items(last_slot, 2);
                 return;
@@ -46,7 +53,7 @@ public class WurstplusOffhand extends WurstplusHack {
 
             float hp = mc.player.getHealth() + mc.player.getAbsorptionAmount();
 
-            if (hp > totem_switch.get_value(1)) {
+            if (hp > totem_switch.get_value(1) || get_item_count(Items.TOTEM_OF_UNDYING) == 0) {
                 if (module_check.get_value(true)) {
                     if (switch_mode.in("Crystal") && Wurstplus.get_hack_manager().get_module_with_tag("AutoCrystal").is_active()) {
                         swap_items(get_item_slot(Items.END_CRYSTAL),0);
@@ -132,6 +139,12 @@ public class WurstplusOffhand extends WurstplusHack {
             }
         }
         return -1;
+    }
+
+    // from momentum inventory util
+    private static int get_item_count(Item item) {
+        int count = mc.player.inventory.mainInventory.stream().filter(itemStack -> itemStack.getItem() == item).mapToInt(ItemStack::getCount).sum();
+        return count;
     }
 
 }

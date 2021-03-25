@@ -17,10 +17,11 @@ import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
+import net.minecraft.util.math.Vec3d;
 
 public final class ElytraFly extends WurstplusHack
 {
-	WurstplusSetting mode = create("Mode", "ElytraFlyMode", "Superior", combobox("Superior", "Packet", "Control", "None"));
+	WurstplusSetting mode = create("Mode", "ElytraFlyMode", "Superior", combobox("Superior", "Normal", "Control", "None"));
     WurstplusSetting speed = create("Speed", "ElytraFlySpeed", 1.82f, 0f, 10f);
     WurstplusSetting DownSpeed = create("DownSpeed", "ElytraFlyDownSpeed", 1.82f, 0f, 10f);
     WurstplusSetting GlideSpeed = create("GlideSpeed", "ElytraFlyGlideSpeed", 1f, 0f, 10f);
@@ -34,6 +35,7 @@ public final class ElytraFly extends WurstplusHack
     private final WurstplusTimer AccelerationTimer = new WurstplusTimer();
     private final WurstplusTimer AccelerationResetTimer = new WurstplusTimer();
     private final WurstplusTimer InstantFlyTimer = new WurstplusTimer();
+    private final Vec3d vec3d = new Vec3d(0, 0, 0);
 
     public ElytraFly()
     {
@@ -49,13 +51,13 @@ public final class ElytraFly extends WurstplusHack
 	@Override
 	public void update() {
 	    if (Wurstplus.get_hack_manager().get_module_with_tag("NoFall").is_active()) {
+            Wurstplus.get_hack_manager().get_module_with_tag("NoFall").set_active(false);
             WurstplusMessageUtil.send_client_message("Nofall turned off because it does not work with elytrafly");
             WurstplusMessageUtil.send_client_message("Make sure you dont have nofall or antihunger on on any other clients");
-            Wurstplus.get_hack_manager().get_module_with_tag("NoFall").set_active(false);
         }
 
 		if (use_timer.get_value(true) && !mc.player.isElytraFlying() && (mc.player.getHealth() > 0) && mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() == Items.ELYTRA) {
-			mc.timer.tickLength = 5000f;
+			mc.timer.tickLength = 500.0f;
 		} else {
             mc.timer.tickLength = 50.0f;
 		}
@@ -125,7 +127,7 @@ public final class ElytraFly extends WurstplusHack
         if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() != Items.ELYTRA)
             return;
 
-        if (!mc.player.isElytraFlying())
+        if (!mc.player.isElytraFlying() && !mode.in("2b2t"))
         {
             if (!mc.player.onGround && InstantFly.get_value(true))
             {
@@ -139,7 +141,7 @@ public final class ElytraFly extends WurstplusHack
 
             return;
         }
-		if (mode.in("Packet")) {
+		if (mode.in("Normal")) {
 			HandleNormalModeElytra(p_Event);
 		}
 		if (mode.in("Superior")) {
@@ -149,6 +151,7 @@ public final class ElytraFly extends WurstplusHack
 			HandleControlMode(p_Event);
 		}
     });
+
 
     public void HandleNormalModeElytra(WurstplusEventPlayerTravel p_Travel)
     {

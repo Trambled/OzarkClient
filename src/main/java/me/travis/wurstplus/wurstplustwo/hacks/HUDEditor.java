@@ -9,7 +9,7 @@ public class HUDEditor extends WurstplusHack {
 	public HUDEditor() {
 		super(WurstplusCategory.WURSTPLUS_GUI);
 
-		this.name        = "HUDEditor";
+		this.name        = "HUD";
 		this.tag         = "HUDEditor";
 		this.description = "modifies hud";
 		this.toggle_message = false;
@@ -21,11 +21,11 @@ public class HUDEditor extends WurstplusHack {
 	WurstplusSetting strings_g = create("Color G", "HUDStringsColorG", 255, 0, 255);
 	WurstplusSetting strings_b = create("Color B", "HUDStringsColorB", 255, 0, 255);
 	WurstplusSetting strings_a = create("Alpha", "HUDStringsColorA", 230, 0, 255);
+	WurstplusSetting rainbow = create("Rainbow", "HUDRainbow", true);
 	WurstplusSetting compass_scale = create("Compass Scale", "HUDCompassScale", 16, 1, 60);
 	WurstplusSetting arraylist_mode = create("ArrayList", "HUDArrayList", "Free", combobox("Free", "Top R", "Top L", "Bottom R", "Bottom L"));
 	WurstplusSetting show_all_pots = create("All Potions", "HUDAllPotions", false);
 	WurstplusSetting max_player_list = create("Max Players", "HUDMaxPlayers", 24, 1, 64);
-	WurstplusSetting rainbow = create("Rainbow", "HUDRainbow", true);
 	
     @Override
     public void update() {

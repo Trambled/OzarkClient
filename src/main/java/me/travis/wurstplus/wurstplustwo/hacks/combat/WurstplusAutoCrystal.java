@@ -19,7 +19,6 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.*;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.*;
 import net.minecraft.network.play.server.SPacketSoundEffect;
 import net.minecraft.util.EnumHand;
@@ -51,8 +50,13 @@ public class WurstplusAutoCrystal extends WurstplusHack {
     WurstplusSetting break_crystal = create("Break", "CaBreak", true);
     WurstplusSetting break_trys = create("Break Attempts", "CaBreakAttempts", 2, 1, 6);
     WurstplusSetting anti_weakness = create("Anti-Weakness", "CaAntiWeakness", true);
+    WurstplusSetting alternative = create("Alternative", "CaAlternative", false);
     WurstplusSetting module_check = create("Module Check", "CaModuleCheck", true);
 	WurstplusSetting predict = create("Predict", "CaPredict", true);
+    WurstplusSetting verify_place = create("Verify Place", "CaVerifyPlace", false);
+    WurstplusSetting inhibit = create("Inhibit", "CaInhibit", true);
+    WurstplusSetting inhibit_delay = create("Inhibit Delay", "CaInhibitDelay", 1, 1, 10);
+    WurstplusSetting inhibit_swings = create("Inhibit Swings", "CaInhibitSwings", 50, 1, 100);
 
     WurstplusSetting hit_range = create("Hit Range", "CaHitRange", 5f, 1f, 6f);
     WurstplusSetting place_range = create("Place Range", "CaPlaceRange", 5f, 1f, 6f);
@@ -69,6 +73,9 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 	WurstplusSetting min_health_pause = create("Min Health Pause", "CaMinHealthPause", false);
 	WurstplusSetting required_health = create("Required Health", "CaRequiredHealth", 12f, 1f, 36f);
 
+    WurstplusSetting packet_place = create("Packet Place", "CaPacketPlace", true);
+    WurstplusSetting packet_break = create("Packet Break", "CaPackeBreak", true);
+
     WurstplusSetting rotate_mode = create("Rotate", "CaRotateMode", "Packet", combobox("Off", "Packet", "Const", "Seizure"));
     WurstplusSetting raytrace = create("Raytrace", "CaRaytrace", false);
 
@@ -78,13 +85,14 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
     WurstplusSetting fast_mode = create("Fast Mode", "CaSpeed", true);
     WurstplusSetting dead_check = create("Dead Check", "CaDeadCheck", false);
-    WurstplusSetting client_side = create("Client Side", "CaClientSide", false);
+    WurstplusSetting sync = create("Sync", "CaSync", "Sound", combobox("Sound", "Instant", "Inhibit", "Attack", "None"));
     WurstplusSetting jumpy_mode = create("Jumpy Mode", "CaJumpyMode", false);
     WurstplusSetting ares_mode = create("Ares Mode", "CaAresMode", true);
 
     WurstplusSetting anti_stuck = create("Anti Stuck", "CaAntiStuck", true);
     WurstplusSetting anti_stuck_tries = create("Anti Stuck Tries", "CaAntiStuckTries", 5, 1, 15);
     WurstplusSetting endcrystal = create("1.13 Mode", "CaThirteen", false);
+    WurstplusSetting multi_place = create("Multi Place", "CaMultiplace", true);
 
     WurstplusSetting faceplace_mode = create("Faceplace Mode", "CaTabbottMode", true);
     WurstplusSetting faceplace_mode_damage = create("Faceplace Health", "CaTabbottModeHealth", 8, 0, 36);
@@ -145,8 +153,11 @@ public class WurstplusAutoCrystal extends WurstplusHack {
     private int current_chain_index = 0;
     private int place_timeout;
     private int break_timeout;
+    private int inhibit_delay_counter;
     private int break_delay_counter;
     private int place_delay_counter;
+    private int slow_faceplace_counter;
+    private int attack_swings;
 //  private int packets;
 
     @EventHandler
@@ -177,6 +188,10 @@ public class WurstplusAutoCrystal extends WurstplusHack {
             p.facingZ = render_block_init.getZ();
             is_rotating = false;
         }
+        if (event.get_packet() instanceof CPacketUseEntity && ((CPacketUseEntity) event.get_packet()).getAction() == CPacketUseEntity.Action.ATTACK && ((CPacketUseEntity) event.get_packet()).getEntityFromWorld(mc.world) instanceof EntityEnderCrystal) {
+            if (sync.in("Attack"))
+                Objects.requireNonNull(((CPacketUseEntity) event.get_packet()).getEntityFromWorld(mc.world)).setDead();
+        }
     });
 
     @EventHandler
@@ -206,7 +221,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
             if (packet.getCategory() == SoundCategory.BLOCKS && packet.getSound() == SoundEvents.ENTITY_GENERIC_EXPLODE) {
                 for (Entity e : mc.world.loadedEntityList) {
                     if (e instanceof EntityEnderCrystal) {
-                        if (e.getDistance(packet.getX(), packet.getY(), packet.getZ()) <= 6.0f) {
+                        if (e.getDistance(packet.getX(), packet.getY(), packet.getZ()) <= 6.0f && sync.in("Sound")) {
                             e.setDead();
                         }
                     }
@@ -256,6 +271,18 @@ public class WurstplusAutoCrystal extends WurstplusHack {
             detail_hp = Math.round(autoez_target.getHealth() + autoez_target.getAbsorptionAmount());
         }
 
+        if (attack_swings > 2000) {
+            attack_swings = 0;
+        }
+
+        if (inhibit_delay_counter > 2000) {
+            inhibit_delay_counter = 0;
+        }
+
+        if (slow_faceplace_counter > 2000) {
+            slow_faceplace_counter = 0;
+        }
+
         if (chain_timer.passed(1000)) {
             chain_timer.reset();
             chain_step = 0;
@@ -265,6 +292,8 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
         break_delay_counter++;
         place_delay_counter++;
+        inhibit_delay_counter++;
+        slow_faceplace_counter++;
     }
 
     @Override
@@ -381,7 +410,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
         BlockPos best_block = null;
 
-        List<BlockPos> blocks = WurstplusCrystalUtil.possiblePlacePositions((float) place_range.get_value(1), endcrystal.get_value(true), true);
+        List<BlockPos> blocks = WurstplusCrystalUtil.crystalBlocksMomentum(mc.player, place_range.get_value(1), predict.get_value(true), !multi_place.get_value(true), endcrystal.get_value(true));
 
         for (Entity player : mc.world.playerEntities) {
 
@@ -396,6 +425,9 @@ public class WurstplusAutoCrystal extends WurstplusHack {
                 if (!WurstplusBlockUtil.rayTracePlaceCheck(block, this.raytrace.get_value(true))) {
                     continue;
                 }
+
+                if (verify_place.get_value(true) && mc.player.getDistanceSq(block) > Math.pow(hit_range.get_value(1), 2))
+                    continue;
 
                 if (!WurstplusBlockUtil.canSeeBlock(block) && mc.player.getDistance(block.getX(), block.getY(), block.getZ()) > hit_range_wall.get_value(1)) {
                     continue;
@@ -417,8 +449,6 @@ public class WurstplusAutoCrystal extends WurstplusHack {
                 if (target_damage < minimum_damage) continue;
 
                 final double self_damage = WurstplusCrystalUtil.calculateDamage((double) block.getX() + 0.5, (double) block.getY() + 1, (double) block.getZ() + 0.5, mc.player);
-
-
 
                 if (self_damage > maximum_damage_self || (anti_suicide.get_value(true) && (mc.player.getHealth() + mc.player.getAbsorptionAmount()) - self_damage <= 0.5)) continue;
 
@@ -633,7 +663,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
                     mc.player.inventory.currentItem = find_crystals_hotbar();
                     return;
                 } else {
-                    mc.player.connection.sendPacket((Packet)new CPacketHeldItemChange(find_crystals_hotbar()));
+                    mc.player.connection.sendPacket(new CPacketHeldItemChange(find_crystals_hotbar()));
                 }
             }
         } else {
@@ -648,7 +678,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
         did_anything = true;
         rotate_to_pos(target_block);
         chain_timer.reset();
-        WurstplusBlockUtil.placeCrystalOnBlock(target_block, offhand_check ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND);
+        WurstplusBlockUtil.placeCrystalOnBlock(target_block, offhand_check ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, packet_place.get_value(true));
 
     }
 
@@ -672,6 +702,9 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
         EntityEnderCrystal crystal = get_best_crystal();
         if (crystal == null) {
+            if (alternative.get_value(true)) {
+                place_crystal();
+            }
             return;
         }
 
@@ -723,11 +756,12 @@ public class WurstplusAutoCrystal extends WurstplusHack {
 
         rotate_to(crystal);
         for (int i = 0; i < break_trys.get_value(1); i++) {
-            WurstplusEntityUtil.attackEntity(crystal, false, swing);
+            WurstplusEntityUtil.attackEntity(crystal, packet_break.get_value(true), swing);
         }
         add_attacked_crystal(crystal);
+        attack_swings += break_trys.get_value(1);
 
-        if (client_side.get_value(true) && crystal.isEntityAlive()) {
+        if (sync.in("Instant") && crystal.isEntityAlive()) {
             crystal.setDead();
         }
 
@@ -736,9 +770,28 @@ public class WurstplusAutoCrystal extends WurstplusHack {
     }
 
     public boolean check_pause() {
-
         if (find_crystals_hotbar() == -1 && mc.player.getHeldItemOffhand().getItem() != Items.END_CRYSTAL) {
             return true;
+        }
+
+        if (inhibit.get_value(true)) {
+            if (attack_swings > inhibit_swings.get_value(1)) {
+                // did its period
+                if (inhibit_delay_counter > inhibit_delay.get_value(1)) {
+                    attack_swings = 0;
+                    inhibit_delay_counter = 0;
+                } else {
+                    //during its period
+                    if (old_render.get_value(true)) {
+                        render_block_init = null;
+                    }
+                    inhibit_delay_counter++;
+                    return true;
+                }
+                if (sync.in("Inhibit")) {
+                    get_best_crystal().setDead();
+                }
+            }
         }
 
         if (stop_while_mining.get_value(true) && mc.gameSettings.keyBindAttack.isKeyDown() && mc.player.getHeldItemMainhand().getItem() instanceof ItemPickaxe) {
@@ -933,6 +986,8 @@ public class WurstplusAutoCrystal extends WurstplusHack {
     public void enable() {
         place_timeout = this.place_delay.get_value(1);
         break_timeout = this.break_delay.get_value(1);
+        inhibit_delay_counter = 0;
+        attack_swings = 0;
         place_timeout_flag = false;
         is_rotating = false;
         autoez_target = null;
@@ -944,6 +999,7 @@ public class WurstplusAutoCrystal extends WurstplusHack {
         detail_hp = 20;
 //      packets = 0;
     }
+
 
     @Override
     public void disable() {

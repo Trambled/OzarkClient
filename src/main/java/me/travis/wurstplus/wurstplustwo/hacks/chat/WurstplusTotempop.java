@@ -37,8 +37,8 @@ public class WurstplusTotempop extends WurstplusHack {
     public static ChatFormatting gold = ChatFormatting.GOLD;
     public static ChatFormatting grey = ChatFormatting.GRAY;
     public static ChatFormatting bold = ChatFormatting.BOLD;
-    public static ChatFormatting white = ChatFormatting.BLACK;
-    public static ChatFormatting black = ChatFormatting.WHITE;
+    public static ChatFormatting black = ChatFormatting.BLACK;
+    public static ChatFormatting white = ChatFormatting.WHITE;
     public static ChatFormatting reset = ChatFormatting.RESET;
 
     @EventHandler

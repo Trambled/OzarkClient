@@ -13,10 +13,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.util.CombatRules;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.world.Explosion;
 
 import java.util.ArrayList;
@@ -56,6 +53,26 @@ public class WurstplusCrystalUtil {
         return circleblocks;
     }
 
+    public static List<BlockPos> crystalBlocksMomentum(EntityPlayer entityPlayer, double placeRange, boolean prediction, boolean antiSurround, boolean endcrystal) {
+        return getNearbyBlocks(entityPlayer, placeRange, prediction).stream().filter(blockPos -> canPlaceCrystal(blockPos, antiSurround, endcrystal)).collect(Collectors.toList());
+    }
+
+    public static List<BlockPos> getNearbyBlocks(EntityPlayer player, double blockRange, boolean motion) {
+        List<BlockPos> nearbyBlocks = new ArrayList<>();
+        int range = (int) WurstplusMathUtil.roundDouble(blockRange, 0);
+
+        if (motion)
+            player.getPosition().add(new Vec3i(player.motionX, player.motionY, player.motionZ));
+
+        for (int x = -range; x <= range; x++)
+            for (int y = -range; y <= range - (range / 2); y++)
+                for (int z = -range; z <= range; z++)
+                    nearbyBlocks.add(player.getPosition().add(x, y, z));
+
+        return nearbyBlocks;
+    }
+
+
     public static boolean canPlaceCrystal(final BlockPos blockPos, final boolean thirteen, final boolean specialEntityCheck) {
         final BlockPos boost = blockPos.add(0, 1, 0);
         final BlockPos boost2 = blockPos.add(0, 2, 0);
@@ -94,7 +111,6 @@ public class WurstplusCrystalUtil {
 
     public static boolean canPlaceCrystal(final BlockPos pos)
     {
-
         final Block block = mc.world.getBlockState(pos).getBlock();
 
         if (block == Blocks.OBSIDIAN || block == Blocks.BEDROCK)
@@ -112,8 +128,7 @@ public class WurstplusCrystalUtil {
     }
 
     public static float calculateDamage(double posX, double posY, double posZ, Entity entity) {
-        if (entity == mc.player)
-        {
+        if (entity == mc.player && mc.player.isCreative()) {
             return 0.0f;
         }
         final float doubleExplosionSize = 12.0f;
@@ -132,6 +147,28 @@ public class WurstplusCrystalUtil {
         }
         return (float)finald;
     }
+
+    public static float calculateDamageBed(double posX, double posY, double posZ, Entity entity) {
+        if (entity == mc.player && mc.player.isCreative()) {
+            return 0.0f;
+        }
+        final float doubleExplosionSize = 10.0f;
+        final double distancedsize = entity.getDistance(posX, posY, posZ) / doubleExplosionSize;
+        final Vec3d vec3d = new Vec3d(posX, posY, posZ);
+        double blockDensity = 0.0;
+        try {
+            blockDensity = entity.world.getBlockDensity(vec3d, entity.getEntityBoundingBox());
+        }
+        catch (Exception ignore) {}
+        final double v = (1.0 - distancedsize) * blockDensity;
+        final float damage = (float)(int)((v * v + v) / 2.0 * 7.0 * doubleExplosionSize + 1.0);
+        double finald = 1.0;
+        if (entity instanceof EntityLivingBase) {
+            finald = getBlastReduction((EntityLivingBase)entity, getDamageMultiplied(damage), new Explosion(mc.world, null, posX, posY, posZ, 6.0f, false, true));
+        }
+        return (float)finald;
+    }
+
 
     public static float getBlastReduction(final EntityLivingBase entity, final float damageI, final Explosion explosion) {
         float damage = damageI;
@@ -166,5 +203,20 @@ public class WurstplusCrystalUtil {
     {
         return calculateDamage(crystal.posX, crystal.posY, crystal.posZ, entity);
     }
+
+    public static float calculateDamageBed(BlockPos pos, Entity entity)
+    {
+        return calculateDamageBed(pos.getX(), pos.getY(), pos.getZ(), entity);
+    }
+
+    public static boolean raytraceBlock(BlockPos blockPos, double offset) {
+        return mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(blockPos.getX(), blockPos.getY() + offset, blockPos.getZ()), false, true, false) == null;
+    }
+
+    public static boolean raytraceQuill(BlockPos blockPos, double offset) {
+        return mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(blockPos.getX(), blockPos.getY() + offset + 1.5, blockPos.getZ()), false, true, false) == null;
+    }
+
+
 
 }

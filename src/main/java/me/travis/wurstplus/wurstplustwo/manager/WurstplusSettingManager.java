@@ -58,4 +58,18 @@ public class WurstplusSettingManager {
 
 		return setting_requesteds;
 	}
+
+	public void bind(int event_key) {
+		if (event_key == 0) {
+			return;
+		}
+
+		for (WurstplusSetting settings : get_array_settings()) {
+			if (!settings.get_type().equals("bind")) continue;
+			if (!settings.get_master().is_active()) continue;
+			if (settings.get_bind(0) == event_key) {
+				settings.get_master().on_bind(settings.get_tag());
+			}
+		}
+	}
 }

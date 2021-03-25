@@ -3,6 +3,7 @@ package me.travis.wurstplus.wurstplustwo.hacks.combat;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
+import me.travis.wurstplus.wurstplustwo.util.WurstplusMessageUtil;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.init.Items;
 

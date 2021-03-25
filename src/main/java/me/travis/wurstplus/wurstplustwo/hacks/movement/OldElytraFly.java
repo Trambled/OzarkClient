@@ -48,30 +48,21 @@ public class OldElytraFly extends WurstplusHack {
             }
 
             if (mc.gameSettings.keyBindJump.isKeyDown()) {
-                EntityPlayerSP player7;
-                EntityPlayerSP player = player7 = mc.player;
 
-                player7.motionY += 0.08;
+                mc.player.motionY += 0.08;
 
 			} else if (mc.gameSettings.keyBindSneak.isKeyDown()) {
-                EntityPlayerSP player8;
-                EntityPlayerSP player2 = player8 = mc.player;
 
-                player8.motionY -= 0.04;
+                mc.player.motionY -= 0.04;
 			}
 
             if (mc.gameSettings.keyBindForward.isKeyDown()) {
                 float yaw = (float) Math.toRadians(mc.player.rotationYaw);
+
+                mc.player.motionX -= MathHelper.sin(yaw) * 0.05f;
+
                     
-                EntityPlayerSP player9;                    
-                EntityPlayerSP player3 = player9 = mc.player;
-                    
-                player9.motionX -= MathHelper.sin(yaw) * 0.05f;
-                    
-                EntityPlayerSP player10;
-                EntityPlayerSP player4 = player10 = mc.player;
-                    
-                player10.motionZ += MathHelper.cos(yaw) * 0.05f;
+                mc.player.motionZ += MathHelper.cos(yaw) * 0.05f;
             }
 
             if (mc.gameSettings.keyBindBack.isKeyDown()) {

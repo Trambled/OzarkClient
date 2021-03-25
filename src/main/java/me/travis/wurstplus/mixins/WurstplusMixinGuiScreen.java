@@ -97,7 +97,7 @@ public class WurstplusMixinGuiScreen {
         }
     }
 
-    private void drawGradientRectP(int left, int top, int right, int bottom, int startColor, int endColor)
+    public void drawGradientRectP(int left, int top, int right, int bottom, int startColor, int endColor)
     {
         float f = (float)(startColor >> 24 & 255) / 255.0F;
         float f1 = (float)(startColor >> 16 & 255) / 255.0F;

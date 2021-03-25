@@ -6,6 +6,7 @@ import me.travis.wurstplus.wurstplustwo.util.WurstplusMessageUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPressurePlate;
 import net.minecraft.entity.Entity;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.init.Blocks;
@@ -42,7 +43,7 @@ public class AntiCrystal extends WurstplusHack
             this.index = 0;
         }
 
-        if (find_in_hotbar() == -1) {
+        if (find_in_hotbar() == -1 && find_string_hotbar() == -1) {
             WurstplusMessageUtil.send_client_message("No materials!");
             this.set_disable();
         }
@@ -52,58 +53,54 @@ public class AntiCrystal extends WurstplusHack
             return;
         }
 
-        for (final EntityEnderCrystal cry : this.getExclusions()) {
+        for (final EntityEnderCrystal cry : get_crystals()) {
             if (this.index % this.delay.get_value(1) == 0) {
                 if (switch_mode.in("Normal")) {
-                    mc.player.inventory.currentItem = find_in_hotbar();
+                    if (find_in_hotbar() != -1) {
+                        mc.player.inventory.currentItem = find_in_hotbar();
+                    } else {
+                        mc.player.inventory.currentItem = find_string_hotbar();
+                    }
                 } else if (switch_mode.in("Ghost")) {
-                    mc.player.connection.sendPacket(new CPacketHeldItemChange(find_in_hotbar()));
+                    if (find_in_hotbar() != -1) {
+                        mc.player.connection.sendPacket(new CPacketHeldItemChange(find_in_hotbar()));
+                    } else {
+                        mc.player.connection.sendPacket(new CPacketHeldItemChange(find_string_hotbar()));
+                    }
                 }
 
-                if (mc.player.inventory.currentItem == find_in_hotbar()) {
+                if (mc.player.inventory.currentItem == find_in_hotbar() || mc.player.inventory.currentItem == find_string_hotbar()) {
                     WurstplusBlockInteractHelper.placeBlock(cry.getPosition(), this.rotate.get_value(true));
                     return;
                 }
             }
         }
     }
-    
-    public ArrayList<EntityEnderCrystal> getCrystals() {
+
+    public ArrayList<EntityEnderCrystal> get_crystals() {
         final ArrayList<EntityEnderCrystal> crystals = new ArrayList<EntityEnderCrystal>();
-        for (final Entity ent : mc.world.getLoadedEntityList()) {
-            if (ent instanceof EntityEnderCrystal) {
-                crystals.add((EntityEnderCrystal)ent);
+        for (final Entity crystal : mc.world.getLoadedEntityList()) {
+            if (!(crystal instanceof EntityEnderCrystal)) {
+                continue;
             }
-        }
-        return crystals;
-    }
-    
-    public ArrayList<EntityEnderCrystal> getInRange() {
-        final ArrayList<EntityEnderCrystal> inRange = new ArrayList<EntityEnderCrystal>();
-        for (final EntityEnderCrystal crystal : this.getCrystals()) {
-            if (mc.player.getDistance(crystal) <= this.range.get_value(1)) {
-                inRange.add(crystal);
+            if (!(mc.player.getDistance(crystal) <= this.range.get_value(1))) {
+                continue;
             }
-        }
-        return inRange;
-    }
-    
-    public ArrayList<EntityEnderCrystal> getExclusions() {
-        final ArrayList<EntityEnderCrystal> returnOutput = new ArrayList<EntityEnderCrystal>();
-        for (final EntityEnderCrystal crystal : this.getInRange()) {
             if (mc.world.getBlockState(crystal.getPosition()).getBlock() == Blocks.WOODEN_PRESSURE_PLATE || mc.world.getBlockState(crystal.getPosition()).getBlock() == Blocks.STONE_PRESSURE_PLATE || mc.world.getBlockState(crystal.getPosition()).getBlock() == Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE || mc.world.getBlockState(crystal.getPosition()).getBlock() == Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE) {
                 continue;
             }
 
-            final double self_damage = WurstplusCrystalUtil.calculateDamage(crystal, mc.player);
+            EntityEnderCrystal cry = (EntityEnderCrystal) crystal;
+
+            final double self_damage = WurstplusCrystalUtil.calculateDamage(cry, mc.player);
 
             if (self_damage < max_self_damage.get_value(1)) {
                 continue;
             }
 
-            returnOutput.add(crystal);
+            crystals.add(cry);
         }
-        return returnOutput;
+        return crystals;
     }
 
     private int find_in_hotbar() {
@@ -119,6 +116,15 @@ public class AntiCrystal extends WurstplusHack
                 if (block instanceof BlockPressurePlate)
                     return i;
 
+            }
+        }
+        return -1;
+    }
+
+    private int find_string_hotbar() {
+        for (int i = 0; i < 9; i++) {
+            if (mc.player.inventory.getStackInSlot(i).getItem() == Items.STRING) {
+                return i;
             }
         }
         return -1;

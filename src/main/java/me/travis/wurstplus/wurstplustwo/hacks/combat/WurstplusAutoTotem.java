@@ -33,7 +33,7 @@ public class WurstplusAutoTotem extends WurstplusHack {
                 return;
             }
 
-            if (mc.player.getHeldItemOffhand().getItem() == Items.AIR) {
+            if (mc.player.getHeldItemOffhand().getItem() != Items.TOTEM_OF_UNDYING) {
                 swap_items(get_item_slot(), delay.get_value(true) ? 1 : 0);
             }
 

@@ -2,16 +2,21 @@ package me.travis.wurstplus.wurstplustwo.guiscreen.render.components.past;
 
 
 import me.travis.wurstplus.Wurstplus;
+import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.salhack.Snow;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.init.SoundEvents;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class PastGUI extends GuiScreen {
     public static ArrayList<Panel> panels;
+    public static ArrayList<Component> components;
+    private ArrayList<Snow> snow_list = new ArrayList<Snow>();
 
     public PastGUI() {
         panels = new ArrayList<>();
@@ -30,6 +35,17 @@ public class PastGUI extends GuiScreen {
             PastGUI.panels.add(new Panel(c.get_name(), panelX, panelY, panelWidth, panelHeight, c));
             panelX += 105;
         }
+
+        Random random = new Random();
+
+        for (int i = 0; i < 100; ++i)
+        {
+            for (int y = 0; y < 3; ++y)
+            {
+                Snow snow = new Snow(25 * i, y * -50, random.nextInt(3) + 1, random.nextInt(2)+1);
+                snow_list.add(snow);
+            }
+        }
     }
 
 
@@ -37,6 +53,14 @@ public class PastGUI extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 
         drawDefaultBackground();
+
+        final ScaledResolution res = new ScaledResolution(mc);
+
+        if (!snow_list.isEmpty() && Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUISnow").get_value(true))
+        {
+            snow_list.forEach(snow -> snow.Update(res));
+        }
+
 
         for (Panel p : panels) {
             p.updatePosition(mouseX, mouseY);
@@ -85,8 +109,6 @@ public class PastGUI extends GuiScreen {
     @Override
     public void onGuiClosed() {
         Wurstplus.get_hack_manager().get_module_with_tag("PastGUI").set_active(false);
-
-        Wurstplus.get_config_manager().save_settings();
     }
 
     @Override
@@ -123,5 +145,9 @@ public class PastGUI extends GuiScreen {
         } else {
             return false;
         }
+    }
+
+    public final ArrayList<Component> get_components() {
+        return components;
     }
 }

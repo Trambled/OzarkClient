@@ -89,8 +89,6 @@ public class WurstplusGUI extends GuiScreen {
 	@Override
 	public void onGuiClosed() {
 		Wurstplus.get_hack_manager().get_module_with_tag("GUI").set_active(false);
-
-		Wurstplus.get_config_manager().save_settings();
 	}
 
 	@Override

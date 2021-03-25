@@ -11,8 +11,6 @@ import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.init.MobEffects;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.BlockPos;
 
 public class WurstplusStrafe extends WurstplusHack {
 
@@ -34,6 +32,8 @@ public class WurstplusStrafe extends WurstplusHack {
 
 	@Override
 	public void update() {
+
+		if (nullCheck()) return;
 
 		if (!Wurstplus.get_module_manager().get_module_with_tag("Fucker").is_active() && fucker.get_value(true)) {
 			Wurstplus.get_module_manager().get_module_with_tag("Fucker").set_active(true);

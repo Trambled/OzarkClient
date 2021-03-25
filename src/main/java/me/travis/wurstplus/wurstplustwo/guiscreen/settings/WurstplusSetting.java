@@ -2,6 +2,7 @@ package me.travis.wurstplus.wurstplustwo.guiscreen.settings;
 
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
 import net.minecraft.client.Minecraft;
+import org.lwjgl.input.Keyboard;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class WurstplusSetting {
 	private String tag;
 
 	private boolean button;
+	private boolean shown = true;
 
 	private List<String> combobox;
 	private      String  current;
@@ -21,8 +23,17 @@ public class WurstplusSetting {
 	private double slider;
 	private double min;
 	private double max;
+	private int bind;
 
 	private String type;
+
+	public WurstplusSetting(WurstplusHack master, String name, String tag, int value) {
+		this.master = master;
+		this.name   = name;
+		this.tag    = tag;
+		this.bind = value;
+		this.type  = "bind";
+	}
 
 	public WurstplusSetting(WurstplusHack master, String name, String tag, boolean value) {
 		this.master = master;
@@ -83,14 +94,14 @@ public class WurstplusSetting {
 
 	public void set_value(boolean value) {
 		if (Minecraft.getMinecraft().world != null && master.is_active()) {
-			master.on_value_change();
+			master.value_change();
 		}
 		this.button = value;
 	}
 
 	public void set_current_value(String value) {
 		if (Minecraft.getMinecraft().world != null && master.is_active()) {
-			master.on_value_change();
+			master.value_change();
 		}
 		this.current = value;
 	}
@@ -101,7 +112,7 @@ public class WurstplusSetting {
 
 	public void set_value(double value) {
 		if (Minecraft.getMinecraft().world != null && master.is_active()) {
-			master.on_value_change();
+			master.value_change();
 		}
 		if (value >= get_max(value)) {
 			this.slider = get_max(value);
@@ -112,9 +123,13 @@ public class WurstplusSetting {
 		}
 	}
 
+	public void set_shown(boolean value) {
+		this.shown = value;
+	}
+
 	public void set_value(int value) {
 		if (Minecraft.getMinecraft().world != null && master.is_active()) {
-			master.on_value_change();
+			master.value_change();
 		}
 		if (value >= get_max(value)) {
 			this.slider = get_max(value);
@@ -123,6 +138,10 @@ public class WurstplusSetting {
 		} else {
 			this.slider = value;
 		}
+	}
+
+	public void set_bind(int value) {
+		this.bind = value;
 	}
 
 	public boolean is_info() {
@@ -175,5 +194,32 @@ public class WurstplusSetting {
 
 	public String get_type() {
 		return this.type;
+	}
+
+	public String get_bind(String type) {
+		String converted_bind = "null";
+
+		if (get_bind(0) < 0) {
+			converted_bind = "NONE";
+		}
+
+		if (!(converted_bind.equals("NONE"))) {
+			String key     = Keyboard.getKeyName(get_bind(0));
+			converted_bind = Character.toUpperCase(key.charAt(0)) + (key.length() != 1 ? key.substring(1).toLowerCase() : "");
+		} else {
+			converted_bind = "None";
+		}
+
+		return converted_bind;
+	}
+
+	public int get_bind(int type) {
+		return this.bind;
+	}
+
+
+	// experimental
+	public boolean is_shown() {
+		return this.shown;
 	}
 }

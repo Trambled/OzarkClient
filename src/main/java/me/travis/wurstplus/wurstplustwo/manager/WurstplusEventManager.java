@@ -6,6 +6,7 @@ import me.travis.wurstplus.wurstplustwo.command.WurstplusCommand;
 import me.travis.wurstplus.wurstplustwo.command.WurstplusCommands;
 import me.travis.wurstplus.wurstplustwo.event.WurstplusEventBus;
 import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventGameOverlay;
+import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.util.WurstplusMessageUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -96,6 +97,7 @@ public class WurstplusEventManager {
 	public void onKeyInput(InputEvent.KeyInputEvent event) {
 		if (Keyboard.getEventKeyState()) {
 			Wurstplus.get_hack_manager().bind(Keyboard.getEventKey());
+			Wurstplus.get_setting_manager().bind(Keyboard.getEventKey());
 		}
 	}
 

@@ -31,7 +31,7 @@ public class CevBreaker extends WurstplusHack
     public CevBreaker() {
         super(WurstplusCategory.WURSTPLUS_COMBAT);
 
-        this.name        = "Cev Breaker";
+        this.name        = "Civ Breaker";
         this.tag         = "CevBreaker";
         this.description = "crystals an opponent from above their heads";
     }

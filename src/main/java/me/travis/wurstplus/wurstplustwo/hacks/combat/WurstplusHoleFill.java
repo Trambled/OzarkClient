@@ -53,6 +53,11 @@ public class WurstplusHoleFill extends WurstplusHack {
 	public void disable() {
         holes.clear();
     }
+
+    @Override
+    public void update_always() {
+        smart_range.set_shown(smart_mode.get_value(true));
+    }
     
     @Override
 	public void update() {
@@ -96,7 +101,7 @@ public class WurstplusHoleFill extends WurstplusHack {
 
                 if (target.isDead || target.getHealth() <= 0) continue;
 
-                if (target.getDistanceSqToCenter(pos) < smart_range.get_value(1)*2) {
+                if (target.getDistanceSqToCenter(pos) < smart_range.get_value(1)*smart_range.get_value(1)) {
                     do_smart = true;
                 }
             }

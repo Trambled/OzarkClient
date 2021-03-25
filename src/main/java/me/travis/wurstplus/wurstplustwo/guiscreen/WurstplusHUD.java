@@ -17,7 +17,7 @@ public class WurstplusHUD extends GuiScreen {
 	public boolean back;
 
 	public WurstplusHUD() {
-		this.frame  = new WurstplusFrame("Ozark Client HUD Editor", "WurstplusHUD", 40, 40);
+		this.frame  = new WurstplusFrame("Oz Client HUD Editor", "WurstplusHUD", 40, 40);
 		this.back   = false;
 		this.on_gui = false;
 	}
@@ -71,16 +71,15 @@ public class WurstplusHUD extends GuiScreen {
 	@Override
 	public void onGuiClosed() {
 		if (this.back) {
-			Wurstplus.get_hack_manager().get_module_with_tag("GUI").set_active(true);
+			Wurstplus.get_hack_manager().get_module_with_tag("PastGUI").set_active(true);
 			Wurstplus.get_hack_manager().get_module_with_tag("HUD").set_active(false);
 		} else {
 			Wurstplus.get_hack_manager().get_module_with_tag("HUD").set_active(false);
 			Wurstplus.get_hack_manager().get_module_with_tag("GUI").set_active(false);
+			Wurstplus.get_hack_manager().get_module_with_tag("PastGUI").set_active(false);
 		}
 
 		this.on_gui = false;
-
-		Wurstplus.get_config_manager().save_settings();
 	}
 
 	@Override

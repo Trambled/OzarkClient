@@ -2,6 +2,7 @@ package me.travis.wurstplus.wurstplustwo.manager;
 
 import me.travis.wurstplus.wurstplustwo.guiscreen.hud.*;
 import me.travis.wurstplus.wurstplustwo.guiscreen.render.pinnables.WurstplusPinnable;
+import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -53,7 +54,7 @@ public class WurstplusHUDManager {
 
 	public void render() {
 		for (WurstplusPinnable pinnables : get_array_huds()) {
-			if (pinnables.is_active()) {
+			if (pinnables.is_active() && Minecraft.getMinecraft().world != null) {
 				pinnables.render();
 			}
 		}

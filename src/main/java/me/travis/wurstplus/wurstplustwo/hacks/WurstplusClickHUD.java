@@ -12,7 +12,7 @@ public class WurstplusClickHUD extends WurstplusHack {
 	public WurstplusClickHUD() {
 		super(WurstplusCategory.WURSTPLUS_GUI);
 
-		this.name        = "HUD";
+		this.name        = "HUD Editor";
 		this.tag         = "HUD";
 		this.description = "gui for pinnables";
 	}

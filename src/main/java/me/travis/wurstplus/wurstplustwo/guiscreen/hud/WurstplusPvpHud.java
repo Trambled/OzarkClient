@@ -34,7 +34,7 @@ public class WurstplusPvpHud extends WurstplusPinnable {
         create_line(holefill, this.docking(1, holefill), 45, nl_r, nl_g, nl_b, nl_a);
         create_line(socks, this.docking(1, socks), 56, nl_r, nl_g, nl_b, nl_a);
         create_line(selftrap, this.docking(1, selftrap), 67, nl_r, nl_g, nl_b, nl_a);
-        create_line(aura, this.docking(1, aura), 67, nl_r, nl_g, nl_b, nl_a);
+        create_line(aura, this.docking(1, aura), 77, nl_r, nl_g, nl_b, nl_a);
 
 		this.set_width(this.get(surround, "width") + 2);
 		this.set_height(this.get(surround, "height") * 5);

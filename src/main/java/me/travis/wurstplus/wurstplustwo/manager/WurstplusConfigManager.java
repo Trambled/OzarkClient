@@ -324,6 +324,9 @@ public class WurstplusConfigManager {
                     case "doubleslider":
                         br.write(setting.get_tag() + ":" + setting.get_value(1.0) + "\r\n");
                         break;
+                    case "bind":
+                        br.write(setting.get_tag() + ":" + setting.get_bind(1) + "\r\n");
+                        break;
                     case "integerslider":
                         br.write(setting.get_tag() + ":" + setting.get_value(1) + "\r\n");
                         break;
@@ -334,6 +337,7 @@ public class WurstplusConfigManager {
 
         }
     }
+
 
     private void load_hacks() throws IOException {
 
@@ -375,6 +379,8 @@ public class WurstplusConfigManager {
                         case "combobox":
                             setting.set_current_value(value);
                             break;
+                        case "bind":
+                            setting.set_bind(Integer.parseInt(value));
                     }
                 } catch (Exception e) {
                     bugged_lines.add(colune);

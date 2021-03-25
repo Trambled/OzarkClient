@@ -376,6 +376,12 @@ public class WurstplusMathUtil {
 		};
 	}
 
+    public static double roundDouble(double number, int scale) {
+        BigDecimal bd = new BigDecimal(number);
+        bd = bd.setScale(scale, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
     static {
         random = new Random();
     }

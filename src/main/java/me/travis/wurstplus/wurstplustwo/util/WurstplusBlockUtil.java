@@ -33,10 +33,14 @@ public class WurstplusBlockUtil {
         return mc.player != null && mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(p_Pos.getX(), p_Pos.getY(), p_Pos.getZ()), false, true, false) == null;
     }
 
-    public static void placeCrystalOnBlock(final BlockPos pos, final EnumHand hand) {
+    public static void placeCrystalOnBlock(final BlockPos pos, final EnumHand hand, boolean packet) {
         final RayTraceResult result = mc.world.rayTraceBlocks(new Vec3d(mc.player.posX, mc.player.posY + mc.player.getEyeHeight(), mc.player.posZ), new Vec3d(pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5));
         final EnumFacing facing = (result == null || result.sideHit == null) ? EnumFacing.UP : result.sideHit;
-        mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, facing, hand, 0.0f, 0.0f, 0.0f));
+        if (packet) {
+            mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, facing, hand, 0.0f, 0.0f, 0.0f));
+        } else {
+            mc.playerController.processRightClickBlock(mc.player, mc.world, pos, facing, new Vec3d(0, 0, 0), hand);
+        }
     }
 
     public static boolean rayTracePlaceCheck(final BlockPos pos, final boolean shouldCheck, final float height) {
@@ -95,7 +99,7 @@ public class WurstplusBlockUtil {
     public static boolean placeBlock(BlockPos pos, int slot, boolean rotate, boolean rotateBack, WurstplusSetting setting) {
         if (isBlockEmpty(pos)) {
             int old_slot = -1;
-            if (slot != mc.player.inventory.currentItem) {
+            if (slot != mc.player.inventory.currentItem && slot != -1) {
                 old_slot = mc.player.inventory.currentItem;
                 mc.player.inventory.currentItem = slot;
             }

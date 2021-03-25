@@ -43,7 +43,7 @@ public class WurstplusHack implements Listenable {
 		this.bind = (key);
 	}
 
-        public boolean nullCheck() {
+	public boolean nullCheck() {
             return mc.player == null || mc.world == null;
         } 
 
@@ -152,6 +152,12 @@ public class WurstplusHack implements Listenable {
 		return Wurstplus.get_setting_manager().get_setting_with_tag(this, tag);
 	}
 
+	protected WurstplusSetting create(String name, String tag, int bind) {
+		Wurstplus.get_setting_manager().register(new WurstplusSetting(this, name, tag, bind));
+
+		return Wurstplus.get_setting_manager().get_setting_with_tag(this, tag);
+	}
+
 	protected WurstplusSetting create(String name, String tag, String value) {
 		Wurstplus.get_setting_manager().register(new WurstplusSetting(this, name, tag, value));
 
@@ -189,7 +195,15 @@ public class WurstplusHack implements Listenable {
 
 	}
 
-	public void on_value_change() {
+	public void update_always() {
+
+	}
+
+	public void value_change() {
+
+	}
+
+	public void on_bind(String tag) {
 
 	}
 

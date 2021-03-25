@@ -36,6 +36,14 @@ public class FontUtil {
         }
     }
 
+    public static void drawTextHUD(String text, float x, float y, int colour) {
+        if (Wurstplus.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDShadow").get_value(true)) {
+            drawStringWithShadow(text, x, y, colour);
+        } else {
+            drawString(text, x, y, colour);
+        }
+    }
+
     public static void drawText(String text, float x, float y, int colour) {
         if (Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIFontShadow").get_value(true)) {
             drawStringWithShadow(text, x, y, colour);

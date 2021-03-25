@@ -1,6 +1,7 @@
 package me.travis.wurstplus.mixins;
 
 import me.travis.wurstplus.wurstplustwo.event.events.EventRenderEnchantingTable;
+import net.minecraft.client.particle.ParticleFirework;
 import net.minecraft.client.renderer.tileentity.TileEntityEnchantmentTableRenderer;
 import net.minecraft.tileentity.TileEntityEnchantmentTable;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,5 +1,6 @@
 package me.travis.wurstplus.wurstplustwo.guiscreen.render.components.past;
 
+
 import net.minecraft.client.Minecraft;
 
 public class Component {

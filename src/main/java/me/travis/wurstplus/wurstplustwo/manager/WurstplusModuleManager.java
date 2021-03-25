@@ -76,6 +76,7 @@ public class WurstplusModuleManager {
 		add_hack(new Blocker());
 		add_hack(new Quiver());
 		add_hack(new CevBreaker());
+		add_hack(new ArmorSwitch());
 
 		// Exploit.
 		add_hack(new WurstplusXCarry());
@@ -128,11 +129,9 @@ public class WurstplusModuleManager {
 		add_hack(new WurstplusChams());
 		add_hack(new WurstplusCapes());
 		add_hack(new WurstplusCityEsp());
-		add_hack(new FOVSlider());
 		add_hack(new StorageESP());
 		add_hack(new NoRender());
 		add_hack(new FullBright());
-		add_hack(new LowHands());
 		add_hack(new Timechanger());
 		add_hack(new BurrowESP());
 		add_hack(new Xray());
@@ -247,6 +246,7 @@ public class WurstplusModuleManager {
 			if (modules.is_active()) {
 				modules.update();
 			}
+			modules.update_always();
 		}
 	}
 

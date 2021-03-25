@@ -139,7 +139,7 @@ public class Xray extends WurstplusHack {
     }
 
     @Override
-    public void on_value_change() {
+    public void value_change() {
         reloadWorld();
     }
 

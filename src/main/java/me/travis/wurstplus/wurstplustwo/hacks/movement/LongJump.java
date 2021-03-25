@@ -25,11 +25,16 @@ public class LongJump extends WurstplusHack {
 		this.description = "Makes you jump far";
     }
 	
-	WurstplusSetting bypassMode = create("Bypass Mode", "Bypass Mode", "Packet", combobox("Packet", "Packet 2"));
+	WurstplusSetting bypassMode = create("Bypass Mode", "Bypass Mode", "Packet", combobox("Packet", "Packet2"));
 	WurstplusSetting boostMode = create("Boost Mode", "boostMode", "Only ground", combobox("Only ground", "Always", "Jump Event"));
 	WurstplusSetting calcMode = create("Calc Mode", "calcMode", "Constant", combobox("Dissolve", "Constant"));
 	WurstplusSetting bypass = create("Bypass", "Bypass", true);
 	WurstplusSetting boost = create("Boost", "Boost", 37, 1, 100);
+
+	@Override
+    public void update_always() {
+	    bypassMode.set_shown(bypass.get_value(true));
+    }
 
     @Override
     public void update() {

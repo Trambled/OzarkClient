@@ -7,12 +7,14 @@ import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.past.Panel;
 import me.travis.wurstplus.wurstplustwo.guiscreen.render.components.past.font.FontUtil;
 import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
 import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
+import me.travis.wurstplus.wurstplustwo.util.WurstplusRenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.init.SoundEvents;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class ModuleButton extends Component {
@@ -47,6 +49,9 @@ public class ModuleButton extends Component {
                 } else if (settings.get_type().equals("label")) {
                     this.subcomponents.add(new InfoComponent(settings, this, opY));
                     opY += 15;
+                } else if (settings.get_type().equals("bind")) {
+                    this.subcomponents.add(new KeybindSettingComponent(settings, this, opY));
+                    opY += 15;
                 }
             }
         this.subcomponents.add(new KeybindComponent(this, opY));
@@ -64,7 +69,7 @@ public class ModuleButton extends Component {
 
     @Override
     public void renderComponent() {
-        if (this.mod.is_active()) {
+        if (this.mod.is_active() || mod.get_tag().equalsIgnoreCase("PastGUI")) {
             WurstplusDraw.draw_rect(parent.getX() - 1, parent.getY() + offset, parent.getX() + parent.getWidth() + 1, parent.getY() + 15 + offset + 1, Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR").get_value(1), Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG").get_value(1), Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB").get_value(1), Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA").get_value(1));
             WurstplusDraw.draw_rect(parent.getX() - 1, parent.getY() + offset, parent.getX(), parent.getY() + 15 + offset, Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR").get_value(1), Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG").get_value(1), Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB").get_value(1), Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA").get_value(1));
             WurstplusDraw.draw_rect(parent.getX() + parent.getWidth(), parent.getY() + offset, parent.getX() + parent.getWidth() + 1, parent.getY() + 15 + offset, Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR").get_value(1), Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG").get_value(1), Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB").get_value(1), Wurstplus.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA").get_value(1));
