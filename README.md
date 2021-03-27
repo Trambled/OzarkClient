@@ -37,6 +37,8 @@ Default Command Prefix?
 
 . is the prefix
 
+### Details and stuff
+
 <details>
   <summary>Notable stuff added</summary> <br>
   Bed Aura - auto places and breaks beds on people, has break calculations and has modes for 1.13 and 1.12 servers<br>
