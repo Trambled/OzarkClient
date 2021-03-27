@@ -1,13 +1,9 @@
-w+2 with a load of shit from xenon, salhack, xulu, and bope
 
-blah blah ozarkclient got leaked so fart.
-
-heres the original read me for ozark client
 
 # Ozark Client
 literal sex
 
-# building the sex 😎
+### building the sex 
 1. Extract the folder to a location
 
 2. go into command prompt
@@ -21,18 +17,17 @@ is the jar file you should use
 
 6. Accept ozark owns you
 
-u also need a JDK (we recommend JDK 1.8), a free one is adopt open jdk https://adoptopenjdk.net/
+u also need a JDK, a free one is adopt open jdk https://adoptopenjdk.net/
 
-# Issues and Crashes
+### Issues and Crashes
 
 if you have certain issues, send someone who helps contribute to here your crash log,
 this will help us know what caused said crash and why it happened,
-this client may not be compatible with certain clients. 
 
 join this if u already arent in it for some reason:
 https://discord.gg/yHcBBDKDtY
 
-# basics ig
+### how to use
 
 What's the default bind for ClickGUI?
 
@@ -42,11 +37,20 @@ Default Command Prefix?
 
 . is the prefix
 
-Compatible with Phobos?
+<details>
+  <summary>Notable stuff added</summary> <br>
+  Bed Aura - auto places and breaks beds on people, has break calculations and has modes for 1.13 and 1.12 servers<br>
+  Auto Crystal - very good and heavily modified w+2 
+  BurrowESP - highlights people who are burrowed
+  Elyrafly - salhack but timer on takeoff <br>
+  Burrow - xulu but modified a bit to make it better <br>
+  Xray - with commands and opacity feature <br>
+  PastGUI - another gui originally from past <br>
+  Anticrystal - originally from xenon but added minhealth and crystal calculations to make it better, also supports string<br><br>
+  some other skidded shit and bug fixes <br>
+</details>
 
-It should be but still may crash.
-
-# configing
+### configing
 
 heres lil cheesy config
 ![cfg1](https://media.discordapp.net/attachments/774445515629920260/797986249112944660/heres_lil_cheesy_config.PNG)  
@@ -54,19 +58,16 @@ use predict, as well as ares mode, but it may drop frames. faceplace mode is dec
 
 for offhand use crystal mode and gapple in hole if u want, health is based on preference but 18-20 is probably the best
 
-default burrow delay is fine, but you can change it if it doesnt work for u that good
+default burrow delay is fine, but you can change it if it doesnt work for u that good, set strength to 4 in cc
 
-elytrafly set the speed to 1.8 - 2.0, go higher if the server anticheat allows it, if it lags back with normal speed, set glide speed higher, superior mode is the best mode btw, elytrafly isn't compatible with nofall, thats why ozark elytrafly auto toggles ozark nofall, so make sure that no other clients have the nofall module toggled when you're using elytra fly. the timer module in elytrafly is good for taking off easier
+elytrafly set the speed to 1.8 - 2.0, go higher if the server anticheat allows it, if it lags back with normal speed, set glide speed higher, superior mode is the best mode btw, elytrafly isn't compatible with nofall, thats why ozark elytrafly auto toggles nofall, so make sure that no other clients have the nofall module toggled when you're using elytra fly. the timer module in elytrafly is good for taking off easier
 
 for surround, set toggle, rotate, and all the other stuff off, and set swing to NONE, and mode normal
 
 turn off smart mode in auto armor, and turn off tps sync on kill aura UNLESS in low tps. 
 
-if you wanna use the cool past gui instead of the bad default bope/wp2 gui, remove the bind for the normal gui module, and set the bind in the past gui module. 
-
-# capes
+### capes
 give me cape designs ill also add u to the cape club
 
-# Ozark on top
+### Ozark on top
 Blacklarp on bottom 
-
