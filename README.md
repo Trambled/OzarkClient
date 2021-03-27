@@ -42,8 +42,8 @@ Default Command Prefix?
 <details>
   <summary>Notable stuff added</summary> <br>
   Bed Aura - auto places and breaks beds on people, has break calculations and has modes for 1.13 and 1.12 servers<br>
-  Auto Crystal - very good and heavily modified w+2 
-  BurrowESP - highlights people who are burrowed
+  Auto Crystal - very good and heavily modified w+2 autocrystal <br>
+  BurrowESP - highlights people who are burrowed <br>
   Elyrafly - salhack but timer on takeoff <br>
   Burrow - xulu but modified a bit to make it better <br>
   Xray - with commands and opacity feature <br>
