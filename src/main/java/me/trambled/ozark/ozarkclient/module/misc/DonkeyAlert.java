@@ -22,7 +22,7 @@ public class DonkeyAlert extends Module
         super(Category.MISC);
 
         this.name = "Donkey Alert";
-        this.tag = "EntityControl";
+        this.tag = "DonkeyAlert";
         this.description = "alerts u when donkeys apear in render distance";
     }
 
