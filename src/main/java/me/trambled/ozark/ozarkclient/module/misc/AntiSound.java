@@ -21,17 +21,17 @@ public class AntiSound extends Module {
 		this.description = "cancels certain sounds";
     }
 
-    Setting wither = create("Wither", "AntiSoundWither", false);
-    Setting wither_spawn = create("Wither Spawn", "AntiSoundWitherSpawn", false);
-    Setting wither_hurt = create("Wither Hurt", "AntiSoundWitherHurt", false);
-    Setting wither_death = create("Wither Death", "AntiSoundWitherDeath", false);
-    Setting punches = create("Punches", "AntiSoundPunches", true);
-    Setting punches_weakness = create("Weakness Punch", "AntiSoundPunchesWeakness", true);
-    Setting punches_knockback = create("Knockback Punch", "AntiSoundPunchesKnockback", true);
-    Setting explosion = create("Explosions", "AntiSoundExplosions", true);
-    Setting totem = create("Totem", "AntiSoundTotem", false);
-    Setting elytra = create("Elytra", "AntiSoundElytra", true);
-    Setting portal = create("Portals", "AntiSoundPortals", false);
+    Setting wither = create("Wither", "Wither", false);
+    Setting wither_spawn = create("Wither Spawn", "WitherSpawn", false);
+    Setting wither_hurt = create("Wither Hurt", "WitherHurt", false);
+    Setting wither_death = create("Wither Death", "WitherDeath", false);
+    Setting punches = create("Punches", "Punches", true);
+    Setting punches_weakness = create("Weakness Punch", "PunchesWeakness", true);
+    Setting punches_knockback = create("Knockback Punch", "PunchesKnockback", true);
+    Setting explosion = create("Explosions", "Explosions", true);
+    Setting totem = create("Totem", "Totem", false);
+    Setting elytra = create("Elytra", "Elytra", true);
+    Setting portal = create("Portals", "Portals", false);
 
     @EventHandler
     private final Listener<EventPacket.ReceivePacket> packet_event = new Listener<>(event -> {
