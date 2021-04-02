@@ -7,11 +7,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.CPacketUseEntity;
+import net.minecraft.potion.Potion;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
+import java.util.Objects;
 
 public class EntityUtil {
 
@@ -176,5 +178,24 @@ public class EntityUtil {
     public static BlockPos getPosition(Entity pl) {
         return new BlockPos(Math.floor(pl.posX), Math.floor(pl.posY), Math.floor(pl.posZ));
     }
+
+    public static boolean isEntityMoving(Entity entity) {
+        if (entity == null) {
+            return false;
+        }
+        if (entity instanceof EntityPlayer) {
+            return EntityUtil.mc.gameSettings.keyBindForward.isKeyDown() || EntityUtil.mc.gameSettings.keyBindBack.isKeyDown() || EntityUtil.mc.gameSettings.keyBindLeft.isKeyDown() || EntityUtil.mc.gameSettings.keyBindRight.isKeyDown();
+        }
+        return entity.motionX != 0.0 || entity.motionY != 0.0 || entity.motionZ != 0.0;
+    }
+
+    public static double getMaxSpeed() {
+        double maxModifier = 0.2873;
+        if (EntityUtil.mc.player.isPotionActive(Objects.requireNonNull(Potion.getPotionById((int)1)))) {
+            maxModifier *= 1.0 + 0.2 * (double)(Objects.requireNonNull(EntityUtil.mc.player.getActivePotionEffect(Objects.requireNonNull(Potion.getPotionById((int)1)))).getAmplifier() + 1);
+        }
+        return maxModifier;
+    }
+
 
 }

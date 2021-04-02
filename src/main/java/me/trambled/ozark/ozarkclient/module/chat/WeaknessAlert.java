@@ -23,7 +23,7 @@ public class WeaknessAlert extends Module {
         if (mc.world != null && mc.player != null) {
             if (mc.player.isPotionActive(MobEffects.WEAKNESS) && !hasAnnounced) {
                 hasAnnounced = true;
-                MessageUtil.send_client_message("You currently have weakness! damn weakness fags");
+                MessageUtil.send_client_message("You currently have weakness! fucking weakness fags");
             }
             if (!mc.player.isPotionActive(MobEffects.WEAKNESS) && hasAnnounced) {
                 hasAnnounced = false;

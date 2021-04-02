@@ -23,11 +23,13 @@ public class Strafe extends Module {
 	}
 
 	Setting speed_mode = create("Mode", "StrafeMode", "Strafe", combobox("Strafe", "On Ground", "None"));
+	Setting speed = create("Speed", "StrafeSpeed", 5f, 0f, 10f);
+	Setting bypass = create("Bypass", "StrafeBypass", false);
+	Setting y_offset = create("Y Offset", "StrafeYOffset", 4f, 0f, 10f);
 	Setting auto_sprint = create("Auto Sprint", "StrafeSprint", true);
 	Setting on_water = create("On Water", "StrafeOnWater", true);
 	Setting auto_jump = create("Auto Jump", "StrafeAutoJump", true);
 	Setting backward = create("Backwards", "StrafeBackwards", true);
-	Setting bypass = create("Bypass", "StrafeBypass", false);
 	Setting fucker = create("Fucker", "Fucker", false);
 
 	@Override
@@ -42,7 +44,7 @@ public class Strafe extends Module {
 		if (speed_mode.in("None")) {
 			return;
 		}
-		
+
 		if (mc.player.isRiding()) return;
 
 		if (mc.player.isInWater() || mc.player.isInLava()) {
@@ -60,7 +62,7 @@ public class Strafe extends Module {
 			if (mc.player.onGround && speed_mode.in("Strafe")) {
 
 				if (auto_jump.get_value(true)) {
-					mc.player.motionY = 0.405f;
+					mc.player.motionY = y_offset.get_value(1) * 0.1;
 				}
 
 				final float yaw = get_rotation_yaw() * 0.017453292F;
@@ -70,16 +72,16 @@ public class Strafe extends Module {
 			} else if (mc.player.onGround && speed_mode.in("On Ground")) {
 
 				final float yaw = get_rotation_yaw();
-                mc.player.motionX -= MathHelper.sin(yaw) * 0.2f;
-                mc.player.motionZ += MathHelper.cos(yaw) * 0.2f;
-				mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY+0.4, mc.player.posZ, false));
-				
+				mc.player.motionX -= MathHelper.sin(yaw) * 0.2f;
+				mc.player.motionZ += MathHelper.cos(yaw) * 0.2f;
+				mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY+ (y_offset.get_value(1) * 0.1), mc.player.posZ, false));
+
 			}
 
 		}
 
 		if (mc.gameSettings.keyBindJump.isKeyDown() && mc.player.onGround) {
-			mc.player.motionY = 0.405f;
+			mc.player.motionY = y_offset.get_value(1) * 0.1f;
 		}
 
 	}
@@ -94,7 +96,7 @@ public class Strafe extends Module {
 
 	@EventHandler
 	private Listener<EventMove> player_move = new Listener<>(event -> {
-		
+
 		if (speed_mode.in("On Ground")) return;
 
 		if (mc.player.isInWater() || mc.player.isInLava()) {
@@ -114,7 +116,7 @@ public class Strafe extends Module {
 		}
 
 		if (!bypass.get_value(true)) {
-			player_speed *= 1.0064f;
+			player_speed *= speed.get_value(1) * 0.2f;
 		}
 
 		if (move_forward == 0 && move_strafe == 0) {
@@ -122,21 +124,21 @@ public class Strafe extends Module {
 			event.set_z(0.0d);
 		} else {
 			if (move_forward != 0.0f) {
-                if (move_strafe > 0.0f) {
-                    rotation_yaw += ((move_forward > 0.0f) ? -45 : 45);
-                } else if (move_strafe < 0.0f) {
-                    rotation_yaw += ((move_forward > 0.0f) ? 45 : -45);
-                }
-                move_strafe = 0.0f;
-                if (move_forward > 0.0f) {
-                    move_forward = 1.0f;
-                } else if (move_forward < 0.0f) {
-                    move_forward = -1.0f;
-                }
+				if (move_strafe > 0.0f) {
+					rotation_yaw += ((move_forward > 0.0f) ? -45 : 45);
+				} else if (move_strafe < 0.0f) {
+					rotation_yaw += ((move_forward > 0.0f) ? 45 : -45);
+				}
+				move_strafe = 0.0f;
+				if (move_forward > 0.0f) {
+					move_forward = 1.0f;
+				} else if (move_forward < 0.0f) {
+					move_forward = -1.0f;
+				}
 			}
 
-            event.set_x((move_forward * player_speed) * Math.cos(Math.toRadians((rotation_yaw + 90.0f))) + (move_strafe * player_speed) * Math.sin(Math.toRadians((rotation_yaw + 90.0f))));
-            event.set_z((move_forward * player_speed) * Math.sin(Math.toRadians((rotation_yaw + 90.0f))) - (move_strafe * player_speed) * Math.cos(Math.toRadians((rotation_yaw + 90.0f))));
+			event.set_x((move_forward * player_speed) * Math.cos(Math.toRadians((rotation_yaw + 90.0f))) + (move_strafe * player_speed) * Math.sin(Math.toRadians((rotation_yaw + 90.0f))));
+			event.set_z((move_forward * player_speed) * Math.sin(Math.toRadians((rotation_yaw + 90.0f))) - (move_strafe * player_speed) * Math.cos(Math.toRadians((rotation_yaw + 90.0f))));
 
 		}
 
@@ -146,23 +148,23 @@ public class Strafe extends Module {
 
 	private float get_rotation_yaw() {
 		float rotation_yaw = mc.player.rotationYaw;
-        if (mc.player.moveForward < 0.0f) {
-            rotation_yaw += 180.0f;
-        }
-        float n = 1.0f;
-        if (mc.player.moveForward < 0.0f) {
-            n = -0.5f;
-        }
-        else if (mc.player.moveForward > 0.0f) {
-            n = 0.5f;
-        }
-        if (mc.player.moveStrafing > 0.0f) {
-            rotation_yaw -= 90.0f * n;
-        }
-        if (mc.player.moveStrafing < 0.0f) {
-            rotation_yaw += 90.0f * n;
-        }
-        return rotation_yaw * 0.017453292f;
+		if (mc.player.moveForward < 0.0f) {
+			rotation_yaw += 180.0f;
+		}
+		float n = 1.0f;
+		if (mc.player.moveForward < 0.0f) {
+			n = -0.5f;
+		}
+		else if (mc.player.moveForward > 0.0f) {
+			n = 0.5f;
+		}
+		if (mc.player.moveStrafing > 0.0f) {
+			rotation_yaw -= 90.0f * n;
+		}
+		if (mc.player.moveStrafing < 0.0f) {
+			rotation_yaw += 90.0f * n;
+		}
+		return rotation_yaw * 0.017453292f;
 	}
 
 }

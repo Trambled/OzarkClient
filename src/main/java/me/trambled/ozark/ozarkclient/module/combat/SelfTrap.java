@@ -31,8 +31,10 @@ public class SelfTrap extends Module {
     Setting toggle = create("Toggle", "SelfTrapToggle", false);
     Setting rotate = create("Rotate", "SelfTrapRotate", false);
     Setting swing = create("Swing", "SelfTrapSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
+    Setting delay = create("Delay", "SelfTrapDelay", 2, 0, 10);
 
     private BlockPos trap_pos;
+    private int delay_counter;
 
     @Override
     protected void enable() {
@@ -54,41 +56,49 @@ public class SelfTrap extends Module {
 
         }
 
-        ValidResult result = BlockInteractionHelper.valid(trap_pos);
+        if (delay_counter > delay.get_value(1)) {
 
-        if (result == ValidResult.AlreadyBlockThere && !mc.world.getBlockState(trap_pos).getMaterial().isReplaceable()) {
-            return;
-        } 
+            ValidResult result = BlockInteractionHelper.valid(trap_pos);
 
-        if (result == ValidResult.NoNeighbors) {
+            if (result == ValidResult.AlreadyBlockThere && !mc.world.getBlockState(trap_pos).getMaterial().isReplaceable()) {
+                return;
+            }
 
-            BlockPos[] tests = {
-                trap_pos.north(),
-                trap_pos.south(),
-                trap_pos.east(),
-                trap_pos.west(),
-                trap_pos.up(),
-                trap_pos.down().west() // ????? salhack is weird and i dont care enough to remove this. who the fuck uses this shit anyways fr fucking jumpy
-            };
+            if (result == ValidResult.NoNeighbors) {
 
-            for (BlockPos pos_ : tests) {
+                BlockPos[] tests = {
+                        trap_pos.north(),
+                        trap_pos.south(),
+                        trap_pos.east(),
+                        trap_pos.west(),
+                        trap_pos.up(),
+                        trap_pos.down().west() // ????? salhack is weird and i dont care enough to remove this. who the fuck uses this shit anyways fr fucking jumpy
+                };
 
-                ValidResult result_ = BlockInteractionHelper.valid(pos_);
+                for (BlockPos pos_ : tests) {
 
-                if (result_ == ValidResult.NoNeighbors || result_ == ValidResult.NoEntityCollision) continue;
+                    ValidResult result_ = BlockInteractionHelper.valid(pos_);
 
-                if (BlockUtil.placeBlock(pos_, find_in_hotbar(), rotate.get_value(true), rotate.get_value(true), swing)) {
-                    return;
+                    if (result_ == ValidResult.NoNeighbors || result_ == ValidResult.NoEntityCollision) continue;
+
+                    if (BlockUtil.placeBlock(pos_, find_in_hotbar(), rotate.get_value(true), rotate.get_value(true), swing)) {
+                        delay_counter = 0;
+                        return;
+                    }
+
                 }
+
+                delay_counter = 0;
+                return;
 
             }
 
-            return;
-
+            BlockUtil.placeBlock(trap_pos, find_in_hotbar(), rotate.get_value(true), rotate.get_value(true), swing);
+            delay_counter = 0;
         }
 
-        BlockUtil.placeBlock(trap_pos, find_in_hotbar(), rotate.get_value(true), rotate.get_value(true), swing);
 
+        delay_counter++;
     }
 
     public boolean is_trapped() {

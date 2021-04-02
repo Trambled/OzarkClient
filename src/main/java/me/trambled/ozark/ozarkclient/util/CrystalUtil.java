@@ -53,16 +53,16 @@ public class CrystalUtil {
         return circleblocks;
     }
 
-    public static List<BlockPos> crystalBlocksMomentum(EntityPlayer entityPlayer, double placeRange, boolean prediction, boolean antiSurround, boolean endcrystal) {
-        return getNearbyBlocks(entityPlayer, placeRange, prediction).stream().filter(blockPos -> canPlaceCrystal(blockPos, endcrystal, antiSurround)).collect(Collectors.toList());
+    public static List<BlockPos> crystalBlocksMomentum(EntityPlayer entityPlayer, double placeRange, boolean prediction, double predict_factor, boolean antiSurround, boolean endcrystal) {
+        return getNearbyBlocks(entityPlayer, placeRange, prediction, predict_factor).stream().filter(blockPos -> canPlaceCrystal(blockPos, endcrystal, antiSurround)).collect(Collectors.toList());
     }
 
-    public static List<BlockPos> getNearbyBlocks(EntityPlayer player, double blockRange, boolean motion) {
+    public static List<BlockPos> getNearbyBlocks(EntityPlayer player, double blockRange, boolean motion, double motion_factor) {
         List<BlockPos> nearbyBlocks = new ArrayList<>();
         int range = (int) MathUtil.roundDouble(blockRange, 0);
 
         if (motion)
-            player.getPosition().add(new Vec3i(player.motionX, player.motionY, player.motionZ));
+            player.getPosition().add(new Vec3i(player.motionX * motion_factor, player.motionY * motion_factor, player.motionZ * motion_factor));
 
         for (int x = -range; x <= range; x++)
             for (int y = -range; y <= range - (range / 2); y++)

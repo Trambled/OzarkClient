@@ -7,6 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayer;
+import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -200,6 +201,69 @@ public class BlockInteractionHelper {
     
     public static boolean canBeClicked(final BlockPos pos) {
         return getBlock(pos).canCollideCheck(getState(pos), false);
+    }
+
+    public static boolean placeBlockBurrow(BlockPos pos, EnumHand hand, boolean rotate, boolean packet, boolean isSneaking) {
+        boolean sneaking = false;
+        EnumFacing side = getFirstFacing(pos);
+        if (side == null) {
+            return isSneaking;
+        }
+
+        BlockPos neighbour = pos.offset(side);
+        EnumFacing opposite = side.getOpposite();
+
+        Vec3d hitVec = new Vec3d(neighbour).add(0.5, 0.5, 0.5).add(new Vec3d(opposite.getDirectionVec()).scale(0.5));
+        Block neighbourBlock = mc.world.getBlockState(neighbour).getBlock();
+
+        if (!mc.player.isSneaking()) {
+            mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
+            mc.player.setSneaking(true);
+            sneaking = true;
+        }
+
+        if (rotate) {
+            faceVectorPacketInstant(hitVec, true);
+        }
+
+        rightClickBlock(neighbour, hitVec, hand, opposite, packet);
+        mc.player.swingArm(EnumHand.MAIN_HAND);
+        mc.rightClickDelayTimer = 4; //?
+        return sneaking || isSneaking;
+    }
+
+    public static List<EnumFacing> getPossibleSides(BlockPos pos) {
+        List<EnumFacing> facings = new ArrayList<>();
+        for (EnumFacing side : EnumFacing.values()) {
+            BlockPos neighbour = pos.offset(side);
+            if (mc.world.getBlockState(neighbour).getBlock().canCollideCheck(mc.world.getBlockState(neighbour), false)) {
+                IBlockState blockState = mc.world.getBlockState(neighbour);
+                if (!blockState.getMaterial().isReplaceable()) {
+                    facings.add(side);
+                }
+            }
+        }
+        return facings;
+    }
+
+    public static EnumFacing getFirstFacing(BlockPos pos) {
+        for (EnumFacing facing : getPossibleSides(pos)) {
+            return facing;
+        }
+        return null;
+    }
+
+    public static void rightClickBlock(BlockPos pos, Vec3d vec, EnumHand hand, EnumFacing direction, boolean packet) {
+        if (packet) {
+            float f = (float) (vec.x - (double) pos.getX());
+            float f1 = (float) (vec.y - (double) pos.getY());
+            float f2 = (float) (vec.z - (double) pos.getZ());
+            mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(pos, direction, hand, f, f1, f2));
+        } else {
+            mc.playerController.processRightClickBlock(mc.player, mc.world, pos, direction, vec, hand);
+        }
+        mc.player.swingArm(EnumHand.MAIN_HAND);
+        mc.rightClickDelayTimer = 4; //?
     }
     
     public static Block getBlock(final BlockPos pos) {

@@ -53,6 +53,7 @@ public class AutoCrystal extends Module {
     Setting alternative = create("Alternative", "CaAlternative", false);
     Setting module_check = create("Module Check", "CaModuleCheck", true);
     Setting predict = create("Predict", "CaPredict", true);
+    Setting predict_factor = create("Predict Factor", "CaPredictFactor", 1f, 0f, 2f);
     Setting verify_place = create("Verify Place", "CaVerifyPlace", false);
     Setting inhibit = create("Inhibit", "CaInhibit", true);
     Setting inhibit_delay = create("Inhibit Delay", "CaInhibitDelay", 1, 1, 10);
@@ -95,8 +96,9 @@ public class AutoCrystal extends Module {
     Setting faceplace_mode = create("Faceplace Mode", "CaTabbottMode", true);
     Setting faceplace_mode_damage = create("Faceplace Health", "CaTabbottModeHealth", 8, 0, 36);
 
-    Setting fuck_armor_mode = create("Armor Destroy", "CaArmorDestory", true);
-    Setting fuck_armor_mode_precent = create("Armor %", "CaArmorPercent", 25, 0, 100);
+    Setting fuck_armor_mode = create("Armor Destroy", "CaArmorDestroy", true);
+    Setting fuck_armor_mode_precent = create("Enemy Armor %", "CaArmorPercent", 25, 0, 100);
+    Setting fuck_armor_mode_precent_self = create("Self Armor %", "CaArmorPercentSelf", 20, 0, 100);
 
     Setting stop_while_mining = create("Stop While Mining", "CaStopWhileMining", false);
     Setting stop_while_eating = create("Stop While Eating", "CaStopWhileEatin", false);
@@ -111,7 +113,7 @@ public class AutoCrystal extends Module {
     Setting r = create("R", "CaR", 255, 0, 255);
     Setting g = create("G", "CaG", 255, 0, 255);
     Setting b = create("B", "CaB", 255, 0, 255);
-    Setting a = create("A", "CaA", 100, 0, 255);
+    Setting a = create("Solid A", "CaA", 100, 0, 255);
     Setting a_out = create("Outline A", "CaOutlineA", 255, 0, 255);
     Setting rainbow_mode = create("Rainbow", "CaRainbow", true);
     Setting sat = create("Satiation", "CaSatiation", 0.8, 0, 1);
@@ -119,8 +121,8 @@ public class AutoCrystal extends Module {
     Setting height = create("Height", "CaHeight", 1.0, 0.0, 1.0);
 
     Setting render_damage = create("Render Damage", "RenderDamage", true);
-    //  Setting attempt_chain = create("Chain Mode", "CaChainMode", false);
-    Setting chain_length = create("Chain Length", "CaChainLength", 3, 1, 6);
+//  Setting attempt_chain = create("Chain Mode", "CaChainMode", false);
+//  Setting chain_length = create("Chain Length", "CaChainLength", 3, 1, 6);
 
     private final ConcurrentHashMap<EntityEnderCrystal, Integer> attacked_crystals = new ConcurrentHashMap<>();
 
@@ -154,7 +156,6 @@ public class AutoCrystal extends Module {
     private int inhibit_delay_counter;
     private int break_delay_counter;
     private int place_delay_counter;
-    private int slow_faceplace_counter;
     private int attack_swings;
 //  private int packets;
 
@@ -277,10 +278,6 @@ public class AutoCrystal extends Module {
             inhibit_delay_counter = 0;
         }
 
-        if (slow_faceplace_counter > 2000) {
-            slow_faceplace_counter = 0;
-        }
-
         if (chain_timer.passed(1000)) {
             chain_timer.reset();
             chain_step = 0;
@@ -291,7 +288,6 @@ public class AutoCrystal extends Module {
         break_delay_counter++;
         place_delay_counter++;
         inhibit_delay_counter++;
-        slow_faceplace_counter++;
     }
 
     @Override
@@ -355,7 +351,7 @@ public class AutoCrystal extends Module {
                 BlockPos player_pos = new BlockPos(player.posX, player.posY, player.posZ);
 
                 boolean no_place = faceplace_check.get_value(true) && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD;
-                if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true)&& !no_place) || (get_armor_fucker(target) && !no_place) || (predict.get_value(true) && target.onGround && !mc.world.getBlockState(player_pos.add(0, 2, 0)).getBlock().equals(Blocks.AIR)) || (Ozark.get_hack_manager().get_module_with_tag("Faceplacer").is_active())) {
+                if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true)&& !no_place) || (get_armor_fucker(target) && !no_place && !get_armor_fucker(mc.player)) || (predict.get_value(true) && target.onGround && !mc.world.getBlockState(player_pos.add(0, 2, 0)).getBlock().equals(Blocks.AIR)) || (Ozark.get_hack_manager().get_module_with_tag("Faceplacer").is_active())) {
                     minimum_damage = 2;
                 } else {
                     minimum_damage = this.min_player_break.get_value(1);
@@ -407,7 +403,7 @@ public class AutoCrystal extends Module {
 
         BlockPos best_block = null;
 
-        List<BlockPos> blocks = CrystalUtil.crystalBlocksMomentum(mc.player, place_range.get_value(1), predict.get_value(true), !multi_place.get_value(true), endcrystal.get_value(true));
+        List<BlockPos> blocks = CrystalUtil.crystalBlocksMomentum(mc.player, place_range.get_value(1), predict.get_value(true), predict_factor.get_value(1), !multi_place.get_value(true), endcrystal.get_value(true));
 
         for (Entity player : mc.world.playerEntities) {
 
@@ -435,7 +431,7 @@ public class AutoCrystal extends Module {
                 if (target.isDead || target.getHealth() <= 0) continue;
 
                 boolean no_place = faceplace_check.get_value(true) && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD;
-                if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true)&& !no_place) || (get_armor_fucker(target) && !no_place)) {
+                if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true)&& !no_place) || (get_armor_fucker(target) && !no_place && !get_armor_fucker(mc.player))) {
                     minimum_damage = 2;
                 } else {
                     minimum_damage = this.min_player_place.get_value(1);
@@ -582,8 +578,11 @@ public class AutoCrystal extends Module {
 
             final float armor_percent = ((float) (stack.getMaxDamage() - stack.getItemDamage()) / (float) stack.getMaxDamage()) * 100.0f;
 
-            if (fuck_armor_mode.get_value(true) && fuck_armor_mode_precent.get_value(1) >= armor_percent) return true;
-
+            if (p == mc.player) {
+                if (fuck_armor_mode.get_value(true) && fuck_armor_mode_precent_self.get_value(1) >= armor_percent) return true;
+            } else {
+                if (fuck_armor_mode.get_value(true) && fuck_armor_mode_precent.get_value(1) >= armor_percent) return true;
+            }
         }
 
         return false;
