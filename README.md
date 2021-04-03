@@ -54,9 +54,32 @@ Default Command Prefix?
 
 ### configing
 
-heres lil cheesy config
-![cfg1](https://media.discordapp.net/attachments/774445515629920260/797986249112944660/heres_lil_cheesy_config.PNG)  
-use predict, as well as ares mode, but it may drop frames. faceplace mode is decent try it out. 
+heres etho config
+<details>
+  <summary>etho's autocrystal config</summary> <br>
+   Debug Off <br>
+   Place/Break ON <br>
+   Place/Break Range 5 <br>
+   Range wall 3 or 5 <br>
+   Alternative ON <br>
+   Inhibit ON, Delay 1 <br>
+   Packet Place and Break ON <br>
+   Ares Mode OFF <br>
+   Fast Mode ON <br>
+   Place Delay 0 <br>
+   Break delay (1 for under 50ms ping, 2-4 for high ping) <br>
+   Anti Stuck ON, tries 1 <br>
+   Swing OFFHAND <br>
+   Render OUTLINE <br>
+   Dead Check OFF <br>
+   Predict ON <br>
+   Predict Factor 0 - 1 <br>
+   Module Check ON <br>
+   Rotate OFF <br>
+   Sync SOUND <br>
+   Anti Suicide ON <br>
+</details>
+
 
 for offhand use crystal mode and gapple in hole if u want, health is based on preference but 18-20 is probably the best
 
