@@ -54,7 +54,6 @@ Default Command Prefix?
 
 ### configing
 
-heres etho config
 <details>
   <summary>etho's autocrystal config</summary> <br>
    Debug Off <br>
