@@ -87,7 +87,7 @@ public class Ozark {
 
 		send_minecraft_log("Done");
 
-		send_minecraft_log("Initialising skidded framework");
+		send_minecraft_log("Initialising CUSTOM framework");
 
 		turok = new Turok("Turok");
 
@@ -157,7 +157,7 @@ public class Ozark {
 	public void init_log(String name) {
 		register_log = LogManager.getLogger(name);
 
-		send_minecraft_log("starting ozarkclient");
+		send_minecraft_log("Starting OzarkClient");
 	}
 
 	public static void send_minecraft_log(String log) {
