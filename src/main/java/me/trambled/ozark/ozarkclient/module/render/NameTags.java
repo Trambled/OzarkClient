@@ -46,7 +46,7 @@ public class NameTags extends Module {
     Setting reverse = create("Armour Reverse", "NametagReverse", true);
     Setting simplify = create("Simplify", "NametagSimp", false);
     Setting m_scale = create("Scale", "NametagScale", 4, 1, 15);
-    Setting range = create("Range", "NametagRange", 75, 1, 250);
+    Setting range = create("Range", "NametagRange", 75, 1, 256);
 
     Setting r = create("R", "NametagR", 255, 0, 255);
     Setting g = create("G", "NametagG", 255, 0, 255);
