@@ -18,8 +18,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  * @Author NekoPvP (Item FOV)
  */
 
-public class ViewmodleChanger extends Module {
-    public ViewmodleChanger() {
+public class ViewmodelChanger extends Module {
+    public ViewmodelChanger() {
         super(Category.RENDER);
 
         this.name = "Custom Viewmodel";
