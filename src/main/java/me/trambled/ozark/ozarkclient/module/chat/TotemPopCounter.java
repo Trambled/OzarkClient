@@ -16,14 +16,14 @@ import net.minecraft.network.play.server.SPacketEntityStatus;
 import java.util.HashMap;
 
 
-public class Totempop extends Module {
+public class TotemPopCounter extends Module {
     
-    public Totempop() {
+    public TotemPopCounter() {
 		super(Category.CHAT);
 
 		this.name        = "Totem Pop Counter";
 		this.tag         = "TotemPopCounter";
-		this.description = "automatically says who ur ezing";
+		this.description = "Automatically says who ur EZZZZZZZZZZING";
 
     }
 
