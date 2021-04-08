@@ -13,7 +13,7 @@ public class CapeUtil {
 
     public static ArrayList<String> get_uuids() {
         try {
-            URL url = new URL("https://pastebin.com/raw/ArhhKXyL");
+            URL url = new URL("https://pastebin.com/raw/DaMnDR7Y");
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
             final ArrayList<String> uuid_list = new ArrayList<>();
 
