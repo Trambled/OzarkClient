@@ -24,9 +24,9 @@ public class AutoReplenish extends Module {
         this.description = "automatically replaces a used stack with a fresh new one from ur inv";
     }
 
-    Setting threshold = create("Threshold", "AutoReplenishThreshold", 32, 1, 63);
+    Setting threshold = create("Threshold", "AutoReplenishThreshold", 16, 1, 63);
     Setting mode = create("Mode", "AutoReplenishMode", "All", combobox("All", "Crystals", "Xp", "Both"));
-    Setting tickdelay = create("Delay", "AutoReplenishDelay", 2, 1, 10);
+    Setting tickdelay = create("Delay", "AutoReplenishDelay", 1, 1, 10);
 
     private int delay_step = 0;
 
