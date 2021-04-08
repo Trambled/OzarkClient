@@ -43,7 +43,7 @@ public final class ElytraFly extends Module
 
         this.name = "NewElytraFly";
         this.tag = "NewElytraFly";
-        this.description = "makes you fly with elytra";
+        this.description = "Makes you fly with a elytra";
     }
     
     private int ElytraSlot = -1;
