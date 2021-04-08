@@ -15,7 +15,7 @@ public class IceSpeed extends Module
         this.description = "speed on ice!";
     }
 
-    Setting slipperiness = create("slipperiness", "slipperiness", 0.2, 1, 10);
+    Setting slipperiness = create("slipperiness", "slipperiness", 1.0, 1, 10);
 
     
     @Override
