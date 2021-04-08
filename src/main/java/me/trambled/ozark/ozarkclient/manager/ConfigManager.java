@@ -150,7 +150,7 @@ public class ConfigManager {
         try {
             writer.write(EzMessageUtil.get_message());
         } catch (Exception ignored) {
-            writer.write("You just got EZED by Ozark Client");
+            writer.write("You just got niggered by OzarkClient");
         }
 
         writer.close();
@@ -172,7 +172,7 @@ public class ConfigManager {
         try {
             writer.write(AutoKitUtil.get_message());
         } catch (Exception ignored) {
-            writer.write("You just got EZED by Ozark Client");
+            writer.write("You just got niggered by OzarkClient");
         }
 
         writer.close();
