@@ -34,7 +34,7 @@ public class ViewmodleChanger extends Module {
     Setting left_x = create("Left X", "FOVLeftX", 0.0, -2.0, 2.0);
     Setting left_y = create("Left Y", "FOVLeftY", 0.0, -2.0, 2.0);
     Setting left_z = create("Left Z", "FOVLeftZ", 0.0, -2.0, 2.0);
-    Setting fov = create("FOV", "FOV", 70, 130, 200);
+    Setting fov = create("FOV", "FOV", 110, 110, 200);
     Setting cancel_eating = create("NoEat", "FOVCancelEating", false);
 
     private float fov_previous;
