@@ -118,7 +118,7 @@ public class ModuleManager {
 		add_module(new Highlight());
 		add_module(new HoleESP());
 		add_module(new ShulkerPreview());
-		add_module(new ViewmodleChanger());
+		add_module(new ViewmodelChanger());
 		add_module(new VoidESP());
 		add_module(new Antifog());
 		add_module(new NameTags());
