@@ -36,7 +36,7 @@ public class ModuleManager {
 		// Chat.
 		add_module(new ChatSuffix());
 		add_module(new VisualRange());
-		add_module(new Totempop());
+		add_module(new TotemPopCounter());
 		add_module(new ChatMods());
 		add_module(new AutoEz());
 		add_module(new AntiRacist());
