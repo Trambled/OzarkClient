@@ -11,16 +11,16 @@ public class PastGUIModule extends Module {
 
 		this.name        = "Past GUI";
 		this.tag         = "PastGUI";
-		this.description = "skidded past gui";
+		this.description = "CUSTOM Past Gui";
 		toggle_message = false;
 		set_bind(Ozark.KEY_GUI);
 	}
 
-	Setting red = create("Red", "PastGUIR", 16, 0, 255);
-	Setting green = create("Green", "PastGUIG", 16, 0, 255);
-	Setting blue = create("Blue", "PastGUIB", 16, 0, 255);
+	Setting red = create("Red", "PastGUIR", 255, 0, 255);
+	Setting green = create("Green", "PastGUIG", 0, 0, 255);
+	Setting blue = create("Blue", "PastGUIB", 0, 0, 255);
 	Setting alpha = create("Alpha", "PastGUIA", 255, 0, 255);
-	Setting rainbow = create("Rainbow", "PastGUIRainbow", true);
+	Setting rainbow = create("Rainbow", "PastGUIRainbow", false);
 
 	Setting font = create("Font", "PastGUIFont", "Lato", combobox("Lato", "Verdana", "Arial", "None"));
 	Setting scroll_speed = create("Scroll Speed", "PastGUIScrollSpeed", 10, 0, 20);
@@ -29,7 +29,7 @@ public class PastGUIModule extends Module {
 	Setting font_shadow = create("Font Shadow", "PastGUIFontShadow", true);
 	Setting descriptions = create("Descriptions", "PastGUIDescriptions", true);
 	Setting hover_change = create("Hover Change", "PastGUIHoverChange", true);
-	Setting pause_game = create("Pause Game", "PastGUIPauseGame", true);
+	Setting pause_game = create("Pause Game", "PastGUIPauseGame", false);
 
 	@Override
 	protected void enable() {
