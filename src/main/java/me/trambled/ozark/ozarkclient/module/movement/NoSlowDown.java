@@ -33,8 +33,8 @@ public class NoSlowDown extends Module {
 	Setting webs = create("Webs", "Webs", true);
 	Setting gui_move = create("GuiMove", "GuiMove", true);
 	Setting strict = create("Strict", "Strict", false);
-    Setting h_web = create("Horizontal Web", "HorizontalWeb", 1.96, 0, 100);
-	Setting v_web = create("Vertical Web", "VerticalWeb", 1.96, 0, 100);
+    Setting h_web = create("Horizontal Web", "HorizontalWeb", 2.00, 0, 100);
+	Setting v_web = create("Vertical Web", "VerticalWeb", 2.00, 0, 100);
 	
 	private final static KeyBinding[] keys = new KeyBinding[]{NoSlowDown.mc.gameSettings.keyBindForward, NoSlowDown.mc.gameSettings.keyBindBack, NoSlowDown.mc.gameSettings.keyBindLeft, NoSlowDown.mc.gameSettings.keyBindRight, NoSlowDown.mc.gameSettings.keyBindJump, NoSlowDown.mc.gameSettings.keyBindSprint};
 	
