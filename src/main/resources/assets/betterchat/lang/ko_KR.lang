@@ -1,0 +1,14 @@
+gui.betterchat.text.title=%1$s by %2$s
+gui.betterchat.text.drag=위치를 바꾸려면 채팅을 드래기하세요.
+gui.betterchat.text.clear.name=투명한 배경:
+gui.betterchat.text.clear.enabled=활성화
+gui.betterchat.text.clear.disabled=비활성화
+gui.betterchat.text.smooth.name=부드러운 채팅:
+gui.betterchat.text.smooth.enabled=활성화
+gui.betterchat.text.smooth.disabled=비활성화
+gui.betterchat.text.scale.name=크기:
+gui.betterchat.text.width.name=가로:
+gui.betterchat.text.reset.name=설정 리셋
+gui.betterchat.text.example1=예시 채팅
+gui.betterchat.text.example2=아아, 테스트, 테스트, 1, 2, 3
+gui.betterchat.text.example3=플레이어들의 메시지는 이렇게 보일 거예요.
