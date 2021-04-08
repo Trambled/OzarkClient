@@ -1,13 +1,13 @@
 [{
 	"modid"        : "ozarkclient",
 	"name"         : "OzarkClient",
-	"description"  : "ebic ozarkclient",
+	"description"  : "Ebic OzarkClient",
 	"version"      : "1.11.5",
 	"mcversion"    : "1.12.2-14.23.5.2772",
 	"url"          : "https://joinis.is",
 	"updateUrl"    : "https://joinis.is",
 	"authorList"   : ["Trambled"],
-	"credits"      : "Trambled, SirRina, salhack devs, travis, hoosiers, emphack devs,perry :3",
+	"credits"      : "Trambled, SirRina, Salhack devs, Travis, Hoosiers, Emphack devs,Perry :3",
 	"logoFile"     : "logo.png",
 	"screenshots"  : [],
 	"dependencies" : []
