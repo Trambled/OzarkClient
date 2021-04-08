@@ -28,7 +28,7 @@ public class VoidESP extends Module {
         this.description = "OH FUCK A DEEP HOLE";
     }
 
-    Setting void_radius = create("Range", "VoidESPRange", 6, 1, 10);
+    Setting void_radius = create("Range", "VoidESPRange", 6, 1, 12);
 
     public final List<BlockPos> void_blocks = new ArrayList<>();
 
