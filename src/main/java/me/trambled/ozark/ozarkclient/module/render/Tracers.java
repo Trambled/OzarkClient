@@ -24,7 +24,7 @@ public class Tracers extends Module {
     }
 
     Setting friends = create("Friends", "TracerFriends", false);
-    Setting range = create("Range", "TracerRange", 50, 0, 250);
+    Setting range = create("Range", "TracerRange", 50, 0, 256);
     Setting width = create("Width", "TracerWidth", 1.0f, 0.0f, 5.0f);
     Setting offset = create("Offset", "TracerOffset", 0f, -4.0f, 4.0f);
 
