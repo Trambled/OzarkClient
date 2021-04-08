@@ -172,7 +172,7 @@ public class ConfigManager {
         try {
             writer.write(AutoKitUtil.get_message());
         } catch (Exception ignored) {
-            writer.write("kit");
+            writer.write("You just got EZED by Ozark Client");
         }
 
         writer.close();
