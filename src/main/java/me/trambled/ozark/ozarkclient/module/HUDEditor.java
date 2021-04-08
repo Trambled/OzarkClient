@@ -9,7 +9,7 @@ public class HUDEditor extends Module {
 
 		this.name        = "HUD";
 		this.tag         = "HUDEditor";
-		this.description = "modifies hud";
+		this.description = "Allows u to modify the hud";
 		this.toggle_message = false;
 	}
 
