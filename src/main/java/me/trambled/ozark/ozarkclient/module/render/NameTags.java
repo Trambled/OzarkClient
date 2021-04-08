@@ -366,7 +366,7 @@ public class NameTags extends Module {
         String popStr = " ";
         if (show_totems.get_value(true)) {
             try {
-                popStr += (Totempop.totem_pop_counter.get(player.getName()) == null ? section_sign() + "70" : section_sign() + "c -" + Totempop.totem_pop_counter.get(player.getName()));
+                popStr += (TotemPopCounter.totem_pop_counter.get(player.getName()) == null ? section_sign() + "70" : section_sign() + "c -" + TotemPopCounter.totem_pop_counter.get(player.getName()));
             } catch (Exception ignore) {}
         }
         if (Math.floor(health) == health) {
