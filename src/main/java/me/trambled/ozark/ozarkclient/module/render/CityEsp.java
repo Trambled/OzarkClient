@@ -24,7 +24,7 @@ public class CityEsp extends Module {
 
     }
 
-    Setting endcrystal_mode = create("EndCrystal", "CityEndCrystal", false);
+    Setting endcrystal_mode = create("EndCrystal", "CityEndCrystal", true);
     Setting mode = create("Mode", "CityMode", "Pretty", combobox("Pretty", "Solid", "Outline"));
     Setting off_set = create("Height", "CityOffSetSide", 0.2, 0.0, 1.0);
     Setting range = create("Range", "CityRange", 6, 1, 12);
