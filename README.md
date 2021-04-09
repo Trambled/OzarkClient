@@ -3,7 +3,7 @@
 # Ozark Client
 literal sex
 
-### building the sex 
+## building the sex 
 1. Extract the folder to a location
 
 2. go into command prompt
@@ -19,7 +19,7 @@ is the jar file you should use
 
 u also need a JDK, a free one is adopt open jdk https://adoptopenjdk.net/
 
-### Issues and Crashes
+## Issues and Crashes
 
 if you have certain issues, send someone who helps contribute to here your crash log,
 this will help us know what caused said crash and why it happened,
@@ -27,7 +27,7 @@ this will help us know what caused said crash and why it happened,
 join this if u already arent in it for some reason:
 https://discord.gg/yHcBBDKDtY
 
-### how to use
+## how to use
 
 What's the default bind for ClickGUI?
 
@@ -37,7 +37,7 @@ Default Command Prefix?
 
 . is the prefix
 
-### Details and stuff
+## Details and stuff
 
 <details>
   <summary>Notable stuff added</summary> <br>
@@ -52,7 +52,7 @@ Default Command Prefix?
   some other skidded shit and bug fixes <br>
 </details>
 
-### configing
+## configing
 
 <details>
   <summary>etho's autocrystal config</summary> <br>
@@ -90,8 +90,8 @@ for surround, set toggle, rotate, and all the other stuff off, and set swing to 
 
 turn off smart mode in auto armor, and turn off tps sync on kill aura UNLESS in low tps. 
 
-### capes
-give me cape designs ill also add u to the cape club
+## capes
+u can give cape designs and i can add u to the pastebin of uuids for capes
 
-### Ozark on top
+## Ozark on top
 Blacklarp on bottom 
