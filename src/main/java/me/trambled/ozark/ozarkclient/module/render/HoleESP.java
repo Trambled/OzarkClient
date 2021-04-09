@@ -75,48 +75,48 @@ public class HoleESP extends Module {
 
 	@Override
 	public void update() {
-		 float[] tick_color = {
-		 	(System.currentTimeMillis() % (360 * 32)) / (360f * 32)
-		 };
+		// float[] tick_color = {
+		// 	(System.currentTimeMillis() % (360 * 32)) / (360f * 32)
+		// };
 	
-		 int color_rgb_o = Color.HSBtoRGB(tick_color[0], 1, 1);
-		 int color_rgb_b = Color.HSBtoRGB(tick_color[0], 1, 1);
+		// int color_rgb_o = Color.HSBtoRGB(tick_color[0], 1, 1);
+		// int color_rgb_b = Color.HSBtoRGB(tick_color[0], 1, 1);
 	
-		 if (rgb_o.get_value(true)) {
-		 	color_r_o = ((color_rgb_o >> 16) & 0xFF);
-		 	color_g_o = ((color_rgb_o >> 8) & 0xFF);
-		 	color_b_o = (color_rgb_o & 0xFF);
+		// if (rgb_o.get_value(true)) {
+		// 	color_r_o = ((color_rgb_o >> 16) & 0xFF);
+		// 	color_g_o = ((color_rgb_o >> 8) & 0xFF);
+		// 	color_b_o = (color_rgb_o & 0xFF);
 	
-		 	r_o.set_value(color_r_o);
-		 	g_o.set_value(color_g_o);
-		 	b_o.set_value(color_b_o);
-		 } else {
-		 	color_r_o = r_o.get_value(1);
-		 	color_g_o = g_o.get_value(2);
-		 	color_b_o = b_o.get_value(3);
-		 }
+		// 	r_o.set_value(color_r_o);
+		// 	g_o.set_value(color_g_o);
+		// 	b_o.set_value(color_b_o);
+		// } else {
+		// 	color_r_o = r_o.get_value(1);
+		// 	color_g_o = g_o.get_value(2);
+		// 	color_b_o = b_o.get_value(3);
+		// }
 
-		 if (rgb_b.get_value(true)) {
-		 	color_r_b = ((color_rgb_b >> 16) & 0xFF);
-		 	color_g_b = ((color_rgb_b >> 8) & 0xFF);
-		 	color_b_b = (color_rgb_b & 0xFF);
+		// if (rgb_b.get_value(true)) {
+		// 	color_r_b = ((color_rgb_b >> 16) & 0xFF);
+		// 	color_g_b = ((color_rgb_b >> 8) & 0xFF);
+		// 	color_b_b = (color_rgb_b & 0xFF);
 	
-		 	r_b.set_value(color_r_b);
-		 	g_b.set_value(color_g_b);
-		 	b_b.set_value(color_b_b);
-		 } else {
-		 	color_r_b = r_b.get_value(1);
-		 	color_g_b = g_b.get_value(2);
-		 	color_b_b = b_b.get_value(3);
-		 }
+		// 	r_b.set_value(color_r_b);
+		// 	g_b.set_value(color_g_b);
+		// 	b_b.set_value(color_b_b);
+		// } else {
+		// 	color_r_b = r_b.get_value(1);
+		// 	color_g_b = g_b.get_value(2);
+		//	color_b_b = b_b.get_value(3);
+		// }
 
-		color_r_b = rb.get_value(1);
-		color_g_b = gb.get_value(1);
-		color_b_b = bb.get_value(1);
+		 color_r_b = rb.get_value(1);
+		 color_g_b = gb.get_value(1);
+		 color_b_b = bb.get_value(1);
 
-		color_r_o = ro.get_value(1);
-		color_g_o = go.get_value(1);
-		color_b_o = bo.get_value(1);
+		 color_r_o = ro.get_value(1);
+		 color_g_o = go.get_value(1);
+		 color_b_o = bo.get_value(1);
 
 		holes.clear();
 
