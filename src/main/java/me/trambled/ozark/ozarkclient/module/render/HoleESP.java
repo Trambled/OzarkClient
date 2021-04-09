@@ -1,11 +1,11 @@
-package me.travis.wurstplus.wurstplustwo.hacks.render;
+package me.trambled.ozark.ozarkclient.module.render;
 
-import me.travis.turok.draw.RenderHelp;
-import me.travis.wurstplus.wurstplustwo.event.events.WurstplusEventRender;
-import me.travis.wurstplus.wurstplustwo.guiscreen.settings.WurstplusSetting;
-import me.travis.wurstplus.wurstplustwo.hacks.WurstplusCategory;
-import me.travis.wurstplus.wurstplustwo.hacks.WurstplusHack;
-import me.travis.wurstplus.wurstplustwo.util.WurstplusPair;
+import me.trambled.turok.draw.RenderHelp;
+import me.trambled.ozark.ozarkclient.event.events.EventRender;
+import me.trambled.ozark.ozarkclient.module.Setting;
+import me.trambled.ozark.ozarkclient.module.Category;
+import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.util.PairUtil;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
