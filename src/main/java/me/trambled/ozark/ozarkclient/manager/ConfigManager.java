@@ -589,7 +589,7 @@ public class ConfigManager {
             save_xray();
             send_minecraft_log("Saved settings");
         } catch (IOException e) {
-            send_minecraft_log("Something has gone wrong while saving settings");
+            send_minecraft_log("Something has gone wrong while saving settings please report it to trambled");
             send_minecraft_log(e.toString());
         }
     }
