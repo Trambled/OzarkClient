@@ -333,7 +333,6 @@ public class ConfigManager {
                 }
             }
 
-            send_minecraft_log("saving settings");
 
             br.close();
 
