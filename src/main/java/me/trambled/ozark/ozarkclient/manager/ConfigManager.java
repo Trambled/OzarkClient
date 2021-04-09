@@ -608,7 +608,7 @@ public class ConfigManager {
             load_past_gui();
             load_xray();
         } catch (IOException e) {
-            send_minecraft_log("Something has gone wrong while loading settings");
+            send_minecraft_log("Something has gone wrong while loading settings please report it to trambled");
             send_minecraft_log(e.toString());
         }
     }
