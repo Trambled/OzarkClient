@@ -214,12 +214,12 @@ public class HoleESP extends Module {
 							// to avoid rendering the same hole twice
 
 					if(safe_sides == 8) {
-						holes.add(new WurstplusPair<BlockPos, Boolean>(pos, true));
-						if (low_ceiling_hole) holes.add(new WurstplusPair<BlockPos, Boolean>(second_pos, true));
+						holes.add(new PairUtil<BlockPos, Boolean>(pos, true));
+						if (low_ceiling_hole) holes.add(new PairUtil<BlockPos, Boolean>(second_pos, true));
 					}
 					else {
-						holes.add(new WurstplusPair<BlockPos, Boolean>(pos, false));
-						if (low_ceiling_hole) holes.add(new WurstplusPair<BlockPos, Boolean>(second_pos, false));
+						holes.add(new PairUtil<BlockPos, Boolean>(pos, false));
+						if (low_ceiling_hole) holes.add(new PairUtil<BlockPos, Boolean>(second_pos, false));
 					}
 
 				}
@@ -330,7 +330,7 @@ public class HoleESP extends Module {
 		if (!holes.isEmpty()) {
 			off_set_h = (float) off_set.get_value(1.0);
 
-			for (WurstplusPair<BlockPos, Boolean> hole : holes) {
+			for (PairUtil<BlockPos, Boolean> hole : holes) {
 				if (hole.getValue()) {
 					color_r = color_r_b;
 					color_g = color_g_b;
