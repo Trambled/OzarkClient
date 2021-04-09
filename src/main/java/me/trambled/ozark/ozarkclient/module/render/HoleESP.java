@@ -16,10 +16,10 @@ import java.util.List;
 // Travis.
 
 
-public class WurstplusHoleESP extends WurstplusHack {
+public class HoleESP extends Module {
 
-	public WurstplusHoleESP() {
-		super(WurstplusCategory.WURSTPLUS_RENDER);
+	public HoleESP() {
+		super(Category.RENDER);
 
 		this.name        = "Hole ESP";
 		this.tag         = "HoleESP";
@@ -33,7 +33,7 @@ public class WurstplusHoleESP extends WurstplusHack {
 
 	WurstplusSetting bedrock_view 		= create("info", "HoleESPbedrock", "Bedrock");
 	WurstplusSetting bedrock_enable 	= create("Bedrock Holes", "HoleESPBedrockHoles", true);
-	// WurstplusSetting rgb_b 				= create("RGB Effect", "HoleColorRGBEffect", true);
+        WurstplusSetting rgb_b 				= create("RGB Effect", "HoleColorRGBEffect", true);
 	WurstplusSetting rb 				= create("R", "HoleESPRb", 0, 0, 255);
 	WurstplusSetting gb 				= create("G", "HoleESPGb", 255, 0, 255);
 	WurstplusSetting bb 				= create("B", "HoleESPBb", 0, 0, 255);
@@ -41,7 +41,7 @@ public class WurstplusHoleESP extends WurstplusHack {
 
 	WurstplusSetting obsidian_view 		= create("info", "HoleESPObsidian", "Obsidian");
 	WurstplusSetting obsidian_enable	= create("Obsidian Holes", "HoleESPObsidianHoles", true);
-	// WurstplusSetting rgb_o 				= create("RGB Effect", "HoleColorRGBEffect", true);
+        WurstplusSetting rgb_o 				= create("RGB Effect", "HoleColorRGBEffect", true);
 	WurstplusSetting ro 				= create("R", "HoleESPRo", 255, 0, 255);
 	WurstplusSetting go				    = create("G", "HoleESPGo", 0, 0, 255);
 	WurstplusSetting bo 				= create("B", "HoleESPBo", 0, 0, 255);
