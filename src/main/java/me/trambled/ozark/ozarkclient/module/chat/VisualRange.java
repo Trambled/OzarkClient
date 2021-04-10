@@ -45,9 +45,9 @@ public class VisualRange extends Module {
 			for (String name : peoplenew) {
 				if (!people.contains(name)) {
 					if (FriendUtil.isFriend(name)) {
-						MessageUtil.send_client_message("I see an epic dude called " + ChatFormatting.RESET + ChatFormatting.GREEN + name + ChatFormatting.RESET + " :D");
+						MessageUtil.send_client_message("I see a friend named" + ChatFormatting.RESET + ChatFormatting.GREEN + name + ChatFormatting.RESET + "!");
 					} else {
-						MessageUtil.send_client_message("I see a dude called " + ChatFormatting.RESET + ChatFormatting.RED + name + ChatFormatting.RESET + ". Yuk");
+						MessageUtil.send_client_message("I see an enemy named" + ChatFormatting.RESET + ChatFormatting.RED + name + ChatFormatting.RESET + "");
 					}
 					people.add(name);
 				}
