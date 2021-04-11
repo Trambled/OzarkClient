@@ -31,11 +31,6 @@ public class LongJump extends Module {
 	Setting bypass = create("Bypass", "Bypass", true);
 	Setting boost = create("Boost", "Boost", 37, 1, 100);
 
-	@Override
-    public void update_always() {
-	    bypassMode.set_shown(bypass.get_value(true));
-    }
-
     @Override
     public void update() {
         boostSpeedInt = (boost.get_value(1));

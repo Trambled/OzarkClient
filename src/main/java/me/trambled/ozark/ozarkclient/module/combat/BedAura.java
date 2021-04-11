@@ -52,8 +52,7 @@ public class BedAura extends Module {
     Setting hard = create("Hard Rotate", "BedAuraRotate", false);
     Setting dimension_check = create("Dimension Check", "BedAuraDimensionCheck", true);
     Setting swing = create("Swing", "BedAuraSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
-    Setting render = create("Render", "BedAuraRender", true);
-    Setting render_mode = create("Render Mode", "BedAuraRenderMode", "Outline", combobox("Pretty", "Solid", "Outline"));
+    Setting render_mode = create("Render Mode", "BedAuraRenderMode", "Outline", combobox("Pretty", "Solid", "Outline", "None"));
     Setting r = create("R", "BedAuraR", 20, 0, 255);
     Setting g = create("G", "BedAuraG", 20, 0, 255);
     Setting b = create("B", "BedAuraB", 180, 0, 255);
@@ -68,7 +67,6 @@ public class BedAura extends Module {
     private int rot_var;
     private spoof_face spoof_looking;
 
-    private boolean nowTop = false;
     private boolean outline = false;
     private boolean solid   = false;
 
@@ -82,29 +80,6 @@ public class BedAura extends Module {
     @Override
     protected void disable() {
         render_pos = null;
-    }
-
-    @Override
-    public void update_always() {
-        render_mode.set_shown(render.get_value(true));
-        r.set_shown(render.get_value(true));
-        g.set_shown(render.get_value(true));
-        b.set_shown(render.get_value(true));
-        rainbow_mode.set_shown(render.get_value(true));
-        if (render.get_value(true)) {
-            if (!render_mode.in("Pretty")) {
-                line_a.set_shown(!render_mode.in("Solid"));
-                solid_a.set_shown(!render_mode.in("Outline"));
-            } else {
-                line_a.set_shown(true);
-                solid_a.set_shown(true);
-            }
-        } else {
-            line_a.set_shown(false);
-            solid_a.set_shown(false);
-        }
-        min_player_break.set_shown(break_mode.in("Smart"));
-        required_health.set_shown(min_health_pause.get_value(true));
     }
 
     @Override
@@ -143,6 +118,11 @@ public class BedAura extends Module {
             solid   = false;
         }
 
+        if (render_mode.in("None")) {
+            outline = false;
+            solid = false;
+        }
+
         if (min_health_pause.get_value(true) && (mc.player.getHealth()+mc.player.getAbsorptionAmount()) < required_health.get_value(1)) return;
 
         if (place_counter > place_delay.get_value(1)) {
@@ -155,9 +135,7 @@ public class BedAura extends Module {
         }
         if (break_counter > break_delay.get_value(1)) {
             break_counter = 0;
-            if (!break_mode.in("None")) {
-                break_bed();
-            }
+            break_bed();
         }
         if (refill.get_value(true)) {
             refill_bed();
@@ -279,7 +257,9 @@ public class BedAura extends Module {
 
         if (auto_switch.get_value(true)) {
             BlockUtil.placeBlock(best_pos, bed_slot, false, false, swing);
-            MessageUtil.send_client_message("Placing");
+            if (debug.get_value(true)) {
+                MessageUtil.send_client_message("Placing");
+            }
         }
 
         // wait for the user to go to the correct slot
@@ -297,6 +277,7 @@ public class BedAura extends Module {
         float best_distance = (float) player_range.get_value(1);
         double playerdamage = -1;
         double selfdamage = -1;
+        boolean nowTop = false;
 
         for (EntityPlayer player : mc.world.playerEntities.stream().filter(entityPlayer -> !FriendUtil.isFriend(entityPlayer.getName())).collect(Collectors.toList())) {
 
@@ -307,7 +288,6 @@ public class BedAura extends Module {
             if (best_distance < mc.player.getDistance(player)) continue;
 
             placeTarget = new BlockPos(player.getPositionVector().add(1, 1, 0));
-            nowTop = false;
             rot_var = 90;
 
             BlockPos block1 = placeTarget;
@@ -406,9 +386,7 @@ public class BedAura extends Module {
     }
 
     private boolean canPlaceBed(BlockPos pos) {
-        return (mc.world.getBlockState(pos).getBlock() == Blocks.AIR || mc.world.getBlockState(pos).getBlock() == Blocks.BED) &&
-                mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos)).isEmpty();
-
+        return (mc.world.getBlockState(pos).getBlock() == Blocks.AIR || mc.world.getBlockState(pos).getBlock() == Blocks.BED) && mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos)).isEmpty();
     }
 
     private void placeBlock(BlockPos pos, EnumFacing side) {
@@ -420,7 +398,10 @@ public class BedAura extends Module {
 
 
     public void break_bed() {
-        for (BlockPos pos : BlockInteractionHelper.getSphere(get_pos_floor(mc.player), break_range.get_value(1), break_range.get_value(1), false, true, 0).stream().filter(BedAura::is_bed).collect(Collectors.toList())) {
+        if (break_mode.in("None")) return;
+        float best_distance = (float) break_range.get_value(1);
+
+        for (BlockPos pos : BlockInteractionHelper.getSphere(get_pos_floor(mc.player), (float) break_range.get_value(1), break_range.get_value(1), false, true, 0).stream().filter(BedAura::is_bed).collect(Collectors.toList())) {
 
             if (mc.player.isSneaking()) {
                 mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
@@ -428,13 +409,15 @@ public class BedAura extends Module {
 
             if (break_mode.in("Smart")) {
                 EntityPlayer target = null;
-                float best_distance = (float) player_range.get_value(1);
-                for (EntityPlayer player : mc.world.playerEntities.stream().filter(entityPlayer -> !FriendUtil.isFriend(entityPlayer.getName())).collect(Collectors.toList())) {
+                for (EntityPlayer player : mc.world.playerEntities) {
                     if (player == mc.player) continue;
+
+                    if (FriendUtil.isFriend(player.getName())) continue;
 
                     if (best_distance < mc.player.getDistance(player)) continue;
 
                     target = player;
+                    best_distance = mc.player.getDistance(player);
                 }
 
                 if (target == null) continue;
@@ -451,6 +434,8 @@ public class BedAura extends Module {
                     MessageUtil.send_client_message("Predicted Self Break Damage: " + self_damage);
                     MessageUtil.send_client_message("Predicted Enemy Break Damage: " + player_damage);
                 }
+
+
             }
 
             if (debug.get_value(true)) {
@@ -502,7 +487,7 @@ public class BedAura extends Module {
 
     @Override
     public void render(EventRender event) {
-        if (render_pos == null || !render.get_value(true) || place_mode.in("None")) return;
+        if (render_pos == null|| place_mode.in("None")) return;
 
         if (solid) {
             RenderHelp.prepare("quads");

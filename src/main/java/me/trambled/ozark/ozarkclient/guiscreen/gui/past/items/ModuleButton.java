@@ -32,24 +32,26 @@ public class ModuleButton extends Component {
         int opY = offset + 15;
 
             for (Setting settings : Ozark.get_setting_manager().get_settings_with_module(mod)) {
-                if (settings.get_type().equals("button")) {
-                    this.subcomponents.add(new BooleanComponent(settings, this, opY));
-                    opY += 15;
-                } else if (settings.get_type().equals("integerslider")) {
-                    this.subcomponents.add(new IntegerComponent(settings, this, opY));
-                    opY += 15;
-                } else if (settings.get_type().equals("doubleslider")) {
-                    this.subcomponents.add(new DoubleComponent(settings, this, opY));
-                    opY += 15;
-                } else if (settings.get_type().equals("combobox")) {
-                    this.subcomponents.add(new ModeComponent(settings, this, opY));
-                    opY += 15;
-                } else if (settings.get_type().equals("label")) {
-                    this.subcomponents.add(new InfoComponent(settings, this, opY));
-                    opY += 15;
-                } else if (settings.get_type().equals("bind")) {
-                    this.subcomponents.add(new KeybindSettingComponent(settings, this, opY));
-                    opY += 15;
+                if (settings.is_shown()) {
+                    if (settings.get_type().equals("button")) {
+                        this.subcomponents.add(new BooleanComponent(settings, this, opY));
+                        opY += 15;
+                    } else if (settings.get_type().equals("integerslider")) {
+                        this.subcomponents.add(new IntegerComponent(settings, this, opY));
+                        opY += 15;
+                    } else if (settings.get_type().equals("doubleslider")) {
+                        this.subcomponents.add(new DoubleComponent(settings, this, opY));
+                        opY += 15;
+                    } else if (settings.get_type().equals("combobox")) {
+                        this.subcomponents.add(new ModeComponent(settings, this, opY));
+                        opY += 15;
+                    } else if (settings.get_type().equals("label")) {
+                        this.subcomponents.add(new InfoComponent(settings, this, opY));
+                        opY += 15;
+                    } else if (settings.get_type().equals("bind")) {
+                        this.subcomponents.add(new KeybindSettingComponent(settings, this, opY));
+                        opY += 15;
+                    }
                 }
             }
         this.subcomponents.add(new KeybindComponent(this, opY));
@@ -60,8 +62,13 @@ public class ModuleButton extends Component {
         this.offset = newOff;
         int opY = this.offset + 15;
         for (final Component comp : this.subcomponents) {
-            comp.setOff(opY);
-            opY += 15;
+            if (comp.is_shown()) {
+                comp.setOff(opY);
+                opY += 15;
+            } else {
+                comp.setOff(opY);
+                opY -= 15;
+            }
         }
     }
 
@@ -98,7 +105,9 @@ public class ModuleButton extends Component {
 
         if (this.open && !this.subcomponents.isEmpty()) {
             for (Component comp : this.subcomponents) {
-                comp.renderComponent();
+                if (comp.is_shown()) {
+                    comp.renderComponent();
+                }
             }
         }
     }

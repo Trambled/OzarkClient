@@ -12,15 +12,15 @@ import org.lwjgl.input.Keyboard;
 public class KeybindSettingComponent extends Component {
     private boolean isBinding;
     private ModuleButton parent;
-    private Setting value;
+    private Setting op;
     private int offset;
     private int x;
     private int y;
     private String points;
     private float tick;
 
-    public KeybindSettingComponent(Setting value, ModuleButton parent, int offset) {
-        this.value = value;
+    public KeybindSettingComponent(Setting op, ModuleButton parent, int offset) {
+        this.op = op;
         this.parent = parent;
         this.x = parent.parent.getX() + parent.parent.getWidth();
         this.y = parent.parent.getY() + parent.offset;
@@ -51,7 +51,7 @@ public class KeybindSettingComponent extends Component {
 
             FontUtil.drawText("Listening" + ChatFormatting.GRAY + " " + points, parent.parent.getX() + 4, parent.parent.getY() + offset + 4, -1);
         } else {
-            FontUtil.drawText(value.get_name() + ChatFormatting.GRAY + " " + value.get_bind("string"), parent.parent.getX() + 4, parent.parent.getY() + offset + 4, -1);
+            FontUtil.drawText(op.get_name() + ChatFormatting.GRAY + " " + op.get_bind("string"), parent.parent.getX() + 4, parent.parent.getY() + offset + 4, -1);
         }
 
         if (isBinding) {
@@ -85,13 +85,13 @@ public class KeybindSettingComponent extends Component {
     public void keyTyped(char typedChar, int key) {
         if (this.isBinding) {
             if (Keyboard.isKeyDown(Keyboard.KEY_DELETE)) {
-                this.value.set_bind(0);
+                this.op.set_bind(0);
                 this.isBinding = false;
             } else if (Keyboard.isKeyDown(Keyboard.KEY_BACK)) {
-                this.value.set_bind(0);
+                this.op.set_bind(0);
                 this.isBinding = false;
             } else {
-                this.value.set_bind(key);
+                this.op.set_bind(key);
                 this.isBinding = false;
             }
         }
@@ -99,5 +99,10 @@ public class KeybindSettingComponent extends Component {
 
     public boolean isMouseOnButton(int x, int y) {
         return x > this.x && x < this.x + 100 && y > this.y && y < this.y + 15;
+    }
+
+    @Override
+    public boolean is_shown() {
+        return op.is_shown();
     }
 }

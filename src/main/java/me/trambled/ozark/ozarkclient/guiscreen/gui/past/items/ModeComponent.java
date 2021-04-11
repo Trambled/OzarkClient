@@ -66,4 +66,9 @@ public class ModeComponent extends Component {
     public boolean isMouseOnButton(int x, int y) {
         return x > this.x && x < this.x + 100 && y > this.y && y < this.y + 15;
     }
+
+    @Override
+    public boolean is_shown() {
+        return op.is_shown();
+    }
 }

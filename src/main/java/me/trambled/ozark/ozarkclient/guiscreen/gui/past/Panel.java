@@ -79,8 +79,10 @@ public class Panel {
     public void refresh() {
         int off = this.height;
         for (Component comp : components) {
-            comp.setOff(off);
-            off += comp.getHeight();
+            if (comp.is_shown()) {
+                comp.setOff(off);
+                off += comp.getHeight();
+            }
         }
     }
 

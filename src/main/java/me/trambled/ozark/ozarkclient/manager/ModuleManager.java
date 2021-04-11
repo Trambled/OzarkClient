@@ -26,7 +26,6 @@ public class ModuleManager {
 	public static Minecraft mc = Minecraft.getMinecraft();
 
 	public ModuleManager() {
-
 		// Click GUI and HUD.
 		add_module(new ClickGUI());
 		add_module(new ClickHUD());
@@ -76,6 +75,7 @@ public class ModuleManager {
 		add_module(new Quiver());
 		add_module(new CevBreaker());
 		add_module(new ArmorSwitch());
+		add_module(new OffhandPlus());
 
 		// Exploit.
 		add_module(new XCarry());
@@ -134,6 +134,7 @@ public class ModuleManager {
 		add_module(new Timechanger());
 		add_module(new BurrowESP());
 		add_module(new Xray());
+		add_module(new Weather());
 
 		// Misc.
 		add_module(new AutoWither());
@@ -195,7 +196,7 @@ public class ModuleManager {
 	}
 
 	public void render(RenderWorldLastEvent event) {
-		mc.profiler.startSection("wurstplus");
+		mc.profiler.startSection("ozarkclient");
 		mc.profiler.startSection("setup");
 
 		GlStateManager.disableTexture2D();

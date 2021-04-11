@@ -1,5 +1,6 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
+import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
@@ -21,18 +22,20 @@ public class Criticals extends Module {
 	}
 
 	Setting mode = create("Mode", "CriticalsMode", "Packet", combobox("Packet", "Jump"));
+	Setting only_when_ka = create("Only When KA", "Criticals", true);
 
 	@EventHandler
 	private final Listener<EventPacket.SendPacket> listener = new Listener<>(event -> {
 		if (event.get_packet() instanceof CPacketUseEntity) {
 			CPacketUseEntity event_entity = ((CPacketUseEntity) event.get_packet());
-
 			if (event_entity.getAction() == CPacketUseEntity.Action.ATTACK && mc.player.onGround) {
-				if (mode.in("Packet")) {
-					mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + 0.1f, mc.player.posZ, false));
-					mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY, mc.player.posZ, false));
-				} else if (mode.in("Jump")) {
-					mc.player.jump();
+				if ((only_when_ka.get_value(true) && Ozark.get_module_manager().get_module_with_tag("Aura").is_active()) || !only_when_ka.get_value(true)) {
+					if (mode.in("Packet")) {
+						mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + 0.1f, mc.player.posZ, false));
+						mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY, mc.player.posZ, false));
+					} else if (mode.in("Jump")) {
+						mc.player.jump();
+					}
 				}
 			}
 		}

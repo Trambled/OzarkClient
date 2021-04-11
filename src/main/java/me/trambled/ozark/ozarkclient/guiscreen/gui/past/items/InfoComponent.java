@@ -39,4 +39,9 @@ public class InfoComponent extends Component {
         FontUtil.drawText(this.op.get_value("me"), parent.parent.getX() + 4, parent.parent.getY() + this.offset + 4, -1);
     }
 
+    @Override
+    public boolean is_shown() {
+        return op.is_shown();
+    }
+
 }

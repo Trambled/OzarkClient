@@ -23,20 +23,16 @@ import net.minecraft.network.play.client.*;
 import net.minecraft.network.play.server.SPacketSoundEffect;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 public class AutoCrystal extends Module {
-
     public AutoCrystal() {
         super(Category.COMBAT);
 
@@ -56,7 +52,7 @@ public class AutoCrystal extends Module {
     Setting predict_factor = create("Predict Factor", "CaPredictFactor", 1f, 0f, 2f);
     Setting verify_place = create("Verify Place", "CaVerifyPlace", false);
     Setting inhibit = create("Inhibit", "CaInhibit", true);
-    Setting inhibit_delay = create("Inhibit Delay", "CaInhibitDelay", 1, 1, 10);
+    Setting inhibit_delay = create("Inhibit Delay", "CaInhibitDelay", 1, 0, 10);
     Setting inhibit_swings = create("Inhibit Swings", "CaInhibitSwings", 50, 1, 100);
 
     Setting hit_range = create("Hit Range", "CaHitRange", 5f, 1f, 6f);
@@ -87,9 +83,11 @@ public class AutoCrystal extends Module {
     Setting dead_check = create("Dead Check", "CaDeadCheck", false);
     Setting sync = create("Sync", "CaSync", "Sound", combobox("Sound", "Instant", "Inhibit", "Attack", "None"));
     Setting jumpy_mode = create("Jumpy Mode", "CaJumpyMode", false);
+    Setting momentum = create("Momentum Calcs", "CaMomentumMode", false);
 
     Setting anti_stuck = create("Anti Stuck", "CaAntiStuck", true);
     Setting anti_stuck_tries = create("Anti Stuck Tries", "CaAntiStuckTries", 5, 1, 15);
+    Setting anti_stuck_time = create("Anti Stuck Time", "CaAntiStuckTime", 1000, 0, 20000);
     Setting endcrystal = create("1.13 Mode", "CaThirteen", false);
     Setting multi_place = create("Multi Place", "CaMultiplace", true);
 
@@ -150,7 +148,7 @@ public class AutoCrystal extends Module {
     private boolean solid;
 
     private int chain_step = 0;
-//  private int current_chain_index = 0;
+    //  private int current_chain_index = 0;
     private int place_timeout;
     private int break_timeout;
     private int inhibit_delay_counter;
@@ -239,7 +237,7 @@ public class AutoCrystal extends Module {
             cycle_rainbow();
         }
 
-        if (remove_visual_timer.passed(1000)) {
+        if (remove_visual_timer.passed(anti_stuck_time.get_value(1))) {
             remove_visual_timer.reset();
             attacked_crystals.clear();
         }
@@ -403,13 +401,14 @@ public class AutoCrystal extends Module {
 
         BlockPos best_block = null;
 
-        List<BlockPos> blocks = CrystalUtil.crystalBlocksMomentum(mc.player, place_range.get_value(1), predict.get_value(true), predict_factor.get_value(1), !multi_place.get_value(true), endcrystal.get_value(true));
+        List<BlockPos> blocks_momentum = CrystalUtil.crystalBlocksMomentum(mc.player, place_range.get_value(1), predict.get_value(true), predict_factor.get_value(1), !multi_place.get_value(true), endcrystal.get_value(true));
+        List<BlockPos> blocks = CrystalUtil.possiblePlacePositions(place_range.get_value(1), endcrystal.get_value(true), !multi_place.get_value(true));
 
         for (Entity player : mc.world.playerEntities) {
 
             if (FriendUtil.isFriend(player.getName())) continue;
 
-            for (BlockPos block : blocks) {
+            for (BlockPos block : momentum.get_value(true) ? blocks_momentum : blocks) {
 
                 if (player == mc.player || !(player instanceof EntityPlayer)) continue;
 
@@ -458,7 +457,9 @@ public class AutoCrystal extends Module {
 
         }
 
-        blocks.clear();
+        if (!momentum.get_value(true)) {
+            blocks_momentum.clear();
+        }
 
 //       if (chain_step == 1) {
 //           current_chain_index = chain_length.get_value(1);
@@ -483,33 +484,6 @@ public class AutoCrystal extends Module {
 //            return damage_blocks.get(current_chain_index).getValue();
 //        }
 
-    }
-
-    private List<BlockPos> getPlaceableBlocks(EntityPlayer player) {
-        List<BlockPos> square = new ArrayList<>();
-
-        int range = place_range.get_value(1);
-
-        BlockPos pos = player.getPosition();
-        pos.add(new Vec3i(player.motionX, player.motionY, player.motionZ));
-
-        for(int x = -range; x <= range; x++)
-            for(int y = -range; y <= range; y++)
-                for(int z = -range; z <= range; z++)
-                    square.add(pos.add(x, y, z));
-
-        return square.stream().filter(blockPos -> canCrystalBePlacedHere(blockPos) && mc.player.getDistanceSq(blockPos) <= (range * range)).collect(Collectors.toList());
-    }
-
-    private boolean canCrystalBePlacedHere(BlockPos pos) {
-        BlockPos boost = pos.add(0, 1, 0);
-        BlockPos boost2 = pos.add(0, 2, 0);
-        return (mc.world.getBlockState(pos).getBlock() == Blocks.BEDROCK
-                || mc.world.getBlockState(pos).getBlock() == Blocks.OBSIDIAN)
-                && mc.world.getBlockState(boost).getBlock() == Blocks.AIR
-                && mc.world.getBlockState(boost2).getBlock() == Blocks.AIR
-                && mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(boost)).stream().allMatch(entity -> entity instanceof EntityEnderCrystal)
-                && mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(boost2)).stream().allMatch(entity -> entity instanceof EntityEnderCrystal);
     }
 
     public List<PairUtil<Double, BlockPos>> sort_best_blocks(List<PairUtil<Double, BlockPos>> list) {
@@ -677,6 +651,9 @@ public class AutoCrystal extends Module {
                         render_block_init = null;
                     }
                     inhibit_delay_counter++;
+                    if (old_render.get_value(true)) {
+                        render_block_init = null;
+                    }
                     return true;
                 }
             }

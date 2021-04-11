@@ -83,19 +83,19 @@ public class Arraylist extends Pinnable {
 					this.set_height(position_update_y);
 				} else {
 					if (Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDArrayList").in("Top R")) {
-						mc.fontRenderer.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), 3 + count * 10, new DrawUtil.TravisColor(nl_r,nl_g,nl_b,nl_a).hex());
+						mc.fontRenderer.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), 3 + count * 10, new DrawUtil.TravisColor(nl_r,nl_g,nl_b,nl_a).color_int());
 						count++;
 					}
 					if (Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDArrayList").in("Top L")) {
-						mc.fontRenderer.drawStringWithShadow(module_name, 2, 3 + count * 10, new DrawUtil.TravisColor(nl_r,nl_g,nl_b,nl_a).hex());
+						mc.fontRenderer.drawStringWithShadow(module_name, 2, 3 + count * 10, new DrawUtil.TravisColor(nl_r,nl_g,nl_b,nl_a).color_int());
 						count++;
 					}
 					if (Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDArrayList").in("Bottom R")) {
-						mc.fontRenderer.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), scaled_height - (count * 10), new DrawUtil.TravisColor(nl_r,nl_g,nl_b,nl_a).hex());
+						mc.fontRenderer.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), scaled_height - (count * 10), new DrawUtil.TravisColor(nl_r,nl_g,nl_b,nl_a).color_int());
 						count++;
 					}
 					if (Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDArrayList").in("Bottom L")) {
-						mc.fontRenderer.drawStringWithShadow(module_name, 2, scaled_height - (count * 10), new DrawUtil.TravisColor(nl_r,nl_g,nl_b,nl_a).hex());
+						mc.fontRenderer.drawStringWithShadow(module_name, 2, scaled_height - (count * 10), new DrawUtil.TravisColor(nl_r,nl_g,nl_b,nl_a).color_int());
 						count++;
 					}
 				}

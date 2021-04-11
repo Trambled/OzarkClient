@@ -28,18 +28,17 @@ public class Offhand extends Module {
 
     Setting module_check = create("ModuleCheck", "OffhandModuleCheck", true);
     Setting gapple_in_hole = create("Gapple In Hole", "OffhandGapple", false);
+    Setting only_when_right_click = create("Right Click", "OffhandRightClick", true);
     Setting gapple_hole_hp = create("Gapple Hole HP", "OffhandGappleHP", 8, 0, 36);
-    Setting delay = create("Delay", "OffhandDelay", 2, 0, 10);
     Setting step = create("Step", "OffhandStep", false);
 
     private boolean switching = false;
     private int last_slot;
-    private int delay_counter;
 
     @Override
     public void update() {
 
-        if ((mc.currentScreen == null || mc.currentScreen instanceof GuiInventory) && (delay_counter > delay.get_value(1))) {
+        if ((mc.currentScreen == null || mc.currentScreen instanceof GuiInventory)) {
 
             if (Ozark.get_hack_manager().get_module_with_tag("AutoTotem").is_active()) {
                 MessageUtil.send_client_error_message("AutoTotem is not compatible with offhand anymore");
@@ -53,44 +52,44 @@ public class Offhand extends Module {
 
             float hp = mc.player.getHealth() + mc.player.getAbsorptionAmount();
 
-            if (hp > totem_switch.get_value(1)) {
-                if (module_check.get_value(true)) {
-                    if (switch_mode.in("Crystal") && Ozark.get_hack_manager().get_module_with_tag("AutoCrystal").is_active()) {
-                        swap_items(get_item_slot(Items.END_CRYSTAL),0);
+            if ((only_when_right_click.get_value(true) && mc.gameSettings.keyBindUseItem.pressed) || !only_when_right_click.get_value(true)) {
+                if (hp > totem_switch.get_value(1)) {
+                    if (module_check.get_value(true)) {
+                        if (switch_mode.in("Crystal") && Ozark.get_hack_manager().get_module_with_tag("AutoCrystal").is_active()) {
+                            swap_items(get_item_slot(Items.END_CRYSTAL), 0);
+                            return;
+                        }
+                    } else if (switch_mode.in("Crystal") && !module_check.get_value(true)) {
+                        swap_items(get_item_slot(Items.END_CRYSTAL), 0);
                         return;
                     }
-                } else if (switch_mode.in("Crystal") && !module_check.get_value(true)){
-                    swap_items(get_item_slot(Items.END_CRYSTAL),0);
-                    return;
-                }
-                if (gapple_in_hole.get_value(true) && hp > gapple_hole_hp.get_value(1) && is_in_hole()) {
-                    swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
-                    return;
-                }
-                if (switch_mode.in("Totem")) {
+                    if (gapple_in_hole.get_value(true) && hp > gapple_hole_hp.get_value(1) && is_in_hole()) {
+                        swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
+                        return;
+                    }
+                    if (switch_mode.in("Totem")) {
+                        swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), step.get_value(true) ? 1 : 0);
+                        return;
+                    }
+                    if (switch_mode.in("Gapple")) {
+                        swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
+                        return;
+                    }
+                    if (switch_mode.in("Crystal") && !Ozark.get_hack_manager().get_module_with_tag("AutoCrystal").is_active() && module_check.get_value(true)) {
+                        swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), 0);
+                        return;
+                    }
+                } else {
                     swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), step.get_value(true) ? 1 : 0);
                     return;
                 }
-                if (switch_mode.in("Gapple")) {
-                    swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
-                    return;
-                }
-                if (switch_mode.in("Crystal") && !Ozark.get_hack_manager().get_module_with_tag("AutoCrystal").is_active() && module_check.get_value(true)) {
-                    swap_items(get_item_slot(Items.TOTEM_OF_UNDYING),0);
-                    return;
-                }
-            } else {
-                swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), step.get_value(true) ? 1 : 0);
-                return;
-            }
 
-            if (mc.player.getHeldItemOffhand().getItem() == Items.AIR) {
-                swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), step.get_value(true) ? 1 : 0);
-            }
+                if (mc.player.getHeldItemOffhand().getItem() == Items.AIR) {
+                    swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), step.get_value(true) ? 1 : 0);
+                }
 
+            }
         }
-
-        delay_counter++;
 
     }
 

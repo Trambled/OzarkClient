@@ -23,4 +23,8 @@ public class Component {
     public int getHeight() {
         return 0;
     }
+
+    public boolean is_shown() {
+        return true;
+    }
 }

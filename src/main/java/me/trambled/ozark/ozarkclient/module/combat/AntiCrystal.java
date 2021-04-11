@@ -5,6 +5,7 @@ import me.trambled.ozark.ozarkclient.util.CrystalUtil;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPressurePlate;
+import net.minecraft.block.BlockWeb;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
@@ -114,6 +115,9 @@ public class AntiCrystal extends Module
                 final Block block = ((ItemBlock) stack.getItem()).getBlock();
 
                 if (block instanceof BlockPressurePlate)
+                    return i;
+
+                else if (block instanceof BlockWeb)
                     return i;
 
             }

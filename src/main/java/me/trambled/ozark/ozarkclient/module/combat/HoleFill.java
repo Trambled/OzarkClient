@@ -53,11 +53,6 @@ public class HoleFill extends Module {
 	public void disable() {
         holes.clear();
     }
-
-    @Override
-    public void update_always() {
-        smart_range.set_shown(smart_mode.get_value(true));
-    }
     
     @Override
 	public void update() {
