@@ -172,7 +172,7 @@ public class ConfigManager {
         try {
             writer.write(AutoKitUtil.get_message());
         } catch (Exception ignored) {
-            writer.write("You just got niggered by OzarkClient");
+            writer.write("kit");
         }
 
         writer.close();
