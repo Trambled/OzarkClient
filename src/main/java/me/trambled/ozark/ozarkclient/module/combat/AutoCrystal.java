@@ -175,16 +175,16 @@ public class AutoCrystal extends Module {
             p.pitch = pitch;
             is_rotating = false;
         }
-        if (event.get_packet() instanceof CPacketPlayerTryUseItemOnBlock && is_rotating && rotate_mode.in("Packet")) {
-            if (debug.get_value(true)) {
-                MessageUtil.send_client_message("Rotating");
-            }
-            final CPacketPlayerTryUseItemOnBlock p = (CPacketPlayerTryUseItemOnBlock) event.get_packet();
-            p.facingX = render_block_init.getX();
-            p.facingY = render_block_init.getY();
-            p.facingZ = render_block_init.getZ();
-            is_rotating = false;
-        }
+//      if (event.get_packet() instanceof CPacketPlayerTryUseItemOnBlock && is_rotating && rotate_mode.in("Packet")) {
+//          if (debug.get_value(true)) {
+//              MessageUtil.send_client_message("Rotating");
+//          }
+//          final CPacketPlayerTryUseItemOnBlock p = (CPacketPlayerTryUseItemOnBlock) event.get_packet();
+//          p.facingX = render_block_init.getX();
+//          p.facingY = render_block_init.getY();
+//          p.facingZ = render_block_init.getZ();
+//          is_rotating = false;
+//      }
         if (event.get_packet() instanceof CPacketUseEntity && ((CPacketUseEntity) event.get_packet()).getAction() == CPacketUseEntity.Action.ATTACK && ((CPacketUseEntity) event.get_packet()).getEntityFromWorld(mc.world) instanceof EntityEnderCrystal) {
             if (sync.in("Attack"))
                 Objects.requireNonNull(((CPacketUseEntity) event.get_packet()).getEntityFromWorld(mc.world)).setDead();
