@@ -90,7 +90,6 @@ public class Offhand extends Module {
 
             } else {
                 swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), step.get_value(true) ? 1 : 0);
-                return;
             }
         }
 
