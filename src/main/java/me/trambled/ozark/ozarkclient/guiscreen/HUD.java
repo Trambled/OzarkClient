@@ -15,7 +15,7 @@ public class HUD extends GuiScreen {
 	public boolean back;
 
 	public HUD() {
-		this.frame  = new Frame("Oz Client HUD Editor", "WurstplusHUD", 40, 40);
+		this.frame  = new Frame("HUD Editor", "WurstplusHUD", 40, 40);
 		this.back   = false;
 		this.on_gui = false;
 	}
