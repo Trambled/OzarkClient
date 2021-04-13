@@ -43,6 +43,7 @@ public class ModuleManager {
 		add_module(new AutoExcuse());
 		add_module(new WeaknessAlert());
 		add_module(new RetardChat());
+		add_module(new ChatSpammer());
 
 		// Combat.
 		add_module(new Criticals());
