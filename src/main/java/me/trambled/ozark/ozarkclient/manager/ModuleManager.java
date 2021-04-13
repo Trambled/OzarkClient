@@ -84,7 +84,6 @@ public class ModuleManager {
 		add_module(new PacketMine());
 		add_module(new EntityMine());
 		add_module(new BuildHeight());
-		add_module(new CoordExploit());
 		add_module(new AutoDupe());
 		add_module(new EntityDesync());
 		add_module(new Timer());
