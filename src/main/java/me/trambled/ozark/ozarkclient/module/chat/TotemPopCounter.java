@@ -64,9 +64,9 @@ public class TotemPopCounter extends Module {
                 if (entity == mc.player) return;
 
                 if (FriendUtil.isFriend(entity.getName())) {
-                    MessageUtil.send_client_message( red + "" + bold + "[TotemPop] " + reset + white + entity.getName() + " has popped " + count + " totems");
+                    MessageUtil.send_client_message( red + "" + bold + "[TotemPop] " + reset + white + entity.getName() + " popped " + count + " totems");
                 } else {
-                    MessageUtil.send_client_message( red + "" + bold + "[TotemPop] " + reset + white + entity.getName() + " has popped " + count + " totems");
+                    MessageUtil.send_client_message( red + "" + bold + "[TotemPop] " + reset + white + entity.getName() + " popped " + count + " totems");
                 }
 
             }
@@ -98,9 +98,9 @@ public class TotemPopCounter extends Module {
                     }
                 } else {
                     if (FriendUtil.isFriend(player.getName())) {
-                        MessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + green + player.getName() + reset + " just got fucked by some retard after popping " + bold + count + reset + " totems. RIP :pray:");
+                        MessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "" + bold + green + player.getName() + reset + " just got fucked by some retard after popping " + bold + count + reset + " totems. RIP :pray:");
                     } else {
-                        MessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + red + player.getName() + reset + " just got fucked by OzarkClient after popping " + bold + count + reset + " totems");
+                        MessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "" + bold + red + player.getName() + reset + " just got fucked by OzarkClient after popping " + bold + count + reset + " totems");
                     }
                 }
 
