@@ -77,6 +77,7 @@ public class ModuleManager {
 		add_module(new CevBreaker());
 		add_module(new ArmorSwitch());
 		add_module(new OffhandPlus());
+		add_module(new ShulkerCrystal());
 
 		// Exploit.
 		add_module(new XCarry());
@@ -94,6 +95,7 @@ public class ModuleManager {
 		add_module(new Ghost());
 		add_module(new MountBypass());
 		add_module(new Scaffold());
+		add_module(new CoordExploit());
 
 		// Movement.
 		add_module(new Strafe());
@@ -113,7 +115,6 @@ public class ModuleManager {
 		add_module(new Anchor());
 		add_module(new AntiLevitation());
 		add_module(new EntitySpeed());
-		add_module(new StepNew());
 		
 
 		// Render.
@@ -129,7 +130,7 @@ public class ModuleManager {
 		add_module(new SkyColour());
 		add_module(new Chams());
 		add_module(new Capes());
-		add_module(new CityEsp());
+		add_module(new CityESP());
 		add_module(new StorageESP());
 		add_module(new NoRender());
 		add_module(new FullBright());
@@ -137,6 +138,7 @@ public class ModuleManager {
 		add_module(new BurrowESP());
 		add_module(new Xray());
 		add_module(new Weather());
+		add_module(new BreakESP());
 
 		// Misc.
 		add_module(new AutoWither());

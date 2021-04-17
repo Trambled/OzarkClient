@@ -13,9 +13,9 @@ import net.minecraft.util.math.BlockPos;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CityEsp extends Module {
+public class CityESP extends Module {
 
-    public CityEsp() {
+    public CityESP() {
         super(Category.RENDER);
 
         this.name = "City ESP";

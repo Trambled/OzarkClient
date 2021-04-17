@@ -103,6 +103,24 @@ public class RenderUtil {
         GlStateManager.popMatrix();
     }
 
+    public static void drawText(final BlockPos pos, float height, final String text) {
+        GlStateManager.pushMatrix();
+        glBillboardDistanceScaled(pos.getX() + 0.5f, pos.getY() + height, pos.getZ() + 0.5f, mc.player, 1.0f);
+        GlStateManager.disableDepth();
+        GlStateManager.translate(-(mc.fontRenderer.getStringWidth(text) / 2.0), 0.0, 0.0);
+        mc.fontRenderer.drawStringWithShadow(text, 0.0f, 0.0f, -5592406);
+        GlStateManager.popMatrix();
+    }
+
+    public static void drawText(final BlockPos pos, float length, float height, float depth, final String text) {
+        GlStateManager.pushMatrix();
+        glBillboardDistanceScaled(pos.getX() + length, pos.getY() + height, pos.getZ() + depth, mc.player, 1.0f);
+        GlStateManager.disableDepth();
+        GlStateManager.translate(-(mc.fontRenderer.getStringWidth(text) / 2.0), 0.0, 0.0);
+        mc.fontRenderer.drawStringWithShadow(text, 0.0f, 0.0f, -5592406);
+        GlStateManager.popMatrix();
+    }
+
     public static void drawRect(final float x, final float y, final float w, final float h, final int color) {
         final float alpha = (color >> 24 & 0xFF) / 255.0f;
         final float red = (color >> 16 & 0xFF) / 255.0f;

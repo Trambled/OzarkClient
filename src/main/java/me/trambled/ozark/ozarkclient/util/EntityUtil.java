@@ -1,6 +1,7 @@
 package me.trambled.ozark.ozarkclient.util;
 
 import me.trambled.ozark.ozarkclient.module.Setting;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -10,6 +11,7 @@ import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
@@ -58,6 +60,63 @@ public class EntityUtil {
         yaw += 90f;
 
         return new double[]{yaw,pitch};
+    }
+
+    public static EntityUtil.FacingDirection GetFacing(EntityPlayer player) {
+        switch (MathHelper.floor(player.rotationYaw * 8.0f / 360.0f + 0.5) & 0x7) {
+            case 0:
+            case 1: {
+                return EntityUtil.FacingDirection.South;
+            }
+            case 2:
+            case 3: {
+                return EntityUtil.FacingDirection.West;
+            }
+            case 4:
+            case 5: {
+                return EntityUtil.FacingDirection.North;
+            }
+            case 6:
+            case 7: {
+                return EntityUtil.FacingDirection.East;
+            }
+            default: {
+                return EntityUtil.FacingDirection.North;
+            }
+        }
+    }
+
+    //salhack
+    public static boolean is_entity_trapped(Entity entity)
+    {
+        BlockPos l_PlayerPos = GetEntityPosFloored(entity);
+
+        final BlockPos[] l_TrapPositions = {
+                l_PlayerPos.down(),
+                l_PlayerPos.up().up(),
+                l_PlayerPos.north(),
+                l_PlayerPos.south(),
+                l_PlayerPos.east(),
+                l_PlayerPos.west(),
+                l_PlayerPos.north().up(),
+                l_PlayerPos.south().up(),
+                l_PlayerPos.east().up(),
+                l_PlayerPos.west().up(),
+        };
+
+        for (BlockPos l_Pos : l_TrapPositions)
+        {
+            IBlockState l_State = mc.world.getBlockState(l_Pos);
+
+            if (l_State.getBlock() != Blocks.OBSIDIAN && mc.world.getBlockState(l_Pos).getBlock() != Blocks.BEDROCK)
+                return false;
+        }
+
+        return true;
+    }
+
+    public static BlockPos GetEntityPosFloored(Entity entity) {
+        return new BlockPos(Math.floor(entity.posX), Math.floor(entity.posY), Math.floor(entity.posZ));
     }
 
 
@@ -195,6 +254,14 @@ public class EntityUtil {
             maxModifier *= 1.0 + 0.2 * (double)(Objects.requireNonNull(EntityUtil.mc.player.getActivePotionEffect(Objects.requireNonNull(Potion.getPotionById((int)1)))).getAmplifier() + 1);
         }
         return maxModifier;
+    }
+
+    public enum FacingDirection
+    {
+        North,
+        South,
+        East,
+        West
     }
 
 

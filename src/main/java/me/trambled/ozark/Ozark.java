@@ -1,6 +1,7 @@
 package me.trambled.ozark;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+import me.trambled.ozark.ozarkclient.util.DiscordUtil;
 import me.trambled.turok.Turok;
 import me.trambled.turok.task.TurokFont;
 import me.trambled.ozark.ozarkclient.event.EventHandler;
@@ -27,7 +28,7 @@ public class Ozark {
 	private static Ozark MASTER;
 
 	public static final String NAME = "OzarkClient";
-	public static final String VERSION = "1.11.6";
+	public static final String VERSION = "1.11.7";
 	public static final String SIGN = " ";
 
 	public static final int KEY_GUI = Keyboard.KEY_RSHIFT;
@@ -141,7 +142,7 @@ public class Ozark {
 
 		if (module_manager.get_module_with_tag("DiscordRPC").is_active()) {
 			send_minecraft_log("Loading discord rpc");
-			RPC.init();
+			DiscordUtil.init();
 			send_minecraft_log("Done");
 		}
 

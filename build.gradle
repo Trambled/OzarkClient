@@ -30,7 +30,7 @@ group            project.client_group
 minecraft {
 	version  = "1.12.2-14.23.0.2531"
 	runDir   = "run"
-	coreMod  = "me.travis.ozark.mixins.MixinLoader"
+	coreMod  = "me.trambled.ozark.mixins.MixinLoader"
 	mappings = "snapshot_20180814"
 	makeObfSourceJar = true
 }
