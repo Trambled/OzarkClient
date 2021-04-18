@@ -86,8 +86,6 @@ Default burrow delay is fine, but you can change it if it doesnt work for u that
 
 Elytrafly set the speed to 1.8 - 2.0, go higher if the server anticheat allows it, if it lags back with normal speed, set glide speed higher, superior mode is the best mode btw, elytrafly isn't compatible with nofall, thats why ozark elytrafly auto toggles nofall, so make sure that no other clients have the nofall module toggled when you're using elytra fly. the timer module in elytrafly is good for taking off easier.
 
-Turn off tps sync on kill aura UNLESS in low tps.
-
 ## capes
 U can give cape designs and i can add u to the pastebin of uuids for capes.
 
