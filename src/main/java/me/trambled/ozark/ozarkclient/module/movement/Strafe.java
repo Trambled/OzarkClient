@@ -30,15 +30,15 @@ public class Strafe extends Module {
 	Setting on_water = create("On Water", "StrafeOnWater", true);
 	Setting auto_jump = create("Auto Jump", "StrafeAutoJump", true);
 	Setting backward = create("Backwards", "StrafeBackwards", true);
-	Setting fucker = create("Fucker", "Fucker", false);
+	Setting timer = create("Timer", "Timer", false);
 
 	@Override
 	public void update() {
 
 		if (full_null_check()) return;
 
-		if (!Ozark.get_module_manager().get_module_with_tag("Fucker").is_active() && fucker.get_value(true)) {
-			Ozark.get_module_manager().get_module_with_tag("Fucker").set_active(true);
+		if (!Ozark.get_module_manager().get_module_with_tag("Timer").is_active() && timer.get_value(true)) {
+			Ozark.get_module_manager().get_module_with_tag("Timer").set_active(true);
 		}
 
 		if (speed_mode.in("None")) {
