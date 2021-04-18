@@ -29,7 +29,7 @@ public class ViewmodelChanger extends Module {
     }
 
     Setting type = create("Type", "Type", "Value", combobox("FOV", "Both", "Value"));
-    Setting fov = create("FOV", "FOV", 110, 110, 200);
+    Setting fov = create("FOV", "FOV", 90, 90, 200);
     Setting right_x = create("Right X", "FOVRightX", 0.0, -2.0, 2.0);
     Setting right_y = create("Right Y", "FOVRightY", 0.0, -2.0, 2.0);
     Setting right_z = create("Right Z", "FOVRightZ", 0.0, -2.0, 2.0);
