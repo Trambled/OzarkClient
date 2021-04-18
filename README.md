@@ -80,7 +80,7 @@ Default Command Prefix?
 </details>
 
 
-For offhand use crystal mode and gapple in hole if u want, health is based on preference but 16-17 is probably the best.
+For offhand use crystal mode and gapple in hole if u want, health is based on preference but 16-17 is the best u can get for a offhand without a crystal check.
 
 Default burrow delay is fine, but you can change it if it doesnt work for u that good.
 
