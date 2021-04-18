@@ -44,6 +44,15 @@ public class AutoExcuse extends Module
             if (randomNum == 6) {
                 AutoExcuse.mc.player.sendChatMessage("imagine hacking nub");
             }
+            if (randomNum == 7) {
+                AutoExcuse.mc.player.sendChatMessage("i was in my impact gui");
+            }
+            if (randomNum == 8) {
+                AutoExcuse.mc.player.sendChatMessage("i died cause i was using the leaked 1.8.3.5 ozark leak");
+            }
+            if (randomNum == 9) {
+                AutoExcuse.mc.player.sendChatMessage("i was using wurst+1");
+            }
             this.diedTime = 0;
         }
     }
