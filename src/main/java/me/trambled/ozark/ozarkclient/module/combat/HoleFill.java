@@ -29,14 +29,13 @@ public class HoleFill extends Module {
 		this.description = "Turn holes into floors";
     }
 
-    Setting smart_mode = create("Smart Mode", "HoleFillSmart", true);
+    Setting smart_mode = create("Smart Mode", "HoleFillSmart", false);
     Setting smart_range = create("Smart Range", "HoleFillSmartRange", 2.11, 0,6);
     Setting hole_toggle = create("Toggle", "HoleFillToggle", true);
     Setting hole_rotate = create("Rotate", "HoleFillRotate", true);
     Setting button = create("Button", "HoleFillButton", false);
     Setting hole_range = create("Range", "HoleFillRange", 4, 1, 6);
     Setting swing = create("Swing", "HoleFillSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
-
 
     private final ArrayList<BlockPos> holes = new ArrayList<>();
 
@@ -89,7 +88,6 @@ public class HoleFill extends Module {
 
                 if (FriendUtil.isFriend(player.getName())) continue;
 
-                //stops lag maybe?
                 if (player.getDistance(mc.player) >= 11) continue;
 
                 final EntityPlayer target = (EntityPlayer) player;
@@ -116,15 +114,7 @@ public class HoleFill extends Module {
             return;
         }
 
-        if (smart_mode.get_value(true)) {
-            if (do_smart) {
-                if (pos_to_fill != null) {
-                    if (BlockUtil.placeBlock(pos_to_fill, find_in_hotbar(), hole_rotate.get_value(true), hole_rotate.get_value(true), swing)) {
-                        holes.remove(pos_to_fill);
-                    }
-                }
-            }
-        } else {
+        if (do_smart || !smart_mode.get_value(true)) {
             if (pos_to_fill != null) {
                 if (BlockUtil.placeBlock(pos_to_fill, find_in_hotbar(), hole_rotate.get_value(true), hole_rotate.get_value(true), swing)) {
                     holes.remove(pos_to_fill);

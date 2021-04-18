@@ -89,7 +89,7 @@ public class AutoCrystal extends Module {
     Setting anti_stuck_tries = create("Anti Stuck Tries", "CaAntiStuckTries", 5, 1, 15);
     Setting anti_stuck_time = create("Anti Stuck Time", "CaAntiStuckTime", 1000, 0, 20000);
     Setting endcrystal = create("1.13 Mode", "CaThirteen", false);
-    Setting multi_place = create("Multi Place", "CaMultiplace", true);
+    Setting multi_place = create("Multi Place", "CaMultiplace", false);
 
     Setting faceplace_mode = create("Faceplace Mode", "CaTabbottMode", true);
     Setting faceplace_mode_damage = create("Faceplace Health", "CaTabbottModeHealth", 8, 0, 36);

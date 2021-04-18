@@ -63,11 +63,11 @@ Default Command Prefix?
    Alternative ON <br>
    Inhibit ON, Delay 1 <br>
    Packet Place and Break ON <br>
-   Ares Mode OFF <br>
+   Momentum Calcs ON <br>
    Fast Mode ON <br>
    Place Delay 0 <br>
    Break delay (1 for under 50ms ping, 2-4 for high ping) <br>
-   Anti Stuck ON, tries 1 <br>
+   Anti Stuck ON, tries 1, time 1k <br>
    Swing OFFHAND <br>
    Render OUTLINE <br>
    Dead Check OFF <br>

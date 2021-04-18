@@ -6,6 +6,7 @@ import me.trambled.ozark.ozarkclient.module.*;
 import me.trambled.ozark.ozarkclient.module.chat.*;
 import me.trambled.ozark.ozarkclient.module.combat.*;
 import me.trambled.ozark.ozarkclient.module.exploit.*;
+import me.trambled.ozark.ozarkclient.module.gui.*;
 import me.trambled.ozark.ozarkclient.module.misc.*;
 import me.trambled.ozark.ozarkclient.module.movement.*;
 import me.trambled.ozark.ozarkclient.module.render.*;

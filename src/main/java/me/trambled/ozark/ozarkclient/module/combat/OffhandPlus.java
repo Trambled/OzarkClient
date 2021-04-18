@@ -1,5 +1,6 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
@@ -58,9 +59,9 @@ public class OffhandPlus extends Module {
             }
             if (chat_msg.get_value(true)) {
                 if (crystal) {
-                    MessageUtil.send_client_message("Crystal offhand enabled");
+                    MessageUtil.send_client_message("Crystal offhand " + ChatFormatting.DARK_GREEN + "enabled");
                 } else {
-                    MessageUtil.send_client_message("Crystal offhand disabled");
+                    MessageUtil.send_client_message("Crystal offhand " + ChatFormatting.RED + "disabled");
                 }
             }
         }
@@ -73,9 +74,9 @@ public class OffhandPlus extends Module {
             }
             if (chat_msg.get_value(true)) {
                 if (gapple) {
-                    MessageUtil.send_client_message("Gapple offhand enabled");
+                    MessageUtil.send_client_message("Gapple offhand enabled " + ChatFormatting.DARK_GREEN + "enabled");
                 } else {
-                    MessageUtil.send_client_message("Gapple offhand disabled");
+                    MessageUtil.send_client_message("Gapple offhand " + ChatFormatting.RED + "disabled");
                 }
             }
         }
@@ -88,9 +89,9 @@ public class OffhandPlus extends Module {
             }
             if (chat_msg.get_value(true)) {
                 if (pressure_plate) {
-                    MessageUtil.send_client_message("Pressure plate offhand enabled");
+                    MessageUtil.send_client_message("Pressure plate offhand" + ChatFormatting.DARK_GREEN + "enabled");
                 } else {
-                    MessageUtil.send_client_message("Pressure plate offhand disabled");
+                    MessageUtil.send_client_message("Pressure plate offhand " + ChatFormatting.RED + "disabled");
                 }
             }
         }
@@ -103,9 +104,9 @@ public class OffhandPlus extends Module {
             }
             if (chat_msg.get_value(true)) {
                 if (totem) {
-                    MessageUtil.send_client_message("Totem offhand enabled");
+                    MessageUtil.send_client_message("Totem offhand " + ChatFormatting.DARK_GREEN + "enabled");
                 } else {
-                    MessageUtil.send_client_message("Totem offhand disabled");
+                    MessageUtil.send_client_message("Totem offhand " + ChatFormatting.RED + "disabled");
                 }
             }
         }

@@ -1,6 +1,11 @@
-package me.trambled.ozark.ozarkclient.module;
+package me.trambled.ozark.ozarkclient.module.gui;
 
 import me.trambled.ozark.Ozark;
+import me.trambled.ozark.ozarkclient.module.Category;
+import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
 
@@ -26,6 +31,7 @@ public class PastGUIModule extends Module {
 	Setting scroll_speed = create("Scroll Speed", "PastGUIScrollSpeed", 10, 0, 20);
 	Setting button_sound = create("Button Sound", "PastGUISound", true);
 	Setting snow = create("Snow", "PastGUISnow", true);
+	Setting blur = create("Blur", "PastGUIBlur", true); // credit for ferox for blur
 	Setting font_shadow = create("Font Shadow", "PastGUIFontShadow", true);
 	Setting descriptions = create("Descriptions", "PastGUIDescriptions", true);
 	Setting hover_change = create("Hover Change", "PastGUIHoverChange", true);
@@ -36,6 +42,13 @@ public class PastGUIModule extends Module {
 		if (!full_null_check()) {
 			mc.displayGuiScreen(Ozark.past_gui);
 		}
+		if (OpenGlHelper.shadersSupported) {
+			try {
+				if (blur.get_value(true)) {
+					mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
+				}
+			} catch (Exception ignored) {}
+		}
 	}
 
 	@Override
@@ -43,6 +56,7 @@ public class PastGUIModule extends Module {
 		if (!full_null_check()) {
 			mc.displayGuiScreen(null);
 		}
+
 	}
 
 	@Override
@@ -65,8 +79,4 @@ public class PastGUIModule extends Module {
 		blue.set_value(color_rgb_o & 0xFF);
 
 	}
-
-
-
-
 }

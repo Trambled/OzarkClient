@@ -4,7 +4,6 @@ import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.EventBus;
 import me.trambled.ozark.ozarkclient.event.events.EventBlock;
 import me.trambled.ozark.ozarkclient.event.events.EventDamageBlock;
-import me.trambled.ozark.ozarkclient.event.events.EventGetBlockReachDistance;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.entity.player.EntityPlayer;
@@ -48,19 +47,4 @@ public class MixinPlayerControllerMP {
 		final EventBlock event = new EventBlock(3, pos, face);
 		EventBus.EVENT_BUS.post(event);
 	}
-
-    @Inject(method = "getBlockReachDistance", at = @At("HEAD"), cancellable = true)
-    public void getBlockReachDistance(CallbackInfoReturnable<Float> callback)
-    {
-        EventGetBlockReachDistance l_Event = new EventGetBlockReachDistance();
-        EventBus.EVENT_BUS.post(l_Event);
-        if (l_Event.BlockReachDistance > 0.0f)
-        {
-            callback.setReturnValue(l_Event.BlockReachDistance);
-            callback.cancel();
-        }
-    }
-
-
-
 }

@@ -28,7 +28,7 @@ public class Offhand extends Module {
 
     Setting module_check = create("ModuleCheck", "OffhandModuleCheck", true);
     Setting gapple_in_hole = create("Gapple In Hole", "OffhandGapple", false);
-    Setting only_when_right_click = create("Right Click", "OffhandRightClick", true);
+    Setting only_when_right_click = create("Right Click", "OffhandRightClick", false);
     Setting gapple_hole_hp = create("Gapple Hole HP", "OffhandGappleHP", 8, 0, 36);
     Setting step = create("Step", "OffhandStep", false);
 
@@ -52,7 +52,7 @@ public class Offhand extends Module {
 
             float hp = mc.player.getHealth() + mc.player.getAbsorptionAmount();
 
-            if ((only_when_right_click.get_value(true) && mc.gameSettings.keyBindUseItem.pressed) || !only_when_right_click.get_value(true)) {
+            if (mc.gameSettings.keyBindUseItem.pressed || !only_when_right_click.get_value(true)) {
                 if (hp > totem_switch.get_value(1)) {
                     if (module_check.get_value(true)) {
                         if (switch_mode.in("Crystal") && Ozark.get_hack_manager().get_module_with_tag("AutoCrystal").is_active()) {

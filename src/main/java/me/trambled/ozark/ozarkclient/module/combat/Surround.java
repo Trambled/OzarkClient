@@ -23,7 +23,7 @@ public class Surround extends Module {
 
 		this.name        = "Surround";
 		this.tag         = "Surround";
-		this.description = "surround urself with obi and such";
+		this.description = "surround urself with obi";
 	}
 
 	Setting mode = create("Mode", "SurroundMode", "Normal", combobox("Normal", "Face", "Anticity"));

@@ -42,14 +42,13 @@ public class Ozark {
 	private static ModuleManager module_manager;
 	private static HUDManager hud_manager;
 	public static PastGUI past_gui;
-
 	public static GUI click_gui;
+	public static HUD click_hud;
 
 	public static CustomFontRenderer latoFont;
 	public static CustomFontRenderer verdanaFont;
 	public static CustomFontRenderer arialFont;
 
-	public static HUD click_hud;
 	public static Turok turok;
 
 	public static ChatFormatting g = ChatFormatting.DARK_GRAY;
@@ -75,7 +74,7 @@ public class Ozark {
 		hud_manager = new HUDManager();
 
 		EventManager event_manager = new EventManager();
-		CommandManager command_manager = new CommandManager(); // hack
+		CommandManager command_manager = new CommandManager();
 
 		send_minecraft_log("Done");
 
@@ -96,7 +95,6 @@ public class Ozark {
 
 		send_minecraft_log("Initialising commands and events");
 
-		// Register event modules and manager.
 		EventRegister.register_command_manager(command_manager);
 		EventRegister.register_module_manager(event_manager);
 
@@ -113,9 +111,8 @@ public class Ozark {
 		latoFont = new CustomFontRenderer(new Font("Lato", 0, 18), true, false);
 		verdanaFont = new CustomFontRenderer(new Font("Verdana", 0, 18), true, false);
 		arialFont = new CustomFontRenderer(new Font("Arial", 0, 18), true, false);
-		send_minecraft_log("Custom fonts loaded (from past, however it was made by 086)");
+		send_minecraft_log("Custom fonts loaded (from past, and used for past gui, however it was made by 086)");
 
-		// module fixing
 		if (module_manager.get_module_with_tag("GUI").is_active()) {
 			send_minecraft_log("Fixing GUI");
 			module_manager.get_module_with_tag("GUI").set_active(false);
@@ -152,7 +149,7 @@ public class Ozark {
 		client_b = get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorB").get_value(1);
 		
 		send_minecraft_log("Client started");
-		send_minecraft_log("We gaming");
+		send_minecraft_log("we bout to do a little trollin");
 	}
 	
 	public void init_log(String name) {

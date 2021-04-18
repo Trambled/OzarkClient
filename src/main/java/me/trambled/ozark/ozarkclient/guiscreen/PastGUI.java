@@ -10,6 +10,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.init.SoundEvents;
 
 import java.util.ArrayList;
@@ -111,6 +112,12 @@ public class PastGUI extends GuiScreen {
     @Override
     public void onGuiClosed() {
         Ozark.get_hack_manager().get_module_with_tag("PastGUI").set_active(false);
+
+        if (OpenGlHelper.shadersSupported) {
+            try {
+                mc.entityRenderer.getShaderGroup().deleteShaderGroup();
+            } catch (Exception ignored) {}
+        }
     }
 
     @Override

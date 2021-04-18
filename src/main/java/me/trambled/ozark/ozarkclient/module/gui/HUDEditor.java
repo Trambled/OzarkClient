@@ -1,4 +1,8 @@
-package me.trambled.ozark.ozarkclient.module;
+package me.trambled.ozark.ozarkclient.module.gui;
+
+import me.trambled.ozark.ozarkclient.module.Category;
+import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
 
 import java.awt.*;
 
