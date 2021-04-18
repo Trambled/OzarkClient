@@ -15,19 +15,19 @@ Literal sex.
 5. Go into the file, look for build > libs > then you should see three .jar files, the one that has -all in end of it
 is the jar file you should use.
 
-6. Accept ozark owns you.
+6. Accept Ozark owns you.
 
-U also need a JDK, a free one is adopt open jdk https://adoptopenjdk.net/
+U also need a JDK, a free one is adopt open JDK https://adoptopenjdk.net/
 
 ## Issues and Crashes
 
-if you have certain issues, send someone who helps contribute to here your crash log,
-this will help us know what caused said crash and why it happened,
+If you have certain issues, send someone who helps contribute to here your crash log,
+This will help us know what caused said crash and why it happened.
 
-join this if u already arent in it for some reason:
+Join this if u already aren't in it for some reason:
 https://discord.gg/yHcBBDKDtY
 
-## how to use
+## How to use
 
 What's the default bind for ClickGUI?
 
@@ -40,22 +40,22 @@ Default Command Prefix?
 ## Details and stuff
 
 <details>
-  <summary>Notable stuff added</summary> <br>
-  Bed Aura - auto places and breaks beds on people, has break calculations and has modes for 1.13 and 1.12 servers<br>
-  Auto Crystal - very good and heavily modified w+2 autocrystal <br>
-  BurrowESP - highlights people who are burrowed <br>
-  Elyrafly - salhack but timer on takeoff <br>
-  Burrow - xulu but modified a bit to make it better <br>
-  Xray - with commands and opacity feature <br>
-  PastGUI - another gui originally from past <br>
-  Anticrystal - originally from xenon but added minhealth and crystal calculations to make it better, also supports string<br><br>
-  some other skidded shit and bug fixes <br>
+  <summary>Notable stuff added.</summary> <br>
+  Bed Aura - Auto places and breaks beds on people, has break calculations and has modes for 1.13 and 1.12 servers. <br>
+  Auto Crystal - Very good and heavily modified w+2 autocrystal. <br>
+  BurrowESP - Highlights people who are burrowed. <br>
+  Elytrafly - Salhack but timer on takeoff. <br>
+  Burrow - Xulu but modified a bit to make it better. <br>
+  Xray - With commands and opacity feature. <br>
+  PastGUI - Another GUI originally from past. <br>
+  Anticrystal - Originally from xenon but added minhealth and crystal calculations to make it better, also supports string.<br><br>
+  Some other skidded shit and bug fixes. <br>
 </details>
 
-## configing
+## Configuring
 
 <details>
-  <summary>etho's autocrystal config</summary> <br>
+  <summary>Etho's autocrystal config</summary> <br>
    Debug Off <br>
    Place/Break ON <br>
    Place/Break Range 5 <br>
@@ -80,13 +80,11 @@ Default Command Prefix?
 </details>
 
 
-For offhand use crystal mode and gapple in hole if u want, health is based on preference but 16-17 is the best u can get for a offhand to rarely fail without a crystal check.
+Offhand health is based on preference but 16-17 is the best u can get for an offhand to rarely fail without a crystal check anything higher is pretty unnecessary unless u get like 500+ ping or something.
 
-Default burrow delay is fine, but you can change it if it doesnt work for u that good.
+Elytrafly if it lags back with the default speed try lowering it, Setting the glide speed higher might also fix it, Also Elytrafly isn't compatible with nofall, Thats why Ozark Elytrafly auto toggles nofall, So make sure that no other clients have the nofall module toggled when you're using Elytrafly.
 
-Elytrafly set the speed to 1.8 - 2.0, go higher if the server anticheat allows it, if it lags back with normal speed, set glide speed higher, superior mode is the best mode btw, elytrafly isn't compatible with nofall, thats why ozark elytrafly auto toggles nofall, so make sure that no other clients have the nofall module toggled when you're using elytra fly. the timer module in elytrafly is good for taking off easier.
-
-## capes
+## Capes
 U can give cape designs and i can add u to the pastebin of uuids for capes.
 
 ## Ozark on top
