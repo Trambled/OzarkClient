@@ -33,11 +33,11 @@ public class Aura extends Module {
 		this.description = "Automatically hits enemies within a certain range.";
 	}
 
-	Setting mode = create("Mode", "KillAuraMode", "A32k", combobox("A32k", "Normal"));
+	Setting mode = create("Mode", "KillAuraMode", "Normal", combobox("A32k", "Normal"));
 	Setting player    = create("Player",   "KillAuraPlayer",  true);
 	Setting hostile   = create("Hostile",  "KillAuraHostile", false);
 	Setting sword     = create("Sword",    "KillAuraSword",   true);
-	Setting sync_tps  = create("Sync TPS", "KillAuraSyncTps", true);
+	Setting sync_tps  = create("Sync TPS", "KillAuraSyncTps", false);
 	Setting range     = create("Range",    "KillAuraRange",   5.0, 0.5, 6.0);
 	Setting delay = create("Delay", "KillAuraDelay", 2, 0, 10);
 
