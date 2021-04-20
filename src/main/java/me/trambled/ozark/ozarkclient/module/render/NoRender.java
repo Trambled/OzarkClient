@@ -29,16 +29,16 @@ public class NoRender extends Module {
     Setting items = create("Items", "Items", false);
     Setting withers = create("Withers", "Withers", false);
     Setting wither_skulls = create("Wither Skulls", "WitherSkulls", true);
-    Setting sand = create("Sand", "Sand", true);
+    Setting sand = create("Sand", "Sand", false);
     Setting fire = create("Fire", "Fire", true);
     Setting water = create("Water", "Water", true);
     Setting pumpkin = create("Pumpkin", "Pumpkin", true);
-    Setting boss_health = create("Boss Health", "BossHealth", true);
+    Setting boss_health = create("Boss Health", "BossHealth", false);
     Setting firework_rocket = create("Firework Rocket", "FireworksRockets", false);
     Setting hurt_cam = create("Hurt Cam", "HurtCam", true);
     Setting skylight = create("Skylight", "Skylight", false);
-    Setting armor = create("Armor", "Armor", true);
-    Setting enchanting_table = create("Enchanting Table", "EnchantingTable", true);
+    Setting armor = create("Armor", "Armor", false);
+    Setting enchanting_table = create("Enchanting Table", "EnchantingTable", false);
     Setting beacon = create("Beacon", "Beacon", false);
     Setting nametags = create("Nametags", "Nametags", false);
 	
