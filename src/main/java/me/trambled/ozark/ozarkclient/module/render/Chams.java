@@ -33,11 +33,11 @@ public class Chams extends Module {
     }
 
     Setting mode = create("Mode", "ChamsMode", "Outline", combobox("Outline", "Wireframe"));
-    Setting players = create("Players", "ChamsPlayers", true);
-    Setting mobs = create("Mobs", "ChamsMobs", true);
-    Setting self = create("Self", "ChamsSelf", true);
-    Setting items = create("Items", "ChamsItems", true);
-    Setting xporbs = create("Xp Orbs", "ChamsXPO", true);
+    Setting players = create("Players", "ChamsPlayers", false);
+    Setting mobs = create("Mobs", "ChamsMobs", false);
+    Setting self = create("Self", "ChamsSelf", false);
+    Setting items = create("Items", "ChamsItems", false);
+    Setting xporbs = create("Xp Orbs", "ChamsXPO", false);
     Setting xpbottles = create("Xp Bottles", "ChamsBottles", true);
     Setting pearl = create("Pearls", "ChamsPearls", true);
     Setting top = create("Top", "ChamsTop", true);
