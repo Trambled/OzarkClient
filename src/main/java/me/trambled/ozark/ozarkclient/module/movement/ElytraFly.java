@@ -29,7 +29,7 @@ public final class ElytraFly extends Module
 	Setting vAccelerationTimer = create("Acceleration Timer", "ElytraFlyTimer", 1000, 0, 10000);
 	Setting RotationPitch = create("RotationPitch", "ElytraPitch", 0f, -90f, 90f);
 	Setting InstantFly = create("InstantFly", "ElytraFlyInstant", true);
-    Setting EquipElytra = create("EquipElytra", "ElytraFlyEquip", true);
+    Setting EquipElytra = create("EquipElytra", "ElytraFlyEquip", false);
 	Setting use_timer = create("Use Timer", "UseTimer", true);
 
     private final TimerUtil AccelerationTimer = new TimerUtil();
