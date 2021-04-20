@@ -44,31 +44,31 @@ public class AutoCrystal extends Module {
     Setting debug = create("Debug", "CaDebug", false);
     Setting place_crystal = create("Place", "CaPlace", true);
     Setting break_crystal = create("Break", "CaBreak", true);
-    Setting break_trys = create("Break Attempts", "CaBreakAttempts", 2, 1, 6);
+    Setting break_trys = create("Break Attempts", "CaBreakAttempts", 1, 1, 6);
     Setting anti_weakness = create("Anti-Weakness", "CaAntiWeakness", true);
     Setting alternative = create("Alternative", "CaAlternative", false);
-    Setting module_check = create("Module Check", "CaModuleCheck", true);
+    Setting module_check = create("Module Check", "CaModuleCheck", false);
     Setting predict = create("Predict", "CaPredict", true);
     Setting predict_factor = create("Predict Factor", "CaPredictFactor", 1f, 0f, 2f);
     Setting verify_place = create("Verify Place", "CaVerifyPlace", false);
     Setting inhibit = create("Inhibit", "CaInhibit", true);
-    Setting inhibit_delay = create("Inhibit Delay", "CaInhibitDelay", 1, 0, 10);
+    Setting inhibit_delay = create("Inhibit Delay", "CaInhibitDelay", 0, 0, 10);
     Setting inhibit_swings = create("Inhibit Swings", "CaInhibitSwings", 50, 1, 100);
 
     Setting hit_range = create("Hit Range", "CaHitRange", 5f, 1f, 6f);
     Setting place_range = create("Place Range", "CaPlaceRange", 5f, 1f, 6f);
     Setting hit_range_wall = create("Range Wall", "CaRangeWall", 3.5f, 1f, 6f);
-    Setting player_range = create("Player Range", "CaPlayerRange", 11f, 1f, 13f);
+    Setting player_range = create("Player Range", "CaPlayerRange", 10f, 1f, 13f);
 
     Setting place_delay = create("Place Delay", "CaPlaceDelay", 0, 0, 10);
-    Setting break_delay = create("Break Delay", "CaBreakDelay", 3, 0, 10);
+    Setting break_delay = create("Break Delay", "CaBreakDelay", 1, 0, 10);
 
-    Setting min_player_place = create("Min Enemy Place", "CaMinEnemyPlace", 8, 0, 20);
+    Setting min_player_place = create("Min Enemy Place", "CaMinEnemyPlace", 6, 0, 20);
     Setting min_player_break = create("Min Enemy Break", "CaMinEnemyBreak", 6, 0, 20);
-    Setting max_self_damage = create("Max Self Damage", "CaMaxSelfDamage", 6, 0, 20);
+    Setting max_self_damage = create("Max Self Damage", "CaMaxSelfDamage", 8, 0, 20);
 
-    Setting min_health_pause = create("Min Health Pause", "CaMinHealthPause", false);
-    Setting required_health = create("Required Health", "CaRequiredHealth", 12f, 1f, 36f);
+    Setting min_health_pause = create("Min Health Pause", "CaMinHealthPause", true);
+    Setting required_health = create("Required Health", "CaRequiredHealth", 1f, 1f, 36f);
 
     Setting packet_place = create("Packet Place", "CaPacketPlace", true);
     Setting packet_break = create("Packet Break", "CaPackeBreak", true);
@@ -92,11 +92,11 @@ public class AutoCrystal extends Module {
     Setting multi_place = create("Multi Place", "CaMultiplace", false);
 
     Setting faceplace_mode = create("Faceplace Mode", "CaTabbottMode", true);
-    Setting faceplace_mode_damage = create("Faceplace Health", "CaTabbottModeHealth", 8, 0, 36);
+    Setting faceplace_mode_damage = create("Faceplace Health", "CaTabbottModeHealth", 10, 0, 36);
 
     Setting fuck_armor_mode = create("Armor Destroy", "CaArmorDestroy", true);
-    Setting fuck_armor_mode_precent = create("Enemy Armor %", "CaArmorPercent", 25, 0, 100);
-    Setting fuck_armor_mode_precent_self = create("Self Armor %", "CaArmorPercentSelf", 20, 0, 100);
+    Setting fuck_armor_mode_precent = create("Enemy Armor %", "CaArmorPercent", 5, 0, 100);
+    Setting fuck_armor_mode_precent_self = create("Self Armor %", "CaArmorPercentSelf", 10, 0, 100);
 
     Setting stop_while_mining = create("Stop While Mining", "CaStopWhileMining", false);
     Setting stop_while_eating = create("Stop While Eating", "CaStopWhileEatin", false);
