@@ -14,7 +14,6 @@ public class HUDEditor extends Module {
 		this.name        = "HUD";
 		this.tag         = "HUDEditor";
 		this.description = "Allows u to modify the hud";
-		this.toggle_message = false;
 	}
 
 	Setting frame_view = create("info", "HUDStringsList", "Strings");
