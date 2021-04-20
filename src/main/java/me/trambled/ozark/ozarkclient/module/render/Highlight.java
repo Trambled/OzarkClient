@@ -25,7 +25,7 @@ public class Highlight extends Module {
 
 	Setting mode = create("Mode", "HighlightMode", "Pretty", combobox("Pretty", "Solid", "Outline"));
 	
-	Setting rgb = create("RGB Effect", "HighlightRGBEffect", true);
+	Setting rgb = create("RGB Effect", "HighlightRGBEffect", false);
 	
 	Setting r = create("R", "HighlightR", 255, 0, 255);
 	Setting g = create("G", "HighlightG", 255, 0, 255);
