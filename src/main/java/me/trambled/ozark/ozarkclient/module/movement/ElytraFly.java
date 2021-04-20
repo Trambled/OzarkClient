@@ -22,8 +22,8 @@ import net.minecraft.util.math.Vec3d;
 public final class ElytraFly extends Module
 {
 	Setting mode = create("Mode", "ElytraFlyMode", "Superior", combobox("Superior", "Normal", "Control", "None"));
-    Setting speed = create("Speed", "ElytraFlySpeed", 1.82f, 0f, 10f);
-    Setting DownSpeed = create("DownSpeed", "ElytraFlyDownSpeed", 1.82f, 0f, 10f);
+    Setting speed = create("Speed", "ElytraFlySpeed", 2f, 0f, 10f);
+    Setting DownSpeed = create("DownSpeed", "ElytraFlyDownSpeed", 2f, 0f, 10f);
     Setting GlideSpeed = create("GlideSpeed", "ElytraFlyGlideSpeed", 1f, 0f, 10f);
 	Setting Accelerate = create("Accelerate", "ElytraFlyAccelerate", true);
 	Setting vAccelerationTimer = create("Acceleration Timer", "ElytraFlyTimer", 1000, 0, 10000);
