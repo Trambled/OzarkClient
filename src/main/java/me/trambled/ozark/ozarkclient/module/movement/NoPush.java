@@ -18,7 +18,6 @@ public class NoPush extends Module {
 		this.name        = "NoPush";
 		this.tag         = "NoPush";
 		this.description = "prevents you getting raped by being forced to get out of a block";
-        this.toggle_message = false;
     }
 	
     Setting burrow_only = create("Burrow Only", "BurrowOnly", false);
