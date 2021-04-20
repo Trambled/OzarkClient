@@ -15,7 +15,6 @@ public class ClickGUI extends Module {
 		this.name        = "GUI";
 		this.tag         = "GUI";
 		this.description = "The main gui";
-		this.toggle_message = false;
 	}
 
 	Setting scroll_speed = create("Scroll Speed", "ClickGUIScrollSpeed", 10, 0, 30);
