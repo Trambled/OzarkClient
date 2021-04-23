@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class AutoRacist extends Module {
+public class AntiHaram extends Module {
     
-    public AutoRacist() {
+    public AntiHaram() {
         super(Category.CHAT);
 
         this.name = "Anti Haram";
@@ -32,18 +32,15 @@ public class AutoRacist extends Module {
         
         tick_delay = 0;
 
-        chants.add("PICK MY COTTON NIGGER");
-        chants.add("BLACK NIGGER COON");
-        chants.add("KIKE");
-        chants.add("I <3 THE CONFEDERACY");
-        chants.add("NIGGERS BELONG ON THE BACK OF THE BUS");
-        chants.add("KICK THAT NIGGER BITCH OFF THE PLANE!!");
-        chants.add("DEATH TO THE KIKES");
-        chants.add("HEIL HITLER");
-        chants.add("I <3 THE KKK");
-        chants.add("#FREEDEREKCHAUVIN");
-        chants.add("I HATE JEWS, FAGGOTS, NIGGERS, AND SPICS");
-
+        chants.add("ALLAHU AKBAR");
+        chants.add("HARAM PIGGIES DIE FOR ALLAH");
+        chants.add("#FREEPALESTINE");
+        chants.add("BISMILLAH AL RAHAM AL RAHIM");
+        chants.add("MUHAMMAD PEACE BE UPON HIM");
+        chants.add("I PRAY TO ALLAH 5 TIMES A DAY");
+        chants.add("DEATH TO STINKY HARAM INFIDELS");
+        chants.add("PORK = HARAM");
+     
     }
 
     @Override
