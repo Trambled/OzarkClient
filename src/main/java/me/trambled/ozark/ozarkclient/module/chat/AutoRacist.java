@@ -62,5 +62,14 @@ public class AutoRacist extends Module {
         tick_delay = 0;
 
     }
+    
+    public String get_random_name() {
+
+        List<EntityPlayer> players = mc.world.playerEntities;
+
+        return players.get(r.nextInt(players.size())).getName();
+
+    }
+
 
 }
