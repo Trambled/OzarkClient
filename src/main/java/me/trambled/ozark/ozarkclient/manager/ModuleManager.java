@@ -46,6 +46,7 @@ public class ModuleManager {
 		add_module(new RetardChat());
 		add_module(new ChatSpammer());
 		add_module(new AutoRacist());
+		add_module(new AutoSuicide());
 
 		// Combat.
 		add_module(new Criticals());
