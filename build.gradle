@@ -1,6 +1,11 @@
 buildscript {
 	repositories {
 		jcenter()
+		
+		maven {
+  		        name = "lukflug"
+ 			url = "https://lukflug.github.io/maven/"
+		}	
 
 		maven {
 			name = "SpongePowered"
@@ -8,7 +13,7 @@ buildscript {
 		}
 
 		maven {
-			url = "https://files.minecraftforge.net/maven"
+			url = "https://maven.minecraftforge.net/"
 		}
 	}
 
