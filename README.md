@@ -82,7 +82,7 @@ Default Command Prefix?
 
 Offhand health is based on preference but 16-17 is the best u can get for an offhand to rarely fail without a crystal check anything higher is pretty unnecessary unless u get like 500+ ping or something.
 
-Elytrafly if it lags back with the default speed try lowering it, Setting the glide speed higher might also fix it, Also Elytrafly isn't compatible with nofall, Thats why Ozark Elytrafly auto toggles nofall, So make sure that no other clients have the nofall module toggled when you're using Elytrafly.
+Elytrafly if it lags back with the default speed try lowering it, Setting the glide speed higher might also fix it, Also Elytrafly isn't compatible with nofall, Thats why Ozark Elytrafly auto toggles nofall, So make sure that no other clients have the nofall module toggled when you're using Elytrafly. Elytrafly also can bug out with strafe enabled.
 
 ## Capes
 U can give cape designs and i can add u to the pastebin of uuids for capes.
