@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class AutoRacist extends Module {
     
-    public ChatSpammer() {
+    public AutoRacist() {
         super(Category.CHAT);
 
         this.name = "AutoRacist";
