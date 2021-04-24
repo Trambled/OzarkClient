@@ -44,15 +44,11 @@ public class ModuleManager {
 		add_module(new WeaknessAlert());
 		add_module(new RetardChat());
 		add_module(new ChatSpammer());
-<<<<<<< Updated upstream
 		add_module(new AutoRacist());
 		add_module(new AutoSuicide());
 		add_module(new AntiHaram());
-		
-=======
 		add_module(new Spammer());
 		add_module(new FactSpammer());
->>>>>>> Stashed changes
 
 		// Combat.
 		add_module(new Criticals());
