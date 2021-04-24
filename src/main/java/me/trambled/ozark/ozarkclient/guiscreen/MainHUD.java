@@ -6,7 +6,7 @@ import me.trambled.ozark.ozarkclient.guiscreen.hud.items.PinnableButton;
 import net.minecraft.client.gui.GuiScreen;
 
 
-public class HUD extends GuiScreen {
+public class MainHUD extends GuiScreen {
 	private final Frame frame;
 
 	private int frame_height;
@@ -14,8 +14,8 @@ public class HUD extends GuiScreen {
 	public boolean on_gui;
 	public boolean back;
 
-	public HUD() {
-		this.frame  = new Frame("HUD Editor", "WurstplusHUD", 40, 40);
+	public MainHUD() {
+		this.frame  = new Frame("HUD Editor", "HUD", 40, 40);
 		this.back   = false;
 		this.on_gui = false;
 	}

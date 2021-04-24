@@ -5,7 +5,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemFood;
@@ -114,10 +113,8 @@ public class PlayerUtil
     
     public void addSpeed(final Double speed) {
         final Double yaw = this.getMoveYaw();
-        final EntityPlayerSP player = PlayerUtil.mc.player;
-        player.motionX -= Math.sin(yaw) * speed;
-        final EntityPlayerSP player2 = PlayerUtil.mc.player;
-        player2.motionZ += Math.cos(yaw) * speed;
+        mc.player.motionX -= Math.sin(yaw) * speed;
+        mc.player.motionZ += Math.cos(yaw) * speed;
     }
     
     public void setTimer(final float speed) {

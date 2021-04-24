@@ -2,7 +2,7 @@ package me.trambled.ozark.mixins;
 
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.event.EventBus;
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventBlockGetRenderLayer;
 import me.trambled.ozark.ozarkclient.module.render.Xray;
 import net.minecraft.block.Block;
@@ -30,7 +30,7 @@ public class MixinBlock
     public void getRenderLayer(CallbackInfoReturnable<BlockRenderLayer> callback)
     {
         EventBlockGetRenderLayer event = new EventBlockGetRenderLayer((Block) (Object) this);
-        EventBus.EVENT_BUS.post(event);
+        Eventbus.EVENT_BUS.post(event);
 
         if (event.isCancelled())
         {

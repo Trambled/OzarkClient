@@ -1,7 +1,7 @@
 package me.trambled.ozark.mixins;
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.event.EventBus;
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventBlock;
 import me.trambled.ozark.ozarkclient.event.events.EventDamageBlock;
 import net.minecraft.block.state.IBlockState;
@@ -31,7 +31,7 @@ public class MixinPlayerControllerMP {
 
         EventDamageBlock event_packet = new EventDamageBlock(posBlock, directionFacing);
 
-		EventBus.EVENT_BUS.post(event_packet);
+		Eventbus.EVENT_BUS.post(event_packet);
 
 		if (event_packet.isCancelled()) {
 			info.setReturnValue(false);
@@ -39,12 +39,12 @@ public class MixinPlayerControllerMP {
 		}
 
 		final EventBlock event = new EventBlock(4, posBlock, directionFacing);
-		EventBus.EVENT_BUS.post(event);
+		Eventbus.EVENT_BUS.post(event);
 	}
 
 	@Inject(method = { "clickBlock" }, at = { @At("HEAD") }, cancellable = true)
 	private void clickBlockHook(final BlockPos pos, final EnumFacing face, final CallbackInfoReturnable<Boolean> info) {
 		final EventBlock event = new EventBlock(3, pos, face);
-		EventBus.EVENT_BUS.post(event);
+		Eventbus.EVENT_BUS.post(event);
 	}
 }

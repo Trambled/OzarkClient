@@ -29,7 +29,7 @@ public class Criticals extends Module {
 		if (event.get_packet() instanceof CPacketUseEntity) {
 			CPacketUseEntity event_entity = ((CPacketUseEntity) event.get_packet());
 			if (event_entity.getAction() == CPacketUseEntity.Action.ATTACK && mc.player.onGround) {
-				if ((only_when_ka.get_value(true) && Ozark.get_module_manager().get_module_with_tag("Aura").is_active()) || !only_when_ka.get_value(true)) {
+				if (Ozark.get_module_manager().get_module_with_tag("Aura").is_active() || !only_when_ka.get_value(true)) {
 					if (mode.in("Packet")) {
 						mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY + 0.1f, mc.player.posZ, false));
 						mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY, mc.player.posZ, false));

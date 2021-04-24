@@ -1,7 +1,7 @@
 package me.trambled.ozark.mixins;
 
 import io.netty.channel.ChannelHandlerContext;
-import me.trambled.ozark.ozarkclient.event.EventBus;
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
@@ -20,7 +20,7 @@ public class MixinNetworkManager {
 	private void receive(ChannelHandlerContext context, Packet<?> packet, CallbackInfo callback) {
 		EventPacket event_packet = new EventPacket.ReceivePacket(packet);
 
-		EventBus.EVENT_BUS.post(event_packet);
+		Eventbus.EVENT_BUS.post(event_packet);
 
 		if (event_packet.isCancelled()) {
 			callback.cancel();
@@ -32,7 +32,7 @@ public class MixinNetworkManager {
 	private void send(Packet<?> packet, CallbackInfo callback) {
 		EventPacket event_packet = new EventPacket.SendPacket(packet);
 
-		EventBus.EVENT_BUS.post(event_packet);
+		Eventbus.EVENT_BUS.post(event_packet);
 
 		if (event_packet.isCancelled()) {
 			callback.cancel();

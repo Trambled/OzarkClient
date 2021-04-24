@@ -28,9 +28,8 @@ public class ModuleManager {
 
 	public ModuleManager() {
 		// Click GUI and HUD.
-		add_module(new ClickGUI());
-		add_module(new ClickHUD());
-		add_module(new HUDEditor());
+		add_module(new OldGUI());
+		add_module(new HUD());
 		add_module(new PastGUIModule());
 
 		// Chat.
@@ -45,10 +44,15 @@ public class ModuleManager {
 		add_module(new WeaknessAlert());
 		add_module(new RetardChat());
 		add_module(new ChatSpammer());
+<<<<<<< Updated upstream
 		add_module(new AutoRacist());
 		add_module(new AutoSuicide());
 		add_module(new AntiHaram());
 		
+=======
+		add_module(new Spammer());
+		add_module(new FactSpammer());
+>>>>>>> Stashed changes
 
 		// Combat.
 		add_module(new Criticals());
@@ -91,7 +95,7 @@ public class ModuleManager {
 		add_module(new PacketMine());
 		add_module(new EntityMine());
 		add_module(new BuildHeight());
-		add_module(new AutoDupe());
+		add_module(new AutoStackDupe());
 		add_module(new EntityDesync());
 		add_module(new Timer());
 		add_module(new Burrow());
@@ -113,14 +117,12 @@ public class ModuleManager {
 		add_module(new ElytraFly());
 		add_module(new Flight());
 		add_module(new NoFall());
-		add_module(new OldElytraFly());
 		add_module(new NoPush());
 		add_module(new NoSlowDown());
 		add_module(new LongJump());
 		add_module(new Anchor());
 		add_module(new AntiLevitation());
 		add_module(new EntitySpeed());
-		
 
 		// Render.
 		add_module(new Highlight());
@@ -153,15 +155,14 @@ public class ModuleManager {
 		add_module(new AutoNomadHut());
 		add_module(new FastUtil());
 		add_module(new Speedmine());
-		add_module(new RPCModule());
+		add_module(new DiscordRPC());
 		add_module(new FakePlayer());
 		add_module(new EntityControl());
 		add_module(new PacketCanceller());
 		add_module(new AutoKit());
 		add_module(new AutoEat());
-		add_module(new AutoDupe2());
+		add_module(new AutoDupeIStack());
 		add_module(new AutoTool());
-		add_module(new Fucker());
 		add_module(new AutoBuilder());
 		add_module(new AutoRespawn());
 		add_module(new InventorySort());
@@ -169,6 +170,8 @@ public class ModuleManager {
 		add_module(new AntiSound());
 		add_module(new Friends());
 		add_module(new DonkeyAlert());
+		add_module(new Portals());
+		add_module(new TabColours());
 		
 		array_modules.sort(Comparator.comparing(Module::get_name));
 	}

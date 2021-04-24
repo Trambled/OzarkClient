@@ -1,7 +1,7 @@
 package me.trambled.ozark.mixins;
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.event.EventBus;
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventGUIScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 // External.
-
 
 @Mixin(value = Minecraft.class)
 public class MixinMinecraft {
@@ -24,7 +23,7 @@ public class MixinMinecraft {
 	private void displayGuiScreen(GuiScreen guiScreenIn, CallbackInfo info) {
 		EventGUIScreen guiscreen = new EventGUIScreen(guiScreenIn);
 
-		EventBus.EVENT_BUS.post(guiscreen);
+		Eventbus.EVENT_BUS.post(guiscreen);
 	}
 
 }

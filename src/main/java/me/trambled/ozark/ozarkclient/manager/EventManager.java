@@ -4,7 +4,7 @@ import me.trambled.turok.draw.RenderHelp;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.command.Command;
 import me.trambled.ozark.ozarkclient.command.Commands;
-import me.trambled.ozark.ozarkclient.event.EventBus;
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventGameOverlay;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
 import net.minecraft.client.Minecraft;
@@ -64,7 +64,7 @@ public class EventManager {
 			return;
 		}
 
-		EventBus.EVENT_BUS.post(new EventGameOverlay(event.getPartialTicks(), new ScaledResolution(mc)));
+		Eventbus.EVENT_BUS.post(new EventGameOverlay(event.getPartialTicks(), new ScaledResolution(mc)));
 
 		RenderGameOverlayEvent.ElementType target = RenderGameOverlayEvent.ElementType.EXPERIENCE;
 
@@ -102,7 +102,6 @@ public class EventManager {
 
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public void onChat(ClientChatEvent event) {
-		String   message      = event.getMessage();
 		String[] message_args = CommandManager.command_list.get_message(event.getMessage());
 
 		boolean true_command = false;
@@ -131,13 +130,13 @@ public class EventManager {
 
 	@SubscribeEvent
 	public void onInputUpdate(InputUpdateEvent event) {
-		EventBus.EVENT_BUS.post(event);
+		Eventbus.EVENT_BUS.post(event);
 	}
 
     @SubscribeEvent
     public void onRenderBlockOverlay(RenderBlockOverlayEvent event)
     {
-        EventBus.EVENT_BUS.post(event);
+        Eventbus.EVENT_BUS.post(event);
     }
 
 

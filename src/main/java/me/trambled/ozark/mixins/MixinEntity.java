@@ -1,6 +1,6 @@
 package me.trambled.ozark.mixins;
 
-import me.trambled.ozark.ozarkclient.event.EventBus;
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
@@ -19,7 +19,7 @@ public class MixinEntity {
 	public void velocity(Entity entity, double x, double y, double z) {
 		EventEntity.EventColision event = new EventEntity.EventColision(entity, x, y, z);
 
-		EventBus.EVENT_BUS.post(event);
+		Eventbus.EVENT_BUS.post(event);
 
 		if (event.isCancelled()) {
 			return;

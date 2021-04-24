@@ -24,7 +24,7 @@ public class EventHandler implements Listenable {
 	});
 
 	public EventHandler() {
-		EventBus.EVENT_BUS.subscribe(this);
+		Eventbus.EVENT_BUS.subscribe(this);
 
 		reset_tick();
 	}

@@ -1,5 +1,6 @@
 package me.trambled.ozark.mixins;
 
+import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.util.TabUtil;
 import net.minecraft.client.gui.GuiPlayerTabOverlay;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -24,7 +25,9 @@ public class MixinGuiPlayerTabOverlay {
 
     @Inject(method = { "getPlayerName" }, at = { @At("HEAD") }, cancellable = true)
     public void getPlayerNameHook(final NetworkPlayerInfo networkPlayerInfoIn, final CallbackInfoReturnable<String> info) {
-        info.setReturnValue(TabUtil.get_player_name(networkPlayerInfoIn));
+        if (Ozark.get_hack_manager().get_module_with_tag("TabColors").is_active()) {
+            info.setReturnValue(TabUtil.get_player_name(networkPlayerInfoIn));
+        }
     }
 
 }

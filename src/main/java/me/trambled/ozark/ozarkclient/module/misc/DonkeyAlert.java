@@ -9,6 +9,7 @@ import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.passive.EntityDonkey;
 import net.minecraft.entity.passive.EntityLlama;
@@ -31,7 +32,8 @@ public class DonkeyAlert extends Module
     Setting donkeys = create("Donkeys", "AlertDonkeys", true);
     Setting llamas = create("Llamas", "AlertLlamas", true);
     Setting mules = create("Mules", "AlertMules", true);
-    Setting slimes = create("Slimes", "AlertSlimes", true);
+    Setting slimes = create("Slimes", "AlertSlimes", false);
+    Setting ghasts = create("Ghasts", "AlertGhast", false);
     Setting sound = create("Sound", "AlertSound", true);
 
     List<Entity> entities = new ArrayList<>();
@@ -85,6 +87,17 @@ public class DonkeyAlert extends Module
                         mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f));
                     }
                     MessageUtil.send_client_message("Slime found at " + Math.round(e.posX) + ", " + Math.round(e.posZ) + "!");
+                    entities.add(e);
+                }
+            }
+        }
+        if (ghasts.get_value(true)) {
+            for (final Entity e : mc.world.loadedEntityList) {
+                if (e instanceof EntityGhast && !entities.contains(e)) {
+                    if (sound.get_value(true)) {
+                        mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f));
+                    }
+                    MessageUtil.send_client_message("Ghast found at " + Math.round(e.posX) + ", " + Math.round(e.posZ) + "!");
                     entities.add(e);
                 }
             }

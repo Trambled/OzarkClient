@@ -248,6 +248,6 @@ public class Pinnable {
 	}
 
 	protected boolean is_on_gui() {
-		return Ozark.click_hud.on_gui;
+		return Ozark.main_hud.on_gui;
 	}
 }

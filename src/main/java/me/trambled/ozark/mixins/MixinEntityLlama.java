@@ -1,6 +1,6 @@
 package me.trambled.ozark.mixins;
 
-import me.trambled.ozark.ozarkclient.event.EventBus;
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventSteerEntity;
 import net.minecraft.entity.passive.EntityLlama;
 
@@ -16,7 +16,7 @@ public class MixinEntityLlama
     public void canBeSteered(CallbackInfoReturnable<Boolean> cir)
     {
         EventSteerEntity event = new EventSteerEntity();
-        EventBus.EVENT_BUS.post(event);
+        Eventbus.EVENT_BUS.post(event);
 
         if (event.isCancelled())
         {

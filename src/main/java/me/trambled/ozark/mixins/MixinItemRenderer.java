@@ -1,7 +1,7 @@
 package me.trambled.ozark.mixins;
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.event.EventBus;
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventTransformSideFirstPerson;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.item.ItemStack;
@@ -16,13 +16,13 @@ public class MixinItemRenderer {
     @Inject(method = "transformSideFirstPerson", at = @At("HEAD"))
     public void transformSideFirstPerson(EnumHandSide hand, float p_187459_2_, CallbackInfo callbackInfo) {
         EventTransformSideFirstPerson event = new EventTransformSideFirstPerson(hand);
-        EventBus.EVENT_BUS.post(event);
+        Eventbus.EVENT_BUS.post(event);
     }
 
     @Inject(method = "transformEatFirstPerson", at = @At("HEAD"), cancellable = true)
     public void transformEatFirstPerson(float p_187454_1_, EnumHandSide hand, ItemStack stack, CallbackInfo callbackInfo) {
         EventTransformSideFirstPerson event = new EventTransformSideFirstPerson(hand);
-        EventBus.EVENT_BUS.post(event);
+        Eventbus.EVENT_BUS.post(event);
 
         if (Ozark.get_hack_manager().get_module_with_tag("CustomViewmodel").is_active() && Ozark.get_setting_manager().get_setting_with_tag("CustomViewmodel", "FOVCancelEating").get_value(true)) {
             callbackInfo.cancel();
@@ -32,7 +32,7 @@ public class MixinItemRenderer {
     @Inject(method = "transformFirstPerson", at = @At("HEAD"))
     public void transformFirstPerson(EnumHandSide hand, float p_187453_2_, CallbackInfo callbackInfo) {
         EventTransformSideFirstPerson event = new EventTransformSideFirstPerson(hand);
-        EventBus.EVENT_BUS.post(event);
+        Eventbus.EVENT_BUS.post(event);
     }
 
 }

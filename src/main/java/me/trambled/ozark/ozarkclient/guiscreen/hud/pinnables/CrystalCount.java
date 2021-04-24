@@ -17,10 +17,10 @@ public class CrystalCount extends Pinnable {
 
 	@Override
 	public void render() {
-		int nl_r = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorR").get_value(1);
-		int nl_g = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorG").get_value(1);
-		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorB").get_value(1);
-		int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorA").get_value(1);
+		int nl_r = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorR").get_value(1);
+		int nl_g = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorG").get_value(1);
+		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
+		int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorA").get_value(1);
 
 		if (mc.player != null) {
 			if (is_on_gui()) {

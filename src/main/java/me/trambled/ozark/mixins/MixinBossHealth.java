@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import me.trambled.ozark.ozarkclient.event.events.EventRenderBossHealth;
-import me.trambled.ozark.ozarkclient.event.EventBus;
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 import net.minecraft.client.gui.GuiBossOverlay;
 
 @Mixin(GuiBossOverlay.class)
@@ -16,7 +16,7 @@ public class MixinBossHealth
     public void renderBossHealth(CallbackInfo p_Info)
     {
         EventRenderBossHealth l_Event = new EventRenderBossHealth();
-        EventBus.EVENT_BUS.post(l_Event);
+        Eventbus.EVENT_BUS.post(l_Event);
         if (l_Event.isCancelled())
             p_Info.cancel();
     }

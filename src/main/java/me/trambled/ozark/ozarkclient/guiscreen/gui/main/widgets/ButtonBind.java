@@ -202,19 +202,19 @@ public class ButtonBind extends AbstractWidget {
 
 		this.save_y = this.y + master_y;
 
-		int ns_r = Ozark.click_gui.theme_widget_name_r;
-		int ns_g = Ozark.click_gui.theme_widget_name_g;
-		int ns_b = Ozark.click_gui.theme_widget_name_b;
-		int ns_a = Ozark.click_gui.theme_widget_name_a;
+		int ns_r = Ozark.main_gui.theme_widget_name_r;
+		int ns_g = Ozark.main_gui.theme_widget_name_g;
+		int ns_b = Ozark.main_gui.theme_widget_name_b;
+		int ns_a = Ozark.main_gui.theme_widget_name_a;
 
-		int bg_r = Ozark.click_gui.theme_widget_background_r;
-		int bg_g = Ozark.click_gui.theme_widget_background_g;
-		int bg_b = Ozark.click_gui.theme_widget_background_b;
-		int bg_a = Ozark.click_gui.theme_widget_background_a;
+		int bg_r = Ozark.main_gui.theme_widget_background_r;
+		int bg_g = Ozark.main_gui.theme_widget_background_g;
+		int bg_b = Ozark.main_gui.theme_widget_background_b;
+		int bg_a = Ozark.main_gui.theme_widget_background_a;
 
-		int bd_r = Ozark.click_gui.theme_widget_border_r;
-		int bd_g = Ozark.click_gui.theme_widget_border_g;
-		int bd_b = Ozark.click_gui.theme_widget_border_b;
+		int bd_r = Ozark.main_gui.theme_widget_border_r;
+		int bd_g = Ozark.main_gui.theme_widget_border_g;
+		int bd_b = Ozark.main_gui.theme_widget_border_b;
 
 		if (this.waiting) {
 			DrawUtil.draw_rect(get_x(), this.save_y, get_x() + this.width, this.save_y + this.height, bg_r, bg_g, bg_b, bg_a);

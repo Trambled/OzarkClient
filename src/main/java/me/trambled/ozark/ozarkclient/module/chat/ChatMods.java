@@ -25,14 +25,12 @@ public final class ChatMods extends Module {
         this.description = "this breaks things";
     }
 
-    // GuiNewChat nc = new GuiNewChat(mc);
-
     Setting timestamps = create("Timestamps", "ChatModsTimeStamps", true);
     Setting dateformat = create("Date Format", "ChatModsDateFormat", "24HR", combobox("24HR", "12HR"));
     Setting name_highlight = create("Name Highlight", "ChatModsNameHighlight", true);
 
     @EventHandler
-    private final Listener<EventPacket.ReceivePacket> PacketEvent = new Listener<>(event -> {
+    private final Listener<EventPacket.ReceivePacket> packet_event = new Listener<>(event -> {
 
         if (event.get_packet() instanceof SPacketChat) {
 

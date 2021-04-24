@@ -11,15 +11,15 @@ public class User extends Pinnable {
 
 	@Override
 	public void render() {
-		int nl_r = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorR").get_value(1);
-		int nl_g = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorG").get_value(1);
-		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorB").get_value(1);
-		int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorA").get_value(1);
+		int nl_r = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorR").get_value(1);
+		int nl_g = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorG").get_value(1);
+		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
+		int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorA").get_value(1);
 
 		String line;
 		int time = TimeUtil.get_hour();
 
-		if (Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDUserMode").in("Time")) {
+		if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDUserMode").in("Time")) {
 			if (time >= 0 && time < 12) {
 				line = "Morning, " + mc.player.getName() + " you smell good today :)";
 			} else if (time >= 12 && time < 16) {

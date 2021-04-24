@@ -1,6 +1,6 @@
 package me.trambled.ozark.mixins;
 
-import me.trambled.ozark.ozarkclient.event.EventBus;
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventRenderName;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.RenderPlayer;
@@ -17,7 +17,7 @@ public class MixinRenderPlayer {
 
 		EventRenderName event_packet = new EventRenderName(entityIn, x, y, z, name, distanceSq);
 
-        EventBus.EVENT_BUS.post(event_packet);
+        Eventbus.EVENT_BUS.post(event_packet);
         
         if (event_packet.isCancelled()) {
             info.cancel();

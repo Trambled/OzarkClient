@@ -14,7 +14,7 @@ import java.util.ArrayList;
 // Hacks.
 
 
-public class GUI extends GuiScreen {
+public class MainGUI extends GuiScreen {
 	private ArrayList<Frame> frame;
 
 	private int frame_x;
@@ -56,7 +56,7 @@ public class GUI extends GuiScreen {
 
 	private final Minecraft mc = Minecraft.getMinecraft();
 
-	public GUI() {
+	public MainGUI() {
 		this.frame   = new ArrayList<>();
 		this.frame_x = 10;
 

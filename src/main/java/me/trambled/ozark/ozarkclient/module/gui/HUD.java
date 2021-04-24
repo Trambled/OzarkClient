@@ -1,22 +1,21 @@
 package me.trambled.ozark.ozarkclient.module.gui;
 
+import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
 
 import java.awt.*;
 
-public class HUDEditor extends Module {
+public class HUD extends Module {
 
-	public HUDEditor() {
+	public HUD() {
 		super(Category.GUI);
 
 		this.name        = "HUD";
-		this.tag         = "HUDEditor";
+		this.tag         = "HUD";
 		this.description = "Allows u to modify the hud";
 	}
-
-	Setting frame_view = create("info", "HUDStringsList", "Strings");
 
 	Setting strings_r = create("Color R", "HUDStringsColorR", 255, 0, 255);
 	Setting strings_g = create("Color G", "HUDStringsColorG", 255, 0, 255);
@@ -30,16 +29,21 @@ public class HUDEditor extends Module {
 	Setting max_player_list = create("Max Players", "HUDMaxPlayers", 24, 1, 64);
 	
     @Override
-    public void update() {
+    public void update_always() {
 		if (rainbow.get_value(true)) {
 			cycle_rainbow();
 		}
     }
 
-    @Override
-	protected void disable() {
-    	//you can never defeat me
-    	this.set_enable();
+	@Override
+	public void enable() {
+		if (mc.world != null && mc.player != null) {
+			Ozark.get_hack_manager().get_module_with_tag("GUI").set_active(false);
+
+			Ozark.main_hud.back = false;
+
+			mc.displayGuiScreen(Ozark.main_hud);
+		}
 	}
 
     public void cycle_rainbow() {

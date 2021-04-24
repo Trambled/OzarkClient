@@ -27,7 +27,6 @@
     "MixinLayerArmorBase",
     "MixinNetHandlerPlayClient",
     "MixinRenderGlobal",
-    "MixinEntityPlayerSP",
     "MixinBlock",
     "MixinBlockPortal",
     "MixinBlockBush",

@@ -1,6 +1,6 @@
 package me.trambled.ozark.mixins;
 
-import me.trambled.ozark.ozarkclient.event.EventBus;
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventSteerEntity;
 import me.trambled.ozark.ozarkclient.event.events.EventHorseSaddled;
 import net.minecraft.entity.passive.AbstractHorse;
@@ -16,7 +16,7 @@ public class MixinAbstractHorse
     public void canBeSteered(CallbackInfoReturnable<Boolean> cir)
     {
         EventSteerEntity l_Event = new EventSteerEntity();
-        EventBus.EVENT_BUS.post(l_Event);
+        Eventbus.EVENT_BUS.post(l_Event);
 
         if (l_Event.isCancelled())
         {
@@ -29,7 +29,7 @@ public class MixinAbstractHorse
     public void isHorseSaddled(CallbackInfoReturnable<Boolean> cir)
     {
         EventHorseSaddled l_Event = new EventHorseSaddled();
-        EventBus.EVENT_BUS.post(l_Event);
+        Eventbus.EVENT_BUS.post(l_Event);
 
         if (l_Event.isCancelled())
         {

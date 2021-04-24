@@ -1,6 +1,6 @@
 package me.trambled.ozark.mixins;
 
-import me.trambled.ozark.ozarkclient.event.EventBus;
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventRenderPutColorMultiplier;
 import net.minecraft.client.renderer.BufferBuilder;
 
@@ -28,7 +28,7 @@ public abstract class MixinBufferBuilder
     {
         EventRenderPutColorMultiplier event = new EventRenderPutColorMultiplier();
 
-        EventBus.EVENT_BUS.post(event);
+        Eventbus.EVENT_BUS.post(event);
 
         if (event.isCancelled())
         {

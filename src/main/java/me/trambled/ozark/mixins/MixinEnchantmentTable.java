@@ -8,14 +8,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import me.trambled.ozark.ozarkclient.event.EventBus;
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 
 @Mixin(TileEntityEnchantmentTableRenderer.class)
 public class MixinEnchantmentTable {
     @Inject(method = "render", at = @At(value = "INVOKE"), cancellable = true)
     private void renderEnchantingTableBook(TileEntityEnchantmentTable te, double x, double y, double z, float partialTicks, int destroyStage, float alpha, CallbackInfo ci) {
         EventRenderEnchantingTable l_Event = new EventRenderEnchantingTable();
-        EventBus.EVENT_BUS.post(l_Event);
+        Eventbus.EVENT_BUS.post(l_Event);
         if(l_Event.isCancelled()) ci.cancel();
     }
 }

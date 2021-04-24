@@ -266,19 +266,19 @@ public class Frame {
 			border_a = 50;
 		} else border_a = Math.min((color_a), 120);
 
-		int nc_r = Ozark.click_gui.theme_frame_name_r;
-		int nc_g = Ozark.click_gui.theme_frame_name_g;
-		int nc_b = Ozark.click_gui.theme_frame_name_b;
-		int nc_a = Ozark.click_gui.theme_frame_name_a;
+		int nc_r = Ozark.main_gui.theme_frame_name_r;
+		int nc_g = Ozark.main_gui.theme_frame_name_g;
+		int nc_b = Ozark.main_gui.theme_frame_name_b;
+		int nc_a = Ozark.main_gui.theme_frame_name_a;
 
-		int bg_r = Ozark.click_gui.theme_frame_background_r;
-		int bg_g = Ozark.click_gui.theme_frame_background_g;
-		int bg_b = Ozark.click_gui.theme_frame_background_b;
-		int bg_a = Ozark.click_gui.theme_frame_background_a;
+		int bg_r = Ozark.main_gui.theme_frame_background_r;
+		int bg_g = Ozark.main_gui.theme_frame_background_g;
+		int bg_b = Ozark.main_gui.theme_frame_background_b;
+		int bg_a = Ozark.main_gui.theme_frame_background_a;
 
-		int bd_r = Ozark.click_gui.theme_frame_border_r;
-		int bd_g = Ozark.click_gui.theme_frame_border_g;
-		int bd_b = Ozark.click_gui.theme_frame_border_b;
+		int bd_r = Ozark.main_gui.theme_frame_border_r;
+		int bd_g = Ozark.main_gui.theme_frame_border_g;
+		int bd_b = Ozark.main_gui.theme_frame_border_b;
 		int bd_a = border_a;
 
 		this.frame_name = this.category.get_name();

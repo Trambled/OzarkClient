@@ -32,7 +32,6 @@ import static me.trambled.ozark.Ozark.send_minecraft_log;
 
 public class ConfigManager {
 
-    public File WurstplusFile;
     public File FILE_DIRECTORY;
 
     // FOLDERS
@@ -413,7 +412,7 @@ public class ConfigManager {
         config.add("user", new JsonPrimitive(Ozark.get_actual_user()));
         config.add("prefix", new JsonPrimitive(CommandManager.get_prefix()));
 
-        for (Frame frames_gui : Ozark.click_gui.get_array_frames()) {
+        for (Frame frames_gui : Ozark.main_gui.get_array_frames()) {
             JsonObject frame_info = new JsonObject();
 
             frame_info.add("name", new JsonPrimitive(frames_gui.get_name()));
@@ -447,10 +446,10 @@ public class ConfigManager {
 
         CommandManager.set_prefix(json_config.get("prefix").getAsString());
 
-        for (Frame frames : Ozark.click_gui.get_array_frames()) {
+        for (Frame frames : Ozark.main_gui.get_array_frames()) {
             JsonObject frame_info = json_gui.get(frames.get_tag()).getAsJsonObject();
 
-            Frame frame_requested = Ozark.click_gui.get_frame_with_tag(frame_info.get("tag").getAsString());
+            Frame frame_requested = Ozark.main_gui.get_frame_with_tag(frame_info.get("tag").getAsString());
 
             frame_requested.set_x(frame_info.get("x").getAsInt());
             frame_requested.set_y(frame_info.get("y").getAsInt());
@@ -470,10 +469,10 @@ public class ConfigManager {
         JsonObject main_frame = new JsonObject();
         JsonObject main_hud   = new JsonObject();
 
-        main_frame.add("name", new JsonPrimitive(Ozark.click_hud.get_frame_hud().get_name()));
-        main_frame.add("tag",  new JsonPrimitive(Ozark.click_hud.get_frame_hud().get_tag()));
-        main_frame.add("x",    new JsonPrimitive(Ozark.click_hud.get_frame_hud().get_x()));
-        main_frame.add("y",    new JsonPrimitive(Ozark.click_hud.get_frame_hud().get_y()));
+        main_frame.add("name", new JsonPrimitive(Ozark.main_hud.get_frame_hud().get_name()));
+        main_frame.add("tag",  new JsonPrimitive(Ozark.main_hud.get_frame_hud().get_tag()));
+        main_frame.add("x",    new JsonPrimitive(Ozark.main_hud.get_frame_hud().get_x()));
+        main_frame.add("y",    new JsonPrimitive(Ozark.main_hud.get_frame_hud().get_y()));
 
         for (Pinnable pinnables_hud : Ozark.get_hud_manager().get_array_huds()) {
             JsonObject frame_info = new JsonObject();
@@ -512,8 +511,8 @@ public class ConfigManager {
         JsonObject  main_frame = main_hud.get("frame").getAsJsonObject();
         JsonObject  main_huds  = main_hud.get("hud").getAsJsonObject();
 
-        Ozark.click_hud.get_frame_hud().set_x(main_frame.get("x").getAsInt());
-        Ozark.click_hud.get_frame_hud().set_y(main_frame.get("y").getAsInt());
+        Ozark.main_hud.get_frame_hud().set_x(main_frame.get("x").getAsInt());
+        Ozark.main_hud.get_frame_hud().set_y(main_frame.get("y").getAsInt());
 
         for (Pinnable pinnables : Ozark.get_hud_manager().get_array_huds()) {
             JsonObject hud_info = main_huds.get(pinnables.get_tag()).getAsJsonObject();

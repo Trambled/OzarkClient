@@ -2,7 +2,6 @@ package me.trambled.ozark.ozarkclient.util;
 
 import net.minecraft.client.Minecraft;
 
-//TODO: put rotation for entities here for aimbot
 public class RotationUtil {
 
    private static final Minecraft mc = Minecraft.getMinecraft();

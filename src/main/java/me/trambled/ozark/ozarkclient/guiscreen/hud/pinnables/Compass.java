@@ -26,10 +26,10 @@ public class Compass extends Pinnable {
     @Override
 	public void render() {
         
-        int r = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorR").get_value(1);
-        int g = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorG").get_value(1);
-        int b = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorB").get_value(1);
-        int a = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorA").get_value(1);
+        int r = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorR").get_value(1);
+        int g = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorG").get_value(1);
+        int b = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
+        int a = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorA").get_value(1);
 
         for (Direction dir : Direction.values()) {
 
@@ -56,14 +56,14 @@ public class Compass extends Pinnable {
     }
 
     private double get_x(double rad) {
-        return Math.sin(rad) * (Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDCompassScale").get_value(1));
+        return Math.sin(rad) * (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDCompassScale").get_value(1));
     }
 
     private double get_y(double rad) {
 
         final double epic_pitch = MathUtil.clamp2(mc.getRenderViewEntity().rotationPitch + 30f, -90f, 90f);
         final double pitch_radians = Math.toRadians(epic_pitch);
-        return Math.cos(rad) * Math.sin(pitch_radians) * (Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDCompassScale").get_value(1));
+        return Math.cos(rad) * Math.sin(pitch_radians) * (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDCompassScale").get_value(1));
 
     }
 

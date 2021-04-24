@@ -147,12 +147,13 @@ public class AutoTool extends Module
         }
 
         f = net.minecraftforge.event.ForgeEventFactory.getBreakSpeed(mc.player, state, f, pos);
-        return (f < 0 ? 0 : f);
+        return (f < 0 ? 0 : f); 
     }
 
     @EventHandler
     private final Listener<EventDamageBlock> DamageBlock = new Listener<>(p_Event ->
     {
+        if (mc.player.isCreative()) return;
         if (this.silent.get_value(true))
         {
             final int slot = getToolInventory(p_Event.getPos());

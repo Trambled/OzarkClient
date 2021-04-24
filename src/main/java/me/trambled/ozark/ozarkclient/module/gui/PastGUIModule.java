@@ -55,7 +55,6 @@ public class PastGUIModule extends Module {
 		if (!full_null_check()) {
 			mc.displayGuiScreen(null);
 		}
-
 	}
 
 	@Override

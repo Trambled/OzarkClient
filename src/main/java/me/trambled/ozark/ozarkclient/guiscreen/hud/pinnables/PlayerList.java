@@ -23,10 +23,10 @@ public class PlayerList extends Pinnable {
 
         int counter = 12;
 
-        int nl_r = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorR").get_value(1);
-		int nl_g = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorG").get_value(1);
-		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorB").get_value(1);
-		int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorA").get_value(1);
+        int nl_r = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorR").get_value(1);
+		int nl_g = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorG").get_value(1);
+		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
+		int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorA").get_value(1);
 
         df_health.setRoundingMode(RoundingMode.HALF_UP);
 
@@ -65,7 +65,7 @@ public class PlayerList extends Pinnable {
 
         players = sortByValue(players);
 
-        int max = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDMaxPlayers").get_value(1);
+        int max = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDMaxPlayers").get_value(1);
         int count = 0;
 
         for (Map.Entry<String, Integer> player : players.entrySet()) {

@@ -7,14 +7,19 @@ import me.trambled.ozark.ozarkclient.module.Setting;
 
 import java.awt.*;
 
-public class ClickGUI extends Module {
+public class OldGUI extends Module {
 
-	public ClickGUI() {
+	public OldGUI() {
 		super(Category.GUI);
 
-		this.name        = "GUI";
+		this.name        = "Old GUI";
 		this.tag         = "GUI";
+<<<<<<< Updated upstream:src/main/java/me/trambled/ozark/ozarkclient/module/gui/ClickGUI.java
 		this.description = "The main gui";
+=======
+		this.description = "The old gui";
+		this.toggle_message = false;
+>>>>>>> Stashed changes:src/main/java/me/trambled/ozark/ozarkclient/module/gui/OldGUI.java
 	}
 
 	Setting scroll_speed = create("Scroll Speed", "ClickGUIScrollSpeed", 10, 0, 30);
@@ -57,32 +62,32 @@ public class ClickGUI extends Module {
 	@Override
 	public void update() {
 		// Update frame colors.
-		Ozark.click_gui.theme_frame_name_r = name_frame_r.get_value(1);
-		Ozark.click_gui.theme_frame_name_g = name_frame_g.get_value(1);
-		Ozark.click_gui.theme_frame_name_b = name_frame_b.get_value(1);
+		Ozark.main_gui.theme_frame_name_r = name_frame_r.get_value(1);
+		Ozark.main_gui.theme_frame_name_g = name_frame_g.get_value(1);
+		Ozark.main_gui.theme_frame_name_b = name_frame_b.get_value(1);
 
-		Ozark.click_gui.theme_frame_background_r = background_frame_r.get_value(1);
-		Ozark.click_gui.theme_frame_background_g = background_frame_g.get_value(1);
-		Ozark.click_gui.theme_frame_background_b = background_frame_b.get_value(1);
-		Ozark.click_gui.theme_frame_background_a = background_frame_a.get_value(1);
+		Ozark.main_gui.theme_frame_background_r = background_frame_r.get_value(1);
+		Ozark.main_gui.theme_frame_background_g = background_frame_g.get_value(1);
+		Ozark.main_gui.theme_frame_background_b = background_frame_b.get_value(1);
+		Ozark.main_gui.theme_frame_background_a = background_frame_a.get_value(1);
 
-		Ozark.click_gui.theme_frame_border_r = border_frame_r.get_value(1);
-		Ozark.click_gui.theme_frame_border_g = border_frame_g.get_value(1);
-		Ozark.click_gui.theme_frame_border_b = border_frame_b.get_value(1);
+		Ozark.main_gui.theme_frame_border_r = border_frame_r.get_value(1);
+		Ozark.main_gui.theme_frame_border_g = border_frame_g.get_value(1);
+		Ozark.main_gui.theme_frame_border_b = border_frame_b.get_value(1);
 
 		// Update widget colors.
-		Ozark.click_gui.theme_widget_name_r = name_widget_r.get_value(1);
-		Ozark.click_gui.theme_widget_name_g = name_widget_g.get_value(1);
-		Ozark.click_gui.theme_widget_name_b = name_widget_b.get_value(1);
+		Ozark.main_gui.theme_widget_name_r = name_widget_r.get_value(1);
+		Ozark.main_gui.theme_widget_name_g = name_widget_g.get_value(1);
+		Ozark.main_gui.theme_widget_name_b = name_widget_b.get_value(1);
 
-		Ozark.click_gui.theme_widget_background_r = background_widget_r.get_value(1);
-		Ozark.click_gui.theme_widget_background_g = background_widget_g.get_value(1);
-		Ozark.click_gui.theme_widget_background_b = background_widget_b.get_value(1);
-		Ozark.click_gui.theme_widget_background_a = background_widget_a.get_value(1);
+		Ozark.main_gui.theme_widget_background_r = background_widget_r.get_value(1);
+		Ozark.main_gui.theme_widget_background_g = background_widget_g.get_value(1);
+		Ozark.main_gui.theme_widget_background_b = background_widget_b.get_value(1);
+		Ozark.main_gui.theme_widget_background_a = background_widget_a.get_value(1);
 
-		Ozark.click_gui.theme_widget_border_r = border_widget_r.get_value(1);
-		Ozark.click_gui.theme_widget_border_g = border_widget_g.get_value(1);
-		Ozark.click_gui.theme_widget_border_b = border_widget_b.get_value(1);
+		Ozark.main_gui.theme_widget_border_r = border_widget_r.get_value(1);
+		Ozark.main_gui.theme_widget_border_g = border_widget_g.get_value(1);
+		Ozark.main_gui.theme_widget_border_b = border_widget_b.get_value(1);
 
 		if (rainbow_name.get_value(true)) {
 			cycle_rainbow_name_1();
@@ -112,7 +117,7 @@ public class ClickGUI extends Module {
 	@Override
 	public void enable() {
 		if (mc.world != null && mc.player != null) {
-			mc.displayGuiScreen(Ozark.click_gui);
+			mc.displayGuiScreen(Ozark.main_gui);
 		}
 	}
 

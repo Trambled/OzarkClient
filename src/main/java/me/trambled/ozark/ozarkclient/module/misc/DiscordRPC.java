@@ -5,9 +5,9 @@ import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.DiscordUtil;
 
-public class RPCModule extends Module
+public class DiscordRPC extends Module
 {
-    public RPCModule() {
+    public DiscordRPC() {
         super(Category.MISC);
         this.name = "DiscordRPC";
         this.tag = "DiscordRPC";

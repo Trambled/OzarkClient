@@ -1,6 +1,6 @@
 package me.trambled.ozark.mixins;
 
-import me.trambled.ozark.ozarkclient.event.EventBus;
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventSetupFog;
 import me.trambled.ozark.ozarkclient.event.events.EventRenderHurtCameraEffect;
 import me.trambled.ozark.ozarkclient.event.events.EventRenderUpdateLightMap;
@@ -19,7 +19,7 @@ public class MixinEntityRenderer {
     public void setupFog(int startCoords, float partialTicks, CallbackInfo p_Info)
     {
         EventSetupFog event = new EventSetupFog(startCoords, partialTicks);
-        EventBus.EVENT_BUS.post(event);
+        Eventbus.EVENT_BUS.post(event);
         
         if (event.isCancelled()) {
 			return;
@@ -27,13 +27,12 @@ public class MixinEntityRenderer {
         
     }
 
-
     @Inject(method = "hurtCameraEffect", at = @At("HEAD"), cancellable = true)
     public void hurtCameraEffect(float ticks, CallbackInfo info)
     {
         EventRenderHurtCameraEffect l_Event = new EventRenderHurtCameraEffect(ticks);
         
-        EventBus.EVENT_BUS.post(l_Event);
+        Eventbus.EVENT_BUS.post(l_Event);
         
         if (l_Event.isCancelled())
             info.cancel();
@@ -44,7 +43,7 @@ public class MixinEntityRenderer {
     {
         EventRenderUpdateLightMap l_Event = new EventRenderUpdateLightMap(partialTicks);
         
-        EventBus.EVENT_BUS.post(l_Event);
+        Eventbus.EVENT_BUS.post(l_Event);
         
         if (l_Event.isCancelled())
             p_Info.cancel();

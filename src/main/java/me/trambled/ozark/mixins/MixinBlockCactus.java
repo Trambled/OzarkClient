@@ -1,6 +1,6 @@
 package me.trambled.ozark.mixins;
 
-import me.trambled.ozark.ozarkclient.event.EventBus;
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventBlockGetRenderLayer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCactus;
@@ -18,7 +18,7 @@ public class MixinBlockCactus
    public void getRenderLayer(CallbackInfoReturnable<BlockRenderLayer> callback)
    {
        EventBlockGetRenderLayer event = new EventBlockGetRenderLayer((Block) (Object) this);
-       EventBus.EVENT_BUS.post(event);
+       Eventbus.EVENT_BUS.post(event);
 
        if (event.isCancelled())                                                               
        {

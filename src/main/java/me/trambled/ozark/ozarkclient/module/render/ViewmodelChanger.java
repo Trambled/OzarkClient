@@ -16,7 +16,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 /**
  * @Author GL_DONT_CARE (Viewmodel Transformations)
  * @Author NekoPvP (Item FOV)
- * @Author ollie (yaw and pitchs stuff)
+ * @Author ollie (yaw, pitch, and roll)
+ * @Author Trambled (scale)
  */
 
 public class ViewmodelChanger extends Module {
@@ -28,7 +29,11 @@ public class ViewmodelChanger extends Module {
         this.description = "a combo of gamesense & ferox viewmodel";
     }
 
+<<<<<<< Updated upstream
     Setting type = create("Type", "Type", "Value", combobox("FOV", "Both", "Value"));
+=======
+    Setting type = create("Type", "Type", "Both", combobox("FOV", "Both", "Value"));
+>>>>>>> Stashed changes
     Setting fov = create("FOV", "FOV", 90, 90, 200);
     Setting right_x = create("Right X", "FOVRightX", 0.0, -2.0, 2.0);
     Setting right_y = create("Right Y", "FOVRightY", 0.0, -2.0, 2.0);
@@ -42,6 +47,8 @@ public class ViewmodelChanger extends Module {
     Setting right_yaw = create("Right Yaw", "FOVRightYaw", 0, -100, 100);
     Setting right_pitch = create("Right Pitch", "FOVRightPitch", 0, -100, 100);
     Setting right_roll = create("Right Roll", "FOVRightRoll", 0, -100, 100);
+    Setting scale_right = create("Scale Right", "FOVScaleRight", 1.0, 0.0, 5.0);
+    Setting scale_left = create("Scale Left", "FOVScaleLeft", 1.0, 0.0, 5.0);
     Setting cancel_eating = create("NoEat", "FOVCancelEating", false);
 
     private float fov_previous;
@@ -62,15 +69,17 @@ public class ViewmodelChanger extends Module {
     private final Listener<EventTransformSideFirstPerson> eventListener = new Listener<>(event -> {
         if (type.in("Value") || type.in("Both")) {
             if (event.getEnumHandSide() == EnumHandSide.RIGHT) {
-                GlStateManager.translate(right_x.get_value((double)1), right_y.get_value((double)1), right_z.get_value((double)1));
+                GlStateManager.translate(right_x.get_value(1D), right_y.get_value(1D), right_z.get_value(1D));
                 GlStateManager.rotate(right_yaw.get_value(1),0,1,0);
                 GlStateManager.rotate(right_pitch.get_value(1),1,0,0);
                 GlStateManager.rotate(right_roll.get_value(1),0,0,1);
+                GlStateManager.scale((float) scale_right.get_value(1D), (float) scale_right.get_value(1D), (float) scale_right.get_value(1D));
             } else if (event.getEnumHandSide() == EnumHandSide.LEFT) {
-                GlStateManager.translate(left_x.get_value((double)1), left_y.get_value((double)1), left_z.get_value((double)1));
+                GlStateManager.translate(left_x.get_value(1D), left_y.get_value(1D), left_z.get_value(1D));
                 GlStateManager.rotate(left_yaw.get_value(1),0,1,0);
                 GlStateManager.rotate(left_pitch.get_value(1),1,0,0);
                 GlStateManager.rotate(left_roll.get_value(1),0,0,1);
+                GlStateManager.scale((float) scale_left.get_value(1D), (float) scale_left.get_value(1D), (float) scale_left.get_value(1D));
             }
         }
     });

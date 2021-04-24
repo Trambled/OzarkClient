@@ -1,9 +1,8 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
 import me.trambled.ozark.ozarkclient.event.events.EventGUIScreen;
-import me.trambled.ozark.ozarkclient.event.events.EventPacket;
-import me.trambled.ozark.ozarkclient.guiscreen.GUI;
-import me.trambled.ozark.ozarkclient.guiscreen.HUD;
+import me.trambled.ozark.ozarkclient.guiscreen.MainGUI;
+import me.trambled.ozark.ozarkclient.guiscreen.MainHUD;
 import me.trambled.ozark.ozarkclient.guiscreen.PastGUI;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
@@ -43,7 +42,7 @@ public class ShulkerCrystal extends Module
 
         this.name = "Shulker Crystal";
         this.tag = "ShulkerCrystal";
-        this.description = "Automatically pushes crystals into holes";
+        this.description = "Automatically pushes crystals into holes using shulkers";
     }
 
     Setting break_range = create("Break Range", "BreakRange", 5, 0, 6);
@@ -219,7 +218,7 @@ public class ShulkerCrystal extends Module
 
     @EventHandler
     private final Listener<EventGUIScreen> gui_listener = new Listener<>(event -> {
-        if (event.get_guiscreen() instanceof PastGUI || event.get_guiscreen() instanceof GUI || event.get_guiscreen() instanceof HUD) {
+        if (event.get_guiscreen() instanceof PastGUI || event.get_guiscreen() instanceof MainGUI || event.get_guiscreen() instanceof MainHUD) {
             this.set_disable();
         }
     });

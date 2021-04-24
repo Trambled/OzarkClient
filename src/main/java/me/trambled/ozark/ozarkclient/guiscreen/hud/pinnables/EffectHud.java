@@ -23,10 +23,10 @@ public class EffectHud extends Pinnable {
 
         int counter = 12;
 
-        int nl_r = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorR").get_value(1);
-        int nl_g = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorG").get_value(1);
-        int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorB").get_value(1);
-        int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorA").get_value(1);
+        int nl_r = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorR").get_value(1);
+        int nl_g = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorG").get_value(1);
+        int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
+        int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorA").get_value(1);
 
         final List<PotionEffect> effects = new ArrayList<>(mc.player.getActivePotionEffects());
 
@@ -58,7 +58,7 @@ public class EffectHud extends Pinnable {
                 final String e = ChatFormatting.GREEN + get_friendly_potion_name(effect) + " " + ChatFormatting.RESET + Potion.getPotionDurationString(effect, 1.0f);
                 create_line(e, this.docking(1, e), counter, nl_r, nl_g, nl_b, nl_a);
                 counter += 12;
-            } else if (Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDAllPotions").get_value(true)) {
+            } else if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDAllPotions").get_value(true)) {
                 final String e = get_friendly_potion_name(effect) + " " + Potion.getPotionDurationString(effect, 1.0f);
                 create_line(e, this.docking(1, e), counter, nl_r, nl_g, nl_b, nl_a);
                 counter += 12;

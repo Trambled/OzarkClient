@@ -1,7 +1,7 @@
 package me.trambled.ozark.ozarkclient.module;
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.event.EventBus;
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventRender;
 import me.trambled.ozark.ozarkclient.event.events.EventRenderEntityModel;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
@@ -104,7 +104,7 @@ public class Module implements Listenable {
 
 		disable();
 
-		EventBus.EVENT_BUS.unsubscribe(this);
+		Eventbus.EVENT_BUS.unsubscribe(this);
 	}
 
 	public void set_enable() {
@@ -112,7 +112,7 @@ public class Module implements Listenable {
 
 		enable();
 
-		EventBus.EVENT_BUS.subscribe(this);
+		Eventbus.EVENT_BUS.subscribe(this);
 	}
 
 	public void set_active(boolean value) {

@@ -161,19 +161,19 @@ public class Combobox extends AbstractWidget {
 
 		this.save_y = this.y + master_y;
 
-		int ns_r = Ozark.click_gui.theme_widget_name_r;
-		int ns_g = Ozark.click_gui.theme_widget_name_g;
-		int ns_b = Ozark.click_gui.theme_widget_name_b;
-		int ns_a = Ozark.click_gui.theme_widget_name_b;
+		int ns_r = Ozark.main_gui.theme_widget_name_r;
+		int ns_g = Ozark.main_gui.theme_widget_name_g;
+		int ns_b = Ozark.main_gui.theme_widget_name_b;
+		int ns_a = Ozark.main_gui.theme_widget_name_b;
 
-		int bg_r = Ozark.click_gui.theme_widget_background_r;
-		int bg_g = Ozark.click_gui.theme_widget_background_g;
-		int bg_b = Ozark.click_gui.theme_widget_background_b;
-		int bg_a = Ozark.click_gui.theme_widget_background_a;
+		int bg_r = Ozark.main_gui.theme_widget_background_r;
+		int bg_g = Ozark.main_gui.theme_widget_background_g;
+		int bg_b = Ozark.main_gui.theme_widget_background_b;
+		int bg_a = Ozark.main_gui.theme_widget_background_a;
 
-		int bd_r = Ozark.click_gui.theme_widget_border_r;
-		int bd_g = Ozark.click_gui.theme_widget_border_g;
-		int bd_b = Ozark.click_gui.theme_widget_border_b;
+		int bd_r = Ozark.main_gui.theme_widget_border_r;
+		int bd_g = Ozark.main_gui.theme_widget_border_g;
+		int bd_b = Ozark.main_gui.theme_widget_border_b;
 		int bd_a = 100;
 
 		DrawUtil.draw_string(this.combobox_name + " " + this.setting.get_current_value(), this.x + 2, this.save_y, ns_r, ns_g, ns_b, ns_a);

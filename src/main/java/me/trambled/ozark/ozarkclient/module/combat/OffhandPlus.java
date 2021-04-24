@@ -28,7 +28,6 @@ public class OffhandPlus extends Module {
     Setting gapple_bind = create("Gapple", "OffhandPlusGapple", 0);
     Setting totem_bind = create("Totem", "OffhandPlusTotem", 0);
     Setting pressure_bind = create("Pressure Plate", "OffhandPlusPressurePlate", 0);
-    Setting delay = create("Delay", "OffhandPlusDelay", 2, 0, 10);
     Setting step = create("Step", "OffhandPlusStep", false);
     Setting chat_msg = create("ChatMsg", "OffhandPlusChatMsgs", true);
 
@@ -38,7 +37,6 @@ public class OffhandPlus extends Module {
     private boolean pressure_plate = false;
     private boolean totem = false;
     private int last_slot;
-    private int delay_counter;
 
     @Override
     protected void enable() {
@@ -127,7 +125,7 @@ public class OffhandPlus extends Module {
             totem = false;
         }
 
-        if ((mc.currentScreen == null || mc.currentScreen instanceof GuiInventory) && (delay_counter > delay.get_value(1))) {
+        if (mc.currentScreen == null || mc.currentScreen instanceof GuiInventory) {
 
             if (Ozark.get_hack_manager().get_module_with_tag("AutoTotem").is_active()) {
                 MessageUtil.send_client_error_message("AutoTotem is not compatible with offhand plus");
@@ -170,9 +168,6 @@ public class OffhandPlus extends Module {
             }
 
         }
-
-        delay_counter++;
-
     }
 
     public void swap_items(int slot, int step) {

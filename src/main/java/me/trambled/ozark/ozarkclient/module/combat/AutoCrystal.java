@@ -14,7 +14,6 @@ import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -27,7 +26,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -44,7 +42,12 @@ public class AutoCrystal extends Module {
     Setting debug = create("Debug", "CaDebug", false);
     Setting place_crystal = create("Place", "CaPlace", true);
     Setting break_crystal = create("Break", "CaBreak", true);
+<<<<<<< Updated upstream
     Setting break_trys = create("Break Attempts", "CaBreakAttempts", 1, 1, 6);
+=======
+    Setting break_trys = create("Break Attempts", "CaBreakAttempts", 2, 1, 6);
+    Setting place_trys = create("Place Attempts", "CaPlaceAttempts", 2, 1, 6);
+>>>>>>> Stashed changes
     Setting anti_weakness = create("Anti-Weakness", "CaAntiWeakness", true);
     Setting alternative = create("Alternative", "CaAlternative", false);
     Setting module_check = create("Module Check", "CaModuleCheck", false);
@@ -74,6 +77,7 @@ public class AutoCrystal extends Module {
     Setting packet_break = create("Packet Break", "CaPackeBreak", true);
 
     Setting rotate_mode = create("Rotate", "CaRotateMode", "Packet", combobox("Off", "Packet", "Const", "Seizure"));
+    Setting target_mode = create("Target Mode", "CaTargetMode", "Health", combobox("Health", "Closest"));
     Setting raytrace = create("Raytrace", "CaRaytrace", false);
 
     Setting switch_mode = create("Switch Mode", "CaSwitchMode", "Normal", combobox("Normal", "Ghost", "None"));
@@ -336,26 +340,34 @@ public class AutoCrystal extends Module {
 
             for (Entity player : mc.world.playerEntities) {
 
-                if (player == mc.player  || !(player instanceof EntityPlayer)) continue;
+                if (target_mode.in("Health")) {
+                    if (player == mc.player || !(player instanceof EntityPlayer)) continue;
 
-                if (FriendUtil.isFriend(player.getName())) continue;
+                    if (FriendUtil.isFriend(player.getName())) continue;
 
-                if (player.getDistance(mc.player) >= player_range.get_value(1)) continue;
+                    if (player.getDistance(mc.player) >= player_range.get_value(1)) continue;
 
-                final EntityPlayer target = (EntityPlayer) player;
+                    final EntityPlayer target = (EntityPlayer) player;
 
-                if (target.isDead || target.getHealth() <= 0) continue;
+                    if (target.isDead || target.getHealth() <= 0) continue;
+                }
 
-                BlockPos player_pos = new BlockPos(player.posX, player.posY, player.posZ);
+                EntityPlayer target;
+
+                if (target_mode.in("Health")) {
+                    target = (EntityPlayer) player;
+                } else {
+                    target = get_closest_target();
+                }
 
                 boolean no_place = faceplace_check.get_value(true) && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD;
-                if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true)&& !no_place) || (get_armor_fucker(target) && !no_place && !get_armor_fucker(mc.player)) || (predict.get_value(true) && target.onGround && !mc.world.getBlockState(player_pos.add(0, 2, 0)).getBlock().equals(Blocks.AIR)) || (Ozark.get_hack_manager().get_module_with_tag("Faceplacer").is_active())) {
+                if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true)&& !no_place) || (get_armor_fucker(target) && !no_place && !get_armor_fucker(mc.player)) || (Ozark.get_hack_manager().get_module_with_tag("Faceplacer").is_active())) {
                     minimum_damage = 2;
                 } else {
                     minimum_damage = this.min_player_break.get_value(1);
                 }
 
-                final double target_damage = CrystalUtil.calculateDamage(crystal, player);
+                final double target_damage = CrystalUtil.calculateDamage(crystal, target);
 
                 if (target_damage < minimum_damage) continue;
 
@@ -394,7 +406,7 @@ public class AutoCrystal extends Module {
             return null;
         }
 
-        List<PairUtil<Double, BlockPos>> damage_blocks = new ArrayList<>();
+//      List<PairUtil<Double, BlockPos>> damage_blocks = new ArrayList<>();
         double best_damage = 0;
         double minimum_damage;
         double maximum_damage_self = this.max_self_damage.get_value(1);
@@ -406,13 +418,17 @@ public class AutoCrystal extends Module {
 
         for (Entity player : mc.world.playerEntities) {
 
-            if (FriendUtil.isFriend(player.getName())) continue;
+            if (target_mode.in("Health")) {
+                if (FriendUtil.isFriend(player.getName())) continue;
+            }
 
             for (BlockPos block : momentum.get_value(true) ? blocks_momentum : blocks) {
 
-                if (player == mc.player || !(player instanceof EntityPlayer)) continue;
+                if (target_mode.in("Health")) {
+                    if (player == mc.player || !(player instanceof EntityPlayer)) continue;
 
-                if (player.getDistance(mc.player) >= player_range.get_value(1)) continue;
+                    if (player.getDistance(mc.player) >= player_range.get_value(1)) continue;
+                }
 
                 if (!BlockUtil.rayTracePlaceCheck(block, this.raytrace.get_value(true))) {
                     continue;
@@ -425,7 +441,13 @@ public class AutoCrystal extends Module {
                     continue;
                 }
 
-                final EntityPlayer target = (EntityPlayer) player;
+                EntityPlayer target;
+
+                if (target_mode.in("Health")) {
+                    target = (EntityPlayer) player;
+                } else {
+                    target = get_closest_target();
+                }
 
                 if (target.isDead || target.getHealth() <= 0) continue;
 
@@ -470,7 +492,7 @@ public class AutoCrystal extends Module {
         render_damage_value = best_damage;
         render_block_init = best_block;
 
-        damage_blocks = sort_best_blocks(damage_blocks);
+//      damage_blocks = sort_best_blocks(damage_blocks);
 
         //if (!attempt_chain.get_value(true)) {
         return best_block;
@@ -486,23 +508,24 @@ public class AutoCrystal extends Module {
 
     }
 
-    public List<PairUtil<Double, BlockPos>> sort_best_blocks(List<PairUtil<Double, BlockPos>> list) {
-        List<PairUtil<Double, BlockPos>> new_list = new ArrayList<>();
-        double damage_cap = 1000;
-        for (int i = 0; i < list.size(); i++) {
-            double biggest_dam = 0;
-            PairUtil<Double, BlockPos> best_pair = null;
-            for (PairUtil<Double, BlockPos> pair : list) {
-                if (pair.getKey() > biggest_dam && pair.getKey() < damage_cap) {
-                    best_pair = pair;
-                }
-            }
-            if (best_pair == null) continue;
-            damage_cap = best_pair.getKey();
-            new_list.add(best_pair);
-        }
-        return new_list;
-    }
+//  public List<PairUtil<Double, BlockPos>> sort_best_blocks(List<PairUtil<Double, BlockPos>> list) {
+//      List<PairUtil<Double, BlockPos>> new_list = new ArrayList<>();
+//          double damage_cap = 1000;
+//          for (int i = 0; i < list.size(); i++) {
+//              double biggest_dam = 0;
+//              PairUtil<Double, BlockPos> best_pair = null;
+//              for (PairUtil<Double, BlockPos> pair : list) {
+//                  if (pair.getKey() > biggest_dam && pair.getKey() < damage_cap) {
+//                      best_pair = pair;
+//                  }
+//              }
+//              if (best_pair == null) continue;
+//              damage_cap = best_pair.getKey();
+//              new_list.add(best_pair);
+//          }
+//        return new_list;
+//      }
+
 
     public void place_crystal() {
 
@@ -540,7 +563,9 @@ public class AutoCrystal extends Module {
         did_anything = true;
         rotate_to_pos(target_block);
         chain_timer.reset();
-        BlockUtil.placeCrystalOnBlock(target_block, offhand_check ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, packet_place.get_value(true));
+        for (int i = 0; i < place_trys.get_value(1); i++) {
+            BlockUtil.placeCrystalOnBlock(target_block, offhand_check ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, packet_place.get_value(true));
+        }
 
     }
 
@@ -622,9 +647,9 @@ public class AutoCrystal extends Module {
         rotate_to(crystal);
         for (int i = 0; i < break_trys.get_value(1); i++) {
             EntityUtil.attackEntity(crystal, packet_break.get_value(true), swing);
+            attack_swings++;
         }
         add_attacked_crystal(crystal);
-        attack_swings += break_trys.get_value(1);
 
         if (sync.in("Instant") && crystal.isEntityAlive()) {
             crystal.setDead();
@@ -783,6 +808,39 @@ public class AutoCrystal extends Module {
             pitch = angle[1];
             is_rotating = true;
         }
+    }
+
+    public EntityPlayer get_closest_target()  {
+
+        if (mc.world.playerEntities.isEmpty())
+            return null;
+
+        EntityPlayer closestTarget = null;
+
+        for (final EntityPlayer target : mc.world.playerEntities)
+        {
+            if (target == mc.player)
+                continue;
+
+            if (FriendUtil.isFriend(target.getName()))
+                continue;
+
+            if (!EntityUtil.isLiving(target))
+                continue;
+
+            if (target.getHealth() <= 0.0f)
+                continue;
+
+            if (target.getDistance(mc.player) >= player_range.get_value(1)) continue;
+
+            if (closestTarget != null)
+                if (mc.player.getDistance(target) > mc.player.getDistance(closestTarget))
+                    continue;
+
+            closestTarget = target;
+        }
+
+        return closestTarget;
     }
 
     @Override

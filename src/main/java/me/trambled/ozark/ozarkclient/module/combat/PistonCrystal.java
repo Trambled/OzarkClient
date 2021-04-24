@@ -38,7 +38,7 @@ public class PistonCrystal extends Module
 
         this.name = "Piston Crystal";
         this.tag = "PistonCrystal";
-        this.description = "Automatically pushes crystals into holes";
+        this.description = "Automatically pushes crystals into holes using pistons";
     }
 
     private boolean noMaterials = false,

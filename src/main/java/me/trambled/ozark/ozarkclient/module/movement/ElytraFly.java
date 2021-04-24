@@ -17,10 +17,19 @@ import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
-import net.minecraft.util.math.Vec3d;
 
 public final class ElytraFly extends Module
 {
+    public ElytraFly()
+    {
+        super(Category.MOVEMENT);
+
+        this.name = "ElytraFly";
+        this.tag = "ElytraFly";
+        this.description = "Makes you fly with a elytra";
+    }
+
+
 	Setting mode = create("Mode", "ElytraFlyMode", "Superior", combobox("Superior", "Normal", "Control", "None"));
     Setting speed = create("Speed", "ElytraFlySpeed", 2f, 0f, 10f);
     Setting DownSpeed = create("DownSpeed", "ElytraFlyDownSpeed", 2f, 0f, 10f);
@@ -35,16 +44,6 @@ public final class ElytraFly extends Module
     private final TimerUtil AccelerationTimer = new TimerUtil();
     private final TimerUtil AccelerationResetTimer = new TimerUtil();
     private final TimerUtil InstantFlyTimer = new TimerUtil();
-    private final Vec3d vec3d = new Vec3d(0, 0, 0);
-
-    public ElytraFly()
-    {
-        super(Category.MOVEMENT);
-
-        this.name = "NewElytraFly";
-        this.tag = "NewElytraFly";
-        this.description = "Makes you fly with a elytra";
-    }
     
     private int ElytraSlot = -1;
 	
@@ -100,7 +99,6 @@ public final class ElytraFly extends Module
     @Override
     protected void disable()
     {
-		
 		mc.timer.tickLength = 50.0f; // in case if the player disables elyfly during takeoff
 		
         if (mc.player == null)
@@ -119,7 +117,7 @@ public final class ElytraFly extends Module
     }
 
     @EventHandler
-    private final Listener<EventPlayerTravel> OnTravel = new Listener<>(p_Event ->
+    private final Listener<EventPlayerTravel> on_travel = new Listener<>(p_Event ->
     {
         if (mc.player == null)
             return;

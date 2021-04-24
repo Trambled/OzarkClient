@@ -1,6 +1,5 @@
 package me.trambled.ozark.ozarkclient.module.render;
 
-import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.events.EventRender;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
@@ -60,19 +59,12 @@ public class VoidESP extends Module {
         if (blockPos.getY() != 0)
             return false;
 
-        if (mc.world.getBlockState(blockPos).getBlock() != Blocks.AIR)
-            return false;
-
-        return true;
+        return mc.world.getBlockState(blockPos).getBlock() == Blocks.AIR;
 
     }
 
     @Override
 	public void render(EventRender event) {
-
-        int r = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorR").get_value(1);
-        int g = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorG").get_value(1);
-        int b = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorB").get_value(1);
 
         new ArrayList<>(void_blocks).forEach(pos -> {
 

@@ -29,10 +29,10 @@ public class Arraylist extends Pinnable {
 		updateResolution();
 		int position_update_y = 2;
 
-		int nl_r = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorR").get_value(1);
-		int nl_g = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorG").get_value(1);
-		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorB").get_value(1);
-		int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorA").get_value(1);
+		int nl_r = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorR").get_value(1);
+		int nl_g = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorG").get_value(1);
+		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
+		int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorA").get_value(1);
 
 		List<Module> pretty_modules = Ozark.get_hack_manager().get_array_active_modules().stream()
 			.sorted(Comparator.comparing(modules -> get(modules.array_detail() == null ? modules.get_tag() : modules.get_tag() + Ozark.g + " [" + Ozark.r + modules.array_detail() + Ozark.g + "]" + Ozark.r, "width")))
@@ -40,7 +40,7 @@ public class Arraylist extends Pinnable {
 
 		int count = 0;
 
-		if (Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDArrayList").in("Top R") || Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDArrayList").in("Top L") ) {
+		if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Top R") || Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Top L") ) {
 			pretty_modules = Lists.reverse(pretty_modules);
 		}
 
@@ -49,6 +49,10 @@ public class Arraylist extends Pinnable {
 			flag = true;
 
 			if (modules.get_category().get_tag().equals("GUI")) {
+				continue;
+			}
+
+			if (modules.get_category().get_tag().equals("HUDEditor")) {
 				continue;
 			}
 
@@ -71,7 +75,7 @@ public class Arraylist extends Pinnable {
 					modules.get_tag() + Ozark.g + " [" + Ozark.r + modules.array_detail() + Ozark.g + "]" + Ozark.r
 				);
 
-				if (Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDArrayList").in("Free")) {
+				if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Free")) {
 					create_line(module_name, this.docking(2, module_name), position_update_y, nl_r, nl_g, nl_b, nl_a);
 
 					position_update_y += get(module_name, "height") + 2;
@@ -82,20 +86,20 @@ public class Arraylist extends Pinnable {
 
 					this.set_height(position_update_y);
 				} else {
-					if (Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDArrayList").in("Top R")) {
-						mc.fontRenderer.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), 3 + count * 10, new DrawUtil.TravisColor(nl_r,nl_g,nl_b,nl_a).color_int());
+					if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Top R")) {
+						mc.fontRenderer.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), 3 + count * 10, new DrawUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).color_int());
 						count++;
 					}
-					if (Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDArrayList").in("Top L")) {
-						mc.fontRenderer.drawStringWithShadow(module_name, 2, 3 + count * 10, new DrawUtil.TravisColor(nl_r,nl_g,nl_b,nl_a).color_int());
+					if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Top L")) {
+						mc.fontRenderer.drawStringWithShadow(module_name, 2, 3 + count * 10, new DrawUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).color_int());
 						count++;
 					}
-					if (Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDArrayList").in("Bottom R")) {
-						mc.fontRenderer.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), scaled_height - (count * 10), new DrawUtil.TravisColor(nl_r,nl_g,nl_b,nl_a).color_int());
+					if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom R")) {
+						mc.fontRenderer.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), scaled_height - (count * 10), new DrawUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).color_int());
 						count++;
 					}
-					if (Ozark.get_setting_manager().get_setting_with_tag("HUDEditor", "HUDArrayList").in("Bottom L")) {
-						mc.fontRenderer.drawStringWithShadow(module_name, 2, scaled_height - (count * 10), new DrawUtil.TravisColor(nl_r,nl_g,nl_b,nl_a).color_int());
+					if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom L")) {
+						mc.fontRenderer.drawStringWithShadow(module_name, 2, scaled_height - (count * 10), new DrawUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).color_int());
 						count++;
 					}
 				}

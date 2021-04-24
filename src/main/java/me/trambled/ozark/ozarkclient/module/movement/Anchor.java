@@ -18,7 +18,7 @@ public class Anchor extends Module {
         super(Category.MOVEMENT);
 
         this.name        = "Anchor";
-        this.tag         = "WurstPlusAnchor";
+        this.tag         = "Anchor";
         this.description = "Stops all movement if player is above a hole";
     }
 

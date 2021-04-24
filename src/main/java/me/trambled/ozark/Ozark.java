@@ -6,8 +6,8 @@ import me.trambled.turok.Turok;
 import me.trambled.turok.task.TurokFont;
 import me.trambled.ozark.ozarkclient.event.EventHandler;
 import me.trambled.ozark.ozarkclient.event.EventRegister;
-import me.trambled.ozark.ozarkclient.guiscreen.GUI;
-import me.trambled.ozark.ozarkclient.guiscreen.HUD;
+import me.trambled.ozark.ozarkclient.guiscreen.MainGUI;
+import me.trambled.ozark.ozarkclient.guiscreen.MainHUD;
 import me.trambled.ozark.ozarkclient.guiscreen.PastGUI;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.past.font.CustomFontRenderer;
 import me.trambled.ozark.ozarkclient.manager.*;
@@ -42,8 +42,8 @@ public class Ozark {
 	private static ModuleManager module_manager;
 	private static HUDManager hud_manager;
 	public static PastGUI past_gui;
-	public static GUI click_gui;
-	public static HUD click_hud;
+	public static MainGUI main_gui;
+	public static MainHUD main_hud;
 
 	public static CustomFontRenderer latoFont;
 	public static CustomFontRenderer verdanaFont;
@@ -81,8 +81,8 @@ public class Ozark {
 		send_minecraft_log("Initialising guis");
 
 		Display.setTitle("OzarkClient");
-		click_gui = new GUI();
-		click_hud = new HUD();
+		main_gui = new MainGUI();
+		main_hud = new MainHUD();
 		past_gui = new PastGUI();
 
 		send_minecraft_log("Done");
@@ -125,9 +125,9 @@ public class Ozark {
 			send_minecraft_log("Fixed");
 		}
 
-		if (!module_manager.get_module_with_tag("HUDEditor").is_active()) {
-			send_minecraft_log("Fixing HUDEditor");
-			module_manager.get_module_with_tag("HUDEditor").set_active(true);
+		if (module_manager.get_module_with_tag("HUD").is_active()) {
+			send_minecraft_log("Fixing HUD");
+			module_manager.get_module_with_tag("HUD").set_active(false);
 			send_minecraft_log("Fixed");
 		}
 
@@ -144,9 +144,9 @@ public class Ozark {
 		}
 
 		
-		client_r = get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorR").get_value(1);
-		client_g = get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorG").get_value(1);
-		client_b = get_setting_manager().get_setting_with_tag("HUDEditor", "HUDStringsColorB").get_value(1);
+		client_r = get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorR").get_value(1);
+		client_g = get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorG").get_value(1);
+		client_b = get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
 		
 		send_minecraft_log("Client started");
 		send_minecraft_log("we bout to do a little trollin");
