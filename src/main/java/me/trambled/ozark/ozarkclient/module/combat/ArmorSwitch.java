@@ -20,7 +20,7 @@ public class ArmorSwitch extends Module {
         this.description = "switches armor smart";
     }
 
-    Setting low_dura = create("Low Dura", "SmartArmorLowDura", 40, 1, 100);
+    Setting low_dura = create("Low Dura", "SmartArmorLowDura", 2, 1, 100);
 
     @Override
     public void update() {
