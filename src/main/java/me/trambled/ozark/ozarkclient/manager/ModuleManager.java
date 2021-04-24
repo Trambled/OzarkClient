@@ -169,6 +169,7 @@ public class ModuleManager {
 		add_module(new DonkeyAlert());
 		add_module(new Portals());
 		add_module(new TabColours());
+		add_module(new AntiAFK());
 		
 		array_modules.sort(Comparator.comparing(Module::get_name));
 	}
