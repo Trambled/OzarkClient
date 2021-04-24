@@ -32,7 +32,7 @@ public class AntiCrystal extends Module
 	Setting switch_mode = create("Mode", "Mode", "Normal", combobox("Normal", "Ghost", "None"));
     Setting max_self_damage = create("Max Self Damage", "MaxSelfDamage", 6, 0, 20);
     Setting required_health = create("Required Health", "RequiredHealth", 12f, 1f, 36f);
-	Setting delay = create("Delay", "Delay", 2, 1, 20);
+	Setting delay = create("Delay", "Delay", 1, 0, 20);
 	Setting range = create("Range", "Range", 4, 0, 10);
 	Setting rotate = create("Rotate", "Rotate", true);
 
