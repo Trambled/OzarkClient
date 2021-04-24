@@ -27,11 +27,11 @@ public class AutoArmour extends Module {
         this.description = "WATCH UR BOOTS";
     }
 
-    Setting delay = create("Delay", "AADelay", 2, 0, 5);
+    Setting delay = create("Delay", "AADelay", 0, 0, 5);
     Setting smart_mode = create("Smart Mode", "AASmartMode", true);
     Setting put_back = create("Equip Armour", "AAEquipArmour", true);
-    Setting player_range = create("Player Range", "AAPlayerRange", 8, 0, 20);
-    Setting crystal_range = create("Crystal Range", "AACrystalRange", 13, 0, 20);
+    Setting player_range = create("Player Range", "AAPlayerRange", 7, 0, 20);
+    Setting crystal_range = create("Crystal Range", "AACrystalRange", 7, 0, 20);
     Setting boot_percent = create("Boot Percent", "AATBootPercent", 80, 0, 100);
     Setting chest_percent = create("Chest Percent", "AATChestPercent", 80, 0, 100);
 
