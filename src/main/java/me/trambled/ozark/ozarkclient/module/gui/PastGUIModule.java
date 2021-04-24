@@ -21,7 +21,7 @@ public class PastGUIModule extends Module {
 	}
 
 	Setting red = create("Red", "PastGUIR", 245, 0, 0);
-	Setting green = create("Green", "PastGUIG", 0, 127, 0);
+	Setting green = create("Green", "PastGUIG", 127, 0, 0);
 	Setting blue = create("Blue", "PastGUIB", 0, 0, 142);
 	Setting alpha = create("Alpha", "PastGUIA", 255, 0, 255);
 	Setting rainbow = create("Rainbow", "PastGUIRainbow", false);
