@@ -14,12 +14,8 @@ public class OldGUI extends Module {
 
 		this.name        = "Old GUI";
 		this.tag         = "GUI";
-<<<<<<< Updated upstream:src/main/java/me/trambled/ozark/ozarkclient/module/gui/ClickGUI.java
-		this.description = "The main gui";
-=======
 		this.description = "The old gui";
 		this.toggle_message = false;
->>>>>>> Stashed changes:src/main/java/me/trambled/ozark/ozarkclient/module/gui/OldGUI.java
 	}
 
 	Setting scroll_speed = create("Scroll Speed", "ClickGUIScrollSpeed", 10, 0, 30);

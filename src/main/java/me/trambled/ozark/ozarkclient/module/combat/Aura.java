@@ -33,24 +33,13 @@ public class Aura extends Module {
 		this.description = "Automatically hits enemies within a certain range.";
 	}
 
-<<<<<<< Updated upstream
 	Setting mode = create("Mode", "KillAuraMode", "Normal", combobox("A32k", "Normal"));
 	Setting player    = create("Player",   "KillAuraPlayer",  true);
 	Setting hostile   = create("Hostile",  "KillAuraHostile", false);
-	Setting sword     = create("Sword",    "KillAuraSword",   true);
 	Setting sync_tps  = create("Sync TPS", "KillAuraSyncTps", false);
 	Setting range     = create("Range",    "KillAuraRange",   5.0, 0.5, 6.0);
 	Setting delay = create("Delay", "KillAuraDelay", 2, 0, 10);
-=======
-	Setting mode = create("Mode", "AuraMode", "Normal", combobox("A32k", "Normal"));
-	Setting player    = create("Player",   "AuraPlayer",  true);
-	Setting hostile   = create("Hostile",  "AuraHostile", false);
 	Setting only_sword = create("Sword",    "AuraSword",   true);
-	Setting sync_tps  = create("Sync TPS", "AuraSyncTps", true);
-	Setting range     = create("Range",    "AuraRange",   5.0, 0.5, 6.0);
-	Setting delay = create("Delay", "AuraDelay", 2, 0, 10);
->>>>>>> Stashed changes
-
 	boolean start_verify = true;
 
 	EnumHand actual_hand = EnumHand.MAIN_HAND;

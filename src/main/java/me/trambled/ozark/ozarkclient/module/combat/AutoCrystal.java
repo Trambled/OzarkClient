@@ -42,12 +42,8 @@ public class AutoCrystal extends Module {
     Setting debug = create("Debug", "CaDebug", false);
     Setting place_crystal = create("Place", "CaPlace", true);
     Setting break_crystal = create("Break", "CaBreak", true);
-<<<<<<< Updated upstream
-    Setting break_trys = create("Break Attempts", "CaBreakAttempts", 1, 1, 6);
-=======
     Setting break_trys = create("Break Attempts", "CaBreakAttempts", 2, 1, 6);
     Setting place_trys = create("Place Attempts", "CaPlaceAttempts", 2, 1, 6);
->>>>>>> Stashed changes
     Setting anti_weakness = create("Anti-Weakness", "CaAntiWeakness", true);
     Setting alternative = create("Alternative", "CaAlternative", false);
     Setting module_check = create("Module Check", "CaModuleCheck", false);
