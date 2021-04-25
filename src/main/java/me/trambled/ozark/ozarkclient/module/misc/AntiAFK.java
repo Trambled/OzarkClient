@@ -1,12 +1,11 @@
-package me.trambled.ozark.ozarkclient.misc;
+package me.trambled.ozark.ozarkclient.module.misc;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
+import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
+import me.trambled.ozark.ozarkclient.util.TimerUtil;
+public class AntiAFK extends Module {
 
-public class AntiAFK extends Module
-{
     public AntiAFK() {
         super(Category.MISC);
 
@@ -14,37 +13,19 @@ public class AntiAFK extends Module
         this.tag = "AntiAFK";
         this.description = "prevents being kicked for afk-ing";
     }
-
-    private Timer timer = new Timer();
+    Setting tickDelay = create("Delay","Delay",0, 0, 20);
+    Setting jump = create("Jump", "Jump", true);
+    Setting chat = create("Chat", "Chat", true);
+    TimerUtil afkTimer = new TimerUtil();
 
     @Override
-    public void onEnable() {
-        super.onEnable();
+    public void update() {
+        if (afkTimer.hasPassed(tickDelay.get_value(1))) {
+            if (jump.get_value(true))
+                mc.player.jump();
 
-        if (mc.player == null)
-        {
-            toggle();
-            return;
+            if (chat.get_value(true))
+                mc.player.sendChatMessage("!pt");
         }
-
-        timer = new Timer();
-
-        timer.scheduleAtFixedRate(new TimerTask()
-        {
-            @Override
-            public void run()
-            {
-                mc.player.sendChatMessage("/stats");
-            }
-        }, 0, 120000);
-    }
-
-    @Override
-    public void onDisable()
-    {
-        super.onDisable();
-
-        if (timer != null)
-            timer.cancel();
     }
 }
