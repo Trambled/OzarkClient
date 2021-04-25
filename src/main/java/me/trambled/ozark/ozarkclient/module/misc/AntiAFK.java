@@ -13,7 +13,7 @@ public class AntiAFK extends Module {
         this.tag = "AntiAFK";
         this.description = "prevents being kicked for afk-ing";
     }
-    Setting tickDelay = create("Delay","Delay",0, 0, 20);
+    Setting tickDelay = create("Delay","Delay",50.0D, 0.0D, 100.0D);
     Setting jump = create("Jump", "Jump", true);
     Setting chat = create("Chat", "Chat", true);
     TimerUtil afkTimer = new TimerUtil();
