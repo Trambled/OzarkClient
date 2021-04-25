@@ -1,6 +1,8 @@
 package me.trambled.ozark.ozarkclient.util;
 
-public class TimerUtil {
+import me.trambled.ozark.mixins.MixinInterface;
+
+public class TimerUtil extends MixinInterface {
 
     private long time;
 
@@ -12,8 +14,7 @@ public class TimerUtil {
         return this.getTime(System.nanoTime() - this.time) >= ms;
     }
 
-    public void resetTimeSkipTo(final long ms)
-    {
+    public void resetTimeSkipTo(final long ms) {
         this.time = System.nanoTime() + ms;
     }
 
@@ -25,4 +26,7 @@ public class TimerUtil {
         return time / 1000000L;
     }
 
+    public boolean hasPassed(long time) {
+        return mc.player.ticksExisted % (int) time == 0;
+    }
 }
