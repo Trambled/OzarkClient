@@ -49,6 +49,7 @@ public class ModuleManager {
 		add_module(new AntiHaram());
 		add_module(new Spammer());
 		add_module(new FactSpammer());
+		add_module(new AutoGroomer());
 
 		// Combat.
 		add_module(new Criticals());
