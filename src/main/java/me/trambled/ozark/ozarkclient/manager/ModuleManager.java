@@ -158,7 +158,7 @@ public class ModuleManager {
 		add_module(new PacketCanceller());
 		add_module(new AutoKit());
 		add_module(new AutoEat());
-		add_module(new AutoDupeIStack());
+		add_module(new DupeIStack());
 		add_module(new AutoTool());
 		add_module(new AutoBuilder());
 		add_module(new AutoRespawn());
