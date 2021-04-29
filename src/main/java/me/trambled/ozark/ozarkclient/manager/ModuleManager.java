@@ -102,6 +102,7 @@ public class ModuleManager {
 		add_module(new MountBypass());
 		add_module(new Scaffold());
 		add_module(new CoordExploit());
+                add_module(new InstantBurrow());
 
 		// Movement.
 		add_module(new Strafe());
