@@ -34,9 +34,9 @@ public class DiscordUtil
         new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
                 try {
-                    DiscordUtil.rpc.Discord_RunCallbacks();
-                    DiscordUtil.details = "";
-                    DiscordUtil.state = "";
+                    	DiscordUtil.rpc.Discord_RunCallbacks();
+                    	DiscordUtil.details = "";
+                    	DiscordUtil.state = "";
                     	if (Ozark.get_setting_manager().get_setting_with_tag("DiscordRPC", "RPCMode").in("Normal")) {
                         	DiscordUtil.presence.largeImageKey = "ozark_2";
                     	} else {
@@ -122,9 +122,9 @@ public class DiscordUtil
 			}
 						
 
-                    DiscordUtil.presence.details = DiscordUtil.details;
-                    DiscordUtil.presence.state = DiscordUtil.state;
-                    DiscordUtil.rpc.Discord_UpdatePresence(DiscordUtil.presence);
+                    	DiscordUtil.presence.details = DiscordUtil.details;
+                    	DiscordUtil.presence.state = DiscordUtil.state;
+                    	DiscordUtil.rpc.Discord_UpdatePresence(DiscordUtil.presence);
                     
                 }
                 catch (Exception e2) {
