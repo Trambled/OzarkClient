@@ -337,10 +337,10 @@ public class AutoCrystal extends Module {
             for (Entity player : mc.world.playerEntities) {
                 
                 if (player.getDistance(mc.player) >= player_range.get_value(1)) continue;
+                
+                if (player == mc.player || !(player instanceof EntityPlayer)) continue;
 
                 if (target_mode.in("Health")) {
-                    if (player == mc.player || !(player instanceof EntityPlayer)) continue;
-
                     if (FriendUtil.isFriend(player.getName())) continue;
 
                     final EntityPlayer target = (EntityPlayer) player;
@@ -423,10 +423,9 @@ public class AutoCrystal extends Module {
             for (BlockPos block : momentum.get_value(true) ? blocks_momentum : blocks) {
                 
                 if (player.getDistance(mc.player) >= player_range.get_value(1)) continue;
-
-                if (target_mode.in("Health")) {
-                    if (player == mc.player || !(player instanceof EntityPlayer)) continue;
-                }
+                
+                if (player == mc.player || !(player instanceof EntityPlayer)) continue;
+                
 
                 if (!BlockUtil.rayTracePlaceCheck(block, this.raytrace.get_value(true))) {
                     continue;
