@@ -217,12 +217,12 @@ public class CevBreaker extends Module
                 }else if(hasMoved) {
                     output = "Error: Enemy is too far!";
                 }else if(deadPl) {
-                    output = "Enemy is dead, gg! ";
+                    output = "Enemy is dead, ezzz ";
                 }
             // Output in chat
-            MessageUtil.send_client_error_message(output + "CevBreaker disabled");
+            MessageUtil.send_client_message(output + "CevBreaker disabled");
             if (!materialsNeeded.equals(""))
-                MessageUtil.send_client_error_message("Materials missing:" + materialsNeeded);
+                MessageUtil.send_error_message("Materials missing:" + materialsNeeded);
 
         }
 
