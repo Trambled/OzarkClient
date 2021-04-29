@@ -179,7 +179,7 @@ public class CevBreaker extends Module
         }
 
         if (chatMsg.get_value(true)){
-            MessageUtil.send_client_message("CevBreaker turned ON!");
+            MessageUtil.send_client_message("CevBreaker enabled");
         }
 
         oldSlot = mc.player.inventory.currentItem;
@@ -201,26 +201,26 @@ public class CevBreaker extends Module
             String materialsNeeded = "";
             // No target found
             if (aimTarget == null) {
-                output = "No target found...";
+                output = "Error: No target found";
             }else
                 // H distance not avaible
                 if (noMaterials){
-                    output = "No Materials Detected...";
+                    output = "Error: No Materials Detected";
                     materialsNeeded = getMissingMaterials();
                     // No Hole
                 }else if (!isHole) {
-                    output = "The enemy is not in a hole...";
+                    output = "Error: Enemy is not in a hole!";
                     // No Space
                 }else if(!enoughSpace) {
-                    output = "Not enough space...";
+                    output = "Error: too tight, need more space!";
                     // Has Moved
                 }else if(hasMoved) {
-                    output = "Out of range...";
+                    output = "Error: Enemy is too far!";
                 }else if(deadPl) {
                     output = "Enemy is dead, gg! ";
                 }
             // Output in chat
-            MessageUtil.send_client_error_message(output + "CevBreaker turned OFF!");
+            MessageUtil.send_client_error_message(output + "CevBreaker disabled");
             if (!materialsNeeded.equals(""))
                 MessageUtil.send_client_error_message("Materials missing:" + materialsNeeded);
 
