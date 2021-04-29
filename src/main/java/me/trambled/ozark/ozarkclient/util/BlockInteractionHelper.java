@@ -79,6 +79,14 @@ public class BlockInteractionHelper {
             }
         }
     }
+    
+    public static boolean isIntercepted(BlockPos pos) {
+        for (Entity entity : mc.world.loadedEntityList) {
+            if (new AxisAlignedBB(pos).intersects(entity.getEntityBoundingBox()))
+                return true;
+        }
+        return false;
+    }
 
     public static PlaceResult place(BlockPos pos, float p_Distance, boolean p_Rotate, boolean p_UseSlabRule)
     {
