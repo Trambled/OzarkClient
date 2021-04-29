@@ -76,6 +76,15 @@ public class HoleESP extends Module {
 
 	@Override
 	public void update() {
+		color_r_b = rb.get_value(1);
+		color_g_b = gb.get_value(1);
+		color_b_b = bb.get_value(1);
+
+		color_r_o = ro.get_value(1);
+		color_g_o = go.get_value(1);
+		color_b_o = bo.get_value(1);
+		
+		
 		holes.clear();
 
 		if (bedrock_rainbow.get_value(true)) {
