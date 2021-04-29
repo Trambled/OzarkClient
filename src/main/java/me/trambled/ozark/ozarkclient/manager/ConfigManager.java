@@ -119,6 +119,11 @@ public class ConfigManager {
         catch (Exception ex2) {}
     }
 
+    private void save_spammer() throws IOException {
+        FileWriter writer = new FileWriter("OZARKCLIENT/spammer.txt");
+        writer.close();
+    }
+
     public void load_xray() {
         try {
             final File file = new File(FILE_DIRECTORY, "xray.txt");
@@ -586,6 +591,7 @@ public class ConfigManager {
             save_kitmessage();
             save_past_gui();
             save_xray();
+            save_spammer();
             send_minecraft_log("Saved settings");
         } catch (IOException e) {
             send_minecraft_log("Something has gone wrong while saving settings please report it to trambled");

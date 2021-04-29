@@ -356,6 +356,8 @@ public class AutoCrystal extends Module {
                     target = get_closest_target();
                 }
 
+                if (target == null) continue;
+
                 boolean no_place = faceplace_check.get_value(true) && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD;
                 if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true)&& !no_place) || (get_armor_fucker(target) && !no_place && !get_armor_fucker(mc.player)) || (Ozark.get_hack_manager().get_module_with_tag("Faceplacer").is_active())) {
                     minimum_damage = 2;
@@ -444,6 +446,8 @@ public class AutoCrystal extends Module {
                 } else {
                     target = get_closest_target();
                 }
+
+                if (target == null) continue;
 
                 if (target.isDead || target.getHealth() <= 0) continue;
 

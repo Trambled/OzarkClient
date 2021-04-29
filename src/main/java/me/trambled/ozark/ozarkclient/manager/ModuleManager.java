@@ -120,7 +120,6 @@ public class ModuleManager {
 		add_module(new Anchor());
 		add_module(new AntiLevitation());
 		add_module(new EntitySpeed());
-		add_module(new ReverseStep());
 
 		// Render.
 		add_module(new Highlight());

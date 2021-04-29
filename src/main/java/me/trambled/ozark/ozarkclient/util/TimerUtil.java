@@ -1,8 +1,8 @@
 package me.trambled.ozark.ozarkclient.util;
 
-import me.trambled.ozark.mixins.MixinInterface;
+import net.minecraft.client.Minecraft;
 
-public class TimerUtil extends MixinInterface {
+public class TimerUtil {
 
     private long time;
 
@@ -27,6 +27,6 @@ public class TimerUtil extends MixinInterface {
     }
 
     public boolean hasPassed(long time) {
-        return mc.player.ticksExisted % (int) time == 0;
+        return Minecraft.getMinecraft().player.ticksExisted % (int) time == 0;
     }
 }
