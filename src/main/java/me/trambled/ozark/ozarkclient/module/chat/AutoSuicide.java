@@ -14,7 +14,8 @@ public class AutoSuicide extends Module {
       
     }
   
-    public void onEnable() {
+    @Override
+    protected void enable() {
         mc.player.sendChatMessage("/kill");
         this.toggle();
     }
