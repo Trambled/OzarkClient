@@ -335,13 +335,13 @@ public class AutoCrystal extends Module {
             if (attacked_crystals.containsKey(crystal) && attacked_crystals.get(crystal) > anti_stuck_tries.get_value(1) && anti_stuck.get_value(true)) continue;
 
             for (Entity player : mc.world.playerEntities) {
+                
+                if (player.getDistance(mc.player) >= player_range.get_value(1)) continue;
 
                 if (target_mode.in("Health")) {
                     if (player == mc.player || !(player instanceof EntityPlayer)) continue;
 
                     if (FriendUtil.isFriend(player.getName())) continue;
-
-                    if (player.getDistance(mc.player) >= player_range.get_value(1)) continue;
 
                     final EntityPlayer target = (EntityPlayer) player;
 
@@ -421,11 +421,11 @@ public class AutoCrystal extends Module {
             }
 
             for (BlockPos block : momentum.get_value(true) ? blocks_momentum : blocks) {
+                
+                if (player.getDistance(mc.player) >= player_range.get_value(1)) continue;
 
                 if (target_mode.in("Health")) {
                     if (player == mc.player || !(player instanceof EntityPlayer)) continue;
-
-                    if (player.getDistance(mc.player) >= player_range.get_value(1)) continue;
                 }
 
                 if (!BlockUtil.rayTracePlaceCheck(block, this.raytrace.get_value(true))) {
