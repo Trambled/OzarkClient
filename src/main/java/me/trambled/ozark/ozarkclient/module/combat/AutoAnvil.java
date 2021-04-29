@@ -101,22 +101,22 @@ public class AutoAnvil extends Module
 
         if (chatMsg.get_value(true)) {
             if (noMaterials) {
-                MessageUtil.send_client_message("No Materials Detected... AutoAnvil turned OFF!");
+                MessageUtil.send_client_message("Error: No Materials Detected!");
             }
             else if (!isHole) {
-                MessageUtil.send_client_message("Enemy is not in a hole... AutoAnvil turned OFF!");
+                MessageUtil.send_client_message("Error: Enemy is not in a hole!");
             }
             else if(!enoughSpace) {
-                MessageUtil.send_client_message("Not enough space... AutoAnvil turned OFF!");
+                MessageUtil.send_client_message("Error: Not enough space!");
             }
             else if(hasMoved) {
-                MessageUtil.send_client_message("Enemy moved away from the hole... AutoAnvil turned OFF!");
+                MessageUtil.send_client_message("Error: Enemy moved away from the hole!");
             }
             else if(blockUp) {
-                MessageUtil.send_client_message("Enemy head blocked.. AutoAnvil turned OFF!");
+                MessageUtil.send_client_message("Error: Enemy head blocked!");
             }
             else {
-                MessageUtil.send_client_message("AutoAnvil turned OFF!");
+                MessageUtil.send_client_message("AutoAnvil disabled");
             }
         }
 
