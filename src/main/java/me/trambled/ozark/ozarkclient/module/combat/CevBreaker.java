@@ -222,7 +222,7 @@ public class CevBreaker extends Module
             // Output in chat
             MessageUtil.send_client_message(output + "CevBreaker disabled");
             if (!materialsNeeded.equals(""))
-                MessageUtil.send_error_message("Materials missing:" + materialsNeeded);
+                MessageUtil.send_client_error_message("Materials missing:" + materialsNeeded);
 
         }
 
