@@ -50,6 +50,7 @@ public class ModuleManager {
 		add_module(new Spammer());
 		add_module(new FactSpammer());
 		add_module(new AutoGroom());
+		add_module(new Shrug());
 
 		// Combat.
 		add_module(new Criticals());
