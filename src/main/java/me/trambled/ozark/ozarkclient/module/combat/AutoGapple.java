@@ -17,7 +17,7 @@ public class AutoGapple extends Module {
         this.description = "switch to gapple";
     }
 
-    Setting health  = create("Health", "Health", 12, 0, 36);
+    Setting health  = create("Health", "Health", 8, 0, 36);
 
     @Override
     public void update() {
