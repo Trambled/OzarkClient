@@ -28,10 +28,10 @@ public class SelfTrap extends Module {
 		this.description = "oh 'eck, ive trapped me sen again";
     }
 
-    Setting toggle = create("Toggle", "SelfTrapToggle", false);
+    Setting toggle = create("Toggle", "SelfTrapToggle", true);
     Setting rotate = create("Rotate", "SelfTrapRotate", false);
     Setting swing = create("Swing", "SelfTrapSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
-    Setting delay = create("Delay", "SelfTrapDelay", 2, 0, 10);
+    Setting delay = create("Delay", "SelfTrapDelay", 0, 0, 10);
 
     private BlockPos trap_pos;
     private int delay_counter;
