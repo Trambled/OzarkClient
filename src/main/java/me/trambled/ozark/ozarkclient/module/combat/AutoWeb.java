@@ -24,9 +24,9 @@ public class AutoWeb extends Module {
         this.description = "places fuckin webs at ur feet";
     }
 
-    Setting always_on = create("Always On", "AlwaysOn", true);
+    Setting always_on = create("Always On", "AlwaysOn", false);
     Setting rotate = create("Rotate", "AutoWebRotate", true);
-    Setting range = create("Enemy Range", "AutoWebRange", 4, 0, 8);
+    Setting range = create("Enemy Range", "AutoWebRange", 3, 0, 8);
 
     int new_slot = -1;
 
