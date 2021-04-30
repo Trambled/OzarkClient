@@ -22,7 +22,7 @@ public class OffhandPlus extends Module {
     }
 
     Setting totem_switch = create("Totem HP", "OffhandPlusTotemHP", 16, 0, 36);
-    Setting module_check = create("ModuleCheck", "OffhandPlusModuleCheck", true);
+    Setting module_check = create("ModuleCheck", "OffhandPlusModuleCheck", false);
     Setting disable_else = create("Disable Else", "OffhandPlusDisableElse", true);
     Setting crystal_bind = create("Crystal", "OffhandPlusCrystal", 0);
     Setting gapple_bind = create("Gapple", "OffhandPlusGapple", 0);
