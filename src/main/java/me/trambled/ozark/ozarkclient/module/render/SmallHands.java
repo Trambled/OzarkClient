@@ -18,6 +18,6 @@ public class SmallHands extends Module {
     
     @Override
     public void update() {
-        SmallHand.mc.field_71439_g.field_71155_g = (float)this.offset.get_value(1);
+        mc.player.renderArmPitch = (float)this.offset.get_value(1);
     }
 }
