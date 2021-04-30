@@ -16,7 +16,7 @@ public class FactSpammer extends Module {
         this.description = "spams snapple facts";
     }
 
-    Setting delay = create("Delay", "SpammerDelay", 7.0, 7.0, 60.0);
+    Setting delay = create("Delay", "SpammerDelay", 5, 0, 100);
 
     private long start_time = 0L;
 
