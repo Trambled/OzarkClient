@@ -50,6 +50,7 @@ Default Command Prefix?
   PastGUI - Another GUI originally from past. <br>
   Anticrystal - Originally from xenon but added minhealth and crystal calculations to make it better, also supports string.<br><br>
   Some other skidded shit and bug fixes. <br>
+  Instantburrow - made by ObsidianBreaker from nekohax and leux but added to ozark. <br>
 </details>
 
 ## Configuring
