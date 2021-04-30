@@ -146,8 +146,7 @@ public class ModuleManager {
 		add_module(new Xray());
 		add_module(new Weather());
 		add_module(new BreakESP());
-		add_module(new SmallHands());
-
+	
 		// Misc.
 		add_module(new AutoWither());
 		add_module(new MiddleClickFriends());
