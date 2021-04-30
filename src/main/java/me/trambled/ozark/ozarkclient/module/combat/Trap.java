@@ -35,8 +35,8 @@ public class Trap extends Module {
         this.description = "cover people in obsidian :o";
     }
 
-    Setting place_mode = create("Place Mode", "TrapPlaceMode", "Extra", combobox("Extra", "Face", "Normal", "Feet"));
-    Setting blocks_per_tick = create("Speed", "TrapSpeed", 4, 0, 8);
+    Setting place_mode = create("Place Mode", "TrapPlaceMode", "Feet", combobox("Extra", "Face", "Normal", "Feet"));
+    Setting blocks_per_tick = create("Speed", "TrapSpeed", 1, 0, 8);
     Setting rotate = create("Rotation", "TrapRotation", true);
     Setting chad_mode = create("Chad Mode", "TrapChadMode", true);
     Setting swing = create("Swing", "TrapSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
