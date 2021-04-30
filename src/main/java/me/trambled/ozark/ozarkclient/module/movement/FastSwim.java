@@ -24,6 +24,7 @@ public class FastSwim extends Module
     @Override
     public void update() {
         int divider = 5;
+        if (full_null_check()) return;
         if ((FastSwim.mc.player.isInWater() || FastSwim.mc.player.isInLava()) && FastSwim.mc.player.movementInput.jump && this.up.get_value(true)) {
             FastSwim.mc.player.motionY = 0.0725 / divider;
         }

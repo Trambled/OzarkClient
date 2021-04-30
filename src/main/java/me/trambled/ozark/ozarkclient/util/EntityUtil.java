@@ -40,6 +40,45 @@ public class EntityUtil {
         mc.player.swingArm(EnumHand.MAIN_HAND);
     }
 
+    public static boolean isInHole(Entity entity) {
+        return EntityUtil.isBlockValid(new BlockPos(entity.posX, entity.posY, entity.posZ));
+    }
+
+    public static boolean isBlockValid(BlockPos blockPos) {
+        return EntityUtil.isBedrockHole(blockPos) || EntityUtil.isObbyHole(blockPos) || EntityUtil.isBothHole(blockPos);
+    }
+
+    public static boolean isObbyHole(BlockPos blockPos) {
+        BlockPos[] touchingBlocks;
+        for (BlockPos pos : touchingBlocks = new BlockPos[]{blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()}) {
+            IBlockState touchingState = EntityUtil.mc.world.getBlockState(pos);
+            if (touchingState.getBlock() != Blocks.AIR && touchingState.getBlock() == Blocks.OBSIDIAN) continue;
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isBedrockHole(BlockPos blockPos) {
+        BlockPos[] touchingBlocks;
+        for (BlockPos pos : touchingBlocks = new BlockPos[]{blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()}) {
+            IBlockState touchingState = EntityUtil.mc.world.getBlockState(pos);
+            if (touchingState.getBlock() != Blocks.AIR && touchingState.getBlock() == Blocks.BEDROCK) continue;
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isBothHole(BlockPos blockPos) {
+        BlockPos[] touchingBlocks;
+        for (BlockPos pos : touchingBlocks = new BlockPos[]{blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()}) {
+            IBlockState touchingState = EntityUtil.mc.world.getBlockState(pos);
+            if (touchingState.getBlock() != Blocks.AIR && (touchingState.getBlock() == Blocks.BEDROCK || touchingState.getBlock() == Blocks.OBSIDIAN))
+                continue;
+            return false;
+        }
+        return true;
+    }
+
     public static double[] calculateLookAt(double px, double py, double pz, Entity me) {
         double dirx = me.posX - px;
         double diry = me.posY - py;

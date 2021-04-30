@@ -20,6 +20,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.*;
 import net.minecraft.network.play.client.*;
 import net.minecraft.network.play.server.SPacketSoundEffect;
+import net.minecraft.network.play.server.SPacketSpawnObject;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -42,17 +43,19 @@ public class AutoCrystal extends Module {
     Setting debug = create("Debug", "CaDebug", false);
     Setting place_crystal = create("Place", "CaPlace", true);
     Setting break_crystal = create("Break", "CaBreak", true);
-    Setting break_trys = create("Break Attempts", "CaBreakAttempts", 2, 1, 6);
-    Setting place_trys = create("Place Attempts", "CaPlaceAttempts", 2, 1, 6);
     Setting anti_weakness = create("Anti-Weakness", "CaAntiWeakness", true);
     Setting alternative = create("Alternative", "CaAlternative", false);
     Setting module_check = create("Module Check", "CaModuleCheck", false);
-    Setting predict = create("Predict", "CaPredict", true);
-    Setting predict_factor = create("Predict Factor", "CaPredictFactor", 1f, 0f, 2f);
+    Setting break_predict = create("Break Predict", "CaBreakPredict", true);
+    Setting break_predict_factor = create("Break Predict Delay", "CaBreakPredictFactor", 0, 0, 200);
+    Setting motion_predict = create("Motion Predict", "CaMotionPredict", true);
+    Setting motion_predict_factor = create("Motion Factor", "CaMotionPredictFactor", 1f, 0f, 2f);
     Setting verify_place = create("Verify Place", "CaVerifyPlace", false);
     Setting inhibit = create("Inhibit", "CaInhibit", true);
     Setting inhibit_delay = create("Inhibit Delay", "CaInhibitDelay", 0, 0, 10);
     Setting inhibit_swings = create("Inhibit Swings", "CaInhibitSwings", 50, 1, 100);
+    Setting break_trys = create("Break Attempts", "CaBreakAttempts", 1, 1, 6);
+    Setting place_trys = create("Place Attempts", "CaPlaceAttempts", 1, 1, 6);
 
     Setting hit_range = create("Hit Range", "CaHitRange", 5f, 1f, 6f);
     Setting place_range = create("Place Range", "CaPlaceRange", 5f, 1f, 6f);
@@ -126,6 +129,7 @@ public class AutoCrystal extends Module {
 
     private final TimerUtil remove_visual_timer = new TimerUtil();
     private final TimerUtil chain_timer = new TimerUtil();
+    private final TimerUtil predict_timer = new TimerUtil();
 
     private EntityPlayer autoez_target = null;
 
@@ -223,6 +227,23 @@ public class AutoCrystal extends Module {
                         }
                     }
                 }
+            }
+        }
+
+        if (event.get_packet() instanceof SPacketSpawnObject) {
+            final SPacketSpawnObject packet = (SPacketSpawnObject) event.get_packet();
+            if (packet.getType() == 51 && this.autoez_target != null && break_predict.get_value(true) && predict_timer.passed(break_predict_factor.get_value(1))) {
+                predict_timer.reset();
+                if (!this.is_predicting(packet)) {
+                    return;
+                }
+                if (debug.get_value(true)) {
+                    MessageUtil.send_client_message("breaking predicting");
+                }
+                CPacketUseEntity predict = new CPacketUseEntity();
+                predict.entityId = packet.getEntityID();
+                predict.action = CPacketUseEntity.Action.ATTACK;
+                AutoCrystal.mc.player.connection.sendPacket(predict);
             }
         }
 
@@ -411,7 +432,7 @@ public class AutoCrystal extends Module {
 
         BlockPos best_block = null;
 
-        List<BlockPos> blocks_momentum = CrystalUtil.crystalBlocksMomentum(mc.player, place_range.get_value(1), predict.get_value(true), predict_factor.get_value(1), !multi_place.get_value(true), endcrystal.get_value(true));
+        List<BlockPos> blocks_momentum = CrystalUtil.crystalBlocksMomentum(mc.player, place_range.get_value(1), motion_predict.get_value(true), motion_predict_factor.get_value(1), !multi_place.get_value(true), endcrystal.get_value(true));
         List<BlockPos> blocks = CrystalUtil.possiblePlacePositions(place_range.get_value(1), endcrystal.get_value(true), !multi_place.get_value(true));
 
         for (Entity player : mc.world.playerEntities) {
@@ -524,6 +545,32 @@ public class AutoCrystal extends Module {
 //          }
 //        return new_list;
 //      }
+
+    private boolean is_predicting(SPacketSpawnObject packet) {
+        BlockPos packPos = new BlockPos(packet.getX(), packet.getY(), packet.getZ());
+        if (AutoCrystal.mc.player.getDistance(packet.getX(), packet.getY(), packet.getZ()) > (double) this.hit_range.get_value(1)) {
+            return false;
+        }
+        if (!BlockUtil.canSeeBlock(packPos) && AutoCrystal.mc.player.getDistance(packet.getX(), packet.getY(), packet.getZ()) > (double) this.hit_range_wall.get_value(1)) {
+            return false;
+        }
+        double targetDmg = CrystalUtil.calculateDamage(packet.getX() + 0.5, packet.getY() + 1.0, packet.getZ() + 0.5, this.autoez_target);
+        if (EntityUtil.isInHole(AutoCrystal.mc.player) && targetDmg >= 1.0) {
+            return true;
+        }
+        double selfDmg = CrystalUtil.calculateDamage(packet.getX() + 0.5, packet.getY() + 1.0, packet.getZ() + 0.5, AutoCrystal.mc.player);
+        double d = anti_suicide.get_value(true) ? 2.0 : 0.5;
+        if (get_armor_fucker(autoez_target) && !get_armor_fucker(mc.player)) {
+            return true;
+        }
+        if (selfDmg + d < (double) (AutoCrystal.mc.player.getHealth() + AutoCrystal.mc.player.getAbsorptionAmount()) && targetDmg >= (double) (this.autoez_target.getAbsorptionAmount() + this.autoez_target.getHealth())) {
+            return true;
+        }
+        if (targetDmg >= (double) this.min_player_break.get_value(1) && selfDmg <= (double) this.max_self_damage.get_value(1)) {
+            return true;
+        }
+        return faceplace_mode.get_value(true) && EntityUtil.isInHole(this.autoez_target) && this.autoez_target.getHealth() + this.autoez_target.getAbsorptionAmount() <= this.faceplace_mode.get_value(1);
+    }
 
 
     public void place_crystal() {
@@ -917,6 +964,7 @@ public class AutoCrystal extends Module {
 //      current_chain_index = 0;
         chain_timer.reset();
         remove_visual_timer.reset();
+        predict_timer.reset();
         detail_name = null;
         detail_hp = 20;
 //      packets = 0;

@@ -4,13 +4,13 @@ import me.trambled.ozark.ozarkclient.event.Event;
 
 public class EventPlayerSendChatMessage extends Event
 {
-    public String Message;
+    public String message;
 
     public EventPlayerSendChatMessage(String p_Message)
     {
         super();
         
-        Message = p_Message;
+        message = p_Message;
     }
 
 }

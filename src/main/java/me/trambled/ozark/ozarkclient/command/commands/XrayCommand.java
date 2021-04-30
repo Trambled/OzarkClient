@@ -17,29 +17,29 @@ public class XrayCommand extends Command
             return true;
         }
         if (message.length == 1) {
-            MessageUtil.send_client_message("Specify an option. Try doing .xray help to see command options");
+            MessageUtil.send_client_error_message("Specify an option. Try doing .xray help to see command options");
             return true;
         } else {
             if (message[1].equalsIgnoreCase("add")) {
                 if (message.length < 3) {
-                    MessageUtil.send_client_message("Please specify a block.");
+                    MessageUtil.send_client_error_message("Please specify a block.");
                 } else {
                     if (Xray.addBlock(message[2])) {
                         MessageUtil.send_client_message("Added " + message[2] + " to XRAY!");
                     }
                     else {
-                        MessageUtil.send_client_message("Unknown block!");
+                        MessageUtil.send_client_error_message("Unknown block!");
                     }
                 }
             }
             else if (message[1].equalsIgnoreCase("remove")) {
                 if (message.length < 3) {
-                    MessageUtil.send_client_message("Please specify a block.");
+                    MessageUtil.send_client_error_message("Please specify a block.");
                 } else {
                     if (Xray.delBlock(message[2])) {
                         MessageUtil.send_client_message("Removed " + message[2] + " from XRAY!");
                     } else {
-                        MessageUtil.send_client_message("Unknown block!");
+                        MessageUtil.send_client_error_message("Unknown block!");
                     }
                 }
             }
@@ -59,7 +59,7 @@ public class XrayCommand extends Command
                 MessageUtil.send_client_message(out);
             }
             else {
-                MessageUtil.send_client_message("Unknown arguments! (do .xray help)");
+                MessageUtil.send_client_error_message("Unknown arguments! (do .xray help)");
             }
             return true;
         }

@@ -19,9 +19,9 @@ public class RetardChat extends Module {
     }
  
     @EventHandler
-    private final Listener<EventPlayerSendChatMessage> OnSendChatMsg = new Listener<>(p_Event ->
+    private final Listener<EventPlayerSendChatMessage> OnSendChatMsg = new Listener<>(event ->
     {
-        if (p_Event.Message.startsWith("/"))
+        if (event.message.startsWith("/"))
             return;
 
         String l_Message = "";
@@ -29,7 +29,7 @@ public class RetardChat extends Module {
   
         boolean l_Flag = false;
                 
-        for (char l_Char : p_Event.Message.toCharArray())
+        for (char l_Char : event.message.toCharArray())
         {
             String l_Val = String.valueOf(l_Char);
                     
@@ -40,7 +40,7 @@ public class RetardChat extends Module {
 			}
         }
         
-        p_Event.cancel();
+        event.cancel();
         mc.getConnection().sendPacket(new CPacketChatMessage(l_Message));
     });
 }

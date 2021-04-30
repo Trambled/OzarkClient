@@ -18,16 +18,17 @@ public class Step extends Module {
 		this.description = "Move up block big";
     }
 
-    Setting mode = create("Mode", "Mode", "Phobos", combobox("Wp2", "Phobos", "None"));
-    Setting vanilla = create("Vanilla", "VanillaMode", true);
+    Setting mode = create("Mode", "Mode", "Phobos", combobox("Wp2", "Phobos", "Vanilla"));
 
     @Override
     public void update() {
-        if (vanilla.get_value(true)) {
+        if (mode.in("Vanilla")) {
 			mc.player.stepHeight = 2f;
 		} else {
 			mc.player.stepHeight = 0.5f;
 		}
+
+        if (mode.in("Vanilla")) return;
         if (!mc.player.collidedHorizontally) return;
         if (!mc.player.onGround || mc.player.isOnLadder() || mc.player.isInWater() || mc.player.isInLava() || mc.player.movementInput.jump || mc.player.noClip) return;
         if (mc.player.moveForward == 0 && mc.player.moveStrafing == 0) return;
