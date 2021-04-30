@@ -26,7 +26,7 @@ public class Offhand extends Module {
     Setting switch_mode = create("Offhand", "OffhandOffhand", "Totem", combobox("Totem", "Crystal", "Gapple", "Pressure Plate"));
     Setting totem_switch = create("Totem HP", "OffhandTotemHP", 16, 0, 36);
 
-    Setting module_check = create("ModuleCheck", "OffhandModuleCheck", true);
+    Setting module_check = create("ModuleCheck", "OffhandModuleCheck", false);
     Setting gapple_in_hole = create("Gapple In Hole", "OffhandGapple", false);
     Setting only_when_right_click = create("Right Click", "OffhandRightClick", false);
     Setting gapple_hole_hp = create("Gapple Hole HP", "OffhandGappleHP", 8, 0, 36);
