@@ -21,27 +21,27 @@ public class OldGUI extends Module {
 	Setting scroll_speed = create("Scroll Speed", "ClickGUIScrollSpeed", 10, 0, 30);
 
 	Setting label_frame = create("info", "ClickGUIInfoFrame", "Frames");
-	Setting name_frame_r = create("Name R", "ClickGUINameFrameR", 255, 0, 255);
-	Setting name_frame_g = create("Name G", "ClickGUINameFrameG", 255, 0, 255);
-	Setting name_frame_b = create("Name B", "ClickGUINameFrameB", 255, 0, 255);
+	Setting name_frame_r = create("Name R", "ClickGUINameFrameR", 245, 0, 255);
+	Setting name_frame_g = create("Name G", "ClickGUINameFrameG", 127, 0, 255);
+	Setting name_frame_b = create("Name B", "ClickGUINameFrameB", 142, 0, 255);
 	Setting rainbow_name = create("Rainbow Name", "ClickGUIRainbowName", false);
 
 	Setting background_frame_r = create("Background R", "ClickGUIBackgroundFrameR", 0, 0, 255);
 	Setting background_frame_g = create("Background G", "ClickGUIBackgroundFrameG", 0, 0, 255);
 	Setting background_frame_b = create("Background B", "ClickGUIBackgroundFrameB", 0, 0, 255);
-	Setting background_frame_a = create("Background A", "ClickGUIBackgroundFrameA", 255, 0, 255);
+	Setting background_frame_a = create("Background A", "ClickGUIBackgroundFrameA", 27, 0, 255);
 	Setting rainbow_background = create("Rainbow Back Ground", "ClickGUIRainbowBackGround", false);
 
-	Setting border_frame_r = create("Border R", "ClickGUIBorderFrameR", 255, 0, 255);
-	Setting border_frame_g = create("Border G", "ClickGUIBorderFrameG", 255, 0, 255);
-	Setting border_frame_b = create("Border B", "ClickGUIBorderFrameB", 255, 0, 255);
+	Setting border_frame_r = create("Border R", "ClickGUIBorderFrameR", 245, 0, 255);
+	Setting border_frame_g = create("Border G", "ClickGUIBorderFrameG", 127, 0, 255);
+	Setting border_frame_b = create("Border B", "ClickGUIBorderFrameB", 142, 0, 255);
 	Setting rainbow_border = create("Rainbow Border", "ClickGUIRainbowBorder", false);
 
 	Setting label_widget = create("info", "ClickGUIInfoWidget", "Widgets");
 
-	Setting name_widget_r = create("Name R", "ClickGUINameWidgetR", 255, 0, 255);
-	Setting name_widget_g = create("Name G", "ClickGUINameWidgetG", 255, 0, 255);
-	Setting name_widget_b = create("Name B", "ClickGUINameWidgetB", 255, 0, 255);
+	Setting name_widget_r = create("Name R", "ClickGUINameWidgetR", 245, 0, 255);
+	Setting name_widget_g = create("Name G", "ClickGUINameWidgetG", 127, 0, 255);
+	Setting name_widget_b = create("Name B", "ClickGUINameWidgetB", 142, 0, 255);
 	Setting rainbow_name_widget = create("Rainbow Name", "ClickGUIRainbowWidgetName", false);
 
 	Setting background_widget_r = create("Background R", "ClickGUIBackgroundWidgetR", 255, 0, 255);
@@ -50,9 +50,9 @@ public class OldGUI extends Module {
 	Setting background_widget_a = create("Background A", "ClickGUIBackgroundWidgetA", 100, 0, 255);
 	Setting rainbow_widget_background = create("Rainbow Background", "ClickGUIRainbowWidgetBackground", false);
 
-	Setting border_widget_r = create("Border R", "ClickGUIBorderWidgetR", 255, 0, 255);
-	Setting border_widget_g = create("Border G", "ClickGUIBorderWidgetG", 255, 0, 255);
-	Setting border_widget_b = create("Border B", "ClickGUIBorderWidgetB", 255, 0, 255);
+	Setting border_widget_r = create("Border R", "ClickGUIBorderWidgetR", 245, 0, 255);
+	Setting border_widget_g = create("Border G", "ClickGUIBorderWidgetG", 127, 0, 255);
+	Setting border_widget_b = create("Border B", "ClickGUIBorderWidgetB", 142, 0, 255);
 	Setting rainbow_widget_border = create("Rainbow Border", "ClickGUIRainbowWidgetBorder", false);
 
 	@Override
