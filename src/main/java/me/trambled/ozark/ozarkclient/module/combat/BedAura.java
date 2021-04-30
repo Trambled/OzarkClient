@@ -35,18 +35,18 @@ public class BedAura extends Module {
         this.description = "automatically places beds";
     }
 
-    Setting place_mode = create("Place Mode", "BedAuraPlaceMode", "New", combobox("New", "Old", "None"));
+    Setting place_mode = create("Place Mode", "BedAuraPlaceMode", "Old", combobox("New", "Old", "None"));
     Setting break_mode = create("Break Mode", "BedAuraBreakMode", "Smart", combobox("Smart", "All", "None"));
-    Setting place_delay = create("Place Delay", "BedAuraPlaceDelay", 6, 0 , 20);
-    Setting break_delay = create("Break Delay", "BedAuraBreakDelay", 6, 0 , 20);
+    Setting place_delay = create("Place Delay", "BedAuraPlaceDelay", 1, 0 , 20);
+    Setting break_delay = create("Break Delay", "BedAuraBreakDelay", 1, 0 , 20);
     Setting anti_suicide = create("Anti Suicide", "BedAuraAntiSuicide", true);
-    Setting max_self_damage = create("Smart Max Self Damage", "BedAuraMaxSelfDamage", 6, 0, 36);
-    Setting min_player_place = create("Smart Min Enemy Place", "BedAuraMinEnemyPlace", 8, 0, 36);
-    Setting min_player_break = create("Smart Min Enemy Break", "BedAuraMinEnemyBreak", 6, 0, 36);
-    Setting break_range = create("Break Range", "BedAuraBreakRange", 5, 0, 6);
-    Setting player_range = create("Place Range", "BedAuraPlayerRange", 5, 0, 6);
+    Setting max_self_damage = create("Smart Max Self Damage", "BedAuraMaxSelfDamage", 10, 0, 36);
+    Setting min_player_place = create("Smart Min Enemy Place", "BedAuraMinEnemyPlace", 6, 0, 36);
+    Setting min_player_break = create("Smart Min Enemy Break", "BedAuraMinEnemyBreak", 0, 0, 36);
+    Setting break_range = create("Break Range", "BedAuraBreakRange", 6, 0, 6);
+    Setting player_range = create("Place Range", "BedAuraPlayerRange", 6, 0, 6);
     Setting min_health_pause = create("Min Health Pause", "BedAuraMinHealthPause", true);
-    Setting required_health = create("Required Health", "BedAuraRequiredHealth", 12f, 1f, 36f);
+    Setting required_health = create("Required Health", "BedAuraRequiredHealth", 1f, 1f, 36f);
     Setting auto_switch = create("Auto Switch", "BedAuraAutoSwitch", true);
     Setting refill = create("Refill", "BedAuraRefill", true);
     Setting hard = create("Hard Rotate", "BedAuraRotate", false);
@@ -58,7 +58,7 @@ public class BedAura extends Module {
     Setting b = create("B", "BedAuraB", 180, 0, 255);
     Setting solid_a = create("Solid A", "BedAuraA", 50, 0, 255);
     Setting line_a = create("Line A", "BedAuraA", 255, 0, 255);
-    Setting rainbow_mode = create("Rainbow", "BedAuraRainbow", true);
+    Setting rainbow_mode = create("Rainbow", "BedAuraRainbow", false);
     Setting debug = create("Debug", "BedAuraDebug", false);
 
     private BlockPos render_pos;
