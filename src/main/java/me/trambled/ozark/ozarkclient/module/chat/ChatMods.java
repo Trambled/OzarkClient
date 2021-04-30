@@ -26,7 +26,7 @@ public final class ChatMods extends Module {
     }
 
     Setting timestamps = create("Timestamps", "ChatModsTimeStamps", true);
-    Setting dateformat = create("Date Format", "ChatModsDateFormat", "24HR", combobox("24HR", "12HR"));
+    Setting dateformat = create("Date Format", "ChatModsDateFormat", "12HR", combobox("24HR", "12HR"));
     Setting name_highlight = create("Name Highlight", "ChatModsNameHighlight", true);
 
     @EventHandler
