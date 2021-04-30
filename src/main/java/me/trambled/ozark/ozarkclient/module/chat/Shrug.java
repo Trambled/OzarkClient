@@ -16,7 +16,7 @@ public class Shrug extends Module {
   
     @Override
     protected void enable() {
-        mc.player.sendChatMessage("¯\_(ツ)_/¯");
+        mc.player.sendChatMessage("\u00AF\\_(\u30C4)_/\u00AF");
         this.toggle();
     }
 }
