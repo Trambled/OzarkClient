@@ -31,8 +31,8 @@ public class Surround extends Module {
 	Setting hybrid = create("Hybrid", "SurroundHybrid", true);
 	Setting triggerable = create("Toggle", "SurroundToggle", true);
 	Setting center = create("Center", "SurroundCenter", true);
-	Setting tick_for_place = create("Blocks per tick","SurroundTickToPlace", 2, 1, 8);
-	Setting tick_timeout = create("Ticks til timeout","SurroundTicks", 20, 10,50);
+	Setting tick_for_place = create("Blocks per tick","SurroundTickToPlace", 8, 1, 8);
+	Setting tick_timeout = create("Ticks til timeout","SurroundTicks", 40, 10,50);
 	Setting swing = create("Swing", "SurroundSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
 
 
