@@ -9,9 +9,9 @@ public class SmallHands extends Module {
     public SmallHands() {
         super(Category.RENDER);
         
-        this.name = "Small Hand";
-        this.tag = "SmallHand";
-        this.description = "Small hand in game.";
+        this.name = "Small Hands";
+        this.tag = "SmallHands";
+        this.description = "makes ur hands smaller";
     }
     
     Setting offset = create("Offset", "Offset", 90, 0, 360);
