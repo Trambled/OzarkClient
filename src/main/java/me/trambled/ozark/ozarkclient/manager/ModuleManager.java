@@ -170,7 +170,7 @@ public class ModuleManager {
 		add_module(new AutoGear());
 		add_module(new AntiSound());
 		add_module(new Friends());
-		add_module(new DonkeyAlert());
+		add_module(new EntityAlert());
 		add_module(new Portals());
 		add_module(new TabColours());
 		add_module(new AntiAFK());
