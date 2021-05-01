@@ -60,14 +60,14 @@ public class AutoCrystal extends Module {
     Setting hit_range = create("Hit Range", "CaHitRange", 5f, 1f, 6f);
     Setting place_range = create("Place Range", "CaPlaceRange", 5f, 1f, 6f);
     Setting hit_range_wall = create("Range Wall", "CaRangeWall", 3.5f, 1f, 6f);
-    Setting player_range = create("Player Range", "CaPlayerRange", 10f, 1f, 13f);
+    Setting player_range = create("Player Range", "CaPlayerRange", 10f, 1f, 20f);
 
     Setting place_delay = create("Place Delay", "CaPlaceDelay", 0, 0, 10);
     Setting break_delay = create("Break Delay", "CaBreakDelay", 1, 0, 10);
 
     Setting min_player_place = create("Min Enemy Place", "CaMinEnemyPlace", 6, 0, 20);
     Setting min_player_break = create("Min Enemy Break", "CaMinEnemyBreak", 6, 0, 20);
-    Setting max_self_damage = create("Max Self Damage", "CaMaxSelfDamage", 8, 0, 20);
+    Setting max_self_damage = create("Max Self Damage", "CaMaxSelfDamage", 8, 0, 36);
 
     Setting min_health_pause = create("Min Health Pause", "CaMinHealthPause", true);
     Setting required_health = create("Required Health", "CaRequiredHealth", 1f, 1f, 36f);
