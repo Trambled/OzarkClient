@@ -23,7 +23,7 @@ public class Strafe extends Module {
 	}
 
 	Setting speed_mode = create("Mode", "StrafeMode", "Strafe", combobox("Strafe", "On Ground", "None"));
-	Setting speed = create("Speed", "StrafeSpeed", 5f, 0f, 10f);
+	Setting speed = create("Speed", "StrafeSpeed", 5.4f, 0f, 10f);
 	Setting bypass = create("Bypass", "StrafeBypass", false);
 	Setting y_offset = create("Y Offset", "StrafeYOffset", 4f, 0f, 10f);
 	Setting auto_sprint = create("Auto Sprint", "StrafeSprint", true);
