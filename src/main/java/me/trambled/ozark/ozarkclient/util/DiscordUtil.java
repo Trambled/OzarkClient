@@ -39,8 +39,10 @@ public class DiscordUtil
                 	DiscordUtil.state = "";
                 	if (Ozark.get_setting_manager().get_setting_with_tag("DiscordRPC", "RPCMode").in("Normal")) {
                 		DiscordUtil.presence.largeImageKey = "ozark_2";
-                	} else {
+                	} else if (Ozark.get_setting_manager().get_setting_with_tag("DiscordRPC", "RPCMode").in("lempity")) {
                 		DiscordUtil.presence.largeImageKey = "lempity";
+			} else if (Ozark.get_setting_manager().get_setting_with_tag("DiscordRPC", "RPCMode").in("kambing")) {	
+				DiscordUtil.presence.largeImageKey = "kambing";
                 	}
 					if (mc.world == null) {
 						DiscordUtil.details = "In the menus";
