@@ -16,7 +16,7 @@ public class AutoDDOS extends Module {
     }
     
     @Override 
-    public void onEnable() {
+    protected void enable() {
         MessageUtil.send_client_message("Successfully pinged IP address [REDACTED] with 32 bytes of data.");
     }
 }
