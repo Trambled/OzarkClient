@@ -5,8 +5,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 
-public class AutoDDOS extends Module
-{
+public class AutoDDOS extends Module {
     public AutoDDOS() {
         super(Category.CHAT);
         
