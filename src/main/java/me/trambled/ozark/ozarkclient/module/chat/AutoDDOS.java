@@ -24,4 +24,5 @@ public class AutoDDOS extends Module {
     public void update() {
         MessageUtil.send_client_message("");
     }
+	
 }
