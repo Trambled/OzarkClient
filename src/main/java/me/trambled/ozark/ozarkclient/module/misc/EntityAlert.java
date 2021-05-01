@@ -26,7 +26,7 @@ public class EntityAlert extends Module
 
         this.name = "Entity Alert";
         this.tag = "EntityAlert";
-        this.description = "alerts u when Entitys apear in render distance";
+        this.description = "alerts u when Entitys appear in render distance";
     }
 
     Setting donkeys = create("Donkeys", "AlertDonkeys", true);
