@@ -17,11 +17,11 @@ public class HUD extends Module {
 		this.description = "Allows u to modify the hud";
 	}
 
-	Setting strings_r = create("Color R", "HUDStringsColorR", 255, 0, 255);
-	Setting strings_g = create("Color G", "HUDStringsColorG", 255, 0, 255);
-	Setting strings_b = create("Color B", "HUDStringsColorB", 255, 0, 255);
+	Setting strings_r = create("Color R", "HUDStringsColorR", 245, 0, 255);
+	Setting strings_g = create("Color G", "HUDStringsColorG", 127, 0, 255);
+	Setting strings_b = create("Color B", "HUDStringsColorB", 142, 0, 255);
 	Setting strings_a = create("Alpha", "HUDStringsColorA", 230, 0, 255);
-	Setting rainbow = create("Rainbow", "HUDRainbow", true);
+	Setting rainbow = create("Rainbow", "HUDRainbow", false);
 	Setting compass_scale = create("Compass Scale", "HUDCompassScale", 16, 1, 60);
 	Setting user_mode = create("User Mode", "HUDUserMode", "Time", combobox("Time", "Simple"));
 	Setting arraylist_mode = create("ArrayList", "HUDArrayList", "Free", combobox("Free", "Top R", "Top L", "Bottom R", "Bottom L"));
