@@ -15,7 +15,7 @@ public class DiscordRPC extends Module
     }
 
     //lempity why
-    Setting mode = create("Mode", "RPCMode", "Normal", combobox("Normal", "Lempity"));
+    Setting mode = create("Mode", "RPCMode", "Normal", combobox("Normal", "Lempity", "kambing"));
     
     @Override
     protected void enable() {
