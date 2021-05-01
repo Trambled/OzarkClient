@@ -56,7 +56,7 @@ Default Command Prefix?
 ## Configuring
 
 <details>
-  <summary>Etho's autocrystal config</summary> <br>
+  <summary>Etho's autocrystal config (bad)-perry</summary> <br>
 CaDebug:false <br>
 CaPlace:true <br>
 CaBreak:true <br>
