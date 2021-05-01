@@ -19,4 +19,10 @@ public class AutoDDOS extends Module {
     protected void enable() {
         MessageUtil.send_client_message("Successfully pinged IP address [REDACTED] with 32 bytes of data.");
     }
+	
+    @Override 
+    public void update() {
+        MessageUtil.send_client_message("");
+    }
+	    
 }
