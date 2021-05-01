@@ -35,7 +35,7 @@ public class AntiHaram extends Module {
         chants.add("ALLAHU AKBAR");
         chants.add("HARAM PIGGIES DIE FOR ALLAH");
         chants.add("#FREEPALESTINE");
-        chants.add("BISMILLAH AL RAHAM AL RAHIM");
+        chants.add("BISMILLAH AL RAHMAN AL RAHIM");
         chants.add("MUHAMMAD PEACE BE UPON HIM");
         chants.add("I PRAY TO ALLAH 5 TIMES A DAY");
         chants.add("DEATH TO STINKY HARAM INFIDELS");
