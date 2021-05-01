@@ -57,27 +57,73 @@ Default Command Prefix?
 
 <details>
   <summary>Etho's autocrystal config</summary> <br>
-   Debug Off <br>
-   Place/Break ON <br>
-   Place/Break Range 5 <br>
-   Range wall 3 or 5 <br>
-   Alternative ON <br>
-   Inhibit ON, Delay 1 <br>
-   Packet Place and Break ON <br>
-   Momentum Calcs ON <br>
-   Fast Mode ON <br>
-   Place Delay 0 <br>
-   Break delay (1 for under 50ms ping, 2-4 for high ping) <br>
-   Anti Stuck ON, tries 1, time 1k <br>
-   Swing OFFHAND <br>
-   Render OUTLINE <br>
-   Dead Check OFF <br>
-   Predict ON <br>
-   Predict Factor 0 - 1 <br>
-   Module Check ON <br>
-   Rotate OFF <br>
-   Sync SOUND <br>
-   Anti Suicide ON <br>
+CaDebug:false
+CaPlace:true
+CaBreak:true
+CaAntiWeakness:false
+CaAlternative:true
+CaModuleCheck:true
+CaBreakPredict:true
+CaBreakPredictFactor:0
+CaMotionPredict:true
+CaMotionPredictFactor:1.0
+CaVerifyPlace:false
+CaInhibit:true
+CaInhibitDelay:0
+CaInhibitSwings:50
+CaBreakAttempts:1
+CaPlaceAttempts:1
+CaHitRange:5.0
+CaPlaceRange:5.0
+CaRangeWall:3.5
+CaPlayerRange:5.8
+CaPlaceDelay:0
+CaBreakDelay:0
+CaMinEnemyPlace:6
+CaMinEnemyBreak:6
+CaMaxSelfDamage:8
+CaMinHealthPause:false
+CaRequiredHealth:1.0
+CaPacketPlace:true
+CaPackeBreak:true
+CaRotateMode:Off
+CaTargetMode:Health
+CaRaytrace:true
+CaSwitchMode:None
+CaAntiSuicide:true
+CaSpeed:true
+CaDeadCheck:false
+CaSync:None
+CaJumpyMode:false
+CaMomentumMode:true
+CaAntiStuck:false
+CaAntiStuckTries:5
+CaAntiStuckTime:1000
+CaThirteen:false
+CaMultiplace:false
+CaTabbottMode:true
+CaTabbottModeHealth:20
+CaArmorDestroy:true
+CaArmorPercent:25
+CaArmorPercentSelf:0
+CaStopWhileMining:false
+CaStopWhileEatin:false
+CaJumpyFaceMode:false
+CaSwing:None
+CaRenderMode:Outline
+CaOldRender:false
+CaFutureRender:false
+CaTopBlock:false
+CaR:255
+CaG:0
+CaB:17
+CaA:100
+CaOutlineA:255
+CaRainbow:true
+CaSatiation:0.8
+CaBrightness:0.8
+CaHeight:1.0
+RenderDamage:true
 </details>
 
 
