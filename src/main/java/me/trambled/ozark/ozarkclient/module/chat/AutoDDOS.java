@@ -11,8 +11,8 @@ public class AutoDDOS extends Module
         super(Category.CHAT);
         
         this.name        = "Auto DDOS";
-		    this.tag         = "AutoDDOS";
-		    this.description = "hacker pro";
+	this.tag         = "AutoDDOS";
+	this.description = "hacker pro";
 
     }
     
