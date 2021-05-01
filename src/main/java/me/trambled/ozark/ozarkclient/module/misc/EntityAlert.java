@@ -19,14 +19,14 @@ import net.minecraft.init.SoundEvents;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DonkeyAlert extends Module
+public class EntityAlert extends Module
 {
-    public DonkeyAlert() {
+    public EntityAlert() {
         super(Category.MISC);
 
-        this.name = "Donkey Alert";
-        this.tag = "DonkeyAlert";
-        this.description = "alerts u when donkeys apear in render distance";
+        this.name = "Entity Alert";
+        this.tag = "EntityAlert";
+        this.description = "alerts u when Entitys apear in render distance";
     }
 
     Setting donkeys = create("Donkeys", "AlertDonkeys", true);
