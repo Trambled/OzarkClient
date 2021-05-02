@@ -17,7 +17,7 @@ public class Ping extends Pinnable {
 		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
 		int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorA").get_value(1);
 
-		String line = "Ping: " + get_ping();
+		String line = "[Ping]: " + get_ping();
 
 		create_line(line, this.docking(1, line), 2, nl_r, nl_g, nl_b, nl_a);
 
