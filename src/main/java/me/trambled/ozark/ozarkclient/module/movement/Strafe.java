@@ -28,9 +28,9 @@ public class Strafe extends Module {
 	Setting y_offset = create("Y Offset", "StrafeYOffset", 4f, 0f, 10f);
 	Setting auto_sprint = create("Auto Sprint", "StrafeSprint", true);
 	Setting on_water = create("On Water", "StrafeOnWater", true);
-	Setting auto_jump = create("Auto Jump", "StrafeAutoJump", true);
+	Setting auto_jump = create("Auto Jump", "StrafeAutoJump", false);
 	Setting backward = create("Backwards", "StrafeBackwards", true);
-	Setting timer = create("Timer", "Timer", false);
+	Setting timer = create("Timer", "Timer", true);
 
 	@Override
 	public void update() {
