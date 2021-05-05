@@ -51,7 +51,7 @@ public class NameTags extends Module {
     Setting r = create("R", "NametagR", 255, 0, 255);
     Setting g = create("G", "NametagG", 255, 0, 255);
     Setting b = create("B", "NametagB", 255, 0, 255);
-    Setting a = create("A", "NametagA", 0.2f, 0f, 1f);
+    Setting a = create("A", "NametagA", 0.7f, 0f, 1f);
     Setting rainbow_mode = create("Rainbow", "NametagRainbow", false);
     Setting sat = create("Saturation", "NametagSatiation", 0.8, 0, 1);
     Setting brightness = create("Brightness", "NametagBrightness", 0.8, 0, 1);
@@ -124,8 +124,8 @@ public class NameTags extends Module {
         GlStateManager.disableDepth();
         GlStateManager.enableBlend();
         GlStateManager.enableBlend();
-        boolean is_friend = FriendUtil.isFriend(player.getName());
-        boolean is_enemy = EnemyUtil.isEnemy(player.getName());
+        boolean is_friend = FriendUtil.isFriend(TextFormatting.AQUA + player.getName());
+        boolean is_enemy = EnemyUtil.isEnemy(TextFormatting.WHITE + player.getName());
         int red = r.get_value(1);
         int green = g.get_value(1);
         int blue = b.get_value(1);
