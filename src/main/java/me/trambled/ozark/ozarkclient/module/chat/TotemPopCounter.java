@@ -40,6 +40,7 @@ public class TotemPopCounter extends Module {
     public static ChatFormatting black = ChatFormatting.BLACK;
     public static ChatFormatting white = ChatFormatting.WHITE;
     public static ChatFormatting reset = ChatFormatting.RESET;
+    public static ChatFormatting aqua = ChatFormatting.AQUA
 
     @EventHandler
     private final Listener<EventPacket.ReceivePacket> packet_event = new Listener<>(event -> {
@@ -64,9 +65,9 @@ public class TotemPopCounter extends Module {
                 if (entity == mc.player) return;
 
                 if (FriendUtil.isFriend(entity.getName())) {
-                    MessageUtil.send_client_message( red + "" + bold + "[TotemPop] " + reset + white + entity.getName() + " popped " + count + " totems");
+                    MessageUtil.send_client_message( red + "" + bold + "[TotemPop] " + reset + aqua + entity.getName() + " popped " + red + count + " totems");
                 } else {
-                    MessageUtil.send_client_message( red + "" + bold + "[TotemPop] " + reset + white + entity.getName() + " popped " + count + " totems");
+                    MessageUtil.send_client_message( red + "" + bold + "[TotemPop] " + reset + white + entity.getName() + " popped " + red + count + " totems");
                 }
 
             }
@@ -98,9 +99,9 @@ public class TotemPopCounter extends Module {
                     }
                 } else {
                     if (FriendUtil.isFriend(player.getName())) {
-                        MessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "" + bold + green + player.getName() + reset + " just got fucked by some retard after popping " + bold + count + reset + " totems. RIP :pray:");
+                        MessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "" + bold + aqua + player.getName() + reset + " died after popping " + bold + count + reset + " totems.");
                     } else {
-                        MessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "" + bold + red + player.getName() + reset + " just got fucked by OzarkClient after popping " + bold + count + reset + " totems");
+                        MessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "" + bold + red + player.getName() + reset + " died after popping " + bold + count + reset + " totems");
                     }
                 }
 
