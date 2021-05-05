@@ -53,7 +53,7 @@ repositories {
 
 	maven {
 		name = "jitpack.io"
-		url  = "https://jitpack.io"
+		url  = "http://jitpack.io"
 	}
 
 	mavenCentral()
