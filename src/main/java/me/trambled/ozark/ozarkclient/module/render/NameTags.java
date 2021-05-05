@@ -124,8 +124,8 @@ public class NameTags extends Module {
         GlStateManager.disableDepth();
         GlStateManager.enableBlend();
         GlStateManager.enableBlend();
-        boolean is_friend = FriendUtil.isFriend(TextFormatting.AQUA + player.getName());
-        boolean is_enemy = EnemyUtil.isEnemy(TextFormatting.WHITE + player.getName());
+        boolean is_friend = FriendUtil.isFriend(player.getName());
+        boolean is_enemy = EnemyUtil.isEnemy(player.getName());
         int red = r.get_value(1);
         int green = g.get_value(1);
         int blue = b.get_value(1);
