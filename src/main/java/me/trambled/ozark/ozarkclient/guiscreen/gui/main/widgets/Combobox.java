@@ -1,7 +1,7 @@
 package me.trambled.ozark.ozarkclient.guiscreen.gui.main.widgets;
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.DrawUtil;
+import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.AbstractWidget;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.Frame;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.ModuleButton;
@@ -31,7 +31,7 @@ public class Combobox extends AbstractWidget {
 
 	private boolean can;
 
-	private DrawUtil font = new DrawUtil(1);
+	private GuiUtil font = new GuiUtil(1);
 
 	private int border_size = 0;
 
@@ -176,7 +176,7 @@ public class Combobox extends AbstractWidget {
 		int bd_b = Ozark.main_gui.theme_widget_border_b;
 		int bd_a = 100;
 
-		DrawUtil.draw_string(this.combobox_name + " " + this.setting.get_current_value(), this.x + 2, this.save_y, ns_r, ns_g, ns_b, ns_a);
+		GuiUtil.draw_string(this.combobox_name + " " + this.setting.get_current_value(), this.x + 2, this.save_y, ns_r, ns_g, ns_b, ns_a);
 
 		if (this.combobox_actual_value >= this.values.size()) {
 			this.combobox_actual_value = 0;

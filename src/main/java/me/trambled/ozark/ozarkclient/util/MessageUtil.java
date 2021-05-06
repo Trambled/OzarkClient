@@ -21,7 +21,7 @@ public class MessageUtil {
 	public static ChatFormatting a = ChatFormatting.DARK_AQUA;
 	public static ChatFormatting r = ChatFormatting.RESET;
 
-	public static String opener = g + Ozark.NAME + ChatFormatting.GRAY + " > " + r;
+	public static String opener = g + Ozark.NAME + " " + ChatFormatting.GRAY + "> " + r;
 
 	public static void toggle_message(Module module) {
 		if (module.is_active()) {

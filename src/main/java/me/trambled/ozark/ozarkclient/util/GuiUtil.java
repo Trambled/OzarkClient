@@ -15,12 +15,13 @@ import java.util.Arrays;
 // Travis
 
 
-public class DrawUtil {
+public class GuiUtil {
 	private static FontRenderer font_renderer = Minecraft.getMinecraft().fontRenderer;
+	private static Minecraft mc = Minecraft.getMinecraft();
 
 	private float size;
 
-	public DrawUtil(float size) {
+	public GuiUtil(float size) {
 		this.size = size;
 	}
 
@@ -46,12 +47,17 @@ public class DrawUtil {
 		}
 	}
 
+
 	public static void draw_rect(Rect rect, int r, int g, int b, int a) {
 		Gui.drawRect(rect.get_x(), rect.get_y(), rect.get_screen_width(), rect.get_screen_height(), new OzarkColor(r, g, b, a).color_int());
 	}
 
 	public static void draw_string(String string, int x, int y, int r, int g, int b, int a) {
 		font_renderer.drawStringWithShadow(string, x, y, new OzarkColor(r, g, b, a).color_int());
+	}
+
+	public static void draw_string(String string, int x, int y, int color) {
+		font_renderer.drawStringWithShadow(string, x, y, color);
 	}
 
 	public void draw_string_gl(String string, int x, int y, int r, int g, int b) {
@@ -75,7 +81,6 @@ public class DrawUtil {
 		RenderHelp.release_gl();
 	}
 
-
 	public int get_string_height() {
 		FontRenderer fontRenderer = font_renderer;
 
@@ -85,7 +90,7 @@ public class DrawUtil {
 	public int get_string_width(String string) {
 		FontRenderer fontRenderer = font_renderer;
 
-		return (int) (fontRenderer.getStringWidth(string) * this.size);
+		return (int) (fontRenderer.getStringWidth(string));
 	}
 
 	public static class OzarkColor extends Color {

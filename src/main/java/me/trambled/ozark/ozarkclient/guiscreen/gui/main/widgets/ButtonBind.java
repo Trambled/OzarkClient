@@ -1,7 +1,7 @@
 package me.trambled.ozark.ozarkclient.guiscreen.gui.main.widgets;
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.DrawUtil;
+import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.AbstractWidget;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.Frame;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.ModuleButton;
@@ -29,7 +29,7 @@ public class ButtonBind extends AbstractWidget {
 	private boolean can;
 	private boolean waiting;
 
-	private DrawUtil font = new DrawUtil(1);
+	private GuiUtil font = new GuiUtil(1);
 
 	private int border_size = 0;
 
@@ -217,13 +217,13 @@ public class ButtonBind extends AbstractWidget {
 		int bd_b = Ozark.main_gui.theme_widget_border_b;
 
 		if (this.waiting) {
-			DrawUtil.draw_rect(get_x(), this.save_y, get_x() + this.width, this.save_y + this.height, bg_r, bg_g, bg_b, bg_a);
+			GuiUtil.draw_rect(get_x(), this.save_y, get_x() + this.width, this.save_y + this.height, bg_r, bg_g, bg_b, bg_a);
 
 			this.tick += 0.5f;
 
-			DrawUtil.draw_string("Listening " + this.points, this.x + 2, this.save_y, ns_r, ns_g, ns_b, ns_a);
+			GuiUtil.draw_string("Listening " + this.points, this.x + 2, this.save_y, ns_r, ns_g, ns_b, ns_a);
 		} else {
-			DrawUtil.draw_string("Bind <" + this.master.get_module().get_bind("string") + ">", this.x + 2, this.save_y, ns_r, ns_g, ns_b, ns_a);
+			GuiUtil.draw_string("Bind <" + this.master.get_module().get_bind("string") + ">", this.x + 2, this.save_y, ns_r, ns_g, ns_b, ns_a);
 		}
 
 		tick_color[0] += 5;

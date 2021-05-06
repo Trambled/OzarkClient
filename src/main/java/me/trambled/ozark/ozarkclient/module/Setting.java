@@ -15,7 +15,9 @@ public class Setting {
 	private boolean shown = true;
 
 	private List<String> combobox;
-	private      String  current;
+	private String current;
+	private String message;
+	private String preset_message;
 
 	private String label;
 
@@ -67,6 +69,15 @@ public class Setting {
 		this.min    = min;
 		this.max    = max;
 		this.type   = "doubleslider";
+	}
+
+	public Setting(Module master, String name, String tag, String value, String id) {
+		this.master = master;
+		this.name   = name;
+		this.tag    = tag;
+		this.message = value;
+		this.preset_message = value;
+		this.type  = "string";
 	}
 
 	public Setting(Module master, String name, String tag, int value, int min, int max) {
@@ -143,6 +154,10 @@ public class Setting {
 		this.bind = value;
 	}
 
+	public void set_message(String value) {
+		this.message = value;
+	}
+
 	public boolean is_info() {
 		return this.name.equalsIgnoreCase("info");
 	}
@@ -189,6 +204,14 @@ public class Setting {
 
 	public int get_max(int type) {
 		return ((int) this.max);
+	}
+
+	public String get_message(String type) {
+		return message;
+	}
+
+	public String get_preset_message(String type) {
+		return preset_message;
 	}
 
 	public String get_type() {

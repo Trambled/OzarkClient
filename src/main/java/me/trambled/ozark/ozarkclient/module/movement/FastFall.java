@@ -26,7 +26,7 @@ public class FastFall extends Module
 	@Override
 	public void update() {
 		if (full_null_check()) return;
-        if (mc.player.onGround && !inLiquid && !onLiquid) {
+        if ((mc.player.onGround || mc.player.isInWeb) && !inLiquid && !onLiquid) {
 			for (double y = 0.0; y < this.height.get_value(1) + 0.5; y += 0.01) {
 				if (!mc.world.getCollisionBoxes(mc.player, mc.player.getEntityBoundingBox().offset(0.0, -y, 0.0)).isEmpty()) {
 					mc.player.motionY = strength.get_value(1) * -1;

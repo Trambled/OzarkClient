@@ -334,6 +334,9 @@ public class ConfigManager {
                     case "integerslider":
                         br.write(setting.get_tag() + ":" + setting.get_value(1) + "\r\n");
                         break;
+					case "string":
+						br.write(setting.get_tag() + ":" + setting.get_message("") + "\r\n");
+
                 }
             }
 
@@ -347,7 +350,6 @@ public class ConfigManager {
     private void load_modules() throws IOException {
 
         for (Module module : Ozark.get_hack_manager().get_array_modules()) {
-
             final String file_name = ACTIVE_CONFIG_FOLDER + module.get_tag() + ".txt";
             final File file = new File(file_name);
             final FileInputStream fi_stream = new FileInputStream(file.getAbsolutePath());
@@ -364,41 +366,42 @@ public class ConfigManager {
                 final String value = colune.split(":")[1];
 
                 Setting setting = Ozark.get_setting_manager().get_setting_with_tag(module, tag);
+				
+				if (setting == null) {
+					// send_minecraft_log("setting error, the setting assigned (" + tag + ") doesn't exist (assigned value is " + value);
+					continue;
+				}
 
-                // send_minecraft_log("Attempting to assign value '" + value + "' to setting '" + tag + "'");
+                // send_minecraft_log("Attempting to assign value '" + value + "' to setting '" + tag + "'");		
 
-                try {
-                    switch (setting.get_type()) {
-                        case "button":
-                            setting.set_value(Boolean.parseBoolean(value));
-                            break;
-                        case "label":
-                            setting.set_value(value);
-                            break;
-                        case "doubleslider":
-                            setting.set_value(Double.parseDouble(value));
-                            break;
-                        case "integerslider":
-                            setting.set_value(Integer.parseInt(value));
-                            break;
-                        case "combobox":
-                            setting.set_current_value(value);
-                            break;
-                        case "bind":
-                            setting.set_bind(Integer.parseInt(value));
-                    }
-                } catch (Exception e) {
-                    bugged_lines.add(colune);
-                    send_minecraft_log("Error loading '" + value + "' to setting '" + tag + "'");
-                    break;
+				switch (setting.get_type()) {
+                    case "button":
+                        setting.set_value(Boolean.parseBoolean(value));
+                        break;
+                    case "label":
+                        setting.set_value(value);
+                        break;
+                    case "doubleslider":
+					    // reason we have this here is that sometimes you change a double setting to an int, and since i actually dont want it to fuck up and have a NumberFormatException, we put it here, the rest shouldnt matter
+						if (!value.contains(".")) continue;
+                        setting.set_value(Double.parseDouble(value));
+                        break;
+					case "integerslider":
+						if (value.contains(".")) continue;
+                        setting.set_value(Integer.parseInt(value));
+                        break;
+                    case "combobox":
+                        setting.set_current_value(value);
+                        break;
+                    case "bind":
+                        setting.set_bind(Integer.parseInt(value));
+						break;
+					case "string":
+						setting.set_message(value);
                 }
-
             }
-
             br.close();
-
         }
-
     }
 
     // LOAD & SAVE client/gui
@@ -592,6 +595,8 @@ public class ConfigManager {
             save_past_gui();
             save_xray();
             save_spammer();
+            save_modules();
+
             send_minecraft_log("Saved settings");
         } catch (IOException e) {
             send_minecraft_log("Something has gone wrong while saving settings please report it to trambled");
@@ -601,17 +606,17 @@ public class ConfigManager {
 
     public void load_settings() {
         try {
-            load_binds();
             load_client();
             load_drawn();
             load_enemies();
             load_ezmessage();
             load_friends();
-            load_modules();
             load_hud();
             load_kitmessage();
             load_past_gui();
             load_xray();
+            load_binds();
+            load_modules();
         } catch (IOException e) {
             send_minecraft_log("Something has gone wrong while loading settings please report it to trambled");
             send_minecraft_log(e.toString());

@@ -1,8 +1,9 @@
 package me.trambled.ozark.ozarkclient.guiscreen.hud.items;
 
+import me.trambled.ozark.ozarkclient.util.RainbowUtil;
 import me.trambled.turok.draw.RenderHelp;
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.DrawUtil;
+import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.opengl.GL11;
@@ -18,7 +19,7 @@ public class Pinnable {
 	private boolean state;
 	private boolean move;
 
-	public DrawUtil font;
+	public GuiUtil font;
 
 	private int x;
 	private int y;
@@ -36,7 +37,7 @@ public class Pinnable {
 	public Pinnable(String title, String tag, float font_, int x, int y) {
 		this.title = title;
 		this.tag   = tag;
-		this.font  = new DrawUtil(font_);
+		this.font  = new GuiUtil(font_);
 
 		this.x = x;
 		this.y = y;
@@ -207,22 +208,25 @@ public class Pinnable {
 			RenderHelp.release_gl();
 
 			if (motion(mx, my)) {
-				DrawUtil.draw_rect(this.x - 1, this.y - 1, this.width + 1, this.height + 1, 0, 0, 0, 90, 2, "right-left-down-up");
+				GuiUtil.draw_rect(this.x - 1, this.y - 1, this.width + 1, this.height + 1, 0, 0, 0, 90, 2, "right-left-down-up");
 			}
 		}
 	}
 
 	protected void create_line(String string, int pos_x, int pos_y) {
-		DrawUtil.draw_string(string, this.x + pos_x, this.y + pos_y, 255, 255, 255, 255);
+		GuiUtil.draw_string(string, this.x + pos_x, this.y + pos_y, 255, 255, 255, 255);
 	}
 
 	protected void create_line(String string, int pos_x, int pos_y, int r, int g, int b, int a) {
-		DrawUtil.draw_string(string, this.x + pos_x, this.y + pos_y, r, g, b, a);
+		if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFlow").get_value(true)) {
+			RainbowUtil.drawRainbowString(string, this.x + pos_x, this.y + pos_y, new GuiUtil.OzarkColor(r, g, b, a).color_int(), 100.0f);
+		} else {
+			GuiUtil.draw_string(string, this.x + pos_x, this.y + pos_y, r, g, b, a);
+		}
 	}
 
-
 	protected void create_rect(int pos_x, int pos_y, int width, int height, int r, int g, int b, int a) {
-		DrawUtil.draw_rect(this.x + pos_x, this.y + pos_y, this.x + width, this.y + height, r, g, b, a);
+		GuiUtil.draw_rect(this.x + pos_x, this.y + pos_y, this.x + width, this.y + height, r, g, b, a);
 	}
 
 	protected int get(String string, String type) {

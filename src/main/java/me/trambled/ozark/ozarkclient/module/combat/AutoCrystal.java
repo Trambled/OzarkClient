@@ -31,6 +31,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+// credit to:
+// travis for the original w+2 base and for the idea of packet block place
+// momentum/linus for momentum calcs
+// perry for settings
+// oyvey for packet break and for most of the code for packet place
 public class AutoCrystal extends Module {
     public AutoCrystal() {
         super(Category.COMBAT);
@@ -48,6 +53,8 @@ public class AutoCrystal extends Module {
     Setting module_check = create("Module Check", "CaModuleCheck", false);
     Setting break_predict = create("Break Predict", "CaBreakPredict", true);
     Setting break_predict_factor = create("Break Predict Delay", "CaBreakPredictFactor", 0, 0, 200);
+    Setting place_predict = create("Place Predict", "CaPlacePredict", false);
+    Setting place_predict_factor = create("Place Predict Delay", "CaPlacePredictFactor", 0, 0, 200); // too lazy to make it mc ticks
     Setting motion_predict = create("Motion Predict", "CaMotionPredict", true);
     Setting motion_predict_factor = create("Motion Factor", "CaMotionPredictFactor", 1f, 0f, 2f);
     Setting verify_place = create("Verify Place", "CaVerifyPlace", false);
@@ -78,14 +85,13 @@ public class AutoCrystal extends Module {
     Setting rotate_mode = create("Rotate", "CaRotateMode", "Packet", combobox("Off", "Packet", "Const", "Seizure"));
     Setting target_mode = create("Target Mode", "CaTargetMode", "Health", combobox("Health", "Closest"));
     Setting raytrace = create("Raytrace", "CaRaytrace", false);
-
     Setting switch_mode = create("Switch Mode", "CaSwitchMode", "Normal", combobox("Normal", "Ghost", "None"));
     Setting anti_suicide = create("Anti Suicide", "CaAntiSuicide", true);
 
     Setting fast_mode = create("Fast Mode", "CaSpeed", true);
     Setting dead_check = create("Dead Check", "CaDeadCheck", false);
     Setting sync = create("Sync", "CaSync", "Sound", combobox("Sound", "Instant", "Inhibit", "Attack", "None"));
-    Setting jumpy_mode = create("Jumpy Mode", "CaJumpyMode", false);
+    Setting break_all = create("Break All", "CaBreakAll", false);
     Setting momentum = create("Momentum Calcs", "CaMomentumMode", false);
 
     Setting anti_stuck = create("Anti Stuck", "CaAntiStuck", true);
@@ -99,7 +105,7 @@ public class AutoCrystal extends Module {
 
     Setting fuck_armor_mode = create("Armor Destroy", "CaArmorDestroy", true);
     Setting fuck_armor_mode_precent = create("Enemy Armor %", "CaArmorPercent", 5, 0, 100);
-    Setting fuck_armor_mode_precent_self = create("Self Armor %", "CaArmorPercentSelf", 10, 0, 100);
+    Setting fuck_armor_mode_precent_self = create("Self Armor %", "CaArmorPercentSelf", 0, 0, 100); // retard idea by me
 
     Setting stop_while_mining = create("Stop While Mining", "CaStopWhileMining", false);
     Setting stop_while_eating = create("Stop While Eating", "CaStopWhileEatin", false);
@@ -129,7 +135,8 @@ public class AutoCrystal extends Module {
 
     private final TimerUtil remove_visual_timer = new TimerUtil();
     private final TimerUtil chain_timer = new TimerUtil();
-    private final TimerUtil predict_timer = new TimerUtil();
+    private final TimerUtil break_predict_timer = new TimerUtil();
+    private final TimerUtil place_predict_timer = new TimerUtil();
 
     private EntityPlayer autoez_target = null;
 
@@ -152,14 +159,12 @@ public class AutoCrystal extends Module {
     private boolean solid;
 
     private int chain_step = 0;
-    //  private int current_chain_index = 0;
     private int place_timeout;
     private int break_timeout;
     private int inhibit_delay_counter;
     private int break_delay_counter;
     private int place_delay_counter;
     private int attack_swings;
-//  private int packets;
 
     @EventHandler
     private final Listener<EventEntityRemoved> on_entity_removed = new Listener<>(event -> {
@@ -192,6 +197,28 @@ public class AutoCrystal extends Module {
         if (event.get_packet() instanceof CPacketUseEntity && ((CPacketUseEntity) event.get_packet()).getAction() == CPacketUseEntity.Action.ATTACK && ((CPacketUseEntity) event.get_packet()).getEntityFromWorld(mc.world) instanceof EntityEnderCrystal) {
             if (sync.in("Attack"))
                 Objects.requireNonNull(((CPacketUseEntity) event.get_packet()).getEntityFromWorld(mc.world)).setDead();
+        }
+        if (event.get_packet() instanceof CPacketUseEntity && ((CPacketUseEntity) event.get_packet()).getAction() == CPacketUseEntity.Action.ATTACK && ((CPacketUseEntity) event.get_packet()).getEntityFromWorld(mc.world) instanceof EntityEnderCrystal) {
+            EntityEnderCrystal predicted_crystal = (EntityEnderCrystal) ((CPacketUseEntity) event.get_packet()).getEntityFromWorld(mc.world);
+            if (predicted_crystal != null && place_predict_timer.passed(place_predict_factor.get_value(1)) && place_predict.get_value(true) && autoez_target != null) {
+                place_predict_timer.reset();
+                if (is_predicting_block(predicted_crystal)) {
+                    boolean offhand_check = false;
+                    if (mc.player.getHeldItemOffhand().getItem() != Items.END_CRYSTAL) {
+                        if (mc.player.getHeldItemMainhand().getItem() != Items.END_CRYSTAL && !switch_mode.in("None") && !place_crystal.get_value(true)) {
+                            if (switch_mode.in("Normal")) {
+                                mc.player.inventory.currentItem = find_crystals_hotbar();
+                            } else {
+                                mc.player.connection.sendPacket(new CPacketHeldItemChange(find_crystals_hotbar()));
+                            }
+                            return;
+                        }
+                    } else {
+                        offhand_check = true;
+                    }
+                    BlockUtil.placeCrystalOnBlock(predicted_crystal.getPosition().down(), offhand_check ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, packet_place.get_value(true));
+                }
+            }
         }
     });
 
@@ -232,9 +259,9 @@ public class AutoCrystal extends Module {
 
         if (event.get_packet() instanceof SPacketSpawnObject) {
             final SPacketSpawnObject packet = (SPacketSpawnObject) event.get_packet();
-            if (packet.getType() == 51 && this.autoez_target != null && break_predict.get_value(true) && predict_timer.passed(break_predict_factor.get_value(1))) {
-                predict_timer.reset();
-                if (!this.is_predicting(packet)) {
+            if (packet.getType() == 51 && this.autoez_target != null && break_predict.get_value(true) && break_predict_timer.passed(break_predict_factor.get_value(1))) {
+                break_predict_timer.reset();
+                if (!this.is_predicting_crystal(packet)) {
                     return;
                 }
                 if (debug.get_value(true)) {
@@ -394,7 +421,7 @@ public class AutoCrystal extends Module {
 
                 if (self_damage > maximum_damage_self || (anti_suicide.get_value(true) && (mc.player.getHealth() + mc.player.getAbsorptionAmount()) - self_damage <= 0.5)) continue;
 
-                if (target_damage > best_damage && !jumpy_mode.get_value(true)) {
+                if (target_damage > best_damage && !break_all.get_value(true)) {
                     autoez_target = target;
                     best_damage = target_damage;
                     best_crystal = crystal;
@@ -402,7 +429,7 @@ public class AutoCrystal extends Module {
 
             }
 
-            if (jumpy_mode.get_value(true) && mc.player.getDistanceSq(crystal) > best_distance) {
+            if (break_all.get_value(true) && mc.player.getDistanceSq(crystal) > best_distance) {
                 best_distance = mc.player.getDistanceSq(crystal);
                 best_crystal = crystal;
             }
@@ -546,7 +573,7 @@ public class AutoCrystal extends Module {
 //        return new_list;
 //      }
 
-    private boolean is_predicting(SPacketSpawnObject packet) {
+    private boolean is_predicting_crystal(SPacketSpawnObject packet) {
         BlockPos packPos = new BlockPos(packet.getX(), packet.getY(), packet.getZ());
         if (AutoCrystal.mc.player.getDistance(packet.getX(), packet.getY(), packet.getZ()) > (double) this.hit_range.get_value(1)) {
             return false;
@@ -572,6 +599,32 @@ public class AutoCrystal extends Module {
         return faceplace_mode.get_value(true) && EntityUtil.isInHole(this.autoez_target) && this.autoez_target.getHealth() + this.autoez_target.getAbsorptionAmount() <= this.faceplace_mode.get_value(1);
     }
 
+
+    private boolean is_predicting_block(EntityEnderCrystal crystal) {
+        BlockPos packPos = new BlockPos(crystal.posX, crystal.posY, crystal.posZ);
+        if (AutoCrystal.mc.player.getDistance(crystal.posX, crystal.posY, crystal.posZ) > (double) this.hit_range.get_value(1)) {
+            return false;
+        }
+        if (!BlockUtil.canSeeBlock(packPos) && AutoCrystal.mc.player.getDistance(crystal.posX, crystal.posY, crystal.posZ) > (double) this.hit_range_wall.get_value(1)) {
+            return false;
+        }
+        double targetDmg = CrystalUtil.calculateDamage(crystal.posX + 0.5, crystal.posY + 1.0, crystal.posZ + 0.5, this.autoez_target);
+        if (EntityUtil.isInHole(AutoCrystal.mc.player) && targetDmg >= 1.0) {
+            return true;
+        }
+        double selfDmg = CrystalUtil.calculateDamage(crystal.posX + 0.5, crystal.posY + 1.0, crystal.posZ + 0.5, AutoCrystal.mc.player);
+        double d = anti_suicide.get_value(true) ? 2.0 : 0.5;
+        if (get_armor_fucker(autoez_target) && !get_armor_fucker(mc.player)) {
+            return true;
+        }
+        if (selfDmg + d < (double) (AutoCrystal.mc.player.getHealth() + AutoCrystal.mc.player.getAbsorptionAmount()) && targetDmg >= (double) (this.autoez_target.getAbsorptionAmount() + this.autoez_target.getHealth())) {
+            return true;
+        }
+        if (targetDmg >= (double) this.min_player_break.get_value(1) && selfDmg <= (double) this.max_self_damage.get_value(1)) {
+            return true;
+        }
+        return faceplace_mode.get_value(true) && EntityUtil.isInHole(this.autoez_target) && this.autoez_target.getHealth() + this.autoez_target.getAbsorptionAmount() <= this.faceplace_mode.get_value(1);
+    }
 
     public void place_crystal() {
 
@@ -964,7 +1017,8 @@ public class AutoCrystal extends Module {
 //      current_chain_index = 0;
         chain_timer.reset();
         remove_visual_timer.reset();
-        predict_timer.reset();
+        break_predict_timer.reset();
+        place_predict_timer.reset();
         detail_name = null;
         detail_hp = 20;
 //      packets = 0;

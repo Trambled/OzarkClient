@@ -169,6 +169,12 @@ public class Module implements Listenable {
 		return Ozark.get_setting_manager().get_setting_with_tag(this, tag);
 	}
 
+	protected Setting create(String name, String tag, String value, String id) {
+		Ozark.get_setting_manager().register(new Setting(this, name, tag, value, id));
+
+		return Ozark.get_setting_manager().get_setting_with_tag(this, tag);
+	}
+
 	protected List<String> combobox(String... item) {
 
 		return new ArrayList<>(Arrays.asList(item));
@@ -203,6 +209,10 @@ public class Module implements Listenable {
 	}
 
 	public void on_bind(String tag) {
+
+	}
+
+	public void on_message(String tag, String message) {
 
 	}
 

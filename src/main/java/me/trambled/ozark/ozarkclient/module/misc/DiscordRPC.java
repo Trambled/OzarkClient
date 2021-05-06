@@ -14,7 +14,6 @@ public class DiscordRPC extends Module
         this.description = "show people how cool you are (discord edition)";
     }
 
-    //lempity why
     Setting mode = create("Mode", "RPCMode", "Normal", combobox("Normal", "Lempity", "kambing"));
     
     @Override
@@ -25,6 +24,5 @@ public class DiscordRPC extends Module
     @Override
     protected void disable() {
         DiscordUtil.stop();
-    }	
-	
+    }
 }

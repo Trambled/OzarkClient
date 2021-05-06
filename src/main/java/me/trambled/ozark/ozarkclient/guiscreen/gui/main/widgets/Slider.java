@@ -3,7 +3,7 @@ package me.trambled.ozark.ozarkclient.guiscreen.gui.main.widgets;
 
 import me.trambled.turok.values.TurokDouble;
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.DrawUtil;
+import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.AbstractWidget;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.Frame;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.ModuleButton;
@@ -34,7 +34,7 @@ public class Slider extends AbstractWidget {
 	private boolean compare;
 	private boolean click;
 
-	private DrawUtil font = new DrawUtil(1);
+	private GuiUtil font = new GuiUtil(1);
 
 	private int border_size = 0;
 
@@ -192,9 +192,9 @@ public class Slider extends AbstractWidget {
 
 		String slider_value = !this.compare ? java.lang.Double.toString(this.setting.get_value(this.double_)) : Integer.toString(this.setting.get_value(this.intenger));
 
-		DrawUtil.draw_rect(this.x, this.save_y, this.x + (this.width) * (this.setting.get_value(1) - this.setting.get_min(1)) / (this.setting.get_max(1) - this.setting.get_min(1)), this.save_y + this.height, bg_r, bg_g, bg_b, bg_a);
+		GuiUtil.draw_rect(this.x, this.save_y, this.x + (this.width) * (this.setting.get_value(1) - this.setting.get_min(1)) / (this.setting.get_max(1) - this.setting.get_min(1)), this.save_y + this.height, bg_r, bg_g, bg_b, bg_a);
 
-		DrawUtil.draw_string(this.slider_name, this.x + 2, this.save_y, ns_r, ns_g, ns_b, ns_a);
-		DrawUtil.draw_string(slider_value, this.x + this.width - separe - font.get_string_width(slider_value) + 2, this.save_y, ns_r, ns_g, ns_b, ns_a);
+		GuiUtil.draw_string(this.slider_name, this.x + 2, this.save_y, ns_r, ns_g, ns_b, ns_a);
+		GuiUtil.draw_string(slider_value, this.x + this.width - separe - font.get_string_width(slider_value) + 2, this.save_y, ns_r, ns_g, ns_b, ns_a);
 	}
 }

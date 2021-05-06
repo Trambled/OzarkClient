@@ -2,7 +2,7 @@ package me.trambled.ozark.ozarkclient.guiscreen.hud.items;
 
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.DrawUtil;
+import me.trambled.ozark.ozarkclient.util.GuiUtil;
 
 
 public class PinnableButton {
@@ -22,7 +22,7 @@ public class PinnableButton {
 
 	private boolean first;
 
-	private DrawUtil font = new DrawUtil(1);
+	private GuiUtil font = new GuiUtil(1);
 
 	public static int nc_r = 0;
 	public static int nc_g = 0;
@@ -137,11 +137,11 @@ public class PinnableButton {
 		this.save_y = this.y + this.master.get_y() - 10;
 
 		if (this.pinnable.is_active()) {
-			DrawUtil.draw_rect(this.x, this.save_y, this.x + this.width - separate, this.save_y + this.height, this.bg_r, this.bg_g, this.bg_b, this.bg_a);
+			GuiUtil.draw_rect(this.x, this.save_y, this.x + this.width - separate, this.save_y + this.height, this.bg_r, this.bg_g, this.bg_b, this.bg_a);
 		
-			DrawUtil.draw_string(this.pinnable.get_title(), this.x + separate, this.save_y, this.nc_r, this.nc_g, this.nc_b, this.nc_a);
+			GuiUtil.draw_string(this.pinnable.get_title(), this.x + separate, this.save_y, this.nc_r, this.nc_g, this.nc_b, this.nc_a);
 		} else {
-			DrawUtil.draw_string(this.pinnable.get_title(), this.x + separate, this.save_y, this.nc_r, this.nc_g, this.nc_b, this.nc_a);
+			GuiUtil.draw_string(this.pinnable.get_title(), this.x + separate, this.save_y, this.nc_r, this.nc_g, this.nc_b, this.nc_a);
 		}
 
 		this.pinnable.render(mx, my, 0);

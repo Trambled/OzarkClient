@@ -2,7 +2,7 @@ package me.trambled.ozark.ozarkclient.guiscreen.hud.pinnables;
 
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.DrawUtil;
+import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
 import me.trambled.ozark.ozarkclient.util.MathUtil;
 
@@ -12,7 +12,7 @@ public class Compass extends Pinnable {
 		super("Compass", "Compass", 1, 0, 0);
     }
     
-    public DrawUtil font = new DrawUtil(1);
+    public GuiUtil font = new GuiUtil(1);
 
     private static final double half_pi = Math.PI / 2;
 

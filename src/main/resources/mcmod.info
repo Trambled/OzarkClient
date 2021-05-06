@@ -2,7 +2,7 @@
 	"modid"        : "ozarkclient",
 	"name"         : "OzarkClient",
 	"description"  : "Ebic OzarkClient",
-	"version"      : "1.12",
+	"version"      : "1.12.1",
 	"mcversion"    : "1.12.2-14.23.5.2772",
 	"url"          : "https://joinis.is",
 	"updateUrl"    : "https://joinis.is",

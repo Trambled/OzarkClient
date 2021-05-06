@@ -2,7 +2,7 @@ package me.trambled.ozark.ozarkclient.guiscreen.gui.main.widgets;
 
 import me.trambled.turok.draw.RenderHelp;
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.DrawUtil;
+import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.AbstractWidget;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.Frame;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.ModuleButton;
@@ -31,7 +31,7 @@ public class Label extends AbstractWidget {
 	private boolean can;
 	private boolean info;
 
-	private final DrawUtil font = new DrawUtil(1);
+	private final GuiUtil font = new GuiUtil(1);
 
 	private int border_size = 0;
 
@@ -177,9 +177,9 @@ public class Label extends AbstractWidget {
 		}
 
 		if (this.info) {
-			DrawUtil.draw_string(this.setting.get_value(s), this.x + 2, this.save_y, ns_r, ns_g, ns_b, ns_a);
+			GuiUtil.draw_string(this.setting.get_value(s), this.x + 2, this.save_y, ns_r, ns_g, ns_b, ns_a);
 		} else {
-			DrawUtil.draw_string(this.label_name + " \"" + this.setting.get_value(s) + "\"", this.x + 2, this.save_y, ns_r, ns_g, ns_b, ns_a);
+			GuiUtil.draw_string(this.label_name + " \"" + this.setting.get_value(s) + "\"", this.x + 2, this.save_y, ns_r, ns_g, ns_b, ns_a);
 		}
 	}
 }

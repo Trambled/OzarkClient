@@ -6,6 +6,8 @@ import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
 
 import java.awt.*;
+import java.util.Map;
+import java.util.HashMap;
 
 public class HUD extends Module {
 
@@ -21,19 +23,13 @@ public class HUD extends Module {
 	Setting strings_g = create("Color G", "HUDStringsColorG", 127, 0, 255);
 	Setting strings_b = create("Color B", "HUDStringsColorB", 142, 0, 255);
 	Setting strings_a = create("Alpha", "HUDStringsColorA", 230, 0, 255);
-	Setting rainbow = create("Rainbow", "HUDRainbow", false);
+	Setting rainbow = create("Rainbow", "HUDRainbow", true);
+	Setting flow = create("Flow", "HUDFlow", true);
 	Setting compass_scale = create("Compass Scale", "HUDCompassScale", 16, 1, 60);
 	Setting user_mode = create("User Mode", "HUDUserMode", "Time", combobox("Time", "Simple"));
 	Setting arraylist_mode = create("ArrayList", "HUDArrayList", "Free", combobox("Free", "Top R", "Top L", "Bottom R", "Bottom L"));
 	Setting show_all_pots = create("All Potions", "HUDAllPotions", false);
 	Setting max_player_list = create("Max Players", "HUDMaxPlayers", 24, 1, 64);
-	
-    @Override
-    public void update_always() {
-		if (rainbow.get_value(true)) {
-			cycle_rainbow();
-		}
-    }
 
 	@Override
 	public void enable() {
@@ -46,16 +42,23 @@ public class HUD extends Module {
 		}
 	}
 
-    public void cycle_rainbow() {
+	@Override
+	public void update_always() {
+		if (rainbow.get_value(true)) {
+			cycle_rainbow();
+		}
+	}
 
-        float[] tick_color = {
-                (System.currentTimeMillis() % (360 * 32)) / (360f * 32)
-        };
+	public void cycle_rainbow() {
 
-        int color_rgb_o = Color.HSBtoRGB(tick_color[0], 0.8f, 0.8f);
+		float[] tick_color = {
+				(System.currentTimeMillis() % (360 * 32)) / (360f * 32)
+		};
 
-        strings_r.set_value((color_rgb_o >> 16) & 0xFF);
-        strings_g.set_value((color_rgb_o >> 8) & 0xFF);
-        strings_b.set_value(color_rgb_o & 0xFF);
+		int color_rgb_o = Color.HSBtoRGB(tick_color[0], 0.8f, 0.8f);
+
+		strings_r.set_value((color_rgb_o >> 16) & 0xFF);
+		strings_g.set_value((color_rgb_o >> 8) & 0xFF);
+		strings_b.set_value(color_rgb_o & 0xFF);
 	}
 }

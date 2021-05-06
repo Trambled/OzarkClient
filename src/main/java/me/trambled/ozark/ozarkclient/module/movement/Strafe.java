@@ -1,6 +1,7 @@
 package me.trambled.ozark.ozarkclient.module.movement;
 
 import me.trambled.ozark.ozarkclient.event.events.EventMove;
+import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.event.events.EventPlayerJump;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
@@ -10,6 +11,7 @@ import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.init.MobEffects;
 import net.minecraft.network.play.client.CPacketPlayer;
+import net.minecraft.network.play.server.SPacketExplosion;
 import net.minecraft.util.math.MathHelper;
 
 public class Strafe extends Module {
@@ -24,7 +26,6 @@ public class Strafe extends Module {
 
 	Setting speed_mode = create("Mode", "StrafeMode", "Strafe", combobox("Strafe", "On Ground", "None"));
 	Setting speed = create("Speed", "StrafeSpeed", 5.4f, 0f, 10f);
-	Setting bypass = create("Bypass", "StrafeBypass", false);
 	Setting y_offset = create("Y Offset", "StrafeYOffset", 4f, 0f, 10f);
 	Setting auto_sprint = create("Auto Sprint", "StrafeSprint", true);
 	Setting on_water = create("On Water", "StrafeOnWater", true);
@@ -115,9 +116,7 @@ public class Strafe extends Module {
 			player_speed *= (1.2f * (amp+1));
 		}
 
-		if (!bypass.get_value(true)) {
-			player_speed *= speed.get_value(1) * 0.2f;
-		}
+		player_speed *= speed.get_value(1) * 0.2f;
 
 		if (move_forward == 0 && move_strafe == 0) {
 			event.set_x(0.0d);
@@ -166,5 +165,4 @@ public class Strafe extends Module {
 		}
 		return rotation_yaw * 0.017453292f;
 	}
-
 }

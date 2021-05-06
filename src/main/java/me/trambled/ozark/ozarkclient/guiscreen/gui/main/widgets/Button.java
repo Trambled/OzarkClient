@@ -2,7 +2,7 @@ package me.trambled.ozark.ozarkclient.guiscreen.gui.main.widgets;
 
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.DrawUtil;
+import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.AbstractWidget;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.Frame;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.ModuleButton;
@@ -26,7 +26,7 @@ public class Button extends AbstractWidget {
 
 	private boolean can;
 
-	private DrawUtil font = new DrawUtil(1);
+	private GuiUtil font = new GuiUtil(1);
 
 	private int border_size = 0;
 
@@ -150,8 +150,8 @@ public class Button extends AbstractWidget {
 		int bd_b = Ozark.main_gui.theme_widget_border_b;
 
 		if (this.setting.get_value(true)) { // filling in the button box if button is enabled
-			DrawUtil.draw_rect(get_x(), this.save_y, get_x() + this.width, this.save_y + this.height, bg_r, bg_g, bg_b, bg_a);
+			GuiUtil.draw_rect(get_x(), this.save_y, get_x() + this.width, this.save_y + this.height, bg_r, bg_g, bg_b, bg_a);
 		}
-		DrawUtil.draw_string(this.button_name, this.x + 2, this.save_y, ns_r, ns_g, ns_b, ns_a);
+		GuiUtil.draw_string(this.button_name, this.x + 2, this.save_y, ns_r, ns_g, ns_b, ns_a);
 	}
 }

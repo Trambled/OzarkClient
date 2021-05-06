@@ -31,6 +31,7 @@ public class ModuleManager {
 		add_module(new OldGUI());
 		add_module(new HUD());
 		add_module(new PastGUIModule());
+		add_module(new CustomMainMenu());
 
 		// Chat.
 		add_module(new ChatSuffix());
@@ -104,7 +105,7 @@ public class ModuleManager {
 		add_module(new MountBypass());
 		add_module(new Scaffold());
 		add_module(new CoordExploit());
-                add_module(new InstantBurrow());
+		add_module(new InstantBurrow());
 
 		// Movement.
 		add_module(new Strafe());
@@ -123,6 +124,7 @@ public class ModuleManager {
 		add_module(new Anchor());
 		add_module(new AntiLevitation());
 		add_module(new EntitySpeed());
+		add_module(new Static());
 
 		// Render.
 		add_module(new Highlight());

@@ -1,7 +1,7 @@
 package me.trambled.ozark.ozarkclient.guiscreen.gui.main;
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.DrawUtil;
+import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.widgets.*;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Module;
@@ -35,7 +35,7 @@ public class ModuleButton {
 
 	private int save_y;
 
-	private final DrawUtil font = new DrawUtil(1);
+	private final GuiUtil font = new GuiUtil(1);
 
 	private final int border_a    = 200;
 	private final int border_size = 1;
@@ -276,11 +276,11 @@ public class ModuleButton {
 		int bd_b = Ozark.main_gui.theme_widget_border_b;
 
 		if (this.module.is_active()) {
-			DrawUtil.draw_rect(this.x, this.save_y, this.x + this.width - separe, this.save_y + this.height, bg_r, bg_g, bg_b, bg_a);
+			GuiUtil.draw_rect(this.x, this.save_y, this.x + this.width - separe, this.save_y + this.height, bg_r, bg_g, bg_b, bg_a);
 
-			DrawUtil.draw_string(this.module_name, this.x + separe, this.save_y, nm_r, nm_g, nm_b, nm_a);
+			GuiUtil.draw_string(this.module_name, this.x + separe, this.save_y, nm_r, nm_g, nm_b, nm_a);
 		} else {
-			DrawUtil.draw_string(this.module_name, this.x + separe, this.save_y, nm_r, nm_g, nm_b, nm_a);
+			GuiUtil.draw_string(this.module_name, this.x + separe, this.save_y, nm_r, nm_g, nm_b, nm_a);
 		}
 
 		for (AbstractWidget widgets : this.widget) {
@@ -289,7 +289,7 @@ public class ModuleButton {
 			boolean is_passing_in_widget = this.opened && widgets.motion_pass(mx, my);
 
 			if (motion(mx, my) || is_passing_in_widget) {
-				DrawUtil.draw_rect(this.master.get_x() - 1, this.save_y, this.master.get_width() + 1, this.opened_height, bd_r, bd_g, bd_b, border_a, this.border_size, "right-left");
+				GuiUtil.draw_rect(this.master.get_x() - 1, this.save_y, this.master.get_width() + 1, this.opened_height, bd_r, bd_g, bd_b, border_a, this.border_size, "right-left");
 			}
 
 			if (this.opened) {
