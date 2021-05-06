@@ -55,6 +55,10 @@ public class AutoGroom extends Module {
         String name =  get_random_name();
         
         if (name.equals(mc.player.getName())) return;
+        
+        for (EntityPlayer friend : FriendUtil.get_friends()) {
+            if (name.equals(friend.getName())) return;
+        }
 
         mc.player.sendChatMessage(s.replace("<player>", name));
 
