@@ -65,7 +65,7 @@ public class FriendUtil {
         return new Friend(profile.getGameProfile().getName(), profile.getGameProfile().getId());
     }
     
-    public static List<EntityPlayer> get_friends(double range) {
+    public static List<EntityPlayer> get_friends() {
         if (mc.world.getLoadedEntityList().size() == 0)
             return null;
 
