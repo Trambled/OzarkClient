@@ -15,9 +15,9 @@ public class AutoMine extends Module {
     public AutoMine() {
         super(Category.COMBAT);
 
-        this.name        = "Auto Mine";
-        this.tag         = "AutoMine";
-        this.description = "automatically mines a cityable block";
+        this.name        = "Auto City";
+        this.tag         = "CityBoss";
+        this.description = "mines out player's surround";
     }
 
     Setting end_crystal = create("End Crystal", "MineEndCrystal", false);
