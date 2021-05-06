@@ -24,6 +24,4 @@ jobs:
         name: Package
         path: build/libs/*-all.jar
         
-        - name: Create artifact dir
-        run: |
-          mkdir -partifacts
+
