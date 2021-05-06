@@ -6,8 +6,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: c-hive/gha-remove-artifacts@v1.2.0
-
     - uses: actions/checkout@v2
     
     - name: Set up JDK 1.8
