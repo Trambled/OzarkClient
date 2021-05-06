@@ -40,7 +40,7 @@ public class TotemPopCounter extends Module {
     public static ChatFormatting black = ChatFormatting.BLACK;
     public static ChatFormatting white = ChatFormatting.WHITE;
     public static ChatFormatting reset = ChatFormatting.RESET;
-    public static ChatFormatting aqua = ChatFormatting.AQUA
+    public static ChatFormatting aqua = ChatFormatting.AQUA;
 
     @EventHandler
     private final Listener<EventPacket.ReceivePacket> packet_event = new Listener<>(event -> {
