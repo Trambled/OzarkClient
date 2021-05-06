@@ -64,7 +64,20 @@ public class FriendUtil {
         }
         return new Friend(profile.getGameProfile().getName(), profile.getGameProfile().getId());
     }
+    
+        if (mc.world.getLoadedEntityList().size() == 0)
+            return null;
 
+        return mc.world.playerEntities.stream().filter(entityPlayer -> mc.player != entityPlayer).filter(entityPlayer -> mc.player.getDistance(entityPlayer) <= range).filter(entityPlayer -> !entityPlayer.isDead).filter(entityPlayer -> FriendManager.isFriend(entityPlayer.getName())).collect(Collectors.toList());
+    }
+    public static List<EntityPlayer> getNearbyFriends(double range) {
+        if (mc.world.getLoadedEntityList().size() == 0)
+            return null;
+
+        return mc.world.playerEntities.stream().filter(entityPlayer -> mc.player != entityPlayer).filter(entityPlayer -> !entityPlayer.isDead).filter(entityPlayer -> FriendUtil.isFriend(entityPlayer.getName())).collect(Collectors.toList());
+    }
+
+    
     private static String request_ids(String data) {
         try{
             String query = "https://api.mojang.com/profiles/minecraft";
