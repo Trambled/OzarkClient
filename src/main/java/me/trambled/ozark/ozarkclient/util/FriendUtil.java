@@ -16,6 +16,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FriendUtil {
 
@@ -68,10 +69,10 @@ public class FriendUtil {
     }
     
     public static List<EntityPlayer> get_friends() {
-        if (mc.world.getLoadedEntityList().size() == 0)
+        if (Minecraft.getMinecraft().world.getLoadedEntityList().size() == 0)
             return null;
 
-        return mc.world.playerEntities.stream().filter(entityPlayer -> mc.player != entityPlayer).filter(entityPlayer -> !entityPlayer.isDead).filter(entityPlayer -> FriendUtil.isFriend(entityPlayer.getName())).collect(Collectors.toList());
+        return Minecraft.getMinecraft().world.playerEntities.stream().filter(entityPlayer -> mc.player != entityPlayer).filter(entityPlayer -> !entityPlayer.isDead).filter(entityPlayer -> FriendUtil.isFriend(entityPlayer.getName())).collect(Collectors.toList());
     }
 
     
