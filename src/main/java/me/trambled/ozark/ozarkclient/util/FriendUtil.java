@@ -5,6 +5,7 @@ import com.google.gson.JsonParser;
 import com.mojang.util.UUIDTypeAdapter;
 import me.trambled.ozark.Ozark;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.client.network.NetworkPlayerInfo;
 
 import java.io.BufferedInputStream;
