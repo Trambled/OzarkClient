@@ -52,6 +52,14 @@ public class NameTags extends Module {
     Setting g = create("G", "NametagG", 255, 0, 255);
     Setting b = create("B", "NametagB", 255, 0, 255);
     Setting a = create("A", "NametagA", 0.7f, 0f, 1f);
+    Setting enemy_r = create("Enemy R", "EnemyNametagR", 157, 0, 255);
+    Setting enemy_g = create("Enemy G", "EnemyNametagG", 99, 0, 255);
+    Setting enemy_b = create("Enemy B", "EnemyNametagB", 255, 0, 255);
+    Setting enemy_a = create("Enemy A", "EnemyNametagA", 0.7f, 0f, 1f);
+    Setting friend_r = create("Friend R", "FriendNameNametagR", 255, 0, 255);
+    Setting friend_g = create("Friend G", "FriendNameNametagG", 40, 0, 255);
+    Setting friend_b = create("Friend B", "FriendNameNametagB", 7, 0, 255);
+    Setting friend_a = create("Friend A", "FriendNameNametagA", 0.7f, 0f, 1f);
     Setting rainbow_mode = create("Rainbow", "NametagRainbow", false);
     Setting sat = create("Saturation", "NametagSatiation", 0.8, 0, 1);
     Setting brightness = create("Brightness", "NametagBrightness", 0.8, 0, 1);
@@ -130,14 +138,14 @@ public class NameTags extends Module {
         int green = g.get_value(1);
         int blue = b.get_value(1);
         if (is_friend) {
-            red = 157;
-            green = 99;
-            blue = 255;
+            red = friend_r.get_value(1);
+            green = friend_g.get_value(1);
+            blue = friend_b.get_value(1);
         }
         if (is_enemy) {
-            red = 255;
-            green = 40;
-            blue = 7;
+            red = enemy_r.get_value(1);
+            green = enemy_g.get_value(1);
+            blue = enemy_b.get_value(1);
         }
         RenderUtil.drawRect((float)(-width - 2)-1, (float)(-(mc.fontRenderer.FONT_HEIGHT + 1))-1, width + 3f, 2.5f, red, green, blue, (float) a.get_value(1));
         RenderUtil.drawRect((float)(-width - 2), (float)(-(mc.fontRenderer.FONT_HEIGHT + 1)), width + 2.0f, 1.5f, 1426063360);
