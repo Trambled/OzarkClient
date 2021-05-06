@@ -65,12 +65,7 @@ public class FriendUtil {
         return new Friend(profile.getGameProfile().getName(), profile.getGameProfile().getId());
     }
     
-        if (mc.world.getLoadedEntityList().size() == 0)
-            return null;
-
-        return mc.world.playerEntities.stream().filter(entityPlayer -> mc.player != entityPlayer).filter(entityPlayer -> mc.player.getDistance(entityPlayer) <= range).filter(entityPlayer -> !entityPlayer.isDead).filter(entityPlayer -> FriendManager.isFriend(entityPlayer.getName())).collect(Collectors.toList());
-    }
-    public static List<EntityPlayer> getNearbyFriends(double range) {
+    public static List<EntityPlayer> get_friends(double range) {
         if (mc.world.getLoadedEntityList().size() == 0)
             return null;
 
