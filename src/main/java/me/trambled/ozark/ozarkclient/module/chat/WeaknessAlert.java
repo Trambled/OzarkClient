@@ -27,7 +27,7 @@ public class WeaknessAlert extends Module {
             }
             if (!mc.player.isPotionActive(MobEffects.WEAKNESS) && hasAnnounced) {
                 hasAnnounced = false;
-                MessageUtil.send_client_message("You lost your weakness!");
+                MessageUtil.send_client_message("No more weakness!");
             }
         }
     }
