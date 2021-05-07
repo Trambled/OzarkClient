@@ -142,6 +142,8 @@ U can give cape designs and i can add u to the pastebin of uuids for capes.
 
 -w+2 (obviously)
 
+-bope
+
 -gamesense
 
 -vethack
@@ -153,5 +155,7 @@ U can give cape designs and i can add u to the pastebin of uuids for capes.
 -chatbreaker+
 
 -xulu
+
+-fobos
 
 -past
