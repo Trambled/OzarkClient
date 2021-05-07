@@ -138,7 +138,8 @@ U can give cape designs and i can add u to the pastebin of uuids for capes.
 -Blacklarp on bottom.
 -Nekohax on bottom.
 
-##clients use to make ozark (skidded/inspiration/ideas)
+## clients use to make ozark (skidded/inspiration/ideas)
+
 -w+2 (obviously)
 
 -gamesense
