@@ -23,7 +23,7 @@ class VisualRange extends Module {
 
         this.name = "Visual Range";
         this.tag = "VisualRange";
-        this.description = "bc using ur eyes is overrated";
+        this.description = "also known as player detector";
     }
 
     @Override
@@ -49,9 +49,9 @@ class VisualRange extends Module {
             for (String name : peoplenew) {
                 if ( ! people.contains ( name ) ) {
                     if ( FriendUtil.isFriend ( name ) ) {
-                        MessageUtil.send_client_message ( "I see a friend named " + ChatFormatting.RESET + ChatFormatting.GREEN + name + ChatFormatting.RESET + ". Say Hi!" );
+                        MessageUtil.send_client_message ( "Friend detected named " + ChatFormatting.RESET + ChatFormatting.GREEN + name + ChatFormatting.RESET + "." );
                     } else {
-                        MessageUtil.send_client_message ( "I see an enemy named " + ChatFormatting.RESET + ChatFormatting.RED + name + ChatFormatting.RESET + "" );
+                        MessageUtil.send_client_message ( "Player detected named " + ChatFormatting.RESET + ChatFormatting.RED + name + ChatFormatting.RESET + "." );
                     }
                     people.add ( name );
                 }
