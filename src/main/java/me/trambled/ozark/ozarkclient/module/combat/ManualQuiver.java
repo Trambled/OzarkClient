@@ -9,23 +9,24 @@ import net.minecraft.item.ItemBow;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItem;
 
-public class ManualQuiver extends Module
-{
+public
+class ManualQuiver extends Module {
 
-    public ManualQuiver() {
+    @EventHandler
+    public Listener < EventPacket.SendPacket > listener = new Listener <> ( event -> {
+        if ( event.get_packet ( ) instanceof CPacketPlayerTryUseItem && mc.player.getHeldItemMainhand ( ).getItem ( ) instanceof ItemBow ) {
+            mc.player.connection.sendPacket ( new CPacketPlayer.Rotation ( mc.player.rotationYaw , - 90.0f , mc.player.onGround ) );
+        }
+    } );
 
-        super(Category.COMBAT);
+    public
+    ManualQuiver ( ) {
+
+        super ( Category.COMBAT );
 
         this.name = "Manual Quiver";
         this.tag = "ManualQuiver";
         this.description = "shoots arrows over you"; //works like half of the time
 
     }
-
-    @EventHandler
-    public Listener<EventPacket.SendPacket> listener = new Listener<>(event -> {
-        if (event.get_packet() instanceof CPacketPlayerTryUseItem && mc.player.getHeldItemMainhand().getItem() instanceof ItemBow) {
-            mc.player.connection.sendPacket(new CPacketPlayer.Rotation(mc.player.rotationYaw, -90.0f, mc.player.onGround));
-        }
-    });
 }

@@ -2,23 +2,25 @@ package me.trambled.ozark.ozarkclient.util;
 
 import net.minecraft.client.Minecraft;
 
-public class PosUtil {
+public
+class PosUtil {
 
+    private static final Minecraft mc = Minecraft.getMinecraft ( );
     private static double x;
     private static double y;
     private static double z;
     private static boolean onground;
 
-    private static final Minecraft mc = Minecraft.getMinecraft();
-
-    public static void updatePosition() {
+    public static
+    void updatePosition ( ) {
         x = mc.player.posX;
         y = mc.player.posY;
         z = mc.player.posZ;
         onground = mc.player.onGround;
     }
 
-    public static void restorePosition() {
+    public static
+    void restorePosition ( ) {
         mc.player.posX = x;
         mc.player.posY = y;
         mc.player.posZ = z;

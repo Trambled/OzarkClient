@@ -18,33 +18,37 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(value = PlayerControllerMP.class)
-public class MixinPlayerControllerMP {
+public
+class MixinPlayerControllerMP {
 
-	// Player damage fix the hit.
-	@Redirect(method = "onPlayerDamageBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/state/IBlockState;getPlayerRelativeBlockHardness(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)F"))
-	private float onPlayerDamageBlockSpeed(IBlockState state, EntityPlayer player, World world, BlockPos pos) {
-		return state.getPlayerRelativeBlockHardness(player, world, pos) * (Ozark.get_event_handler().get_tick_rate() / 20f);
-	}
+    // Player damage fix the hit.
+    @Redirect(method = "onPlayerDamageBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/state/IBlockState;getPlayerRelativeBlockHardness(Lnet/minecraft/entity/player/EntityPlayer;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)F"))
+    private
+    float onPlayerDamageBlockSpeed ( IBlockState state , EntityPlayer player , World world , BlockPos pos ) {
+        return state.getPlayerRelativeBlockHardness ( player , world , pos ) * ( Ozark.get_event_handler ( ).get_tick_rate ( ) / 20f );
+    }
 
-	@Inject(method = "onPlayerDamageBlock", at = @At("HEAD"), cancellable = true)
-	public void onPlayerDamageBlock(BlockPos posBlock, EnumFacing directionFacing, CallbackInfoReturnable<Boolean> info) {
+    @Inject(method = "onPlayerDamageBlock", at = @At("HEAD"), cancellable = true)
+    public
+    void onPlayerDamageBlock ( BlockPos posBlock , EnumFacing directionFacing , CallbackInfoReturnable < Boolean > info ) {
 
-        EventDamageBlock event_packet = new EventDamageBlock(posBlock, directionFacing);
+        EventDamageBlock event_packet = new EventDamageBlock ( posBlock , directionFacing );
 
-		Eventbus.EVENT_BUS.post(event_packet);
+        Eventbus.EVENT_BUS.post ( event_packet );
 
-		if (event_packet.isCancelled()) {
-			info.setReturnValue(false);
-			info.cancel();
-		}
+        if ( event_packet.isCancelled ( ) ) {
+            info.setReturnValue ( false );
+            info.cancel ( );
+        }
 
-		final EventBlock event = new EventBlock(4, posBlock, directionFacing);
-		Eventbus.EVENT_BUS.post(event);
-	}
+        final EventBlock event = new EventBlock ( 4 , posBlock , directionFacing );
+        Eventbus.EVENT_BUS.post ( event );
+    }
 
-	@Inject(method = { "clickBlock" }, at = { @At("HEAD") }, cancellable = true)
-	private void clickBlockHook(final BlockPos pos, final EnumFacing face, final CallbackInfoReturnable<Boolean> info) {
-		final EventBlock event = new EventBlock(3, pos, face);
-		Eventbus.EVENT_BUS.post(event);
-	}
+    @Inject(method = {"clickBlock"}, at = {@At("HEAD")}, cancellable = true)
+    private
+    void clickBlockHook ( final BlockPos pos , final EnumFacing face , final CallbackInfoReturnable < Boolean > info ) {
+        final EventBlock event = new EventBlock ( 3 , pos , face );
+        Eventbus.EVENT_BUS.post ( event );
+    }
 }

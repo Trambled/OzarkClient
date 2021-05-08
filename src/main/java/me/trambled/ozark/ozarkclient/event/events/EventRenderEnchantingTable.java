@@ -2,7 +2,7 @@ package me.trambled.ozark.ozarkclient.event.events;
 
 import me.trambled.ozark.ozarkclient.event.Event;
 
-public  class EventRenderEnchantingTable extends Event
-{
+public
+class EventRenderEnchantingTable extends Event {
 
 }

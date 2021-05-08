@@ -1,9 +1,9 @@
 {
-  "required"           : true,
-  "compatibilityLevel" : "JAVA_8",
-  "package"            : "me.trambled.ozark.mixins",
-  "refmap"             : "mixins.ozark.refmap.json",
-  "mixins"             : [
+  "required": true,
+  "compatibilityLevel": "JAVA_8",
+  "package": "me.trambled.ozark.mixins",
+  "refmap": "mixins.ozark.refmap.json",
+  "mixins": [
     "MixinPlayerControllerMP",
     "MixinNetworkManager",
     "MixinMinecraft",

@@ -13,85 +13,95 @@ import net.minecraft.util.text.event.HoverEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MessageUtil {
-	public final static Minecraft mc = Minecraft.getMinecraft();
+public
+class MessageUtil {
+    public final static Minecraft mc = Minecraft.getMinecraft ( );
 
-	public static ChatFormatting g = ChatFormatting.DARK_RED;
-	public static ChatFormatting b = ChatFormatting.BLUE;
-	public static ChatFormatting a = ChatFormatting.DARK_AQUA;
-	public static ChatFormatting r = ChatFormatting.RESET;
+    public static ChatFormatting g = ChatFormatting.DARK_RED;
+    public static ChatFormatting b = ChatFormatting.BLUE;
+    public static ChatFormatting a = ChatFormatting.DARK_AQUA;
+    public static ChatFormatting r = ChatFormatting.RESET;
 
-	public static String opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
+    public static String opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
 
-	public static void toggle_message(Module module) {
-		opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
-		if (module.is_active()) {
-			if (module.get_tag().equals("AutoCrystal")) {
-				client_message_simple(opener + "we do a little " + ChatFormatting.DARK_GREEN + "trolling");
-			} else {
-				client_message_simple(opener + r + module.get_name() + ChatFormatting.DARK_GREEN + " Enabled");
-			}			
-		} else {
-			if (module.get_tag().equals("AutoCrystal")) {
-				client_message_simple(opener + "we aint" + ChatFormatting.RED + " trolling " + r + "no more");
-			} else {
-				client_message_simple(opener + r + module.get_name() + ChatFormatting.RED + " Disabled");
-			}
-		}
-	}
+    public static
+    void toggle_message ( Module module ) {
+        opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
+        if ( module.is_active ( ) ) {
+            if ( module.get_tag ( ).equals ( "AutoCrystal" ) ) {
+                client_message_simple ( opener + "we do a little " + ChatFormatting.DARK_GREEN + "trolling" );
+            } else {
+                client_message_simple ( opener + r + module.get_name ( ) + ChatFormatting.DARK_GREEN + " Enabled" );
+            }
+        } else {
+            if ( module.get_tag ( ).equals ( "AutoCrystal" ) ) {
+                client_message_simple ( opener + "we aint" + ChatFormatting.RED + " trolling " + r + "no more" );
+            } else {
+                client_message_simple ( opener + r + module.get_name ( ) + ChatFormatting.RED + " Disabled" );
+            }
+        }
+    }
 
-	public static void client_message_simple(String message) {
-		opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
-		if (mc.player != null) {
-			final ITextComponent itc = new TextComponentString(message).setStyle(new Style().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("frank alachi"))));
-			mc.ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(itc, 5936);
-		}
-	}
+    public static
+    void client_message_simple ( String message ) {
+        opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
+        if ( mc.player != null ) {
+            final ITextComponent itc = new TextComponentString ( message ).setStyle ( new Style ( ).setHoverEvent ( new HoverEvent ( HoverEvent.Action.SHOW_TEXT , new TextComponentString ( "frank alachi" ) ) ) );
+            mc.ingameGUI.getChatGUI ( ).printChatMessageWithOptionalDeletion ( itc , 5936 );
+        }
+    }
 
-	public static void client_message(String message) {
-		opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
-		if (mc.player != null) {
-			mc.player.sendMessage(new ChatMessage(message));
-		}
-	}
+    public static
+    void client_message ( String message ) {
+        opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
+        if ( mc.player != null ) {
+            mc.player.sendMessage ( new ChatMessage ( message ) );
+        }
+    }
 
-	public static void send_client_message(String message) {
-		opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
-		if (mc.player != null) {
-			client_message(opener + message);
-		}
-	}
+    public static
+    void send_client_message ( String message ) {
+        opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
+        if ( mc.player != null ) {
+            client_message ( opener + message );
+        }
+    }
 
-	public static void send_client_error_message(String message) {
-		opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
-		client_message(opener + r + "Error: "  + message);
-	}
+    public static
+    void send_client_error_message ( String message ) {
+        opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
+        client_message ( opener + r + "Error: " + message );
+    }
 
-	public static class ChatMessage extends TextComponentBase {
-		String message_input;
+    public static
+    class ChatMessage extends TextComponentBase {
+        String message_input;
 
-		public ChatMessage(String message) {
-			Pattern p       = Pattern.compile("&[0123456789abcdefrlosmk]");
-			Matcher m       = p.matcher(message);
-			StringBuffer sb = new StringBuffer();
+        public
+        ChatMessage ( String message ) {
+            Pattern p = Pattern.compile ( "&[0123456789abcdefrlosmk]" );
+            Matcher m = p.matcher ( message );
+            StringBuffer sb = new StringBuffer ( );
 
-			while (m.find()) {
-				String replacement = "\u00A7" + m.group().substring(1);
-				m.appendReplacement(sb, replacement);
-			}
+            while ( m.find ( ) ) {
+                String replacement = "\u00A7" + m.group ( ).substring ( 1 );
+                m.appendReplacement ( sb , replacement );
+            }
 
-			m.appendTail(sb);
-			this.message_input = sb.toString();
-		}
+            m.appendTail ( sb );
+            this.message_input = sb.toString ( );
+        }
 
-		public String getUnformattedComponentText() {
-			return this.message_input;
-		}
+        public
+        String getUnformattedComponentText ( ) {
+            return this.message_input;
+        }
 
-		@Override
-		public ITextComponent createCopy() {
-			return new ChatMessage(this.message_input);
-		}
-	}
+        @Override
+        public
+        ITextComponent createCopy ( ) {
+            return new ChatMessage ( this.message_input );
+        }
+    }
 
 }

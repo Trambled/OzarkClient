@@ -1,15 +1,11 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.*;
 import me.trambled.ozark.ozarkclient.util.BlockInteractionHelper.ValidResult;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockButtonWood;
-import net.minecraft.block.BlockButtonStone;
-import net.minecraft.block.BlockEnderChest;
-import net.minecraft.block.BlockObsidian;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -19,57 +15,61 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 
-public class HoleFill extends Module {
-    
-    public HoleFill() {
-		super(Category.COMBAT);
+public
+class HoleFill extends Module {
 
-		this.name        = "Hole Fill"; 
-		this.tag         = "HoleFill";
-		this.description = "Turn holes into floors";
+    private final ArrayList < BlockPos > holes = new ArrayList <> ( );
+    Setting smart_mode = create ( "Smart Mode" , "HoleFillSmart" , false );
+    Setting smart_range = create ( "Smart Range" , "HoleFillSmartRange" , 2.11 , 0 , 6 );
+    Setting hole_toggle = create ( "Toggle" , "HoleFillToggle" , true );
+    Setting hole_rotate = create ( "Rotate" , "HoleFillRotate" , true );
+    Setting button = create ( "Button" , "HoleFillButton" , false );
+    Setting hole_range = create ( "Range" , "HoleFillRange" , 4 , 1 , 6 );
+    Setting swing = create ( "Swing" , "HoleFillSwing" , "Mainhand" , combobox ( "Mainhand" , "Offhand" , "Both" , "None" ) );
+
+    public
+    HoleFill ( ) {
+        super ( Category.COMBAT );
+
+        this.name = "Hole Fill";
+        this.tag = "HoleFill";
+        this.description = "Turn holes into floors";
     }
 
-    Setting smart_mode = create("Smart Mode", "HoleFillSmart", false);
-    Setting smart_range = create("Smart Range", "HoleFillSmartRange", 2.11, 0,6);
-    Setting hole_toggle = create("Toggle", "HoleFillToggle", true);
-    Setting hole_rotate = create("Rotate", "HoleFillRotate", true);
-    Setting button = create("Button", "HoleFillButton", false);
-    Setting hole_range = create("Range", "HoleFillRange", 4, 1, 6);
-    Setting swing = create("Swing", "HoleFillSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
-
-    private final ArrayList<BlockPos> holes = new ArrayList<>();
-
     @Override
-	public void enable() {
-		if (find_in_hotbar() == -1) {
-		    MessageUtil.send_client_error_message("No obby!");
-		    this.set_disable();
+    public
+    void enable ( ) {
+        if ( find_in_hotbar ( ) == - 1 ) {
+            MessageUtil.send_client_error_message ( "No obby!" );
+            this.set_disable ( );
         }
-        find_new_holes();
-	}
-
-	@Override
-	public void disable() {
-        holes.clear();
+        find_new_holes ( );
     }
-    
-    @Override
-	public void update() {
 
-        if (find_in_hotbar() == -1) {
-            MessageUtil.send_client_error_message("No obby!");
-            this.set_disable();
+    @Override
+    public
+    void disable ( ) {
+        holes.clear ( );
+    }
+
+    @Override
+    public
+    void update ( ) {
+
+        if ( find_in_hotbar ( ) == - 1 ) {
+            MessageUtil.send_client_error_message ( "No obby!" );
+            this.set_disable ( );
             return;
         }
 
-        if (holes.isEmpty()) {
-            if (hole_toggle.get_value(true)) {
-                this.set_disable();
-                MessageUtil.toggle_message(this);
+        if ( holes.isEmpty ( ) ) {
+            if ( hole_toggle.get_value ( true ) ) {
+                this.set_disable ( );
+                MessageUtil.toggle_message ( this );
                 return;
 
             } else {
-                find_new_holes();
+                find_new_holes ( );
             }
         }
 
@@ -77,117 +77,119 @@ public class HoleFill extends Module {
 
         boolean do_smart = false;
 
-        for (BlockPos pos : new ArrayList<>(holes)) {
+        for (BlockPos pos : new ArrayList <> ( holes )) {
 
-            if (pos == null) continue;
+            if ( pos == null ) continue;
 
-            BlockInteractionHelper.ValidResult result = BlockInteractionHelper.valid(pos);
+            BlockInteractionHelper.ValidResult result = BlockInteractionHelper.valid ( pos );
 
             for (Entity player : mc.world.playerEntities) {
-                if (player == mc.player) continue;
+                if ( player == mc.player ) continue;
 
-                if (FriendUtil.isFriend(player.getName())) continue;
+                if ( FriendUtil.isFriend ( player.getName ( ) ) ) continue;
 
-                if (player.getDistance(mc.player) >= 11) continue;
+                if ( player.getDistance ( mc.player ) >= 11 ) continue;
 
                 final EntityPlayer target = (EntityPlayer) player;
 
-                if (target.isDead || target.getHealth() <= 0) continue;
+                if ( target.isDead || target.getHealth ( ) <= 0 ) continue;
 
-                if (target.getDistanceSqToCenter(pos) < smart_range.get_value(1)*smart_range.get_value(1)) {
+                if ( target.getDistanceSqToCenter ( pos ) < smart_range.get_value ( 1 ) * smart_range.get_value ( 1 ) ) {
                     do_smart = true;
                 }
             }
 
 
-            if (result != ValidResult.Ok) {
-                holes.remove(pos);
+            if ( result != ValidResult.Ok ) {
+                holes.remove ( pos );
                 continue;
             }
             pos_to_fill = pos;
             break;
         }
 
-        if (find_in_hotbar() == -1) {
-            MessageUtil.send_client_error_message("No obby!");
-            this.set_disable();
+        if ( find_in_hotbar ( ) == - 1 ) {
+            MessageUtil.send_client_error_message ( "No obby!" );
+            this.set_disable ( );
             return;
         }
 
-        if (do_smart || !smart_mode.get_value(true)) {
-            if (pos_to_fill != null) {
-                if (BlockUtil.placeBlock(pos_to_fill, find_in_hotbar(), hole_rotate.get_value(true), hole_rotate.get_value(true), swing)) {
-                    holes.remove(pos_to_fill);
+        if ( do_smart || ! smart_mode.get_value ( true ) ) {
+            if ( pos_to_fill != null ) {
+                if ( BlockUtil.placeBlock ( pos_to_fill , find_in_hotbar ( ) , hole_rotate.get_value ( true ) , hole_rotate.get_value ( true ) , swing ) ) {
+                    holes.remove ( pos_to_fill );
                 }
             }
         }
     }
 
-    public void find_new_holes() {
+    public
+    void find_new_holes ( ) {
 
-        holes.clear();
+        holes.clear ( );
 
-        for (BlockPos pos : BlockInteractionHelper.getSphere(PlayerUtil.GetLocalPlayerPosFloored(), hole_range.get_value(1), hole_range.get_value(1), false, true, 0)) {
+        for (BlockPos pos : BlockInteractionHelper.getSphere ( PlayerUtil.GetLocalPlayerPosFloored ( ) , hole_range.get_value ( 1 ) , hole_range.get_value ( 1 ) , false , true , 0 )) {
 
-            if (!mc.world.getBlockState(pos).getBlock().equals(Blocks.AIR)) {
+            if ( ! mc.world.getBlockState ( pos ).getBlock ( ).equals ( Blocks.AIR ) ) {
                 continue;
             }
 
-            if (!mc.world.getBlockState(pos.add(0, 1, 0)).getBlock().equals(Blocks.AIR)) {
+            if ( ! mc.world.getBlockState ( pos.add ( 0 , 1 , 0 ) ).getBlock ( ).equals ( Blocks.AIR ) ) {
                 continue;
             }
 
-            if (!mc.world.getBlockState(pos.add(0, 2, 0)).getBlock().equals(Blocks.AIR)) {
+            if ( ! mc.world.getBlockState ( pos.add ( 0 , 2 , 0 ) ).getBlock ( ).equals ( Blocks.AIR ) ) {
                 continue;
             }
 
             boolean possible = true;
 
-            for (BlockPos seems_blocks : new BlockPos[] {
-            new BlockPos( 0, -1,  0),
-            new BlockPos( 0,  0, -1),
-            new BlockPos( 1,  0,  0),
-            new BlockPos( 0,  0,  1),
-            new BlockPos(-1,  0,  0)
+            for (BlockPos seems_blocks : new BlockPos[]{
+                    new BlockPos ( 0 , - 1 , 0 ) ,
+                    new BlockPos ( 0 , 0 , - 1 ) ,
+                    new BlockPos ( 1 , 0 , 0 ) ,
+                    new BlockPos ( 0 , 0 , 1 ) ,
+                    new BlockPos ( - 1 , 0 , 0 )
             }) {
-                Block block = mc.world.getBlockState(pos.add(seems_blocks)).getBlock();
+                Block block = mc.world.getBlockState ( pos.add ( seems_blocks ) ).getBlock ( );
 
-                if (block != Blocks.BEDROCK && block != Blocks.OBSIDIAN && block != Blocks.ENDER_CHEST && block != Blocks.ANVIL) {
+                if ( block != Blocks.BEDROCK && block != Blocks.OBSIDIAN && block != Blocks.ENDER_CHEST && block != Blocks.ANVIL ) {
                     possible = false;
                     break;
                 }
             }
 
-            if (possible) {
-                holes.add(pos);
+            if ( possible ) {
+                holes.add ( pos );
             }
         }
     }
 
-    private int find_in_hotbar() {
-        for (int i = 0; i < 9; ++i) {
-            final ItemStack stack = mc.player.inventory.getStackInSlot(i);
-            if (stack != ItemStack.EMPTY && stack.getItem() instanceof ItemBlock) {
-                final Block block = ((ItemBlock) stack.getItem()).getBlock();
+    private
+    int find_in_hotbar ( ) {
+        for (int i = 0; i < 9; ++ i) {
+            final ItemStack stack = mc.player.inventory.getStackInSlot ( i );
+            if ( stack != ItemStack.EMPTY && stack.getItem ( ) instanceof ItemBlock ) {
+                final Block block = ( (ItemBlock) stack.getItem ( ) ).getBlock ( );
 
-                if (block instanceof BlockEnderChest && !button.get_value(true)) {
+                if ( block instanceof BlockEnderChest && ! button.get_value ( true ) ) {
                     return i;
                 }
 
-                if (block instanceof BlockObsidian && !button.get_value(true)) {
+                if ( block instanceof BlockObsidian && ! button.get_value ( true ) ) {
                     return i;
                 }
 
-                if (block instanceof BlockButtonStone && button.get_value(true)) {
+                if ( block instanceof BlockButtonStone && button.get_value ( true ) ) {
                     return i;
                 }
 
-                if (block instanceof BlockButtonWood && button.get_value(true)) {
+                if ( block instanceof BlockButtonWood && button.get_value ( true ) ) {
                     return i;
                 }
             }
         }
-        return -1;
+        return - 1;
     }
 
 }

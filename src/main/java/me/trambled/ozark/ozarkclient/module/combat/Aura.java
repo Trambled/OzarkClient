@@ -2,9 +2,9 @@ package me.trambled.ozark.ozarkclient.module.combat;
 
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.FriendUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,197 +23,203 @@ import net.minecraft.util.math.BlockPos;
 import java.util.stream.Collectors;
 
 
-public class Aura extends Module {
+public
+class Aura extends Module {
 
-	public Aura() {
-		super(Category.COMBAT);
+    Setting mode = create ( "Mode" , "KillAuraMode" , "Normal" , combobox ( "A32k" , "Normal" ) );
+    Setting player = create ( "Player" , "KillAuraPlayer" , true );
+    Setting hostile = create ( "Hostile" , "KillAuraHostile" , false );
+    Setting sync_tps = create ( "Sync TPS" , "KillAuraSyncTps" , false );
+    Setting range = create ( "Range" , "KillAuraRange" , 5.0 , 0.5 , 6.0 );
+    Setting delay = create ( "Delay" , "KillAuraDelay" , 2 , 0 , 10 );
+    Setting only_sword = create ( "Sword" , "AuraSword" , true );
+    boolean start_verify = true;
+    EnumHand actual_hand = EnumHand.MAIN_HAND;
+    double tick = 0;
 
-		this.name        = "Aura";
-		this.tag         = "Aura";
-		this.description = "Automatically hits enemies within a certain range.";
-	}
+    public
+    Aura ( ) {
+        super ( Category.COMBAT );
 
-	Setting mode = create("Mode", "KillAuraMode", "Normal", combobox("A32k", "Normal"));
-	Setting player    = create("Player",   "KillAuraPlayer",  true);
-	Setting hostile   = create("Hostile",  "KillAuraHostile", false);
-	Setting sync_tps  = create("Sync TPS", "KillAuraSyncTps", false);
-	Setting range     = create("Range",    "KillAuraRange",   5.0, 0.5, 6.0);
-	Setting delay = create("Delay", "KillAuraDelay", 2, 0, 10);
-	Setting only_sword = create("Sword",    "AuraSword",   true);
-	boolean start_verify = true;
+        this.name = "Aura";
+        this.tag = "Aura";
+        this.description = "Automatically hits enemies within a certain range.";
+    }
 
-	EnumHand actual_hand = EnumHand.MAIN_HAND;
+    @Override
+    protected
+    void enable ( ) {
+        tick = 0;
+    }
 
-	double tick = 0;
+    @Override
+    public
+    void update ( ) {
+        if ( mc.player != null && mc.world != null ) {
 
-	@Override
-	protected void enable() {
-		tick = 0;
-	}
+            tick++;
 
-	@Override
-	public void update() {
-		if (mc.player != null && mc.world != null) {
+            if ( mc.player.isDead | mc.player.getHealth ( ) <= 0 ) {
+                return;
+            }
 
-			tick++;
+            if ( mode.in ( "Normal" ) ) {
+                if ( ! ( mc.player.getHeldItemMainhand ( ).getItem ( ) instanceof ItemSword ) && only_sword.get_value ( true ) ) {
+                    start_verify = false;
+                } else if ( ( mc.player.getHeldItemMainhand ( ).getItem ( ) instanceof ItemSword ) && only_sword.get_value ( true ) ) {
+                    start_verify = true;
+                } else if ( ! only_sword.get_value ( true ) ) {
+                    start_verify = true;
+                }
 
-			if (mc.player.isDead | mc.player.getHealth() <= 0) {
-				return;
-			}
+                Entity entity = find_entity ( );
 
-			if (mode.in("Normal")) {
-				if (!(mc.player.getHeldItemMainhand().getItem() instanceof ItemSword) && only_sword.get_value(true)) {
-					start_verify = false;
-				} else if ((mc.player.getHeldItemMainhand().getItem() instanceof ItemSword) && only_sword.get_value(true)) {
-					start_verify = true;
-				} else if (!only_sword.get_value(true)) {
-					start_verify = true;
-				}
+                if ( entity != null && start_verify ) {
+                    // Tick.
+                    float tick_to_hit = 20.0f - Ozark.get_event_handler ( ).get_tick_rate ( );
 
-				Entity entity = find_entity();
+                    // If possible hit or no.
+                    boolean is_possible_attack = mc.player.getCooledAttackStrength ( sync_tps.get_value ( true ) ? - tick_to_hit : 0.0f ) >= 1;
 
-				if (entity != null && start_verify) {
-					// Tick.
-					float tick_to_hit  = 20.0f - Ozark.get_event_handler().get_tick_rate();
+                    // To hit if able.
+                    if ( is_possible_attack ) {
+                        attack_entity ( entity );
+                    }
+                }
+            } else {
 
-					// If possible hit or no.
-					boolean is_possible_attack = mc.player.getCooledAttackStrength(sync_tps.get_value(true) ? -tick_to_hit : 0.0f) >= 1;
+                if ( ! ( mc.player.getHeldItemMainhand ( ).getItem ( ) instanceof ItemSword ) ) return;
 
-					// To hit if able.
-					if (is_possible_attack) {
-						attack_entity(entity);
-					}
-				}
-			} else {
+                if ( tick < delay.get_value ( 1 ) ) return;
 
-				if (!(mc.player.getHeldItemMainhand().getItem() instanceof ItemSword)) return;
+                tick = 0;
 
-				if (tick < delay.get_value(1)) return;
+                Entity entity = find_entity ( );
 
-				tick = 0;
+                if ( entity != null ) {
+                    attack_entity ( entity );
+                }
+            }
 
-				Entity entity = find_entity();
+        }
+    }
 
-				if (entity != null) {
-					attack_entity(entity);
-				}
-			}
+    public
+    void attack_entity ( Entity entity ) {
 
-		}
-	}
+        if ( mode.in ( "A32k" ) ) {
 
-	public void attack_entity(Entity entity) {
+            int newSlot = - 1;
 
-		if (mode.in("A32k")) {
+            for (int i = 0; i < 9; i++) {
+                ItemStack stack = mc.player.inventory.getStackInSlot ( i );
+                if ( stack == ItemStack.EMPTY ) {
+                    continue;
+                }
+                if ( checkSharpness ( stack ) ) {
+                    newSlot = i;
+                    break;
+                }
+            }
 
-			int newSlot = -1;
+            if ( newSlot != - 1 ) {
+                mc.player.inventory.currentItem = newSlot;
+            }
 
-			for (int i = 0; i < 9; i++) {
-				ItemStack stack = mc.player.inventory.getStackInSlot(i);
-				if (stack == ItemStack.EMPTY) {
-					continue;
-				}
-				if (checkSharpness(stack)) {
-					newSlot = i;
-					break;
-				}
-			}
+        }
 
-			if (newSlot != -1) {
-				mc.player.inventory.currentItem = newSlot;
-			}
+        // Get actual item off hand.
+        ItemStack off_hand_item = mc.player.getHeldItemOffhand ( );
 
-		}
+        // If off hand not null and is some SHIELD like use.
+        if ( off_hand_item.getItem ( ) == Items.SHIELD ) {
+            // Ignore ant continue.
+            mc.player.connection.sendPacket ( new CPacketPlayerDigging ( CPacketPlayerDigging.Action.RELEASE_USE_ITEM , BlockPos.ORIGIN , mc.player.getHorizontalFacing ( ) ) );
+        }
 
-		// Get actual item off hand.
-		ItemStack off_hand_item = mc.player.getHeldItemOffhand();
+        // Start hit on entity.
+        mc.player.connection.sendPacket ( new CPacketUseEntity ( entity ) );
+        mc.player.swingArm ( actual_hand );
+        mc.player.resetCooldown ( );
+    }
 
-		// If off hand not null and is some SHIELD like use.
-		if (off_hand_item.getItem() == Items.SHIELD) {
-			// Ignore ant continue.
-			mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, mc.player.getHorizontalFacing()));
-		}
+    // For find a entity.
+    public
+    Entity find_entity ( ) {
+        // Create a request.
+        Entity entity_requested = null;
 
-		// Start hit on entity.
-		mc.player.connection.sendPacket(new CPacketUseEntity(entity));
-		mc.player.swingArm(actual_hand);
-		mc.player.resetCooldown();
-	}
+        for (Entity player : mc.world.playerEntities.stream ( ).filter ( entityPlayer -> ! FriendUtil.isFriend ( entityPlayer.getName ( ) ) ).collect ( Collectors.toList ( ) )) {
+            // If entity is not null continue to next event.
+            if ( player != null ) {
+                // If is compatible.
+                if ( is_compatible ( player ) ) {
+                    // If is possible to get.
+                    if ( mc.player.getDistance ( player ) <= range.get_value ( 1.0 ) ) {
+                        // Atribute the entity into entity_requested.
+                        entity_requested = player;
+                    }
+                }
+            }
+        }
 
-	// For find a entity.
-	public Entity find_entity() {
-		// Create a request.
-		Entity entity_requested = null;
+        // Return the entity requested.
+        return entity_requested;
+    }
 
-		for (Entity player : mc.world.playerEntities.stream().filter(entityPlayer -> !FriendUtil.isFriend(entityPlayer.getName())).collect(Collectors.toList())) {
-			// If entity is not null continue to next event.
-			if (player != null) {
-				// If is compatible.
-				if (is_compatible(player)) {
-					// If is possible to get.
-					if (mc.player.getDistance(player) <= range.get_value(1.0)) {
-						// Atribute the entity into entity_requested.
-						entity_requested = player;
-					}
-				}
-			}
-		}
+    // Compatible or no.
+    public
+    boolean is_compatible ( Entity entity ) {
+        // Instend entity with some type entity to continue or no.
+        if ( player.get_value ( true ) && entity instanceof EntityPlayer ) {
+            if ( entity != mc.player && ! ( entity.getName ( ).equals ( mc.player.getName ( ) ) ) /* && WurstplusFriendManager.is_friend(entity) == false */ ) {
+                return true;
+            }
+        }
 
-		// Return the entity requested.
-		return entity_requested;
-	}
+        // If is hostile.
+        if ( hostile.get_value ( true ) && entity instanceof IMob ) {
+            return true;
+        }
 
-	// Compatible or no.
-	public boolean is_compatible(Entity entity) {
-		// Instend entity with some type entity to continue or no.
-		if (player.get_value(true) && entity instanceof EntityPlayer) {
-			if (entity != mc.player && !(entity.getName().equals(mc.player.getName())) /* && WurstplusFriendManager.is_friend(entity) == false */) {
-				return true;
-			}
-		}
+        // If entity requested die.
+        if ( entity instanceof EntityLivingBase ) {
+            EntityLivingBase entity_living_base = (EntityLivingBase) entity;
 
-		// If is hostile.
-		if (hostile.get_value(true) && entity instanceof IMob) {
-			return true;
-		}
+            if ( entity_living_base.getHealth ( ) <= 0 ) {
+                return false;
+            }
+        }
 
-		// If entity requested die.
-		if (entity instanceof EntityLivingBase) {
-			EntityLivingBase entity_living_base = (EntityLivingBase) entity;
+        // Return false.
+        return false;
+    }
 
-			if (entity_living_base.getHealth() <= 0) {
-				return false;
-			}
-		}
+    private
+    boolean checkSharpness ( ItemStack stack ) {
 
-		// Return false.
-		return false;
-	}
+        if ( stack.getTagCompound ( ) == null ) {
+            return false;
+        }
 
-	private boolean checkSharpness(ItemStack stack) {
+        NBTTagList enchants = (NBTTagList) stack.getTagCompound ( ).getTag ( "ench" );
 
-		if (stack.getTagCompound() == null) {
-			return false;
-		}
+        if ( enchants == null ) {
+            return false;
+        }
 
-		NBTTagList enchants = (NBTTagList) stack.getTagCompound().getTag("ench");
+        for (int i = 0; i < enchants.tagCount ( ); i++) {
+            NBTTagCompound enchant = enchants.getCompoundTagAt ( i );
+            if ( enchant.getInteger ( "id" ) == 16 ) {
+                int lvl = enchant.getInteger ( "lvl" );
+                if ( lvl > 5 ) {
+                    return true;
+                }
+                break;
+            }
+        }
 
-		if (enchants == null) {
-			return false;
-		}
+        return false;
 
-		for (int i = 0; i < enchants.tagCount(); i++) {
-			NBTTagCompound enchant = enchants.getCompoundTagAt(i);
-			if (enchant.getInteger("id") == 16) {
-				int lvl = enchant.getInteger("lvl");
-				if (lvl > 5) {
-					return true;
-				}
-				break;
-			}
-		}
-
-		return false;
-
-	}
+    }
 }

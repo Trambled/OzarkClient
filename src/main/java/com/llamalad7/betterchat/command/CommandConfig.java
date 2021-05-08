@@ -26,31 +26,37 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-public class CommandConfig extends CommandBase {
+public
+class CommandConfig extends CommandBase {
 
     @Override
-    public String getName() {
+    public
+    String getName ( ) {
         return "betterchat";
     }
 
     @Override
-    public String getUsage(ICommandSender sender) {
+    public
+    String getUsage ( ICommandSender sender ) {
         return "/betterchat";
     }
 
     @Override
-    public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+    public
+    boolean checkPermission ( MinecraftServer server , ICommandSender sender ) {
         return true;
     }
 
     @Override
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        MinecraftForge.EVENT_BUS.register(this);
+    public
+    void execute ( MinecraftServer server , ICommandSender sender , String[] args ) throws CommandException {
+        MinecraftForge.EVENT_BUS.register ( this );
     }
 
     @SubscribeEvent
-    public void onClientTick(TickEvent.ClientTickEvent event) {
-        MinecraftForge.EVENT_BUS.unregister(this);
-        Minecraft.getMinecraft().displayGuiScreen(new GuiConfig());
+    public
+    void onClientTick ( TickEvent.ClientTickEvent event ) {
+        MinecraftForge.EVENT_BUS.unregister ( this );
+        Minecraft.getMinecraft ( ).displayGuiScreen ( new GuiConfig ( ) );
     }
 }

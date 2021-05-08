@@ -14,36 +14,40 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
 @Mixin(value = NetworkManager.class)
-public class MixinNetworkManager {
-	// Receive packet.
-	@Inject(method = "channelRead0", at = @At("HEAD"), cancellable = true)
-	private void receive(ChannelHandlerContext context, Packet<?> packet, CallbackInfo callback) {
-		EventPacket event_packet = new EventPacket.ReceivePacket(packet);
+public
+class MixinNetworkManager {
+    // Receive packet.
+    @Inject(method = "channelRead0", at = @At("HEAD"), cancellable = true)
+    private
+    void receive ( ChannelHandlerContext context , Packet < ? > packet , CallbackInfo callback ) {
+        EventPacket event_packet = new EventPacket.ReceivePacket ( packet );
 
-		Eventbus.EVENT_BUS.post(event_packet);
+        Eventbus.EVENT_BUS.post ( event_packet );
 
-		if (event_packet.isCancelled()) {
-			callback.cancel();
-		}
-	}
+        if ( event_packet.isCancelled ( ) ) {
+            callback.cancel ( );
+        }
+    }
 
-	// Send packet.
-	@Inject(method = "sendPacket(Lnet/minecraft/network/Packet;)V", at = @At("HEAD"), cancellable = true)
-	private void send(Packet<?> packet, CallbackInfo callback) {
-		EventPacket event_packet = new EventPacket.SendPacket(packet);
+    // Send packet.
+    @Inject(method = "sendPacket(Lnet/minecraft/network/Packet;)V", at = @At("HEAD"), cancellable = true)
+    private
+    void send ( Packet < ? > packet , CallbackInfo callback ) {
+        EventPacket event_packet = new EventPacket.SendPacket ( packet );
 
-		Eventbus.EVENT_BUS.post(event_packet);
+        Eventbus.EVENT_BUS.post ( event_packet );
 
-		if (event_packet.isCancelled()) {
-			callback.cancel();
-		}
-	}
+        if ( event_packet.isCancelled ( ) ) {
+            callback.cancel ( );
+        }
+    }
 
-	// Exception packet.
-	@Inject(method = "exceptionCaught", at = @At("HEAD"), cancellable = true)
-	private void exception(ChannelHandlerContext exc, Throwable exc_, CallbackInfo callback) {
-		if (exc_ instanceof Exception) {
-			callback.cancel();
-		}
-	}
+    // Exception packet.
+    @Inject(method = "exceptionCaught", at = @At("HEAD"), cancellable = true)
+    private
+    void exception ( ChannelHandlerContext exc , Throwable exc_ , CallbackInfo callback ) {
+        if ( exc_ instanceof Exception ) {
+            callback.cancel ( );
+        }
+    }
 }

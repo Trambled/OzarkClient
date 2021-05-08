@@ -6,16 +6,19 @@ import net.minecraft.client.gui.GuiScreen;
 // External.
 
 
-public class EventGUIScreen extends Event {
-	private final GuiScreen guiscreen;
+public
+class EventGUIScreen extends Event {
+    private final GuiScreen guiscreen;
 
-	public EventGUIScreen(GuiScreen screen) {
-		super();
+    public
+    EventGUIScreen ( GuiScreen screen ) {
+        super ( );
 
-		guiscreen = screen;
-	}
+        guiscreen = screen;
+    }
 
-	public GuiScreen get_guiscreen() {
-		return guiscreen;
-	}
+    public
+    GuiScreen get_guiscreen ( ) {
+        return guiscreen;
+    }
 }

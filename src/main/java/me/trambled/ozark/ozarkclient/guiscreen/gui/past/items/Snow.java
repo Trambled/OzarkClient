@@ -1,59 +1,58 @@
 package me.trambled.ozark.ozarkclient.guiscreen.gui.past.items;
 
-import java.util.Random;
-
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 
-public class Snow
-{
-	private int _x;
-	private int _y;
-	private int _fallingSpeed;
-	private int _size;
+import java.util.Random;
 
-	public Snow(int x, int y, int fallingSpeed, int size)
-	{
-		_x = x;
-		_y = y;
-		_fallingSpeed = fallingSpeed;
-		_size = size;
-	}
+public
+class Snow {
+    private int _x;
+    private int _y;
+    private int _fallingSpeed;
+    private int _size;
 
-	public int getX()
-	{
-		return _x;
-	}
+    public
+    Snow ( int x , int y , int fallingSpeed , int size ) {
+        _x = x;
+        _y = y;
+        _fallingSpeed = fallingSpeed;
+        _size = size;
+    }
 
-	public void setX(int x)
-	{
-		this._x = x;
-	}
+    public
+    int getX ( ) {
+        return _x;
+    }
 
-	public int getY()
-	{
-		return _y;
-	}
+    public
+    void setX ( int x ) {
+        this._x = x;
+    }
 
-	public void setY(int _y)
-	{
-		this._y = _y;
-	}
+    public
+    int getY ( ) {
+        return _y;
+    }
 
-	public void Update(ScaledResolution res)
-	{
-		Gui.drawRect(getX(), getY(), getX() + _size, getY() + _size, 0x99C9C5C5);
+    public
+    void setY ( int _y ) {
+        this._y = _y;
+    }
 
-		setY(getY() + _fallingSpeed);
+    public
+    void Update ( ScaledResolution res ) {
+        Gui.drawRect ( getX ( ) , getY ( ) , getX ( ) + _size , getY ( ) + _size , 0x99C9C5C5 );
 
-		if (getY() > res.getScaledHeight() + 10 || getY() < -10)
-		{
-			setY(-10);
+        setY ( getY ( ) + _fallingSpeed );
 
-			Random rand = new Random();
+        if ( getY ( ) > res.getScaledHeight ( ) + 10 || getY ( ) < - 10 ) {
+            setY ( - 10 );
 
-			_fallingSpeed = rand.nextInt(10) + 1;
-			_size = rand.nextInt(4) + 1;
-		}
-	}
+            Random rand = new Random ( );
+
+            _fallingSpeed = rand.nextInt ( 10 ) + 1;
+            _size = rand.nextInt ( 4 ) + 1;
+        }
+    }
 }

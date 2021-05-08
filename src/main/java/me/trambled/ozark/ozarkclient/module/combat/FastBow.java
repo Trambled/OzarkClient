@@ -7,11 +7,13 @@ import net.minecraft.network.play.client.CPacketPlayerDigging;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItem;
 import net.minecraft.util.math.BlockPos;
 
-public class FastBow extends Module {
+public
+class FastBow extends Module {
 
-    public FastBow() {
+    public
+    FastBow ( ) {
 
-        super(Category.COMBAT);
+        super ( Category.COMBAT );
 
         this.name = "Fast Bow";
         this.tag = "FastBow";
@@ -20,11 +22,12 @@ public class FastBow extends Module {
     }
 
     @Override
-    public void update(){
-        if (mc.player.getHeldItemMainhand().getItem() instanceof ItemBow && mc.player.isHandActive() && mc.player.getItemInUseMaxCount() >= 3){
-            mc.player.connection.sendPacket(new CPacketPlayerDigging(CPacketPlayerDigging.Action.RELEASE_USE_ITEM, BlockPos.ORIGIN, mc.player.getHorizontalFacing()));
-            mc.player.connection.sendPacket(new CPacketPlayerTryUseItem(mc.player.getActiveHand()));
-            mc.player.stopActiveHand();
+    public
+    void update ( ) {
+        if ( mc.player.getHeldItemMainhand ( ).getItem ( ) instanceof ItemBow && mc.player.isHandActive ( ) && mc.player.getItemInUseMaxCount ( ) >= 3 ) {
+            mc.player.connection.sendPacket ( new CPacketPlayerDigging ( CPacketPlayerDigging.Action.RELEASE_USE_ITEM , BlockPos.ORIGIN , mc.player.getHorizontalFacing ( ) ) );
+            mc.player.connection.sendPacket ( new CPacketPlayerTryUseItem ( mc.player.getActiveHand ( ) ) );
+            mc.player.stopActiveHand ( );
         }
     }
 }

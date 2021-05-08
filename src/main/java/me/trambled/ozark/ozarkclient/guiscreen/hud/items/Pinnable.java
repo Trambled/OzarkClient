@@ -1,9 +1,9 @@
 package me.trambled.ozark.ozarkclient.guiscreen.hud.items;
 
-import me.trambled.ozark.ozarkclient.util.RainbowUtil;
-import me.trambled.turok.draw.RenderHelp;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.util.GuiUtil;
+import me.trambled.ozark.ozarkclient.util.RainbowUtil;
+import me.trambled.turok.draw.RenderHelp;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.opengl.GL11;
@@ -12,246 +12,269 @@ import org.lwjgl.opengl.GL11;
 // Travis.
 
 
-public class Pinnable {
-	private String title;
-	private String tag;
+public
+class Pinnable {
+    public final Minecraft mc = Minecraft.getMinecraft ( );
+    public GuiUtil font;
+    private final String title;
+    private final String tag;
+    private boolean state;
+    private boolean move;
+    private int x;
+    private int y;
+    private int width;
+    private int height;
+    private int move_x;
+    private int move_y;
+    private boolean dock = true;
 
-	private boolean state;
-	private boolean move;
+    public
+    Pinnable ( String title , String tag , float font_ , int x , int y ) {
+        this.title = title;
+        this.tag = tag;
+        this.font = new GuiUtil ( font_ );
 
-	public GuiUtil font;
+        this.x = x;
+        this.y = y;
 
-	private int x;
-	private int y;
+        this.width = 1;
+        this.height = 10;
 
-	private int width;
-	private int height;
+        this.move = false;
+    }
 
-	private int move_x;
-	private int move_y;
+    public
+    void set_move ( boolean value ) {
+        this.move = value;
+    }
 
-	private boolean dock = true;
+    public
+    void set_move_x ( int x ) {
+        this.move_x = x;
+    }
 
-	public final Minecraft mc = Minecraft.getMinecraft();
+    public
+    void set_move_y ( int y ) {
+        this.move_y = y;
+    }
 
-	public Pinnable(String title, String tag, float font_, int x, int y) {
-		this.title = title;
-		this.tag   = tag;
-		this.font  = new GuiUtil(font_);
+    public
+    boolean is_moving ( ) {
+        return this.move;
+    }
 
-		this.x = x;
-		this.y = y;
+    public
+    String get_title ( ) {
+        return this.title;
+    }
 
-		this.width  = 1;
-		this.height = 10;
+    public
+    String get_tag ( ) {
+        return this.tag;
+    }
 
-		this.move = false;
-	}
+    public
+    int get_title_height ( ) {
+        return this.font.get_string_height ( );
+    }
 
-	public void set_move(boolean value) {
-		this.move = value;
-	}
+    public
+    int get_x ( ) {
+        return this.x;
+    }
 
-	public void set_active(boolean value) {
-		this.state = value;
-	}
+    public
+    void set_x ( int x ) {
+        this.x = x;
+    }
 
-	public void set_x(int x) {
-		this.x = x;
-	}
+    public
+    int get_y ( ) {
+        return this.y;
+    }
 
-	public void set_y(int y) {
-		this.y = y;
-	}
+    public
+    void set_y ( int y ) {
+        this.y = y;
+    }
 
-	public void set_width(int width) {
-		this.width = width;
-	}
+    public
+    int get_width ( ) {
+        return this.width;
+    }
 
-	public void set_height(int height) {
-		this.height = height;
-	}
+    public
+    void set_width ( int width ) {
+        this.width = width;
+    }
 
-	public void set_move_x(int x) {
-		this.move_x = x;
-	}
+    public
+    int get_height ( ) {
+        return this.height;
+    }
 
-	public void set_move_y(int y) {
-		this.move_y = y;
-	}
+    public
+    void set_height ( int height ) {
+        this.height = height;
+    }
 
-	public void set_dock(boolean value) {
-		this.dock = value;
-	}
+    public
+    boolean get_dock ( ) {
+        return this.dock;
+    }
 
-	public boolean is_moving() {
-		return this.move;
-	}
+    public
+    void set_dock ( boolean value ) {
+        this.dock = value;
+    }
 
-	public String get_title() {
-		return this.title;
-	}
+    public
+    boolean is_active ( ) {
+        return this.state;
+    }
 
-	public String get_tag() {
-		return this.tag;
-	}
+    public
+    void set_active ( boolean value ) {
+        this.state = value;
+    }
 
-	public int get_title_height() {
-		return this.font.get_string_height();
-	}
+    public
+    boolean motion ( int mx , int my ) {
+        return mx >= get_x ( ) && my >= get_y ( ) && mx <= get_x ( ) + get_width ( ) && my <= get_y ( ) + get_height ( );
+    }
 
-	public int get_x() {
-		return this.x;
-	}
+    public
+    void crush ( int mx , int my ) {
+        // Get current screen real length.
+        int screen_x = ( mc.displayWidth / 2 );
+        int screen_y = ( mc.displayHeight / 2 );
 
-	public int get_y() {
-		return this.y;
-	}
+        set_x ( mx - this.move_x );
+        set_y ( my - this.move_y );
 
-	public int get_width() {
-		return this.width;
-	}
+        if ( this.x + this.width >= screen_x ) {
+            this.x = screen_x - this.width - 1;
+        }
 
-	public int get_height() {
-		return this.height;
-	}
+        if ( this.x <= 0 ) {
+            this.x = 1;
+        }
 
-	public boolean get_dock() {
-		return this.dock;
-	}
+        if ( this.y + this.height >= screen_y ) {
+            this.y = screen_y - this.height - 1;
+        }
 
-	public boolean is_active() {
-		return this.state;
-	}
+        if ( this.y <= 0 ) {
+            this.y = 1;
+        }
 
-	public boolean motion(int mx, int my) {
-		if (mx >= get_x() && my >= get_y() && mx <= get_x() + get_width() && my <= get_y() + get_height()) {
-			return true;
-		}
+        if ( this.x % 2 != 0 ) {
+            this.x += this.x % 2;
+        }
 
-		return false;
-	}
+        if ( this.y % 2 != 0 ) {
+            this.y += this.y % 2;
+        }
+    }
 
-	public void crush(int mx, int my) {
-		// Get current screen real length.
-		int screen_x = (mc.displayWidth / 2);
-		int screen_y = (mc.displayHeight / 2);
+    public
+    void render ( ) {
+    }
 
-		set_x(mx - this.move_x);
-		set_y(my - this.move_y);
+    public
+    void click ( int mx , int my , int mouse ) {
+        if ( mouse == 0 ) {
+            if ( is_active ( ) && motion ( mx , my ) ) {
+                set_move ( true );
 
-		if (this.x + this.width >= screen_x) {
-			this.x = screen_x - this.width - 1;
-		}
+                set_move_x ( mx - get_x ( ) );
+                set_move_y ( my - get_y ( ) );
+            }
+        }
+    }
 
-		if (this.x <= 0) {
-			this.x = 1;
-		}
+    public
+    void release ( int mx , int my , int mouse ) {
+        set_move ( false );
+    }
 
-		if (this.y + this.height >= screen_y) {
-			this.y = screen_y - this.height - 1;
-		}
+    public
+    void render ( int mx , int my , int tick ) {
+        if ( is_moving ( ) ) {
+            crush ( mx , my );
+        }
 
-		if (this.y <= 0) {
-			this.y = 1;
-		}
+        if ( this.x + this.width <= ( mc.displayWidth / 2 ) / 2 ) {
+            set_dock ( true );
+        } else if ( this.x + this.width >= ( mc.displayWidth / 2 ) / 2 ) {
+            set_dock ( false );
+        }
 
-		if (this.x % 2 != 0) {
-			this.x += this.x % 2;
-		}
+        if ( is_active ( ) ) {
+            render ( );
 
-		if (this.y % 2 != 0) {
-			this.y += this.y % 2;
-		}
-	}
+            GL11.glPushMatrix ( );
 
-	public void render() {}
+            GL11.glEnable ( GL11.GL_TEXTURE_2D );
+            GL11.glEnable ( GL11.GL_BLEND );
 
-	public void click(int mx, int my, int mouse) {
-		if (mouse == 0) {
-			if (is_active() && motion(mx, my)) {
-				set_move(true);
+            GlStateManager.enableBlend ( );
 
-				set_move_x(mx - get_x());
-				set_move_y(my - get_y());
-			}
-		}
-	}
+            GL11.glPopMatrix ( );
 
-	public void release(int mx, int my, int mouse) {
-		set_move(false);
-	}
+            RenderHelp.release_gl ( );
 
-	public void render(int mx, int my, int tick) {
-		if (is_moving()) {
-			crush(mx, my);
-		}
+            if ( motion ( mx , my ) ) {
+                GuiUtil.draw_rect ( this.x - 1 , this.y - 1 , this.width + 1 , this.height + 1 , 0 , 0 , 0 , 90 , 2 , "right-left-down-up" );
+            }
+        }
+    }
 
-		if (this.x + this.width <= (mc.displayWidth / 2) / 2) {
-			set_dock(true);
-		} else if (this.x + this.width >= (mc.displayWidth / 2) / 2) {
-			set_dock(false);
-		}
+    protected
+    void create_line ( String string , int pos_x , int pos_y ) {
+        GuiUtil.draw_string ( string , this.x + pos_x , this.y + pos_y , 255 , 255 , 255 , 255 );
+    }
 
-		if (is_active()) {
-			render();
+    protected
+    void create_line ( String string , int pos_x , int pos_y , int r , int g , int b , int a ) {
+        if ( Ozark.get_setting_manager ( ).get_setting_with_tag ( "HUD" , "HUDFlow" ).get_value ( true ) ) {
+            RainbowUtil.drawRainbowString ( string , this.x + pos_x , this.y + pos_y , new GuiUtil.OzarkColor ( r , g , b , a ).color_int ( ) , 100.0f );
+        } else {
+            GuiUtil.draw_string ( string , this.x + pos_x , this.y + pos_y , r , g , b , a );
+        }
+    }
 
-			GL11.glPushMatrix();
+    protected
+    void create_rect ( int pos_x , int pos_y , int width , int height , int r , int g , int b , int a ) {
+        GuiUtil.draw_rect ( this.x + pos_x , this.y + pos_y , this.x + width , this.y + height , r , g , b , a );
+    }
 
-			GL11.glEnable(GL11.GL_TEXTURE_2D);
-			GL11.glEnable(GL11.GL_BLEND);
+    protected
+    int get ( String string , String type ) {
+        int value_to_request = 0;
 
-			GlStateManager.enableBlend();
+        if ( type.equals ( "width" ) ) {
+            value_to_request = this.font.get_string_width ( string );
+        }
 
-			GL11.glPopMatrix();
+        if ( type.equals ( "height" ) ) {
+            value_to_request = this.font.get_string_height ( );
+        }
 
-			RenderHelp.release_gl();
+        return value_to_request;
+    }
 
-			if (motion(mx, my)) {
-				GuiUtil.draw_rect(this.x - 1, this.y - 1, this.width + 1, this.height + 1, 0, 0, 0, 90, 2, "right-left-down-up");
-			}
-		}
-	}
+    public
+    int docking ( int position_x , String string ) {
+        if ( this.dock ) {
+            return position_x;
+        } else {
+            return ( this.width - get ( string , "width" ) ) - position_x;
+        }
+    }
 
-	protected void create_line(String string, int pos_x, int pos_y) {
-		GuiUtil.draw_string(string, this.x + pos_x, this.y + pos_y, 255, 255, 255, 255);
-	}
-
-	protected void create_line(String string, int pos_x, int pos_y, int r, int g, int b, int a) {
-		if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFlow").get_value(true)) {
-			RainbowUtil.drawRainbowString(string, this.x + pos_x, this.y + pos_y, new GuiUtil.OzarkColor(r, g, b, a).color_int(), 100.0f);
-		} else {
-			GuiUtil.draw_string(string, this.x + pos_x, this.y + pos_y, r, g, b, a);
-		}
-	}
-
-	protected void create_rect(int pos_x, int pos_y, int width, int height, int r, int g, int b, int a) {
-		GuiUtil.draw_rect(this.x + pos_x, this.y + pos_y, this.x + width, this.y + height, r, g, b, a);
-	}
-
-	protected int get(String string, String type) {
-		int value_to_request = 0;
-
-		if (type.equals("width")) {
-			value_to_request = this.font.get_string_width(string);
-		}
-
-		if (type.equals("height")) {
-			value_to_request = this.font.get_string_height();
-		}
-
-		return value_to_request;
-	}
-
-	public int docking(int position_x, String string) {
-		if (this.dock) {
-			return position_x;
-		} else {
-			return (this.width - get(string, "width")) - position_x; 
-		}
-	}
-
-	protected boolean is_on_gui() {
-		return Ozark.main_hud.on_gui;
-	}
+    protected
+    boolean is_on_gui ( ) {
+        return Ozark.main_hud.on_gui;
+    }
 }

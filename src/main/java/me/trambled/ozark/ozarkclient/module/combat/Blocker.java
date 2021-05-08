@@ -1,9 +1,9 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
 import me.trambled.ozark.ozarkclient.event.events.EventPacket;
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.BlockInteractionHelper;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
 import me.zero.alpine.fork.listener.EventHandler;
@@ -22,138 +22,157 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
 //gamesense
-public class Blocker extends Module
-{
+public
+class Blocker extends Module {
 
-    public Blocker() {
-        super(Category.COMBAT);
-
-        this.name        = "Blocker";
-        this.tag         = "Blocker";
-        this.description = "blocks anvils and pistons";
-    }
-
-    Setting rotate = create("Rotate", "BlockerRotate", true);
-    Setting anvilBlocker = create("Anvils", "BlockerAnvilBlocker", true);
-    Setting pistonBlocker = create("Pistons", "BlockerPistonBlocker", true);
-	Setting tickDelay = create("Delay", "BlockerTickDelay", 5, 0, 10);
-	Setting chatMsg = create("Chat", "BlockerChatMSGS", true);
-
+    /// AutoCrystal break things ///
+    private static boolean isSpoofingAngles;
+    private static double yaw;
+    private static double pitch;
+    @EventHandler
+    private final Listener < EventPacket.SendPacket > packetSendListener = new Listener <> ( event -> {
+        Packet packet = event.get_packet ( );
+        if ( packet instanceof CPacketPlayer ) {
+            if ( isSpoofingAngles ) {
+                ( (CPacketPlayer) packet ).yaw = (float) yaw;
+                ( (CPacketPlayer) packet ).pitch = (float) pitch;
+            }
+        }
+    } );
+    Setting rotate = create ( "Rotate" , "BlockerRotate" , true );
+    Setting anvilBlocker = create ( "Anvils" , "BlockerAnvilBlocker" , true );
+    Setting pistonBlocker = create ( "Pistons" , "BlockerPistonBlocker" , true );
+    Setting tickDelay = create ( "Delay" , "BlockerTickDelay" , 5 , 0 , 10 );
+    Setting chatMsg = create ( "Chat" , "BlockerChatMSGS" , true );
     private int delayTimeTicks = 0;
     private boolean noObby;
     private boolean noActive;
 
+    public
+    Blocker ( ) {
+        super ( Category.COMBAT );
+
+        this.name = "Blocker";
+        this.tag = "Blocker";
+        this.description = "blocks anvils and pistons";
+    }
+
     @Override
-    protected void enable() {
-        if (mc.player == null) {
-            disable();
+    protected
+    void enable ( ) {
+        if ( mc.player == null ) {
+            disable ( );
             return;
         }
 
-        if (chatMsg.get_value(true)) {
+        if ( chatMsg.get_value ( true ) ) {
 
             String output = "";
 
-            if (anvilBlocker.get_value(true))
+            if ( anvilBlocker.get_value ( true ) )
                 output += "Anvil ";
-            if (pistonBlocker.get_value(true))
+            if ( pistonBlocker.get_value ( true ) )
                 output += " Piston ";
 
-            if (!output.equals("")) {
+            if ( ! output.equals ( "" ) ) {
                 noActive = false;
-                MessageUtil.send_client_message(output +" turned ON!");
-            }else {
+                MessageUtil.send_client_message ( output + " turned ON!" );
+            } else {
                 noActive = true;
-                disable();
+                disable ( );
             }
         }
         noObby = false;
     }
 
     @Override
-    protected void disable() {
-        if (mc.player == null) {
+    protected
+    void disable ( ) {
+        if ( mc.player == null ) {
             return;
         }
-        if (chatMsg.get_value(true)) {
-            if (noActive) {
-                MessageUtil.send_client_error_message("Nothing is active... Blocker turned OFF!");
-            }else if(noObby) {
-                MessageUtil.send_client_error_message("Obsidian not found... Blocker turned OFF!");
+        if ( chatMsg.get_value ( true ) ) {
+            if ( noActive ) {
+                MessageUtil.send_client_error_message ( "Nothing is active... Blocker turned OFF!" );
+            } else if ( noObby ) {
+                MessageUtil.send_client_error_message ( "Obsidian not found... Blocker turned OFF!" );
             }
         }
 
     }
 
     @Override
-    public void update() {
-        if (mc.player == null) {
-            disable();
+    public
+    void update ( ) {
+        if ( mc.player == null ) {
+            disable ( );
             return;
         }
 
-        if (noObby) {
-            disable();
+        if ( noObby ) {
+            disable ( );
             return;
         }
 
-        if (delayTimeTicks < tickDelay.get_value(1)) {
+        if ( delayTimeTicks < tickDelay.get_value ( 1 ) ) {
             delayTimeTicks++;
             return;
-        }
-        else {
+        } else {
             delayTimeTicks = 0;
 
-            if (anvilBlocker.get_value(true)) {
-                blockAnvil();
+            if ( anvilBlocker.get_value ( true ) ) {
+                blockAnvil ( );
             }
-            if (pistonBlocker.get_value(true)) {
-                blockPiston();
+            if ( pistonBlocker.get_value ( true ) ) {
+                blockPiston ( );
             }
 
         }
 
     }
 
-    private void blockAnvil() {
+    private
+    void blockAnvil ( ) {
         // Iterate for everything
         for (Entity t : mc.world.loadedEntityList) {
             // If it's a falling block
-            if (t instanceof EntityFallingBlock) {
-                Block ex = ((EntityFallingBlock) t).fallTile.getBlock();
+            if ( t instanceof EntityFallingBlock ) {
+                Block ex = ( (EntityFallingBlock) t ).fallTile.getBlock ( );
                 // If it's anvil
-                if (ex instanceof BlockAnvil
+                if ( ex instanceof BlockAnvil
                         // If coords are the same as us
                         && (int) t.posX == (int) mc.player.posX && (int) t.posZ == (int) mc.player.posZ
-                        && get_block(mc.player.posX, mc.player.posY + 2, mc.player.posZ) instanceof BlockAir) {
+                        && get_block ( mc.player.posX , mc.player.posY + 2 , mc.player.posZ ) instanceof BlockAir ) {
                     // Place the block
-                    placeBlock(new BlockPos(mc.player.posX, mc.player.posY + 2, mc.player.posZ));
-                    MessageUtil.send_client_message("AutoAnvil detected... Anvil Blocked!");
+                    placeBlock ( new BlockPos ( mc.player.posX , mc.player.posY + 2 , mc.player.posZ ) );
+                    MessageUtil.send_client_message ( "AutoAnvil detected... Anvil Blocked!" );
                 }
             }
         }
     }
 
-    private Block get_block(double x, double y, double z) {
-        return mc.world.getBlockState(new BlockPos(x, y, z)).getBlock();
+    private
+    Block get_block ( double x , double y , double z ) {
+        return mc.world.getBlockState ( new BlockPos ( x , y , z ) ).getBlock ( );
     }
 
-    private void blockPiston() {
+    private
+    void blockPiston ( ) {
         // Iterate for everything
         for (Entity t : mc.world.loadedEntityList) {
             // If it's an ecrystal and it's near us
-            if (t instanceof EntityEnderCrystal
+            if ( t instanceof EntityEnderCrystal
                     && t.posX >= mc.player.posX - 1.5 && t.posX <= mc.player.posX + 1.5
-                    && t.posZ >= mc.player.posZ - 1.5 && t.posZ <= mc.player.posZ + 1.5) {
+                    && t.posZ >= mc.player.posZ - 1.5 && t.posZ <= mc.player.posZ + 1.5 ) {
                 // Check if it's near
-                for(int i = -2; i < 3; i++) {
-                    for(int j = -2; j < 3; j++) {
-                        if (i == 0 || j == 0) {
+                for (int i = - 2; i < 3; i++) {
+                    for (int j = - 2; j < 3; j++) {
+                        if ( i == 0 || j == 0 ) {
                             // If it's a piston
-                            if (get_block(t.posX + i, t.posY, t.posZ + j) instanceof BlockPistonBase) {
+                            if ( get_block ( t.posX + i , t.posY , t.posZ + j ) instanceof BlockPistonBase ) {
                                 // Break
-                                breakCrystalPiston(t);
-                                MessageUtil.send_client_message("PistonCrystal detected... Destroyed crystal!");
+                                breakCrystalPiston ( t );
+                                MessageUtil.send_client_message ( "PistonCrystal detected... Destroyed crystal!" );
                             }
                         }
                     }
@@ -162,18 +181,19 @@ public class Blocker extends Module
         }
     }
 
-    private int findObsidianSlot() {
-        int slot = -1;
+    private
+    int findObsidianSlot ( ) {
+        int slot = - 1;
 
         for (int i = 0; i < 9; i++) {
-            ItemStack stack = mc.player.inventory.getStackInSlot(i);
+            ItemStack stack = mc.player.inventory.getStackInSlot ( i );
 
-            if (stack == ItemStack.EMPTY || !(stack.getItem() instanceof ItemBlock)) {
+            if ( stack == ItemStack.EMPTY || ! ( stack.getItem ( ) instanceof ItemBlock ) ) {
                 continue;
             }
 
-            Block block = ((ItemBlock) stack.getItem()).getBlock();
-            if (block instanceof BlockObsidian) {
+            Block block = ( (ItemBlock) stack.getItem ( ) ).getBlock ( );
+            if ( block instanceof BlockObsidian ) {
                 slot = i;
                 break;
             }
@@ -181,77 +201,62 @@ public class Blocker extends Module
         return slot;
     }
 
-    private boolean placeBlock(BlockPos pos) {
-        Block block = mc.world.getBlockState(pos).getBlock();
+    private
+    boolean placeBlock ( BlockPos pos ) {
+        Block block = mc.world.getBlockState ( pos ).getBlock ( );
 
-        if (!(block instanceof BlockAir) && !(block instanceof BlockLiquid)) {
+        if ( ! ( block instanceof BlockAir ) && ! ( block instanceof BlockLiquid ) ) {
             return false;
         }
 
-        EnumFacing side = BlockInteractionHelper.getPlaceableSide(pos);
+        EnumFacing side = BlockInteractionHelper.getPlaceableSide ( pos );
 
-        if (side == null) {
+        if ( side == null ) {
             return false;
         }
 
-        BlockPos neighbour = pos.offset(side);
-        EnumFacing opposite = side.getOpposite();
+        BlockPos neighbour = pos.offset ( side );
+        EnumFacing opposite = side.getOpposite ( );
 
-        if (!BlockInteractionHelper.canBeClicked(neighbour)) {
+        if ( ! BlockInteractionHelper.canBeClicked ( neighbour ) ) {
             return false;
         }
 
-        Vec3d hitVec = new Vec3d(neighbour).add(0.5, 0.5, 0.5).add(new Vec3d(opposite.getDirectionVec()).scale(0.5));
-        Block neighbourBlock = mc.world.getBlockState(neighbour).getBlock();
+        Vec3d hitVec = new Vec3d ( neighbour ).add ( 0.5 , 0.5 , 0.5 ).add ( new Vec3d ( opposite.getDirectionVec ( ) ).scale ( 0.5 ) );
+        Block neighbourBlock = mc.world.getBlockState ( neighbour ).getBlock ( );
 
-        int obsidianSlot = findObsidianSlot();
+        int obsidianSlot = findObsidianSlot ( );
 
-        if (mc.player.inventory.currentItem != obsidianSlot && obsidianSlot != -1) {
+        if ( mc.player.inventory.currentItem != obsidianSlot && obsidianSlot != - 1 ) {
             mc.player.inventory.currentItem = obsidianSlot;
         }
 
-        if (obsidianSlot == -1) {
+        if ( obsidianSlot == - 1 ) {
             noObby = true;
             return false;
         }
 
 
-        if (rotate.get_value(true)) {
-            BlockInteractionHelper.faceVectorPacketInstant(hitVec);
+        if ( rotate.get_value ( true ) ) {
+            BlockInteractionHelper.faceVectorPacketInstant ( hitVec );
         }
 
-        mc.playerController.processRightClickBlock(mc.player, mc.world, neighbour, opposite, hitVec, EnumHand.MAIN_HAND);
-        mc.player.swingArm(EnumHand.MAIN_HAND);
+        mc.playerController.processRightClickBlock ( mc.player , mc.world , neighbour , opposite , hitVec , EnumHand.MAIN_HAND );
+        mc.player.swingArm ( EnumHand.MAIN_HAND );
         mc.rightClickDelayTimer = 4;
 
         return true;
     }
 
-
-    private void breakCrystalPiston (Entity crystal) {
+    private
+    void breakCrystalPiston ( Entity crystal ) {
         // If rotate
-        if (rotate.get_value(true)) {
-            PistonCrystal.lookAtPacket(crystal.posX, crystal.posY, crystal.posZ, mc.player);
+        if ( rotate.get_value ( true ) ) {
+            PistonCrystal.lookAtPacket ( crystal.posX , crystal.posY , crystal.posZ , mc.player );
         }
-        PistonCrystal.breakCrystal(crystal);
+        PistonCrystal.breakCrystal ( crystal );
         // Rotate
-        if (rotate.get_value(true))
-            PistonCrystal.resetRotation();
+        if ( rotate.get_value ( true ) )
+            PistonCrystal.resetRotation ( );
     }
-
-    /// AutoCrystal break things ///
-    private static boolean isSpoofingAngles;
-    private static double yaw;
-    private static double pitch;
-
-    @EventHandler
-    private final Listener<EventPacket.SendPacket> packetSendListener = new Listener<>(event -> {
-        Packet packet = event.get_packet();
-        if (packet instanceof CPacketPlayer) {
-            if (isSpoofingAngles) {
-                ((CPacketPlayer) packet).yaw = (float) yaw;
-                ((CPacketPlayer) packet).pitch = (float) pitch;
-            }
-        }
-    });
 }
