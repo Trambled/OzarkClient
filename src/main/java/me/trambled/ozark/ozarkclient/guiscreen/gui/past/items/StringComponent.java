@@ -72,7 +72,6 @@ public class StringComponent extends Component {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-        super.mouseClicked(mouseX, mouseY, mouseButton);
         if (this.isMouseOnButton(mouseX, mouseY)) {
             listening = !listening;
         } else {

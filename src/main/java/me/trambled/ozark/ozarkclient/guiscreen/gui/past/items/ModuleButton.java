@@ -51,6 +51,9 @@ public class ModuleButton extends Component {
                     } else if (settings.get_type().equals("bind")) {
                         this.subcomponents.add(new KeybindSettingComponent(settings, this, opY));
                         opY += 15;
+                    } else if (settings.get_type().equals("string")) {
+                        this.subcomponents.add(new StringComponent(settings, this, opY));
+                        opY += 15;
                     }
                 }
             }

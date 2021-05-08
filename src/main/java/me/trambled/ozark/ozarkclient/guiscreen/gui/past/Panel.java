@@ -43,7 +43,7 @@ public class Panel {
         this.cat = cat;
         this.tY = this.height;
 
-        for (Module modules : Ozark.get_hack_manager().get_modules_with_category(cat)) {
+        for (Module modules : Ozark.get_module_manager().get_modules_with_category(cat)) {
             if (modules.get_category() == cat) {
                 ModuleButton modButton = new ModuleButton(modules, this, tY);
                 this.components.add(modButton);

@@ -30,6 +30,7 @@ public class Ozark {
 	public static final String NAME = "OzarkClient";
 	public static final String VERSION = "1.12.1";
 	public static final String SIGN = " ";
+	public static String DISPLAY_NAME = "Ozark";
 
 	public static final int KEY_GUI = Keyboard.KEY_RSHIFT;
 	public static final int KEY_DELETE = Keyboard.KEY_DELETE;
@@ -178,7 +179,7 @@ public class Ozark {
 		return config_manager;
 	}
 
-	public static ModuleManager get_hack_manager() {
+	public static ModuleManager get_module_manager() {
 		return module_manager;
 	}
 
@@ -189,8 +190,6 @@ public class Ozark {
 	public static HUDManager get_hud_manager() {
 		return hud_manager;
 	}
-
-	public static ModuleManager get_module_manager() { return module_manager; }
 
 	public static EventHandler get_event_handler() {
 		return EventHandler.INSTANCE;

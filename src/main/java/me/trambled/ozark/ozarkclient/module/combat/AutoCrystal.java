@@ -19,8 +19,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.*;
 import net.minecraft.network.play.client.*;
-import net.minecraft.network.play.server.SPacketSoundEffect;
-import net.minecraft.network.play.server.SPacketSpawnObject;
+import net.minecraft.network.play.server.*;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -90,7 +89,7 @@ public class AutoCrystal extends Module {
 
     Setting fast_mode = create("Fast Mode", "CaSpeed", true);
     Setting dead_check = create("Dead Check", "CaDeadCheck", false);
-    Setting sync = create("Sync", "CaSync", "Sound", combobox("Sound", "Instant", "Inhibit", "Attack", "None"));
+    Setting sync = create("Sync", "CaSync", "Sound", combobox("Sound", "Instant", "Inhibit", "Attack", "Fast", "None")); ///trolol
     Setting break_all = create("Break All", "CaBreakAll", false);
     Setting momentum = create("Momentum Calcs", "CaMomentumMode", false);
 
@@ -279,10 +278,16 @@ public class AutoCrystal extends Module {
     public void do_ca() {
         did_anything = false;
 
-        if (mc.player == null || mc.world == null) return;
+        if (mc.player == null || mc.world == null) {
+            return;
+        }
 
         if (rainbow_mode.get_value(true)) {
             cycle_rainbow();
+        }
+
+        if (sync.in("Fast")) {
+            do_fake_crystal();
         }
 
         if (remove_visual_timer.passed(anti_stuck_time.get_value(1))) {
@@ -378,7 +383,7 @@ public class AutoCrystal extends Module {
             if (!mc.player.canEntityBeSeen(crystal) && raytrace.get_value(true)) {
                 continue;
             }
-            if (crystal.isDead && dead_check.get_value(true)) continue;
+            if (crystal.isDead && (dead_check.get_value(true)) || sync.in("Pyro")) continue;
 
             if (attacked_crystals.containsKey(crystal) && attacked_crystals.get(crystal) > anti_stuck_tries.get_value(1) && anti_stuck.get_value(true)) continue;
 
@@ -407,7 +412,7 @@ public class AutoCrystal extends Module {
                 if (target == null) continue;
 
                 boolean no_place = faceplace_check.get_value(true) && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD;
-                if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true)&& !no_place) || (get_armor_fucker(target) && !no_place && !get_armor_fucker(mc.player)) || (Ozark.get_hack_manager().get_module_with_tag("Faceplacer").is_active())) {
+                if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true)&& !no_place) || (get_armor_fucker(target) && !no_place && !get_armor_fucker(mc.player)) || (Ozark.get_module_manager().get_module_with_tag("Faceplacer").is_active())) {
                     minimum_damage = 2;
                 } else {
                     minimum_damage = this.min_player_break.get_value(1);
@@ -473,7 +478,6 @@ public class AutoCrystal extends Module {
                 if (player.getDistance(mc.player) >= player_range.get_value(1)) continue;
                 
                 if (player == mc.player || !(player instanceof EntityPlayer)) continue;
-                
 
                 if (!BlockUtil.rayTracePlaceCheck(block, this.raytrace.get_value(true))) {
                     continue;
@@ -624,6 +628,33 @@ public class AutoCrystal extends Module {
             return true;
         }
         return faceplace_mode.get_value(true) && EntityUtil.isInHole(this.autoez_target) && this.autoez_target.getHealth() + this.autoez_target.getAbsorptionAmount() <= this.faceplace_mode.get_value(1);
+    }
+
+    // trololol
+    public void do_fake_crystal() {
+        if (mc.player.getHeldItemOffhand().getItem() != Items.END_CRYSTAL) {
+            if (mc.player.getHeldItemMainhand().getItem() != Items.END_CRYSTAL && !switch_mode.in("None")) {
+                if (switch_mode.in("Normal")) {
+                    mc.player.inventory.currentItem = find_crystals_hotbar();
+                } else {
+                    mc.player.connection.sendPacket(new CPacketHeldItemChange(find_crystals_hotbar()));
+                }
+                return;
+            }
+        }
+        if (get_best_block() == null) return;
+        if (mc.world == null) return;
+        if (mc.player.getHeldItemOffhand().getItem() != Items.END_CRYSTAL && mc.player.getHeldItemMainhand().getItem() != Items.END_CRYSTAL) return;
+        EntityEnderCrystal crystal = new EntityEnderCrystal(mc.world,(double) get_best_block().getX() + 0.5, (double) get_best_block().getY() + 1, (double) get_best_block().getZ() + 0.5);
+        mc.world.addEntityToWorld(-101, crystal);
+        crystal.setDead();
+        if (mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
+            mc.player.getHeldItemOffhand().setCount(mc.player.getHeldItemMainhand().getCount() - 1);
+            BlockUtil.swingArm(swing);
+        } else if (mc.player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL) {
+            mc.player.getHeldItemMainhand().setCount(mc.player.getHeldItemMainhand().getCount() - 1);
+            BlockUtil.swingArm(swing);
+        }
     }
 
     public void place_crystal() {
@@ -778,6 +809,9 @@ public class AutoCrystal extends Module {
                     if (old_render.get_value(true)) {
                         render_block_init = null;
                     }
+                    if (sync.in("Inhibit") && get_best_crystal() != null) {
+                        get_best_crystal().setDead();
+                    }
                     return true;
                 }
             }
@@ -800,49 +834,49 @@ public class AutoCrystal extends Module {
             return true;
         }
 
-        if (AntiTrap.is_trapped && Ozark.get_hack_manager().get_module_with_tag("AntiTrap").is_active() && module_check.get_value(true)) {
+        if (AntiTrap.is_trapped && Ozark.get_module_manager().get_module_with_tag("AntiTrap").is_active() && module_check.get_value(true)) {
             if (old_render.get_value(true)) {
                 render_block_init = null;
             }
             return true;
         }
 
-        if (Ozark.get_hack_manager().get_module_with_tag("Surround").is_active() && module_check.get_value(true)) {
+        if (Ozark.get_module_manager().get_module_with_tag("Surround").is_active() && module_check.get_value(true)) {
             if (old_render.get_value(true)) {
                 render_block_init = null;
             }
             return true;
         }
 
-        if (Ozark.get_hack_manager().get_module_with_tag("HoleFill").is_active() && !Ozark.get_setting_manager().get_setting_with_tag("HoleFill", "HoleFillSmart").get_value(true) && module_check.get_value(true)) {
+        if (Ozark.get_module_manager().get_module_with_tag("HoleFill").is_active() && !Ozark.get_setting_manager().get_setting_with_tag("HoleFill", "HoleFillSmart").get_value(true) && module_check.get_value(true)) {
             if (old_render.get_value(true)) {
                 render_block_init = null;
             }
             return true;
         }
 
-        if (Ozark.get_hack_manager().get_module_with_tag("Trap").is_active() && module_check.get_value(true)) {
+        if (Ozark.get_module_manager().get_module_with_tag("Trap").is_active() && module_check.get_value(true)) {
             if (old_render.get_value(true)) {
                 render_block_init = null;
             }
             return true;
         }
 
-        if (Ozark.get_hack_manager().get_module_with_tag("AutoAnvil").is_active() && module_check.get_value(true)) {
+        if (Ozark.get_module_manager().get_module_with_tag("AutoAnvil").is_active() && module_check.get_value(true)) {
             if (old_render.get_value(true)) {
                 render_block_init = null;
             }
             return true;
         }
 
-        if (Ozark.get_hack_manager().get_module_with_tag("PistonCrystal").is_active() && module_check.get_value(true)) {
+        if (Ozark.get_module_manager().get_module_with_tag("PistonCrystal").is_active() && module_check.get_value(true)) {
             if (old_render.get_value(true)) {
                 render_block_init = null;
             }
             return true;
         }
 
-        if (AntiTrap.is_trapped && Ozark.get_hack_manager().get_module_with_tag("AntiTrap").is_active() && module_check.get_value(true)) {
+        if (AntiTrap.is_trapped && Ozark.get_module_manager().get_module_with_tag("AntiTrap").is_active() && module_check.get_value(true)) {
             if (old_render.get_value(true)) {
                 render_block_init = null;
             }

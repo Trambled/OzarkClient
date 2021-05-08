@@ -49,8 +49,8 @@ public final class ElytraFly extends Module
 	
 	@Override
 	public void update() {
-	    if (Ozark.get_hack_manager().get_module_with_tag("NoFall").is_active()) {
-            Ozark.get_hack_manager().get_module_with_tag("NoFall").set_active(false);
+	    if (Ozark.get_module_manager().get_module_with_tag("NoFall").is_active()) {
+            Ozark.get_module_manager().get_module_with_tag("NoFall").set_active(false);
             MessageUtil.send_client_message("Nofall turned off because it does not work with elytrafly");
             MessageUtil.send_client_message("Make sure you dont have nofall or antihunger on on any other clients");
         }

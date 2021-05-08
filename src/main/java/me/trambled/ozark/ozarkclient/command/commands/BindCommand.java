@@ -30,7 +30,7 @@ public class BindCommand extends Command {
 			return true;
 		}
 
-		Module module_requested = Ozark.get_hack_manager().get_module_with_tag(module);
+		Module module_requested = Ozark.get_module_manager().get_module_with_tag(module);
 
 		if (module_requested == null) {
 			MessageUtil.send_client_error_message("Module does not exist.");

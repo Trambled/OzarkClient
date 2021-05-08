@@ -24,7 +24,7 @@ public class MixinItemRenderer {
         EventTransformSideFirstPerson event = new EventTransformSideFirstPerson(hand);
         Eventbus.EVENT_BUS.post(event);
 
-        if (Ozark.get_hack_manager().get_module_with_tag("CustomViewmodel").is_active() && Ozark.get_setting_manager().get_setting_with_tag("CustomViewmodel", "FOVCancelEating").get_value(true)) {
+        if (Ozark.get_module_manager().get_module_with_tag("CustomViewmodel").is_active() && Ozark.get_setting_manager().get_setting_with_tag("CustomViewmodel", "FOVCancelEating").get_value(true)) {
             callbackInfo.cancel();
         }
     }

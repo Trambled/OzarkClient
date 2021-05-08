@@ -111,7 +111,7 @@ public class PastGUI extends GuiScreen {
 
     @Override
     public void onGuiClosed() {
-        Ozark.get_hack_manager().get_module_with_tag("PastGUI").set_active(false);
+        Ozark.get_module_manager().get_module_with_tag("PastGUI").set_active(false);
 
         if (OpenGlHelper.shadersSupported) {
             try {

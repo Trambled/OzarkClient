@@ -27,7 +27,7 @@ public class HoleTP extends Module //made by gamesense
 
 	@Override
 	public void update() {
-		if (mc.world == null || HoleTP.mc.player == null || Ozark.get_hack_manager().get_module_with_tag("Strafe").is_active()) {
+		if (mc.world == null || HoleTP.mc.player == null || Ozark.get_module_manager().get_module_with_tag("Strafe").is_active()) {
 			return;
 		}
 		if (!HoleTP.mc.player.onGround) {

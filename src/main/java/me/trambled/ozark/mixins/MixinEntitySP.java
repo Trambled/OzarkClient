@@ -90,21 +90,21 @@ public class MixinEntitySP extends MixinEntity {
 
     @Redirect(method = { "notifyDataManagerChange" }, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/audio/SoundHandler;playSound(Lnet/minecraft/client/audio/ISound;)V"))
     private void playElytraSound(final SoundHandler soundHandler, final ISound sound) {
-        if (!Ozark.get_hack_manager().get_module_with_tag("AntiSound").is_active() || !Ozark.get_setting_manager().get_setting_with_tag("AntiSound", "Elytra").get_value(true)) {
+        if (!Ozark.get_module_manager().get_module_with_tag("AntiSound").is_active() || !Ozark.get_setting_manager().get_setting_with_tag("AntiSound", "Elytra").get_value(true)) {
             soundHandler.playSound(sound);
         }
     }
 
     @Redirect(method = { "onLivingUpdate" }, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;closeScreen()V"))
     public void closeScreen(final EntityPlayerSP entityPlayerSP) {
-        if (Ozark.get_hack_manager().get_module_with_tag("Portals").is_active()) {
+        if (Ozark.get_module_manager().get_module_with_tag("Portals").is_active()) {
             return;
         }
     }
 
     @Redirect(method = { "onLivingUpdate" }, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;displayGuiScreen(Lnet/minecraft/client/gui/GuiScreen;)V"))
     public void closeScreen(final Minecraft minecraft, final GuiScreen screen) {
-        if (Ozark.get_hack_manager().get_module_with_tag("Portals").is_active()) {
+        if (Ozark.get_module_manager().get_module_with_tag("Portals").is_active()) {
             return;
         }
     }

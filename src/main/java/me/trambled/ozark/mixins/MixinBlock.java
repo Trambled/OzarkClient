@@ -22,7 +22,7 @@ public class MixinBlock
     @Inject(method = "shouldSideBeRendered", at = @At("HEAD"), cancellable = true)
     public void shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side, CallbackInfoReturnable<Boolean> callback)
     {
-        if (Ozark.get_hack_manager().get_module_with_tag("Xray").is_active())
+        if (Ozark.get_module_manager().get_module_with_tag("Xray").is_active())
             Xray.processShouldSideBeRendered((Block)(Object)this, blockState, blockAccess, pos, side, callback);
     }
 
@@ -42,7 +42,7 @@ public class MixinBlock
     @Inject(method = "getLightValue", at = @At("HEAD"), cancellable = true)
     public void getLightValue(CallbackInfoReturnable<Integer> callback)
     {
-        if (Ozark.get_hack_manager().get_module_with_tag("Xray").is_active())
+        if (Ozark.get_module_manager().get_module_with_tag("Xray").is_active())
             Xray.processGetLightValue((Block)(Object)this, callback);
     }
 

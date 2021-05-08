@@ -127,9 +127,9 @@ public class OffhandPlus extends Module {
 
         if (mc.currentScreen == null || mc.currentScreen instanceof GuiInventory) {
 
-            if (Ozark.get_hack_manager().get_module_with_tag("AutoTotem").is_active()) {
+            if (Ozark.get_module_manager().get_module_with_tag("AutoTotem").is_active()) {
                 MessageUtil.send_client_error_message("AutoTotem is not compatible with offhand plus");
-                Ozark.get_hack_manager().get_module_with_tag("AutoTotem").set_disable();
+                Ozark.get_module_manager().get_module_with_tag("AutoTotem").set_disable();
             }
 
             if (switching) {
@@ -141,7 +141,7 @@ public class OffhandPlus extends Module {
 
             if (hp > totem_switch.get_value(1)) {
                 if (module_check.get_value(true)) {
-                    if (crystal && Ozark.get_hack_manager().get_module_with_tag("AutoCrystal").is_active()) {
+                    if (crystal && Ozark.get_module_manager().get_module_with_tag("AutoCrystal").is_active()) {
                         swap_items(get_item_slot(Items.END_CRYSTAL),0);
                         return;
                     }
@@ -153,7 +153,7 @@ public class OffhandPlus extends Module {
                     swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
                     return;
                 }
-                if (crystal && !Ozark.get_hack_manager().get_module_with_tag("AutoCrystal").is_active() && module_check.get_value(true)) {
+                if (crystal && !Ozark.get_module_manager().get_module_with_tag("AutoCrystal").is_active() && module_check.get_value(true)) {
                     swap_items(get_item_slot(Items.TOTEM_OF_UNDYING),0);
                     return;
                 }

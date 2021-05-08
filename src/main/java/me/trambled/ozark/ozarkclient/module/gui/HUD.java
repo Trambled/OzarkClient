@@ -6,8 +6,6 @@ import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
 
 import java.awt.*;
-import java.util.Map;
-import java.util.HashMap;
 
 public class HUD extends Module {
 
@@ -34,7 +32,7 @@ public class HUD extends Module {
 	@Override
 	public void enable() {
 		if (mc.world != null && mc.player != null) {
-			Ozark.get_hack_manager().get_module_with_tag("GUI").set_active(false);
+			Ozark.get_module_manager().get_module_with_tag("GUI").set_active(false);
 
 			Ozark.main_hud.back = false;
 

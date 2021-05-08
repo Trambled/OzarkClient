@@ -39,7 +39,7 @@ public abstract class MixinMinecraft {
 
 	@Inject(method={"runTick()V"}, at={@At(value="RETURN")})
 	private void runTick(CallbackInfo callbackInfo) {
-		if (Minecraft.getMinecraft().currentScreen instanceof GuiMainMenu && Ozark.get_hack_manager().get_module_with_tag("CustomMainMenu").is_active()) {
+		if (Minecraft.getMinecraft().currentScreen instanceof GuiMainMenu && Ozark.get_module_manager().get_module_with_tag("CustomMainMenu").is_active()) {
 			Minecraft.getMinecraft().displayGuiScreen(new CustomMainMenu());
 		}
 	}

@@ -10,11 +10,7 @@ import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.render.Xray;
-import me.trambled.ozark.ozarkclient.util.DrawnUtil;
-import me.trambled.ozark.ozarkclient.util.EnemyUtil;
-import me.trambled.ozark.ozarkclient.util.EzMessageUtil;
-import me.trambled.ozark.ozarkclient.util.FriendUtil;
-import me.trambled.ozark.ozarkclient.util.AutoKitUtil;
+import me.trambled.ozark.ozarkclient.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
@@ -45,6 +41,7 @@ public class ConfigManager {
     private final String DRAWN_FILE = "drawn.txt";
     private final String EZ_FILE = "ez.txt";
     private final String KIT_FILE = "kit.txt";
+    private final String NAME_FILE = "name.txt";
     private final String ENEMIES_FILE = "enemies.json";
     private final String FRIENDS_FILE = "friends.json";
     private final String HUD_FILE = "hud.json";
@@ -56,6 +53,7 @@ public class ConfigManager {
     private final String DRAWN_DIR = MAIN_FOLDER + DRAWN_FILE;
     private final String EZ_DIR = MAIN_FOLDER + EZ_FILE;
     private final String KIT_DIR = MAIN_FOLDER + KIT_FILE;
+    private final String NAME_DIR = MAIN_FOLDER + NAME_FILE;
     private final String ENEMIES_DIR = MAIN_FOLDER + ENEMIES_FILE;
     private final String FRIENDS_DIR = MAIN_FOLDER + FRIENDS_FILE;
     private final String HUD_DIR = MAIN_FOLDER + HUD_FILE;
@@ -74,6 +72,7 @@ public class ConfigManager {
     private final Path DRAWN_PATH = Paths.get(DRAWN_DIR);
     private final Path KIT_PATH = Paths.get(KIT_DIR);
     private final Path EZ_PATH = Paths.get(EZ_DIR);
+    private final Path NAME_PATH = Paths.get(NAME_DIR);
     private final Path ENEMIES_PATH = Paths.get(ENEMIES_DIR);
     private final Path FRIENDS_PATH = Paths.get(FRIENDS_DIR);
     private final Path HUD_PATH = Paths.get(HUD_DIR);
@@ -163,7 +162,7 @@ public class ConfigManager {
 
     private void load_ezmessage() throws IOException {
         StringBuilder sb = new StringBuilder();
-        for (String s : Files.readAllLines(KIT_PATH)) {
+        for (String s : Files.readAllLines(EZ_PATH)) {
             sb.append(s);
         }
         EzMessageUtil.set_message(sb.toString());
@@ -190,6 +189,29 @@ public class ConfigManager {
             ki.append(s);
         }
         AutoKitUtil.set_message(ki.toString());
+    }
+
+    private void save_display_name() throws IOException {
+
+        FileWriter writer = new FileWriter(NAME_DIR);
+
+        try {
+            writer.write(Ozark.DISPLAY_NAME);
+        } catch (Exception ignored) {
+            writer.write("Ozark");
+        }
+
+        writer.close();
+
+    }
+
+
+    private void load_display_name() throws IOException {
+        StringBuilder ki = new StringBuilder();
+        for (String s : Files.readAllLines(NAME_PATH)) {
+            ki.append(s);
+        }
+        Ozark.DISPLAY_NAME = ki.toString();
     }
 
     // LOAD & SAVE DRAWN
@@ -304,7 +326,7 @@ public class ConfigManager {
 
     private void save_modules() throws IOException {
 
-        for (Module module : Ozark.get_hack_manager().get_array_modules()) {
+        for (Module module : Ozark.get_module_manager().get_array_modules()) {
 
             final String file_name = ACTIVE_CONFIG_FOLDER + module.get_tag() + ".txt";
             final Path file_path = Paths.get(file_name);
@@ -349,7 +371,7 @@ public class ConfigManager {
 
     private void load_modules() throws IOException {
 
-        for (Module module : Ozark.get_hack_manager().get_array_modules()) {
+        for (Module module : Ozark.get_module_manager().get_array_modules()) {
             final String file_name = ACTIVE_CONFIG_FOLDER + module.get_tag() + ".txt";
             final File file = new File(file_name);
             final FileInputStream fi_stream = new FileInputStream(file.getAbsolutePath());
@@ -459,6 +481,8 @@ public class ConfigManager {
 
             Frame frame_requested = Ozark.main_gui.get_frame_with_tag(frame_info.get("tag").getAsString());
 
+            if (frame_requested == null) continue;
+
             frame_requested.set_x(frame_info.get("x").getAsInt());
             frame_requested.set_y(frame_info.get("y").getAsInt());
         }
@@ -527,6 +551,8 @@ public class ConfigManager {
 
             Pinnable pinnable_requested = Ozark.get_hud_manager().get_pinnable_with_tag(hud_info.get("tag").getAsString());
 
+            if (pinnable_requested == null) continue;
+
             pinnable_requested.set_active(hud_info.get("state").getAsBoolean());
             pinnable_requested.set_dock(hud_info.get("dock").getAsBoolean());
 
@@ -547,7 +573,7 @@ public class ConfigManager {
         this.verify_file(file_path);
         final File file = new File(file_name);
         final BufferedWriter br = new BufferedWriter(new FileWriter(file));
-        for (final Module modules : Ozark.get_hack_manager().get_array_modules()) {
+        for (final Module modules : Ozark.get_module_manager().get_array_modules()) {
             br.write(modules.get_tag() + ":" + modules.get_bind(1) + ":" + modules.is_active() + "\r\n");
         }
         br.close();
@@ -567,7 +593,7 @@ public class ConfigManager {
                 final String tag = colune.split(":")[0];
                 final String bind = colune.split(":")[1];
                 final String active = colune.split(":")[2];
-                final Module module = Ozark.get_hack_manager().get_module_with_tag(tag);
+                final Module module = Ozark.get_module_manager().get_module_with_tag(tag);
                 module.set_bind(Integer.parseInt(bind));
                 module.set_active(Boolean.parseBoolean(active));
             } catch (Exception ignored) {}
@@ -595,8 +621,8 @@ public class ConfigManager {
             save_past_gui();
             save_xray();
             save_spammer();
+            save_display_name();
             save_modules();
-
             send_minecraft_log("Saved settings");
         } catch (IOException e) {
             send_minecraft_log("Something has gone wrong while saving settings please report it to trambled");
@@ -616,6 +642,7 @@ public class ConfigManager {
             load_past_gui();
             load_xray();
             load_binds();
+            load_display_name();
             load_modules();
         } catch (IOException e) {
             send_minecraft_log("Something has gone wrong while loading settings please report it to trambled");

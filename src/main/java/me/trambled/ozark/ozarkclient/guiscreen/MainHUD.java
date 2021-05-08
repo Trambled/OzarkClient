@@ -69,12 +69,12 @@ public class MainHUD extends GuiScreen {
 	@Override
 	public void onGuiClosed() {
 		if (this.back) {
-			Ozark.get_hack_manager().get_module_with_tag("PastGUI").set_active(true);
-			Ozark.get_hack_manager().get_module_with_tag("HUD").set_active(false);
+			Ozark.get_module_manager().get_module_with_tag("PastGUI").set_active(true);
+			Ozark.get_module_manager().get_module_with_tag("HUD").set_active(false);
 		} else {
-			Ozark.get_hack_manager().get_module_with_tag("HUD").set_active(false);
-			Ozark.get_hack_manager().get_module_with_tag("GUI").set_active(false);
-			Ozark.get_hack_manager().get_module_with_tag("PastGUI").set_active(false);
+			Ozark.get_module_manager().get_module_with_tag("HUD").set_active(false);
+			Ozark.get_module_manager().get_module_with_tag("GUI").set_active(false);
+			Ozark.get_module_manager().get_module_with_tag("PastGUI").set_active(false);
 		}
 
 		this.on_gui = false;

@@ -34,6 +34,7 @@
     "MixinBlockGrass",
     "MixinBlockReed",
     "MixinBlockStairs",
-    "MixinBufferBuilder"
+    "MixinBufferBuilder",
+    "MixinGuiNewChat"
   ]
 }

@@ -25,7 +25,7 @@ public class MixinGuiPlayerTabOverlay {
 
     @Inject(method = { "getPlayerName" }, at = { @At("HEAD") }, cancellable = true)
     public void getPlayerNameHook(final NetworkPlayerInfo networkPlayerInfoIn, final CallbackInfoReturnable<String> info) {
-        if (Ozark.get_hack_manager().get_module_with_tag("TabColors").is_active()) {
+        if (Ozark.get_module_manager().get_module_with_tag("TabColors").is_active()) {
             info.setReturnValue(TabUtil.get_player_name(networkPlayerInfoIn));
         }
     }

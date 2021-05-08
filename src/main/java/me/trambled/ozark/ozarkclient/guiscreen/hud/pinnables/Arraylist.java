@@ -34,7 +34,7 @@ public class Arraylist extends Pinnable {
 		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
 		int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorA").get_value(1);
 
-		List<Module> pretty_modules = Ozark.get_hack_manager().get_array_active_modules().stream()
+		List<Module> pretty_modules = Ozark.get_module_manager().get_array_active_modules().stream()
 			.sorted(Comparator.comparing(modules -> get(modules.array_detail() == null ? modules.get_tag() : modules.get_tag() + Ozark.g + " [" + Ozark.r + modules.array_detail() + Ozark.g + "]" + Ozark.r, "width")))
 			.collect(Collectors.toList());
 

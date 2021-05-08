@@ -3,6 +3,7 @@ package me.trambled.ozark.ozarkclient.module.chat;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.util.FriendUtil;
 import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class AutoGroom extends Module {
     }
 
     Setting delay = create("Delay", "Delay", 10, 0, 100);
+    Setting test = create("Test", "Test", "big wall of text", "");
 
     List<String> chants = new ArrayList<>();
 

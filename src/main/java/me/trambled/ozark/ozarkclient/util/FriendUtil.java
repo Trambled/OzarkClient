@@ -23,7 +23,7 @@ public class FriendUtil {
     public static ArrayList<Friend> friends = new ArrayList<>();
 
     public static boolean isFriend(String name) {
-        return friends.stream().anyMatch(friend -> friend.username.equalsIgnoreCase(name)) && Ozark.get_hack_manager().get_module_with_tag("Friends").is_active();
+        return friends.stream().anyMatch(friend -> friend.username.equalsIgnoreCase(name)) && Ozark.get_module_manager().get_module_with_tag("Friends").is_active();
     }
 
     public static class Friend {
@@ -72,7 +72,7 @@ public class FriendUtil {
         if (Minecraft.getMinecraft().world.getLoadedEntityList().size() == 0)
             return null;
 
-        return Minecraft.getMinecraft().world.playerEntities.stream().filter(entityPlayer -> mc.player != entityPlayer).filter(entityPlayer -> !entityPlayer.isDead).filter(entityPlayer -> FriendUtil.isFriend(entityPlayer.getName())).collect(Collectors.toList());
+        return Minecraft.getMinecraft().world.playerEntities.stream().filter(entityPlayer -> Minecraft.getMinecraft().player != entityPlayer).filter(entityPlayer -> !entityPlayer.isDead).filter(entityPlayer -> FriendUtil.isFriend(entityPlayer.getName())).collect(Collectors.toList());
     }
 
     

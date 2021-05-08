@@ -40,7 +40,7 @@ public class DrawnCommand extends Command {
 
     public boolean is_module(String s) {
 
-        List<Module> modules = Ozark.get_hack_manager().get_array_modules();
+        List<Module> modules = Ozark.get_module_manager().get_array_modules();
 
         for (Module module : modules) {
             if (module.get_tag().equalsIgnoreCase(s)) {

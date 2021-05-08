@@ -42,7 +42,7 @@ public class PvpHud extends Pinnable {
 
     public String selftrap_enabled() {
         try {
-            if (Ozark.get_hack_manager().get_module_with_tag("SelfTrap").is_active()) {
+            if (Ozark.get_module_manager().get_module_with_tag("SelfTrap").is_active()) {
                 return "\u00A7a 1";
             }
             return "\u00A74 0";
@@ -53,7 +53,7 @@ public class PvpHud extends Pinnable {
 
     public String trap_enabled() {
         try {
-            if (Ozark.get_hack_manager().get_module_with_tag("Trap").is_active()) {
+            if (Ozark.get_module_manager().get_module_with_tag("Trap").is_active()) {
                 return "\u00A7a 1";
             }
             return "\u00A74 0";
@@ -66,7 +66,7 @@ public class PvpHud extends Pinnable {
     public String autocrystal_enabled() {
 
         try {
-            if (Ozark.get_hack_manager().get_module_with_tag("AutoCrystal").is_active()) {
+            if (Ozark.get_module_manager().get_module_with_tag("AutoCrystal").is_active()) {
                 return "\u00A7a 1";
             }
             return "\u00A74 0";
@@ -79,7 +79,7 @@ public class PvpHud extends Pinnable {
     public String aura_enabled() {
 
         try {
-            if (Ozark.get_hack_manager().get_module_with_tag("Aura").is_active()) {
+            if (Ozark.get_module_manager().get_module_with_tag("Aura").is_active()) {
                 return "\u00A7a 1";
             }
             return "\u00A74 0";
@@ -91,7 +91,7 @@ public class PvpHud extends Pinnable {
 
     public String socks_enabled() {
         try {
-            if (Ozark.get_hack_manager().get_module_with_tag("Socks").is_active()) {
+            if (Ozark.get_module_manager().get_module_with_tag("Socks").is_active()) {
                 return "\u00A7a 1";
             }
             return "\u00A74 0";
@@ -104,7 +104,7 @@ public class PvpHud extends Pinnable {
     public String surround_enabled() {
 
         try {
-            if (Ozark.get_hack_manager().get_module_with_tag("Surround").is_active()) {
+            if (Ozark.get_module_manager().get_module_with_tag("Surround").is_active()) {
                 return "\u00A7a 1";
             }
             return "\u00A74 0";
@@ -117,7 +117,7 @@ public class PvpHud extends Pinnable {
     public String holefill_enabled() {
 
         try {
-            if (Ozark.get_hack_manager().get_module_with_tag("HoleFill").is_active()) {
+            if (Ozark.get_module_manager().get_module_with_tag("HoleFill").is_active()) {
                 return "\u00A7a 1";
             }
             return "\u00A74 0";

@@ -18,7 +18,7 @@ public class Faceplacer extends Module
 
     @Override
     public void update() {
-        if (!Ozark.get_hack_manager().get_module_with_tag("AutoCrystal").is_active()) {
+        if (!Ozark.get_module_manager().get_module_with_tag("AutoCrystal").is_active()) {
             MessageUtil.send_client_error_message("AutoCrystal is not on!");
             this.set_disable();
         }

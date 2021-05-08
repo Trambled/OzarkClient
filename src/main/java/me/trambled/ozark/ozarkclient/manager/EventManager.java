@@ -45,7 +45,7 @@ public class EventManager {
 			return;
 		}
 
-		Ozark.get_hack_manager().update();
+		Ozark.get_module_manager().update();
 	}
 
 	@SubscribeEvent
@@ -54,7 +54,7 @@ public class EventManager {
 			return;
 		}
 
-		Ozark.get_hack_manager().render(event);
+		Ozark.get_module_manager().render(event);
 	}
 
 	@SubscribeEvent
@@ -73,9 +73,9 @@ public class EventManager {
 		}
 
 		if (event.getType() == target) {
-			Ozark.get_hack_manager().render();
+			Ozark.get_module_manager().render();
 
-			if (!Ozark.get_hack_manager().get_module_with_tag("GUI").is_active()) {
+			if (!Ozark.get_module_manager().get_module_with_tag("GUI").is_active()) {
 				Ozark.get_hud_manager().render();
 			}
 
@@ -95,7 +95,7 @@ public class EventManager {
 	@SubscribeEvent(priority = EventPriority.NORMAL, receiveCanceled = true)
 	public void onKeyInput(InputEvent.KeyInputEvent event) {
 		if (Keyboard.getEventKeyState()) {
-			Ozark.get_hack_manager().bind(Keyboard.getEventKey());
+			Ozark.get_module_manager().bind(Keyboard.getEventKey());
 			Ozark.get_setting_manager().bind(Keyboard.getEventKey());
 		}
 	}
