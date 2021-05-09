@@ -1,8 +1,8 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.BlockInteractionHelper;
 import me.trambled.ozark.ozarkclient.util.BlockInteractionHelper.ValidResult;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
@@ -22,65 +22,62 @@ import net.minecraft.util.math.Vec3i;
 
 import java.util.ArrayList;
 
-public
-class Webfill extends Module {
+public class Webfill extends Module {
 
-    private final ArrayList < BlockPos > holes = new ArrayList < BlockPos > ( );
-    Setting web_toggle = create ( "Toggle" , "WebFillToggle" , true );
-    Setting web_rotate = create ( "Rotate" , "WebFillRotate" , true );
-    Setting web_range = create ( "Range" , "WebFillRange" , 4 , 1 , 6 );
-    private boolean sneak;
+    public Webfill() {
+        super(Category.COMBAT);
 
-    public
-    Webfill ( ) {
-        super ( Category.COMBAT );
-
-        this.name = "Web Fill";
-        this.tag = "WebFill";
+        this.name        = "Web Fill";
+        this.tag         = "WebFill";
         this.description = "its like hole fill, but more annoying";
     }
 
+    Setting web_toggle = create("Toggle", "WebFillToggle", true);
+    Setting web_rotate = create("Rotate", "WebFillRotate", true);
+    Setting web_range = create("Range", "WebFillRange", 4, 1, 6);
+
+    private final ArrayList<BlockPos> holes = new ArrayList<BlockPos>();
+
+    private boolean sneak;
+
     @Override
-    public
-    void enable ( ) {
-        find_new_holes ( );
+    public void enable() {
+        find_new_holes();
     }
 
     @Override
-    public
-    void disable ( ) {
-        holes.clear ( );
+    public void disable() {
+        holes.clear();
     }
 
     @Override
-    public
-    void update ( ) {
+    public void update() {
 
-        if ( holes.isEmpty ( ) ) {
+        if (holes.isEmpty()) {
 
-            if ( ! web_toggle.get_value ( true ) ) {
+            if (!web_toggle.get_value(true)) {
 
-                this.set_disable ( );
-                MessageUtil.toggle_message ( this );
+                this.set_disable();
+                MessageUtil.toggle_message(this);
                 return;
 
             } else {
-                find_new_holes ( );
+                find_new_holes();
             }
 
         }
 
         BlockPos pos_to_fill = null;
 
-        for (BlockPos pos : new ArrayList < BlockPos > ( holes )) {
+        for (BlockPos pos : new ArrayList<BlockPos>(holes)) {
 
-            if ( pos == null ) continue;
+            if (pos == null) continue;
 
-            BlockInteractionHelper.ValidResult result = BlockInteractionHelper.valid ( pos );
+            BlockInteractionHelper.ValidResult result = BlockInteractionHelper.valid(pos);
 
-            if ( result != ValidResult.Ok ) {
+            if (result != ValidResult.Ok) {
 
-                holes.remove ( pos );
+                holes.remove(pos);
                 continue;
 
             }
@@ -90,16 +87,16 @@ class Webfill extends Module {
 
         }
 
-        int obi_slot = find_in_hotbar ( );
+        int obi_slot = find_in_hotbar();
 
-        if ( pos_to_fill != null && obi_slot != - 1 ) {
+        if (pos_to_fill != null && obi_slot != -1) {
 
             int last_slot = mc.player.inventory.currentItem;
             mc.player.inventory.currentItem = obi_slot;
-            mc.playerController.updateController ( );
+            mc.playerController.updateController();
 
-            if ( place_blocks ( pos_to_fill ) ) {
-                holes.remove ( pos_to_fill );
+            if (place_blocks(pos_to_fill)) {
+                holes.remove(pos_to_fill);
             }
 
             mc.player.inventory.currentItem = last_slot;
@@ -108,37 +105,36 @@ class Webfill extends Module {
 
     }
 
-    public
-    void find_new_holes ( ) {
+    public void find_new_holes() {
 
-        holes.clear ( );
+        holes.clear();
 
-        for (BlockPos pos : BlockInteractionHelper.getSphere ( PlayerUtil.GetLocalPlayerPosFloored ( ) , web_range.get_value ( 1 ) , web_range.get_value ( 1 ) , false , true , 0 )) {
+        for (BlockPos pos : BlockInteractionHelper.getSphere(PlayerUtil.GetLocalPlayerPosFloored(), web_range.get_value(1), (int) web_range.get_value(1), false, true, 0)) {
 
-            if ( ! mc.world.getBlockState ( pos ).getBlock ( ).equals ( Blocks.AIR ) ) {
+            if (!mc.world.getBlockState(pos).getBlock().equals(Blocks.AIR)) {
                 continue;
             }
 
-            if ( ! mc.world.getBlockState ( pos.add ( 0 , 1 , 0 ) ).getBlock ( ).equals ( Blocks.AIR ) ) {
+            if (!mc.world.getBlockState(pos.add(0, 1, 0)).getBlock().equals(Blocks.AIR)) {
                 continue;
             }
 
-            if ( ! mc.world.getBlockState ( pos.add ( 0 , 2 , 0 ) ).getBlock ( ).equals ( Blocks.AIR ) ) {
+            if (!mc.world.getBlockState(pos.add(0, 2, 0)).getBlock().equals(Blocks.AIR)) {
                 continue;
             }
 
             boolean possible = true;
 
-            for (BlockPos seems_blocks : new BlockPos[]{
-                    new BlockPos ( 0 , - 1 , 0 ) ,
-                    new BlockPos ( 0 , 0 , - 1 ) ,
-                    new BlockPos ( 1 , 0 , 0 ) ,
-                    new BlockPos ( 0 , 0 , 1 ) ,
-                    new BlockPos ( - 1 , 0 , 0 )
+            for (BlockPos seems_blocks : new BlockPos[] {
+                    new BlockPos( 0, -1,  0),
+                    new BlockPos( 0,  0, -1),
+                    new BlockPos( 1,  0,  0),
+                    new BlockPos( 0,  0,  1),
+                    new BlockPos(-1,  0,  0)
             }) {
-                Block block = mc.world.getBlockState ( pos.add ( seems_blocks ) ).getBlock ( );
+                Block block = mc.world.getBlockState(pos.add(seems_blocks)).getBlock();
 
-                if ( block != Blocks.BEDROCK && block != Blocks.OBSIDIAN && block != Blocks.ENDER_CHEST && block != Blocks.ANVIL ) {
+                if (block != Blocks.BEDROCK && block != Blocks.OBSIDIAN && block != Blocks.ENDER_CHEST && block != Blocks.ANVIL) {
                     possible = false;
 
                     break;
@@ -146,62 +142,60 @@ class Webfill extends Module {
 
             }
 
-            if ( possible ) {
-                holes.add ( pos );
+            if (possible) {
+                holes.add(pos);
             }
 
         }
 
     }
 
-    private
-    int find_in_hotbar ( ) {
+    private int find_in_hotbar() {
 
-        for (int i = 0; i < 9; ++ i) {
+        for (int i = 0; i < 9; ++i) {
 
-            final ItemStack stack = mc.player.inventory.getStackInSlot ( i );
+            final ItemStack stack = mc.player.inventory.getStackInSlot(i);
 
-            if ( stack.getItem ( ) == Item.getItemById ( 30 ) ) {
+            if (stack.getItem() == Item.getItemById(30)) {
                 return i;
             }
 
         }
-        return - 1;
+        return -1;
     }
 
-    private
-    boolean place_blocks ( BlockPos pos ) {
+    private boolean place_blocks(BlockPos pos) {
 
-        if ( ! mc.world.getBlockState ( pos ).getMaterial ( ).isReplaceable ( ) ) {
+        if (!mc.world.getBlockState(pos).getMaterial().isReplaceable()) {
             return false;
         }
 
-        if ( ! BlockInteractionHelper.checkForNeighbours ( pos ) ) {
+        if (!BlockInteractionHelper.checkForNeighbours(pos)) {
             return false;
         }
 
-        for (EnumFacing side : EnumFacing.values ( )) {
+        for (EnumFacing side : EnumFacing.values()) {
 
             Block neighborPos;
-            BlockPos neighbor = pos.offset ( side );
+            BlockPos neighbor = pos.offset(side);
 
-            EnumFacing side2 = side.getOpposite ( );
+            EnumFacing side2 = side.getOpposite();
 
-            if ( ! BlockInteractionHelper.canBeClicked ( neighbor ) ) continue;
+            if (!BlockInteractionHelper.canBeClicked(neighbor)) continue;
 
-            if ( BlockInteractionHelper.blackList.contains ( (Object) ( neighborPos = mc.world.getBlockState ( neighbor ).getBlock ( ) ) ) ) {
-                mc.player.connection.sendPacket ( (Packet) new CPacketEntityAction ( (Entity) mc.player , CPacketEntityAction.Action.START_SNEAKING ) );
+            if (BlockInteractionHelper.blackList.contains((Object)(neighborPos = mc.world.getBlockState(neighbor).getBlock()))) {
+                mc.player.connection.sendPacket((Packet)new CPacketEntityAction((Entity)mc.player, CPacketEntityAction.Action.START_SNEAKING));
                 sneak = true;
             }
 
-            Vec3d hitVec = new Vec3d ( (Vec3i) neighbor ).add ( 0.5 , 0.5 , 0.5 ).add ( new Vec3d ( side2.getDirectionVec ( ) ).scale ( 0.5 ) );
+            Vec3d hitVec = new Vec3d((Vec3i)neighbor).add(0.5, 0.5, 0.5).add(new Vec3d(side2.getDirectionVec()).scale(0.5));
 
-            if ( web_rotate.get_value ( true ) ) {
-                BlockInteractionHelper.faceVectorPacketInstant ( hitVec );
+            if (web_rotate.get_value(true)) {
+                BlockInteractionHelper.faceVectorPacketInstant(hitVec);
             }
 
-            mc.playerController.processRightClickBlock ( mc.player , mc.world , neighbor , side2 , hitVec , EnumHand.MAIN_HAND );
-            mc.player.swingArm ( EnumHand.MAIN_HAND );
+            mc.playerController.processRightClickBlock(mc.player, mc.world, neighbor, side2, hitVec, EnumHand.MAIN_HAND);
+            mc.player.swingArm(EnumHand.MAIN_HAND);
 
             return true;
         }

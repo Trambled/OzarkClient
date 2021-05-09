@@ -10,21 +10,19 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = RenderPlayer.class)
-public
-class MixinRenderPlayer {
+public class MixinRenderPlayer {
 
     @Inject(method = "renderEntityName", at = @At("HEAD"), cancellable = true)
-    public
-    void renderLivingLabel ( AbstractClientPlayer entityIn , double x , double y , double z , String name , double distanceSq , CallbackInfo info ) {
+	public void renderLivingLabel(AbstractClientPlayer entityIn, double x, double y, double z, String name, double distanceSq, CallbackInfo info) {
 
-        EventRenderName event_packet = new EventRenderName ( entityIn , x , y , z , name , distanceSq );
+		EventRenderName event_packet = new EventRenderName(entityIn, x, y, z, name, distanceSq);
 
-        Eventbus.EVENT_BUS.post ( event_packet );
-
-        if ( event_packet.isCancelled ( ) ) {
-            info.cancel ( );
+        Eventbus.EVENT_BUS.post(event_packet);
+        
+        if (event_packet.isCancelled()) {
+            info.cancel();
         }
 
-    }
-
+	}
+    
 }

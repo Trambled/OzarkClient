@@ -13,23 +13,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 @Mixin(GuiPlayerTabOverlay.class)
-public
-class MixinGuiPlayerTabOverlay {
+public class MixinGuiPlayerTabOverlay {
 
-    @Redirect(method = {"renderPlayerlist"}, at = @At(value = "INVOKE", target = "Ljava/util/List;subList(II)Ljava/util/List;"))
-    public
-    List < NetworkPlayerInfo > subListHook ( final List < NetworkPlayerInfo > list , final int fromIndex , final int toIndex ) {
-        if ( 255 > list.size ( ) ) {
-            return list.subList ( fromIndex , list.size ( ) - 1 );
-        }
-        return list.subList ( fromIndex , 255 );
+    @Redirect(method = { "renderPlayerlist" }, at = @At(value = "INVOKE", target = "Ljava/util/List;subList(II)Ljava/util/List;"))
+    public List<NetworkPlayerInfo> subListHook(final List<NetworkPlayerInfo> list, final int fromIndex, final int toIndex) {
+        if (255 > list.size()) {
+    		return list.subList(fromIndex, list.size() - 1);
+    	}
+        return list.subList(fromIndex, 255);
     }
 
-    @Inject(method = {"getPlayerName"}, at = {@At("HEAD")}, cancellable = true)
-    public
-    void getPlayerNameHook ( final NetworkPlayerInfo networkPlayerInfoIn , final CallbackInfoReturnable < String > info ) {
-        if ( Ozark.get_module_manager ( ).get_module_with_tag ( "TabColors" ).is_active ( ) ) {
-            info.setReturnValue ( TabUtil.get_player_name ( networkPlayerInfoIn ) );
+    @Inject(method = { "getPlayerName" }, at = { @At("HEAD") }, cancellable = true)
+    public void getPlayerNameHook(final NetworkPlayerInfo networkPlayerInfoIn, final CallbackInfoReturnable<String> info) {
+        if (Ozark.get_module_manager().get_module_with_tag("TabColors").is_active()) {
+            info.setReturnValue(TabUtil.get_player_name(networkPlayerInfoIn));
         }
     }
 

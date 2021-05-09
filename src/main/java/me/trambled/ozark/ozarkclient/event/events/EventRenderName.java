@@ -3,8 +3,7 @@ package me.trambled.ozark.ozarkclient.event.events;
 import me.trambled.ozark.ozarkclient.event.Event;
 import net.minecraft.client.entity.AbstractClientPlayer;
 
-public
-class EventRenderName extends Event {
+public class EventRenderName extends Event {
 
     public AbstractClientPlayer Entity;
     public double X;
@@ -12,17 +11,16 @@ class EventRenderName extends Event {
     public double Z;
     public String Name;
     public double DistanceSq;
+    
+    public EventRenderName(AbstractClientPlayer entityIn, double x, double y, double z, String name, double distanceSq) {
+		super();
 
-    public
-    EventRenderName ( AbstractClientPlayer entityIn , double x , double y , double z , String name , double distanceSq ) {
-        super ( );
-
-        Entity = entityIn;
+		Entity = entityIn;
         x = X;
         y = Y;
         z = Z;
         Name = name;
         DistanceSq = distanceSq;
-    }
+	}
 
 }

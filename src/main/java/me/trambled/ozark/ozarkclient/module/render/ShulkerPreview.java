@@ -3,15 +3,13 @@ package me.trambled.ozark.ozarkclient.module.render;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 
-public
-class ShulkerPreview extends Module {
+public class ShulkerPreview extends Module {
+    
+    public ShulkerPreview() {
+        super(Category.RENDER);
 
-    public
-    ShulkerPreview ( ) {
-        super ( Category.RENDER );
-
-        this.name = "Shulker Preview";
-        this.tag = "ShulkerPreview";
+        this.name        = "Shulker Preview";
+        this.tag         = "ShulkerPreview";
         this.description = "See what's inside a shulker via hovering over it";
     }
 

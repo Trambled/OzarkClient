@@ -6,34 +6,31 @@ import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.FactUtil;
 
 // cb+
-public
-class FactSpammer extends Module {
+public class FactSpammer extends Module {
 
-    Setting delay = create ( "Delay" , "SpammerDelay" , 10 , 0 , 100 );
-    private long start_time = 0L;
-
-    public
-    FactSpammer ( ) {
-        super ( Category.CHAT );
+    public FactSpammer() {
+        super(Category.CHAT);
 
         this.name = "Fact Spammer";
         this.tag = "FactSpammer";
         this.description = "spams snapple facts";
     }
 
+    Setting delay = create("Delay", "SpammerDelay", 10, 0, 100);
+
+    private long start_time = 0L;
+
     @Override
-    public
-    void update ( ) {
-        if ( System.currentTimeMillis ( ) - start_time >= (long) ( delay.get_value ( 0 ) * 1000 ) ) {
-            mc.player.sendChatMessage ( FactUtil.random_fact ( ) );
-            start_time = System.currentTimeMillis ( );
+    public void update() {
+        if (System.currentTimeMillis() - start_time >= (long)(delay.get_value(0) * 1000)) {
+            mc.player.sendChatMessage(FactUtil.random_fact());
+            start_time = System.currentTimeMillis();
         }
     }
 
     @Override
-    public
-    void enable ( ) {
-        start_time = System.currentTimeMillis ( );
+    public void enable() {
+        start_time = System.currentTimeMillis();
     }
 
 }

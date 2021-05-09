@@ -11,17 +11,18 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockReed.class)
-public
-class MixinBlockReed {
-    @Inject(method = "getRenderLayer", at = @At("HEAD"), cancellable = true)
-    public
-    void getRenderLayer ( CallbackInfoReturnable < BlockRenderLayer > callback ) {
-        EventBlockGetRenderLayer event = new EventBlockGetRenderLayer ( (Block) (Object) this );
-        Eventbus.EVENT_BUS.post ( event );
+public class MixinBlockReed
+{
+   @Inject(method = "getRenderLayer", at = @At("HEAD"), cancellable = true)
+   public void getRenderLayer(CallbackInfoReturnable<BlockRenderLayer> callback)
+   {
+       EventBlockGetRenderLayer event = new EventBlockGetRenderLayer((Block) (Object) this);
+       Eventbus.EVENT_BUS.post(event);
 
-        if ( event.isCancelled ( ) ) {
-            callback.cancel ( );
-            callback.setReturnValue ( event.getBlockRenderLayer ( ) );
-        }
-    }
+       if (event.isCancelled())                                                               
+       {
+           callback.cancel();
+           callback.setReturnValue(event.getBlockRenderLayer());
+       }
+   }
 }

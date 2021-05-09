@@ -1,8 +1,8 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.BlockUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEnderChest;
@@ -16,193 +16,197 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-public
-class Surround extends Module {
+public class Surround extends Module {
 
-    Setting mode = create ( "Mode" , "SurroundMode" , "Normal" , combobox ( "Normal" , "Face" , "Anticity" ) );
-    Setting rotate = create ( "Rotate" , "SurroundSmoth" , true );
-    Setting hybrid = create ( "Hybrid" , "SurroundHybrid" , true );
-    Setting triggerable = create ( "Toggle" , "SurroundToggle" , true );
-    Setting center = create ( "Center" , "SurroundCenter" , true );
-    Setting tick_for_place = create ( "Blocks per tick" , "SurroundTickToPlace" , 8 , 1 , 8 );
-    Setting tick_timeout = create ( "Ticks til timeout" , "SurroundTicks" , 40 , 10 , 50 );
-    Setting swing = create ( "Swing" , "SurroundSwing" , "Mainhand" , combobox ( "Mainhand" , "Offhand" , "Both" , "None" ) );
-    Vec3d[] surround_targets = {
-            new Vec3d ( 1 , 0 , 0 ) ,
-            new Vec3d ( 0 , 0 , 1 ) ,
-            new Vec3d ( - 1 , 0 , 0 ) ,
-            new Vec3d ( 0 , 0 , - 1 ) ,
-            new Vec3d ( 1 , - 1 , 0 ) ,
-            new Vec3d ( 0 , - 1 , 1 ) ,
-            new Vec3d ( - 1 , - 1 , 0 ) ,
-            new Vec3d ( 0 , - 1 , - 1 ) ,
-            new Vec3d ( 0 , - 1 , 0 )
-    };
-    Vec3d[] surround_targets_city = {
-            new Vec3d ( 1 , 0 , 0 ) ,
-            new Vec3d ( 0 , 0 , 1 ) ,
-            new Vec3d ( - 1 , 0 , 0 ) ,
-            new Vec3d ( 0 , 0 , - 1 ) ,
-            new Vec3d ( 1 , - 1 , 0 ) ,
-            new Vec3d ( 0 , - 1 , 1 ) ,
-            new Vec3d ( - 1 , - 1 , 0 ) ,
-            new Vec3d ( 0 , - 1 , - 1 ) ,
-            new Vec3d ( 0 , - 1 , 0 ) ,
-            new Vec3d ( 0 , 0 , 2 ) ,
-            new Vec3d ( 0 , 0 , - 2 ) ,
-            new Vec3d ( - 2 , 0 , 0 ) ,
-            new Vec3d ( 2 , 0 , 0 ) ,
-            new Vec3d ( 1 , 0 , 1 ) ,
-            new Vec3d ( - 1 , 0 , 1 ) ,
-            new Vec3d ( 1 , 0 , - 1 ) ,
-            new Vec3d ( - 1 , 0 , - 1 )
-    };
-    Vec3d[] surround_targets_face = {
-            new Vec3d ( 1 , 1 , 0 ) ,
-            new Vec3d ( 0 , 1 , 1 ) ,
-            new Vec3d ( - 1 , 1 , 0 ) ,
-            new Vec3d ( 0 , 1 , - 1 ) ,
-            new Vec3d ( 1 , 0 , 0 ) ,
-            new Vec3d ( 0 , 0 , 1 ) ,
-            new Vec3d ( - 1 , 0 , 0 ) ,
-            new Vec3d ( 0 , 0 , - 1 ) ,
-            new Vec3d ( 1 , - 1 , 0 ) ,
-            new Vec3d ( 0 , - 1 , 1 ) ,
-            new Vec3d ( - 1 , - 1 , 0 ) ,
-            new Vec3d ( 0 , - 1 , - 1 ) ,
-            new Vec3d ( 0 , - 1 , 0 )
-    };
-    private int y_level = 0;
-    private int tick_runs = 0;
-    private int offset_step = 0;
-    private Vec3d center_block = Vec3d.ZERO;
+	public Surround() {
+		super(Category.COMBAT);
 
-    public
-    Surround ( ) {
-        super ( Category.COMBAT );
+		this.name        = "Surround";
+		this.tag         = "Surround";
+		this.description = "surround urself with obi";
+	}
 
-        this.name = "Surround";
-        this.tag = "Surround";
-        this.description = "surround urself with obi";
-    }
+	Setting mode = create("Mode", "SurroundMode", "Normal", combobox("Normal", "Face", "Anticity"));
+	Setting rotate = create("Rotate", "SurroundSmoth", true);
+	Setting hybrid = create("Hybrid", "SurroundHybrid", true);
+	Setting triggerable = create("Toggle", "SurroundToggle", true);
+	Setting center = create("Center", "SurroundCenter", true);
+	Setting tick_for_place = create("Blocks per tick","SurroundTickToPlace", 8, 1, 8);
+	Setting tick_timeout = create("Ticks til timeout","SurroundTicks", 40, 10,50);
+	Setting swing = create("Swing", "SurroundSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
 
-    @Override
-    public
-    void enable ( ) {
-        if ( find_in_hotbar ( ) == - 1 ) {
-            this.set_disable ( );
-            return;
-        }
 
-        if ( mc.player != null ) {
+	private int y_level = 0;
+	private int tick_runs = 0;
+	private int offset_step = 0;
 
-            y_level = (int) Math.round ( mc.player.posY );
+	private Vec3d center_block = Vec3d.ZERO;
 
-            center_block = get_center ( mc.player.posX , mc.player.posY , mc.player.posZ );
+	Vec3d[] surround_targets = {
+		new Vec3d(  1,   0,   0),
+		new Vec3d(  0,   0,   1),
+		new Vec3d(- 1,   0,   0),
+		new Vec3d(  0,   0, - 1),
+		new Vec3d(  1, - 1,   0),
+		new Vec3d(  0, - 1,   1),
+		new Vec3d(- 1, - 1,   0),
+		new Vec3d(  0, - 1, - 1),
+		new Vec3d(  0, - 1,   0)
+	};
 
-            if ( center.get_value ( true ) ) {
-                mc.player.motionX = 0;
-                mc.player.motionZ = 0;
-            }
-        }
-    }
+	Vec3d[] surround_targets_city = {
+			new Vec3d(  1,   0,   0),
+			new Vec3d(  0,   0,   1),
+			new Vec3d(- 1,   0,   0),
+			new Vec3d(  0,   0, - 1),
+			new Vec3d(  1, - 1,   0),
+			new Vec3d(  0, - 1,   1),
+			new Vec3d(- 1, - 1,   0),
+			new Vec3d(  0, - 1, - 1),
+			new Vec3d(  0, - 1,   0),
+			new Vec3d(  0, 0,   2),
+			new Vec3d(  0, 0,   -2),
+			new Vec3d(  -2, 0,   0),
+			new Vec3d(  2, 0,   0),
+			new Vec3d(  1, 0,   1),
+			new Vec3d(  -1, 0,   1),
+			new Vec3d(  1, 0,   -1),
+			new Vec3d(  -1, 0,   -1)
+	};
 
-    @Override
-    public
-    void update ( ) {
+	Vec3d[] surround_targets_face = {
+			new Vec3d(  1,   1,   0),
+			new Vec3d(  0,   1,   1),
+			new Vec3d(- 1,   1,   0),
+			new Vec3d(  0,   1, - 1),
+			new Vec3d(  1,   0,   0),
+			new Vec3d(  0,   0,   1),
+			new Vec3d(- 1,   0,   0),
+			new Vec3d(  0,   0, - 1),
+			new Vec3d(  1, - 1,   0),
+			new Vec3d(  0, - 1,   1),
+			new Vec3d(- 1, - 1,   0),
+			new Vec3d(  0, - 1, - 1),
+			new Vec3d(  0, - 1,   0)
+	};
 
-        if ( mc.player != null ) {
+	@Override
+	public void enable() {
+		if (find_in_hotbar() == -1) {
+			this.set_disable();
+			return;
+		}
 
-            if ( center_block != Vec3d.ZERO && center.get_value ( true ) ) {
+		if (mc.player != null) {
 
-                double x_diff = Math.abs ( center_block.x - mc.player.posX );
-                double z_diff = Math.abs ( center_block.z - mc.player.posZ );
+			y_level = (int) Math.round(mc.player.posY);
 
-                if ( x_diff <= 0.1 && z_diff <= 0.1 ) {
-                    center_block = Vec3d.ZERO;
-                } else {
-                    double motion_x = center_block.x - mc.player.posX;
-                    double motion_z = center_block.z - mc.player.posZ;
+			center_block = get_center(mc.player.posX, mc.player.posY, mc.player.posZ);
 
-                    mc.player.motionX = motion_x / 2;
-                    mc.player.motionZ = motion_z / 2;
-                }
+			if (center.get_value(true)) {
+				mc.player.motionX = 0;
+				mc.player.motionZ = 0;
+			}
+		}
+	}
 
-            }
+	@Override
+	public void update() {
 
-            if ( (int) Math.round ( mc.player.posY ) != y_level && this.hybrid.get_value ( true ) ) {
-                this.set_disable ( );
-                return;
-            }
+		if (mc.player != null) {
 
-            if ( ! this.triggerable.get_value ( true ) && this.tick_runs >= this.tick_timeout.get_value ( 1 ) ) { // timeout time
-                this.tick_runs = 0;
-                this.set_disable ( );
-                return;
-            }
+			if (center_block != Vec3d.ZERO && center.get_value(true)) {
 
-            int blocks_placed = 0;
+				double x_diff = Math.abs(center_block.x - mc.player.posX);
+				double z_diff = Math.abs(center_block.z - mc.player.posZ);
 
-            while ( blocks_placed < this.tick_for_place.get_value ( 1 ) ) {
+				if (x_diff <= 0.1 && z_diff <= 0.1) {
+					center_block = Vec3d.ZERO;
+				} else {
+					double motion_x = center_block.x - mc.player.posX;
+					double motion_z = center_block.z - mc.player.posZ;
 
-                if ( this.offset_step >= ( mode.in ( "Face" ) ? this.surround_targets_face.length : mode.in ( "Normal" ) ? surround_targets.length : surround_targets_city.length ) ) {
-                    this.offset_step = 0;
-                    break;
-                }
+					mc.player.motionX = motion_x / 2;
+					mc.player.motionZ = motion_z / 2;
+				}
 
-                BlockPos offsetPos = new BlockPos ( mode.in ( "Face" ) ? this.surround_targets_face[offset_step] : mode.in ( "Normal" ) ? surround_targets[offset_step] : surround_targets_city[offset_step] );
-                BlockPos targetPos = new BlockPos ( mc.player.getPositionVector ( ) ).add ( offsetPos.getX ( ) , offsetPos.getY ( ) , offsetPos.getZ ( ) );
+			}
 
-                boolean try_to_place = mc.world.getBlockState ( targetPos ).getMaterial ( ).isReplaceable ( );
+			if ((int) Math.round(mc.player.posY) != y_level && this.hybrid.get_value(true)) {
+				this.set_disable();
+				return;
+			}
 
-                for (Entity entity : mc.world.getEntitiesWithinAABBExcludingEntity ( null , new AxisAlignedBB ( targetPos ) )) {
-                    if ( entity instanceof EntityItem || entity instanceof EntityXPOrb ) continue;
-                    try_to_place = false;
-                    break;
-                }
+			if (!this.triggerable.get_value(true) && this.tick_runs >= this.tick_timeout.get_value(1)) { // timeout time
+				this.tick_runs = 0;
+				this.set_disable();
+				return;
+			}
 
-                if ( try_to_place && BlockUtil.placeBlock ( targetPos , find_in_hotbar ( ) , rotate.get_value ( true ) , rotate.get_value ( true ) , swing ) ) {
-                    blocks_placed++;
-                }
+			int blocks_placed = 0;
 
-                offset_step++;
+			while (blocks_placed < this.tick_for_place.get_value(1)) {
 
-            }
+				if (this.offset_step >= (mode.in("Face") ? this.surround_targets_face.length : mode.in("Normal") ? surround_targets.length : surround_targets_city.length)) {
+					this.offset_step = 0;
+					break;
+				}
 
-            this.tick_runs++;
+				BlockPos offsetPos = new BlockPos(mode.in("Face") ? this.surround_targets_face[offset_step] : mode.in("Normal") ? surround_targets[offset_step] : surround_targets_city[offset_step]);
+				BlockPos targetPos = new BlockPos(mc.player.getPositionVector()).add(offsetPos.getX(), offsetPos.getY(), offsetPos.getZ());
 
-        }
-    }
+				boolean try_to_place = true;
 
-    private
-    int find_in_hotbar ( ) {
+				if (!mc.world.getBlockState(targetPos).getMaterial().isReplaceable()) {
+					try_to_place = false;
+				}
 
-        for (int i = 0; i < 9; ++ i) {
+				for (Entity entity : mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(targetPos))) {
+					if (entity instanceof EntityItem || entity instanceof EntityXPOrb) continue;
+					try_to_place = false;
+					break;
+				}
 
-            final ItemStack stack = mc.player.inventory.getStackInSlot ( i );
+				if (try_to_place && BlockUtil.placeBlock(targetPos, find_in_hotbar(), rotate.get_value(true), rotate.get_value(true), swing)) {
+					blocks_placed++;
+				}
 
-            if ( stack != ItemStack.EMPTY && stack.getItem ( ) instanceof ItemBlock ) {
+				offset_step++;
 
-                final Block block = ( (ItemBlock) stack.getItem ( ) ).getBlock ( );
+			}
 
-                if ( block instanceof BlockEnderChest )
+			this.tick_runs++;
+
+		}
+	}
+
+	private int find_in_hotbar() {
+
+        for (int i = 0; i < 9; ++i) {
+
+            final ItemStack stack = mc.player.inventory.getStackInSlot(i);
+
+            if (stack != ItemStack.EMPTY && stack.getItem() instanceof ItemBlock) {
+
+                final Block block = ((ItemBlock) stack.getItem()).getBlock();
+
+                if (block instanceof BlockEnderChest)
                     return i;
 
-                else if ( block instanceof BlockObsidian )
+                else if (block instanceof BlockObsidian)
                     return i;
 
             }
         }
-        return - 1;
-    }
+        return -1;
+	}
 
-    public
-    Vec3d get_center ( double posX , double posY , double posZ ) {
-        double x = Math.floor ( posX ) + 0.5D;
-        double y = Math.floor ( posY );
-        double z = Math.floor ( posZ ) + 0.5D;
+	public Vec3d get_center(double posX, double posY, double posZ) {
+        double x = Math.floor(posX) + 0.5D;
+        double y = Math.floor(posY);
+        double z = Math.floor(posZ) + 0.5D ;
 
-        return new Vec3d ( x , y , z );
+        return new Vec3d(x, y, z);
     }
 
 

@@ -5,145 +5,145 @@ import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.util.GuiUtil;
 
 
-public
-class PinnableButton {
-    public static int nc_r = 0;
-    public static int nc_g = 0;
-    public static int nc_b = 0;
-    public static int nc_a = 0;
-    public static int bg_r = 0;
-    public static int bg_g = 0;
-    public static int bg_b = 0;
-    public static int bg_a = 0;
-    public static int bd_r = 0;
-    public static int bd_g = 0;
-    public static int bd_b = 0;
-    private final Pinnable pinnable;
-    private final Frame master;
-    private final String name;
-    private final String tag;
-    private int x;
-    private int y;
-    private int save_y;
-    private int width;
-    private int height;
-    private final boolean first;
-    private final GuiUtil font = new GuiUtil ( 1 );
+public class PinnableButton {
+	private Pinnable pinnable;
+	private Frame master;
 
-    public
-    PinnableButton ( Frame master , String name , String tag ) {
-        this.master = master;
+	private String name;
+	private String tag;
 
-        this.name = name;
-        this.tag = tag;
+	private int x;
+	private int y;
 
-        this.pinnable = Ozark.get_hud_manager ( ).get_pinnable_with_tag ( tag );
+	private int save_y;
 
-        this.x = master.get_x ( );
-        this.y = master.get_y ( );
+	private int width;
+	private int height;
 
-        this.save_y = this.y;
+	private boolean first;
 
-        this.width = this.master.get_width ( );
-        this.height = font.get_string_height ( );
+	private GuiUtil font = new GuiUtil(1);
 
-        this.first = true;
-    }
+	public static int nc_r = 0;
+	public static int nc_g = 0;
+	public static int nc_b = 0;
+	public static int nc_a = 0;
 
-    public
-    int get_x ( ) {
-        return this.x;
-    }
+	public static int bg_r = 0;
+	public static int bg_g = 0;
+	public static int bg_b = 0;
+	public static int bg_a = 0;
 
-    public
-    void set_x ( int x ) {
-        this.x = x;
-    }
+	public static int bd_r = 0;
+	public static int bd_g = 0;
+	public static int bd_b = 0;
 
-    public
-    int get_y ( ) {
-        return this.y;
-    }
+	public PinnableButton(Frame master, String name, String tag) {
+		this.master = master;
 
-    public
-    void set_y ( int y ) {
-        this.y = y;
-    }
+		this.name = name;
+		this.tag  = tag;
 
-    public
-    int get_save_y ( ) {
-        return this.save_y;
-    }
+		this.pinnable = Ozark.get_hud_manager().get_pinnable_with_tag(tag);
 
-    public
-    void set_save_y ( int y ) {
-        this.save_y = y;
-    }
+		this.x = master.get_x();
+		this.y = master.get_y();
 
-    public
-    int get_width ( ) {
-        return this.width;
-    }
+		this.save_y = this.y;
 
-    public
-    void set_width ( int width ) {
-        this.width = width;
-    }
+		this.width  = this.master.get_width();
+		this.height = font.get_string_height();
 
-    public
-    int get_height ( ) {
-        return this.height;
-    }
+		this.first = true;
+	}
 
-    public
-    void set_height ( int height ) {
-        this.height = height;
-    }
+	public void set_x(int x) {
+		this.x = x;
+	}
 
-    public
-    boolean motion ( int mx , int my , int p_x , int p_y , int p_w , int p_h ) {
-        return mx >= p_x && my >= p_y && mx <= p_x + p_w && my <= p_y + p_h;
-    }
+	public void set_y(int y) {
+		this.y = y;
+	}
 
-    public
-    boolean motion ( int mx , int my ) {
-        return mx >= get_x ( ) && my >= get_save_y ( ) && mx <= get_x ( ) + get_width ( ) && my <= get_save_y ( ) + get_height ( );
-    }
+	public void set_save_y(int y) {
+		this.save_y = y;
+	}
 
-    public
-    void click ( int mx , int my , int mouse ) {
-        this.pinnable.click ( mx , my , mouse );
+	public void set_width(int width) {
+		this.width = width;
+	}
 
-        if ( mouse == 0 ) {
-            if ( motion ( mx , my ) ) {
-                this.master.does_can ( false );
+	public void set_height(int height) {
+		this.height = height;
+	}
 
-                this.pinnable.set_active ( ! this.pinnable.is_active ( ) );
-            }
-        }
-    }
+	public int get_x() {
+		return this.x;
+	}
 
-    public
-    void release ( int mx , int my , int mouse ) {
-        this.pinnable.release ( mx , my , mouse );
+	public int get_y() {
+		return this.y;
+	}
 
-        this.master.does_can ( true );
-    }
+	public int get_save_y() {
+		return this.save_y;
+	}
 
-    public
-    void render ( int mx , int my , int separate ) {
-        set_width ( this.master.get_width ( ) - separate );
+	public int get_width() {
+		return this.width;
+	}
 
-        this.save_y = this.y + this.master.get_y ( ) - 10;
+	public int get_height() {
+		return this.height;
+	}
 
-        if ( this.pinnable.is_active ( ) ) {
-            GuiUtil.draw_rect ( this.x , this.save_y , this.x + this.width - separate , this.save_y + this.height , bg_r , bg_g , bg_b , bg_a );
+	public boolean motion(int mx, int my, int p_x, int p_y, int p_w, int p_h) {
+		if (mx >= p_x && my >= p_y && mx <= p_x + p_w && my <= p_y + p_h) {
+			return true;
+		}
 
-            GuiUtil.draw_string ( this.pinnable.get_title ( ) , this.x + separate , this.save_y , nc_r , nc_g , nc_b , nc_a );
-        } else {
-            GuiUtil.draw_string ( this.pinnable.get_title ( ) , this.x + separate , this.save_y , nc_r , nc_g , nc_b , nc_a );
-        }
+		return false;
+	}
 
-        this.pinnable.render ( mx , my , 0 );
-    }
+	public boolean motion(int mx, int my) {
+		if (mx >= get_x() && my >= get_save_y() && mx <= get_x() + get_width() && my <= get_save_y() + get_height()) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public void click(int mx, int my, int mouse) {
+		this.pinnable.click(mx, my, mouse);
+
+		if (mouse == 0) {
+			if (motion(mx, my)) {
+				this.master.does_can(false);
+
+				this.pinnable.set_active(!this.pinnable.is_active());
+			}
+		}
+	}
+
+	public void release(int mx, int my, int mouse) {
+		this.pinnable.release(mx, my, mouse);
+
+		this.master.does_can(true);
+	}
+
+	public void render(int mx, int my, int separate) {
+		set_width(this.master.get_width() - separate);
+
+		this.save_y = this.y + this.master.get_y() - 10;
+
+		if (this.pinnable.is_active()) {
+			GuiUtil.draw_rect(this.x, this.save_y, this.x + this.width - separate, this.save_y + this.height, this.bg_r, this.bg_g, this.bg_b, this.bg_a);
+		
+			GuiUtil.draw_string(this.pinnable.get_title(), this.x + separate, this.save_y, this.nc_r, this.nc_g, this.nc_b, this.nc_a);
+		} else {
+			GuiUtil.draw_string(this.pinnable.get_title(), this.x + separate, this.save_y, this.nc_r, this.nc_g, this.nc_b, this.nc_a);
+		}
+
+		this.pinnable.render(mx, my, 0);
+	}
 }

@@ -1,8 +1,8 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.BlockInteractionHelper;
 import me.trambled.ozark.ozarkclient.util.BlockInteractionHelper.ValidResult;
 import me.trambled.ozark.ozarkclient.util.BlockUtil;
@@ -17,73 +17,71 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
-public
-class SelfTrap extends Module {
+public class SelfTrap extends Module {
+    
+    public SelfTrap() {
 
-    Setting toggle = create ( "Toggle" , "SelfTrapToggle" , true );
-    Setting rotate = create ( "Rotate" , "SelfTrapRotate" , false );
-    Setting swing = create ( "Swing" , "SelfTrapSwing" , "Mainhand" , combobox ( "Mainhand" , "Offhand" , "Both" , "None" ) );
-    Setting delay = create ( "Delay" , "SelfTrapDelay" , 0 , 0 , 10 );
+        super(Category.COMBAT);
+
+		this.name        = "Self Trap";
+		this.tag         = "SelfTrap";
+		this.description = "oh 'eck, ive trapped me sen again";
+    }
+
+    Setting toggle = create("Toggle", "SelfTrapToggle", true);
+    Setting rotate = create("Rotate", "SelfTrapRotate", false);
+    Setting swing = create("Swing", "SelfTrapSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
+    Setting delay = create("Delay", "SelfTrapDelay", 0, 0, 10);
+
     private BlockPos trap_pos;
     private int delay_counter;
-    public
-    SelfTrap ( ) {
-
-        super ( Category.COMBAT );
-
-        this.name = "Self Trap";
-        this.tag = "SelfTrap";
-        this.description = "oh 'eck, ive trapped me sen again";
-    }
 
     @Override
-    protected
-    void enable ( ) {
-        if ( find_in_hotbar ( ) == - 1 ) {
-            this.set_disable ( );
+    protected void enable() {
+        if (find_in_hotbar() == -1) {
+            this.set_disable();
         }
     }
 
     @Override
-    public
-    void update ( ) {
-        final Vec3d pos = MathUtil.interpolateEntity ( mc.player , mc.getRenderPartialTicks ( ) );
-        trap_pos = new BlockPos ( pos.x , pos.y + 2 , pos.z );
-        if ( is_trapped ( ) ) {
+    public void update() {
+        final Vec3d pos = MathUtil.interpolateEntity(mc.player, mc.getRenderPartialTicks());
+        trap_pos = new BlockPos(pos.x, pos.y + 2, pos.z);
+        if (is_trapped()) {
 
-            if ( toggle.get_value ( true ) ) {
-                toggle ( );
+            if (toggle.get_value(true)) {
+                toggle();
                 return;
-            }
+            } 
 
         }
 
-        if ( delay_counter > delay.get_value ( 1 ) ) {
+        if (delay_counter > delay.get_value(1)) {
 
-            ValidResult result = BlockInteractionHelper.valid ( trap_pos );
+            ValidResult result = BlockInteractionHelper.valid(trap_pos);
 
-            if ( result == ValidResult.AlreadyBlockThere && ! mc.world.getBlockState ( trap_pos ).getMaterial ( ).isReplaceable ( ) ) {
+            if (result == ValidResult.AlreadyBlockThere && !mc.world.getBlockState(trap_pos).getMaterial().isReplaceable()) {
                 return;
             }
 
-            if ( result == ValidResult.NoNeighbors ) {
+            if (result == ValidResult.NoNeighbors) {
 
                 BlockPos[] tests = {
-                        trap_pos.north ( ) ,
-                        trap_pos.south ( ) ,
-                        trap_pos.east ( ) ,
-                        trap_pos.west ( ) ,
-                        trap_pos.up ( ) ,
-                        trap_pos.down ( ).west ( ) // ????? salhack is weird and i dont care enough to remove this. who the fuck uses this shit anyways fr fucking jumpy
+                        trap_pos.north(),
+                        trap_pos.south(),
+                        trap_pos.east(),
+                        trap_pos.west(),
+                        trap_pos.up(),
+                        trap_pos.down().west() // ????? salhack is weird and i dont care enough to remove this. who the fuck uses this shit anyways fr fucking jumpy
                 };
 
                 for (BlockPos pos_ : tests) {
 
-                    ValidResult result_ = BlockInteractionHelper.valid ( pos_ );
+                    ValidResult result_ = BlockInteractionHelper.valid(pos_);
 
-                    if ( result_ == ValidResult.NoNeighbors || result_ == ValidResult.NoEntityCollision ) continue;
+                    if (result_ == ValidResult.NoNeighbors || result_ == ValidResult.NoEntityCollision) continue;
 
-                    if ( BlockUtil.placeBlock ( pos_ , find_in_hotbar ( ) , rotate.get_value ( true ) , rotate.get_value ( true ) , swing ) ) {
+                    if (BlockUtil.placeBlock(pos_, find_in_hotbar(), rotate.get_value(true), rotate.get_value(true), swing)) {
                         delay_counter = 0;
                         return;
                     }
@@ -95,7 +93,7 @@ class SelfTrap extends Module {
 
             }
 
-            BlockUtil.placeBlock ( trap_pos , find_in_hotbar ( ) , rotate.get_value ( true ) , rotate.get_value ( true ) , swing );
+            BlockUtil.placeBlock(trap_pos, find_in_hotbar(), rotate.get_value(true), rotate.get_value(true), swing);
             delay_counter = 0;
         }
 
@@ -103,37 +101,35 @@ class SelfTrap extends Module {
         delay_counter++;
     }
 
-    public
-    boolean is_trapped ( ) {
+    public boolean is_trapped() {
 
-        if ( trap_pos == null ) return false;
+        if (trap_pos == null) return false;
 
-        IBlockState state = mc.world.getBlockState ( trap_pos );
+        IBlockState state = mc.world.getBlockState(trap_pos);
 
-        return state.getBlock ( ) != Blocks.AIR && state.getBlock ( ) != Blocks.WATER && state.getBlock ( ) != Blocks.LAVA;
+        return state.getBlock() != Blocks.AIR && state.getBlock() != Blocks.WATER && state.getBlock() != Blocks.LAVA;
 
     }
 
-    private
-    int find_in_hotbar ( ) {
+    private int find_in_hotbar() {
 
-        for (int i = 0; i < 9; ++ i) {
+        for (int i = 0; i < 9; ++i) {
 
-            final ItemStack stack = mc.player.inventory.getStackInSlot ( i );
+            final ItemStack stack = mc.player.inventory.getStackInSlot(i);
 
-            if ( stack != ItemStack.EMPTY && stack.getItem ( ) instanceof ItemBlock ) {
+            if (stack != ItemStack.EMPTY && stack.getItem() instanceof ItemBlock) {
 
-                final Block block = ( (ItemBlock) stack.getItem ( ) ).getBlock ( );
+                final Block block = ((ItemBlock) stack.getItem()).getBlock();
 
-                if ( block instanceof BlockEnderChest )
+                if (block instanceof BlockEnderChest)
                     return i;
-
-                else if ( block instanceof BlockObsidian )
+                
+                else if (block instanceof BlockObsidian)
                     return i;
-
+                
             }
         }
-        return - 1;
+        return -1;
     }
 
 }

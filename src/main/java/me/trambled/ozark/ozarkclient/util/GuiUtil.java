@@ -15,109 +15,95 @@ import java.util.Arrays;
 // Travis
 
 
-public
-class GuiUtil {
-    private static final FontRenderer font_renderer = Minecraft.getMinecraft ( ).fontRenderer;
-    private static final Minecraft mc = Minecraft.getMinecraft ( );
+public class GuiUtil {
+	private static FontRenderer font_renderer = Minecraft.getMinecraft().fontRenderer;
+	private static Minecraft mc = Minecraft.getMinecraft();
 
-    private final float size;
+	private float size;
 
-    public
-    GuiUtil ( float size ) {
-        this.size = size;
-    }
+	public GuiUtil(float size) {
+		this.size = size;
+	}
 
-    public static
-    void draw_rect ( int x , int y , int w , int h , int r , int g , int b , int a ) {
-        Gui.drawRect ( x , y , w , h , new OzarkColor ( r , g , b , a ).color_int ( ) );
-    }
+	public static void draw_rect(int x, int y, int w, int h, int r, int g, int b, int a) {
+		Gui.drawRect(x, y, w, h, new OzarkColor(r, g, b, a).color_int());
+	}
 
-    public static
-    void draw_rect ( int x , int y , int w , int h , int r , int g , int b , int a , int size , String type ) {
-        if ( Arrays.asList ( type.split ( "-" ) ).contains ( "up" ) ) {
-            draw_rect ( x , y , x + w , y + size , r , g , b , a );
-        }
+	public static void draw_rect(int x, int y, int w, int h, int r, int g, int b, int a, int size, String type) {
+		if (Arrays.asList(type.split("-")).contains("up")) {
+			draw_rect(x, y, x + w, y + size, r, g, b, a);
+		}
 
-        if ( Arrays.asList ( type.split ( "-" ) ).contains ( "down" ) ) {
-            draw_rect ( x , y + h - size , x + w , y + h , r , g , b , a );
-        }
+		if (Arrays.asList(type.split("-")).contains("down")) {
+			draw_rect(x, y + h - size, x + w, y + h, r, g, b, a);
+		}
 
-        if ( Arrays.asList ( type.split ( "-" ) ).contains ( "left" ) ) {
-            draw_rect ( x , y , x + size , y + h , r , g , b , a );
-        }
+		if (Arrays.asList(type.split("-")).contains("left")) {
+			draw_rect(x, y, x + size, y + h, r, g, b, a);
+		}
 
-        if ( Arrays.asList ( type.split ( "-" ) ).contains ( "right" ) ) {
-            draw_rect ( x + w - size , y , x + w , y + h , r , g , b , a );
-        }
-    }
+		if (Arrays.asList(type.split("-")).contains("right")) {
+			draw_rect(x + w - size, y, x + w, y + h, r, g, b, a);
+		}
+	}
 
 
-    public static
-    void draw_rect ( Rect rect , int r , int g , int b , int a ) {
-        Gui.drawRect ( rect.get_x ( ) , rect.get_y ( ) , rect.get_screen_width ( ) , rect.get_screen_height ( ) , new OzarkColor ( r , g , b , a ).color_int ( ) );
-    }
+	public static void draw_rect(Rect rect, int r, int g, int b, int a) {
+		Gui.drawRect(rect.get_x(), rect.get_y(), rect.get_screen_width(), rect.get_screen_height(), new OzarkColor(r, g, b, a).color_int());
+	}
 
-    public static
-    void draw_string ( String string , int x , int y , int r , int g , int b , int a ) {
-        font_renderer.drawStringWithShadow ( string , x , y , new OzarkColor ( r , g , b , a ).color_int ( ) );
-    }
+	public static void draw_string(String string, int x, int y, int r, int g, int b, int a) {
+		font_renderer.drawStringWithShadow(string, x, y, new OzarkColor(r, g, b, a).color_int());
+	}
 
-    public static
-    void draw_string ( String string , int x , int y , int color ) {
-        font_renderer.drawStringWithShadow ( string , x , y , color );
-    }
+	public static void draw_string(String string, int x, int y, int color) {
+		font_renderer.drawStringWithShadow(string, x, y, color);
+	}
 
-    public
-    void draw_string_gl ( String string , int x , int y , int r , int g , int b ) {
-        Turok resize_gl = new Turok ( "Resize" );
+	public void draw_string_gl(String string, int x, int y, int r, int g, int b) {
+		Turok resize_gl = new Turok("Resize");
 
-        resize_gl.resize ( x , y , this.size );
+		resize_gl.resize(x, y, this.size);
 
-        font_renderer.drawString ( string , x , y , new OzarkColor ( r , g , b ).color_int ( ) );
+		font_renderer.drawString(string, x, y, new OzarkColor(r, g, b).color_int());
 
-        resize_gl.resize ( x , y , this.size , "end" );
+		resize_gl.resize(x, y, this.size, "end");
 
-        GL11.glPushMatrix ( );
+		GL11.glPushMatrix();
 
-        GL11.glEnable ( GL11.GL_TEXTURE_2D );
-        GL11.glEnable ( GL11.GL_BLEND );
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		GL11.glEnable(GL11.GL_BLEND);
 
-        GlStateManager.enableBlend ( );
+		GlStateManager.enableBlend();
 
-        GL11.glPopMatrix ( );
+		GL11.glPopMatrix();
 
-        RenderHelp.release_gl ( );
-    }
+		RenderHelp.release_gl();
+	}
 
-    public
-    int get_string_height ( ) {
-        FontRenderer fontRenderer = font_renderer;
+	public int get_string_height() {
+		FontRenderer fontRenderer = font_renderer;
 
-        return (int) ( fontRenderer.FONT_HEIGHT * this.size );
-    }
+		return (int) (fontRenderer.FONT_HEIGHT * this.size);
+	}
 
-    public
-    int get_string_width ( String string ) {
-        FontRenderer fontRenderer = font_renderer;
+	public int get_string_width(String string) {
+		FontRenderer fontRenderer = font_renderer;
 
-        return (int) ( fontRenderer.getStringWidth ( string ) );
-    }
+		return (int) (fontRenderer.getStringWidth(string));
+	}
 
-    public static
-    class OzarkColor extends Color {
-        public
-        OzarkColor ( int r , int g , int b , int a ) {
-            super ( r , g , b , a );
-        }
+	public static class OzarkColor extends Color {
+		public OzarkColor(int r, int g, int b, int a) {
+			super(r, g, b, a);
+		}
 
-        public
-        OzarkColor ( int r , int g , int b ) {
-            super ( r , g , b );
-        }
+		public OzarkColor(int r, int g, int b) {
+			super(r, g, b);
+		}
 
-        public
-        int color_int ( ) {
-            return getRGB ( );
-        }
-    }
+		public int color_int() {
+			return getRGB();
+		}
+	}
 }

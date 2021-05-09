@@ -4,37 +4,36 @@ import me.trambled.ozark.ozarkclient.event.Event;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
-public
-class EventDamageBlock extends Event {
+public class EventDamageBlock extends Event {
 
-    private final BlockPos BlockPos;
+    private BlockPos BlockPos;
     private EnumFacing Direction;
 
-    public
-    EventDamageBlock ( BlockPos posBlock , EnumFacing directionFacing ) {
+    public EventDamageBlock(BlockPos posBlock, EnumFacing directionFacing)
+    {
         BlockPos = posBlock;
-        setDirection ( directionFacing );
+        setDirection(directionFacing);
     }
 
-    public
-    BlockPos getPos ( ) {
+    public BlockPos getPos()
+    {
         return BlockPos;
     }
 
     /**
      * @return the direction
      */
-    public
-    EnumFacing getDirection ( ) {
+    public EnumFacing getDirection()
+    {
         return Direction;
     }
 
     /**
      * @param direction the direction to set
      */
-    public
-    void setDirection ( EnumFacing direction ) {
+    public void setDirection(EnumFacing direction)
+    {
         Direction = direction;
     }
-
+    
 }

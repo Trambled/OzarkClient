@@ -1,167 +1,168 @@
 package me.trambled.ozark.ozarkclient.module.movement;
 
-import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.events.EventMove;
+import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.event.events.EventPlayerJump;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
-import me.trambled.ozark.ozarkclient.module.Setting;
+import me.trambled.ozark.Ozark;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.init.MobEffects;
 import net.minecraft.network.play.client.CPacketPlayer;
+import net.minecraft.network.play.server.SPacketExplosion;
 import net.minecraft.util.math.MathHelper;
 
-public
-class Strafe extends Module {
+public class Strafe extends Module {
 
-    Setting speed_mode = create ( "Mode" , "StrafeMode" , "Strafe" , combobox ( "Strafe" , "On Ground" , "None" ) );
-    Setting speed = create ( "Speed" , "StrafeSpeed" , 5.4f , 0f , 10f );
-    Setting y_offset = create ( "Y Offset" , "StrafeYOffset" , 4f , 0f , 10f );
-    Setting auto_sprint = create ( "Auto Sprint" , "StrafeSprint" , true );
-    Setting on_water = create ( "On Water" , "StrafeOnWater" , true );
-    Setting auto_jump = create ( "Auto Jump" , "StrafeAutoJump" , true );
-    Setting backward = create ( "Backwards" , "StrafeBackwards" , true );
-    Setting timer = create ( "Timer" , "Timer" , false );
-    @EventHandler
-    private final Listener < EventPlayerJump > on_jump = new Listener <> ( event -> {
-        if ( speed_mode.in ( "Strafe" ) ) {
-            event.cancel ( );
-        }
-    } );
-    @EventHandler
-    private final Listener < EventMove > player_move = new Listener <> ( event -> {
+	public Strafe() {
+		super(Category.MOVEMENT);
 
-        if ( speed_mode.in ( "On Ground" ) ) return;
+		this.name        = "Strafe";
+		this.tag         = "Strafe";
+		this.description = "its like running, but faster";
+	}
 
-        if ( mc.player.isInWater ( ) || mc.player.isInLava ( ) ) {
-            if ( ! speed_mode.get_value ( true ) ) return;
-        }
+	Setting speed_mode = create("Mode", "StrafeMode", "Strafe", combobox("Strafe", "On Ground", "None"));
+	Setting speed = create("Speed", "StrafeSpeed", 5.4f, 0f, 10f);
+	Setting y_offset = create("Y Offset", "StrafeYOffset", 4f, 0f, 10f);
+	Setting auto_sprint = create("Auto Sprint", "StrafeSprint", true);
+	Setting on_water = create("On Water", "StrafeOnWater", true);
+	Setting auto_jump = create("Auto Jump", "StrafeAutoJump", true);
+	Setting backward = create("Backwards", "StrafeBackwards", true);
+	Setting timer = create("Timer", "Timer", false);
 
-        if ( mc.player.isSneaking ( ) || mc.player.isOnLadder ( ) || mc.player.isInWeb || mc.player.isInLava ( ) || mc.player.isInWater ( ) || mc.player.capabilities.isFlying )
-            return;
+	@Override
+	public void update() {
 
-        float player_speed = 0.2873f;
-        float move_forward = mc.player.movementInput.moveForward;
-        float move_strafe = mc.player.movementInput.moveStrafe;
-        float rotation_yaw = mc.player.rotationYaw;
+		if (full_null_check()) return;
 
-        if ( mc.player.isPotionActive ( MobEffects.SPEED ) ) {
-            final int amp = mc.player.getActivePotionEffect ( MobEffects.SPEED ).getAmplifier ( );
-            player_speed *= ( 1.2f * ( amp + 1 ) );
-        }
+		if (!Ozark.get_module_manager().get_module_with_tag("Timer").is_active() && timer.get_value(true)) {
+			Ozark.get_module_manager().get_module_with_tag("Timer").set_active(true);
+		}
 
-        player_speed *= speed.get_value ( 1 ) * 0.2f;
+		if (speed_mode.in("None")) {
+			return;
+		}
 
-        if ( move_forward == 0 && move_strafe == 0 ) {
-            event.set_x ( 0.0d );
-            event.set_z ( 0.0d );
-        } else {
-            if ( move_forward != 0.0f ) {
-                if ( move_strafe > 0.0f ) {
-                    rotation_yaw += ( ( move_forward > 0.0f ) ? - 45 : 45 );
-                } else if ( move_strafe < 0.0f ) {
-                    rotation_yaw += ( ( move_forward > 0.0f ) ? 45 : - 45 );
-                }
-                move_strafe = 0.0f;
-                if ( move_forward > 0.0f ) {
-                    move_forward = 1.0f;
-                } else if ( move_forward < 0.0f ) {
-                    move_forward = - 1.0f;
-                }
-            }
+		if (mc.player.isRiding()) return;
 
-            event.set_x ( ( move_forward * player_speed ) * Math.cos ( Math.toRadians ( ( rotation_yaw + 90.0f ) ) ) + ( move_strafe * player_speed ) * Math.sin ( Math.toRadians ( ( rotation_yaw + 90.0f ) ) ) );
-            event.set_z ( ( move_forward * player_speed ) * Math.sin ( Math.toRadians ( ( rotation_yaw + 90.0f ) ) ) - ( move_strafe * player_speed ) * Math.cos ( Math.toRadians ( ( rotation_yaw + 90.0f ) ) ) );
+		if (mc.player.isInWater() || mc.player.isInLava()) {
+			if (!on_water.get_value(true)) return;
+		}
 
-        }
+		if (mc.player.moveForward != 0 || mc.player.moveStrafing != 0) {
 
-        event.cancel ( );
+			if (mc.player.moveForward < 0 && !backward.get_value(true)) return;
 
-    } );
+			if (auto_sprint.get_value(true)) {
+				mc.player.setSprinting(true);
+			}
 
-    public
-    Strafe ( ) {
-        super ( Category.MOVEMENT );
+			if (mc.player.onGround && speed_mode.in("Strafe")) {
 
-        this.name = "Strafe";
-        this.tag = "Strafe";
-        this.description = "its like running, but faster";
-    }
+				if (auto_jump.get_value(true)) {
+					mc.player.motionY = y_offset.get_value(1) * 0.1;
+				}
 
-    @Override
-    public
-    void update ( ) {
+				final float yaw = get_rotation_yaw() * 0.017453292F;
+				mc.player.motionX -= MathHelper.sin(yaw) * 0.2f;
+				mc.player.motionZ += MathHelper.cos(yaw) * 0.2f;
 
-        if ( full_null_check ( ) ) return;
+			} else if (mc.player.onGround && speed_mode.in("On Ground")) {
 
-        if ( ! Ozark.get_module_manager ( ).get_module_with_tag ( "Timer" ).is_active ( ) && timer.get_value ( true ) ) {
-            Ozark.get_module_manager ( ).get_module_with_tag ( "Timer" ).set_active ( true );
-        }
+				final float yaw = get_rotation_yaw();
+				mc.player.motionX -= MathHelper.sin(yaw) * 0.2f;
+				mc.player.motionZ += MathHelper.cos(yaw) * 0.2f;
+				mc.player.connection.sendPacket(new CPacketPlayer.Position(mc.player.posX, mc.player.posY+ (y_offset.get_value(1) * 0.1), mc.player.posZ, false));
 
-        if ( speed_mode.in ( "None" ) ) {
-            return;
-        }
+			}
 
-        if ( mc.player.isRiding ( ) ) return;
+		}
 
-        if ( mc.player.isInWater ( ) || mc.player.isInLava ( ) ) {
-            if ( ! on_water.get_value ( true ) ) return;
-        }
+		if (mc.gameSettings.keyBindJump.isKeyDown() && mc.player.onGround) {
+			mc.player.motionY = y_offset.get_value(1) * 0.1f;
+		}
 
-        if ( mc.player.moveForward != 0 || mc.player.moveStrafing != 0 ) {
+	}
 
-            if ( mc.player.moveForward < 0 && ! backward.get_value ( true ) ) return;
+	@EventHandler
+	private Listener<EventPlayerJump> on_jump = new Listener<>(event -> {
+		if (speed_mode.in("Strafe")) {
+			event.cancel();
+		}
+	});
 
-            if ( auto_sprint.get_value ( true ) ) {
-                mc.player.setSprinting ( true );
-            }
 
-            if ( mc.player.onGround && speed_mode.in ( "Strafe" ) ) {
+	@EventHandler
+	private Listener<EventMove> player_move = new Listener<>(event -> {
 
-                if ( auto_jump.get_value ( true ) ) {
-                    mc.player.motionY = y_offset.get_value ( 1 ) * 0.1;
-                }
+		if (speed_mode.in("On Ground")) return;
 
-                final float yaw = get_rotation_yaw ( ) * 0.017453292F;
-                mc.player.motionX -= MathHelper.sin ( yaw ) * 0.2f;
-                mc.player.motionZ += MathHelper.cos ( yaw ) * 0.2f;
+		if (mc.player.isInWater() || mc.player.isInLava()) {
+			if (!speed_mode.get_value(true)) return;
+		}
 
-            } else if ( mc.player.onGround && speed_mode.in ( "On Ground" ) ) {
+		if (mc.player.isSneaking() || mc.player.isOnLadder() || mc.player.isInWeb || mc.player.isInLava() || mc.player.isInWater() || mc.player.capabilities.isFlying) return;
 
-                final float yaw = get_rotation_yaw ( );
-                mc.player.motionX -= MathHelper.sin ( yaw ) * 0.2f;
-                mc.player.motionZ += MathHelper.cos ( yaw ) * 0.2f;
-                mc.player.connection.sendPacket ( new CPacketPlayer.Position ( mc.player.posX , mc.player.posY + ( y_offset.get_value ( 1 ) * 0.1 ) , mc.player.posZ , false ) );
+		float player_speed = 0.2873f;
+		float move_forward = mc.player.movementInput.moveForward;
+		float move_strafe = mc.player.movementInput.moveStrafe;
+		float rotation_yaw = mc.player.rotationYaw;
 
-            }
+		if (mc.player.isPotionActive(MobEffects.SPEED)) {
+			final int amp = mc.player.getActivePotionEffect(MobEffects.SPEED).getAmplifier();
+			player_speed *= (1.2f * (amp+1));
+		}
 
-        }
+		player_speed *= speed.get_value(1) * 0.2f;
 
-        if ( mc.gameSettings.keyBindJump.isKeyDown ( ) && mc.player.onGround ) {
-            mc.player.motionY = y_offset.get_value ( 1 ) * 0.1f;
-        }
+		if (move_forward == 0 && move_strafe == 0) {
+			event.set_x(0.0d);
+			event.set_z(0.0d);
+		} else {
+			if (move_forward != 0.0f) {
+				if (move_strafe > 0.0f) {
+					rotation_yaw += ((move_forward > 0.0f) ? -45 : 45);
+				} else if (move_strafe < 0.0f) {
+					rotation_yaw += ((move_forward > 0.0f) ? 45 : -45);
+				}
+				move_strafe = 0.0f;
+				if (move_forward > 0.0f) {
+					move_forward = 1.0f;
+				} else if (move_forward < 0.0f) {
+					move_forward = -1.0f;
+				}
+			}
 
-    }
+			event.set_x((move_forward * player_speed) * Math.cos(Math.toRadians((rotation_yaw + 90.0f))) + (move_strafe * player_speed) * Math.sin(Math.toRadians((rotation_yaw + 90.0f))));
+			event.set_z((move_forward * player_speed) * Math.sin(Math.toRadians((rotation_yaw + 90.0f))) - (move_strafe * player_speed) * Math.cos(Math.toRadians((rotation_yaw + 90.0f))));
 
-    private
-    float get_rotation_yaw ( ) {
-        float rotation_yaw = mc.player.rotationYaw;
-        if ( mc.player.moveForward < 0.0f ) {
-            rotation_yaw += 180.0f;
-        }
-        float n = 1.0f;
-        if ( mc.player.moveForward < 0.0f ) {
-            n = - 0.5f;
-        } else if ( mc.player.moveForward > 0.0f ) {
-            n = 0.5f;
-        }
-        if ( mc.player.moveStrafing > 0.0f ) {
-            rotation_yaw -= 90.0f * n;
-        }
-        if ( mc.player.moveStrafing < 0.0f ) {
-            rotation_yaw += 90.0f * n;
-        }
-        return rotation_yaw * 0.017453292f;
-    }
+		}
+
+		event.cancel();
+
+	});
+
+	private float get_rotation_yaw() {
+		float rotation_yaw = mc.player.rotationYaw;
+		if (mc.player.moveForward < 0.0f) {
+			rotation_yaw += 180.0f;
+		}
+		float n = 1.0f;
+		if (mc.player.moveForward < 0.0f) {
+			n = -0.5f;
+		}
+		else if (mc.player.moveForward > 0.0f) {
+			n = 0.5f;
+		}
+		if (mc.player.moveStrafing > 0.0f) {
+			rotation_yaw -= 90.0f * n;
+		}
+		if (mc.player.moveStrafing < 0.0f) {
+			rotation_yaw += 90.0f * n;
+		}
+		return rotation_yaw * 0.017453292f;
+	}
 }

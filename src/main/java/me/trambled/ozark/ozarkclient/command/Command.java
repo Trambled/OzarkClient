@@ -5,40 +5,34 @@ import me.trambled.ozark.ozarkclient.manager.CommandManager;
 import net.minecraft.client.Minecraft;
 
 
-public
-class Command {
-    public static final Minecraft mc;
+public class Command {
+	String name;
+	String description;
 
-    static {
-        mc = Minecraft.getMinecraft ( );
-    }
+	public static final Minecraft mc;
 
-    String name;
-    String description;
+	public Command(String name, String description) {
+		this.name        = name;
+		this.description = description;
+	}
 
-    public
-    Command ( String name , String description ) {
-        this.name = name;
-        this.description = description;
-    }
+	public boolean get_message(String[] message) {
+		return false;
+	}
 
-    public
-    boolean get_message ( String[] message ) {
-        return false;
-    }
+	public String get_name() {
+		return this.name;
+	}
 
-    public
-    String get_name ( ) {
-        return this.name;
-    }
+	public String get_description() {
+		return this.description;
+	}
 
-    public
-    String get_description ( ) {
-        return this.description;
-    }
+	public String current_prefix() {
+		return CommandManager.get_prefix();
+	}
 
-    public
-    String current_prefix ( ) {
-        return CommandManager.get_prefix ( );
-    }
+	static {
+		mc = Minecraft.getMinecraft();
+	}
 }

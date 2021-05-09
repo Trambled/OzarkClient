@@ -13,38 +13,38 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 
 @Mixin(value = Entity.class)
-public
-class MixinEntity {
-    @Shadow
+public class MixinEntity {
+	// Inject.
+	@Redirect(method = "applyEntityCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;addVelocity(DDD)V"))
+	public void velocity(Entity entity, double x, double y, double z) {
+		EventEntity.EventColision event = new EventEntity.EventColision(entity, x, y, z);
+
+		Eventbus.EVENT_BUS.post(event);
+
+		if (event.isCancelled()) {
+			return;
+		}
+
+		entity.motionX += x;
+		entity.motionY += y;
+		entity.motionZ += z;
+
+		entity.isAirBorne = true;
+	}	
+
+	@Shadow
+    public void move(MoverType type, double x, double y, double z)
+    {
+
+	}
+	
+	@Shadow
     public double motionX;
+
     @Shadow
     public double motionY;
+
     @Shadow
     public double motionZ;
-
-    // Inject.
-    @Redirect(method = "applyEntityCollision", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;addVelocity(DDD)V"))
-    public
-    void velocity ( Entity entity , double x , double y , double z ) {
-        EventEntity.EventColision event = new EventEntity.EventColision ( entity , x , y , z );
-
-        Eventbus.EVENT_BUS.post ( event );
-
-        if ( event.isCancelled ( ) ) {
-            return;
-        }
-
-        entity.motionX += x;
-        entity.motionY += y;
-        entity.motionZ += z;
-
-        entity.isAirBorne = true;
-    }
-
-    @Shadow
-    public
-    void move ( MoverType type , double x , double y , double z ) {
-
-    }
 
 }

@@ -4,12 +4,10 @@ import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import net.minecraft.client.gui.GuiGameOver;
 
-public
-class AutoRespawn extends Module {
+public class AutoRespawn extends Module {
 
-    public
-    AutoRespawn ( ) {
-        super ( Category.MISC );
+    public AutoRespawn() {
+        super(Category.MISC);
 
         this.name = "Auto Respawn";
         this.tag = "AutoRespawn";
@@ -17,10 +15,9 @@ class AutoRespawn extends Module {
     }
 
     @Override
-    public
-    void update ( ) {
-        if ( mc.player.isDead && mc.currentScreen instanceof GuiGameOver ) {
-            mc.player.respawnPlayer ( );
+    public void update() {
+        if (mc.player.isDead && mc.currentScreen instanceof GuiGameOver) {
+            mc.player.respawnPlayer();
         }
     }
 }

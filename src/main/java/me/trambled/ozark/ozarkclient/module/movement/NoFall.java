@@ -4,40 +4,35 @@ import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import net.minecraft.network.play.client.CPacketPlayer;
 
-public
-class NoFall extends Module {
+public class NoFall extends Module {
+    
+    public NoFall() {
+        super(Category.MOVEMENT);
 
-    public
-    NoFall ( ) {
-        super ( Category.MOVEMENT );
-
-        this.name = "NoFall";
-        this.tag = "NoFall";
-        this.description = "prevents fall damage";
+		this.name        = "NoFall";
+		this.tag         = "NoFall";
+		this.description = "prevents fall damage";
     }
 
 
     @Override
-    protected
-    void enable ( ) {
-        if ( mc.player != null ) {
+    protected void enable() {
+        if (mc.player != null) {
             mc.player.fallDistance = 0;
         }
     }
 
     @Override
-    protected
-    void disable ( ) {
-        if ( mc.player != null ) {
+    protected void disable() {
+        if (mc.player != null) {
             mc.player.fallDistance = 0;
         }
     }
 
     @Override
-    public
-    void update ( ) {
-        if ( mc.player.fallDistance != 0 ) {
-            mc.player.connection.sendPacket ( new CPacketPlayer ( true ) );
+    public void update() {
+        if (mc.player.fallDistance != 0) {
+            mc.player.connection.sendPacket(new CPacketPlayer(true));
         }
     }
 }
