@@ -161,3 +161,5 @@ U can give cape designs and i can add u to the pastebin of uuids for capes.
 -nekohax (disgusted_face)
 
 -past
+
+-chimpware (best client approved by snine19))
