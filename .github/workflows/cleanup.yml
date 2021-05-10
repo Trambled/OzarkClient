@@ -1,11 +1,17 @@
-name: 'cleanup'
+name: Remove old artifacts
+
 on: [push,pull_request]
 
 jobs:
-  delete-artifacts:
+  remove-old-artifacts:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
-      - uses: kolpav/purge-artifacts-action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          expire-in: 0
+    - name: Remove old artifacts
+      uses: c-hive/gha-remove-artifacts@v1
+      with:
+        age: '1 day'
+        # Optional inputs
+        # skip-tags: true
+        # skip-recent: 5
