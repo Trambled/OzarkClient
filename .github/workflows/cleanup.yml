@@ -1,0 +1,11 @@
+name: 'cleanup'
+on: [push,pull_request]
+
+jobs:
+  delete-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: kolpav/purge-artifacts-action@v1
+        with:
+          token: $
+          expire-in: 7days
