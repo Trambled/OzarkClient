@@ -75,8 +75,9 @@ public class BurrowESP extends Module {
 
         //we need to add the 0.2 to prevent it from false flagging shifting
         BlockPos pos = new BlockPos(player.posX, player.posY + 0.2, player.posZ);
-
+//trambled pls add an option to disable this notifier because my small brain cant
         if (mc.world.getBlockState(pos).getBlock().equals(Blocks.OBSIDIAN)) {
+		MessageUtil.send_client_message("Burrowfag detected");
             return true;
         } 
 
