@@ -7,5 +7,4 @@ jobs:
     steps:
       - uses: kolpav/purge-artifacts-action@v1
         with:
-          token: $
           expire-in: 7days
