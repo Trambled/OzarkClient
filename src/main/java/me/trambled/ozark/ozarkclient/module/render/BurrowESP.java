@@ -10,6 +10,7 @@ import me.trambled.ozark.ozarkclient.util.FriendUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import me.trambled.ozark.ozarkclient.util.MessageUtil;
 
 import java.util.HashSet;
 import java.util.Set;
