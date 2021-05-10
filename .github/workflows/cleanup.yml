@@ -6,7 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: kolpav/purge-artifacts-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.SUPERSECRET }}
         with:
+          token: ${{ secrets.SUPERSECRET || github.token }}
           expire-in: 7days
