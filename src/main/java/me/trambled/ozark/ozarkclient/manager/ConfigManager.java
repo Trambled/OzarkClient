@@ -21,7 +21,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import static me.trambled.ozark.Ozark.send_minecraft_log;
@@ -370,15 +369,14 @@ public class ConfigManager {
 
 
     private void load_modules() throws IOException {
-
         for (Module module : Ozark.get_module_manager().get_array_modules()) {
             final String file_name = ACTIVE_CONFIG_FOLDER + module.get_tag() + ".txt";
+            final Path path = Paths.get(file_name);
+            if (!verify_file_without_creating(path)) continue;
             final File file = new File(file_name);
             final FileInputStream fi_stream = new FileInputStream(file.getAbsolutePath());
             final DataInputStream di_stream = new DataInputStream(fi_stream);
             final BufferedReader br = new BufferedReader(new InputStreamReader(di_stream));
-
-            final List<String> bugged_lines = new ArrayList<>();
 
             String line;
             while((line = br.readLine()) != null) {
@@ -641,9 +639,9 @@ public class ConfigManager {
             load_kitmessage();
             load_past_gui();
             load_xray();
-            load_binds();
             load_display_name();
             load_modules();
+            load_binds();
         } catch (IOException e) {
             send_minecraft_log("Something has gone wrong while loading settings please report it to trambled");
             send_minecraft_log(e.toString());
@@ -661,6 +659,10 @@ public class ConfigManager {
         if (!Files.exists(path)) {
             Files.createFile(path);
         }
+    }
+
+    public boolean verify_file_without_creating(final Path path) throws IOException {
+        return Files.exists(path);
     }
 
     public void verify_dir(final Path path) throws IOException {

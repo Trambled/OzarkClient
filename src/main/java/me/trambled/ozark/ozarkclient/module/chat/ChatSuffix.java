@@ -24,7 +24,8 @@ public class ChatSuffix extends Module {
 	}
 
 	Setting ignore = create("Ignore", "ChatSuffixIgnore", true);
-	Setting type   = create("Type", "ChatSuffixType", "Default", combobox("Default", "Random"));
+	Setting type = create("Type", "ChatSuffixType", "Default", combobox("Default", "Random"));
+	Setting version = create("Version", "ChatSuffixVersion", true);
 
 	boolean accept_suffix;
 	boolean suffix_default;
@@ -98,7 +99,10 @@ public class ChatSuffix extends Module {
 		if (accept_suffix) {
 			if (suffix_default) {
 				// Just default.
-				message += Ozark.SIGN + convert_base("OzarkClient " + Ozark.VERSION);
+				message += Ozark.SIGN + convert_base(Ozark.DISPLAY_NAME + Ozark.SIGN);
+				if (version.get_value(true)) {
+					message += Ozark.VERSION;
+				}
 			}
 
 			if (suffix_random) {

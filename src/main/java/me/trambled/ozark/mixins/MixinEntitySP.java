@@ -6,7 +6,6 @@ import me.trambled.ozark.ozarkclient.event.events.EventMotionUpdate;
 import me.trambled.ozark.ozarkclient.event.events.EventMove;
 import me.trambled.ozark.ozarkclient.event.events.EventSwing;
 import me.trambled.ozark.ozarkclient.event.events.EventPlayerPushOutOfBlocks;
-import me.trambled.ozark.ozarkclient.event.events.EventPlayerSendChatMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.SoundHandler;
@@ -78,15 +77,6 @@ public class MixinEntitySP extends MixinEntity {
 
     }
 
-
-    @Inject(method = "sendChatMessage", at = @At("HEAD"), cancellable = true)
-    public void swingArm(String p_Message, CallbackInfo p_Info)
-    {
-        EventPlayerSendChatMessage l_Event = new EventPlayerSendChatMessage(p_Message);
-        Eventbus.EVENT_BUS.post(l_Event);
-        if (l_Event.isCancelled())
-            p_Info.cancel();
-    }
 
     @Redirect(method = { "notifyDataManagerChange" }, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/audio/SoundHandler;playSound(Lnet/minecraft/client/audio/ISound;)V"))
     private void playElytraSound(final SoundHandler soundHandler, final ISound sound) {

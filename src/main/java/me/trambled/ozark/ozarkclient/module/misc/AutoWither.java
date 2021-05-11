@@ -50,7 +50,7 @@ public class AutoWither extends Module {
             this.set_disable();
         }
 
-        // this shit is fucking stupodi m literaltl retarded
+        // this shit is fucking stupid im retarded
         if (did_soul_sand()) {
             do_wither_skull();
         } else {
@@ -108,7 +108,7 @@ public class AutoWither extends Module {
         }
 
         if (delay_counter > this.tick_for_place.get_value(1)) {
-            BlockUtil.placeBlock(pos_to_fill, find_soulsand_hotbar(), rotate.get_value(true), rotate.get_value(true), swing);
+            BlockUtil.placeBlock(pos_to_fill, find_soulsand_hotbar(), rotate.get_value(true), false, swing);
             delay_counter = 0;
         }
 
@@ -162,7 +162,7 @@ public class AutoWither extends Module {
         }
 
         if (delay_counter > this.tick_for_place.get_value(1)) {
-            BlockUtil.placeBlock(pos_to_fill, find_witherskull_hotbar(), rotate.get_value(true), rotate.get_value(true), swing);
+            BlockUtil.placeBlock(pos_to_fill, find_witherskull_hotbar(), rotate.get_value(true), false, swing);
             delay_counter = 0;
         }
 

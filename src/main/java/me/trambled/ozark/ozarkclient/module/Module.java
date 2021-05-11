@@ -192,15 +192,23 @@ public class Module implements Listenable {
 
 	}
 
+	public void update_always() {
+
+	}
+
+	public void fast_update() {
+
+	}
+
+	public void fast_update_always() {
+
+	}
+
 	public void event_widget() {
 
 	}
 
 	protected void disable() {
-
-	}
-
-	public void update_always() {
 
 	}
 

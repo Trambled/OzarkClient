@@ -53,6 +53,7 @@ public class ModuleManager {
 		add_module(new AutoGroom());
 		add_module(new Shrug());
 		add_module(new AutoDDOS());
+		add_module(new BurrowAlert());
 
 		// Combat.
 		add_module(new Criticals());
@@ -80,7 +81,6 @@ public class ModuleManager {
 		add_module(new AntiTrap());
 		add_module(new AutoAnvil());
 		add_module(new PistonCrystal());
-		add_module(new Faceplacer());
 		add_module(new Blocker());
 		add_module(new Quiver());
 		add_module(new CevBreaker());
@@ -106,6 +106,7 @@ public class ModuleManager {
 		add_module(new Scaffold());
 		add_module(new CoordExploit());
 		add_module(new InstantBurrow());
+		add_module(new AntiWeb());
 
 		// Movement.
 		add_module(new Strafe());
@@ -268,6 +269,19 @@ public class ModuleManager {
 		}
 	}
 
+	public void fast_update() {
+		for (Module modules : get_array_modules()) {
+			try {
+				if (modules.is_active()) {
+					modules.fast_update();
+				}
+				modules.fast_update_always();
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
+		}
+	}
+
 	public void render() {
 		for (Module modules : get_array_modules()) {
 			if (modules.is_active()) {
@@ -299,6 +313,7 @@ public class ModuleManager {
 
 		return module_requested;
 	}
+
 
 	public ArrayList<Module> get_modules_with_category(Category category) {
 		ArrayList<Module> module_requesteds = new ArrayList<>();

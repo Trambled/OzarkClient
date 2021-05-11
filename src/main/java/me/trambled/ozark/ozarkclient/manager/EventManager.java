@@ -49,6 +49,11 @@ public class EventManager {
 	}
 
 	@SubscribeEvent
+	public void onFastTick(TickEvent event) {
+		Ozark.get_module_manager().fast_update();
+	}
+
+	@SubscribeEvent
 	public void onWorldRender(RenderWorldLastEvent event) {
 		if (event.isCanceled()) {
 			return;

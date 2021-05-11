@@ -9,9 +9,11 @@ import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.Ozark;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.server.SPacketExplosion;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
 public class Strafe extends Module {
@@ -50,6 +52,11 @@ public class Strafe extends Module {
 
 		if (mc.player.isInWater() || mc.player.isInLava()) {
 			if (!on_water.get_value(true)) return;
+		}
+
+		BlockPos pos = new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ);
+		if (mc.world.getBlockState(pos).getBlock().equals(Blocks.WEB)) {
+			return;
 		}
 
 		if (mc.player.moveForward != 0 || mc.player.moveStrafing != 0) {

@@ -11,51 +11,47 @@ import net.minecraft.entity.player.EntityPlayer;
 import java.util.ArrayList;
 import java.util.List;
 
+public class VisualRange extends Module {
 
-public
-class VisualRange extends Module {
+	private List<String> people;
 
-    private List < String > people;
+	public VisualRange() {
+		super(Category.CHAT);
 
-    public
-    VisualRange ( ) {
-        super ( Category.CHAT );
+		this.name        = "Visual Range";
+		this.tag         = "VisualRange";
+		this.description = "bc using ur eyes is overrated";
+	}
 
-        this.name = "Visual Range";
-        this.tag = "VisualRange";
-        this.description = "also known as player detector";
-    }
+	@Override
+	public void enable() {
+		people = new ArrayList<>();
+	}
 
-    @Override
-    public
-    void enable ( ) {
-        people = new ArrayList <> ( );
-    }
+	@Override
+	public void update() {
+		if (mc.world == null | mc.player == null) return;
 
-    @Override
-    public
-    void update ( ) {
-        if ( mc.world == null | mc.player == null ) return;
+		List<String> peoplenew = new ArrayList<>();
+		List<EntityPlayer> playerEntities = mc.world.playerEntities;
 
-        List < String > peoplenew = new ArrayList <> ( );
-        List < EntityPlayer > playerEntities = mc.world.playerEntities;
+		for (Entity e : playerEntities) {
+			if (e.getName().equals(mc.player.getName())) continue;
+			peoplenew.add(e.getName());
+		}
 
-        for (Entity e : playerEntities) {
-            if ( e.getName ( ).equals ( mc.player.getName ( ) ) ) continue;
-            peoplenew.add ( e.getName ( ) );
-        }
+		if (peoplenew.size() > 0) {
+			for (String name : peoplenew) {
+				if (!people.contains(name)) {
+					if (FriendUtil.isFriend(name)) {
+						MessageUtil.send_client_message("I see a friend named " + ChatFormatting.RESET + ChatFormatting.GREEN + name + ChatFormatting.RESET + ". Say Hi!");
+					} else {
+						MessageUtil.send_client_message("I see an enemy named " + ChatFormatting.RESET + ChatFormatting.RED + name + ChatFormatting.RESET + "");
+					}
+					people.add(name);
+				}
+			}
+		}
 
-        if ( peoplenew.size ( ) > 0 ) {
-            for (String name : peoplenew) {
-                if ( ! people.contains ( name ) ) {
-                    if ( FriendUtil.isFriend ( name ) ) {
-                        MessageUtil.send_client_message ( "Friend detected named " + ChatFormatting.RESET + ChatFormatting.GREEN + name + ChatFormatting.RESET + "." );
-                    } else {
-                        MessageUtil.send_client_message ( "Player detected named " + ChatFormatting.RESET + ChatFormatting.RED + name + ChatFormatting.RESET + "." );
-                    }
-                    people.add ( name );
-                }
-            }
-        }
-    }
+	}
 }

@@ -38,6 +38,7 @@ public class NoRender extends Module {
     Setting hurt_cam = create("Hurt Cam", "HurtCam", true);
     Setting skylight = create("Skylight", "Skylight", false);
     Setting armor = create("Armor", "Armor", false);
+    Setting advancements = create("Advancements", "Advancements", false);
     Setting enchanting_table = create("Enchanting Table", "EnchantingTable", false);
     Setting beacon = create("Beacon", "Beacon", false);
     Setting nametags = create("Nametags", "Nametags", false);
@@ -140,6 +141,13 @@ public class NoRender extends Module {
         if (nametags.get_value(true)) {
             event.cancel();
         }
+    });
+
+    @EventHandler
+    private final Listener<EventRenderToast> on_render_toast = new Listener<>(event -> {
+       if (advancements.get_value(true)) {
+           event.cancel();
+       }
     });
 
 

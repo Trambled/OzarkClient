@@ -29,7 +29,6 @@ public class FakePlayer extends Module {
         fake_player.copyLocationAndAnglesFrom(mc.player);
         fake_player.rotationYawHead = mc.player.rotationYawHead;
         mc.world.addEntityToWorld(-100, fake_player);
-
     }
 
     @Override
