@@ -6,6 +6,7 @@ import me.trambled.ozark.ozarkclient.util.MessageUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import com.mojang.realmsclient.gui.ChatFormatting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +34,11 @@ public class BurrowAlert extends Module {
             BlockPos pos = new BlockPos(player.posX, player.posY + 0.2, player.posZ);
             if (mc.world.getBlockState(pos).getBlock().equals(Blocks.OBSIDIAN)) {
                 if (players.contains(player)) continue;
-                MessageUtil.send_client_message(player.getName() + " has burrowed");
+                MessageUtil.send_client_message(player.getName() + " ChatFormatting.DARK_RED + has burrowed");
                 players.add(player);
             } else {
                 if (players.contains(player)) {
-                    MessageUtil.send_client_message(player.getName() + " is no longer burrowed");
+                    MessageUtil.send_client_message(player.getName() + " ChatFormatting.GREEN + is no longer burrowed");
                     players.remove(player);
                 }
             }
