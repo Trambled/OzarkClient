@@ -162,4 +162,6 @@ U can give cape designs and i can add u to the pastebin of uuids for capes.
 
 -past
 
+-bloodhack (wp2 skid)
+
 -chimpware (best client approved by snine19))
