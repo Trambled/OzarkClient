@@ -27,7 +27,7 @@ public class AutoNomadHut extends Module {
 
         super(Category.MISC);
 
-        this.name = "Auto NomadHut";
+        this.name = "AutoNomadHut";
         this.tag = "AutoNomadHut";
         this.description = "i fucking hate fit";
     }

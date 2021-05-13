@@ -14,7 +14,7 @@ public class OffhandBypass extends Module
     public OffhandBypass() {
         super(Category.COMBAT);
 
-        this.name = "Offhand Bypass";
+        this.name = "OffhandBypass";
         this.tag = "OffhandBypass";
         this.description = "makes your hand that u use set to offhand for gapple offhand"; 
     }

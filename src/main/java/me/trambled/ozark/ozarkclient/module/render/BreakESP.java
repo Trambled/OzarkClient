@@ -17,7 +17,7 @@ public class BreakESP extends Module {
     public BreakESP() {
         super(Category.RENDER);
 
-        this.name = "Break ESP";
+        this.name = "BreakESP";
         this.tag = "BreakESP";
         this.description = "highlights blocks being broken";
     }

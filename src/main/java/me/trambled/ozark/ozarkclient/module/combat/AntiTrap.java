@@ -23,9 +23,9 @@ public class AntiTrap extends Module
 
         super(Category.COMBAT);
 
-        this.name = "Anti Trap (WIP)";
+        this.name = "AntiTrap";
         this.tag = "AntiTrap";
-        this.description = "Choruses out of a trap";
+        this.description = "choruses out of a trap";
 
     }
 

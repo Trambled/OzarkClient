@@ -13,7 +13,7 @@ public class RetardChat extends Module {
     public RetardChat() {
         super(Category.CHAT);
 
-        this.name = "Retard Chat";
+        this.name = "RetardChat";
         this.tag = "RetardChat";
         this.description = "makes you sound retarded";
     }

@@ -15,7 +15,7 @@ public class AutoMine extends Module {
     public AutoMine() {
         super(Category.COMBAT);
 
-        this.name        = "Auto City";
+        this.name        = "AutoCity";
         this.tag         = "CityBoss";
         this.description = "mines out player's surround";
     }

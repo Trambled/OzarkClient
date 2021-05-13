@@ -14,7 +14,7 @@ public class ChatSpammer extends Module {
     public ChatSpammer() {
         super(Category.CHAT);
 
-        this.name = "Chat Spammer";
+        this.name = "ChatSpammer";
         this.tag = "ChatSpammer";
         this.description = "be annoying";
     }

@@ -15,7 +15,7 @@ public class FakePlayer extends Module {
     public FakePlayer() {
         super(Category.MISC);
 
-		this.name        = "Fake Player";
+		this.name        = "FakePlayer";
 		this.tag         = "FakePlayer";
 		this.description = "spawns a client-side player to config on";
     }

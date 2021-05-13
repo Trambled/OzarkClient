@@ -24,9 +24,9 @@ public class HoleFill extends Module {
     public HoleFill() {
 		super(Category.COMBAT);
 
-		this.name        = "Hole Fill"; 
+		this.name        = "HoleFill"; 
 		this.tag         = "HoleFill";
-		this.description = "Turn holes into floors";
+		this.description = "turn holes into floors";
     }
 
     Setting smart_mode = create("Smart Mode", "HoleFillSmart", false);

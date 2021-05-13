@@ -27,7 +27,7 @@ public class AutoAnvil extends Module
     public AutoAnvil() {
         super(Category.COMBAT);
 
-        this.name        = "Auto Anvil";
+        this.name        = "AutoAnvil";
         this.tag         = "AutoAnvil";
         this.description = "automatically anvils an opponent";
     }

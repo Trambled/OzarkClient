@@ -21,7 +21,7 @@ public class TotemPopCounter extends Module {
     public TotemPopCounter() {
 		super(Category.CHAT);
 
-		this.name        = "Totem Pop Counter";
+		this.name        = "TotemPopCounter";
 		this.tag         = "TotemPopCounter";
 		this.description = "Automatically says who ur EZZZZZZZZZZING";
 

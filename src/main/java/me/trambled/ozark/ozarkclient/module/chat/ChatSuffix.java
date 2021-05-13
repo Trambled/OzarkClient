@@ -18,7 +18,7 @@ public class ChatSuffix extends Module {
 	public ChatSuffix() {
 		super(Category.CHAT);
 
-		this.name        = "Chat Suffix";
+		this.name        = "ChatSuffix";
 		this.tag         = "ChatSuffix";
 		this.description = "show off how cool u are";
 	}

@@ -15,7 +15,7 @@ public class ArmorSwitch extends Module {
     public ArmorSwitch() {
         super(Category.COMBAT);
 
-        this.name        = "Smart Armor";
+        this.name        = "SmartArmor";
         this.tag         = "ArmorSwitch";
         this.description = "switches armor smart";
     }

@@ -33,7 +33,7 @@ public class NameTags extends Module {
     public NameTags() {
         super(Category.RENDER);
 
-        this.name = "Name Tags";
+        this.name = "Nametags";
         this.tag = "NameTags";
         this.description = "MORE DETAILED NAMESSSSS";
     }

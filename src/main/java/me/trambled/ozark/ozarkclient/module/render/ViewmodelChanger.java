@@ -24,7 +24,7 @@ public class ViewmodelChanger extends Module {
     public ViewmodelChanger() {
         super(Category.RENDER);
 
-        this.name = "Custom Viewmodel";
+        this.name = "Viewmodel";
         this.tag = "CustomViewmodel";
         this.description = "a combo of gamesense & ferox viewmodel";
     }

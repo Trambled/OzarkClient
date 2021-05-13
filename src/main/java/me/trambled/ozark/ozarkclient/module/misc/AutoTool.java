@@ -25,7 +25,7 @@ public class AutoTool extends Module
 {
     public AutoTool() {
         super(Category.MISC);
-        this.name = "Auto Tool";
+        this.name = "AutoTool";
         this.tag = "AutoTool";
         this.description = "switches to the best tool for mining";
     }

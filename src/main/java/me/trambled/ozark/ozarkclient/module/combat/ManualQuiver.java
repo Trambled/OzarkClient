@@ -16,7 +16,7 @@ public class ManualQuiver extends Module
 
         super(Category.COMBAT);
 
-        this.name = "Manual Quiver";
+        this.name = "ManualQuiver";
         this.tag = "ManualQuiver";
         this.description = "shoots arrows over you"; //works like half of the time
 

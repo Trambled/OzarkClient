@@ -11,7 +11,7 @@ public class EntitySpeed extends Module
     public EntitySpeed() {
         super(Category.MOVEMENT);
 
-        this.name = "Entity Speed";
+        this.name = "EntitySpeed";
         this.tag = "EntitySpeed";
         this.description = "will probably kill your horse";
     }

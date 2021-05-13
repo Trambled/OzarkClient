@@ -13,7 +13,7 @@ public class FastBow extends Module {
 
         super(Category.COMBAT);
 
-        this.name = "Fast Bow";
+        this.name = "FastBow";
         this.tag = "FastBow";
         this.description = "bow spam go brrrr";
 

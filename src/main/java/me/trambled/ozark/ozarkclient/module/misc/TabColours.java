@@ -7,7 +7,7 @@ public class TabColours extends Module {
     public TabColours() {
         super(Category.MISC);
 
-        this.name = "Tab Colors";
+        this.name = "TabColors";
         this.tag = "TabColors";
         this.description = "highlights friends & enemies in tab";
     }

@@ -12,7 +12,7 @@ public class Timechanger extends Module {
     public Timechanger() {
         super(Category.RENDER);
 
-        this.name = "Time Changer";
+        this.name = "TimeChanger";
         this.tag = "TimeChanger";
         this.description = "changes time";
     }

@@ -11,7 +11,7 @@ public class FullBright extends Module {
     public FullBright() {
         super(Category.RENDER);
 
-        this.name = "Full Bright";
+        this.name = "FullBright";
         this.tag = "FullBright";
         this.description = "best hack";
     }

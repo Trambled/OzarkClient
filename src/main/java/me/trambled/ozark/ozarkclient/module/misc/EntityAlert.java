@@ -24,7 +24,7 @@ public class EntityAlert extends Module
     public EntityAlert() {
         super(Category.MISC);
 
-        this.name = "Entity Alert";
+        this.name = "EntityAlert";
         this.tag = "EntityAlert";
         this.description = "alerts u when Entitys appear in render distance";
     }

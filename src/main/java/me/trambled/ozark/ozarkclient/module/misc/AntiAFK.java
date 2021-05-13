@@ -9,7 +9,7 @@ public class AntiAFK extends Module {
     public AntiAFK() {
         super(Category.MISC);
 
-        this.name = "Anti AFK";
+        this.name = "AntiAFK";
         this.tag = "AntiAFK";
         this.description = "prevents being kicked for afk-ing";
     }

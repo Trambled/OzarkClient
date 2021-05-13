@@ -8,7 +8,7 @@ public class AutoSuicide extends Module {
     public AutoSuicide() {
         super(Category.CHAT);
       
-        this.name = "Auto Suicide";
+        this.name = "AutoSuicide";
         this.tag = "AutoSuicide";
         this.description = "allahu akbar";
       

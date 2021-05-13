@@ -16,7 +16,7 @@ public class AntiSound extends Module {
     public AntiSound() {
 		super(Category.MISC);
 
-		this.name        = "Anti Sound";
+		this.name        = "AntiSound";
 		this.tag         = "AntiSound";
 		this.description = "cancels certain sounds";
     }

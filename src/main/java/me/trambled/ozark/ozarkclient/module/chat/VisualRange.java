@@ -18,7 +18,7 @@ public class VisualRange extends Module {
 	public VisualRange() {
 		super(Category.CHAT);
 
-		this.name        = "Visual Range";
+		this.name        = "VisualRange";
 		this.tag         = "VisualRange";
 		this.description = "bc using ur eyes is overrated";
 	}

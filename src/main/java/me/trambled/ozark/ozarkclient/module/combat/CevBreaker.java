@@ -31,7 +31,7 @@ public class CevBreaker extends Module
     public CevBreaker() {
         super(Category.COMBAT);
 
-        this.name        = "Civ Breaker";
+        this.name        = "CevBreaker";
         this.tag         = "CevBreaker";
         this.description = "crystals an opponent from above their heads";
     }

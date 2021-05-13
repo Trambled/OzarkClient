@@ -18,7 +18,7 @@ public class CityESP extends Module {
     public CityESP() {
         super(Category.RENDER);
 
-        this.name = "City ESP";
+        this.name = "CityESP";
         this.tag = "CityESP";
         this.description = "highlights cityable blocks";
 

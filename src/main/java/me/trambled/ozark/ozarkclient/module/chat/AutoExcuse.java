@@ -10,7 +10,7 @@ public class AutoExcuse extends Module
     public AutoExcuse() {
         super(Category.CHAT);
         this.diedTime = 0;
-        this.name = "Auto Excuse";
+        this.name = "AutoExcuse";
         this.tag = "AutoExcuse";
         this.description = "tell people why you died";
     }

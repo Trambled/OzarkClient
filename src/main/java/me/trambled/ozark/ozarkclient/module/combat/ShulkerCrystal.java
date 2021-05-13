@@ -40,7 +40,7 @@ public class ShulkerCrystal extends Module
     public ShulkerCrystal() {
         super(Category.COMBAT);
 
-        this.name = "Shulker Crystal";
+        this.name = "ShulkerCrystal";
         this.tag = "ShulkerCrystal";
         this.description = "Automatically pushes crystals into holes using shulkers";
     }

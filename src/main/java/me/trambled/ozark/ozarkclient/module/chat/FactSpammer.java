@@ -11,7 +11,7 @@ public class FactSpammer extends Module {
     public FactSpammer() {
         super(Category.CHAT);
 
-        this.name = "Fact Spammer";
+        this.name = "FactSpammer";
         this.tag = "FactSpammer";
         this.description = "spams snapple facts";
     }

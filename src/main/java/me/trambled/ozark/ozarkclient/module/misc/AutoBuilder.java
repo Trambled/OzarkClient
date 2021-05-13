@@ -29,7 +29,7 @@ public class AutoBuilder extends Module {
     public AutoBuilder() {
 		super(Category.MISC);
 
-		this.name        = "Auto Builder";
+		this.name        = "AutoBuilder";
 		this.tag         = "AutoBuilder";
 		this.description = "automatically builds certain things";
     }

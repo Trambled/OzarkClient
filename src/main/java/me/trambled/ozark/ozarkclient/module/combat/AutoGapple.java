@@ -12,7 +12,7 @@ public class AutoGapple extends Module {
     public AutoGapple() {
         super(Category.COMBAT);
 
-        this.name        = "Auto Gapple";
+        this.name        = "AutoGapple";
         this.tag         = "AutoGapple";
         this.description = "switch to gapple";
     }

@@ -36,7 +36,7 @@ public class PistonCrystal extends Module
     public PistonCrystal() {
         super(Category.COMBAT);
 
-        this.name = "Piston Crystal";
+        this.name = "PistonCrystal";
         this.tag = "PistonCrystal";
         this.description = "Automatically pushes crystals into holes using pistons";
     }

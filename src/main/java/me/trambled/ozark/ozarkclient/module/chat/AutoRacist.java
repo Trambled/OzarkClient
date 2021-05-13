@@ -14,7 +14,7 @@ public class AutoRacist extends Module {
     public AutoRacist() {
         super(Category.CHAT);
 
-        this.name = "Auto Racist";
+        this.name = "AutoRacist";
         this.tag = "AutoRacist";
         this.description = "edgy....";
     }

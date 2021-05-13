@@ -35,7 +35,7 @@ public class StorageESP extends Module {
 	public StorageESP() {
 		super(Category.RENDER);
 
-		this.name        = "Storage ESP";
+		this.name        = "StorageESP";
 		this.tag         = "StorageESP";
 		this.description = "Is able to see storages in world";
 	}

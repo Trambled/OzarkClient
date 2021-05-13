@@ -18,7 +18,7 @@ public class Highlight extends Module {
 	public Highlight() {
 		super(Category.RENDER);
 
-		this.name        = "Block Highlight";
+		this.name        = "BlockHighlight";
 		this.tag         = "BlockHighlight";
 		this.description = "see what block ur targeting";
 	}

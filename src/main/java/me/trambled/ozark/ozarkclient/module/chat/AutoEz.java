@@ -22,9 +22,9 @@ public class AutoEz extends Module {
     public AutoEz() {
         super(Category.CHAT);
 
-        this.name = "Auto Ez";
+        this.name = "AutoEz";
         this.tag = "AutoEz";
-        this.description = "You just got niggered by OzarkClient";
+        this.description = "You just got niggered by Ozark";
     }
 
     int delay_count = 0;

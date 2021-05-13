@@ -15,7 +15,7 @@ public class AutoGroom extends Module {
     public AutoGroom() {
         super(Category.CHAT);
 
-        this.name = "Auto Groom";
+        this.name = "AutoGroom";
         this.tag = "AutoGroom";
         this.description = "EDP445, james charles, jefferey epstein, etc";
     }

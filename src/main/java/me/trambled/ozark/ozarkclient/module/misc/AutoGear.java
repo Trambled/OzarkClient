@@ -28,7 +28,7 @@ public class AutoGear extends Module {
 
         super(Category.MISC);
 
-        this.name = "Auto Gear";
+        this.name = "AutoGear";
         this.tag = "AutoGear";
         this.description = "sorts ur inv";
     }

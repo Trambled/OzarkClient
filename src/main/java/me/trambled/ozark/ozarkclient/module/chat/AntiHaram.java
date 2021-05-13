@@ -14,7 +14,7 @@ public class AntiHaram extends Module {
     public AntiHaram() {
         super(Category.CHAT);
 
-        this.name = "Anti Haram";
+        this.name = "AntiHaram";
         this.tag = "AntiHaram";
         this.description = "snine19";
     }

@@ -8,9 +8,9 @@ public class CustomMainMenu extends Module {
 	public CustomMainMenu() {
 		super(Category.GUI);
 
-		this.name        = "Custom Main Menu";
+		this.name        = "CustomMainMenu";
 		this.tag         = "CustomMainMenu";
-		this.description = "another main menu";
+		this.description = "better main menu";
 	}
 
 }

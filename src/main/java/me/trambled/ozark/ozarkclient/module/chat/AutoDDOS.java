@@ -9,7 +9,7 @@ public class AutoDDOS extends Module {
     public AutoDDOS() {
         super(Category.CHAT);
         
-        this.name        = "Auto DDOS";
+        this.name        = "AutoDDOS";
 	this.tag         = "AutoDDOS";
 	this.description = "hacker pro";
 

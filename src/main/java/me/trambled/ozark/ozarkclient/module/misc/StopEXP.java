@@ -18,7 +18,7 @@ public class StopEXP extends Module {
     public StopEXP() {
         super(Category.MISC);
 
-		this.name        = "Stop EXP";
+		this.name        = "StopEXP";
 		this.tag         = "StopEXP";
 		this.description = "stops exp at a certain armor percent";
 	}

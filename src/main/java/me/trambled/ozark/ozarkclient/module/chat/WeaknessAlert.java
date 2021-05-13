@@ -11,7 +11,7 @@ public class WeaknessAlert extends Module {
     public WeaknessAlert() {
         super(Category.CHAT);
 
-        this.name = "Weakness Alert";
+        this.name = "WeaknessAlert";
         this.tag = "WeaknessAlert";
         this.description = "weakness alert more like fag alert";
     }

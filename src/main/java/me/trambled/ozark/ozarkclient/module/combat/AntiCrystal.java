@@ -24,7 +24,7 @@ public class AntiCrystal extends Module
     public AntiCrystal() {
         super(Category.COMBAT);
 
-        this.name        = "Anti Crystal";
+        this.name        = "AntiCrystal";
         this.tag         = "AntiCrystal";
         this.description = "Places a pressure plate below crystals to remove crystal damage";
     }

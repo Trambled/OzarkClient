@@ -14,7 +14,7 @@ public class SkyColour extends Module {
     public SkyColour() {
         super(Category.RENDER);
 
-        this.name = "Sky Colour";
+        this.name = "SkyColour";
         this.tag = "SkyColour";
         this.description = "Changes the sky's colour";
     }

@@ -13,7 +13,7 @@ public class FastUtil extends Module {
 	public FastUtil() {
 		super(Category.MISC);
 
-		this.name        = "Fast Util"; 
+		this.name        = "FastUtil"; 
 		this.tag         = "FastUtil";
 		this.description = "use things faster";
 	}

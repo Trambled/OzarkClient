@@ -27,7 +27,7 @@ public class AutoWither extends Module {
     public AutoWither() {
         super(Category.MISC);
 
-        this.name = "Auto Wither";
+        this.name = "AutoWither";
         this.tag = "AutoWither";
         this.description = "makes withers";
     }

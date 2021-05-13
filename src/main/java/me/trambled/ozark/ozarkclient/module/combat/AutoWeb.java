@@ -19,7 +19,7 @@ public class AutoWeb extends Module {
     public AutoWeb() {
         super(Category.COMBAT);
 
-        this.name        = "Auto Self Web";
+        this.name        = "AutoSelfWeb";
         this.tag         = "AutoSelfWeb";
         this.description = "places fuckin webs at ur feet";
     }

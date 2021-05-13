@@ -22,7 +22,7 @@ public class HoleESP extends Module {
 	public HoleESP() {
 		super(Category.RENDER);
 
-		this.name        = "Hole ESP";
+		this.name        = "HoleESP";
 		this.tag         = "HoleESP";
 		this.description = "Lets you know where holes are because of u being blind.";
 	}

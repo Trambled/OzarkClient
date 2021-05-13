@@ -41,7 +41,7 @@ public class AutoCrystal extends Module {
     public AutoCrystal() {
         super(Category.COMBAT);
 
-        this.name        = "Auto Crystal";
+        this.name        = "AutoCrystal";
         this.tag         = "AutoCrystal";
         this.description = "kills people (if ur good)";
     }

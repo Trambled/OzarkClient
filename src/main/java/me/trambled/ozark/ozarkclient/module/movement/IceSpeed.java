@@ -10,7 +10,7 @@ public class IceSpeed extends Module
     
     public IceSpeed() {
         super(Category.MOVEMENT);
-        this.name = "Ice Speed";
+        this.name = "IceSpeed";
         this.tag = "IceSpeed";
         this.description = "speed on ice!";
     }

@@ -23,7 +23,7 @@ public class SelfTrap extends Module {
 
         super(Category.COMBAT);
 
-		this.name        = "Self Trap";
+		this.name        = "SelfTrap";
 		this.tag         = "SelfTrap";
 		this.description = "oh 'eck, ive trapped me sen again";
     }

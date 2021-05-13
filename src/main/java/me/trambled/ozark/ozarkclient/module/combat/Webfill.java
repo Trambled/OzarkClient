@@ -27,7 +27,7 @@ public class Webfill extends Module {
     public Webfill() {
         super(Category.COMBAT);
 
-        this.name        = "Web Fill";
+        this.name        = "WebFill";
         this.tag         = "WebFill";
         this.description = "its like hole fill, but more annoying";
     }

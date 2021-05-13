@@ -22,7 +22,7 @@ public class AutoArmour extends Module {
     public AutoArmour() {
         super(Category.COMBAT);
 
-        this.name        = "Auto Armour";
+        this.name        = "AutoArmour";
         this.tag         = "AutoArmour";
         this.description = "WATCH UR BOOTS";
     }

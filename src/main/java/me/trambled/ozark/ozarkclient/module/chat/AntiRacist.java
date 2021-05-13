@@ -14,7 +14,7 @@ public class AntiRacist extends Module {
     public AntiRacist() {
         super(Category.CHAT);
 
-        this.name = "Anti Racist";
+        this.name = "AntiRacist";
         this.tag = "AntiRacist";
         this.description = "anti etho";
     }

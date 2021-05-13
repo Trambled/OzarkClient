@@ -12,7 +12,7 @@ public class OldGUI extends Module {
 	public OldGUI() {
 		super(Category.GUI);
 
-		this.name        = "Old GUI";
+		this.name        = "OldGUI";
 		this.tag         = "GUI";
 		this.description = "The old gui";
 		this.toggle_message = false;

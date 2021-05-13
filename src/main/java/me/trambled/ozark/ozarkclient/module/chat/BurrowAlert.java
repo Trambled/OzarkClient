@@ -16,7 +16,7 @@ public class BurrowAlert extends Module {
     public BurrowAlert() {
         super(Category.CHAT);
 
-        this.name = "Burrow Alert";
+        this.name = "BurrowAlert";
         this.tag = "Burrow Alert";
         this.description = "tells who is burrowed";
     }

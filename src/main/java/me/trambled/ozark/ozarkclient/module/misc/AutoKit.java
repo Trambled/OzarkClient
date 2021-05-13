@@ -17,7 +17,7 @@ public class AutoKit extends Module {
 
         super(Category.MISC);
 
-        this.name = "Auto Kit";
+        this.name = "AutoKit";
         this.tag = "AutoKit";
         this.description = "automatically selects a kit";
     }

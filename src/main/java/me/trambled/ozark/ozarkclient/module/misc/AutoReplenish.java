@@ -19,7 +19,7 @@ public class AutoReplenish extends Module {
     public AutoReplenish() {
         super(Category.MISC);
 
-        this.name = "Hotbar Replenish";
+        this.name = "HotbarReplenish";
         this.tag = "HotbarReplenish";
         this.description = "automatically replaces a used stack with a fresh new one from ur inv";
     }

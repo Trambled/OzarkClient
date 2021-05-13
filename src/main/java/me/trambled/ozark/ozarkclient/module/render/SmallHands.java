@@ -9,7 +9,7 @@ public class SmallHands extends Module {
     public SmallHands() {
         super(Category.RENDER);
         
-        this.name = "Small Hands";
+        this.name = "SmallHands";
         this.tag = "SmallHands";
         this.description = "makes ur hands smaller";
     }

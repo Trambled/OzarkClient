@@ -27,7 +27,7 @@ public class Auto32K extends Module {
     public Auto32K() {
         super(Category.COMBAT);
 
-        this.name        = "Auto 32k";
+        this.name        = "Auto32k";
         this.tag         = "Auto32k";
         this.description = "fastest in the west";
     }

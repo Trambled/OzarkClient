@@ -20,7 +20,7 @@ public class BurrowESP extends Module {
     public BurrowESP() {
         super(Category.RENDER);
 
-        this.name = "Burrow ESP";
+        this.name = "BurrowESP";
         this.tag = "BurrowESP";
         this.description = "see if people are burrowed";
     }

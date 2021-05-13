@@ -9,9 +9,9 @@ public class AutoRespawn extends Module {
     public AutoRespawn() {
         super(Category.MISC);
 
-        this.name = "Auto Respawn";
+        this.name = "AutoRespawn";
         this.tag = "AutoRespawn";
-        this.description = "Automatically respawns";
+        this.description = "automatically respawns";
     }
 
     @Override

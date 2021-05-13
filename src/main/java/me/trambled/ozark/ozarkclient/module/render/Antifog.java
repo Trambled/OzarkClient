@@ -12,7 +12,7 @@ public class Antifog extends Module {
     public Antifog() {
         super(Category.RENDER);
 
-        this.name = "Anti Fog";
+        this.name = "AntiFog";
         this.tag = "AntiFog";
         this.description = "see even more";
     }

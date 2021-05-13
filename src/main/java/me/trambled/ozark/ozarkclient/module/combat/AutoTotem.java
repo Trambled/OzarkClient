@@ -13,7 +13,7 @@ public class AutoTotem extends Module {
     public AutoTotem() {
         super(Category.COMBAT);
 
-        this.name        = "Auto Totem";
+        this.name        = "AutoTotem";
         this.tag         = "AutoTotem";
         this.description = "put totem in offhand";
     }

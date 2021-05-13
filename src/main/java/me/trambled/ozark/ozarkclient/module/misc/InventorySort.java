@@ -39,7 +39,7 @@ public class InventorySort extends Module {
 
         super(Category.MISC);
 
-        this.name = "Inventory Sort";
+        this.name = "InventorySort";
         this.tag = "InventorySort";
         this.description = "sorts ur inv";
     }

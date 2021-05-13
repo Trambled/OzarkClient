@@ -20,7 +20,7 @@ public final class ChatMods extends Module {
     public ChatMods() {
         super(Category.CHAT);
 
-        this.name = "Chat Modifications";
+        this.name = "ChatModifications";
         this.tag = "ChatModifications";
         this.description = "this breaks things";
     }

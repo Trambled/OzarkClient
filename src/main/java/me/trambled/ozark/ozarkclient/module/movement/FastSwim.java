@@ -9,7 +9,7 @@ public class FastSwim extends Module
 {
     public FastSwim() {
         super(Category.MOVEMENT);
-        this.name = "Fast Swim";
+        this.name = "FastSwim";
         this.tag = "FastSwim";
         this.description = "swimming go brrrrrrrrr";
     }

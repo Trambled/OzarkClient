@@ -30,7 +30,7 @@ public class BedAura extends Module {
     public BedAura() {
         super(Category.COMBAT);
 
-        this.name        = "Bed Aura";
+        this.name        = "BedAura";
         this.tag         = "BedAura";
         this.description = "automatically places beds";
     }

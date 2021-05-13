@@ -20,7 +20,7 @@ public class LongJump extends Module {
     public LongJump() {
         super(Category.MOVEMENT);
 
-		this.name        = "Long Jump";
+		this.name        = "LongJump";
 		this.tag         = "LongJump";
 		this.description = "Makes you jump far";
     }

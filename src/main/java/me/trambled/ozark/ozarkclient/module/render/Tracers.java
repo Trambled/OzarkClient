@@ -20,7 +20,7 @@ public class Tracers extends Module {
 
         this.name        = "Tracers";
         this.tag         = "Tracers";
-        this.description = "draws lines`";
+        this.description = "draws lines";
     }
 
     Setting friends = create("Friends", "TracerFriends", false);

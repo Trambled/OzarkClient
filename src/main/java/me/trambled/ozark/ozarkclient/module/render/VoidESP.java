@@ -22,7 +22,7 @@ public class VoidESP extends Module {
     public VoidESP() {
         super(Category.RENDER);
 
-        this.name        = "Void ESP";
+        this.name        = "VoidESP";
         this.tag         = "VoidESP";
         this.description = "OH FUCK A DEEP HOLE";
     }

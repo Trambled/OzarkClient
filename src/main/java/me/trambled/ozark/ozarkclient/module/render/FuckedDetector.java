@@ -20,7 +20,7 @@ public class FuckedDetector extends Module {
     public FuckedDetector() {
         super(Category.RENDER);
 
-        this.name = "Fucked Detector";
+        this.name = "FuckedDetector";
         this.tag = "FuckedDetector";
         this.description = "see if people are hecked";
     }
