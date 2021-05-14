@@ -158,7 +158,7 @@ U can give cape designs and i can add u to the pastebin of uuids for capes.
 
 -fobos
 
--nekohax (more like BETTER wp2 :troll:)
+-nekohax (more like renamed wp2 with burrow :troll:)
 
 -past
 
