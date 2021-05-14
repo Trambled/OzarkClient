@@ -15,36 +15,40 @@ public class RainbowUtil {
 	private static boolean chat_flag = false;
 	private static boolean shouldRainbow;
 
-	public static void drawRainbowStringChat(String text, float x, float y, int color, float factor, boolean flow) {
-		Color currentColor = new Color(color);
-		if (!flow) {
-			drawString(text, x, y, color);
-			return;
-		}
+	public static void drawRainbowStringChat(String text, float x, float y, int startColor, float factor, boolean shadow) {
+		Color currentColor = new Color(startColor);
 		float hueIncrement = 1.0f / factor;
 		float currentHue = Color.RGBtoHSB(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), null)[0];
 		float saturation = Color.RGBtoHSB(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), null)[1];
 		float brightness = Color.RGBtoHSB(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), null)[2];
 		int currentWidth = 0;
+		boolean shouldRainbow = true;
+		boolean shouldContinue = false;
 		for (int i = 0; i < text.length(); ++i) {
 			char currentChar = text.charAt(i);
 			char nextChar = text.charAt(MathUtil.clamp(i + 1, 0, text.length() - 1));
-			char nextNextChar = text.charAt(MathUtil.clamp(i + 2, 0, text.length() - 2));
-			if ((String.valueOf(currentChar) + nextChar + nextNextChar).equals("\u00a74O")) {
-				shouldRainbow = true;
-			} else if ((String.valueOf(currentChar) + nextChar + nextNextChar).equals("\u00a77>")) {
+			if ((String.valueOf(currentChar) + nextChar).equals("\u00a7r")) {
 				shouldRainbow = false;
+			} else if ((String.valueOf(currentChar) + nextChar).equals("\u00a7+")) {
+				shouldRainbow = true;
 			}
-			if (!shouldRainbow || (!String.valueOf(currentChar).equals("\u00a7") && !chat_flag)) {
-				drawString(String.valueOf(currentChar), x + currentWidth, y, shouldRainbow ? currentColor.getRGB() : Color.WHITE.getRGB());
-				currentWidth += get_string_width(String.valueOf(currentChar));
-				currentColor = new Color(Color.HSBtoRGB(currentHue, saturation, brightness));
-				currentHue += hueIncrement;
-			} else if (chat_flag) {
-				chat_flag = false;
-			} else if (String.valueOf(currentChar).equals("\u00a7")) {
-				chat_flag = true;
+			if (shouldContinue) {
+				shouldContinue = false;
+				continue;
 			}
+			if ((String.valueOf(currentChar) + nextChar).equals("\u00a7r")) {
+				String escapeString = text.substring(i);
+				drawString(escapeString, x + (float)currentWidth, y, Color.WHITE.getRGB());
+				break;
+			}
+			drawString(String.valueOf(currentChar).equals("\u00a7") ? "" : String.valueOf(currentChar), x + (float)currentWidth, y, shouldRainbow ? currentColor.getRGB() : Color.WHITE.getRGB());
+			if (String.valueOf(currentChar).equals("\u00a7")) {
+				shouldContinue = true;
+			}
+			currentWidth += get_string_width(String.valueOf(currentChar));
+			if (String.valueOf(currentChar).equals(" ")) continue;
+			currentColor = new Color(Color.HSBtoRGB(currentHue, saturation, brightness));
+			currentHue += hueIncrement;
 		}
 	}
 
@@ -89,5 +93,8 @@ public class RainbowUtil {
 		return mc.fontRenderer.drawString(text, x, y, color, true);
 	}
 
+	public static Color getMultiColour() {
+		return Color.getHSBColor((float) (System.currentTimeMillis() % 7500L) / 7500f, 0.8f, 0.8f);
+	}
 
 }

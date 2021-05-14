@@ -90,13 +90,12 @@ public class BreakESP extends Module {
                 if (info_mode.in("Both")) {
                     if (mc.world.getEntityByID(integer) != null) {
                         RenderUtil.drawText(destroyBlockProgress.getPosition(), 0.6f, mc.world.getEntityByID(integer).getName());
-                        RenderUtil.drawText(destroyBlockProgress.getPosition(), 0.2f,(destroyBlockProgress.getPartialBlockDamage() * 10) + "%");
+                        RenderUtil.drawText(destroyBlockProgress.getPosition(), 0.2f,(destroyBlockProgress.getPartialBlockDamage() * 12.5) + "%");
                     }
-                    RenderUtil.drawText(destroyBlockProgress.getPosition(), 0.2f,(destroyBlockProgress.getPartialBlockDamage() * 10) + "%");
                 }
 
                 if (info_mode.in("Percent")) {
-                    RenderUtil.drawText(destroyBlockProgress.getPosition(), (destroyBlockProgress.getPartialBlockDamage() * 10) + "%");
+                    RenderUtil.drawText(destroyBlockProgress.getPosition(), (destroyBlockProgress.getPartialBlockDamage() * 12.5) + "%");
                 }
 
 

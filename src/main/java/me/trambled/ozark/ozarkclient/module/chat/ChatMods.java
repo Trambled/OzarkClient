@@ -30,6 +30,7 @@ public final class ChatMods extends Module {
     Setting name_highlight = create("Name Highlight", "ChatModsNameHighlight", true);
     Setting infinite_chat = create("Infinite Chat", "ChatModsInfiniteChat", true);
 
+
     @EventHandler
     private final Listener<EventPacket.ReceivePacket> packet_event = new Listener<>(event -> {
 

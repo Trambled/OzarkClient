@@ -26,7 +26,8 @@ public class OffhandBypass extends Module
             event.setCanceled(true);
         }
     });
-	
+
+
     @Override
     public void update() {
         if (OffhandBypass.mc.player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL && OffhandBypass.mc.player.getHeldItemOffhand().getItem() == Items.GOLDEN_APPLE && OffhandBypass.mc.gameSettings.keyBindUseItem.isKeyDown() && OffhandBypass.mc.player.getActiveHand() == EnumHand.MAIN_HAND) {

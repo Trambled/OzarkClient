@@ -280,18 +280,4 @@ public class ShulkerCrystal extends Module
 
         return closestTarget;
     }
-
-    public Vec3d get_center(double posX, double posY, double posZ) {
-        double x = Math.floor(posX) + 0.5D;
-        double y = Math.floor(posY);
-        double z = Math.floor(posZ) + 0.5D ;
-
-        return new Vec3d(x, y, z);
-    }
-
-
-
-
-
-
 }

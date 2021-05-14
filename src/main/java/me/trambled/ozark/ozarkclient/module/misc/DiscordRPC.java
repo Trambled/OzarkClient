@@ -14,8 +14,10 @@ public class DiscordRPC extends Module
         this.description = "show people how cool you are (discord edition)";
     }
 
-    Setting mode = create("Mode", "RPCMode", "Normal", combobox("Normal", "Lempity", "kambing"));
-    
+    Setting mode = create("Large Image", "RPCMode", "Normal", combobox("Normal", "Lempity", "kambing", "Tudou"));
+    Setting small_image = create("Small Image", "RPCSmallImage", "Server", combobox("Server", "Tudou"));
+
+
     @Override
     protected void enable() {
         DiscordUtil.init();

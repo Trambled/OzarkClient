@@ -145,7 +145,7 @@ public class BlockUtil {
         return false;
     }
 
-    public static boolean placeBlockShulker(BlockPos pos, int slot, boolean rotate, boolean rotateBack, Setting setting, EnumFacing facing) {
+    public static boolean placeBlockShulker(BlockPos pos, int slot, boolean rotate, boolean rotateBack, Setting setting) {
         if (isBlockEmpty(pos)) {
             int old_slot = -1;
             if (slot != mc.player.inventory.currentItem && slot != -1) {
@@ -157,8 +157,8 @@ public class BlockUtil {
 
             for (EnumFacing f : facings) {
                 Block neighborBlock = mc.world.getBlockState(pos.offset(f)).getBlock();
+                if (f.equals(EnumFacing.DOWN) || f.equals(EnumFacing.UP)) continue;
                 Vec3d vec = new Vec3d(pos.getX() + 0.5D + (double) f.getXOffset() * 0.5D, pos.getY() + 0.5D + (double) f.getYOffset() * 0.5D, pos.getZ() + 0.5D + (double) f.getZOffset() * 0.5D);
-
                 if (!emptyBlocks.contains(neighborBlock) && mc.player.getPositionEyes(mc.getRenderPartialTicks()).distanceTo(vec) <= 4.25D) {
                     float[] rot = new float[]{mc.player.rotationYaw, mc.player.rotationPitch};
 
@@ -170,7 +170,7 @@ public class BlockUtil {
                         mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, Action.START_SNEAKING));
                     }
 
-                    mc.playerController.processRightClickBlock(mc.player, mc.world, pos.offset(f), facing.getOpposite(), new Vec3d(pos), EnumHand.MAIN_HAND);
+                    mc.playerController.processRightClickBlock(mc.player, mc.world, pos.offset(f), f.getOpposite(), new Vec3d(pos), EnumHand.MAIN_HAND);
                     if (rightclickableBlocks.contains(neighborBlock)) {
                         mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, Action.STOP_SNEAKING));
                     }
@@ -193,6 +193,7 @@ public class BlockUtil {
 
         return false;
     }
+
 
     public static boolean placeBlock(BlockPos pos, boolean rotate, boolean rotateBack, Setting setting) {
         if (isBlockEmpty(pos)) {

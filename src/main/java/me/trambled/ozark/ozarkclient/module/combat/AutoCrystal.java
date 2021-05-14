@@ -25,6 +25,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraftforge.event.world.BlockEvent;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -34,9 +35,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 // credit to:
 // travis for the original w+2 base and for the idea of packet block place
-// momentum/linus for momentum calcs and sync options
+// momentum/linus for momentum calcs, sync options, heuristics, and the concept of inhibit mode
 // perry for settings
-// oyvey for packet break and for most of the code for packet place
+// oyvey for predict break and for most of the code for predict place
 public class AutoCrystal extends Module {
     public AutoCrystal() {
         super(Category.COMBAT);
@@ -53,21 +54,25 @@ public class AutoCrystal extends Module {
     Setting alternative = create("Alternative", "CaAlternative", false);
     Setting module_check = create("Module Check", "CaModuleCheck", false);
     Setting break_predict = create("Break Predict", "CaBreakPredict", true);
-    Setting break_predict_factor = create("Break Predict Delay", "CaBreakPredictFactor", 0, 0, 200);
     Setting place_predict = create("Place Predict", "CaPlacePredict", false);
-    Setting place_predict_factor = create("Place Predict Delay", "CaPlacePredictFactor", 0, 0, 200); // too lazy to make it mc ticks
+    Setting sound_predict = create("Sound Predict", "CaSoundPredict", true);
+    Setting city_predict = create("City Predict", "CaCityPredict", true);
+
     Setting motion_predict = create("Motion Predict", "CaMotionPredict", true);
     Setting motion_predict_factor = create("Motion Factor", "CaMotionPredictFactor", 1f, 0f, 2f);
     Setting verify_place = create("Verify Place", "CaVerifyPlace", false);
+
     Setting inhibit = create("Inhibit", "CaInhibit", true);
     Setting inhibit_delay = create("Inhibit Delay", "CaInhibitDelay", 0, 0, 10);
     Setting inhibit_swings = create("Inhibit Swings", "CaInhibitSwings", 50, 1, 100);
+
     Setting break_trys = create("Break Attempts", "CaBreakAttempts", 1, 1, 6);
     Setting place_trys = create("Place Attempts", "CaPlaceAttempts", 1, 1, 6);
 
     Setting hit_range = create("Hit Range", "CaHitRange", 5f, 1f, 6f);
     Setting place_range = create("Place Range", "CaPlaceRange", 5f, 1f, 6f);
-    Setting hit_range_wall = create("Range Wall", "CaRangeWall", 3.5f, 1f, 6f);
+    Setting hit_range_wall = create("Hit Range Wall", "CaHitRangeWall", 3.5f, 1f, 6f);
+    Setting place_range_wall = create("Place Range Wall", "CaPlaceRangeWall", 3.5f, 1f, 6f);
     Setting player_range = create("Player Range", "CaPlayerRange", 10, 1, 20);
 
     Setting place_delay = create("Place Delay", "CaPlaceDelay", 0, 0, 10);
@@ -88,17 +93,19 @@ public class AutoCrystal extends Module {
     Setting raytrace = create("Raytrace", "CaRaytrace", false);
     Setting switch_mode = create("Switch Mode", "CaSwitchMode", "Normal", combobox("Normal", "Ghost", "None"));
     Setting anti_suicide = create("Anti Suicide", "CaAntiSuicide", true);
-    Setting fast_mode = create("Fast Mode", "CaSpeed", true);
+    Setting fast_mode = create("Fast Mode", "CaFastMode", true);
+    Setting fast_place = create("Fast Place", "CaFastPlace", true);
 
     Setting break_all = create("Break All", "CaBreakAll", false);
     Setting momentum = create("Momentum Calcs", "CaMomentumMode", false);
     Setting sync = create("Sync", "CaSync", "Sound", combobox("Sound", "Instant", "Inhibit", "Attack", "Full", "Semi", "None"));
+    Setting heuristic = create("Heuristic", "CaHeuristic", "Damage", combobox("Damage", "MinMax", "Distance", "Atomic"));
 
     Setting anti_stuck = create("Anti Stuck", "CaAntiStuck", true);
     Setting anti_stuck_tries = create("Anti Stuck Tries", "CaAntiStuckTries", 5, 1, 15);
     Setting anti_stuck_time = create("Anti Stuck Time", "CaAntiStuckTime", 1000, 0, 20000);
     Setting endcrystal = create("1.13 Mode", "CaThirteen", false);
-    Setting multi_place = create("Multi Place", "CaMultiplace", false);
+    Setting multi_place = create("Multi Place", "CaMultiplace", true);
 
     Setting faceplace_mode = create("Faceplace Mode", "CaTabbottMode", true);
     Setting faceplace_mode_damage = create("Faceplace Health", "CaTabbottModeHealth", 10, 0, 36);
@@ -136,8 +143,6 @@ public class AutoCrystal extends Module {
     public static ArrayList<EntityEnderCrystal> fake_crystals = new ArrayList<>();
 
     private final TimerUtil remove_visual_timer = new TimerUtil();
-    private final TimerUtil break_predict_timer = new TimerUtil();
-    private final TimerUtil place_predict_timer = new TimerUtil();
 
     private EntityPlayer ca_target = null;
 
@@ -206,6 +211,11 @@ public class AutoCrystal extends Module {
             do_fake_crystal();
         }
 
+        if (fast_mode.get_value(true)) {
+            break_delay_counter++;
+            place_delay_counter++;
+        }
+
         if (place_crystal.get_value(true) && place_delay_counter > place_timeout) {
             place_crystal();
         }
@@ -238,15 +248,14 @@ public class AutoCrystal extends Module {
             attack_swings = 0;
         }
 
-        if (inhibit_delay_counter > 2000) {
-            inhibit_delay_counter = 0;
-        }
+
 
         render_block_old = render_block_init;
 
-        break_delay_counter++;
-        place_delay_counter++;
-        inhibit_delay_counter++;
+        if (!fast_mode.get_value(true)) {
+            break_delay_counter++;
+            place_delay_counter++;
+        }
     }
 
     public void place_crystal() {
@@ -397,9 +406,9 @@ public class AutoCrystal extends Module {
             BlockUtil.swingArm(swing);
         }
     }
-
+    
     public BlockPos get_best_block() {
-        if (get_best_crystal() != null && !fast_mode.get_value(true)) {
+        if (get_best_crystal() != null && !fast_place.get_value(true)) {
             place_timeout_flag = true;
             return null;
         }
@@ -437,7 +446,7 @@ public class AutoCrystal extends Module {
                 if (verify_place.get_value(true) && mc.player.getDistanceSq(block) > Math.pow(hit_range.get_value(1), 2))
                     continue;
 
-                if (!BlockUtil.canSeeBlock(block) && mc.player.getDistance(block.getX(), block.getY(), block.getZ()) > hit_range_wall.get_value(1)) {
+                if (!BlockUtil.canSeeBlock(block) && mc.player.getDistance(block.getX(), block.getY(), block.getZ()) > place_range_wall.get_value(1)) {
                     continue;
                 }
 
@@ -460,7 +469,7 @@ public class AutoCrystal extends Module {
                     minimum_damage = this.min_player_place.get_value(1);
                 }
 
-                final double target_damage = CrystalUtil.calculateDamage((double) block.getX() + 0.5, (double) block.getY() + 1, (double) block.getZ() + 0.5, target);
+                double target_damage = CrystalUtil.calculateDamage((double) block.getX() + 0.5, (double) block.getY() + 1, (double) block.getZ() + 0.5, target);
 
                 if (target_damage < minimum_damage) continue;
 
@@ -468,6 +477,13 @@ public class AutoCrystal extends Module {
 
                 if (self_damage > maximum_damage_self || (anti_suicide.get_value(true) && (mc.player.getHealth() + mc.player.getAbsorptionAmount()) - self_damage <= 0.5)) continue;
 
+                if (heuristic.in("MinMax")) {
+                    target_damage -= self_damage;
+                } else if (heuristic.in("Distance")) {
+                    target_damage -= mc.player.getDistance(block.getX(), block.getY(), block.getZ());
+                } else if (heuristic.in("Atomic")) {
+                    target_damage -= self_damage + mc.player.getDistance(block.getX(), block.getY(), block.getZ());
+                }
                 if (target_damage > best_damage) {
                     best_damage = target_damage;
                     best_block = block;
@@ -476,9 +492,11 @@ public class AutoCrystal extends Module {
             }
         }
 
+
         if (!momentum.get_value(true)) {
             blocks.clear();
         }
+
 
 
         render_damage_value = best_damage;
@@ -604,9 +622,6 @@ public class AutoCrystal extends Module {
                         render_block_init = null;
                     }
                     inhibit_delay_counter++;
-                    if (old_render.get_value(true)) {
-                        render_block_init = null;
-                    }
                     if (sync.in("Inhibit") && get_best_crystal() != null) {
                         get_best_crystal().setDead();
                     }
@@ -744,7 +759,9 @@ public class AutoCrystal extends Module {
         }
 
         if (render_damage.get_value(true)) {
-            RenderUtil.drawText(render_block_init, ((Math.floor(this.render_damage_value) == this.render_damage_value) ? Integer.valueOf((int)this.render_damage_value) : String.format("%.1f", this.render_damage_value)) + "");
+            try {
+                RenderUtil.drawText(render_block_init, ((Math.floor(this.render_damage_value) == this.render_damage_value) ? Integer.valueOf((int)this.render_damage_value) : String.format("%.1f", this.render_damage_value)) + "");
+            } catch (Exception ignored) {}
         }
 
     }
@@ -814,6 +831,12 @@ public class AutoCrystal extends Module {
                     if (e instanceof EntityEnderCrystal) {
                         if (e.getDistance(packet.getX(), packet.getY(), packet.getZ()) <= 6.0f && sync.in("Sound")) {
                             e.setDead();
+                            if (sound_predict.get_value(true)) {
+                                if (debug.get_value(true)) {
+                                    MessageUtil.send_client_message("Sound predicting");
+                                }
+                                place_crystal();
+                            }
                         }
                     }
                 }
@@ -827,8 +850,7 @@ public class AutoCrystal extends Module {
                     MessageUtil.send_client_message("Entity ID: " + packet.getEntityID()); // I was just testng something here
                 }
             }
-            if (packet.getType() == 51 && this.ca_target != null && break_predict.get_value(true) && break_predict_timer.passed(break_predict_factor.get_value(1))) {
-                break_predict_timer.reset();
+            if (packet.getType() == 51 && this.ca_target != null && break_predict.get_value(true)) {
                 if (!this.is_predicting_crystal(packet)) {
                     return;
                 }
@@ -860,8 +882,7 @@ public class AutoCrystal extends Module {
         }
         if (event.get_packet() instanceof CPacketUseEntity && ((CPacketUseEntity) event.get_packet()).getAction() == CPacketUseEntity.Action.ATTACK && ((CPacketUseEntity) event.get_packet()).getEntityFromWorld(mc.world) instanceof EntityEnderCrystal) {
             EntityEnderCrystal predicted_crystal = (EntityEnderCrystal) ((CPacketUseEntity) event.get_packet()).getEntityFromWorld(mc.world);
-            if (predicted_crystal != null && place_predict_timer.passed(place_predict_factor.get_value(1)) && place_predict.get_value(true) && ca_target != null) {
-                place_predict_timer.reset();
+            if (predicted_crystal != null && place_predict.get_value(true) && ca_target != null) {
                 if (is_predicting_block(predicted_crystal)) {
                     boolean offhand_check = false;
                     if (mc.player.getHeldItemOffhand().getItem() != Items.END_CRYSTAL) {
@@ -884,6 +905,16 @@ public class AutoCrystal extends Module {
                     BlockUtil.placeCrystalOnBlock(predicted_crystal.getPosition().down(), offhand_check ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, packet_place.get_value(true));
                 }
             }
+        }
+    });
+
+    @EventHandler
+    private final Listener<BlockEvent.BreakEvent> block_listener = new Listener<>(event -> {
+        if (city_predict.get_value(true)) {
+            if (debug.get_value(true)) {
+                MessageUtil.send_client_message("city predicting");
+            }
+            place_crystal();
         }
     });
 
@@ -1014,8 +1045,6 @@ public class AutoCrystal extends Module {
         is_rotating = false;
         ca_target = null;
         remove_visual_timer.reset();
-        break_predict_timer.reset();
-        place_predict_timer.reset();
         detail_name = null;
         detail_hp = 20;
     }

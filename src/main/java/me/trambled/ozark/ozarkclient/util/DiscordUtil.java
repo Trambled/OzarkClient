@@ -12,14 +12,11 @@ import net.minecraft.client.multiplayer.GuiConnecting;
 public class DiscordUtil
 {
     private static final Minecraft mc;
-
     private static final DiscordRPC rpc;
-
     public static DiscordRichPresence presence;
-
     private static String details;
-
     private static String state;
+    private static int index = 0;
     
     public static void init() {
         final DiscordEventHandlers handlers = new DiscordEventHandlers();
@@ -43,10 +40,20 @@ public class DiscordUtil
                 		DiscordUtil.presence.largeImageKey = "lempity";
 					} else if (Ozark.get_setting_manager().get_setting_with_tag("DiscordRPC", "RPCMode").in("kambing")) {
 						DiscordUtil.presence.largeImageKey = "kambing";
-                	}
+                	} else if (Ozark.get_setting_manager().get_setting_with_tag("DiscordRPC", "RPCMode").in("Tudou")) {
+                		index++;
+                		if (index == 8) {
+                			index = 1;
+						}
+                		DiscordUtil.presence.largeImageKey = "tudou" + index;
+					}
 					if (mc.world == null) {
 						DiscordUtil.details = "In the menus";
-						DiscordUtil.presence.smallImageKey = "troll";
+						if (Ozark.get_setting_manager().get_setting_with_tag("DiscordRPC", "RPCSmallImage").in("Tudou")) {
+							DiscordUtil.presence.smallImageKey = "tudousmall";
+						} else {
+							DiscordUtil.presence.smallImageKey = "troll";
+						}
 						if (mc.currentScreen instanceof GuiWorldSelection) {
 							DiscordUtil.state = "Selecting a world to play on";
 						} else if (mc.currentScreen instanceof GuiMainMenu) {
@@ -72,44 +79,53 @@ public class DiscordUtil
 							DiscordUtil.state = health + " HP";
 							if (mc.isIntegratedServerRunning()) {
 								DiscordUtil.details = "Playing Singleplayer";
-							} else {
-								DiscordUtil.details = "Playing " + mc.getCurrentServerData().serverIP;
-								if (mc.getCurrentServerData().serverIP.equals("aurorapvp.club") || mc.getCurrentServerData().serverIP.equals("auroraanarchy.org")) {
-									DiscordUtil.presence.smallImageKey = "aurora";
-								} else if (mc.getCurrentServerData().serverIP.equals("8b8t.xyz")) {
-									DiscordUtil.presence.smallImageKey = "8b8t";
-								} else if (mc.getCurrentServerData().serverIP.equals("0b0t.org")) {
-									DiscordUtil.presence.smallImageKey = "0b0t";
-								} else if (mc.getCurrentServerData().serverIP.equals("5b5t.org")) {
-									DiscordUtil.presence.smallImageKey = "5b5t";
-								} else if (mc.getCurrentServerData().serverIP.equals("9b9t.com") || mc.getCurrentServerData().serverIP.equals("9b9t.org")) {
-									DiscordUtil.presence.smallImageKey = "9b9t";
-								} else if (mc.getCurrentServerData().serverIP.equals("bedtrap.org")) {
-									DiscordUtil.presence.smallImageKey = "bedtrap";
-								} else if (mc.getCurrentServerData().serverIP.equals("constantiam.net")) {
-									DiscordUtil.presence.smallImageKey = "const";
-								} else if (mc.getCurrentServerData().serverIP.equals("l2x9.org")) {
-									DiscordUtil.presence.smallImageKey = "l2";
-								} else if (mc.getCurrentServerData().serverIP.equals("matrixanarchy.net")) {
-									DiscordUtil.presence.smallImageKey = "matrix";
-								} else if (mc.getCurrentServerData().serverIP.equals("cpe2.ign.gg")) {
-									DiscordUtil.presence.smallImageKey = "cpe";
-								} else if (mc.getCurrentServerData().serverIP.equals("oldfag.org")) {
-									DiscordUtil.presence.smallImageKey = "oldfag";
-								} else if (mc.getCurrentServerData().serverIP.equals("openanarchy.org")) {
-									DiscordUtil.presence.smallImageKey = "oa";
-								} else if (mc.getCurrentServerData().serverIP.equals("eliteanarchy.org")) {
-									DiscordUtil.presence.smallImageKey = "elite";
-								} else if (mc.getCurrentServerData().serverIP.equals("6b6t.co")) {
-									DiscordUtil.presence.smallImageKey = "6b6t";
-								} else if (mc.getCurrentServerData().serverIP.equals("2b2t.org")) {
-									DiscordUtil.presence.smallImageKey = "2b2t";
-								} else if (mc.getCurrentServerData().serverIP.equals("2b2tpvp.net")) {
-									DiscordUtil.presence.smallImageKey = "2bpvp";
-								} else if (mc.getCurrentServerData().serverIP.equals("us.crystalpvp.cc") || mc.getCurrentServerData().serverIP.equals("crystalpvp.cc")) {
-									DiscordUtil.presence.smallImageKey = "cc";
+								if (Ozark.get_setting_manager().get_setting_with_tag("DiscordRPC", "RPCSmallImage").in("Tudou")) {
+									DiscordUtil.presence.smallImageKey = "tudousmall";
 								} else {
 									DiscordUtil.presence.smallImageKey = "troll";
+								}
+							} else {
+								DiscordUtil.details = "Playing " + mc.getCurrentServerData().serverIP;
+								if (Ozark.get_setting_manager().get_setting_with_tag("DiscordRPC", "RPCSmallImage").in("Tudou")) {
+									DiscordUtil.presence.smallImageKey = "tudousmall";
+								} else {
+									if (mc.getCurrentServerData().serverIP.equals("aurorapvp.club") || mc.getCurrentServerData().serverIP.equals("auroraanarchy.org")) {
+										DiscordUtil.presence.smallImageKey = "aurora";
+									} else if (mc.getCurrentServerData().serverIP.equals("8b8t.xyz")) {
+										DiscordUtil.presence.smallImageKey = "8b8t";
+									} else if (mc.getCurrentServerData().serverIP.equals("0b0t.org")) {
+										DiscordUtil.presence.smallImageKey = "0b0t";
+									} else if (mc.getCurrentServerData().serverIP.equals("5b5t.org")) {
+										DiscordUtil.presence.smallImageKey = "5b5t";
+									} else if (mc.getCurrentServerData().serverIP.equals("9b9t.com") || mc.getCurrentServerData().serverIP.equals("9b9t.org")) {
+										DiscordUtil.presence.smallImageKey = "9b9t";
+									} else if (mc.getCurrentServerData().serverIP.equals("bedtrap.org")) {
+										DiscordUtil.presence.smallImageKey = "bedtrap";
+									} else if (mc.getCurrentServerData().serverIP.equals("constantiam.net")) {
+										DiscordUtil.presence.smallImageKey = "const";
+									} else if (mc.getCurrentServerData().serverIP.equals("l2x9.org")) {
+										DiscordUtil.presence.smallImageKey = "l2";
+									} else if (mc.getCurrentServerData().serverIP.equals("matrixanarchy.net")) {
+										DiscordUtil.presence.smallImageKey = "matrix";
+									} else if (mc.getCurrentServerData().serverIP.equals("cpe2.ign.gg")) {
+										DiscordUtil.presence.smallImageKey = "cpe";
+									} else if (mc.getCurrentServerData().serverIP.equals("oldfag.org")) {
+										DiscordUtil.presence.smallImageKey = "oldfag";
+									} else if (mc.getCurrentServerData().serverIP.equals("openanarchy.org")) {
+										DiscordUtil.presence.smallImageKey = "oa";
+									} else if (mc.getCurrentServerData().serverIP.equals("eliteanarchy.org")) {
+										DiscordUtil.presence.smallImageKey = "elite";
+									} else if (mc.getCurrentServerData().serverIP.equals("6b6t.co")) {
+										DiscordUtil.presence.smallImageKey = "6b6t";
+									} else if (mc.getCurrentServerData().serverIP.equals("2b2t.org")) {
+										DiscordUtil.presence.smallImageKey = "2b2t";
+									} else if (mc.getCurrentServerData().serverIP.equals("2b2tpvp.net")) {
+										DiscordUtil.presence.smallImageKey = "2bpvp";
+									} else if (mc.getCurrentServerData().serverIP.equals("us.crystalpvp.cc") || mc.getCurrentServerData().serverIP.equals("crystalpvp.cc")) {
+										DiscordUtil.presence.smallImageKey = "cc";
+									} else {
+										DiscordUtil.presence.smallImageKey = "troll";
+									}
 								}
 							}
 						}
@@ -117,15 +133,15 @@ public class DiscordUtil
 					DiscordUtil.presence.details = DiscordUtil.details;
 					DiscordUtil.presence.state = DiscordUtil.state;
 					DiscordUtil.rpc.Discord_UpdatePresence(DiscordUtil.presence);
+					try {
+						Thread.sleep(2000L);
+					}
+					catch (InterruptedException e3) {
+						e3.printStackTrace();
+					}
                 }
                 catch (Exception e2) {
                     e2.printStackTrace();
-                }
-                try {
-                    Thread.sleep(5000L);
-                }
-                catch (InterruptedException e3) {
-                    e3.printStackTrace();
                 }
             }
         }, "Discord-RPC-Callback-Handler").start();
