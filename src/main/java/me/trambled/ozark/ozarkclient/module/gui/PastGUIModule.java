@@ -17,7 +17,6 @@ public class PastGUIModule extends Module {
 		this.name        = "PastGUI";
 		this.tag         = "PastGUI";
 		this.description = "CUSTOM Past Gui";
-		this.toggle_message = false;
 		set_bind(Ozark.KEY_GUI);
 	}
 
