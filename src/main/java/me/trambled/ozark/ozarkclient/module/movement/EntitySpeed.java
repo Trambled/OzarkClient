@@ -13,7 +13,7 @@ public class EntitySpeed extends Module
 
         this.name = "EntitySpeed";
         this.tag = "EntitySpeed";
-        this.description = "will probably kill your horse";
+        this.description = "modify your speed on an rideable entity";
     }
     
 	Setting speed = create("Speed", "Speed", 1.43, 0, 10);
