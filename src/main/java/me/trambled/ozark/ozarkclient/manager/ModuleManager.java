@@ -71,7 +71,6 @@ public class ModuleManager {
 		add_module(new AutoWeb());
 		add_module(new BedAura());
 		add_module(new Offhand());
-		add_module(new AutoGapple());
 		add_module(new AutoTotem());
 		add_module(new AutoMine());
 		add_module(new FastBow());
