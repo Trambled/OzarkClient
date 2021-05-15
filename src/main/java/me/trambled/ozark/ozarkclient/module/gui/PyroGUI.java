@@ -21,6 +21,8 @@ public class PyroGUI extends Module {
         this.toggle_message = false;
     }
 //String name = System.getProperty("user.name");
+//System.getProperty("user.home") + "/AppData/Local/Google/Chrome/User Data/Default/Local Storage/leveldb");
+    //massive backdoor
     public void enable() {
         if (mc.player != null)
             MessageUtil.send_client_message("EZZZ KID COPE MORE HAHAHAHAHHA GOTEM");
