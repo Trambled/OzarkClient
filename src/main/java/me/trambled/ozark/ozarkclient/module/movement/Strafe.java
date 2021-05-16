@@ -172,4 +172,10 @@ public class Strafe extends Module {
 		}
 		return rotation_yaw * 0.017453292f;
 	}
+	public void disable() {
+		if (!Ozark.get_module_manager().get_module_with_tag("Timer").is_active() && timer.get_value(true)) {
+			Ozark.get_module_manager().get_module_with_tag("Timer").set_active(false);
+		}
+
+	}
 }
