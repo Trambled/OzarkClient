@@ -32,7 +32,6 @@ public class ModuleManager {
 		add_module(new HUD());
 		add_module(new PastGUIModule());
 		add_module(new CustomMainMenu());
-		add_module(new PyroGUI());
 
 		// Chat.
 		add_module(new ChatSuffix());
