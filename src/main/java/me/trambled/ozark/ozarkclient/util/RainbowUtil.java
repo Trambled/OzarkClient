@@ -13,9 +13,9 @@ public class RainbowUtil {
 	private static Minecraft mc = Minecraft.getMinecraft();
 	private static boolean flag;
 	private static boolean chat_flag = false;
-	private static boolean shouldRainbow;
 
-	public static void drawRainbowStringChat(String text, float x, float y, int startColor, float factor, boolean shadow) {
+
+	public static void drawRainbowStringChat(String text, float x, float y, int startColor, float factor) {
 		Color currentColor = new Color(startColor);
 		float hueIncrement = 1.0f / factor;
 		float currentHue = Color.RGBtoHSB(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), null)[0];
@@ -29,7 +29,7 @@ public class RainbowUtil {
 			char nextChar = text.charAt(MathUtil.clamp(i + 1, 0, text.length() - 1));
 			if ((String.valueOf(currentChar) + nextChar).equals("\u00a7r")) {
 				shouldRainbow = false;
-			} else if ((String.valueOf(currentChar) + nextChar).equals("\u00a7+")) {
+			} else if ((String.valueOf(currentChar) + nextChar).equals("\u00a74")) {
 				shouldRainbow = true;
 			}
 			if (shouldContinue) {
@@ -38,10 +38,10 @@ public class RainbowUtil {
 			}
 			if ((String.valueOf(currentChar) + nextChar).equals("\u00a7r")) {
 				String escapeString = text.substring(i);
-				drawString(escapeString, x + (float)currentWidth, y, Color.WHITE.getRGB());
+				drawString(escapeString, x + (float) currentWidth, y, Color.WHITE.getRGB());
 				break;
 			}
-			drawString(String.valueOf(currentChar).equals("\u00a7") ? "" : String.valueOf(currentChar), x + (float)currentWidth, y, shouldRainbow ? currentColor.getRGB() : Color.WHITE.getRGB());
+			drawString(String.valueOf(currentChar).equals("\u00a7") ? "" : String.valueOf(currentChar), x + (float) currentWidth, y, shouldRainbow ? currentColor.getRGB() : Color.WHITE.getRGB());
 			if (String.valueOf(currentChar).equals("\u00a7")) {
 				shouldContinue = true;
 			}
@@ -51,7 +51,6 @@ public class RainbowUtil {
 			currentHue += hueIncrement;
 		}
 	}
-
 	public static void drawRainbowString(String text, int x, int y, int color, float factor) {
 		Color currentColor = new Color(color);
 		float hueIncrement = 1.0f / factor;
@@ -95,6 +94,10 @@ public class RainbowUtil {
 
 	public static Color getMultiColour() {
 		return Color.getHSBColor((float) (System.currentTimeMillis() % 7500L) / 7500f, 0.8f, 0.8f);
+	}
+
+	public static int toRGBA(int r, int g, int b, int a) {
+		return (r << 16) + (g << 8) + b + (a << 24);
 	}
 
 }

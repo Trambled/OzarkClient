@@ -1,5 +1,6 @@
 package me.trambled.ozark;
 
+import me.trambled.ozark.ozarkclient.util.InjectUtil;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.ozarkclient.util.DiscordUtil;
 import me.trambled.turok.Turok;
@@ -12,6 +13,7 @@ import me.trambled.ozark.ozarkclient.guiscreen.PastGUI;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.past.font.CustomFontRenderer;
 import me.trambled.ozark.ozarkclient.manager.*;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +30,7 @@ public class Ozark {
 	private static Ozark MASTER;
 
 	public static final String NAME = "OzarkClient";
-	public static final String VERSION = "1.12.2";
+	public static final String VERSION = "1.12.3";
 	public static final String SIGN = " ";
 	public static String DISPLAY_NAME = "Ozark";
 
@@ -76,6 +78,12 @@ public class Ozark {
 
 		EventManager event_manager = new EventManager();
 		CommandManager command_manager = new CommandManager();
+
+		send_minecraft_log("Done");
+
+		send_minecraft_log("Initialising Better Chat");
+
+		MinecraftForge.EVENT_BUS.register(new InjectUtil());
 
 		send_minecraft_log("Done");
 

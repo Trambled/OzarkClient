@@ -212,6 +212,10 @@ public class Module implements Listenable {
 
 	}
 
+	public void log_out() {
+
+	}
+
 	public void value_change() {
 
 	}

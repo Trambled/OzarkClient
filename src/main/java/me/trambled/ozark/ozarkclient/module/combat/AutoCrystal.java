@@ -100,6 +100,7 @@ public class AutoCrystal extends Module {
     Setting momentum = create("Momentum Calcs", "CaMomentumMode", false);
     Setting sync = create("Sync", "CaSync", "Sound", combobox("Sound", "Instant", "Inhibit", "Attack", "Full", "Semi", "None"));
     Setting heuristic = create("Heuristic", "CaHeuristic", "Damage", combobox("Damage", "MinMax", "Distance", "Atomic"));
+    Setting heuristic_min_health = create("Heuristic Min Health", "CaHeuristicMinHealth", 6, 0, 120);
 
     Setting anti_stuck = create("Anti Stuck", "CaAntiStuck", true);
     Setting anti_stuck_tries = create("Anti Stuck Tries", "CaAntiStuckTries", 5, 1, 15);
@@ -134,7 +135,7 @@ public class AutoCrystal extends Module {
     Setting brightness = create("Brightness", "CaBrightness", 0.8, 0, 1);
     Setting height = create("Height", "CaHeight", 1.0, 0.0, 1.0);
 
-    Setting render_damage = create("Render Damage", "CaRenderDamage", true);
+    Setting render_damage = create("Render Damage", "CaRenderDamage", "Normal", combobox("Normal", "Heuristic", "None"));
 
     Setting switch_bind = create("Switch Bind", "CaSwitchBind", 0);
     Setting faceplace_bind = create("Faceplace Bind", "CaFaceBind", 0);
@@ -419,6 +420,7 @@ public class AutoCrystal extends Module {
         }
 
         double best_damage = 0;
+        double rendered_damage = 0;
         double minimum_damage;
         double maximum_damage_self = this.max_self_damage.get_value(1);
 
@@ -477,15 +479,19 @@ public class AutoCrystal extends Module {
 
                 if (self_damage > maximum_damage_self || (anti_suicide.get_value(true) && (mc.player.getHealth() + mc.player.getAbsorptionAmount()) - self_damage <= 0.5)) continue;
 
-                if (heuristic.in("MinMax")) {
-                    target_damage -= self_damage;
-                } else if (heuristic.in("Distance")) {
-                    target_damage -= mc.player.getDistance(block.getX(), block.getY(), block.getZ());
-                } else if (heuristic.in("Atomic")) {
-                    target_damage -= self_damage + mc.player.getDistance(block.getX(), block.getY(), block.getZ());
+                final double original_damage = target_damage;
+                if (target_damage > heuristic_min_health.get_value(1)) {
+                    if (heuristic.in("MinMax")) {
+                        target_damage -= self_damage;
+                    } else if (heuristic.in("Distance")) {
+                        target_damage -= mc.player.getDistance(block.getX(), block.getY(), block.getZ());
+                    } else if (heuristic.in("Atomic")) {
+                        target_damage -= self_damage + mc.player.getDistance(block.getX(), block.getY(), block.getZ());
+                    }
                 }
                 if (target_damage > best_damage) {
                     best_damage = target_damage;
+                    rendered_damage = original_damage;
                     best_block = block;
                     ca_target = target;
                 }
@@ -499,7 +505,11 @@ public class AutoCrystal extends Module {
 
 
 
-        render_damage_value = best_damage;
+        if (render_damage.in("Heuristic")) {
+            render_damage_value = best_damage;
+        } else if (render_damage.in("Normal")) {
+            render_damage_value = rendered_damage;
+        }
         render_block_init = best_block;
 
         return best_block;
@@ -758,7 +768,7 @@ public class AutoCrystal extends Module {
             render_block(render_block_old);
         }
 
-        if (render_damage.get_value(true)) {
+        if (!render_damage.in("None")) {
             try {
                 RenderUtil.drawText(render_block_init, ((Math.floor(this.render_damage_value) == this.render_damage_value) ? Integer.valueOf((int)this.render_damage_value) : String.format("%.1f", this.render_damage_value)) + "");
             } catch (Exception ignored) {}
@@ -829,8 +839,10 @@ public class AutoCrystal extends Module {
             if (packet.getCategory() == SoundCategory.BLOCKS && packet.getSound() == SoundEvents.ENTITY_GENERIC_EXPLODE) {
                 for (Entity e : mc.world.loadedEntityList) {
                     if (e instanceof EntityEnderCrystal) {
-                        if (e.getDistance(packet.getX(), packet.getY(), packet.getZ()) <= 6.0f && sync.in("Sound")) {
-                            e.setDead();
+                        if (e.getDistance(packet.getX(), packet.getY(), packet.getZ()) <= 6.0f) {
+                            if (sync.in("Sound")) {
+                                e.setDead();
+                            }
                             if (sound_predict.get_value(true)) {
                                 if (debug.get_value(true)) {
                                     MessageUtil.send_client_message("Sound predicting");

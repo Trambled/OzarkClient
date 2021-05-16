@@ -14,10 +14,12 @@
  *       You should have received a copy of the GNU General Public License
  *       along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.llamalad7.betterchat.gui;
+package me.trambled.ozark.ozarkclient.guiscreen;
 
 import com.google.common.collect.Lists;
-import com.llamalad7.betterchat.BetterChat;
+import me.trambled.ozark.Ozark;
+import me.trambled.ozark.ozarkclient.util.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.RainbowUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
@@ -34,8 +36,9 @@ import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 
-import static com.llamalad7.betterchat.utils.AnimationTools.clamp;
+import static me.trambled.ozark.ozarkclient.util.AnimationUtil.clamp;
 
+// full credit goes to llamalad7
 @SideOnly(Side.CLIENT)
 public class GuiBetterChat extends GuiNewChat {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -57,7 +60,6 @@ public class GuiBetterChat extends GuiNewChat {
     public static float percentComplete = 0.0F;
     public static int newLines;
     public static long prevMillis = -1;
-    public boolean configuring;
 
     public GuiBetterChat(Minecraft mcIn) {
         super(mcIn);
@@ -70,7 +72,6 @@ public class GuiBetterChat extends GuiNewChat {
     }
 
     public void drawChat(int updateCounter) {
-        if (configuring) return;
         if (prevMillis == -1) {
             prevMillis = System.currentTimeMillis();
             return;
@@ -97,8 +98,8 @@ public class GuiBetterChat extends GuiNewChat {
                 float f1 = this.getChatScale();
                 int k = MathHelper.ceil((float) this.getChatWidth() / f1);
                 GlStateManager.pushMatrix();
-                if (BetterChat.getSettings().smooth && !this.isScrolled) GlStateManager.translate(2.0F + BetterChat.getSettings().xOffset, 8.0F + BetterChat.getSettings().yOffset + (9 - 9*percent)*f1, 0.0F);
-                else GlStateManager.translate(2.0F + BetterChat.getSettings().xOffset, 8.0F + BetterChat.getSettings().yOffset, 0.0F);
+                if (Ozark.get_setting_manager().get_setting_with_tag("BetterChat", "Smooth").get_value(true) && Ozark.get_module_manager().get_module_with_tag("BetterChat").is_active() && !this.isScrolled) GlStateManager.translate(2.0F, 8.0F + (9 - 9*percent)*f1, 0.0F);
+                else GlStateManager.translate(2.0F, 8.0F, 0.0F);
                 GlStateManager.scale(f1, f1, 1.0F);
                 int l = 0;
 
@@ -126,15 +127,23 @@ public class GuiBetterChat extends GuiNewChat {
                             if (l1 > 3) {
                                 int i2 = 0;
                                 int j2 = -i1 * 9;
-                                if (!BetterChat.getSettings().clear) {
+                                if (!Ozark.get_setting_manager().get_setting_with_tag("BetterChat", "Clear").get_value(true) || !Ozark.get_module_manager().get_module_with_tag("BetterChat").is_active()) {
                                     drawRect(-2, j2 - 9, i2 + k + 4, j2, l1 / 2 << 24);
                                 }
                                 String s = chatline.getChatComponent().getFormattedText();
                                 GlStateManager.enableBlend();
-                                if (BetterChat.getSettings().smooth && i1 <= newLines) {
-                                    this.mc.fontRenderer.drawStringWithShadow(s, 0.0F, (j2 - 8), 16777215 + ((int) (l1 * percent) << 24));
+                                if (Ozark.get_setting_manager().get_setting_with_tag("BetterChat", "Smooth").get_value(true) && Ozark.get_module_manager().get_module_with_tag("BetterChat").is_active() && i1 <= newLines) {
+                                    if (s.contains(MessageUtil.opener) && Ozark.get_module_manager().get_module_with_tag("RainbowChat").is_active()) {
+                                        RainbowUtil.drawRainbowStringChat(s, 0.0F, (float) (j2 - 8), RainbowUtil.getMultiColour().getRGB(), 100.0F);
+                                    } else {
+                                        this.mc.fontRenderer.drawStringWithShadow(s, 0.0F, (j2 - 8), 16777215 + ((int) (l1 * percent) << 24));
+                                    }
                                 } else {
-                                    this.mc.fontRenderer.drawStringWithShadow(s, (float) i2, (float) (j2 - 8), 16777215 + (l1 << 24));
+                                    if (s.contains(MessageUtil.opener) && Ozark.get_module_manager().get_module_with_tag("RainbowChat").is_active()) {
+                                        RainbowUtil.drawRainbowStringChat(s, (float) i2, (float) (j2 - 8), RainbowUtil.getMultiColour().getRGB(), 100.0F);
+                                    } else {
+                                        this.mc.fontRenderer.drawStringWithShadow(s, (float) i2, (float) (j2 - 8), 16777215 + (l1 << 24));
+                                    }
                                 }
                                 GlStateManager.disableAlpha();
                                 GlStateManager.disableBlend();
@@ -283,8 +292,8 @@ public class GuiBetterChat extends GuiNewChat {
             ScaledResolution scaledresolution = new ScaledResolution(this.mc);
             int i = scaledresolution.getScaleFactor();
             float f = this.getChatScale();
-            int j = mouseX / i - 2 - BetterChat.getSettings().xOffset;
-            int k = mouseY / i - 40 + BetterChat.getSettings().yOffset;
+            int j = mouseX / i - 2;
+            int k = mouseY / i - 40;
             j = MathHelper.floor((float) j / f);
             k = MathHelper.floor((float) k / f);
 

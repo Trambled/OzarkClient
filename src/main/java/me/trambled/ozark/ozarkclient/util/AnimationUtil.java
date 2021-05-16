@@ -14,9 +14,10 @@
  *       You should have received a copy of the GNU General Public License
  *       along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.llamalad7.betterchat.utils;
+package me.trambled.ozark.ozarkclient.util;
 
-public class AnimationTools {
+// full credit goes to llamalad7
+public class AnimationUtil {
     public static float clamp(float number, float min, float max) {
         return number < min ? min : Math.min(number, max);
     }

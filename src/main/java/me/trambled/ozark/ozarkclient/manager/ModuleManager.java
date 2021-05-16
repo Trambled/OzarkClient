@@ -55,6 +55,8 @@ public class ModuleManager {
 		add_module(new AutoDDOS());
 		add_module(new PalestineSupport());
 		add_module(new BurrowAlert());
+		add_module(new RainbowChat());
+		add_module(new BetterChat());
 
 		// Combat.
 		add_module(new Criticals());
@@ -150,6 +152,7 @@ public class ModuleManager {
 		add_module(new Weather());
 		add_module(new BreakESP());
 		add_module(new SmallHands());
+		add_module(new LogOutSpots());
 	
 		// Misc.
 		add_module(new AutoWither());
@@ -268,6 +271,19 @@ public class ModuleManager {
 			modules.update_always();
 		}
 	}
+
+	public void on_logout() {
+		for (Module modules : get_array_modules()) {
+			try {
+				if (modules.is_active()) {
+					modules.log_out();
+				}
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
+		}
+	}
+
 
 	public void fast_update() {
 		for (Module modules : get_array_modules()) {

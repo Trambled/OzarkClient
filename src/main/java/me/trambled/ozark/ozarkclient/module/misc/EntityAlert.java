@@ -19,6 +19,9 @@ import net.minecraft.init.SoundEvents;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Made by @Trambled on 4/15/2021
+ */
 public class EntityAlert extends Module
 {
     public EntityAlert() {

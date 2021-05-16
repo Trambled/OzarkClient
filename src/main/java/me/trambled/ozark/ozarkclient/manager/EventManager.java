@@ -21,6 +21,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
+import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
@@ -61,6 +62,12 @@ public class EventManager {
 
 		Ozark.get_module_manager().render(event);
 	}
+
+	@SubscribeEvent
+	public void onClientDisconnect(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
+		Ozark.get_module_manager().on_logout();
+	}
+
 
 	@SubscribeEvent
 	public void onRender(RenderGameOverlayEvent.Post event) {

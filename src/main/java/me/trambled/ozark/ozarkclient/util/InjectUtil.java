@@ -14,43 +14,24 @@
  *       You should have received a copy of the GNU General Public License
  *       along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.llamalad7.betterchat.command;
+package me.trambled.ozark.ozarkclient.util;
 
-import com.llamalad7.betterchat.gui.GuiConfig;
+import me.trambled.ozark.ozarkclient.guiscreen.GuiBetterChat;
 import net.minecraft.client.Minecraft;
-import net.minecraft.command.CommandBase;
-import net.minecraft.command.CommandException;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.client.gui.GuiIngame;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-public class CommandConfig extends CommandBase {
-
-    @Override
-    public String getName() {
-        return "betterchat";
-    }
-
-    @Override
-    public String getUsage(ICommandSender sender) {
-        return "/betterchat";
-    }
-
-    @Override
-    public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-        return true;
-    }
-
-    @Override
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        MinecraftForge.EVENT_BUS.register(this);
-    }
-
+// full credit goes to llamalad7
+// too lazy to make it a mixin lol
+public class InjectUtil {
+    public static GuiBetterChat chatGUI;
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event) {
         MinecraftForge.EVENT_BUS.unregister(this);
-        Minecraft.getMinecraft().displayGuiScreen(new GuiConfig());
+        chatGUI = new GuiBetterChat(Minecraft.getMinecraft());
+        ObfuscationReflectionHelper.setPrivateValue(GuiIngame.class, Minecraft.getMinecraft().ingameGUI, chatGUI, "field_73840_e");
     }
 }

@@ -592,6 +592,7 @@ public class ConfigManager {
                 final String bind = colune.split(":")[1];
                 final String active = colune.split(":")[2];
                 final Module module = Ozark.get_module_manager().get_module_with_tag(tag);
+                if (module == null) continue;
                 module.set_bind(Integer.parseInt(bind));
                 module.set_active(Boolean.parseBoolean(active));
             } catch (Exception ignored) {}

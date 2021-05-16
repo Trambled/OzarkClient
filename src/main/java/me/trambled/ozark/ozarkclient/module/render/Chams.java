@@ -41,7 +41,7 @@ public class Chams extends Module {
     Setting xpbottles = create("Xp Bottles", "ChamsBottles", true);
     Setting pearl = create("Pearls", "ChamsPearls", true);
     Setting top = create("Top", "ChamsTop", true);
-    Setting scale = create("Factor", "ChamsFactor", 0, -1f, 1f);
+    Setting scale = create("Factor", "ChamsFactor", 0f, 0f, 1f);
     Setting r = create("R", "ChamsR", 255, 0, 255);
     Setting g = create("G", "ChamsG", 255, 0, 255);
     Setting b = create("B", "ChamsB", 255, 0, 255);
@@ -90,14 +90,14 @@ public class Chams extends Module {
                     GL11.glEnable(2848);
                     GL11.glHint(3154, 4354);
                     GL11.glLineWidth(1.0f);
-                    RenderGlobal.renderFilledBox(bb.grow(scale.get_value(1)), r.get_value(1) / 255.0f, g.get_value(1) / 255.0f, b.get_value(1) / 255.0f, box_a.get_value(1) / 255.0f);
+                    RenderGlobal.renderFilledBox(bb.grow(scale.get_value(1d)), r.get_value(1) / 255.0f, g.get_value(1) / 255.0f, b.get_value(1) / 255.0f, box_a.get_value(1) / 255.0f);
                     GL11.glDisable(2848);
                     GlStateManager.depthMask(true);
                     GlStateManager.enableDepth();
                     GlStateManager.enableTexture2D();
                     GlStateManager.disableBlend();
                     GlStateManager.popMatrix();
-                    RenderUtil.drawBlockOutline(bb.grow(scale.get_value(1)), new Color(r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1)), 1);
+                    RenderUtil.drawBlockOutline(bb.grow(scale.get_value(1d)), new Color(r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1)), 1);
                     if (++i >= 50) {
                         break;
                     }
@@ -120,14 +120,14 @@ public class Chams extends Module {
                     GL11.glEnable(2848);
                     GL11.glHint(3154, 4354);
                     GL11.glLineWidth(1.0f);
-                    RenderGlobal.renderFilledBox(bb.grow(scale.get_value(1)), r.get_value(1) / 255.0f, g.get_value(1) / 255.0f, b.get_value(1) / 255.0f, box_a.get_value(1) / 255.0f);
+                    RenderGlobal.renderFilledBox(bb.grow(scale.get_value(1d)), r.get_value(1) / 255.0f, g.get_value(1) / 255.0f, b.get_value(1) / 255.0f, box_a.get_value(1) / 255.0f);
                     GL11.glDisable(2848);
                     GlStateManager.depthMask(true);
                     GlStateManager.enableDepth();
                     GlStateManager.enableTexture2D();
                     GlStateManager.disableBlend();
                     GlStateManager.popMatrix();
-                    RenderUtil.drawBlockOutline(bb.grow(scale.get_value(1)), new Color(r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1)), 1);
+                    RenderUtil.drawBlockOutline(bb.grow(scale.get_value(1d)), new Color(r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1)), 1);
                     if (++i >= 50) {
                         break;
                     }
@@ -150,14 +150,14 @@ public class Chams extends Module {
                     GL11.glEnable(2848);
                     GL11.glHint(3154, 4354);
                     GL11.glLineWidth(1.0f);
-                    RenderGlobal.renderFilledBox(bb.grow(scale.get_value(1)), r.get_value(1) / 255.0f, g.get_value(1) / 255.0f, b.get_value(1) / 255.0f, box_a.get_value(1) / 255.0f);
+                    RenderGlobal.renderFilledBox(bb.grow(scale.get_value(1d)), r.get_value(1) / 255.0f, g.get_value(1) / 255.0f, b.get_value(1) / 255.0f, box_a.get_value(1) / 255.0f);
                     GL11.glDisable(2848);
                     GlStateManager.depthMask(true);
                     GlStateManager.enableDepth();
                     GlStateManager.enableTexture2D();
                     GlStateManager.disableBlend();
                     GlStateManager.popMatrix();
-                    RenderUtil.drawBlockOutline(bb.grow(scale.get_value(1)), new Color(r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1)), 1);
+                    RenderUtil.drawBlockOutline(bb.grow(scale.get_value(1d)), new Color(r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1)), 1);
                     if (++i >= 50) {
                         break;
                     }
@@ -180,14 +180,14 @@ public class Chams extends Module {
                     GL11.glEnable(2848);
                     GL11.glHint(3154, 4354);
                     GL11.glLineWidth(1.0f);
-                    RenderGlobal.renderFilledBox(bb.grow(scale.get_value(1)), r.get_value(1) / 255.0f, g.get_value(1) / 255.0f, b.get_value(1) / 255.0f, box_a.get_value(1) / 255.0f);
+                    RenderGlobal.renderFilledBox(bb.grow(scale.get_value(1d)), r.get_value(1) / 255.0f, g.get_value(1) / 255.0f, b.get_value(1) / 255.0f, box_a.get_value(1) / 255.0f);
                     GL11.glDisable(2848);
                     GlStateManager.depthMask(true);
                     GlStateManager.enableDepth();
                     GlStateManager.enableTexture2D();
                     GlStateManager.disableBlend();
                     GlStateManager.popMatrix();
-                    RenderUtil.drawBlockOutline(bb.grow(scale.get_value(1)), new Color(r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1)), 1);
+                    RenderUtil.drawBlockOutline(bb.grow(scale.get_value(1d)), new Color(r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1)), 1);
                     if (++i >= 50) {
                         break;
                     }
