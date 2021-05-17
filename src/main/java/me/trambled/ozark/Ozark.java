@@ -81,7 +81,7 @@ public class Ozark {
 
 		send_minecraft_log("Done");
 
-		send_minecraft_log("Initialising Better Chat");
+		send_minecraft_log("Initialising BetterChat (made by llamalad7)");
 
 		MinecraftForge.EVENT_BUS.register(new InjectUtil());
 
