@@ -26,6 +26,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -920,15 +921,15 @@ public class AutoCrystal extends Module {
         }
     });
 
-    @EventHandler
-    private final Listener<BlockEvent.BreakEvent> block_listener = new Listener<>(event -> {
+    @SubscribeEvent
+    public void block_break(BlockEvent.BreakEvent event) {
         if (city_predict.get_value(true)) {
             if (debug.get_value(true)) {
                 MessageUtil.send_client_message("city predicting");
             }
             place_crystal();
         }
-    });
+    }
 
     private boolean is_predicting_crystal(SPacketSpawnObject packet) {
         BlockPos packPos = new BlockPos(packet.getX(), packet.getY(), packet.getZ());
