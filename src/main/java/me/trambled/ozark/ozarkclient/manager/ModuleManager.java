@@ -53,7 +53,6 @@ public class ModuleManager {
 		add_module(new AutoGroom());
 		add_module(new Shrug());
 		add_module(new AutoDDOS());
-		add_module(new PalestineSupport());
 		add_module(new BurrowAlert());
 		add_module(new RainbowChat());
 		add_module(new BetterChat());
