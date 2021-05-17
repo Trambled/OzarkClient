@@ -27,7 +27,7 @@ public class TotemPopCounter extends Module {
 
     }
 
-    Setting mode = create("Mode", "Mode", "Normal", combobox("Normal", "Lempity"));
+    Setting mode = create("Mode", "Mode", "Normal", combobox("Normal", "GayNigger"));
 
 
     public static final HashMap<String, Integer> totem_pop_counter = new HashMap<String, Integer>();
@@ -65,9 +65,9 @@ public class TotemPopCounter extends Module {
                 if (entity == mc.player) return;
 
                 if (FriendUtil.isFriend(entity.getName())) {
-                    MessageUtil.send_client_message( red + "" + bold + "[TotemPop] " + reset + aqua + entity.getName() + " popped " + red + count + " totems");
+                    MessageUtil.send_client_message( aqua + entity.getName() + " popped " + red + count + " totems");
                 } else {
-                    MessageUtil.send_client_message( red + "" + bold + "[TotemPop] " + reset + white + entity.getName() + " popped " + red + count + " totems");
+                    MessageUtil.send_client_message( white + entity.getName() + " popped " + red + count + " totems");
                 }
 
             }
@@ -91,7 +91,7 @@ public class TotemPopCounter extends Module {
 
                 if (player == mc.player) continue;
 
-                if (mode.in("Lempity")) {
+                if (mode.in("GayNigger")) {
                     if (FriendUtil.isFriend(player.getName())) {
                         MessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + green + player.getName() + reset + " has popped " + bold + count + reset + " totems. so dog water but idk there a homie");
                     } else {
