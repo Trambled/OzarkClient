@@ -2,7 +2,7 @@ package me.trambled.ozark.ozarkclient.module.render;
 
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
-import me.trambled.ozark.ozarkclient.event.events.EventRender3D;
+import me.trambled.ozark.ozarkclient.event.events.EventRender;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Items;
