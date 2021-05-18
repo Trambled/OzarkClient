@@ -31,7 +31,8 @@ public class Trajectories extends Module {
         this.description = "cool green thingy";
     }
 
-    public void onRender3D(final EventRender3D event) {
+    @Override
+    public void render(EventRender event) {
         if (Trajectories.mc.world != null && Trajectories.mc.player != null && Trajectories.mc.getRenderManager() != null) {
             final double renderPosX = Trajectories.mc.player.lastTickPosX + (Trajectories.mc.player.posX - Trajectories.mc.player.lastTickPosX) * event.getPartialTicks();
             final double renderPosY = Trajectories.mc.player.lastTickPosY + (Trajectories.mc.player.posY - Trajectories.mc.player.lastTickPosY) * event.getPartialTicks();
