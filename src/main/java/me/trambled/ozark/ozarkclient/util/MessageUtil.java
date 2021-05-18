@@ -21,7 +21,7 @@ public class MessageUtil {
 	public static ChatFormatting a = ChatFormatting.DARK_AQUA;
 	public static ChatFormatting r = ChatFormatting.RESET;
 
-	public static String opener = g + "[Ozark]" + r;
+	public static String opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
 
 	public static void toggle_message(Module module) {
 		opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
@@ -41,7 +41,7 @@ public class MessageUtil {
 	}
 
 	public static void client_message_simple(String message) {
-		opener = g + "[Ozark]" + r;
+		opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
 		if (mc.player != null) {
 			final ITextComponent itc = new TextComponentString(message).setStyle(new Style().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("frank alachi"))));
 			mc.ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(itc, 5936);
@@ -49,21 +49,21 @@ public class MessageUtil {
 	}
 
 	public static void client_message(String message) {
-		opener = g + "[Ozark]" + r;
+		opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
 		if (mc.player != null) {
 			mc.player.sendMessage(new ChatMessage(message));
 		}
 	}
 
 	public static void send_client_message(String message) {
-		opener = g + "[Ozark]" + r;
+		opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
 		if (mc.player != null) {
 			client_message(opener + message);
 		}
 	}
 
 	public static void send_client_error_message(String message) {
-		opener = g + "[Ozark]" + r;
+		opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
 		client_message(opener + r + "Error: "  + message);
 	}
 
