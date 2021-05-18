@@ -152,6 +152,7 @@ public class ModuleManager {
 		add_module(new BreakESP());
 		add_module(new SmallHands());
 		add_module(new LogOutSpots());
+		add_module(new Trajectories());
 	
 		// Misc.
 		add_module(new AutoWither());
