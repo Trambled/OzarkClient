@@ -30,8 +30,8 @@ public class FuckedDetector extends Module {
 
     Setting render_mode = create("Render Mode", "FuckedRenderMode", "Pretty", combobox("Pretty", "Solid", "Outline"));
     Setting r = create("R", "FuckedR", 255, 0, 255);
-	Setting g = create("G", "FuckedG", 255, 0, 255);
-	Setting b = create("B", "FuckedB", 255, 0, 255);
+    Setting g = create("G", "FuckedG", 255, 0, 255);
+    Setting b = create("B", "FuckedB", 255, 0, 255);
     Setting a = create("A", "FuckedA", 100, 0, 255);
 
     private boolean solid;
@@ -76,6 +76,10 @@ public class FuckedDetector extends Module {
 
         BlockPos pos = new BlockPos(player.posX, player.posY - 1, player.posZ);
         BlockPos player_pos = new BlockPos(player.posX, player.posY, player.posZ);
+	    
+	if (mc.world.getBlockState(player_pos).getBlock().equals(Blocks.OBSIDIAN)) {
+            return false;
+        }
 
         if (CrystalUtil.canPlaceCrystal(pos.south()) || (CrystalUtil.canPlaceCrystal(pos.south().south()) && mc.world.getBlockState(pos.add(0, 1, 1)).getBlock() == Blocks.AIR)) {
             return true;
@@ -91,10 +95,6 @@ public class FuckedDetector extends Module {
             
         if (CrystalUtil.canPlaceCrystal(pos.north()) || (CrystalUtil.canPlaceCrystal(pos.north().north()) && mc.world.getBlockState(pos.add(0, 1, -1)).getBlock() == Blocks.AIR)) {
             return true;
-        }
-
-        if (mc.world.getBlockState(player_pos).getBlock().equals(Blocks.OBSIDIAN)) {
-            return false;
         }
 
 
