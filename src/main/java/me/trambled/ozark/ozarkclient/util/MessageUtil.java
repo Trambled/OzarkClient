@@ -20,6 +20,7 @@ public class MessageUtil {
 	public static ChatFormatting b = ChatFormatting.BLUE;
 	public static ChatFormatting a = ChatFormatting.DARK_AQUA;
 	public static ChatFormatting r = ChatFormatting.RESET;
+	public static ChatFormatting f = ChatFormatting.BOLD;
 
 	public static String opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
 
@@ -29,13 +30,13 @@ public class MessageUtil {
 			if (module.get_tag().equals("AutoCrystal")) {
 				client_message_simple(opener + "we do a little " + ChatFormatting.DARK_GREEN + "trolling");
 			} else {
-				client_message_simple(opener + r + module.get_name() + ChatFormatting.DARK_GREEN + " Enabled");
+				client_message_simple(opener + r + f + module.get_name() + r + ChatFormatting.DARK_GREEN + " enabled");
 			}			
 		} else {
 			if (module.get_tag().equals("AutoCrystal")) {
 				client_message_simple(opener + "we aint" + ChatFormatting.RED + " trolling " + r + "no more");
 			} else {
-				client_message_simple(opener + r + module.get_name() + ChatFormatting.RED + " Disabled");
+				client_message_simple(opener + r + f + module.get_name() + r + ChatFormatting.RED + " disabled");
 			}
 		}
 	}
