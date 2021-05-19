@@ -10,6 +10,8 @@ Literal sex.
 
 3. Do cd (directory) of the shit.
 
+3. Run gradlew setupDecompworkspace
+
 4. Do gradlew build, after that it should build.
 
 5. Go into the file, look for build > libs > then you should see three .jar files, the one that has -all in end of it
