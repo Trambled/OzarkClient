@@ -30,13 +30,13 @@ public class MessageUtil {
 			if (module.get_tag().equals("AutoCrystal")) {
 				client_message_simple(opener + "we do a little " + ChatFormatting.DARK_GREEN + "trolling");
 			} else {
-				client_message_simple(opener + r + f + module.get_name() + r + ChatFormatting.DARK_GREEN + " enabled");
+				client_message_simple(opener + r + module.get_name() + r + ChatFormatting.DARK_GREEN + " enabled");
 			}			
 		} else {
 			if (module.get_tag().equals("AutoCrystal")) {
 				client_message_simple(opener + "we aint" + ChatFormatting.RED + " trolling " + r + "no more");
 			} else {
-				client_message_simple(opener + r + f + module.get_name() + r + ChatFormatting.RED + " disabled");
+				client_message_simple(opener + r + module.get_name() + r + ChatFormatting.RED + " disabled");
 			}
 		}
 	}
@@ -46,6 +46,13 @@ public class MessageUtil {
 		if (mc.player != null) {
 			final ITextComponent itc = new TextComponentString(message).setStyle(new Style().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("frank alachi"))));
 			mc.ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(itc, 5936);
+		}
+	}
+
+        public static void send_client_message_simple(String message) {
+		opener = g + Ozark.DISPLAY_NAME + " " + ChatFormatting.GRAY + "> " + r;
+		if (mc.player != null) {
+			client_message_simple(opener + message);
 		}
 	}
 
