@@ -10,7 +10,7 @@ import me.trambled.ozark.ozarkclient.event.EventRegister;
 import me.trambled.ozark.ozarkclient.guiscreen.MainGUI;
 import me.trambled.ozark.ozarkclient.guiscreen.MainHUD;
 import me.trambled.ozark.ozarkclient.guiscreen.PastGUI;
-import me.trambled.ozark.ozarkclient.guiscreen.gui.past.font.CustomFontRenderer;
+import me.trambled.ozark.ozarkclient.util.CustomFontRenderer;
 import me.trambled.ozark.ozarkclient.manager.*;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
@@ -33,6 +33,7 @@ public class Ozark {
 	public static final String VERSION = "1.12.3";
 	public static final String SIGN = " ";
 	public static String DISPLAY_NAME = "Ozark";
+	public static String TARGET_NAME = "NULL";
 
 	public static final int KEY_GUI = Keyboard.KEY_RSHIFT;
 	public static final int KEY_DELETE = Keyboard.KEY_DELETE;

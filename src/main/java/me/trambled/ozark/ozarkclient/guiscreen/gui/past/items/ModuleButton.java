@@ -4,7 +4,7 @@ import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.past.Component;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.past.Panel;
-import me.trambled.ozark.ozarkclient.guiscreen.gui.past.font.FontUtil;
+import me.trambled.ozark.ozarkclient.util.FontUtil;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Module;
 import net.minecraft.client.Minecraft;

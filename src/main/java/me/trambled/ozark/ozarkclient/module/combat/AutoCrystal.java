@@ -226,6 +226,12 @@ public class AutoCrystal extends Module {
             break_crystal();
         }
 
+        if (ca_target == null) {
+            Ozark.TARGET_NAME = "NULL";
+        } else {
+            Ozark.TARGET_NAME = ca_target.getName();
+        }
+
         if (render_block_init != null) {
             if (!mc.world.getBlockState(render_block_init).getBlock().equals(Blocks.OBSIDIAN) && !mc.world.getBlockState(render_block_init).getBlock().equals(Blocks.BEDROCK)) {
                 render_block_init = null;
@@ -1066,6 +1072,7 @@ public class AutoCrystal extends Module {
     public void disable() {
         render_block_init = null;
         ca_target = null;
+        Ozark.TARGET_NAME = "NULL";
     }
 
     @Override

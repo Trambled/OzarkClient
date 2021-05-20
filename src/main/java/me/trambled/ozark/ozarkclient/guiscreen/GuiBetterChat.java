@@ -134,14 +134,21 @@ public class GuiBetterChat extends GuiNewChat {
                                 GlStateManager.enableBlend();
                                 if (Ozark.get_setting_manager().get_setting_with_tag("BetterChat", "Smooth").get_value(true) && Ozark.get_module_manager().get_module_with_tag("BetterChat").is_active() && i1 <= newLines) {
                                     if (s.contains(MessageUtil.opener) && Ozark.get_module_manager().get_module_with_tag("RainbowChat").is_active()) {
-                                        RainbowUtil.drawRainbowStringChat(s, 0.0F, (float) (j2 - 8), RainbowUtil.getMultiColour().getRGB(), 100.0F);
+                                        if (Ozark.get_setting_manager().get_setting_with_tag("RainbowChat", "RainbowChatCustomFont").get_value(true)) {
+                                            RainbowUtil.drawRainbowStringChatCustomFont(s, 0.0F, (float) (j2 - 8), RainbowUtil.getMultiColour().getRGB(), 100.0F);
+                                        } else {
+                                            RainbowUtil.drawRainbowStringChat(s, 0.0F, (float) (j2 - 8), RainbowUtil.getMultiColour().getRGB(), 100.0F);
+                                        }
                                     } else {
                                         this.mc.fontRenderer.drawStringWithShadow(s, 0.0F, (j2 - 8), 16777215 + ((int) (l1 * percent) << 24));
                                     }
                                 } else {
                                     if (s.contains(MessageUtil.opener) && Ozark.get_module_manager().get_module_with_tag("RainbowChat").is_active()) {
-                                        RainbowUtil.drawRainbowStringChat(s, (float) i2, (float) (j2 - 8), RainbowUtil.getMultiColour().getRGB(), 100.0F);
-                                    } else {
+                                        if (Ozark.get_setting_manager().get_setting_with_tag("RainbowChat", "RainbowChatCustomFont").get_value(true)) {
+                                            RainbowUtil.drawRainbowStringChatCustomFont(s, 0.0F, (float) (j2 - 8), RainbowUtil.getMultiColour().getRGB(), 100.0F);
+                                        } else {
+                                            RainbowUtil.drawRainbowStringChat(s, 0.0F, (float) (j2 - 8), RainbowUtil.getMultiColour().getRGB(), 100.0F);
+                                        }                                    } else {
                                         this.mc.fontRenderer.drawStringWithShadow(s, (float) i2, (float) (j2 - 8), 16777215 + (l1 << 24));
                                     }
                                 }

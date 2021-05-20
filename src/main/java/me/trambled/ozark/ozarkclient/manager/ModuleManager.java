@@ -12,6 +12,7 @@ import me.trambled.ozark.ozarkclient.module.movement.*;
 import me.trambled.ozark.ozarkclient.module.render.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.entity.RenderEnderCrystal;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -153,8 +154,8 @@ public class ModuleManager {
 		add_module(new SmallHands());
 		add_module(new LogOutSpots());
 		add_module(new Trajectories());
-		add_module(new FastSwitch());
-	
+		add_module(new PenisESP());
+
 		// Misc.
 		add_module(new AutoWither());
 		add_module(new MiddleClickFriends());

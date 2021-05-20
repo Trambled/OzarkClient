@@ -3,6 +3,7 @@ package me.trambled.ozark.ozarkclient.module.render;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.event.events.EventRender;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Items;
@@ -28,12 +29,21 @@ public class Trajectories extends Module {
 
         this.name        = "Trajectories";
         this.tag         = "Trajectories";
-        this.description = "cool green thingy";
+        this.description = "shows where you are aiming";
     }
+
+    Setting r = create("R", "TrajectoriesR", 0, 0, 255);
+    Setting g = create("G", "TrajectoriesG", 255, 0, 255);
+    Setting b = create("B", "TrajectoriesB", 0, 0, 255);
+    Setting a = create("A", "TrajectoriesA", 255, 0, 255);
+    Setting landing_r = create("Landing R", "TrajectoriesLandingR", 255, 0, 255);
+    Setting landing_g = create("Landing G", "TrajectoriesLandingG", 0, 0, 255);
+    Setting landing_b = create("Landing B", "TrajectoriesLandingB", 0, 0, 255);
+    Setting landing_a = create("Landing A", "TrajectoriesLandingA", 255, 0, 255);
 
     @Override
     public void render(EventRender event) {
-        if (Trajectories.mc.world != null && Trajectories.mc.player != null && Trajectories.mc.getRenderManager() != null) {
+        if (Trajectories.mc.world != null && Trajectories.mc.player != null && mc.getRenderManager() != null) {
             final double renderPosX = Trajectories.mc.player.lastTickPosX + (Trajectories.mc.player.posX - Trajectories.mc.player.lastTickPosX) * event.get_partial_ticks();
             final double renderPosY = Trajectories.mc.player.lastTickPosY + (Trajectories.mc.player.posY - Trajectories.mc.player.lastTickPosY) * event.get_partial_ticks();
             final double renderPosZ = Trajectories.mc.player.lastTickPosZ + (Trajectories.mc.player.posZ - Trajectories.mc.player.lastTickPosZ) * event.get_partial_ticks();
@@ -62,7 +72,7 @@ public class Trajectories extends Module {
                 motionY *= pow * ((item instanceof ItemFishingRod) ? 0.75f : ((Trajectories.mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() == Items.EXPERIENCE_BOTTLE) ? 0.75f : 1.5f));
                 motionZ *= pow * ((item instanceof ItemFishingRod) ? 0.75f : ((Trajectories.mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() == Items.EXPERIENCE_BOTTLE) ? 0.75f : 1.5f));
                 this.enableGL3D(2.0f);
-                GlStateManager.color(0.0f, 1.0f, 0.0f, 1.0f);
+                GlStateManager.color((float) r.get_value(1) / 0xFF, (float) g.get_value(1) / 0xFF, (float) b.get_value(1) / 0xFF, (float) a.get_value(1) / 0xFF);
                 GL11.glEnable(2848);
                 final float size = (float) ((item instanceof ItemBow) ? 0.3 : 0.25);
                 boolean hasLanded = false;
@@ -93,7 +103,7 @@ public class Trajectories extends Module {
                         }
                     }
                     if (landingOnEntity != null) {
-                        GlStateManager.color(1.0f, 0.0f, 0.0f, 1.0f);
+                        GlStateManager.color((float) landing_r.get_value(1) / 0xFF, (float) landing_g.get_value(1) / 0xFF, (float) landing_b.get_value(1) / 0xFF, (float) landing_a.get_value(1) / 0xFF);
                     }
                     posX += motionX;
                     posY += motionY;
@@ -125,7 +135,7 @@ public class Trajectories extends Module {
                         GL11.glLineWidth(2.5f);
                         c.draw(0.6f, 0.3f, 0.0f, 4, 1);
                         GL11.glLineWidth(0.1f);
-                        GlStateManager.color(1.0f, 0.0f, 0.0f, 1.0f);
+                        GlStateManager.color((float) landing_r.get_value(1) / 0xFF, (float) landing_g.get_value(1) / 0xFF, (float) landing_b.get_value(1) / 0xFF, (float) landing_a.get_value(1) / 0xFF);
                     }
                     c.draw(0.6f, 0.3f, 0.0f, 4, 1);
                 }

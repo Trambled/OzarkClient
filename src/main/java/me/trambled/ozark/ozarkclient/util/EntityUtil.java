@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -67,6 +68,20 @@ public class EntityUtil {
         }
         return true;
     }
+
+    public static Color getColor(final Entity entity, final int red, final int green, final int blue, final int alpha, final boolean colorFriends) {
+        Color color = new Color(red / 255.0f, green / 255.0f, blue / 255.0f, alpha / 255.0f);
+        if (entity instanceof EntityPlayer) {
+            if (colorFriends && FriendUtil.isFriend(entity.getName())) {
+                color = new Color(0.33f, 1.0f, 1.0f, alpha / 255.0f);
+            }
+            if (colorFriends && EnemyUtil.isEnemy(entity.getName())) {
+                color = new Color(1, 0.33f, 1.0f, alpha / 255.0f);
+            }
+        }
+        return color;
+    }
+
 
     public static boolean isBothHole(BlockPos blockPos) {
         BlockPos[] touchingBlocks;

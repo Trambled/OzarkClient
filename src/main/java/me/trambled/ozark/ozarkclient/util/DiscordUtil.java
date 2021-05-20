@@ -76,16 +76,65 @@ public class DiscordUtil
 					} else {
 						if (mc.player != null) {
 							int health = Math.round(mc.player.getHealth() + mc.player.getAbsorptionAmount());
-							DiscordUtil.state = health + " HP";
+
+							// STATE
+							if (get_state().equals("Health")) {
+								DiscordUtil.state = health + " HP";
+							} else if (get_state().equals("Server")) {
+								if (mc.isIntegratedServerRunning()) {
+									DiscordUtil.state = "Playing Singleplayer";
+								} else {
+									DiscordUtil.state = "Playing " + mc.getCurrentServerData().serverIP;
+								}
+							} else if (get_state().equals("Target")) {
+								if (!Ozark.TARGET_NAME.equals("NULL")) {
+									DiscordUtil.state = "Ezing " + Ozark.TARGET_NAME;
+								} else {
+									DiscordUtil.state = "Chilling";
+								}
+							} else if (get_state().equals("User")) {
+								DiscordUtil.state = "Playing with " + Ozark.get_actual_user();
+							} else if (get_state().equals("Speed")) {
+								if (Double.parseDouble(PlayerUtil.speed()) > 15) {
+									DiscordUtil.state = "Zoomin at " + PlayerUtil.speed() + " KPH";
+								} else {
+									DiscordUtil.state = "Chilling at " + PlayerUtil.speed() + " KPH";
+								}
+							}
+
+							// DETAILS
+							if (get_details().equals("Health")) {
+								DiscordUtil.details = health + " HP";
+							} else if (get_details().equals("Server")) {
+								if (mc.isIntegratedServerRunning()) {
+									DiscordUtil.details = "Playing Singleplayer";
+								} else {
+									DiscordUtil.details = "Playing " + mc.getCurrentServerData().serverIP;
+								}
+							} else if (get_details().equals("Target")) {
+								if (!Ozark.TARGET_NAME.equals("NULL")) {
+									DiscordUtil.details = "Ezing " + Ozark.TARGET_NAME;
+								} else {
+									DiscordUtil.details = "Chilling";
+								}
+							} else if (get_details().equals("User")) {
+								DiscordUtil.details = "Playing with " + Ozark.get_actual_user();
+							} else if (get_details().equals("Speed")) {
+								if (Double.parseDouble(PlayerUtil.speed()) > 15) {
+									DiscordUtil.details = "Zoomin at " + PlayerUtil.speed() + " KPH";
+								} else {
+									DiscordUtil.details = "Chilling at " + PlayerUtil.speed() + " KPH";
+								}
+							}
+
+							// SMALL IMAGE
 							if (mc.isIntegratedServerRunning()) {
-								DiscordUtil.details = "Playing Singleplayer";
 								if (Ozark.get_setting_manager().get_setting_with_tag("DiscordRPC", "RPCSmallImage").in("Tudou")) {
 									DiscordUtil.presence.smallImageKey = "tudousmall";
 								} else {
 									DiscordUtil.presence.smallImageKey = "troll";
 								}
 							} else {
-								DiscordUtil.details = "Playing " + mc.getCurrentServerData().serverIP;
 								if (Ozark.get_setting_manager().get_setting_with_tag("DiscordRPC", "RPCSmallImage").in("Tudou")) {
 									DiscordUtil.presence.smallImageKey = "tudousmall";
 								} else {
@@ -151,6 +200,14 @@ public class DiscordUtil
         DiscordRPC.INSTANCE.Discord_ClearPresence();
         DiscordRPC.INSTANCE.Discord_Shutdown();
     }
+
+    private static String get_state() {
+    	return Ozark.get_setting_manager().get_setting_with_tag("DiscordRPC", "RPCState").get_current_value();
+	}
+
+	private static String get_details() {
+		return Ozark.get_setting_manager().get_setting_with_tag("DiscordRPC", "RPCDetails").get_current_value();
+	}
     
     static {
         mc = Minecraft.getMinecraft();

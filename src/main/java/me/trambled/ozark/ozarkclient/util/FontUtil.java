@@ -1,4 +1,4 @@
-package me.trambled.ozark.ozarkclient.guiscreen.gui.past.font;
+package me.trambled.ozark.ozarkclient.util;
 
 import me.trambled.ozark.Ozark;
 import net.minecraft.client.Minecraft;
@@ -48,6 +48,18 @@ public class FontUtil {
             return Ozark.arialFont.getHeight();
         } else {
             return mc.fontRenderer.FONT_HEIGHT;
+        }
+    }
+
+    public static int getFontWidth(String text) {
+        if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIFont").in("Lato")) {
+            return Ozark.latoFont.getStringWidth(text);
+        } else if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIFont").in("Verdana")) {
+            return Ozark.verdanaFont.getStringWidth(text);
+        } else if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIFont").in("Arial")) {
+            return Ozark.arialFont.getStringWidth(text);
+        } else {
+            return RainbowUtil.get_string_width(text);
         }
     }
 

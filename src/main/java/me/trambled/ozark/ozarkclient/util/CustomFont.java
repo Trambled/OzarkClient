@@ -1,4 +1,4 @@
-package me.trambled.ozark.ozarkclient.guiscreen.gui.past.font;
+package me.trambled.ozark.ozarkclient.util;
 
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import org.lwjgl.opengl.GL11;

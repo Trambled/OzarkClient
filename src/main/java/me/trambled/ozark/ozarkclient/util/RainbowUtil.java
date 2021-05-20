@@ -12,7 +12,6 @@ public class RainbowUtil {
 	private static FontRenderer font_renderer = Minecraft.getMinecraft().fontRenderer;
 	private static Minecraft mc = Minecraft.getMinecraft();
 	private static boolean flag;
-	private static boolean chat_flag = false;
 
 
 	public static void drawRainbowStringChat(String text, float x, float y, int startColor, float factor) {
@@ -51,6 +50,44 @@ public class RainbowUtil {
 			currentHue += hueIncrement;
 		}
 	}
+
+	public static void drawRainbowStringChatCustomFont(String text, float x, float y, int startColor, float factor) {
+		Color currentColor = new Color(startColor);
+		float hueIncrement = 1.0f / factor;
+		float currentHue = Color.RGBtoHSB(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), null)[0];
+		float saturation = Color.RGBtoHSB(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), null)[1];
+		float brightness = Color.RGBtoHSB(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), null)[2];
+		int currentWidth = 0;
+		boolean shouldRainbow = true;
+		boolean shouldContinue = false;
+		for (int i = 0; i < text.length(); ++i) {
+			char currentChar = text.charAt(i);
+			char nextChar = text.charAt(MathUtil.clamp(i + 1, 0, text.length() - 1));
+			if ((String.valueOf(currentChar) + nextChar).equals("\u00a7r")) {
+				shouldRainbow = false;
+			} else if ((String.valueOf(currentChar) + nextChar).equals("\u00a74")) {
+				shouldRainbow = true;
+			}
+			if (shouldContinue) {
+				shouldContinue = false;
+				continue;
+			}
+			if ((String.valueOf(currentChar) + nextChar).equals("\u00a7r")) {
+				String escapeString = text.substring(i);
+				drawString(escapeString, x + (float) currentWidth, y, Color.WHITE.getRGB());
+				break;
+			}
+			FontUtil.drawStringWithShadow(String.valueOf(currentChar).equals("\u00a7") ? "" : String.valueOf(currentChar), x + (float) currentWidth, y, shouldRainbow ? currentColor.getRGB() : Color.WHITE.getRGB());
+			if (String.valueOf(currentChar).equals("\u00a7")) {
+				shouldContinue = true;
+			}
+			currentWidth += FontUtil.getFontWidth(String.valueOf(currentChar));
+			if (String.valueOf(currentChar).equals(" ")) continue;
+			currentColor = new Color(Color.HSBtoRGB(currentHue, saturation, brightness));
+			currentHue += hueIncrement;
+		}
+	}
+
 	public static void drawRainbowString(String text, int x, int y, int color, float factor) {
 		Color currentColor = new Color(color);
 		float hueIncrement = 1.0f / factor;

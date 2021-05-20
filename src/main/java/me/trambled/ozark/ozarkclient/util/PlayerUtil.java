@@ -14,24 +14,14 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class PlayerUtil
 {
     private static final Minecraft mc;
-    public double firstJumpSpeed = 0.0;
-    public double lastJumpSpeed = 0.0;
-    public double percentJumpSpeedChanged = 0.0;
-    public double jumpSpeedChanged = 0.0;
-    public static boolean didJumpThisTick = false;
-    public static boolean isJumping = false;
-    public boolean didJumpLastTick = false;
-    public long jumpInfoStartTime = 0L;
-    public static double speedometerCurrentSpeed = 0.0;
-    public boolean wasFirstJump = true;
+    private static DecimalFormat formatter = new DecimalFormat("#.#");
     
     public static BlockPos GetLocalPlayerPosFloored() {
         return new BlockPos(Math.floor(PlayerUtil.mc.player.posX), Math.floor(PlayerUtil.mc.player.posY), Math.floor(PlayerUtil.mc.player.posZ));
@@ -197,38 +187,21 @@ public class PlayerUtil
         return target;
     }
 
-    @SubscribeEvent
-    public void onTick(TickEvent.ClientTickEvent event) {
-        if (mc.player == null) {
-            return;
-        }
-        double distTraveledLastTickX = mc.player.posX - mc.player.prevPosX;
-        double distTraveledLastTickZ = mc.player.posZ - mc.player.prevPosZ;
-        this.speedometerCurrentSpeed = distTraveledLastTickX * distTraveledLastTickX + distTraveledLastTickZ * distTraveledLastTickZ;
-        if (didJumpThisTick && (!mc.player.onGround || isJumping)) {
-            if (didJumpThisTick && !this.didJumpLastTick) {
-                this.wasFirstJump = this.lastJumpSpeed == 0.0;
-                this.percentJumpSpeedChanged = this.speedometerCurrentSpeed != 0.0 ? this.speedometerCurrentSpeed / this.lastJumpSpeed - 1.0 : -1.0;
-                this.jumpSpeedChanged = this.speedometerCurrentSpeed - this.lastJumpSpeed;
-                this.jumpInfoStartTime = Minecraft.getSystemTime();
-                this.lastJumpSpeed = this.speedometerCurrentSpeed;
-                this.firstJumpSpeed = this.wasFirstJump ? this.lastJumpSpeed : 0.0;
+    public static String speed() {
+        float currentTps = mc.timer.tickLength / 1000.0f;
+        return formatter.format((double)(MathHelper.sqrt(Math.pow(coordsDiff("x"), 2.0) + Math.pow(coordsDiff("y"), 2.0)) / currentTps) * 3.6);
+    }
+
+    private static double coordsDiff(String s) {
+        switch (s) {
+            case "x": {
+                return mc.player.posX - mc.player.prevPosX;
             }
-            this.didJumpLastTick = didJumpThisTick;
-        } else {
-            this.didJumpLastTick = false;
-            this.lastJumpSpeed = 0.0;
+            case "z": {
+                return mc.player.posZ - mc.player.prevPosZ;
+            }
         }
-    }
-
-    public static double getSpeedKpH() {
-        double speedometerkphdouble = turnIntoKpH(speedometerCurrentSpeed);
-        speedometerkphdouble = (double)Math.round(10.0 * speedometerkphdouble) / 10.0;
-        return speedometerkphdouble;
-    }
-
-    public static double turnIntoKpH(double input) {
-        return (double)MathHelper.sqrt((double)input) * 71.2729367892;
+        return 0.0;
     }
 
 }
