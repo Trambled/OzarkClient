@@ -153,6 +153,7 @@ public class ModuleManager {
 		add_module(new SmallHands());
 		add_module(new LogOutSpots());
 		add_module(new Trajectories());
+		add_module(new FastSwitch());
 	
 		// Misc.
 		add_module(new AutoWither());
