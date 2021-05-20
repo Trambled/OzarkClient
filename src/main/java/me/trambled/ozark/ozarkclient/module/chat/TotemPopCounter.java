@@ -68,9 +68,9 @@ public class TotemPopCounter extends Module {
                 if (entity == mc.player) return;
 
                 if (FriendUtil.isFriend(entity.getName())) {
-                    MessageUtil.client_message_simple(aqua + entity.getName() + " popped " + red + count + " totems");
+                    MessageUtil.send_client_message_simple(aqua + entity.getName() + " popped " + red + count + " totems");
                 } else {
-                    MessageUtil.client_message_simple(white + entity.getName() + " popped " + red + count + " totems");
+                    MessageUtil.send_client_message_simple(white + entity.getName() + " popped " + red + count + " totems");
 
                 }
             }
@@ -96,15 +96,15 @@ public class TotemPopCounter extends Module {
 
                 if (mode.in("GayNigger")) {
                     if (FriendUtil.isFriend(player.getName())) {
-                        MessageUtil.client_message_simple( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + green + player.getName() + reset + " has popped " + bold + count + reset + " totems. so dog water but idk there a homie");
+                        MessageUtil.send_client_message_simple( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + green + player.getName() + reset + " has popped " + bold + count + reset + " totems. so dog water but idk there a homie");
                     } else {
-                        MessageUtil.client_message_simple( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + red + player.getName() + reset + " has popped " + bold + count + reset + " totems. Stupid fucking retard");
+                        MessageUtil.send_client_message_simple( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + red + player.getName() + reset + " has popped " + bold + count + reset + " totems. Stupid fucking retard");
                     }
                 } else {
                     if (FriendUtil.isFriend(player.getName())) {
-                        MessageUtil.client_message_simple( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "" + bold + aqua + player.getName() + reset + " died after popping " + bold + count + reset + " totems.");
+                        MessageUtil.send_client_message_simple( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "" + bold + aqua + player.getName() + reset + " died after popping " + bold + count + reset + " totems.");
                     } else {
-                        MessageUtil.client_message_simple( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "" + bold + red + player.getName() + reset + " died after popping " + bold + count + reset + " totems");
+                        MessageUtil.send_client_message_simple( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "" + bold + red + player.getName() + reset + " died after popping " + bold + count + reset + " totems");
                     }
                 }
 
