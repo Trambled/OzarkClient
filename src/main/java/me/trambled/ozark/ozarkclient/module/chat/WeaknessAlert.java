@@ -1,9 +1,12 @@
 package me.trambled.ozark.ozarkclient.module.chat;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import net.minecraft.init.MobEffects;
+
+
 
 //bloodhack
 public class WeaknessAlert extends Module {
@@ -15,6 +18,8 @@ public class WeaknessAlert extends Module {
         this.tag = "WeaknessAlert";
         this.description = "weakness alert more like fag alert";
     }
+    public static ChatFormatting red = ChatFormatting.DARK_RED;
+    public static ChatFormatting green = ChatFormatting.GREEN;
 
     private boolean hasAnnounced = false;
  
@@ -23,11 +28,11 @@ public class WeaknessAlert extends Module {
         if (mc.world != null && mc.player != null) {
             if (mc.player.isPotionActive(MobEffects.WEAKNESS) && !hasAnnounced) {
                 hasAnnounced = true;
-                MessageUtil.send_client_message("You have weakness!");
+                MessageUtil.send_client_message( red + "You have weakness!");
             }
             if (!mc.player.isPotionActive(MobEffects.WEAKNESS) && hasAnnounced) {
                 hasAnnounced = false;
-                MessageUtil.send_client_message("No more weakness!");
+                MessageUtil.send_client_message( green + "No more weakness!");
             }
         }
     }
