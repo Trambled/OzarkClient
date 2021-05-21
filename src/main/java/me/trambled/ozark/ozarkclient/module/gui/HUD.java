@@ -14,7 +14,7 @@ public class HUD extends Module {
 
 		this.name        = "HUD";
 		this.tag         = "HUD";
-		this.description = "Allows u to modify the hud";
+		this.description = "Allows u to modify the hud.";
 	}
 
 	Setting strings_r = create("Color R", "HUDStringsColorR", 245, 0, 255);

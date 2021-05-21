@@ -25,7 +25,7 @@ public class Xray extends Module {
 
         this.name        = "Xray";
         this.tag         = "Xray";
-        this.description = "removes cringe blocks from vision";
+        this.description = "Removes cringe blocks from vision.";
         initblocks();
     }
 

@@ -15,7 +15,7 @@ public class AutoTotem extends Module {
 
         this.name        = "AutoTotem";
         this.tag         = "AutoTotem";
-        this.description = "put totem in offhand";
+        this.description = "Put totem in offhand.";
     }
 
     Setting delay = create("Delay", "TotemDelay", false);

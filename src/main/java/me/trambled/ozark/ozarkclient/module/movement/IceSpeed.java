@@ -12,7 +12,7 @@ public class IceSpeed extends Module
         super(Category.MOVEMENT);
         this.name = "IceSpeed";
         this.tag = "IceSpeed";
-        this.description = "speed on ice!";
+        this.description = "Speed on ice!";
     }
 
     Setting slipperiness = create("Slipperiness", "Slipperiness", 1.0, 1, 10);

@@ -12,7 +12,7 @@ public class AutoExcuse extends Module
         this.diedTime = 0;
         this.name = "AutoExcuse";
         this.tag = "AutoExcuse";
-        this.description = "tell people why you died";
+        this.description = "Tell people why you died.";
     }
     
     @Override

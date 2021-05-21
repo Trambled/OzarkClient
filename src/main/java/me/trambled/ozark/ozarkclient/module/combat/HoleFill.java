@@ -26,7 +26,7 @@ public class HoleFill extends Module {
 
 		this.name        = "HoleFill"; 
 		this.tag         = "HoleFill";
-		this.description = "turn holes into floors";
+		this.description = "Turn holes into floors.";
     }
 
     Setting smart_mode = create("Smart Mode", "HoleFillSmart", false);

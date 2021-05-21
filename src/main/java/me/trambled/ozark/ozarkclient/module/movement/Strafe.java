@@ -23,7 +23,7 @@ public class Strafe extends Module {
 
 		this.name        = "Strafe";
 		this.tag         = "Strafe";
-		this.description = "its like running, but faster";
+		this.description = "Its like running, but faster.";
 	}
 
 	Setting speed_mode = create("Mode", "StrafeMode", "Strafe", combobox("Strafe", "On Ground", "None"));

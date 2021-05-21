@@ -11,7 +11,7 @@ public class SmallHands extends Module {
         
         this.name = "SmallHands";
         this.tag = "SmallHands";
-        this.description = "makes ur hands smaller";
+        this.description = "Makes ur hands smaller.";
     }
     
     Setting offset = create("Offset", "Offset", 90, 0, 360);

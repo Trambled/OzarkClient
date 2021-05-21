@@ -17,7 +17,7 @@ public class AutoMine extends Module {
 
         this.name        = "AutoCity";
         this.tag         = "CityBoss";
-        this.description = "mines out player's surround";
+        this.description = "Mines out player's surround.";
     }
 
     Setting end_crystal = create("End Crystal", "MineEndCrystal", false);

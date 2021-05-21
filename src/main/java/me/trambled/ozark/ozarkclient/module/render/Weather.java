@@ -14,7 +14,7 @@ public class Weather extends Module {
 
         this.name = "Weather";
         this.tag = "Weather";
-        this.description = "changes weather";
+        this.description = "Changes weather.";
     }
     
     Setting weather = create("Weather", "Weather", "Clear", combobox("Clear", "Rain", "Thunder Storm"));

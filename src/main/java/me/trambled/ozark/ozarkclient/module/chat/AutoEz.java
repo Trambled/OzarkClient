@@ -24,7 +24,7 @@ public class AutoEz extends Module {
 
         this.name = "AutoEz";
         this.tag = "AutoEz";
-        this.description = "You just got niggered by Ozark";
+        this.description = "You just got niggered by Ozark.";
     }
 
     int delay_count = 0;

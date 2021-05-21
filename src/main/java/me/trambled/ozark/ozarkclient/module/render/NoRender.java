@@ -23,7 +23,7 @@ public class NoRender extends Module {
 
 		this.name        = "NoRender";
 		this.tag         = "NoRender";
-		this.description = "Doesnt render certain shit";
+		this.description = "Doesn't render certain shit.";
 	}
 
     Setting items = create("Items", "Items", false);

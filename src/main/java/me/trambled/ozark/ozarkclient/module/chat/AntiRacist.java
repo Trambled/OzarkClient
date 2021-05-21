@@ -16,7 +16,7 @@ public class AntiRacist extends Module {
 
         this.name = "AntiRacist";
         this.tag = "AntiRacist";
-        this.description = "anti etho";
+        this.description = "Anti etho.";
     }
 
     Setting delay = create("Delay", "AntiRacistDelay", 10, 0, 100);

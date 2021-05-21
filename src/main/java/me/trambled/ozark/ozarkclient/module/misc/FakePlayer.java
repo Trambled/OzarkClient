@@ -17,7 +17,7 @@ public class FakePlayer extends Module {
 
 		this.name        = "FakePlayer";
 		this.tag         = "FakePlayer";
-		this.description = "spawns a client-side player to config on";
+		this.description = "Spawns a client-side player to config on.";
     }
 
     private EntityOtherPlayerMP fake_player;

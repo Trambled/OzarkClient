@@ -29,7 +29,7 @@ public class Webfill extends Module {
 
         this.name        = "WebFill";
         this.tag         = "WebFill";
-        this.description = "its like hole fill, but more annoying";
+        this.description = "Its like hole fill, but more annoying.";
     }
 
     Setting web_toggle = create("Toggle", "WebFillToggle", true);

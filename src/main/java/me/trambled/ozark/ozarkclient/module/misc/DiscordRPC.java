@@ -11,7 +11,7 @@ public class DiscordRPC extends Module
         super(Category.MISC);
         this.name = "DiscordRPC";
         this.tag = "DiscordRPC";
-        this.description = "show people how cool you are (discord edition)";
+        this.description = "Show people how cool you are (discord edition).";
     }
 
     Setting large_image = create("Large Image", "RPCMode", "Normal", combobox("Normal", "Lempity", "kambing", "Tudou"));

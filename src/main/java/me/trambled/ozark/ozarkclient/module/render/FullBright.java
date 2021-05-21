@@ -13,7 +13,7 @@ public class FullBright extends Module {
 
         this.name = "FullBright";
         this.tag = "FullBright";
-        this.description = "best hack";
+        this.description = "Best hack.";
     }
 	
 	@Override

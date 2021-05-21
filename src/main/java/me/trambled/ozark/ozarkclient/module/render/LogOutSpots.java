@@ -28,7 +28,7 @@ public class LogOutSpots extends Module {
 
         this.name = "LogoutSpots";
         this.tag = "LogoutSpots";
-        this.description = "ezz log";
+        this.description = "Ezz log.";
     }
 
     Setting r = create("R", "LogOutR", 255, 0, 255);

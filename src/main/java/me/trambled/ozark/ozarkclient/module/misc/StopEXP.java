@@ -20,7 +20,7 @@ public class StopEXP extends Module {
 
 		this.name        = "StopEXP";
 		this.tag         = "StopEXP";
-		this.description = "stops exp at a certain armor percent";
+		this.description = "Stops exp at a certain armor percent.";
 	}
 	
 	Setting helmet_boot_percent = create("Helment Boots %", "StopEXHelmet", 80, 0, 100);

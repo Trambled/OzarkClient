@@ -15,7 +15,7 @@ public class FastBow extends Module {
 
         this.name = "FastBow";
         this.tag = "FastBow";
-        this.description = "bow spam go brrrr";
+        this.description = "Bow spam go brrrr.";
 
     }
 

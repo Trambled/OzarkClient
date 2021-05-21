@@ -15,7 +15,7 @@ public class Step extends Module {
 
 		this.name        = "Step";
 		this.tag         = "Step";
-		this.description = "Move up block big";
+		this.description = "Move up block big.";
     }
 
     Setting mode = create("Mode", "Mode", "Phobos", combobox("Wp2", "Phobos", "Vanilla"));

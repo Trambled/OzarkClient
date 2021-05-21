@@ -14,7 +14,7 @@ public class Timechanger extends Module {
 
         this.name = "TimeChanger";
         this.tag = "TimeChanger";
-        this.description = "changes time";
+        this.description = "Changes time.";
     }
     
     Setting time = create("Time", "Time", 18000, 0, 24000);

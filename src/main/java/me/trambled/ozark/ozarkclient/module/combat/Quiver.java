@@ -28,7 +28,7 @@ public class Quiver extends Module {
 
         this.name        = "Quiver";
         this.tag         = "Quiver";
-        this.description = "shoots positive effects at u";
+        this.description = "Shoots positive effects at u.";
     }
 
     Setting speed = create("Speed", "QuiverSpeed", true);

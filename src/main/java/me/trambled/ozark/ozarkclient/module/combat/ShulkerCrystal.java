@@ -42,7 +42,7 @@ public class ShulkerCrystal extends Module
 
         this.name = "ShulkerCrystal";
         this.tag = "ShulkerCrystal";
-        this.description = "Automatically pushes crystals into holes using shulkers";
+        this.description = "Automatically pushes crystals into holes using shulkers.";
     }
 
     Setting break_range = create("Break Range", "BreakRange", 5, 0, 6);

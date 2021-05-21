@@ -18,7 +18,7 @@ public class Velocity extends Module {
 
 		this.name        = "Velocity";
 		this.tag         = "Velocity";
-		this.description = "No knockback";
+		this.description = "No knockback.";
 	}
 
 	@EventHandler

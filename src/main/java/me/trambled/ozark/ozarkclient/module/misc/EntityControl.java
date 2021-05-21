@@ -13,7 +13,7 @@ public class EntityControl extends Module
         super(Category.MISC);
         this.name = "EntityControl";
         this.tag = "EntityControl";
-        this.description = "Controls entidies without saddles";
+        this.description = "Controls entidies without saddles.";
     }
 
     @EventHandler

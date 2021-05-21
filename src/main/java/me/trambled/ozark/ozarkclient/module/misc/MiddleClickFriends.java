@@ -17,7 +17,7 @@ public class MiddleClickFriends extends Module {
 
 		this.name        = "MiddleclickFriends";
 		this.tag         = "MiddleclickFriends";
-		this.description = "you press button and the world becomes a better place :D";
+		this.description = "You press button and the world becomes a better place :D.";
     }
 
     private boolean clicked = false;

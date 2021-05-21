@@ -24,7 +24,7 @@ public class VoidESP extends Module {
 
         this.name        = "VoidESP";
         this.tag         = "VoidESP";
-        this.description = "OH FUCK A DEEP HOLE";
+        this.description = "OH FUCK A DEEP HOLE.";
     }
 
     Setting void_radius = create("Range", "VoidESPRange", 6, 1, 12);

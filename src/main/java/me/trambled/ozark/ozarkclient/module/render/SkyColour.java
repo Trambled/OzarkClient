@@ -16,7 +16,7 @@ public class SkyColour extends Module {
 
         this.name = "SkyColour";
         this.tag = "SkyColour";
-        this.description = "Changes the sky's colour";
+        this.description = "Changes the sky's colour.";
     }
 
     Setting r = create("R", "SkyColourR", 255, 0, 255);

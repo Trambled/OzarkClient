@@ -19,7 +19,7 @@ public class AutoKit extends Module {
 
         this.name = "AutoKit";
         this.tag = "AutoKit";
-        this.description = "automatically selects a kit";
+        this.description = "Automatically selects a kit.";
     }
 	Setting aurora = create("Aurora", "AutoKitAurora", false);
 	

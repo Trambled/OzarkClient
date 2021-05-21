@@ -31,7 +31,7 @@ public class AutoBuilder extends Module {
 
 		this.name        = "AutoBuilder";
 		this.tag         = "AutoBuilder";
-		this.description = "automatically builds certain things";
+		this.description = "Automatically builds certain things.";
     }
 
     Setting mode = create("Mode", "AutoBuilderMode", "Penis", combobox("Penis", "Swastika", "Highway", "Highway Small"));

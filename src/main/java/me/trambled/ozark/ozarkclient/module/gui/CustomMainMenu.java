@@ -10,7 +10,7 @@ public class CustomMainMenu extends Module {
 
 		this.name        = "CustomMainMenu";
 		this.tag         = "CustomMainMenu";
-		this.description = "better main menu";
+		this.description = "Better main menu.";
 	}
 
 }

@@ -22,7 +22,7 @@ public class LongJump extends Module {
 
 		this.name        = "LongJump";
 		this.tag         = "LongJump";
-		this.description = "Makes you jump far";
+		this.description = "Makes you jump far.";
     }
 	
 	Setting bypassMode = create("Bypass Mode", "Bypass Mode", "Packet", combobox("Packet", "Packet2"));

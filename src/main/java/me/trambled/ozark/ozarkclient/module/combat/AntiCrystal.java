@@ -26,7 +26,7 @@ public class AntiCrystal extends Module
 
         this.name        = "AntiCrystal";
         this.tag         = "AntiCrystal";
-        this.description = "Places a pressure plate below crystals to remove crystal damage";
+        this.description = "Places a pressure plate below crystals to remove crystal damage.";
     }
 	
 	Setting switch_mode = create("Mode", "Mode", "Normal", combobox("Normal", "Ghost", "None"));

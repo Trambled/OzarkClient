@@ -29,7 +29,7 @@ public class Trajectories extends Module {
 
         this.name        = "Trajectories";
         this.tag         = "Trajectories";
-        this.description = "shows where you are aiming";
+        this.description = "Shows where you are aiming.";
     }
 
     Setting r = create("R", "TrajectoriesR", 0, 0, 255);

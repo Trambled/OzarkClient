@@ -19,7 +19,7 @@ public class PenisESP extends Module {
 
         this.name = "PenisESP";
         this.tag = "PenisESP";
-        this.description = "renders dicks over people";
+        this.description = "Renders dicks over people.";
     }
 
 

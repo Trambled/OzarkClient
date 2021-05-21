@@ -11,7 +11,7 @@ public class FastSwim extends Module
         super(Category.MOVEMENT);
         this.name = "FastSwim";
         this.tag = "FastSwim";
-        this.description = "swimming go brrrrrrrrr";
+        this.description = "Swimming go brrrrrrrrr.";
     }
 
     Setting up = create("Up", "Up", true);

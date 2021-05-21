@@ -29,7 +29,7 @@ public class Auto32K extends Module {
 
         this.name        = "Auto32k";
         this.tag         = "Auto32k";
-        this.description = "fastest in the west";
+        this.description = "Fastest in the west.";
     }
 
     private BlockPos pos;

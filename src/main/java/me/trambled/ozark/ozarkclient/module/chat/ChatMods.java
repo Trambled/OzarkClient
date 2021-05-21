@@ -22,12 +22,12 @@ public final class ChatMods extends Module {
 
         this.name = "ChatModifications";
         this.tag = "ChatModifications";
-        this.description = "this breaks things";
+        this.description = "This breaks things.";
     }
 
     Setting timestamps = create("Timestamps", "ChatModsTimeStamps", true);
     Setting dateformat = create("Date Format", "ChatModsDateFormat", "12HR", combobox("24HR", "12HR"));
-    Setting name_highlight = create("Name Highlight", "ChatModsNameHighlight", true);
+    Setting name_highlight = create("Name BlockHighlight", "ChatModsNameHighlight", false);
     Setting infinite_chat = create("Infinite Chat", "ChatModsInfiniteChat", true);
 
 

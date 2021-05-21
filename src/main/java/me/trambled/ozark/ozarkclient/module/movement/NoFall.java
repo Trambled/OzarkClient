@@ -11,7 +11,7 @@ public class NoFall extends Module {
 
 		this.name        = "NoFall";
 		this.tag         = "NoFall";
-		this.description = "prevents fall damage";
+		this.description = "Prevents fall damage.";
     }
 
 

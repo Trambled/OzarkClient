@@ -9,6 +9,6 @@ public class Friends extends Module {
 
         this.name = "Friends";
         this.tag = "Friends";
-        this.description = "friend!!";
+        this.description = "Friend!!";
     }
  }

@@ -11,7 +11,7 @@ public class AutoRespawn extends Module {
 
         this.name = "AutoRespawn";
         this.tag = "AutoRespawn";
-        this.description = "automatically respawns";
+        this.description = "Automatically respawns.";
     }
 
     @Override

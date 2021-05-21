@@ -16,7 +16,7 @@ public class AutoRacist extends Module {
 
         this.name = "AutoRacist";
         this.tag = "AutoRacist";
-        this.description = "edgy....";
+        this.description = "Edgy....";
     }
 
     Setting delay = create("Delay", "Delay", 10, 0, 100);

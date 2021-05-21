@@ -33,7 +33,7 @@ public class CevBreaker extends Module
 
         this.name        = "CevBreaker";
         this.tag         = "CevBreaker";
-        this.description = "crystals an opponent from above their heads";
+        this.description = "Crystals an opponent from above their heads.";
     }
 
 	Setting breakCrystal = create("Break Crystal", "CivBreakerBreakMode", "Packet", combobox("Vanilla", "Packet", "None"));

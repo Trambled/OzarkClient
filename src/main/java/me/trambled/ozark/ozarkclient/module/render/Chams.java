@@ -29,7 +29,7 @@ public class Chams extends Module {
 
         this.name = "Chams";
         this.tag = "Chams";
-        this.description = "see even less (now with epic colours)";
+        this.description = "See even less (now with epic colours).";
     }
 
     Setting mode = create("Mode", "ChamsMode", "Outline", combobox("Outline", "Wireframe"));

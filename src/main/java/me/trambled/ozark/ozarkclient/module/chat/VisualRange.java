@@ -20,7 +20,7 @@ public class VisualRange extends Module {
 
 		this.name        = "VisualRange";
 		this.tag         = "VisualRange";
-		this.description = "bc using ur eyes is overrated";
+		this.description = "Bc using ur eyes is overrated.";
 	}
 
 	@Override

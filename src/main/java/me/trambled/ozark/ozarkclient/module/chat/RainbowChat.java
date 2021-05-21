@@ -11,7 +11,7 @@ public final class RainbowChat extends Module {
 
         this.name = "RainbowChat";
         this.tag = "RainbowChat";
-        this.description = "chat opener is rainbow";
+        this.description = "Chat opener is rainbow.";
     }
 
     Setting custom_font = create("Custom Font", "RainbowChatCustomFont", true);

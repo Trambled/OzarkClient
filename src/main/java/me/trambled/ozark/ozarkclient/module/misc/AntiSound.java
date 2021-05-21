@@ -18,7 +18,7 @@ public class AntiSound extends Module {
 
 		this.name        = "AntiSound";
 		this.tag         = "AntiSound";
-		this.description = "cancels certain sounds";
+		this.description = "Cancels certain sounds.";
     }
 
     Setting wither = create("Wither", "Wither", false);

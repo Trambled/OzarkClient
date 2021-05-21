@@ -19,7 +19,7 @@ public class BreakESP extends Module {
 
         this.name = "BreakESP";
         this.tag = "BreakESP";
-        this.description = "highlights blocks being broken";
+        this.description = "Highlights blocks being broken.";
     }
 
     Setting render_mode = create("Render Mode", "BreakESPRenderMode", "Pretty", combobox("Pretty", "Solid", "Outline", "None"));

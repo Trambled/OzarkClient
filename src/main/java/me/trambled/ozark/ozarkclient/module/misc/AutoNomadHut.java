@@ -29,7 +29,7 @@ public class AutoNomadHut extends Module {
 
         this.name = "AutoNomadHut";
         this.tag = "AutoNomadHut";
-        this.description = "i fucking hate fit";
+        this.description = "I fucking hate fit.";
     }
 
     Setting rotate = create("Rotate","NomadSmoth",true);

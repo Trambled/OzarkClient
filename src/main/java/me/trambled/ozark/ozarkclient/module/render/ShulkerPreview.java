@@ -10,7 +10,7 @@ public class ShulkerPreview extends Module {
 
         this.name        = "ShulkerPreview";
         this.tag         = "ShulkerPreview";
-        this.description = "See what's inside a shulker via hovering over it";
+        this.description = "See what's inside a shulker via hovering over it.";
     }
 
     // STOLEN FROM KAMI :DDDDDDDDD

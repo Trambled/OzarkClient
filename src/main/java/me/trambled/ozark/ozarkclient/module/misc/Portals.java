@@ -10,6 +10,6 @@ public class Portals extends Module {
 
 		this.name        = "Portals";
 		this.tag         = "Portals";
-		this.description = "allows you to open guis in portals";
+		this.description = "Allows you to open guis in portals.";
     }
 }

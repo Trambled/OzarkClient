@@ -11,7 +11,7 @@ public class AutoDDOS extends Module {
         
         this.name        = "AutoDDOS";
 	this.tag         = "AutoDDOS";
-	this.description = "hacker pro";
+	this.description = "Hacker pro.";
 
     }
     

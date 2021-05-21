@@ -18,7 +18,7 @@ public class OffhandPlus extends Module {
 
         this.name        = "Offhand+";
         this.tag         = "OffhandPlus";
-        this.description = "offhand with binds";
+        this.description = "Offhand with binds.";
     }
 
     Setting totem_switch = create("Totem HP", "OffhandPlusTotemHP", 16, 0, 36);

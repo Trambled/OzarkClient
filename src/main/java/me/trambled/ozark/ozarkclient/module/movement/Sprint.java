@@ -11,7 +11,7 @@ public class Sprint extends Module {
 
 		this.name        = "Sprint";
 		this.tag         = "Sprint";
-		this.description = "ZOOOOOOOOM";
+		this.description = "ZOOOOOOOOM.";
     }
 
     Setting rage = create("Rage", "SprintRage", true);

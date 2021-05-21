@@ -32,7 +32,7 @@ public class Trap extends Module {
 
         this.name        = "Trap";
         this.tag         = "Trap";
-        this.description = "cover people in obsidian :o";
+        this.description = "Cover people in obsidian :o.";
     }
 
     Setting place_mode = create("Place Mode", "TrapPlaceMode", "Feet", combobox("Extra", "Face", "Normal", "Feet"));

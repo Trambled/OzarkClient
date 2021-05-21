@@ -25,7 +25,7 @@ public class SelfTrap extends Module {
 
 		this.name        = "SelfTrap";
 		this.tag         = "SelfTrap";
-		this.description = "oh 'eck, ive trapped me sen again";
+		this.description = "Oh 'eck, ive trapped me sen again.";
     }
 
     Setting toggle = create("Toggle", "SelfTrapToggle", true);

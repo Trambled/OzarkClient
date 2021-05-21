@@ -22,7 +22,7 @@ public class FuckedDetector extends Module {
 
         this.name = "FuckedDetector";
         this.tag = "FuckedDetector";
-        this.description = "see if people are hecked";
+        this.description = "See if people are hecked.";
     }
 
     Setting draw_own = create("Draw Own", "FuckedDrawOwn", false);

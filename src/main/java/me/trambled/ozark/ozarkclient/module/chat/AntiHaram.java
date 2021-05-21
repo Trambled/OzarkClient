@@ -16,7 +16,7 @@ public class AntiHaram extends Module {
 
         this.name = "AntiHaram";
         this.tag = "AntiHaram";
-        this.description = "snine19";
+        this.description = "Snine19.";
     }
 
     Setting delay = create("Delay", "Delay", 10, 0, 100);

@@ -20,7 +20,7 @@ public class CityESP extends Module {
 
         this.name = "CityESP";
         this.tag = "CityESP";
-        this.description = "highlights cityable blocks";
+        this.description = "Highlights cityable blocks.";
 
     }
 

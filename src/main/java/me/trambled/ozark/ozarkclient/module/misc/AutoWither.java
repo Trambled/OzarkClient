@@ -29,7 +29,7 @@ public class AutoWither extends Module {
 
         this.name = "AutoWither";
         this.tag = "AutoWither";
-        this.description = "makes withers";
+        this.description = "Makes withers.";
     }
 
     Setting tick_for_place = create("Delay", "AutoWitherDelay", 2, 0, 10);

@@ -14,7 +14,7 @@ public class Antifog extends Module {
 
         this.name = "AntiFog";
         this.tag = "AntiFog";
-        this.description = "see even more";
+        this.description = "See even more.";
     }
 
     @EventHandler

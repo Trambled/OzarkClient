@@ -17,7 +17,7 @@ public class Spammer extends Module {
 
         this.name = "Spammer";
         this.tag = "Spammer";
-        this.description = "spams stuff in chat";
+        this.description = "Spams stuff in chat.";
         FILE_DIRECTORY = new File(mc.gameDir, "OZARKCLIENT");
     }
 

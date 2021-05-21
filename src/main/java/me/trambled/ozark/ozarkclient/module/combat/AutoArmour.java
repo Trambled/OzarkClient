@@ -24,7 +24,7 @@ public class AutoArmour extends Module {
 
         this.name        = "AutoArmour";
         this.tag         = "AutoArmour";
-        this.description = "WATCH UR BOOTS";
+        this.description = "WATCH UR BOOTS.";
     }
 
     Setting delay = create("Delay", "AADelay", 0, 0, 5);

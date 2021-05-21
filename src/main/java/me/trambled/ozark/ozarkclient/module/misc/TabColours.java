@@ -9,6 +9,6 @@ public class TabColours extends Module {
 
         this.name = "TabColors";
         this.tag = "TabColors";
-        this.description = "highlights friends & enemies in tab";
+        this.description = "Highlights friends & enemies in tab.";
     }
  }

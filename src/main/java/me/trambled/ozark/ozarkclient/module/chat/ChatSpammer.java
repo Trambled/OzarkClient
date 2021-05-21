@@ -16,7 +16,7 @@ public class ChatSpammer extends Module {
 
         this.name = "ChatSpammer";
         this.tag = "ChatSpammer";
-        this.description = "be annoying";
+        this.description = "Be annoying.";
     }
 
     Setting delay = create("Delay", "SpammerDelay", 10, 0, 100);

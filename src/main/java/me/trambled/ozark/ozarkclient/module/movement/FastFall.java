@@ -14,7 +14,7 @@ public class FastFall extends Module
         super(Category.MOVEMENT);
         this.name = "FastFall";
         this.tag = "FastFall";
-        this.description = "Increases fall speed";
+        this.description = "Increases fall speed.";
     }
 	
 	Setting height = create("Height", "Height", 3.25, 0, 10);

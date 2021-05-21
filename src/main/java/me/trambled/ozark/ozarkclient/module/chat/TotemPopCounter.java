@@ -23,7 +23,7 @@ public class TotemPopCounter extends Module {
 
 		this.name        = "TotemPopCounter";
 		this.tag         = "TotemPopCounter";
-		this.description = "Automatically says who ur EZZZZZZZZZZING";
+		this.description = "Automatically says who ur EZZZZZZZZZZING.";
 
     }
 

@@ -41,7 +41,7 @@ public class InventorySort extends Module {
 
         this.name = "InventorySort";
         this.tag = "InventorySort";
-        this.description = "sorts ur inv";
+        this.description = "Sorts ur inv.";
     }
 
 	Setting confirmSort = create("Confirm Sort","ConfirmSort",true);

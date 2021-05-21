@@ -18,7 +18,7 @@ public class HoleTP extends Module //made by gamesense
 		super(Category.MOVEMENT);
 		this.name = "HoleTP";
 		this.tag = "HoleTP";
-		this.description = "Gets into holes fast";
+		this.description = "Gets into holes fast.";
 	}
 
 	private int packets;

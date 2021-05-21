@@ -15,7 +15,7 @@ public class RetardChat extends Module {
 
         this.name = "RetardChat";
         this.tag = "RetardChat";
-        this.description = "makes you sound retarded";
+        this.description = "Makes you sound retarded.";
     }
  
     @EventHandler

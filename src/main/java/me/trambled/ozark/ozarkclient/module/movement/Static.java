@@ -15,7 +15,7 @@ public class Static extends Module {
 
 		this.name        = "Static";
 		this.tag         = "Static";
-		this.description = "stops movement";
+		this.description = "Stops movement.";
     }
 
     Setting mode = create("Mode", "Mode", "AntiVoid", combobox("Static", "AntiVoid", "Roof"));

@@ -22,12 +22,12 @@ public class BurrowESP extends Module {
 
         this.name = "BurrowESP";
         this.tag = "BurrowESP";
-        this.description = "see if people are burrowed";
+        this.description = "See if people are burrowed.";
     }
 
     Setting draw_own = create("Draw Own", "BurrowDrawOwn", false);
     Setting draw_friends = create("Draw Friends", "BurrowDrawFriends", true);
-    Setting echest = create("Echest", "BurrowESPEchest", false);
+    Setting echest = create("Echest", "BurrowESPEchest", true);
 
     Setting render_mode = create("Render Mode", "BurrowRenderMode", "Pretty", combobox("Pretty", "Solid", "Outline"));
     Setting r = create("R", "BurrowR", 255, 0, 255);

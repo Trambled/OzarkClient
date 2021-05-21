@@ -27,7 +27,7 @@ public class NoSlowDown extends Module {
 
 		this.name        = "NoSlow";
 		this.tag         = "NoSlowDown";
-		this.description = "Doesn't slow you down in certain shit";
+		this.description = "Doesn't slow you down in certain shit.";
     }
 	
 	Setting webs = create("Webs", "Webs", true);

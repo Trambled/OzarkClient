@@ -18,7 +18,7 @@ public class ManualQuiver extends Module
 
         this.name = "ManualQuiver";
         this.tag = "ManualQuiver";
-        this.description = "shoots arrows over you"; //works like half of the time
+        this.description = "Shoots arrows over you."; //works like half of the time
 
     }
 

@@ -17,7 +17,7 @@ public class AutoGroom extends Module {
 
         this.name = "AutoGroom";
         this.tag = "AutoGroom";
-        this.description = "EDP445, james charles, jefferey epstein, etc";
+        this.description = "EDP445, james charles, jefferey epstein, etc.";
     }
 
     Setting delay = create("Delay", "Delay", 10, 0, 100);

@@ -32,7 +32,7 @@ public class BedAura extends Module {
 
         this.name        = "BedAura";
         this.tag         = "BedAura";
-        this.description = "automatically places beds";
+        this.description = "Automatically places beds.";
     }
 
     Setting place_mode = create("Place Mode", "BedAuraPlaceMode", "Old", combobox("New", "Old", "None"));

@@ -37,7 +37,7 @@ public class StorageESP extends Module {
 
 		this.name        = "StorageESP";
 		this.tag         = "StorageESP";
-		this.description = "Is able to see storages in world";
+		this.description = "Is able to see storages in world.";
 	}
 
 	@Override

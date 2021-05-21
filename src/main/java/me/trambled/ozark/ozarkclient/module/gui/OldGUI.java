@@ -14,7 +14,7 @@ public class OldGUI extends Module {
 
 		this.name        = "OldGUI";
 		this.tag         = "GUI";
-		this.description = "The old gui";
+		this.description = "The old gui.";
 		this.toggle_message = false;
 	}
 

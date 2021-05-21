@@ -32,7 +32,7 @@ public class Announcer extends Module {
 
         this.name = "Announcer";
         this.tag = "Announcer";
-        this.description = "how to get ignored 101";
+        this.description = "How to get ignored 101.";
     }
 
     Setting mining = create("Mining", "AnnouncerMining", true);

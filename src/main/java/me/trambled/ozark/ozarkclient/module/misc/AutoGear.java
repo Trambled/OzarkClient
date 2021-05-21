@@ -30,7 +30,7 @@ public class AutoGear extends Module {
 
         this.name = "AutoGear";
         this.tag = "AutoGear";
-        this.description = "sorts ur inv";
+        this.description = "Sorts ur inv.";
     }
 
 	Setting tickDelay = create("Delay","AutoGearTickDelay",0, 0, 20);

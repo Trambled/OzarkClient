@@ -12,10 +12,10 @@ public final class BetterChat extends Module {
 
         this.name = "BetterChat";
         this.tag = "BetterChat";
-        this.description = "a good chat mod made by llamalad7";
+        this.description = "A good chat mod made by llamalad7.";
     }
 
     Setting smooth = create("Smooth", "Smooth", true);
-    Setting clear = create("Clear", "Clear", true);
+    Setting clear = create("Clear", "Clear", false);
 
 }

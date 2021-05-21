@@ -25,7 +25,7 @@ public class AntiTrap extends Module
 
         this.name = "AntiTrap";
         this.tag = "AntiTrap";
-        this.description = "choruses out of a trap";
+        this.description = "Choruses out of a trap.";
 
     }
 

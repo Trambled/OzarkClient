@@ -21,7 +21,7 @@ public class AutoReplenish extends Module {
 
         this.name = "HotbarReplenish";
         this.tag = "HotbarReplenish";
-        this.description = "automatically replaces a used stack with a fresh new one from ur inv";
+        this.description = "Automatically replaces a used stack with a fresh new one from ur inv.";
     }
 
     Setting threshold = create("Threshold", "AutoReplenishThreshold", 16, 1, 63);

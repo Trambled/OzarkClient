@@ -20,7 +20,7 @@ public class ChatSuffix extends Module {
 
 		this.name        = "ChatSuffix";
 		this.tag         = "ChatSuffix";
-		this.description = "show off how cool u are";
+		this.description = "Show off how cool u are.";
 	}
 
 	Setting ignore = create("Ignore", "ChatSuffixIgnore", true);

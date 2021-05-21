@@ -45,7 +45,7 @@ public class AutoCrystal extends Module {
 
         this.name        = "AutoCrystal";
         this.tag         = "AutoCrystal";
-        this.description = "kills people (if ur good)";
+        this.description = "Kills people (if ur good).";
     }
 
     Setting debug = create("Debug", "CaDebug", false);

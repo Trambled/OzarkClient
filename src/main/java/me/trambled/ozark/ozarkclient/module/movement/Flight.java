@@ -10,7 +10,7 @@ public class Flight extends Module
 
         this.name = "Flight";
         this.tag = "Flight";
-        this.description = "flight go brrr";
+        this.description = "Flight go brrr.";
     }
     
     @Override

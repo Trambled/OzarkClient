@@ -15,7 +15,7 @@ public class FastUtil extends Module {
 
 		this.name        = "FastUtil"; 
 		this.tag         = "FastUtil";
-		this.description = "use things faster";
+		this.description = "Use things faster.";
 	}
 
 	Setting fast_place = create("Place","WurstplusFastPlace", false);

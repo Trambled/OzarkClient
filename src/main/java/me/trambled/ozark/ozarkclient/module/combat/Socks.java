@@ -25,7 +25,7 @@ public class Socks extends Module {
 
 		this.name        = "Socks"; 
 		this.tag         = "Socks";
-		this.description = "Protects your feet";
+		this.description = "Protects your feet.";
     }
 
     Setting rotate = create("Rotate", "SocksRotate", false);

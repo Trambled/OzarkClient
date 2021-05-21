@@ -29,7 +29,7 @@ public class AutoAnvil extends Module
 
         this.name        = "AutoAnvil";
         this.tag         = "AutoAnvil";
-        this.description = "automatically anvils an opponent";
+        this.description = "Automatically anvils an opponent.";
     }
 	
 	Setting break_mode = create("Break Mode", "BreakMode", "Feet", combobox("Pick", "Feet", "None"));

@@ -16,7 +16,7 @@ public class WeaknessAlert extends Module {
 
         this.name = "WeaknessAlert";
         this.tag = "WeaknessAlert";
-        this.description = "weakness alert more like fag alert";
+        this.description = "Weakness alert more like fag alert.";
     }
     public static ChatFormatting red = ChatFormatting.DARK_RED;
     public static ChatFormatting green = ChatFormatting.GREEN;

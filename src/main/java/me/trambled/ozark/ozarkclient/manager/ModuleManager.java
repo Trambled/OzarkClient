@@ -130,7 +130,7 @@ public class ModuleManager {
 		add_module(new Static());
 
 		// Render.
-		add_module(new Highlight());
+		add_module(new BlockHighlight ());
 		add_module(new HoleESP());
 		add_module(new ShulkerPreview());
 		add_module(new ViewmodelChanger());

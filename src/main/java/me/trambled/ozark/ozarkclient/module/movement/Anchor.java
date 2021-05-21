@@ -19,7 +19,7 @@ public class Anchor extends Module {
 
         this.name        = "Anchor";
         this.tag         = "Anchor";
-        this.description = "Stops all movement if player is in a hole";
+        this.description = "Stops all movement if player is in a hole.";
     }
 
     Setting Pitch = create("Pitch", "AnchorPitch", 60, 0, 90);

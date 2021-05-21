@@ -15,7 +15,7 @@ public final class Shrug extends Module {
 
         this.name = "Shrug";
         this.tag = "Shrug";
-        this.description = "replaces <shrug> in chat with \u00Af\\_(\u30C4)_/\u00AF";
+        this.description = "Replaces <shrug> in chat with \u00Af\\_(\u30C4)_/\u00AF.";
     }
 
     @EventHandler

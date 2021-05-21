@@ -35,7 +35,7 @@ public class NameTags extends Module {
 
         this.name = "Nametags";
         this.tag = "NameTags";
-        this.description = "MORE DETAILED NAMESSSSS";
+        this.description = "MORE DETAILED NAMESSSSS.";
     }
 
     Setting show_armor = create("Armor", "NametagArmor", true);

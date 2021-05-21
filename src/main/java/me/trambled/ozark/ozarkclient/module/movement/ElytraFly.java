@@ -26,7 +26,7 @@ public final class ElytraFly extends Module
 
         this.name = "ElytraFly";
         this.tag = "ElytraFly";
-        this.description = "Makes you fly with a elytra";
+        this.description = "Makes you fly with a elytra.";
     }
 
 

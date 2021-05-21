@@ -17,7 +17,7 @@ public class ArmorSwitch extends Module {
 
         this.name        = "SmartArmor";
         this.tag         = "ArmorSwitch";
-        this.description = "switches armor smart";
+        this.description = "Switches armor smart.";
     }
 
     Setting low_dura = create("Low Dura", "SmartArmorLowDura", 2, 1, 100);

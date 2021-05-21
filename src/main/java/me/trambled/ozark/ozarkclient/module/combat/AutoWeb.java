@@ -21,7 +21,7 @@ public class AutoWeb extends Module {
 
         this.name        = "AutoSelfWeb";
         this.tag         = "AutoSelfWeb";
-        this.description = "places fuckin webs at ur feet";
+        this.description = "Places fuckin webs at ur feet.";
     }
 
     Setting always_on = create("Always On", "AlwaysOn", false);

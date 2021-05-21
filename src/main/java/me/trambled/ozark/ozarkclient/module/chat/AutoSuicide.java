@@ -10,7 +10,7 @@ public class AutoSuicide extends Module {
       
         this.name = "AutoSuicide";
         this.tag = "AutoSuicide";
-        this.description = "allahu akbar";
+        this.description = "Allahu akbar.";
       
     }
   

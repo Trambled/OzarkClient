@@ -20,7 +20,7 @@ public class Offhand extends Module {
 
         this.name        = "Offhand";
         this.tag         = "Offhand";
-        this.description = "Switches shit to ur offhand";
+        this.description = "Switches shit to ur offhand.";
     }
 
     Setting switch_mode = create("Offhand", "OffhandOffhand", "Totem", combobox("Totem", "Crystal", "Gapple", "Pressure Plate"));

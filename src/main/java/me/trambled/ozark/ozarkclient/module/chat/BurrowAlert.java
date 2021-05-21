@@ -18,7 +18,7 @@ public class BurrowAlert extends Module {
 
         this.name = "BurrowAlert";
         this.tag = "BurrowAlert";
-        this.description = "tells who is burrowed";
+        this.description = "Tells who is burrowed.";
     }
 
     List<EntityPlayer> players = new ArrayList<>();

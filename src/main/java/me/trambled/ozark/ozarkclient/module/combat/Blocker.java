@@ -30,7 +30,7 @@ public class Blocker extends Module
 
         this.name        = "Blocker";
         this.tag         = "Blocker";
-        this.description = "blocks anvils and pistons";
+        this.description = "Blocks anvils and pistons.";
     }
 
     Setting rotate = create("Rotate", "BlockerRotate", true);

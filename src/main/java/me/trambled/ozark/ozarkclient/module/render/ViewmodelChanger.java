@@ -26,7 +26,7 @@ public class ViewmodelChanger extends Module {
 
         this.name = "Viewmodel";
         this.tag = "CustomViewmodel";
-        this.description = "a combo of gamesense & ferox viewmodel";
+        this.description = "A combo of gamesense & ferox viewmodel.";
     }
     Setting type = create("Type", "Type", "Value", combobox("FOV", "Both", "Value"));
     Setting fov = create("FOV", "FOV", 90, 90, 200);

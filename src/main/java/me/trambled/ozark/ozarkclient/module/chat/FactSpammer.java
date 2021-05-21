@@ -13,7 +13,7 @@ public class FactSpammer extends Module {
 
         this.name = "FactSpammer";
         this.tag = "FactSpammer";
-        this.description = "spams snapple facts";
+        this.description = "Spams snapple facts.";
     }
 
     Setting delay = create("Delay", "SpammerDelay", 10, 0, 100);

@@ -16,7 +16,7 @@ public class OffhandBypass extends Module
 
         this.name = "OffhandBypass";
         this.tag = "OffhandBypass";
-        this.description = "makes your hand that u use set to offhand for gapple offhand"; 
+        this.description = "Makes your hand that u use set to offhand for gapple offhand.";
     }
 	
     @EventHandler
