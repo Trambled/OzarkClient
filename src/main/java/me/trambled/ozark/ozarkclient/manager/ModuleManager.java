@@ -89,6 +89,7 @@ public class ModuleManager {
 		add_module(new ArmorSwitch());
 		add_module(new OffhandPlus());
 		add_module(new ShulkerCrystal());
+		add_module(new OffhandGS());
 
 		// Exploit.
 		add_module(new XCarry());

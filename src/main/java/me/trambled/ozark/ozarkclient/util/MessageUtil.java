@@ -22,10 +22,10 @@ public class MessageUtil {
 	public static ChatFormatting r = ChatFormatting.RESET;
 	public static ChatFormatting f = ChatFormatting.BOLD;
 
-	public static String opener = g + "[" + Ozark.DISPLAY_NAME + "]" + " " +  r;
+	public static String opener = g + "[" + Ozark.DISPLAY_NAME + "]" + "  " +  r;
 
 	public static void toggle_message(Module module) {
-		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + " " +  r;
+		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + "  " +  r;
 		if (module.is_active()) {
 			if (module.get_tag().equals("AutoCrystal")) {
 				client_message_simple(opener + "we do a little " + ChatFormatting.DARK_GREEN + "trolling");
@@ -42,7 +42,7 @@ public class MessageUtil {
 	}
 
 	public static void client_message_simple(String message) {
-		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + " " +  r;
+		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + "  " +  r;
 		if (mc.player != null) {
 			final ITextComponent itc = new TextComponentString(message).setStyle(new Style().setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponentString("frank alachi"))));
 			mc.ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(itc, 5936);
@@ -50,28 +50,28 @@ public class MessageUtil {
 	}
 
         public static void send_client_message_simple(String message) {
-		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + " " +  r;
+		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + "  " +  r;
 		if (mc.player != null) {
 			client_message_simple(opener + message);
 		}
 	}
 
 	public static void client_message(String message) {
-		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + " " +  r;
+		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + "  " +  r;
 		if (mc.player != null) {
 			mc.player.sendMessage(new ChatMessage(message));
 		}
 	}
 
 	public static void send_client_message(String message) {
-		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + " " +  r;
+		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + "  " +  r;
 		if (mc.player != null) {
 			client_message(opener + message);
 		}
 	}
 
 	public static void send_client_error_message(String message) {
-		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + " " +  r;
+		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + "  " +  r;
 		client_message(opener + r + "Error: "  + message);
 	}
 
