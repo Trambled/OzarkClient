@@ -111,8 +111,8 @@ public class OffhandGS extends Module {
         }
     };
 
-
-    public void enable() {
+    @Override
+    protected void enable() {
         // Enable it
         activeT = firstChange = true;
         // If they are gonna force us obby
@@ -121,14 +121,14 @@ public class OffhandGS extends Module {
         returnBack = false;
     }
 
-
-    public void disable() {
+    @Override
+    protected void disable() {
         activeT = false;
         forceObby = forceSkull = 0;
     }
 
-
-    public void onUpdate() {
+    @Override
+    public void update() {
         if (mc.currentScreen instanceof GuiContainer) return;
         // If we are changing
         if (stepChanging)
@@ -161,7 +161,7 @@ public class OffhandGS extends Module {
 
             // If the inventory is opened, close it
             boolean done = false;
-            if (hotbarTotem.get_value(true() && itemCheck.equals("Totem"() {
+            if (hotbarTotem.get_value(true) && itemCheck.equals("Totem") {
                 done = switchItemTotemHot();
             }
             if (!done) {
@@ -239,12 +239,12 @@ public class OffhandGS extends Module {
                 || (normalOffHand && (
                 (crystObby.get_value(true)) && mc.gameSettings.keyBindSneak.isKeyDown()
                         && mainHandItem == Items.END_CRYSTAL)
-                        || (pickObby.get_value(true)) && mainHandItem == Items.DIAMOND_PICKAXE && (!pickObbyShift.get_value(true() || mc.gameSettings.keyBindSneak.isKeyDown()))))) {
+                        || (pickObby.get_value(true)) && mainHandItem == Items.DIAMOND_PICKAXE && (!pickObbyShift.get_value(true) || mc.gameSettings.keyBindSneak.isKeyDown()))))) {
             itemCheck = "Obby";
             normalOffHand = false;
         }
         // Sword Crystal
-        if (swordCrystal.get_value(true() && (mainHandItem == Items.DIAMOND_SWORD)) {
+        if (swordCrystal.get_value(true) && (mainHandItem == Items.DIAMOND_SWORD)) {
             itemCheck = "Crystal";
             normalOffHand = false;
         }
