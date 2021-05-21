@@ -120,10 +120,10 @@ public class DiscordUtil
 							} else if (get_details().equals("User")) {
 								DiscordUtil.details = "Playing with " + Ozark.get_actual_user();
 							} else if (get_details().equals("Speed")) {
-								if (Double.parseDouble(PlayerUtil.speed()) > 15) {
+								if (Double.parseDouble(PlayerUtil.speed()) > 0) {
 									DiscordUtil.details = "Zoomin at " + PlayerUtil.speed() + " KPH";
 								} else {
-									DiscordUtil.details = "Chilling at " + PlayerUtil.speed() + " KPH";
+									DiscordUtil.details = "Not moving/AFK";
 								}
 							}
 
