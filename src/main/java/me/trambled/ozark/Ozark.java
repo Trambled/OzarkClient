@@ -58,7 +58,7 @@ public class Ozark {
 	public static ChatFormatting g = ChatFormatting.DARK_GRAY;
 	public static ChatFormatting r = ChatFormatting.RESET;
 	
-    public static int client_r = 0;
+        public static int client_r = 0;
 	public static int client_g = 0;
 	public static int client_b = 0;
 
@@ -126,12 +126,6 @@ public class Ozark {
 		if (module_manager.get_module_with_tag("GUI").is_active()) {
 			send_minecraft_log("Fixing GUI");
 			module_manager.get_module_with_tag("GUI").set_active(false);
-			send_minecraft_log("Fixed");
-		}
-
-		if (module_manager.get_module_with_tag("HUD").is_active()) {
-			send_minecraft_log("Fixing HUD");
-			module_manager.get_module_with_tag("HUD").set_active(false);
 			send_minecraft_log("Fixed");
 		}
 
