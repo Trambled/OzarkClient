@@ -18,6 +18,7 @@ package me.trambled.ozark.ozarkclient.guiscreen;
 
 import com.google.common.collect.Lists;
 import me.trambled.ozark.Ozark;
+import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
 import me.trambled.ozark.ozarkclient.util.RainbowUtil;
 import net.minecraft.client.Minecraft;
@@ -33,6 +34,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
+import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
 

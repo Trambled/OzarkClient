@@ -7,6 +7,7 @@ import me.trambled.ozark.ozarkclient.event.events.EventRenderEntityModel;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
 import me.zero.alpine.fork.listener.Listenable;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.common.MinecraftForge;
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
@@ -105,6 +106,7 @@ public class Module implements Listenable {
 		disable();
 
 		Eventbus.EVENT_BUS.unsubscribe(this);
+		MinecraftForge.EVENT_BUS.unregister(this);
 	}
 
 	public void set_enable() {
@@ -113,6 +115,7 @@ public class Module implements Listenable {
 		enable();
 
 		Eventbus.EVENT_BUS.subscribe(this);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	public void set_active(boolean value) {

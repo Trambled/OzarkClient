@@ -3,6 +3,7 @@ package me.trambled.ozark;
 import me.trambled.ozark.ozarkclient.util.InjectUtil;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.ozarkclient.util.DiscordUtil;
+import me.trambled.ozark.ozarkclient.manager.RotationManager;
 import me.trambled.turok.Turok;
 import me.trambled.turok.task.TurokFont;
 import me.trambled.ozark.ozarkclient.event.EventHandler;
@@ -45,6 +46,7 @@ public class Ozark {
 	private static ConfigManager config_manager;
 	private static ModuleManager module_manager;
 	private static HUDManager hud_manager;
+	private static RotationManager rotation_manager;
 	public static PastGUI past_gui;
 	public static MainGUI main_gui;
 	public static MainHUD main_hud;
@@ -76,6 +78,7 @@ public class Ozark {
 		config_manager = new ConfigManager();
 		module_manager = new ModuleManager();
 		hud_manager = new HUDManager();
+		rotation_manager = new RotationManager();
 
 		EventManager event_manager = new EventManager();
 		CommandManager command_manager = new CommandManager();
@@ -107,6 +110,7 @@ public class Ozark {
 
 		EventRegister.register_command_manager(command_manager);
 		EventRegister.register_module_manager(event_manager);
+		EventRegister.register_rotation_manager(rotation_manager);
 
 		send_minecraft_log("Done");
 
@@ -138,6 +142,18 @@ public class Ozark {
 		if (module_manager.get_module_with_tag("PastGUI").is_active()) {
 			send_minecraft_log("Fixing Past GUI");
 			module_manager.get_module_with_tag("PastGUI").set_active(false);
+			send_minecraft_log("Done");
+		}
+
+		if (module_manager.get_module_with_tag("AutoCrystal").is_active()) {
+			send_minecraft_log("Fixing AutoCrystal");
+			module_manager.get_module_with_tag("AutoCrystal").set_active(false);
+			send_minecraft_log("Done");
+		}
+
+		if (module_manager.get_module_with_tag("FakePlayer").is_active()) {
+			send_minecraft_log("Fixing FakePlayer");
+			module_manager.get_module_with_tag("FakePlayer").set_active(false);
 			send_minecraft_log("Done");
 		}
 
@@ -192,6 +208,10 @@ public class Ozark {
 
 	public static HUDManager get_hud_manager() {
 		return hud_manager;
+	}
+
+	public static RotationManager get_rotation_manager() {
+		return rotation_manager;
 	}
 
 	public static EventHandler get_event_handler() {

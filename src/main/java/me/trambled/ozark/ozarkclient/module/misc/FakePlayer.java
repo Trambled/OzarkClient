@@ -3,6 +3,7 @@ package me.trambled.ozark.ozarkclient.module.misc;
 import com.mojang.authlib.GameProfile;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.util.MessageUtil;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
@@ -36,6 +37,11 @@ public class FakePlayer extends Module {
         try {
             mc.world.removeEntity(fake_player);
         } catch (Exception ignored) {}
+    }
+
+    @Override
+    public void log_out() {
+        this.set_disable();
     }
 
     @EventHandler

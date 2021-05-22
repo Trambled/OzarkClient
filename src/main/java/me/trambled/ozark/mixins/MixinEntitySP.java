@@ -2,10 +2,8 @@ package me.trambled.ozark.mixins;
 
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.Eventbus;
-import me.trambled.ozark.ozarkclient.event.events.EventMotionUpdate;
-import me.trambled.ozark.ozarkclient.event.events.EventMove;
-import me.trambled.ozark.ozarkclient.event.events.EventSwing;
-import me.trambled.ozark.ozarkclient.event.events.EventPlayerPushOutOfBlocks;
+import me.trambled.ozark.ozarkclient.event.events.*;
+import me.trambled.ozark.ozarkclient.util.RotationUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.SoundHandler;
@@ -40,6 +38,14 @@ public class MixinEntitySP extends MixinEntity {
 
 	@Inject(method = "onUpdateWalkingPlayer", at = @At("HEAD"), cancellable = true)
     public void OnPreUpdateWalkingPlayer(CallbackInfo p_Info) {
+        EventRotation event = new EventRotation();
+        Eventbus.EVENT_BUS.post(event);
+
+        if (event.isCancelled()) {
+            p_Info.cancel();
+
+            RotationUtil.updateRotationPackets(event);
+        }
 
         EventMotionUpdate l_Event = new EventMotionUpdate(0);
         Eventbus.EVENT_BUS.post(l_Event);

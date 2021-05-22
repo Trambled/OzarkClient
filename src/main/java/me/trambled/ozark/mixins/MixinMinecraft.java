@@ -4,7 +4,7 @@ import jline.internal.Nullable;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventGUIScreen;
-import me.trambled.ozark.ozarkclient.guiscreen.CustomMainMenu;
+import me.trambled.ozark.ozarkclient.guiscreen.GuiCustomMainMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
@@ -33,14 +33,14 @@ public abstract class MixinMinecraft {
 		Eventbus.EVENT_BUS.post(guiscreen);
 
 		if (guiScreenIn instanceof GuiMainMenu) {
-			this.displayGuiScreen(new CustomMainMenu());
+			this.displayGuiScreen(new GuiCustomMainMenu());
 		}
 	}
 
 	@Inject(method={"runTick()V"}, at={@At(value="RETURN")})
 	private void runTick(CallbackInfo callbackInfo) {
 		if (Minecraft.getMinecraft().currentScreen instanceof GuiMainMenu && Ozark.get_module_manager().get_module_with_tag("CustomMainMenu").is_active()) {
-			Minecraft.getMinecraft().displayGuiScreen(new CustomMainMenu());
+			Minecraft.getMinecraft().displayGuiScreen(new GuiCustomMainMenu());
 		}
 	}
 }

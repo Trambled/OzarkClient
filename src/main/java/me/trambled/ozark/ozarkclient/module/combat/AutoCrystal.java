@@ -24,7 +24,6 @@ import net.minecraft.network.play.server.*;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -36,7 +35,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 // credit to:
 // travis for the original w+2 base and for the idea of packet block place
-// momentum/linus for momentum calcs, sync options, heuristics, and the concept of inhibit mode
+// momentum/linus for momentum calcs, sync options, heuristics, rotations, and the concept of inhibit mode
 // perry for settings
 // oyvey for predict break and for most of the code for predict place
 public class AutoCrystal extends Module {
@@ -89,7 +88,6 @@ public class AutoCrystal extends Module {
     Setting packet_place = create("Packet Place", "CaPacketPlace", true);
     Setting packet_break = create("Packet Break", "CaPackeBreak", true);
 
-    Setting rotate_mode = create("Rotate", "CaRotateMode", "Packet", combobox("Off", "Packet", "Const", "Seizure"));
     Setting target_mode = create("Target Mode", "CaTargetMode", "Health", combobox("Health", "Closest"));
     Setting raytrace = create("Raytrace", "CaRaytrace", false);
     Setting switch_mode = create("Switch Mode", "CaSwitchMode", "Normal", combobox("Normal", "Ghost", "None"));
@@ -122,6 +120,19 @@ public class AutoCrystal extends Module {
 
     Setting swing = create("Swing", "CaSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
 
+    // momentum
+    Setting rotate_during = create("Rotate During", "CaRotateDuring", "Both", combobox("Break", "Place", "Both"));
+    Setting rotate_mode = create("Rotate", "CaRotateMode", "Packet", combobox("Off", "Packet", "Seizure"));
+    Setting limiter = create("Limiter", "CaRotateLimiter", "None", combobox("Narrow", "Upcoming", "None"));
+    Setting max_angle = create("Max Angle", "CaMaxAngle", 180f, 0f, 360f);
+    Setting min_angle = create("Min Angle", "CaMinAngle", 180f, 0f, 360f);
+    Setting accurate = create("Accurate", "CaAccurate", false);
+    Setting random_rotate = create("Random Rotate", "CaRandomRotate", true);
+    Setting out_border = create("Out Border", "CaOutBorder", false);
+    Setting rotate_motion = create("Rotate Motion", "CaRotateMotionPreidct", false);
+    Setting walls = create("Rotate Walls", "CaRotateWalls", true);
+    Setting rubberband = create("Detect Rubberband", "CaRotateDetectRubberband", true);
+
     Setting render_mode = create("Render", "CaRenderMode", "Pretty", combobox("Pretty", "Solid", "Outline", "None"));
     Setting old_render = create("Old Render", "CaOldRender", false);
     Setting future_render = create("Future Render", "CaFutureRender", false);
@@ -147,6 +158,7 @@ public class AutoCrystal extends Module {
     private final TimerUtil remove_visual_timer = new TimerUtil();
 
     private EntityPlayer ca_target = null;
+    private RotationUtil.Rotation ca_rotation = null;
 
     private String detail_name = null;
     private int detail_hp = 0;
@@ -156,14 +168,10 @@ public class AutoCrystal extends Module {
 
     private double render_damage_value;
 
-    private float yaw;
-    private float pitch;
-
     private boolean already_attacking = false;
     private boolean place_timeout_flag = false;
     private boolean do_switch_bind = false;
     private boolean face_place_bind = false;
-    private boolean is_rotating;
     private boolean did_anything;
     private boolean outline;
     private boolean solid;
@@ -177,9 +185,7 @@ public class AutoCrystal extends Module {
 
     @Override
     public void update() {
-        if (rotate_mode.in("Off") || rotate_mode.in("Packet")) {
-            do_ca();
-        }
+        do_ca();
     }
 
     public void do_ca() {
@@ -243,7 +249,6 @@ public class AutoCrystal extends Module {
                 render_block_init = null;
             }
             ca_target = null;
-            is_rotating = false;
         }
 
         if (ca_target != null) {
@@ -299,8 +304,11 @@ public class AutoCrystal extends Module {
             MessageUtil.send_client_message("placing");
         }
 
+        if (rotate_during.in("Both") || rotate_during.in("Place")) {
+            handle_rotations(false);
+        }
+
         did_anything = true;
-        rotate_to_pos(target_block);
         for (int i = 0; i < place_trys.get_value(1); i++) {
             BlockUtil.placeCrystalOnBlock(target_block, offhand_check ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, packet_place.get_value(true));
         }
@@ -367,7 +375,10 @@ public class AutoCrystal extends Module {
 
         did_anything = true;
 
-        rotate_to(crystal);
+        if (rotate_during.in("Break") || rotate_during.in("Both")) {
+            handle_rotations(true);
+        }
+
         for (int i = 0; i < break_trys.get_value(1); i++) {
             EntityUtil.attackEntity(crystal, packet_break.get_value(true), swing);
             attack_swings++;
@@ -748,6 +759,40 @@ public class AutoCrystal extends Module {
         return closestTarget;
     }
 
+    public void handle_rotations(boolean target) {
+        if (target && get_best_crystal() == null) return;
+        if (!target && get_best_block() == null) return;
+        if (debug.get_value(true) && !rotate_mode.in("Off")) {
+            if (target) {
+                MessageUtil.send_client_message("Rotating to crystal");
+            } else {
+                MessageUtil.send_client_message("Rotating to block");
+            }
+        }
+        // this is so fucking dumb im sorry lmao
+        try {
+            if (ca_target != null) {
+                if (rotate_mode.in("Off")) {
+                    ca_rotation = new RotationUtil.Rotation(0, 0, RotationUtil.RotationMode.None, RotationUtil.RotationPriority.Lowest);
+                } else if (rotate_mode.in("Packet")) {
+                    ca_rotation = new RotationUtil.Rotation((target ? (accurate.get_value(true) ? RotationUtil.searchCenter(get_best_crystal().getEntityBoundingBox(), out_border.get_value(true), random_rotate.get_value(true), rotate_motion.get_value(true), walls.get_value(true)).getRotation() : RotationUtil.getAngles(get_best_crystal())) : (accurate.get_value(true) ? RotationUtil.searchCenter(get_best_block()).getRotation() : RotationUtil.getPositionAngles(get_best_block())))[0], (target ? (accurate.get_value(true) ? RotationUtil.searchCenter(get_best_crystal().getEntityBoundingBox(), out_border.get_value(true), random_rotate.get_value(true), motion_predict.get_value(true), walls.get_value(true)).getRotation() : RotationUtil.getAngles(get_best_crystal())) : (accurate.get_value(true) ? RotationUtil.searchCenter(get_best_block()).getRotation() : RotationUtil.getPositionAngles(get_best_block())))[1], RotationUtil.RotationMode.Packet, RotationUtil.RotationPriority.Highest);
+                } else if (rotate_mode.in("Seizure")) {
+                    ca_rotation = new RotationUtil.Rotation((target ? (accurate.get_value(true) ? RotationUtil.searchCenter(get_best_crystal().getEntityBoundingBox(),out_border.get_value(true), random_rotate.get_value(true), rotate_motion.get_value(true), walls.get_value(true)).getRotation() : RotationUtil.getAngles(get_best_crystal())) : (accurate.get_value(true) ? RotationUtil.searchCenter(get_best_block()).getRotation() : RotationUtil.getPositionAngles(get_best_block())))[0], (target ? (accurate.get_value(true) ? RotationUtil.searchCenter(get_best_crystal().getEntityBoundingBox(), out_border.get_value(true), random_rotate.get_value(true), motion_predict.get_value(true), walls.get_value(true)).getRotation() : RotationUtil.getAngles(get_best_crystal())) : (accurate.get_value(true) ? RotationUtil.searchCenter(get_best_block()).getRotation() : RotationUtil.getPositionAngles(get_best_block())))[1], RotationUtil.RotationMode.Legit, RotationUtil.RotationPriority.Highest);
+                }
+            }
+
+            if (!limiter.in("None"))
+                ca_rotation = RotationUtil.rotationStep(Ozark.get_rotation_manager().serverRotation, ca_rotation, (float) (((random_rotate.get_value(true) ? Math.random() : 1) * (max_angle.get_value(1d) - min_angle.get_value(1d))) + min_angle.get_value(1)), limiter);
+
+            Ozark.get_rotation_manager().rotationQueue.add(ca_rotation);
+        } catch (Exception e) {
+            if (debug.get_value(true)) {
+                MessageUtil.send_client_message("Error with rotations");
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public void render(EventRender event) {
         if (render_block_init == null) return;
@@ -820,25 +865,6 @@ public class AutoCrystal extends Module {
     });
 
     @EventHandler
-    private final Listener<EventMotionUpdate> on_movement = new Listener<>(event -> {
-        if (event.stage == 0 && (rotate_mode.in("Seizure") || rotate_mode.in("Const"))) {
-            if (debug.get_value(true)) {
-                MessageUtil.send_client_message("updating rotation");
-            }
-            PosUtil.updatePosition();
-            RotationUtil.updateRotations();
-            do_ca();
-        }
-        if (event.stage == 1 && (rotate_mode.in("Seizure") || rotate_mode.in("Const"))) {
-            if (debug.get_value(true)) {
-                MessageUtil.send_client_message("resetting rotation");
-            }
-            PosUtil.restorePosition();
-            RotationUtil.restoreRotations();
-        }
-    });
-
-    @EventHandler
     private final Listener<EventPacket.ReceivePacket> receive_listener = new Listener<>(event -> {
         if (event.get_packet() instanceof SPacketSoundEffect) {
             final SPacketSoundEffect packet = (SPacketSoundEffect) event.get_packet();
@@ -882,19 +908,13 @@ public class AutoCrystal extends Module {
                 AutoCrystal.mc.player.connection.sendPacket(predict);
             }
         }
+        if (event.get_packet() instanceof SPacketPlayerPosLook && rubberband.get_value(true)) {
+            ca_rotation.restoreRotation();
+        }
     });
 
     @EventHandler
     private final Listener<EventPacket.SendPacket> send_listener = new Listener<>(event -> {
-        if (event.get_packet() instanceof CPacketPlayer && is_rotating && rotate_mode.in("Packet")) {
-            if (debug.get_value(true)) {
-                MessageUtil.send_client_message("Rotating");
-            }
-            final CPacketPlayer p = (CPacketPlayer) event.get_packet();
-            p.yaw = yaw;
-            p.pitch = pitch;
-            is_rotating = false;
-        }
         if (event.get_packet() instanceof CPacketUseEntity && ((CPacketUseEntity) event.get_packet()).getAction() == CPacketUseEntity.Action.ATTACK && ((CPacketUseEntity) event.get_packet()).getEntityFromWorld(mc.world) instanceof EntityEnderCrystal) {
             if (sync.in("Attack"))
                 Objects.requireNonNull(((CPacketUseEntity) event.get_packet()).getEntityFromWorld(mc.world)).setDead();
@@ -989,41 +1009,6 @@ public class AutoCrystal extends Module {
         return faceplace_mode.get_value(true) && EntityUtil.isInHole(this.ca_target) && this.ca_target.getHealth() + this.ca_target.getAbsorptionAmount() <= this.faceplace_mode.get_value(1);
     }
 
-    public void rotate_to(final Entity entity) {
-        final float[] angle = MathUtil.calcAngle(mc.player.getPositionEyes(mc.getRenderPartialTicks()), entity.getPositionVector());
-        if (rotate_mode.in("Off")) {
-            is_rotating = false;
-        }
-        if (rotate_mode.in("Seizure")) {
-            RotationUtil.setPlayerRotations(angle[0], angle[1]);
-        }
-        if (rotate_mode.in("Packet") || rotate_mode.in("Const")) { //im p sure travis made a typo here, it said cons, might be him wanting it to not do that
-            yaw = angle[0];
-            pitch = angle[1];
-            is_rotating = true;
-        }
-    }
-
-    public void rotate_to_pos(final BlockPos pos) {
-        final float[] angle;
-        if (rotate_mode.in("Const")) {
-            angle = MathUtil.calcAngle(mc.player.getPositionEyes(mc.getRenderPartialTicks()), new Vec3d(pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f));
-        } else {
-            angle = MathUtil.calcAngle(mc.player.getPositionEyes(mc.getRenderPartialTicks()), new Vec3d(pos.getX() + 0.5f, pos.getY() - 0.5f, pos.getZ() + 0.5f));
-        }
-        if (rotate_mode.in("Off")) {
-            is_rotating = false;
-        }
-        if (rotate_mode.in("Seizure") || rotate_mode.in("Const")) {
-            RotationUtil.setPlayerRotations(angle[0], angle[1]);
-        }
-        if (rotate_mode.in("Packet")) {
-            yaw = angle[0];
-            pitch = angle[1];
-            is_rotating = true;
-        }
-    }
-
     public void cycle_rainbow() {
         float[] tick_color = {
                 (System.currentTimeMillis() % (360 * 32)) / (360f * 32)
@@ -1061,7 +1046,6 @@ public class AutoCrystal extends Module {
         inhibit_delay_counter = 0;
         attack_swings = 0;
         place_timeout_flag = false;
-        is_rotating = false;
         ca_target = null;
         remove_visual_timer.reset();
         detail_name = null;
@@ -1083,6 +1067,11 @@ public class AutoCrystal extends Module {
         if (tag.equals("CaFaceBind")) {
             face_place_bind = !face_place_bind;
         }
+    }
+
+    @Override
+    public void log_out() {
+        this.set_disable();
     }
 
     @Override

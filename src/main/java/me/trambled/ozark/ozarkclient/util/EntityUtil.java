@@ -69,6 +69,11 @@ public class EntityUtil {
         return true;
     }
 
+    public static Vec3d interpolateEntityTime(Entity entity, float time) {
+        return new Vec3d(entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) time, entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) time, entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double) time);
+    }
+
+
     public static Color getColor(final Entity entity, final int red, final int green, final int blue, final int alpha, final boolean colorFriends) {
         Color color = new Color(red / 255.0f, green / 255.0f, blue / 255.0f, alpha / 255.0f);
         if (entity instanceof EntityPlayer) {

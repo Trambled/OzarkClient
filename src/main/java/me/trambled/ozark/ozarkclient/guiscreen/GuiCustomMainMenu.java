@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 // phobos
-public class CustomMainMenu extends GuiScreen {
+public class GuiCustomMainMenu extends GuiScreen {
 	private final ResourceLocation resourceLocation = new ResourceLocation("custom/background.png");
 	private int y;
 	private int x;
@@ -61,13 +61,13 @@ public class CustomMainMenu extends GuiScreen {
 	}
 
 	public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
-		if (CustomMainMenu.isHovered(this.x - RainbowUtil.get_string_width("Singleplayer") / 2, this.y + 20, RainbowUtil.get_string_width("Singleplayer"), RainbowUtil.get_string_height(), mouseX, mouseY)) {
+		if (GuiCustomMainMenu.isHovered(this.x - RainbowUtil.get_string_width("Singleplayer") / 2, this.y + 20, RainbowUtil.get_string_width("Singleplayer"), RainbowUtil.get_string_height(), mouseX, mouseY)) {
 			this.mc.displayGuiScreen(new GuiWorldSelection(this));
-		} else if (CustomMainMenu.isHovered(this.x - RainbowUtil.get_string_width("Multiplayer") / 2, this.y + 44, RainbowUtil.get_string_width("Multiplayer"), RainbowUtil.get_string_height(), mouseX, mouseY)) {
+		} else if (GuiCustomMainMenu.isHovered(this.x - RainbowUtil.get_string_width("Multiplayer") / 2, this.y + 44, RainbowUtil.get_string_width("Multiplayer"), RainbowUtil.get_string_height(), mouseX, mouseY)) {
 			this.mc.displayGuiScreen(new GuiMultiplayer(this));
-		} else if (CustomMainMenu.isHovered(this.x - RainbowUtil.get_string_width("Settings") / 2, this.y + 66, RainbowUtil.get_string_width("Settings"), RainbowUtil.get_string_height(), mouseX, mouseY)) {
+		} else if (GuiCustomMainMenu.isHovered(this.x - RainbowUtil.get_string_width("Settings") / 2, this.y + 66, RainbowUtil.get_string_width("Settings"), RainbowUtil.get_string_height(), mouseX, mouseY)) {
 			this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
-		} else if (CustomMainMenu.isHovered(this.x - RainbowUtil.get_string_width("Exit") / 2, this.y + 88, RainbowUtil.get_string_width("Exit"), RainbowUtil.get_string_height(), mouseX, mouseY)) {
+		} else if (GuiCustomMainMenu.isHovered(this.x - RainbowUtil.get_string_width("Exit") / 2, this.y + 88, RainbowUtil.get_string_width("Exit"), RainbowUtil.get_string_height(), mouseX, mouseY)) {
 			this.mc.shutdown();
 		}
 	}
@@ -80,7 +80,7 @@ public class CustomMainMenu extends GuiScreen {
 		GlStateManager.enableTexture2D();
 		GlStateManager.disableBlend();
 		this.mc.getTextureManager().bindTexture(this.resourceLocation);
-		CustomMainMenu.drawCompleteImage(-16.0f + this.xOffset, -9.0f + this.yOffset, this.width + 32, this.height + 18);
+		GuiCustomMainMenu.drawCompleteImage(-16.0f + this.xOffset, -9.0f + this.yOffset, this.width + 32, this.height + 18);
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 
