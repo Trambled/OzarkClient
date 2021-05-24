@@ -155,6 +155,7 @@ public class ModuleManager {
 		add_module(new LogOutSpots());
 		add_module(new Trajectories());
 		add_module(new PenisESP());
+		add_module(new FovSlider());
 
 		// Misc.
 		add_module(new AutoWither());
