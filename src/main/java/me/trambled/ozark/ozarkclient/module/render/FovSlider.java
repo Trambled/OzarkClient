@@ -19,8 +19,8 @@ public class FovSlider extends Module {
 	
 	private float fov;
 
-    WurstplusSetting FOV = create("FOV", "FOV", 110, 90, 200);
-    WurstplusSetting mode = create("Mode", "FOVSliderMode", "Hand Changer", combobox("FOV Changer", "Hand Changer"));
+    Setting FOV = create("FOV", "FOV", 110, 90, 200);
+    Setting mode = create("Mode", "FOVSliderMode", "Hand Changer", combobox("FOV Changer", "Hand Changer"));
 
     @SubscribeEvent
     public void fovOn(final EntityViewRenderEvent.FOVModifier e) {
