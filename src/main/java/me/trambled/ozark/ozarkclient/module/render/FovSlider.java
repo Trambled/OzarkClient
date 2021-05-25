@@ -9,7 +9,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 public class FovSlider extends Module {
 
-    public FOVSlider() {
+    public FovSlider() {
         super(Category.RENDER);
 
         this.name = "FovSlider";
