@@ -128,6 +128,7 @@ public class ModuleManager {
 		add_module(new AntiLevitation());
 		add_module(new EntitySpeed());
 		add_module(new Static());
+		add_module(new NoWeb());
 
 		// Render.
 		add_module(new BlockHighlight ());
