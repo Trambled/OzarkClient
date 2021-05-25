@@ -273,10 +273,7 @@ public class OffhandGS extends Module {
             itemCheck = "Crystal";
         }
 
-        // If no player
-        if (normalOffHand && !nearPlayer()) {
-            normalOffHand = false;
-            itemCheck = noPlayerItem.getValue();
+
         }
 
 
@@ -379,7 +376,7 @@ public class OffhandGS extends Module {
             }
         }
         // Iterate
-        for (int i = (onlyHotBar.getValue() ? 8 : 35); i > (this.noHotBar.getValue() ? 9 : -1); i--) {
+        for (int i = (onlyHotbar.get_value(true)) ? 8 : 35); i > (this.noHotBar.get_value(true)) ? 9 : -1) i--) {
 
             res = isCorrect(i, blockBool, item, itemName);
             if (res != -1)
