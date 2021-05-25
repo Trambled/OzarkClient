@@ -19,6 +19,15 @@ is the jar file you should use.
 
 U also need a JDK, a free one is adopt open JDK https://adoptopenjdk.net/
 
+## Contributing (only for pro coders)
+1. Clone the Repository under `https://github.com/Trambled/OzarkClient`
+2. Open command prompt and CD (cds nut idiot) into the directory.
+3. Depending on which IDEA you use, different commands have to be ran.
+    - IntelliJ: `gradlew setupDecompWorkspace idea genIntellijRuns build`
+    - Eclipse: `gradlew setupDecompWorkspace eclipse build`
+4. Open the folder in your preferred IDEA, depending which you chose above.
+5. If you use Eclipse, please factory reset your entire pc because it contains a dangerous virus.
+
 ## Issues and Crashes
 
 If you have certain issues, send someone who helps contribute to here your crash log,
