@@ -139,6 +139,9 @@ public class BlockUtil {
                     return true;
                 }
             }
+            if (old_slot != -1) {
+                mc.player.inventory.currentItem = old_slot;
+            }
 
         }
 
