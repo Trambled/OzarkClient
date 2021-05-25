@@ -39,7 +39,7 @@ public class AutoGroom extends Module {
         chants.add("/w <player> you look like such a big boy...");
         chants.add("/w <player> hi cutie");
         chants.add("/w <player> can i fart in your mouth");
-        chants.add("/w <player> can i be your sussy little baka??");
+        chants.add("/w <player> can i be your little sussy baka??");
         chants.add("/w <player> whats my kitten doing talking to another man?? so sussy...");
         chants.add("/w <player> ill touch you inappropriately with the power of Ozark Client");
         chants.add("/w <player> we can play nekopara in bachi's office together my kitten ");
