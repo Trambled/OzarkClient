@@ -5,6 +5,8 @@
     <a href="https://discord.gg/xuAZPEmYZH"><img src="https://github.com/Trambled/OzarkClient/blob/master/src/main/resources/logo.png" width="500" alt="Ozark" /></a>
   </p>
   <br />
+  
+  Click the logo to join our discord!
     
 
 ## Building the sex 
