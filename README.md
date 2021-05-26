@@ -1,13 +1,7 @@
 # Ozark Client
 
-<div align="center">
-  <br />
-  <p>
-    <a href="https://discord.gg/xuAZPEmYZH"><img src="https://github.com/Trambled/OzarkClient/blob/master/src/main/resources/logo.png" width="500" alt="Ozark" /></a>
-  </p>
-  <br />
+![alt text](https://github.com/Trambled/OzarkClient/blob/master/src/main/resources/logo.png)
     
-    Click the logo to join the discord!
 
 ## Building the sex 
 1. Extract the folder to a location.
