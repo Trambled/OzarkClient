@@ -65,9 +65,9 @@ Default Command Prefix?
   Burrow - Xulu but modified a bit to make it better. <br>
   Xray - With commands and opacity feature. <br>
   PastGUI - Another GUI originally from past. <br>
-  Anticrystal - Originally from xenon but added minhealth and crystal calculations to make it better, also supports string.<br><br>
+  Anticrystal - Originally from xenon but added minhealth and crystal calculations to make it better, also supports string.<br>
   Some other skidded shit and bug fixes. <br>
-  Instantburrow - made by ObsidianBreaker from nekohax and leux but added to ozark. <br>
+  Instantburrow - made by ObsidianBreaker from nekohax and leux but added to ozark. <br><br>
 </details>
 
 ## Configuring
@@ -151,18 +151,3 @@ Elytrafly if it lags back with the default speed try lowering it, Setting the gl
 ## Capes
 U can give cape designs and i can add u to the pastebin of uuids for capes.
 
-## clients used to make ozark (skidded/inspiration/ideas)
-
--w+2 (obviously)
--bope
--gamesense
--vethack
--salhack
--nekohax
--chatbreaker+
--xulu
--fobos
--nekohax (more like renamed wp2 with burrow :troll:)
--past
--bloodhack (wp2 skid)
--chimpware (best client approved by snine19))
