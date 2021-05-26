@@ -35,6 +35,7 @@ U also need a JDK, a free one is adopt open JDK https://adoptopenjdk.net/
     - Eclipse: `gradlew setupDecompWorkspace eclipse build`
 4. Open the folder in your preferred IDEA, depending which you chose above.
 5. If you use Eclipse, please factory reset your entire pc because it contains a dangerous virus.
+6. And change what you need to change in your IDEA and click "Git" on top of your screen and commit.
 
 ## Issues and Crashes
 
