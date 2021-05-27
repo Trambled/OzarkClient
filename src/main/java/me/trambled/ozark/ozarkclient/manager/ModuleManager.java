@@ -126,7 +126,6 @@ public class ModuleManager {
 		add_module(new AntiLevitation());
 		add_module(new EntitySpeed());
 		add_module(new Static());
-		add_module(new NoWeb());
 
 		// Render.
 		add_module(new BlockHighlight());
@@ -154,7 +153,7 @@ public class ModuleManager {
 		add_module(new LogOutSpots());
 		add_module(new Trajectories());
 		add_module(new PenisESP());
-		add_module(new FovSlider());
+		add_module(new NewChunks());
 
 		// Misc.
 		add_module(new AutoWither());
