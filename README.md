@@ -156,4 +156,10 @@ U can give cape designs and i can add u to the pastebin of uuids for capes.
 ## hacked by skitty
 
 -hacked by skitty
--sn0w own u nn dog
+-sn0w own u nn do
+
+Best Module  | Worst Module
+------------- | -------------
+Piston Crystal (custom)  | AutoGroom
+Autocrystal (custom)  | all chat modules
+
