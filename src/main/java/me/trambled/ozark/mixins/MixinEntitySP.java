@@ -47,21 +47,6 @@ public class MixinEntitySP extends MixinEntity {
             RotationUtil.updateRotationPackets(event);
         }
 
-        EventMotionUpdate l_Event = new EventMotionUpdate(0);
-        Eventbus.EVENT_BUS.post(l_Event);
-        if (l_Event.isCancelled())
-            p_Info.cancel();
-
-    }
-
-    @Inject(method = "onUpdateWalkingPlayer", at = @At("RETURN"), cancellable = true)
-    public void OnPostUpdateWalkingPlayer(CallbackInfo p_Info) {
-
-        EventMotionUpdate l_Event = new EventMotionUpdate(1);
-        Eventbus.EVENT_BUS.post(l_Event);
-        if (l_Event.isCancelled())
-            p_Info.cancel();
-
     }
 
     @Inject(method = "pushOutOfBlocks(DDD)Z", at = @At("HEAD"), cancellable = true)

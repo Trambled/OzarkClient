@@ -1,7 +1,7 @@
 package me.trambled.ozark.ozarkclient.event.events;
 
 import me.trambled.ozark.ozarkclient.event.Event;
-import net.minecraft.client.Minecraft;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
@@ -11,7 +11,7 @@ import net.minecraft.util.math.Vec3d;
 
 
 public class EventRender extends Event {
-	private final ScaledResolution res = new ScaledResolution(Minecraft.getMinecraft());
+	private final ScaledResolution res = new ScaledResolution(mc);
 	private final Tessellator tessellator;
 	private final Vec3d       render_pos;
 

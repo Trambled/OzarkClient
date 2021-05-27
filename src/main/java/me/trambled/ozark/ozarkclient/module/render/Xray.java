@@ -139,8 +139,10 @@ public class Xray extends Module {
     }
 
     @Override
-    public void value_change() {
-        reloadWorld();
+    public void value_change(String tag) {
+        if (tag.equals("XrayOpacity")) {
+            reloadWorld();
+        }
     }
 
     static {

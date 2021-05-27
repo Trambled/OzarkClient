@@ -2,7 +2,7 @@ package me.trambled.ozark.ozarkclient.manager;
 
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
 import me.trambled.ozark.ozarkclient.guiscreen.hud.pinnables.*;
-import net.minecraft.client.Minecraft;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -54,7 +54,7 @@ public class HUDManager {
 
 	public void render() {
 		for (Pinnable pinnables : get_array_huds()) {
-			if (pinnables.is_active() && Minecraft.getMinecraft().world != null) {
+			if (pinnables.is_active() && mc.world != null) {
 				pinnables.render();
 			}
 		}

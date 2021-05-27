@@ -2,7 +2,6 @@ package me.trambled.ozark.ozarkclient.util;
 
 import me.trambled.ozark.ozarkclient.module.Setting;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,6 +12,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 import java.awt.*;
 import java.util.List;
@@ -20,7 +20,6 @@ import java.util.Objects;
 
 public class EntityUtil {
 
-    public static final Minecraft mc = Minecraft.getMinecraft();
 
     public static void attackEntity(final Entity entity, final boolean packet, final Setting setting) {
         if (packet) {
@@ -52,7 +51,7 @@ public class EntityUtil {
     public static boolean isObbyHole(BlockPos blockPos) {
         BlockPos[] touchingBlocks;
         for (BlockPos pos : touchingBlocks = new BlockPos[]{blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()}) {
-            IBlockState touchingState = EntityUtil.mc.world.getBlockState(pos);
+            IBlockState touchingState = mc.world.getBlockState(pos);
             if (touchingState.getBlock() != Blocks.AIR && touchingState.getBlock() == Blocks.OBSIDIAN) continue;
             return false;
         }
@@ -62,7 +61,7 @@ public class EntityUtil {
     public static boolean isBedrockHole(BlockPos blockPos) {
         BlockPos[] touchingBlocks;
         for (BlockPos pos : touchingBlocks = new BlockPos[]{blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()}) {
-            IBlockState touchingState = EntityUtil.mc.world.getBlockState(pos);
+            IBlockState touchingState = mc.world.getBlockState(pos);
             if (touchingState.getBlock() != Blocks.AIR && touchingState.getBlock() == Blocks.BEDROCK) continue;
             return false;
         }
@@ -70,6 +69,9 @@ public class EntityUtil {
     }
 
     public static Vec3d interpolateEntityTime(Entity entity, float time) {
+        if (entity == null) {
+            return new Vec3d(0, 0, 0);
+        }
         return new Vec3d(entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double) time, entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double) time, entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double) time);
     }
 
@@ -91,7 +93,7 @@ public class EntityUtil {
     public static boolean isBothHole(BlockPos blockPos) {
         BlockPos[] touchingBlocks;
         for (BlockPos pos : touchingBlocks = new BlockPos[]{blockPos.north(), blockPos.south(), blockPos.east(), blockPos.west(), blockPos.down()}) {
-            IBlockState touchingState = EntityUtil.mc.world.getBlockState(pos);
+            IBlockState touchingState = mc.world.getBlockState(pos);
             if (touchingState.getBlock() != Blocks.AIR && (touchingState.getBlock() == Blocks.BEDROCK || touchingState.getBlock() == Blocks.OBSIDIAN))
                 continue;
             return false;
@@ -205,6 +207,10 @@ public class EntityUtil {
         return pl.getName().equals(mc.player.getName()) || FriendUtil.isFriend(pl.getName()) || pl.isDead;
     }
 
+    public static boolean isActuallyInWeb(Entity player) {
+        return mc.world.getBlockState(player.getPosition()).getBlock().equals(Blocks.WEB);
+    }
+
 
     public static double getDirection() {
         float rotationYaw = mc.player.rotationYaw;
@@ -302,15 +308,15 @@ public class EntityUtil {
             return false;
         }
         if (entity instanceof EntityPlayer) {
-            return EntityUtil.mc.gameSettings.keyBindForward.isKeyDown() || EntityUtil.mc.gameSettings.keyBindBack.isKeyDown() || EntityUtil.mc.gameSettings.keyBindLeft.isKeyDown() || EntityUtil.mc.gameSettings.keyBindRight.isKeyDown();
+            return mc.gameSettings.keyBindForward.isKeyDown() || mc.gameSettings.keyBindBack.isKeyDown() || mc.gameSettings.keyBindLeft.isKeyDown() || mc.gameSettings.keyBindRight.isKeyDown();
         }
         return entity.motionX != 0.0 || entity.motionY != 0.0 || entity.motionZ != 0.0;
     }
 
     public static double getMaxSpeed() {
         double maxModifier = 0.2873;
-        if (EntityUtil.mc.player.isPotionActive(Objects.requireNonNull(Potion.getPotionById((int)1)))) {
-            maxModifier *= 1.0 + 0.2 * (double)(Objects.requireNonNull(EntityUtil.mc.player.getActivePotionEffect(Objects.requireNonNull(Potion.getPotionById((int)1)))).getAmplifier() + 1);
+        if (mc.player.isPotionActive(Objects.requireNonNull(Potion.getPotionById((int)1)))) {
+            maxModifier *= 1.0 + 0.2 * (double)(Objects.requireNonNull(mc.player.getActivePotionEffect(Objects.requireNonNull(Potion.getPotionById((int)1)))).getAmplifier() + 1);
         }
         return maxModifier;
     }

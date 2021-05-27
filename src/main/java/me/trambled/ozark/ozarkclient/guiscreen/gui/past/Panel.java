@@ -1,9 +1,10 @@
 package me.trambled.ozark.ozarkclient.guiscreen.gui.past;
 
 import me.trambled.ozark.Ozark;
+import me.trambled.ozark.ozarkclient.guiscreen.gui.past.items.*;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.util.FontUtil;
-import me.trambled.ozark.ozarkclient.guiscreen.gui.past.items.ModuleButton;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import net.minecraft.client.Minecraft;
@@ -79,10 +80,8 @@ public class Panel {
     public void refresh() {
         int off = this.height;
         for (Component comp : components) {
-            if (comp.is_shown()) {
-                comp.setOff(off);
-                off += comp.getHeight();
-            }
+            comp.setOff(off);
+            off += comp.getHeight();
         }
     }
 

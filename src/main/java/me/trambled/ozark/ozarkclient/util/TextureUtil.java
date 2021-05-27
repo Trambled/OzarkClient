@@ -1,6 +1,6 @@
 package me.trambled.ozark.ozarkclient.util;
 
-import net.minecraft.client.Minecraft;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -9,8 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 public class TextureUtil {
 
-    final static Minecraft mc = Minecraft.getMinecraft();
-    
+
     public static void drawTexture(final ResourceLocation resourceLocation, final float x, final float y, final float width, final float height) {
         GL11.glPushMatrix();
         final float size = width / 2.0f;

@@ -12,17 +12,16 @@ import net.minecraftforge.common.MinecraftForge;
 
 public class AutoKit extends Module {
 
-	
     public AutoKit() {
-
         super(Category.MISC);
 
         this.name = "AutoKit";
         this.tag = "AutoKit";
         this.description = "Automatically selects a kit.";
     }
+
 	Setting aurora = create("Aurora", "AutoKitAurora", false);
-	
+
 	@EventHandler
     private final Listener<EventPacket.ReceivePacket> receiveListener = new Listener<>(event -> {
         if (event.get_packet() instanceof SPacketRespawn && mc.player.isDead) {
@@ -40,14 +39,4 @@ public class AutoKit extends Module {
             }).start();
         }
     });
-
-    @Override
-    protected void enable() {
-        MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    @Override
-    protected void disable() {
-        MinecraftForge.EVENT_BUS.unregister(this);
-    }
  }

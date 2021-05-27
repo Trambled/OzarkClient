@@ -1,5 +1,6 @@
 package me.trambled.ozark.ozarkclient.util;
 
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketPlayer;
@@ -20,15 +21,14 @@ import java.util.ArrayList;
 
 public class PlayerUtil
 {
-    private static final Minecraft mc;
     private static DecimalFormat formatter = new DecimalFormat("#.#");
     
     public static BlockPos GetLocalPlayerPosFloored() {
-        return new BlockPos(Math.floor(PlayerUtil.mc.player.posX), Math.floor(PlayerUtil.mc.player.posY), Math.floor(PlayerUtil.mc.player.posZ));
+        return new BlockPos(Math.floor(mc.player.posX), Math.floor(mc.player.posY), Math.floor(mc.player.posZ));
     }
 
     public static FacingDirection GetFacing() {
-        switch (MathHelper.floor(PlayerUtil.mc.player.rotationYaw * 8.0f / 360.0f + 0.5) & 0x7) {
+        switch (MathHelper.floor(mc.player.rotationYaw * 8.0f / 360.0f + 0.5) & 0x7) {
             case 0:
             case 1: {
                 return FacingDirection.South;
@@ -52,28 +52,28 @@ public class PlayerUtil
     }
 
     public double getMoveYaw() {
-        float strafe = 90.0f * PlayerUtil.mc.player.moveStrafing;
-        strafe *= (float)((PlayerUtil.mc.player.moveForward != 0.0f) ? (PlayerUtil.mc.player.moveForward * 0.5) : 1.0);
-        float yaw = PlayerUtil.mc.player.rotationYaw - strafe;
-        yaw -= ((PlayerUtil.mc.player.moveForward < 0.0f) ? 180.0f : 0.0f);
+        float strafe = 90.0f * mc.player.moveStrafing;
+        strafe *= (float)((mc.player.moveForward != 0.0f) ? (mc.player.moveForward * 0.5) : 1.0);
+        float yaw = mc.player.rotationYaw - strafe;
+        yaw -= ((mc.player.moveForward < 0.0f) ? 180.0f : 0.0f);
         return Math.toRadians(yaw);
     }
 
     public static void placeBlock(BlockPos pos) {
         for (EnumFacing enumFacing : EnumFacing.values()) {
 
-            if (!Minecraft.getMinecraft().world.getBlockState(pos.offset(enumFacing)).getBlock().equals(Blocks.AIR) && !isIntercepted(pos)) {
+            if (!mc.world.getBlockState(pos.offset(enumFacing)).getBlock().equals(Blocks.AIR) && !isIntercepted(pos)) {
 
                 Vec3d vec = new Vec3d(pos.getX() + 0.5D + (double) enumFacing.getXOffset() * 0.5D, pos.getY() + 0.5D + (double) enumFacing.getYOffset() * 0.5D, pos.getZ() + 0.5D + (double) enumFacing.getZOffset() * 0.5D);
 
-                float[] old = new float[]{Minecraft.getMinecraft().player.rotationYaw, Minecraft.getMinecraft().player.rotationPitch};
+                float[] old = new float[]{mc.player.rotationYaw, Minecraft.getMinecraft().player.rotationPitch};
 
-                Minecraft.getMinecraft().player.connection.sendPacket(new CPacketPlayer.Rotation((float) Math.toDegrees(Math.atan2((vec.z - Minecraft.getMinecraft().player.posZ), (vec.x - Minecraft.getMinecraft().player.posX))) - 90.0F, (float) (-Math.toDegrees(Math.atan2((vec.y - (Minecraft.getMinecraft().player.posY + (double) Minecraft.getMinecraft().player.getEyeHeight())), (Math.sqrt((vec.x - Minecraft.getMinecraft().player.posX) * (vec.x - Minecraft.getMinecraft().player.posX) + (vec.z - Minecraft.getMinecraft().player.posZ) * (vec.z - Minecraft.getMinecraft().player.posZ)))))), Minecraft.getMinecraft().player.onGround));
-                Minecraft.getMinecraft().player.connection.sendPacket(new CPacketEntityAction(Minecraft.getMinecraft().player, CPacketEntityAction.Action.START_SNEAKING));
-                Minecraft.getMinecraft().playerController.processRightClickBlock(Minecraft.getMinecraft().player, Minecraft.getMinecraft().world, pos.offset(enumFacing), enumFacing.getOpposite(), new Vec3d(pos), EnumHand.MAIN_HAND);
-                Minecraft.getMinecraft().player.swingArm(EnumHand.MAIN_HAND);
-                Minecraft.getMinecraft().player.connection.sendPacket(new CPacketEntityAction(Minecraft.getMinecraft().player, CPacketEntityAction.Action.STOP_SNEAKING));
-                Minecraft.getMinecraft().player.connection.sendPacket(new CPacketPlayer.Rotation(old[0], old[1], Minecraft.getMinecraft().player.onGround));
+                mc.player.connection.sendPacket(new CPacketPlayer.Rotation((float) Math.toDegrees(Math.atan2((vec.z - Minecraft.getMinecraft().player.posZ), (vec.x - Minecraft.getMinecraft().player.posX))) - 90.0F, (float) (-Math.toDegrees(Math.atan2((vec.y - (Minecraft.getMinecraft().player.posY + (double) Minecraft.getMinecraft().player.getEyeHeight())), (Math.sqrt((vec.x - Minecraft.getMinecraft().player.posX) * (vec.x - Minecraft.getMinecraft().player.posX) + (vec.z - Minecraft.getMinecraft().player.posZ) * (vec.z - Minecraft.getMinecraft().player.posZ)))))), Minecraft.getMinecraft().player.onGround));
+                mc.player.connection.sendPacket(new CPacketEntityAction(Minecraft.getMinecraft().player, CPacketEntityAction.Action.START_SNEAKING));
+                mc.playerController.processRightClickBlock(Minecraft.getMinecraft().player, Minecraft.getMinecraft().world, pos.offset(enumFacing), enumFacing.getOpposite(), new Vec3d(pos), EnumHand.MAIN_HAND);
+                mc.player.swingArm(EnumHand.MAIN_HAND);
+                mc.player.connection.sendPacket(new CPacketEntityAction(Minecraft.getMinecraft().player, CPacketEntityAction.Action.STOP_SNEAKING));
+                mc.player.connection.sendPacket(new CPacketPlayer.Rotation(old[0], old[1], Minecraft.getMinecraft().player.onGround));
 
                 return;
             }
@@ -81,13 +81,13 @@ public class PlayerUtil
     }
     
     public double getSpeed() {
-        return Math.hypot(PlayerUtil.mc.player.motionX, PlayerUtil.mc.player.motionZ);
+        return Math.hypot(mc.player.motionX, mc.player.motionZ);
     }
     
     public void setSpeed(final Double speed) {
         final Double yaw = this.getMoveYaw();
-        PlayerUtil.mc.player.motionX = -Math.sin(yaw) * speed;
-        PlayerUtil.mc.player.motionZ = Math.cos(yaw) * speed;
+        mc.player.motionX = -Math.sin(yaw) * speed;
+        mc.player.motionZ = Math.cos(yaw) * speed;
     }
 
 
@@ -108,7 +108,7 @@ public class PlayerUtil
     }
     
     public void setTimer(final float speed) {
-        PlayerUtil.mc.timer.tickLength = 50.0f / speed;
+        mc.timer.tickLength = 50.0f / speed;
     }
     
     public void step(final float height, final double[] offset, final boolean flag, final float speed) {
@@ -116,14 +116,11 @@ public class PlayerUtil
             this.setTimer(speed);
         }
         for (int i = 0; i < offset.length; ++i) {
-            PlayerUtil.mc.player.connection.sendPacket((Packet)new CPacketPlayer.Position(PlayerUtil.mc.player.posX, PlayerUtil.mc.player.posY + offset[i], PlayerUtil.mc.player.posZ, PlayerUtil.mc.player.onGround));
+            mc.player.connection.sendPacket((Packet)new CPacketPlayer.Position(mc.player.posX, mc.player.posY + offset[i], mc.player.posZ, mc.player.onGround));
         }
-        PlayerUtil.mc.player.stepHeight = height;
+        mc.player.stepHeight = height;
     }
-    
-    static {
-        mc = Minecraft.getMinecraft();
-    }
+
     
     public enum FacingDirection
     {

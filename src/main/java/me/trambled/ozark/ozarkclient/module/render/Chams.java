@@ -250,4 +250,10 @@ public class Chams extends Module {
         event.cancel();
     }
 
+    @Override
+    public void update_always() {
+        sat.set_shown(rainbow_mode.get_value(true));
+        brightness.set_shown(rainbow_mode.get_value(true));
+    }
+
 }

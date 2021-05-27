@@ -2,7 +2,7 @@ package me.trambled.ozark.ozarkclient.util;
 
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.CPacketPlayerDigging;
 import net.minecraft.util.EnumFacing;
@@ -13,7 +13,6 @@ import net.minecraft.util.math.Vec3d;
 
 public class BreakUtil {
 
-    private final static Minecraft mc = Minecraft.getMinecraft();
 
     private static BlockPos current_block = null;
     private static boolean is_mining = false;

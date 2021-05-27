@@ -38,16 +38,6 @@ public class SkyColour extends Module {
     }
 
     @Override
-    protected void enable() {
-        MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    @Override
-    protected void disable() {
-        MinecraftForge.EVENT_BUS.unregister(this);
-    }
-
-    @Override
     public void update() {
         if (rainbow_mode.get_value(true)) {
             cycle_rainbow();

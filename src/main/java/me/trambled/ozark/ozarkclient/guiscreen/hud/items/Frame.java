@@ -2,7 +2,7 @@ package me.trambled.ozark.ozarkclient.guiscreen.hud.items;
 
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.util.GuiUtil;
-import net.minecraft.client.Minecraft;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -50,7 +50,6 @@ public class Frame {
 	public static int bdw_b = 0;
 	public static int bdw_a = 255;
 
-	public final Minecraft mc = Minecraft.getMinecraft();
 
 	public Frame(String name, String tag, int initial_x, int initial_y) {
 		this.pinnable_button = new ArrayList<>();

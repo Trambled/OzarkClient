@@ -18,7 +18,7 @@ package me.trambled.ozark.ozarkclient.guiscreen;
 
 import com.google.common.collect.Lists;
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.GuiUtil;
+import me.trambled.ozark.ozarkclient.util.MathUtil;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
 import me.trambled.ozark.ozarkclient.util.RainbowUtil;
 import net.minecraft.client.Minecraft;
@@ -34,11 +34,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
-import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
-
-import static me.trambled.ozark.ozarkclient.util.AnimationUtil.clamp;
 
 // full credit goes to llamalad7
 @SideOnly(Side.CLIENT)
@@ -70,7 +67,7 @@ public class GuiBetterChat extends GuiNewChat {
 
     public static void updatePercentage(long diff) {
         if (percentComplete < 1) percentComplete += 0.004f * diff;
-        percentComplete = clamp(percentComplete, 0, 1);
+        percentComplete = MathUtil.clamp(percentComplete, 0, 1);
     }
 
     public void drawChat(int updateCounter) {
@@ -84,7 +81,7 @@ public class GuiBetterChat extends GuiNewChat {
         updatePercentage(diff);
         float t = percentComplete;
         float percent = 1 - (--t) * t * t * t;
-        percent = clamp(percent, 0, 1);
+        percent = MathUtil.clamp(percent, 0, 1);
         if (this.mc.gameSettings.chatVisibility != EntityPlayer.EnumChatVisibility.HIDDEN) {
             int i = this.getLineCount();
             int j = this.drawnChatLines.size();

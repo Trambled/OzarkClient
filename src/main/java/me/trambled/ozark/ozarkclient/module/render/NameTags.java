@@ -55,11 +55,9 @@ public class NameTags extends Module {
     Setting enemy_r = create("Enemy R", "EnemyNametagR", 157, 0, 255);
     Setting enemy_g = create("Enemy G", "EnemyNametagG", 99, 0, 255);
     Setting enemy_b = create("Enemy B", "EnemyNametagB", 255, 0, 255);
-    Setting enemy_a = create("Enemy A", "EnemyNametagA", 0.7f, 0f, 1f);
     Setting friend_r = create("Friend R", "FriendNameNametagR", 255, 0, 255);
     Setting friend_g = create("Friend G", "FriendNameNametagG", 40, 0, 255);
     Setting friend_b = create("Friend B", "FriendNameNametagB", 7, 0, 255);
-    Setting friend_a = create("Friend A", "FriendNameNametagA", 0.7f, 0f, 1f);
     Setting rainbow_mode = create("Rainbow", "NametagRainbow", false);
     Setting sat = create("Saturation", "NametagSatiation", 0.8, 0, 1);
     Setting brightness = create("Brightness", "NametagBrightness", 0.8, 0, 1);
@@ -403,6 +401,12 @@ public class NameTags extends Module {
 
     public String section_sign() {
         return "\u00A7";
+    }
+
+    @Override
+    public void update_always() {
+        sat.set_shown(rainbow_mode.get_value(true));
+        brightness.set_shown(rainbow_mode.get_value(true));
     }
 
 }

@@ -19,10 +19,10 @@ public class Static extends Module {
     }
 
     Setting mode = create("Mode", "Mode", "AntiVoid", combobox("Static", "AntiVoid", "Roof"));
-	Setting disabler = create("Roof Disable", "Disable", false);
-	Setting ySpeed = create("Static YSpeed", "YSpeed", false);
-	Setting speed = create("Static Speed", "Speed", 0.1, 0f, 10f);
-	Setting height = create("AntiVoid Height", "Height", 3f, 0f, 256f);
+	Setting disabler = create("Disable", "Disable", false);
+	Setting ySpeed = create("YSpeed", "YSpeed", false);
+	Setting speed = create("Speed", "Speed", 0.1, 0f, 10f);
+	Setting height = create("Height", "Height", 3f, 0f, 256f);
 
 
     @Override
@@ -56,4 +56,13 @@ public class Static extends Module {
             this.set_disable();
 		}
     }
+
+    @Override
+    public void update_always() {
+        disabler.set_shown(mode.in("Roof"));
+        ySpeed.set_shown(mode.in("Static"));
+        speed.set_shown(mode.in("Static") && ySpeed.get_value(true));
+        height.set_shown(mode.in("AntiVoid"));
+    }
+
 }

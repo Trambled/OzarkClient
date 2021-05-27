@@ -1,10 +1,9 @@
 package me.trambled.ozark.ozarkclient.util;
 
 import me.trambled.ozark.Ozark;
-import net.minecraft.client.Minecraft;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class FontUtil {
-    protected static Minecraft mc = Minecraft.getMinecraft();
 
     public static void drawString(String text, float x, float y, int colour) {
         if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIFont").in("Lato")) {

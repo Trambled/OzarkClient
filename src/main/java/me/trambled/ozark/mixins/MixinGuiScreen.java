@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 /**
  * Created by 086 on 24/12/2017.
@@ -22,8 +23,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GuiScreen.class)
 public class MixinGuiScreen {
 
-    RenderItem itemRender = Minecraft.getMinecraft().getRenderItem();
-    FontRenderer fontRenderer = Minecraft.getMinecraft().fontRenderer;
+    RenderItem itemRender = mc.getRenderItem();
+    FontRenderer fontRenderer = mc.fontRenderer;
 
     @Inject(method = "drawWorldBackground", at = @At("HEAD"), cancellable = true)
     public void drawWorldBackground(int tint, CallbackInfo info) {

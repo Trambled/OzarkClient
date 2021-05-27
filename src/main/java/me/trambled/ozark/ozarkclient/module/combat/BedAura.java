@@ -579,6 +579,19 @@ public class BedAura extends Module {
         }
     }
 
+    @Override
+    public void update_always() {
+        required_health.set_shown(min_health_pause.get_value(true));
+        r.set_shown(!render_mode.in("None"));
+        g.set_shown(!render_mode.in("None"));
+        b.set_shown(!render_mode.in("None"));
+        solid_a.set_shown(!render_mode.in("None"));
+        line_a.set_shown(!render_mode.in("None"));
+        rainbow_mode.set_shown(!render_mode.in("None"));
+        solid_a.set_shown(!render_mode.in("Outline"));
+        line_a.set_shown(!render_mode.in("Solid"));
+    }
+
     enum spoof_face {
         EAST,
         WEST,

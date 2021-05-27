@@ -28,8 +28,8 @@ public class Offhand extends Module {
 
     Setting module_check = create("ModuleCheck", "OffhandModuleCheck", false);
     Setting gapple_in_hole = create("Gapple In Hole", "OffhandGapple", false);
-    Setting only_when_right_click = create("Right Click", "OffhandRightClick", false);
     Setting gapple_hole_hp = create("Gapple Hole HP", "OffhandGappleHP", 8, 0, 36);
+    Setting only_when_right_click = create("Right Click", "OffhandRightClick", false);
     Setting step = create("Step", "OffhandStep", false);
 
     private boolean switching = false;
@@ -142,6 +142,16 @@ public class Offhand extends Module {
             }
         }
         return -1;
+    }
+
+    @Override
+    public void update_always() {
+        totem_switch.set_shown(!switch_mode.in("Totem"));
+        module_check.set_shown(switch_mode.in("Crystal"));
+        gapple_in_hole.set_shown(!switch_mode.in("Gapple"));
+        gapple_hole_hp.set_shown(!switch_mode.in("Gapple") && gapple_in_hole.get_value(true));
+        only_when_right_click.set_shown(!switch_mode.in("Totem"));
+        step.set_shown(!switch_mode.in("Totem"));
     }
 
 }

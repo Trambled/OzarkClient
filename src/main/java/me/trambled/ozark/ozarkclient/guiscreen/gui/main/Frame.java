@@ -4,7 +4,7 @@ import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
-import net.minecraft.client.Minecraft;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -36,8 +36,6 @@ public class Frame {
 	private int move_y;
 	
 	private boolean can;
-
-	private final Minecraft mc = Minecraft.getMinecraft();
 
 	public Frame(Category category) {
 		this.x = 10;

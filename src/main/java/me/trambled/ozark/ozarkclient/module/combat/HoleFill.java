@@ -190,4 +190,9 @@ public class HoleFill extends Module {
         return -1;
     }
 
+    @Override
+    public void update_always() {
+        smart_range.set_shown(smart_mode.get_value(true));
+    }
+
 }

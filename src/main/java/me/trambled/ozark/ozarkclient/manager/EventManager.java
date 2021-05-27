@@ -7,7 +7,7 @@ import me.trambled.ozark.ozarkclient.command.Commands;
 import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventGameOverlay;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
-import net.minecraft.client.Minecraft;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.passive.AbstractHorse;
@@ -30,8 +30,6 @@ import org.lwjgl.opengl.GL11;
 
 
 public class EventManager {
-
-	private final Minecraft mc = Minecraft.getMinecraft();
 
 	@SubscribeEvent
 	public void onUpdate(LivingEvent.LivingUpdateEvent event) {

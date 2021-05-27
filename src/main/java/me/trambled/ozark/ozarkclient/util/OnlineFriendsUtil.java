@@ -1,6 +1,6 @@
 package me.trambled.ozark.ozarkclient.util;
 
-import net.minecraft.client.Minecraft;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.entity.Entity;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class OnlineFriendsUtil {
 
     static public List<Entity> getFriends() {
         entities.clear();
-        entities.addAll(Minecraft.getMinecraft().world.playerEntities.stream().filter(entityPlayer -> FriendUtil.isFriend(entityPlayer.getName())).collect(Collectors.toList()));
+        entities.addAll(mc.world.playerEntities.stream().filter(entityPlayer -> FriendUtil.isFriend(entityPlayer.getName())).collect(Collectors.toList()));
      
         return entities;
     }

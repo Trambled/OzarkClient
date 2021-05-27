@@ -3,7 +3,7 @@ package me.trambled.ozark.ozarkclient.util;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.module.Module;
-import net.minecraft.client.Minecraft;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentBase;
@@ -14,7 +14,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MessageUtil {
-	public final static Minecraft mc = Minecraft.getMinecraft();
 
 	public static ChatFormatting g = ChatFormatting.DARK_RED;
 	public static ChatFormatting b = ChatFormatting.BLUE;

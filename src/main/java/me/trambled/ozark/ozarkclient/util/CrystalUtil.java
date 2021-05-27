@@ -1,7 +1,7 @@
 package me.trambled.ozark.ozarkclient.util;
 
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -21,8 +21,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CrystalUtil {
-
-    final static Minecraft mc = Minecraft.getMinecraft();
 
     public static List<BlockPos> possiblePlacePositions(final float placeRange, final boolean thirteen, final boolean specialEntityCheck) {
         NonNullList<BlockPos> positions = NonNullList.create();
@@ -128,7 +126,7 @@ public class CrystalUtil {
     }
 
     public static float calculateDamage(double posX, double posY, double posZ, Entity entity) {
-        if (entity == mc.player && mc.player.isCreative()) {
+        if (mc.player.isCreative() && entity == mc.player) {
             return 0.0f;
         }
         final float doubleExplosionSize = 12.0f;

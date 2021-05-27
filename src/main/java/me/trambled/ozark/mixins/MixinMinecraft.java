@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 // External.
 
@@ -39,7 +40,7 @@ public abstract class MixinMinecraft {
 
 	@Inject(method={"runTick()V"}, at={@At(value="RETURN")})
 	private void runTick(CallbackInfo callbackInfo) {
-		if (Minecraft.getMinecraft().currentScreen instanceof GuiMainMenu && Ozark.get_module_manager().get_module_with_tag("CustomMainMenu").is_active()) {
+		if (mc.currentScreen instanceof GuiMainMenu && Ozark.get_module_manager().get_module_with_tag("CustomMainMenu").is_active()) {
 			Minecraft.getMinecraft().displayGuiScreen(new GuiCustomMainMenu());
 		}
 	}

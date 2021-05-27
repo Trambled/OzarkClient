@@ -219,7 +219,7 @@ public class Module implements Listenable {
 
 	}
 
-	public void value_change() {
+	public void value_change(String tag) {
 
 	}
 

@@ -1,8 +1,8 @@
 package me.trambled.ozark.ozarkclient.util;
 
 import me.trambled.ozark.ozarkclient.module.Setting;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
@@ -19,7 +19,6 @@ import java.util.Iterator;
 import java.util.List;
 
 public class BlockUtil {
-    private static final Minecraft mc = Minecraft.getMinecraft();
     public static List<Block> emptyBlocks;
     public static List<Block> rightclickableBlocks;
 

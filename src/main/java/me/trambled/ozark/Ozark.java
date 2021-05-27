@@ -13,7 +13,7 @@ import me.trambled.ozark.ozarkclient.guiscreen.MainHUD;
 import me.trambled.ozark.ozarkclient.guiscreen.PastGUI;
 import me.trambled.ozark.ozarkclient.util.CustomFontRenderer;
 import me.trambled.ozark.ozarkclient.manager.*;
-import net.minecraft.client.Minecraft;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -191,7 +191,7 @@ public class Ozark {
 	}
 
 	public static String get_actual_user() {
-		return Minecraft.getMinecraft().getSession().getUsername();
+		return mc.getSession().getUsername();
 	}
 
 	public static ConfigManager get_config_manager() {

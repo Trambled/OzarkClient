@@ -52,7 +52,7 @@ public class AutoCrystal extends Module {
     Setting break_crystal = create("Break", "CaBreak", true);
     Setting anti_weakness = create("Anti-Weakness", "CaAntiWeakness", true);
     Setting alternative = create("Alternative", "CaAlternative", false);
-    Setting module_check = create("Module Check", "CaModuleCheck", false);
+    Setting module_check = create("Module Check", "CaModuleCheck", true);
     Setting break_predict = create("Break Predict", "CaBreakPredict", true);
     Setting place_predict = create("Place Predict", "CaPlacePredict", false);
     Setting sound_predict = create("Sound Predict", "CaSoundPredict", true);
@@ -86,7 +86,7 @@ public class AutoCrystal extends Module {
     Setting required_health = create("Required Health", "CaRequiredHealth", 1, 1, 36);
 
     Setting packet_place = create("Packet Place", "CaPacketPlace", true);
-    Setting packet_break = create("Packet Break", "CaPackeBreak", true);
+    Setting packet_break = create("Packet Break", "CaPacketBreak", true);
 
     Setting target_mode = create("Target Mode", "CaTargetMode", "Health", combobox("Health", "Closest"));
     Setting raytrace = create("Raytrace", "CaRaytrace", false);
@@ -109,6 +109,8 @@ public class AutoCrystal extends Module {
 
     Setting faceplace_mode = create("Faceplace Mode", "CaTabbottMode", true);
     Setting faceplace_mode_damage = create("Faceplace Health", "CaTabbottModeHealth", 10, 0, 36);
+    Setting faceplace_check = create("No Sword FP", "CaJumpyFaceMode", false);
+
 
     Setting fuck_armor_mode = create("Armor Destroy", "CaArmorDestroy", true);
     Setting fuck_armor_mode_precent = create("Enemy Armor %", "CaArmorPercent", 5, 0, 100);
@@ -116,22 +118,21 @@ public class AutoCrystal extends Module {
 
     Setting stop_while_mining = create("Stop While Mining", "CaStopWhileMining", false);
     Setting stop_while_eating = create("Stop While Eating", "CaStopWhileEatin", false);
-    Setting faceplace_check = create("No Sword FP", "CaJumpyFaceMode", false);
 
     Setting swing = create("Swing", "CaSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
 
     // momentum
-    Setting rotate_during = create("Rotate During", "CaRotateDuring", "Both", combobox("Break", "Place", "Both"));
     Setting rotate_mode = create("Rotate", "CaRotateMode", "Packet", combobox("Off", "Packet", "Seizure"));
+    Setting rotate_during = create("Rotate During", "CaRotateDuring", "Both", combobox("Break", "Place", "Both"));
+    Setting anti_waste = create("Rotate Focus", "CaRotateAntiWaste", true);
     Setting limiter = create("Limiter", "CaRotateLimiter", "None", combobox("Narrow", "Upcoming", "None"));
     Setting max_angle = create("Max Angle", "CaMaxAngle", 180f, 0f, 360f);
     Setting min_angle = create("Min Angle", "CaMinAngle", 180f, 0f, 360f);
-    Setting accurate = create("Accurate", "CaAccurate", false);
-    Setting random_rotate = create("Random Rotate", "CaRandomRotate", true);
-    Setting out_border = create("Out Border", "CaOutBorder", false);
-    Setting rotate_motion = create("Rotate Motion", "CaRotateMotionPreidct", false);
-    Setting walls = create("Rotate Walls", "CaRotateWalls", true);
+    Setting random_rotate = create("Random Rotate", "CaRandomRotate", false);
+    Setting queue = create("Queue", "CaQueue", false);
+    Setting accurate = create("Accurate", "CaAccurate", true);
     Setting rubberband = create("Detect Rubberband", "CaRotateDetectRubberband", true);
+    Setting quick_restore = create("Quick Restore", "CaRestoreRotationInstant", false);
 
     Setting render_mode = create("Render", "CaRenderMode", "Pretty", combobox("Pretty", "Solid", "Outline", "None"));
     Setting old_render = create("Old Render", "CaOldRender", false);
@@ -146,7 +147,6 @@ public class AutoCrystal extends Module {
     Setting sat = create("Satiation", "CaSatiation", 0.8, 0, 1);
     Setting brightness = create("Brightness", "CaBrightness", 0.8, 0, 1);
     Setting height = create("Height", "CaHeight", 1.0, 0.0, 1.0);
-
     Setting render_damage = create("Render Damage", "CaRenderDamage", "Normal", combobox("Normal", "Heuristic", "None"));
 
     Setting switch_bind = create("Switch Bind", "CaSwitchBind", 0);
@@ -155,7 +155,7 @@ public class AutoCrystal extends Module {
     private final ConcurrentHashMap<EntityEnderCrystal, Integer> attacked_crystals = new ConcurrentHashMap<>();
     public static ArrayList<EntityEnderCrystal> fake_crystals = new ArrayList<>();
 
-    private final TimerUtil remove_visual_timer = new TimerUtil();
+    private final TimerUtil anti_stuck_timer = new TimerUtil();
 
     private EntityPlayer ca_target = null;
     private RotationUtil.Rotation ca_rotation = null;
@@ -167,6 +167,9 @@ public class AutoCrystal extends Module {
     private BlockPos render_block_old;
 
     private double render_damage_value;
+
+    private float yaw;
+    private float pitch;
 
     private boolean already_attacking = false;
     private boolean place_timeout_flag = false;
@@ -189,27 +192,11 @@ public class AutoCrystal extends Module {
     }
 
     public void do_ca() {
-        did_anything = false;
-
         if (mc.player == null || mc.world == null) {
             return;
         }
 
-        if (switch_bind.get_bind("").equalsIgnoreCase("None")) {
-            do_switch_bind = false;
-        }
-        if (faceplace_bind.get_bind("").equalsIgnoreCase("None")) {
-            face_place_bind = false;
-        }
-
-        if (rainbow_mode.get_value(true)) {
-            cycle_rainbow();
-        }
-
-        if (remove_visual_timer.passed(anti_stuck_time.get_value(1))) {
-            remove_visual_timer.reset();
-            attacked_crystals.clear();
-        }
+        prepare_ca();
 
         if (check_pause()) {
             return;
@@ -217,6 +204,10 @@ public class AutoCrystal extends Module {
 
         if (sync.in("Full")) {
             do_fake_crystal();
+        }
+
+        if (check_pause()) {
+            return;
         }
 
         if (fast_mode.get_value(true)) {
@@ -247,6 +238,9 @@ public class AutoCrystal extends Module {
         if (!did_anything) {
             if (old_render.get_value(true)) {
                 render_block_init = null;
+            }
+            if (quick_restore.get_value(true) && ca_rotation != null) {
+                ca_rotation.restoreRotation();
             }
             ca_target = null;
         }
@@ -425,7 +419,7 @@ public class AutoCrystal extends Module {
             BlockUtil.swingArm(swing);
         }
     }
-    
+
     public BlockPos get_best_block() {
         if (get_best_crystal() != null && !fast_place.get_value(true)) {
             place_timeout_flag = true;
@@ -561,9 +555,9 @@ public class AutoCrystal extends Module {
             if (attacked_crystals.containsKey(crystal) && attacked_crystals.get(crystal) > anti_stuck_tries.get_value(1) && anti_stuck.get_value(true)) continue;
 
             for (Entity player : mc.world.playerEntities) {
-                
+
                 if (player.getDistance(mc.player) >= player_range.get_value(1)) continue;
-                
+
                 if (player == mc.player || !(player instanceof EntityPlayer)) continue;
 
                 if (target_mode.in("Health")) {
@@ -633,6 +627,34 @@ public class AutoCrystal extends Module {
             }
         }
         return false;
+    }
+
+    public void prepare_ca() {
+        did_anything = false;
+
+        if (switch_bind.get_bind("").equalsIgnoreCase("None")) {
+            do_switch_bind = false;
+        }
+        if (faceplace_bind.get_bind("").equalsIgnoreCase("None")) {
+            face_place_bind = false;
+        }
+
+        if (rainbow_mode.get_value(true)) {
+            cycle_rainbow();
+        }
+
+        place_timeout = this.place_delay.get_value(1);
+        break_timeout = this.break_delay.get_value(1);
+
+        if (anti_stuck_timer.passed(anti_stuck_time.get_value(1))) {
+            anti_stuck_timer.reset();
+            attacked_crystals.clear();
+        }
+
+        if (rotate_mode.in("Seizure")) {
+            yaw = mc.player.rotationYaw;
+            pitch = mc.player.rotationPitch;
+        }
     }
 
     public boolean check_pause() {
@@ -762,35 +784,49 @@ public class AutoCrystal extends Module {
     public void handle_rotations(boolean target) {
         if (target && get_best_crystal() == null) return;
         if (!target && get_best_block() == null) return;
-        if (debug.get_value(true) && !rotate_mode.in("Off")) {
+        if (rotate_mode.in("Off")) return;
+        if (debug.get_value(true)) {
             if (target) {
                 MessageUtil.send_client_message("Rotating to crystal");
             } else {
                 MessageUtil.send_client_message("Rotating to block");
             }
         }
-        // this is so fucking dumb im sorry lmao
-        try {
-            if (ca_target != null) {
-                if (rotate_mode.in("Off")) {
-                    ca_rotation = new RotationUtil.Rotation(0, 0, RotationUtil.RotationMode.None, RotationUtil.RotationPriority.Lowest);
-                } else if (rotate_mode.in("Packet")) {
-                    ca_rotation = new RotationUtil.Rotation((target ? (accurate.get_value(true) ? RotationUtil.searchCenter(get_best_crystal().getEntityBoundingBox(), out_border.get_value(true), random_rotate.get_value(true), rotate_motion.get_value(true), walls.get_value(true)).getRotation() : RotationUtil.getAngles(get_best_crystal())) : (accurate.get_value(true) ? RotationUtil.searchCenter(get_best_block()).getRotation() : RotationUtil.getPositionAngles(get_best_block())))[0], (target ? (accurate.get_value(true) ? RotationUtil.searchCenter(get_best_crystal().getEntityBoundingBox(), out_border.get_value(true), random_rotate.get_value(true), motion_predict.get_value(true), walls.get_value(true)).getRotation() : RotationUtil.getAngles(get_best_crystal())) : (accurate.get_value(true) ? RotationUtil.searchCenter(get_best_block()).getRotation() : RotationUtil.getPositionAngles(get_best_block())))[1], RotationUtil.RotationMode.Packet, RotationUtil.RotationPriority.Highest);
-                } else if (rotate_mode.in("Seizure")) {
-                    ca_rotation = new RotationUtil.Rotation((target ? (accurate.get_value(true) ? RotationUtil.searchCenter(get_best_crystal().getEntityBoundingBox(),out_border.get_value(true), random_rotate.get_value(true), rotate_motion.get_value(true), walls.get_value(true)).getRotation() : RotationUtil.getAngles(get_best_crystal())) : (accurate.get_value(true) ? RotationUtil.searchCenter(get_best_block()).getRotation() : RotationUtil.getPositionAngles(get_best_block())))[0], (target ? (accurate.get_value(true) ? RotationUtil.searchCenter(get_best_crystal().getEntityBoundingBox(), out_border.get_value(true), random_rotate.get_value(true), motion_predict.get_value(true), walls.get_value(true)).getRotation() : RotationUtil.getAngles(get_best_crystal())) : (accurate.get_value(true) ? RotationUtil.searchCenter(get_best_block()).getRotation() : RotationUtil.getPositionAngles(get_best_block())))[1], RotationUtil.RotationMode.Legit, RotationUtil.RotationPriority.Highest);
-                }
+
+        if (ca_target != null) {
+            float crystal_yaw = 0;
+            float crystal_pitch = 0;
+            float block_yaw = 0;
+            float block_pitch = 0;
+            if (target) {
+                crystal_yaw = RotationUtil.getAngles(get_best_crystal())[0];
+                crystal_pitch = RotationUtil.getAngles(get_best_crystal())[1];
+            } else {
+                block_yaw = RotationUtil.getPositionAngles(get_best_block())[0];
+                block_pitch = RotationUtil.getPositionAngles(get_best_block())[1];
             }
 
-            if (!limiter.in("None"))
-                ca_rotation = RotationUtil.rotationStep(Ozark.get_rotation_manager().serverRotation, ca_rotation, (float) (((random_rotate.get_value(true) ? Math.random() : 1) * (max_angle.get_value(1d) - min_angle.get_value(1d))) + min_angle.get_value(1)), limiter);
+            if (target && crystal_pitch == pitch && crystal_yaw == yaw && anti_waste.get_value(true)) return;
+            if (!target && block_pitch == pitch && block_yaw == yaw && anti_waste.get_value(true)) return;
 
-            Ozark.get_rotation_manager().rotationQueue.add(ca_rotation);
-        } catch (Exception e) {
-            if (debug.get_value(true)) {
-                MessageUtil.send_client_message("Error with rotations");
-                e.printStackTrace();
+            if (rotate_mode.in("Off")) {
+                ca_rotation = new RotationUtil.Rotation(0, 0, RotationUtil.RotationMode.None, RotationUtil.RotationPriority.Lowest);
+            } else if (rotate_mode.in("Packet")) {
+                ca_rotation = new RotationUtil.Rotation((target ? crystal_yaw : block_yaw), (target ? crystal_pitch : block_pitch), RotationUtil.RotationMode.Packet, RotationUtil.RotationPriority.Highest);
+            } else if (rotate_mode.in("Seizure")) {
+                ca_rotation = new RotationUtil.Rotation((target ? crystal_yaw : block_yaw), (target ? crystal_pitch : block_pitch), RotationUtil.RotationMode.Legit, RotationUtil.RotationPriority.Highest);
             }
         }
+
+        if (!limiter.in("None") && Ozark.get_rotation_manager().serverRotation != null)
+            ca_rotation = RotationUtil.rotationStep(Ozark.get_rotation_manager().serverRotation, ca_rotation, (float) (((random_rotate.get_value(true) ? Math.random() : 1) * (max_angle.get_value(1d) - min_angle.get_value(1d))) + min_angle.get_value(1)), limiter);
+
+        if (queue.get_value(true)) {
+            Ozark.get_rotation_manager().rotationQueue.add(ca_rotation);
+        } else {
+            Ozark.get_rotation_manager().setCurrentRotation(ca_rotation);
+        }
+
     }
 
     @Override
@@ -890,11 +926,6 @@ public class AutoCrystal extends Module {
 
         if (event.get_packet() instanceof SPacketSpawnObject) {
             final SPacketSpawnObject packet = (SPacketSpawnObject) event.get_packet();
-            if (debug.get_value(true)) {
-                if (packet.getType() == 51) {
-                    MessageUtil.send_client_message("Entity ID: " + packet.getEntityID()); // I was just testng something here
-                }
-            }
             if (packet.getType() == 51 && this.ca_target != null && break_predict.get_value(true)) {
                 if (!this.is_predicting_crystal(packet)) {
                     return;
@@ -944,6 +975,11 @@ public class AutoCrystal extends Module {
                     BlockUtil.placeCrystalOnBlock(predicted_crystal.getPosition().down(), offhand_check ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, packet_place.get_value(true));
                 }
             }
+        }
+        if (event.get_packet() instanceof CPacketPlayer && rotate_mode.in("Packet")) {
+            final CPacketPlayer p = (CPacketPlayer) event.get_packet();
+            yaw = p.yaw;
+            pitch = p.pitch;
         }
     });
 
@@ -1031,6 +1067,7 @@ public class AutoCrystal extends Module {
     }
 
     private void add_attacked_crystal(EntityEnderCrystal crystal) {
+        if (crystal == null) return;
         if (attacked_crystals.containsKey(crystal)) {
             int value = attacked_crystals.get(crystal);
             attacked_crystals.put(crystal, value + 1);
@@ -1041,13 +1078,12 @@ public class AutoCrystal extends Module {
 
     @Override
     public void enable() {
-        place_timeout = this.place_delay.get_value(1);
-        break_timeout = this.break_delay.get_value(1);
+
         inhibit_delay_counter = 0;
         attack_swings = 0;
         place_timeout_flag = false;
         ca_target = null;
-        remove_visual_timer.reset();
+        anti_stuck_timer.reset();
         detail_name = null;
         detail_hp = 20;
     }
@@ -1070,6 +1106,48 @@ public class AutoCrystal extends Module {
     }
 
     @Override
+    public void update_always() {
+        inhibit_delay.set_shown(inhibit.get_value(true));
+        inhibit_swings.set_shown(inhibit.get_value(true));
+        old_render.set_shown(!render_mode.in("None"));
+        future_render.set_shown(!render_mode.in("None"));
+        top_block.set_shown(!render_mode.in("None"));
+        r.set_shown(!render_mode.in("None"));
+        g.set_shown(!render_mode.in("None"));
+        b.set_shown(!render_mode.in("None"));
+        a.set_shown(!render_mode.in("None"));
+        a_out.set_shown(!render_mode.in("None"));
+        rainbow_mode.set_shown(!render_mode.in("None"));
+        sat.set_shown(!render_mode.in("None"));
+        brightness.set_shown(!render_mode.in("None"));
+        height.set_shown(!render_mode.in("None"));
+        render_damage.set_shown(!render_mode.in("None"));
+        faceplace_mode_damage.set_shown(faceplace_mode.get_value(true));
+        faceplace_check.set_shown(faceplace_mode.get_value(true));
+        fuck_armor_mode_precent.set_shown(fuck_armor_mode.get_value(true));
+        fuck_armor_mode_precent_self.set_shown(fuck_armor_mode.get_value(true));
+        limiter.set_shown(!rotate_mode.in("Off"));
+        rotate_during.set_shown(!rotate_mode.in("Off"));
+        max_angle.set_shown(!rotate_mode.in("Off") && !limiter.in("None"));
+        min_angle.set_shown(!rotate_mode.in("Off") && !limiter.in("None"));
+        random_rotate.set_shown(!rotate_mode.in("Off") && !limiter.in("None"));
+        rubberband.set_shown(!rotate_mode.in("Off"));
+        anti_waste.set_shown(!rotate_mode.in("Off"));
+        quick_restore.set_shown(!rotate_mode.in("Off"));
+        queue.set_shown(!rotate_mode.in("Off"));
+        accurate.set_shown(!rotate_mode.in("Off") && queue.get_value(true));
+        anti_stuck_time.set_shown(anti_stuck.get_value(true));
+        anti_stuck_tries.set_shown(anti_stuck.get_value(true));
+        motion_predict_factor.set_shown(motion_predict.get_value(true));
+        required_health.set_shown(min_health_pause.get_value(true));
+        rainbow_mode.set_shown(!render_mode.in("None"));
+        sat.set_shown(rainbow_mode.get_value(true) && !render_mode.in("None"));
+        brightness.set_shown(rainbow_mode.get_value(true) && !render_mode.in("None"));
+        a.set_shown(!render_mode.in("Outline") && !render_mode.in("None") );
+        a_out.set_shown(!render_mode.in("Solid") && !render_mode.in("None"));
+    }
+
+    @Override
     public void log_out() {
         this.set_disable();
     }
@@ -1078,5 +1156,4 @@ public class AutoCrystal extends Module {
     public String array_detail() {
         return (detail_name != null) ? detail_name + " | " + detail_hp : "None";
     }
-
 }

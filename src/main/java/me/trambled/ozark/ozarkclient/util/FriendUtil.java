@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.util.UUIDTypeAdapter;
 import me.trambled.ozark.Ozark;
-import net.minecraft.client.Minecraft;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.client.network.NetworkPlayerInfo;
 
@@ -45,7 +45,7 @@ public class FriendUtil {
     }
 
     public static FriendUtil.Friend get_friend_object(String name) {
-        ArrayList<NetworkPlayerInfo> infoMap = new ArrayList<NetworkPlayerInfo>(Minecraft.getMinecraft().getConnection().getPlayerInfoMap());
+        ArrayList<NetworkPlayerInfo> infoMap = new ArrayList<NetworkPlayerInfo>(mc.getConnection().getPlayerInfoMap());
         NetworkPlayerInfo profile = infoMap.stream().filter(networkPlayerInfo -> networkPlayerInfo.getGameProfile().getName().equalsIgnoreCase(name)).findFirst().orElse(null);
         if (profile == null) {
             String s = request_ids("[\"" + name + "\"]");
@@ -69,10 +69,10 @@ public class FriendUtil {
     }
     
     public static List<EntityPlayer> get_friends() {
-        if (Minecraft.getMinecraft().world.getLoadedEntityList().size() == 0)
+        if (mc.world.getLoadedEntityList().size() == 0)
             return null;
 
-        return Minecraft.getMinecraft().world.playerEntities.stream().filter(entityPlayer -> Minecraft.getMinecraft().player != entityPlayer).filter(entityPlayer -> !entityPlayer.isDead).filter(entityPlayer -> FriendUtil.isFriend(entityPlayer.getName())).collect(Collectors.toList());
+        return mc.world.playerEntities.stream().filter(entityPlayer -> mc.player != entityPlayer).filter(entityPlayer -> !entityPlayer.isDead).filter(entityPlayer -> FriendUtil.isFriend(entityPlayer.getName())).collect(Collectors.toList());
     }
 
     

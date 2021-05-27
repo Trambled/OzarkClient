@@ -3,7 +3,7 @@ package me.trambled.ozark.ozarkclient.util;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.events.EventRotation;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import net.minecraft.client.Minecraft;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayer;
@@ -23,7 +23,6 @@ public class RotationUtil {
      * proper rotation spoofing system
      */
 
-    private static final Minecraft mc = Minecraft.getMinecraft();
 
     public static Rotation rotationStep(Rotation currentRotation, Rotation targetRotation, float rotationStep, Setting mode) {
         float yawDifference = ((targetRotation.yaw - currentRotation.yaw) % 360.0f + 540.0f) % 360.0f - 180.0f;
@@ -112,6 +111,17 @@ public class RotationUtil {
         return calcAngle(EntityUtil.interpolateEntityTime(mc.player, mc.getRenderPartialTicks()), new Vec3d(blockPos));
     }
 
+    public static float[] getPosAngles(BlockPos pos) {
+
+        return MathUtil.calcAngle(mc.player.getPositionEyes(mc.getRenderPartialTicks()), new Vec3d((pos.getX() + 0.5f), (pos.getY() + 0.5f), (pos.getZ() + 0.5f)));
+    }
+
+    public static float[] getEntityAngles(final Entity entity) {
+        return MathUtil.calcAngle(mc.player.getPositionEyes(mc.getRenderPartialTicks()), entity.getPositionEyes(mc.getRenderPartialTicks()));
+    }
+
+
+
 
     public static RotationVector searchCenter(AxisAlignedBB axisAlignedBB, boolean outBorder, boolean random, boolean predict, boolean throughWalls) {
         Random randomDouble = new Random();
@@ -184,8 +194,10 @@ public class RotationUtil {
 
                     if (obj != null && obj.typeOfHit == RayTraceResult.Type.BLOCK) {
                         RotationVector currentVector = new RotationVector(posVec, null);
+                        MessageUtil.send_client_message(Double.toString(getRotationDifference(currentVector.getRotation())));
+                        MessageUtil.send_client_message(Double.toString(getRotationDifference(currentVector.getRotation())));
 
-                        if (rotation == null || getRotationDifference(currentVector.getRotation()) < getRotationDifference(rotation.getRotation()))
+                        if (Ozark.get_rotation_manager().serverRotation != null && (rotation == null || getRotationDifference(currentVector.getRotation()) < getRotationDifference(rotation.getRotation())))
                             rotation = currentVector;
                     }
                 }
@@ -248,10 +260,7 @@ public class RotationUtil {
     }
 
     public static boolean is_rotating(CPacketPlayer packet) {
-        if (packet.getYaw(-1000.0f) == 1000.0f) {
-            return false;
-        }
-        return true;
+        return packet.getYaw(-1000.0f) == -1000.0f && packet.getPitch(-1000f) == -1000.0f;
     }
 
     public static float[] toRotation(Vec3d vec, boolean predict) {

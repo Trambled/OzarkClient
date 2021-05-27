@@ -32,7 +32,6 @@ public class HoleESP extends Module {
 	Setting range = create("Range", "HoleESPRange", 6, 1, 20);
 	Setting hide_own = create("Hide Own", "HoleESPHideOwn", false);
 
-	Setting bedrock_view = create("info", "HoleESPbedrock", "Bedrock");
 	Setting bedrock_enable = create("Bedrock Holes", "HoleESPBedrockHoles", true);
 	Setting rb = create("R", "HoleESPRb", 0, 0, 255);
 	Setting gb = create("G", "HoleESPGb", 255, 0, 255);
@@ -40,18 +39,14 @@ public class HoleESP extends Module {
 	Setting ab = create("A", "HoleESPAb", 50, 0, 255);
 	Setting bedrock_rainbow = create("Rainbow", "HoleESPBedrockRainbow", false);
 
-	Setting obsidian_view = create("info", "HoleESPObsidian", "Obsidian");
 	Setting obsidian_enable	= create("Obsidian Holes", "HoleESPObsidianHoles", true);
 	Setting ro = create("R", "HoleESPRo", 255, 0, 255);
 	Setting go = create("G", "HoleESPGo", 0, 0, 255);
 	Setting bo = create("B", "HoleESPBo", 0, 0, 255);
 	Setting ao = create("A", "HoleESPAo", 50, 0, 255);
 	Setting obsidian_rainbow = create("Rainbow", "HoleESPObsidianRainbow", false);
-
-	Setting dual_view = create("info", "HoleESPDual", "Double Holes");
-	Setting dual_enable	= create("Dual Holes", "HoleESPTwoHoles", true);
-
 	Setting line_a = create("Outline A", "HoleESPLineOutlineA", 255, 0, 255);
+	Setting dual_enable	= create("Dual Holes", "HoleESPTwoHoles", true);
 
 	ArrayList<PairUtil<BlockPos, Boolean>> holes = new ArrayList<>();
 
@@ -404,5 +399,20 @@ public class HoleESP extends Module {
 		ro.set_value((color_rgb_o >> 16) & 0xFF);
 		go.set_value((color_rgb_o >> 8) & 0xFF);
 		bo.set_value(color_rgb_o & 0xFF);
+	}
+
+	@Override
+	public void update_always() {
+		bedrock_rainbow.set_shown(bedrock_enable.get_value(true));
+		rb.set_shown(bedrock_enable.get_value(true));
+		gb.set_shown(bedrock_enable.get_value(true));
+		bb.set_shown(bedrock_enable.get_value(true));
+		ab.set_shown(bedrock_enable.get_value(true) && !mode.in("Outline"));
+		obsidian_rainbow.set_shown(obsidian_enable.get_value(true));
+		ro.set_shown(obsidian_enable.get_value(true));
+		go.set_shown(obsidian_enable.get_value(true));
+		bo.set_shown(obsidian_enable.get_value(true));
+		ao.set_shown(obsidian_enable.get_value(true) && !mode.in("Outline"));
+		line_a.set_shown(!mode.in("Solid"));
 	}
 }

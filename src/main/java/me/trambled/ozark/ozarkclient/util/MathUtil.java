@@ -1,5 +1,6 @@
 package me.trambled.ozark.ozarkclient.util;
 
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -16,7 +17,6 @@ import java.util.Random;
 
 public class MathUtil {
 
-    private static final Minecraft mc = Minecraft.getMinecraft();
     private static Random random = new Random();
     
     public static Vec3d interpolateEntity(Entity entity, float time)

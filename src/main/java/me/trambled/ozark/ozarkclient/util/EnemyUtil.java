@@ -5,6 +5,7 @@ import com.google.gson.JsonParser;
 import com.mojang.util.UUIDTypeAdapter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
@@ -37,7 +38,7 @@ public class EnemyUtil {
     }
 
     public static Enemy get_enemy_object(String name) {
-        ArrayList<NetworkPlayerInfo> infoMap = new ArrayList<>(Minecraft.getMinecraft().getConnection().getPlayerInfoMap());
+        ArrayList<NetworkPlayerInfo> infoMap = new ArrayList<>(mc.getConnection().getPlayerInfoMap());
         NetworkPlayerInfo profile = infoMap.stream().filter(networkPlayerInfo -> networkPlayerInfo.getGameProfile().getName().equalsIgnoreCase(name)).findFirst().orElse(null);
         if (profile == null) {
             String s = request_ids("[\"" + name + "\"]");

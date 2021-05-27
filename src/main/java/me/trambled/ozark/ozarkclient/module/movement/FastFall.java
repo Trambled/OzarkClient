@@ -17,8 +17,8 @@ public class FastFall extends Module
         this.description = "Increases fall speed.";
     }
 	
-	Setting height = create("Height", "Height", 3.25, 0, 10);
-	Setting strength = create("Strength", "Strength", 1, 0, 10);
+	Setting height = create("Height", "Height", 10, 0, 10);
+	Setting strength = create("Strength", "Strength", 1f, 0f, 10f);
 	
 	private boolean inLiquid;
 	private boolean onLiquid;
@@ -29,7 +29,7 @@ public class FastFall extends Module
         if ((mc.player.onGround || mc.player.isInWeb) && !inLiquid && !onLiquid) {
 			for (double y = 0.0; y < this.height.get_value(1) + 0.5; y += 0.01) {
 				if (!mc.world.getCollisionBoxes(mc.player, mc.player.getEntityBoundingBox().offset(0.0, -y, 0.0)).isEmpty()) {
-					mc.player.motionY = strength.get_value(1) * -1;
+					mc.player.motionY = strength.get_value(1d) * -1;
 					break;
 				}
 			}

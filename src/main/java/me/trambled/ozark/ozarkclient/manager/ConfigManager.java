@@ -11,6 +11,7 @@ import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.render.Xray;
 import me.trambled.ozark.ozarkclient.util.*;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
@@ -80,7 +81,7 @@ public class ConfigManager {
     private Path CURRENT_CONFIG_PATH = Paths.get(CURRENT_CONFIG_DIR);
 
     public ConfigManager() {
-        FILE_DIRECTORY = new File(Minecraft.getMinecraft().gameDir, "OZARKCLIENT");
+        FILE_DIRECTORY = new File(mc.gameDir, "OZARKCLIENT");
     }
 
     public boolean set_active_config_folder(String folder) {

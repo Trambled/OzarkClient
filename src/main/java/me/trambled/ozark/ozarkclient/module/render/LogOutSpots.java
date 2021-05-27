@@ -56,9 +56,6 @@ public class LogOutSpots extends Module {
         this.spots.clear();
     }
 
-    /*
-     * WARNING - Removed try catching itself - possible behaviour change.
-     */
     @Override
     public void render(EventRender event) {
         if (!this.spots.isEmpty()) {

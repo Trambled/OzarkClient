@@ -5,7 +5,7 @@ import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.widgets.*;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Module;
-import net.minecraft.client.Minecraft;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.init.SoundEvents;
 
@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class ModuleButton {
 	private final Module module;
 	private final Frame master;
-	private static final Minecraft mc;
 
 	private final ArrayList<AbstractWidget> widget;
 
@@ -301,8 +300,4 @@ public class ModuleButton {
 			}
 		}
 	}
-
-    static {
-        mc = Minecraft.getMinecraft();
-    }
 }

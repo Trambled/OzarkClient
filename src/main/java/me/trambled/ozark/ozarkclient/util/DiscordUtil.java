@@ -7,11 +7,11 @@ import me.trambled.ozark.Ozark;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.multiplayer.GuiConnecting;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 // originally from emphack but most of that has been removed
 public class DiscordUtil
 {
-    private static final Minecraft mc;
     private static final DiscordRPC rpc;
     public static DiscordRichPresence presence;
     private static String details;
@@ -210,7 +210,6 @@ public class DiscordUtil
 	}
     
     static {
-        mc = Minecraft.getMinecraft();
         rpc = DiscordRPC.INSTANCE;
         DiscordUtil.presence = new DiscordRichPresence();
     }

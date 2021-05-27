@@ -1,6 +1,6 @@
 package me.trambled.ozark.ozarkclient.module;
 
-import net.minecraft.client.Minecraft;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import org.lwjgl.input.Keyboard;
 
 import java.util.List;
@@ -103,15 +103,15 @@ public class Setting {
 	}
 
 	public void set_value(boolean value) {
-		if (Minecraft.getMinecraft().world != null && master.is_active()) {
-			master.value_change();
+		if (mc.world != null && master.is_active()) {
+			master.value_change(tag);
 		}
 		this.button = value;
 	}
 
 	public void set_current_value(String value) {
-		if (Minecraft.getMinecraft().world != null && master.is_active()) {
-			master.value_change();
+		if (mc.world != null && master.is_active()) {
+			master.value_change(tag);
 		}
 		this.current = value;
 	}
@@ -121,8 +121,8 @@ public class Setting {
 	}
 
 	public void set_value(double value) {
-		if (Minecraft.getMinecraft().world != null && master.is_active()) {
-			master.value_change();
+		if (mc.world != null && master.is_active()) {
+			master.value_change(tag);
 		}
 		if (value >= get_max(value)) {
 			this.slider = get_max(value);
@@ -138,8 +138,8 @@ public class Setting {
 	}
 
 	public void set_value(int value) {
-		if (Minecraft.getMinecraft().world != null && master.is_active()) {
-			master.value_change();
+		if (mc.world != null && master.is_active()) {
+			master.value_change(tag);
 		}
 		if (value >= get_max(value)) {
 			this.slider = get_max(value);

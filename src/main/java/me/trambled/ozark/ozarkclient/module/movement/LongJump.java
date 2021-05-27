@@ -24,11 +24,11 @@ public class LongJump extends Module {
 		this.tag         = "LongJump";
 		this.description = "Makes you jump far.";
     }
-	
-	Setting bypassMode = create("Bypass Mode", "Bypass Mode", "Packet", combobox("Packet", "Packet2"));
+
+    Setting bypass = create("Bypass", "Bypass", true);
+    Setting bypassMode = create("Bypass Mode", "Bypass Mode", "Packet", combobox("Packet", "Packet2"));
 	Setting boostMode = create("Boost Mode", "boostMode", "Only ground", combobox("Only ground", "Always", "Jump Event"));
 	Setting calcMode = create("Calc Mode", "calcMode", "Constant", combobox("Dissolve", "Constant"));
-	Setting bypass = create("Bypass", "Bypass", true);
 	Setting boost = create("Boost", "Boost", 37, 1, 100);
 
     @Override
@@ -119,6 +119,11 @@ public class LongJump extends Module {
             jumped = true;
             boostable = true;
         }
+    }
+
+    @Override
+    public void update_always() {
+        bypassMode.set_shown(bypass.get_value(true));
     }
 
 }

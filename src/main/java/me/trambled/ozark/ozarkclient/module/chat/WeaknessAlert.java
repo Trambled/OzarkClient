@@ -6,8 +6,6 @@ import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import net.minecraft.init.MobEffects;
 
-
-
 //bloodhack
 public class WeaknessAlert extends Module {
 

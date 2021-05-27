@@ -26,8 +26,6 @@ import java.util.Objects;
 //gamesense
 public class CevBreaker extends Module
 {
-
-
     public CevBreaker() {
         super(Category.COMBAT);
 

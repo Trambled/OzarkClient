@@ -43,13 +43,17 @@ public class RotationManager implements Listenable {
             rotationQueue.clear();
             return;
         }
-        rotationQueue.stream().sorted(Comparator.comparing(rotation -> rotation.rotationPriority.getPriority()));
-        if (currentRotation != null)
-            currentRotation = null;
+        if (Ozark.get_setting_manager().get_setting_with_tag("AutoCrystal", "CaQueue").get_value(true)) {
+            rotationQueue.stream().sorted(Comparator.comparing(rotation -> rotation.rotationPriority.getPriority()));
+            if (currentRotation != null)
+                currentRotation = null;
 
-        if (!rotationQueue.isEmpty()) {
-            currentRotation = rotationQueue.poll();
-            currentRotation.updateRotations();
+            if (!rotationQueue.isEmpty()) {
+                setCurrentRotation(rotationQueue.poll());
+                if (Ozark.get_setting_manager().get_setting_with_tag("AutoCrystal", "CaAccurate").get_value(true)) {
+                    rotationQueue.clear();
+                }
+            }
         }
 
         tick++;
@@ -57,22 +61,18 @@ public class RotationManager implements Listenable {
 
     @EventHandler
     private Listener<EventRotation> rotation = new Listener<>(event -> {
-        try {
-            if (currentRotation != null && currentRotation.mode.equals(RotationUtil.RotationMode.Packet)) {
-                event.cancel();
+        if (currentRotation != null && currentRotation.mode.equals(RotationUtil.RotationMode.Packet)) {
+            event.cancel();
 
-                if (tick == 1) {
-                    event.setYaw(currentRotation.yaw + yawleftOver);
-                    event.setPitch(currentRotation.pitch + pitchleftOver);
-                }
-
-                else {
-                    event.setYaw(currentRotation.yaw);
-                    event.setPitch(currentRotation.pitch);
-                }
+            if (tick == 1) {
+                event.setYaw(currentRotation.yaw + yawleftOver);
+                event.setPitch(currentRotation.pitch + pitchleftOver);
             }
-        } catch (Exception ignored) {
 
+            else {
+                event.setYaw(currentRotation.yaw);
+                event.setPitch(currentRotation.pitch);
+            }
         }
     });
 
@@ -87,4 +87,10 @@ public class RotationManager implements Listenable {
     public void resetTicks() {
         tick = 0;
     }
+
+    public void setCurrentRotation(RotationUtil.Rotation rotation) {
+        currentRotation = rotation;
+        currentRotation.updateRotations();
+    }
+
 }

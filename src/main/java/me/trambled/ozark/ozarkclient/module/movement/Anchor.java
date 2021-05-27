@@ -1,6 +1,6 @@
 package me.trambled.ozark.ozarkclient.module.movement;
 
-import me.trambled.ozark.ozarkclient.event.events.EventMotionUpdate;
+import me.trambled.ozark.ozarkclient.event.events.EventRotation;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
@@ -63,7 +63,7 @@ public class Anchor extends Module {
     }
 
     @EventHandler
-    private final Listener<EventMotionUpdate> OnClientTick = new Listener<>(event -> {
+    private final Listener<EventRotation> OnClientTick = new Listener<>(event -> {
         if (mc.player.rotationPitch >= Pitch.get_value(60)) {
 
             if (isBlockHole(getPlayerPos().down(1)) || isBlockHole(getPlayerPos().down(2)) ||

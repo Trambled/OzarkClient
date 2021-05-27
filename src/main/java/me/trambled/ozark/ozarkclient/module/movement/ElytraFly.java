@@ -29,7 +29,6 @@ public final class ElytraFly extends Module
         this.description = "Makes you fly with a elytra.";
     }
 
-
 	Setting mode = create("Mode", "ElytraFlyMode", "Superior", combobox("Superior", "Normal", "Control", "None"));
     Setting speed = create("Speed", "ElytraFlySpeed", 2f, 0f, 10f);
     Setting DownSpeed = create("DownSpeed", "ElytraFlyDownSpeed", 2f, 0f, 10f);
@@ -287,6 +286,14 @@ public final class ElytraFly extends Module
         mc.player.limbSwingAmount = 0;
         mc.player.limbSwing = 0;
         p_Event.cancel();
+    }
+
+    @Override
+    public void update_always() {
+        Accelerate.set_shown(mode.in("Normal"));
+        vAccelerationTimer.set_shown(mode.in("Normal") && Accelerate.get_value(true));
+        RotationPitch.set_shown(mode.in("Normal"));
+        DownSpeed.set_shown(!mode.in("Control"));
     }
 
 }

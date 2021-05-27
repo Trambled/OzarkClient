@@ -1,7 +1,7 @@
 package me.trambled.ozark.ozarkclient.util;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 import java.awt.*;
 
@@ -9,8 +9,7 @@ import java.awt.*;
 
 
 public class RainbowUtil {
-	private static FontRenderer font_renderer = Minecraft.getMinecraft().fontRenderer;
-	private static Minecraft mc = Minecraft.getMinecraft();
+	private static FontRenderer font_renderer = mc.fontRenderer;
 	private static boolean flag;
 
 

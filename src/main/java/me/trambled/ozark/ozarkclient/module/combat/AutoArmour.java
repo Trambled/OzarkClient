@@ -28,8 +28,8 @@ public class AutoArmour extends Module {
     }
 
     Setting delay = create("Delay", "AADelay", 0, 0, 5);
-    Setting smart_mode = create("Smart Mode", "AASmartMode", true);
     Setting put_back = create("Equip Armour", "AAEquipArmour", true);
+    Setting smart_mode = create("Smart Mode", "AASmartMode", true);
     Setting player_range = create("Player Range", "AAPlayerRange", 7, 0, 20);
     Setting crystal_range = create("Crystal Range", "AACrystalRange", 7, 0, 20);
     Setting boot_percent = create("Boot Percent", "AATBootPercent", 80, 0, 100);
@@ -210,6 +210,14 @@ public class AutoArmour extends Module {
             double percent = (dam_left / max_dam) * 100;
             return percent >= chest_percent.get_value(1);
         }
+    }
+
+    @Override
+    public void update_always() {
+        crystal_range.set_shown(smart_mode.get_value(true));
+        player_range.set_shown(smart_mode.get_value(true));
+        boot_percent.set_shown(smart_mode.get_value(true));
+        chest_percent.set_shown(smart_mode.get_value(true));
     }
 
 }

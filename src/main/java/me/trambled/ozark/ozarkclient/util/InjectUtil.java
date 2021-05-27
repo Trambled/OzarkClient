@@ -23,6 +23,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 // full credit goes to llamalad7
 // too lazy to make it a mixin lol
@@ -31,7 +32,7 @@ public class InjectUtil {
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event) {
         MinecraftForge.EVENT_BUS.unregister(this);
-        chatGUI = new GuiBetterChat(Minecraft.getMinecraft());
-        ObfuscationReflectionHelper.setPrivateValue(GuiIngame.class, Minecraft.getMinecraft().ingameGUI, chatGUI, "field_73840_e");
+        chatGUI = new GuiBetterChat(mc);
+        ObfuscationReflectionHelper.setPrivateValue(GuiIngame.class, mc.ingameGUI, chatGUI, "field_73840_e");
     }
 }

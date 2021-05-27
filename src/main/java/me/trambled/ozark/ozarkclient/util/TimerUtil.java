@@ -1,6 +1,6 @@
 package me.trambled.ozark.ozarkclient.util;
 
-import net.minecraft.client.Minecraft;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class TimerUtil {
 
@@ -27,6 +27,6 @@ public class TimerUtil {
     }
 
     public boolean hasPassed(long time) {
-        return Minecraft.getMinecraft().player.ticksExisted % (int) time == 0;
+        return mc.player.ticksExisted % (int) time == 0;
     }
 }

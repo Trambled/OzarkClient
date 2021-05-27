@@ -10,9 +10,8 @@ import me.trambled.ozark.ozarkclient.module.gui.*;
 import me.trambled.ozark.ozarkclient.module.misc.*;
 import me.trambled.ozark.ozarkclient.module.movement.*;
 import me.trambled.ozark.ozarkclient.module.render.*;
-import net.minecraft.client.Minecraft;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderEnderCrystal;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -25,7 +24,6 @@ public class ModuleManager {
 
 	public static ArrayList<Module> array_modules = new ArrayList<>();
 
-	public static Minecraft mc = Minecraft.getMinecraft();
 
 	public ModuleManager() {
 		// Click GUI and HUD.
@@ -131,7 +129,7 @@ public class ModuleManager {
 		add_module(new NoWeb());
 
 		// Render.
-		add_module(new BlockHighlight ());
+		add_module(new BlockHighlight());
 		add_module(new HoleESP());
 		add_module(new ShulkerPreview());
 		add_module(new ViewmodelChanger());

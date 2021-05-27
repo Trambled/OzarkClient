@@ -10,7 +10,6 @@ import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.EnumHandSide;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
@@ -28,20 +27,22 @@ public class ViewmodelChanger extends Module {
         this.tag = "CustomViewmodel";
         this.description = "A combo of gamesense & ferox viewmodel.";
     }
+
     Setting type = create("Type", "Type", "Value", combobox("FOV", "Both", "Value"));
     Setting fov = create("FOV", "FOV", 90, 90, 200);
+    Setting fov_hand_change = create("FOV Hand Change", "FOVHandChange", true);
     Setting right_x = create("Right X", "FOVRightX", 0.0, -2.0, 2.0);
     Setting right_y = create("Right Y", "FOVRightY", 0.0, -2.0, 2.0);
     Setting right_z = create("Right Z", "FOVRightZ", 0.0, -2.0, 2.0);
     Setting left_x = create("Left X", "FOVLeftX", 0.0, -2.0, 2.0);
     Setting left_y = create("Left Y", "FOVLeftY", 0.0, -2.0, 2.0);
     Setting left_z = create("Left Z", "FOVLeftZ", 0.0, -2.0, 2.0);
-    Setting left_yaw = create("Left Yaw", "FOVLeftYaw", 0, -100, 100);
-    Setting left_pitch = create("Left Pitch", "FOVLeftPitch", 0, -100, 100);
-    Setting left_roll = create("Left Roll", "FOVLeftRoll", 0, -100, 100);
     Setting right_yaw = create("Right Yaw", "FOVRightYaw", 0, -100, 100);
     Setting right_pitch = create("Right Pitch", "FOVRightPitch", 0, -100, 100);
     Setting right_roll = create("Right Roll", "FOVRightRoll", 0, -100, 100);
+    Setting left_yaw = create("Left Yaw", "FOVLeftYaw", 0, -100, 100);
+    Setting left_pitch = create("Left Pitch", "FOVLeftPitch", 0, -100, 100);
+    Setting left_roll = create("Left Roll", "FOVLeftRoll", 0, -100, 100);
     Setting scale_right = create("Scale Right", "FOVScaleRight", 1.0, 0.0, 5.0);
     Setting scale_left = create("Scale Left", "FOVScaleLeft", 1.0, 0.0, 5.0);
     Setting cancel_eating = create("NoEat", "FOVCancelEating", false);
@@ -51,13 +52,18 @@ public class ViewmodelChanger extends Module {
     @Override
     protected void enable() {
         fov_previous = mc.gameSettings.fovSetting;
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
     @Override
     protected void disable() {
         mc.gameSettings.fovSetting = fov_previous;
-        MinecraftForge.EVENT_BUS.unregister(this);
+    }
+
+    @Override
+    public void update() {
+        if (!fov_hand_change.get_value(true)) {
+            mc.gameSettings.fovSetting = fov.get_value(1);
+        }
     }
 
     @EventHandler
@@ -82,7 +88,29 @@ public class ViewmodelChanger extends Module {
     @SubscribeEvent
     public void onFov(EntityViewRenderEvent.FOVModifier event) {
         if (type.in("FOV") || type.in("Both")) {
-            event.setFOV((float) fov.get_value(1));
+            if (fov_hand_change.get_value(true)) {
+                event.setFOV((float) fov.get_value(1));
+            }
         }
+    }
+
+    @Override
+    public void update_always() {
+        right_x.set_shown(!type.in("FOV"));
+        right_y.set_shown(!type.in("FOV"));
+        right_z.set_shown(!type.in("FOV"));
+        left_x.set_shown(!type.in("FOV"));
+        left_y.set_shown(!type.in("FOV"));
+        left_z.set_shown(!type.in("FOV"));
+        right_yaw.set_shown(!type.in("FOV"));
+        right_pitch.set_shown(!type.in("FOV"));
+        right_roll.set_shown(!type.in("FOV"));
+        left_yaw.set_shown(!type.in("FOV"));
+        left_pitch.set_shown(!type.in("FOV"));
+        left_roll.set_shown(!type.in("FOV"));
+        scale_left.set_shown(!type.in("FOV"));
+        scale_right.set_shown(!type.in("FOV"));
+        fov.set_shown(!type.in("Value"));
+        fov_hand_change.set_shown(!type.in("Value"));
     }
 }
