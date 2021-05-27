@@ -1,3 +1,5 @@
+[![CodeFactor](https://www.codefactor.io/repository/github/trambled/ozarkclient/badge/master?s=ae186816783fa059d296333fc5f8d723e909f69d)](https://www.codefactor.io/repository/github/trambled/ozarkclient/overview/master)
+
 # Ozark Client
 
 <br />
