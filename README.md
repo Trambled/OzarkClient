@@ -9,33 +9,18 @@
   Click the logo to join our discord!
     
 
-## Building the sex 
-1. Extract the folder to a location.
-
-2. Go into command prompt.
-
-3. Do cd (directory) of the shit.
-
-3. Run gradlew setupDecompworkspace
-
-4. Do gradlew build, after that it should build.
-
-5. Go into the file, look for build > libs > then you should see three .jar files, the one that has -all in end of it
-is the jar file you should use.
-
-6. Accept Ozark owns you.
-
-U also need a JDK, a free one is adopt open JDK https://adoptopenjdk.net/
-
-## Contributing (only for pro coders)
+## Contributing/build (only for pro coders)
 1. Clone the Repository under `https://github.com/Trambled/OzarkClient`
 2. Open command prompt and CD (cds nut idiot) into the directory.
 3. Depending on which IDEA you use, different commands have to be ran.
     - IntelliJ: `gradlew setupDecompWorkspace idea genIntellijRuns build`
     - Eclipse: `gradlew setupDecompWorkspace eclipse build`
+    - if you only want to build do `gradlew setupDecompWorkspace build` and look for build > libs > then you should see three .jar files, the one that has -all in end of it
+      is the jar file you should use.
 4. Open the folder in your preferred IDEA, depending which you chose above.
-5. If you use Eclipse, please factory reset your entire pc because it contains a dangerous virus.
 6. And change what you need to change in your IDEA and click "Git" on top of your screen and commit.
+
+You also need a JDK, a free one is adopt open JDK https://adoptopenjdk.net/ and gradle to build
 
 ## Issues and Crashes
 
