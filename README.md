@@ -1,4 +1,3 @@
-[![CodeFactor](https://www.codefactor.io/repository/github/trambled/ozarkclient/badge/master?s=ae186816783fa059d296333fc5f8d723e909f69d)](https://www.codefactor.io/repository/github/trambled/ozarkclient/overview/master)
 # Ozark Client
 
 <br />
@@ -152,9 +151,3 @@ Elytrafly if it lags back with the default speed try lowering it, Setting the gl
 
 ## Capes
 U can give cape designs and i can add u to the pastebin of uuids for capes.
-
-## hacked by skitty
-
--hacked by skitty
--sn0w own u nn dog
--EZZZZZZZ wait please dont sue me PLEASECodeDoom! sn0w just EZED u.|Sn0w
