@@ -134,7 +134,7 @@ public class AutoCrystal extends Module {
     Setting rubberband = create("Detect Rubberband", "CaRotateDetectRubberband", true);
     Setting quick_restore = create("Quick Restore", "CaRestoreRotationInstant", false);
 
-    Setting render_mode = create("Render", "CaRenderMode", "Pretty", combobox("Pretty", "Solid", "Outline", "None"));
+    Setting render_mode = create("Render", "CaRenderMode", "Pretty", combobox("Pretty", "Solid", "Outline", "Glow", "Glow 2", "None"));
     Setting old_render = create("Old Render", "CaOldRender", false);
     Setting future_render = create("Future Render", "CaFutureRender", false);
     Setting top_block = create("Top Block", "CaTopBlock", false);
@@ -178,6 +178,8 @@ public class AutoCrystal extends Module {
     private boolean did_anything;
     private boolean outline;
     private boolean solid;
+    private boolean glow;
+    private boolean glowLines;
 
     private int place_timeout;
     private int break_timeout;
@@ -838,16 +840,36 @@ public class AutoCrystal extends Module {
         if (render_mode.in("Pretty")) {
             outline = true;
             solid = true;
+            glow = false;
+            glowLines = false;
         }
 
         if (render_mode.in("Solid")) {
             outline = false;
             solid = true;
+            glow = false;
+            glowLines = false;
         }
 
         if (render_mode.in("Outline")) {
             outline = true;
             solid = false;
+            glow = false;
+            glowLines = false;
+        }
+
+        if (render_mode.in("Glow")) {
+            outline = false;
+            solid = false;
+            glow = true;
+            glowLines = false;
+        }
+
+        if (render_mode.in("Glow 2")) {
+            outline = false;
+            solid = false;
+            glow = true;
+            glowLines = true;
         }
 
         render_block(render_block_init);
@@ -886,6 +908,35 @@ public class AutoCrystal extends Module {
                     render_block.getX(), render_block.getY(), render_block.getZ(),
                     1, h, 1,
                     r.get_value(1), g.get_value(1), b.get_value(1), a_out.get_value(1),
+                    "all"
+            );
+            RenderHelp.release();
+        }
+        if (glow) {
+            RenderHelp.prepare("lines");
+            RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
+                    render_block.getX(), render_block.getY(), render_block.getZ(),
+                    1, 0, 1,
+                    r.get_value(1), g.get_value(1), b.get_value(1), a_out.get_value(1),
+                    "all"
+            );
+            RenderHelp.release();
+            RenderHelp.prepare("quads");
+            RenderHelp.draw_gradiant_cube(RenderHelp.get_buffer_build(),
+                    render_block.getX(), render_block.getY(), render_block.getZ(),
+                    1, h, 1,  new Color(r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1)),
+                    new Color(0, 0, 0, 0),
+                    "all"
+            );
+            RenderHelp.release();
+        }
+
+        if (glowLines) {
+            RenderHelp.prepare("lines");
+            RenderHelp.draw_gradiant_outline(RenderHelp.get_buffer_build(),
+                    render_block.getX(), render_block.getY(), render_block.getZ(),
+                    h, new Color(r.get_value(1), g.get_value(1), b.get_value(1), a_out.get_value(1)),
+                    new Color(0, 0, 0, 0),
                     "all"
             );
             RenderHelp.release();

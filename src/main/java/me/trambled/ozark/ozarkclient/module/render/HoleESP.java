@@ -20,39 +20,43 @@ public class HoleESP extends Module {
 	public HoleESP() {
 		super(Category.RENDER);
 
-		this.name        = "Hole ESP";
-		this.tag         = "HoleESP";
+		this.name = "Hole ESP";
+		this.tag = "HoleESP";
 		this.description = "lets you know where holes are";
 	}
 
-	Setting mode 				= create("Mode", "HoleESPMode", "Pretty", combobox("Pretty", "Solid", "Outline", "Glow", "Glow 2"));
-	Setting off_set 			= create("Height", "HoleESPOffSetSide", 0.2, 0.0, 1.0);
-	Setting range   			= create("Range", "HoleESPRange", 6, 1, 12);
-	Setting hide_own         	= create("Hide Own", "HoleESPHideOwn", true);
-	Setting dual_enable         = create("Dual holes", "HoleESPDualHoles", true);
+	Setting mode = create("Mode", "HoleESPMode", "Pretty", combobox("Pretty", "Solid", "Outline", "Glow", "Glow 2"));
+	Setting off_set = create("Height", "HoleESPOffSetSide", 0.2, 0.0, 1.0);
+	Setting range = create("Range", "HoleESPRange", 6, 1, 12);
+	Setting hide_own = create("Hide Own", "HoleESPHideOwn", true);
+	Setting dual_enable = create("Dual holes", "HoleESPDualHoles", true);
 
-	Setting bedrock_enable 	= create("Bedrock Holes", "HoleESPBedrockHoles", true);
+	Setting bedrock_enable = create("Bedrock Holes", "HoleESPBedrockHoles", true);
 	// Setting rgb_b 				= create("RGB Effect", "HoleColorRGBEffect", true);
-	Setting rb 				= create("R", "HoleESPRb", 0, 0, 255);
-	Setting gb 				= create("G", "HoleESPGb", 255, 0, 255);
-	Setting bb 				= create("B", "HoleESPBb", 0, 0, 255);
-	Setting ab				    = create("A", "HoleESPAb", 50, 0, 255);
+	Setting rb = create("R", "HoleESPRb", 0, 0, 255);
+	Setting gb = create("G", "HoleESPGb", 255, 0, 255);
+	Setting bb = create("B", "HoleESPBb", 0, 0, 255);
+	Setting ab = create("A", "HoleESPAb", 50, 0, 255);
 
-	Setting obsidian_enable	= create("Obsidian Holes", "HoleESPObsidianHoles", true);
+	Setting obsidian_enable = create("Obsidian Holes", "HoleESPObsidianHoles", true);
 	// Setting rgb_o 				= create("RGB Effect", "HoleColorRGBEffect", true);
-	Setting ro 				= create("R", "HoleESPRo", 255, 0, 255);
-	Setting go				= create("G", "HoleESPGo", 0, 0, 255);
-	Setting bo 				= create("B", "HoleESPBo", 0, 0, 255);
-	Setting ao 				= create("A", "HoleESPAo", 50, 0, 255);
+	Setting ro = create("R", "HoleESPRo", 255, 0, 255);
+	Setting go = create("G", "HoleESPGo", 0, 0, 255);
+	Setting bo = create("B", "HoleESPBo", 0, 0, 255);
+	Setting ao = create("A", "HoleESPAo", 50, 0, 255);
 
 	Setting line_a = create("Outline A", "HoleESPLineOutlineA", 255, 0, 255);
+	Setting rainbow_mode = create("Rainbow", "Rainbow", true);
+	Setting sat = create("Satiation", "Satiation", 0.8, 0, 1);
+	Setting brightness = create("Brightness", "Brightness", 0.8, 0, 1);
+
 
 	ArrayList<PairUtil<BlockPos, Boolean>> holes = new ArrayList<>();
 	ArrayList<PairUtil<BlockPos, Boolean>> dual_holes = new ArrayList<>();
 	Map<BlockPos, Integer> dual_hole_sides = new HashMap<>();
 
 	boolean outline = false;
-	boolean solid   = false;
+	boolean solid = false;
 	boolean glow = false;
 	boolean glowOutline = false;
 
@@ -88,21 +92,21 @@ public class HoleESP extends Module {
 		if (mc.player != null || mc.world != null) {
 			if (mode.in("Pretty")) {
 				outline = true;
-				solid   = true;
+				solid = true;
 				glow = false;
 				glowOutline = false;
 			}
 
 			if (mode.in("Solid")) {
 				outline = false;
-				solid   = true;
+				solid = true;
 				glow = false;
 				glowOutline = false;
 			}
 
 			if (mode.in("Outline")) {
 				outline = true;
-				solid   = false;
+				solid = false;
 				glow = false;
 				glowOutline = false;
 			}
@@ -137,6 +141,9 @@ public class HoleESP extends Module {
 				if (!mc.world.getBlockState(pos.add(0, 2, 0)).getBlock().equals(Blocks.AIR)) {
 					continue;
 				}
+				if (rainbow_mode.get_value(true)) {
+					cycle_rainbow();
+				}
 
 				boolean possible = true;
 
@@ -144,12 +151,12 @@ public class HoleESP extends Module {
 				int air_orient = -1;
 				int counter = 0;
 
-				for (BlockPos seems_blocks : new BlockPos[] {
-						new BlockPos( 0, -1,  0),
-						new BlockPos( 0,  0, -1),
-						new BlockPos( 1,  0,  0),
-						new BlockPos( 0,  0,  1),
-						new BlockPos(-1,  0,  0)
+				for (BlockPos seems_blocks : new BlockPos[]{
+						new BlockPos(0, -1, 0),
+						new BlockPos(0, 0, -1),
+						new BlockPos(1, 0, 0),
+						new BlockPos(0, 0, 1),
+						new BlockPos(-1, 0, 0)
 				}) {
 					Block block = mc.world.getBlockState(pos.add(seems_blocks)).getBlock();
 
@@ -191,7 +198,7 @@ public class HoleESP extends Module {
 				BlockPos second_pos = pos.add(orientConv(air_orient));
 
 				if (checkDual(second_pos, air_orient)) {
-					boolean low_ceiling_hole = !mc.world.getBlockState(second_pos.add(0,1,0)).getBlock().equals(Blocks.AIR);
+					boolean low_ceiling_hole = !mc.world.getBlockState(second_pos.add(0, 1, 0)).getBlock().equals(Blocks.AIR);
 					if (safe_sides == 8) {
 						if (low_ceiling_hole) {
 							holes.add(new PairUtil<BlockPos, Boolean>(pos, true));
@@ -228,8 +235,7 @@ public class HoleESP extends Module {
 
 		int opposite = 0;
 
-		switch(orient_count)
-		{
+		switch (orient_count) {
 			case 0:
 				opposite = 5;
 				break;
@@ -256,16 +262,16 @@ public class HoleESP extends Module {
 			lets check down from second block to not have esp of a dual hole of one space
 			missing a bottom block
 		*/
-		for (BlockPos seems_blocks : new BlockPos[] {
-				new BlockPos( 0,  -1, 0), //Down
-				new BlockPos( 0,  0, -1), //N
-				new BlockPos( 1,  0,  0), //E
-				new BlockPos( 0,  0,  1), //S
-				new BlockPos(-1,  0,  0)  //W
+		for (BlockPos seems_blocks : new BlockPos[]{
+				new BlockPos(0, -1, 0), //Down
+				new BlockPos(0, 0, -1), //N
+				new BlockPos(1, 0, 0), //E
+				new BlockPos(0, 0, 1), //S
+				new BlockPos(-1, 0, 0)  //W
 		}) {
 			i++;
 			//skips opposite direction check, since its air
-			if(counter == oppositeIntOrient(i)) {
+			if (counter == oppositeIntOrient(i)) {
 				continue;
 			}
 
@@ -284,24 +290,24 @@ public class HoleESP extends Module {
 	private BlockPos orientConv(int orient_count) {
 		BlockPos converted = null;
 
-		switch(orient_count) {
+		switch (orient_count) {
 			case 0:
-				converted = new BlockPos( 0, -1,  0);
+				converted = new BlockPos(0, -1, 0);
 				break;
 			case 1:
-				converted = new BlockPos( 0,  0, -1);
+				converted = new BlockPos(0, 0, -1);
 				break;
 			case 2:
-				converted = new BlockPos( 1,  0,  0);
+				converted = new BlockPos(1, 0, 0);
 				break;
 			case 3:
-				converted = new BlockPos( 0,  0,  1);
+				converted = new BlockPos(0, 0, 1);
 				break;
 			case 4:
-				converted = new BlockPos(-1,  0,  0);
+				converted = new BlockPos(-1, 0, 0);
 				break;
 			case 5:
-				converted = new BlockPos(0,  1,  0);
+				converted = new BlockPos(0, 1, 0);
 				break;
 		}
 		return converted;
@@ -462,9 +468,9 @@ public class HoleESP extends Module {
 		}
 	}
 
-	private String getDirectionsToRenderOutline (BlockPos hole) {
+	private String getDirectionsToRenderOutline(BlockPos hole) {
 		int sideNoToDraw = dual_hole_sides.get(hole);
-		switch(sideNoToDraw) {
+		switch (sideNoToDraw) {
 			case 1:
 				return "downeast-upeast-downsouth-upsouth-downwest-upwest-southwest-southeast";
 			case 2:
@@ -482,7 +488,7 @@ public class HoleESP extends Module {
 	private String getDirectionsToRenderQuad(BlockPos hole) {
 		int sideNotToDraw = dual_hole_sides.get(hole);
 
-		switch(sideNotToDraw) {
+		switch (sideNotToDraw) {
 			case 1:
 				return "east-south-west-top-bottom";
 			case 2:
@@ -507,9 +513,9 @@ public class HoleESP extends Module {
 		int cy = pos.getY();
 		int cz = pos.getZ();
 
-		for (int x = cx - (int)r; x <= cx + r; ++x) {
-			for (int z = cz - (int)r; z <= cz + r; ++z) {
-				for (int y = cy - (int)r; y < cy + r; ++y) {
+		for (int x = cx - (int) r; x <= cx + r; ++x) {
+			for (int z = cz - (int) r; z <= cz + r; ++z) {
+				for (int y = cy - (int) r; y < cy + r; ++y) {
 					double dist = (cx - x) * (cx - x) + (cz - z) * (cz - z) + (cy - y) * (cy - y);
 					if (dist < r * r) {
 						BlockPos spheres = new BlockPos(x, y + plus_y, z);
@@ -532,5 +538,35 @@ public class HoleESP extends Module {
 		}
 
 		return holes.contains(new PairUtil<BlockPos, Boolean>(block, true)) || holes.contains(new PairUtil<BlockPos, Boolean>(block, false));
+	}
+
+	public void cycle_rainbow() {
+		float[] tick_color = {
+				(System.currentTimeMillis() % (360 * 32)) / (360f * 32)
+		};
+
+		int color_rgb_o = Color.HSBtoRGB(tick_color[0], sat.get_value(1), brightness.get_value(1));
+
+		rb.set_value((color_rgb_o >> 16) & 0xFF);
+		gb.set_value((color_rgb_o >> 8) & 0xFF);
+		bb.set_value(color_rgb_o & 0xFF);
+		ro.set_value((color_rgb_o >> 16) & 0xFF);
+		go.set_value((color_rgb_o >> 8) & 0xFF);
+		bo.set_value(color_rgb_o & 0xFF);
+	}
+
+	@Override
+	public void update_always() {
+		rb.set_shown(bedrock_enable.get_value(false));
+		gb.set_shown(bedrock_enable.get_value(false));
+		bb.set_shown(bedrock_enable.get_value(false));
+		ab.set_shown(bedrock_enable.get_value(false));
+		ro.set_shown(obsidian_enable.get_value(false));
+		go.set_shown(obsidian_enable.get_value(false));
+		bo.set_shown(obsidian_enable.get_value(false));
+		ao.set_shown(obsidian_enable.get_value(false));
+		sat.set_shown(rainbow_mode.get_value(false));
+		brightness.set_shown(rainbow_mode.get_value(false));
+
 	}
 }
