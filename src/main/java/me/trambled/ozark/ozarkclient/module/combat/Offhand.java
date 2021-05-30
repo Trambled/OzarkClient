@@ -7,6 +7,7 @@ import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
 import me.trambled.ozark.ozarkclient.util.PlayerUtil;
 import net.minecraft.client.gui.inventory.GuiInventory;
+import me.trambled.ozark.ozarkclient.util.InventoryUtil;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
@@ -29,7 +30,7 @@ public class Offhand extends Module {
     Setting module_check = create("ModuleCheck", "OffhandModuleCheck", false);
     Setting gapple_in_hole = create("Gapple In Hole", "OffhandGapple", false);
     Setting gapple_hole_hp = create("Gapple Hole HP", "OffhandGappleHP", 8, 0, 36);
-    Setting only_when_right_click = create("Right Click", "OffhandRightClick", false);
+    Setting swordGap = create("RightClickGap", "RightClickGap", true);
     Setting step = create("Step", "OffhandStep", false);
 
     private boolean switching = false;
@@ -52,7 +53,7 @@ public class Offhand extends Module {
 
             float hp = mc.player.getHealth() + mc.player.getAbsorptionAmount();
 
-            if (mc.gameSettings.keyBindUseItem.pressed || !only_when_right_click.get_value(true)) {
+            if (swordGap.get_value(true) && mc.gameSettings.keyBindUseItem.pressed && InventoryUtil.getHeldItem(Items.DIAMOND_SWORD))  {
                 if (hp > totem_switch.get_value(1)) {
                     if (module_check.get_value(true)) {
                         if (switch_mode.in("Crystal") && Ozark.get_module_manager().get_module_with_tag("AutoCrystal").is_active()) {
@@ -75,6 +76,8 @@ public class Offhand extends Module {
                         swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
                         return;
                     }
+
+                    }
                     if (switch_mode.in("Crystal") && !Ozark.get_module_manager().get_module_with_tag("AutoCrystal").is_active() && module_check.get_value(true)) {
                         swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), 0);
                         return;
@@ -93,7 +96,7 @@ public class Offhand extends Module {
             }
         }
 
-    }
+
 
     public void swap_items(int slot, int step) {
         if (slot == -1) return;
@@ -150,7 +153,6 @@ public class Offhand extends Module {
         module_check.set_shown(switch_mode.in("Crystal"));
         gapple_in_hole.set_shown(!switch_mode.in("Gapple"));
         gapple_hole_hp.set_shown(!switch_mode.in("Gapple") && gapple_in_hole.get_value(true));
-        only_when_right_click.set_shown(!switch_mode.in("Totem"));
         step.set_shown(!switch_mode.in("Totem"));
     }
 
