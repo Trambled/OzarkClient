@@ -26,7 +26,7 @@ public class HoleESP extends Module {
 	}
 
 	Setting mode = create("Mode", "HoleESPMode", "Pretty", combobox("Pretty", "Solid", "Outline", "Glow", "Glow Line", "Glow Pretty"));
-	Setting off_set = create("Height", "HoleESPOffSetSide", 0.2, 0.0, 1.0);
+	Setting off_set = create("Height", "HoleESPOffSetSide", 0.2, -1.0, 1.5);
 	Setting range = create("Range", "HoleESPRange", 6, 1, 12);
 	Setting hide_own = create("Hide Own", "HoleESPHideOwn", true);
 	Setting dual_enable = create("Dual holes", "HoleESPDualHoles", true);
