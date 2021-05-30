@@ -19,8 +19,8 @@ public class Offhand extends Module {
     public Offhand() {
         super(Category.COMBAT);
 
-        this.name        = "Offhand";
-        this.tag         = "Offhand";
+        this.name = "Offhand";
+        this.tag = "Offhand";
         this.description = "Switches shit to ur offhand.";
     }
 
@@ -53,48 +53,51 @@ public class Offhand extends Module {
 
             float hp = mc.player.getHealth() + mc.player.getAbsorptionAmount();
 
-            if (swordGap.get_value(true) && mc.gameSettings.keyBindUseItem.pressed && InventoryUtil.getHeldItem(Items.DIAMOND_SWORD))  {
+            if (swordGap.get_value(true) && mc.gameSettings.keyBindUseItem.pressed && InventoryUtil.getHeldItem(Items.DIAMOND_SWORD)) {
                 if (hp > totem_switch.get_value(1)) {
-                    if (module_check.get_value(true)) {
-                        if (switch_mode.in("Crystal") && Ozark.get_module_manager().get_module_with_tag("AutoCrystal").is_active()) {
-                            swap_items(get_item_slot(Items.END_CRYSTAL), 0);
-                            return;
-                        }
-                    } else if (switch_mode.in("Crystal") && !module_check.get_value(true)) {
-                        swap_items(get_item_slot(Items.END_CRYSTAL), 0);
-                        return;
-                    }
-                    if (gapple_in_hole.get_value(true) && hp > gapple_hole_hp.get_value(1) && is_in_hole()) {
-                        swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
-                        return;
-                    }
-                    if (switch_mode.in("Totem")) {
-                        swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), step.get_value(true) ? 1 : 0);
-                        return;
-                    }
-                    if (switch_mode.in("Gapple")) {
-                        swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
-                        return;
-                    }
+                    swap_items(get_item_slot(Items.GOLDEN_APPLE), 0);
+                    return;
 
-                    }
-                    if (switch_mode.in("Crystal") && !Ozark.get_module_manager().get_module_with_tag("AutoCrystal").is_active() && module_check.get_value(true)) {
-                        swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), 0);
-                        return;
-                    }
-                } else {
+
+                } else if (switch_mode.in("Crystal") && !module_check.get_value(true)) {
+                    swap_items(get_item_slot(Items.END_CRYSTAL), 0);
+                    return;
+                }
+                if (gapple_in_hole.get_value(true) && hp > gapple_hole_hp.get_value(1) && is_in_hole()) {
+                    swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
+                    return;
+                }
+                if (switch_mode.in("Totem")) {
                     swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), step.get_value(true) ? 1 : 0);
                     return;
                 }
-
-                if (mc.player.getHeldItemOffhand().getItem() == Items.AIR) {
-                    swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), step.get_value(true) ? 1 : 0);
+                if (switch_mode.in("Gapple")) {
+                    swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
+                    return;
                 }
 
-            } else {
-                swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), step.get_value(true) ? 1 : 0);
             }
+            if (switch_mode.in("Crystal") && !Ozark.get_module_manager().get_module_with_tag("AutoCrystal").is_active() && module_check.get_value(true)) {
+                swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), 0);
+                return;
+            }
+        } else {
+            swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), step.get_value(true) ? 1 : 0);
+            return;
         }
+
+        if (mc.player.getHeldItemOffhand().getItem() == Items.AIR) {
+            swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), step.get_value(true) ? 1 : 0);
+
+        } else{
+
+        swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), step.get_value(true) ? 1 : 0);
+    }
+
+}
+
+
+
 
 
 
