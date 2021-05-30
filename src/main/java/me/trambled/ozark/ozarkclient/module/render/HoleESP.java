@@ -46,7 +46,8 @@ public class HoleESP extends Module {
 	Setting ao = create("A", "HoleESPAo", 50, 0, 255);
 
 	Setting line_a = create("Outline A", "HoleESPLineOutlineA", 255, 0, 255);
-	Setting rainbow_mode = create("Rainbow", "Rainbow", true);
+	Setting rainbow_ob = create("Rainbow Obsidian", "Rainbow", true);
+	Setting rainbow_bed = create("Rainbow Bedrock", "Rainbow", true);
 	Setting sat = create("Satiation", "Satiation", 0.8, 0, 1);
 	Setting brightness = create("Brightness", "Brightness", 0.8, 0, 1);
 
@@ -141,8 +142,11 @@ public class HoleESP extends Module {
 				if (!mc.world.getBlockState(pos.add(0, 2, 0)).getBlock().equals(Blocks.AIR)) {
 					continue;
 				}
-				if (rainbow_mode.get_value(true)) {
+				if (rainbow_ob.get_value(true)) {
 					cycle_rainbow();
+				}
+				if (rainbow_bed.get_value(true)) {
+					cycle_rainbow2();
 				}
 
 				boolean possible = true;
@@ -547,12 +551,22 @@ public class HoleESP extends Module {
 
 		int color_rgb_o = Color.HSBtoRGB(tick_color[0], sat.get_value(1), brightness.get_value(1));
 
-		rb.set_value((color_rgb_o >> 16) & 0xFF);
-		gb.set_value((color_rgb_o >> 8) & 0xFF);
-		bb.set_value(color_rgb_o & 0xFF);
+
 		ro.set_value((color_rgb_o >> 16) & 0xFF);
 		go.set_value((color_rgb_o >> 8) & 0xFF);
 		bo.set_value(color_rgb_o & 0xFF);
+	}
+	public void cycle_rainbow2() {
+		float[] tick_color = {
+				(System.currentTimeMillis() % (360 * 32)) / (360f * 32)
+		};
+
+		int color_rgb_o = Color.HSBtoRGB(tick_color[0], sat.get_value(1), brightness.get_value(1));
+
+		rb.set_value((color_rgb_o >> 16) & 0xFF);
+		gb.set_value((color_rgb_o >> 8) & 0xFF);
+		bb.set_value(color_rgb_o & 0xFF);
+
 	}
 
 	@Override
@@ -565,8 +579,7 @@ public class HoleESP extends Module {
 		go.set_shown(obsidian_enable.get_value(false));
 		bo.set_shown(obsidian_enable.get_value(false));
 		ao.set_shown(obsidian_enable.get_value(false));
-		sat.set_shown(rainbow_mode.get_value(false));
-		brightness.set_shown(rainbow_mode.get_value(false));
+
 
 	}
 }
