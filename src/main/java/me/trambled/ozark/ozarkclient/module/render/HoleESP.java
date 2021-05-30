@@ -25,7 +25,7 @@ public class HoleESP extends Module {
 		this.description = "lets you know where holes are";
 	}
 
-	Setting mode = create("Mode", "HoleESPMode", "Pretty", combobox("Pretty", "Solid", "Outline", "Glow", "Glow 2"));
+	Setting mode = create("Mode", "HoleESPMode", "Pretty", combobox("Pretty", "Solid", "Outline", "Glow", "Glow Line", "Glow Pretty"));
 	Setting off_set = create("Height", "HoleESPOffSetSide", 0.2, 0.0, 1.0);
 	Setting range = create("Range", "HoleESPRange", 6, 1, 12);
 	Setting hide_own = create("Hide Own", "HoleESPHideOwn", true);
@@ -119,12 +119,20 @@ public class HoleESP extends Module {
 				glowOutline = false;
 			}
 
-			if (mode.in("Glow 2")) {
-				outline = false;
+			if (mode.in("Glow Pretty")) {
+  				outline = false;
 				solid = false;
 				glow = true;
+				glowOutline = true;                             
+                        }
+
+                        if (mode.in("Glow Line)) {
+                            	outline = false;
+				solid = false;
+				glow = false;
 				glowOutline = true;
-			}
+                        }
+                            
 
 			int colapso_range = (int) Math.ceil(range.get_value(1));
 
@@ -365,15 +373,6 @@ public class HoleESP extends Module {
 				}
 
 				if (glow) {
-					RenderHelp.prepare("lines");
-					RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
-							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
-							1, 0, 1,
-							color_r, color_g, color_b, line_a.get_value(1),
-							"all"
-					);
-					RenderHelp.release();
-
 					RenderHelp.prepare("quads");
 					RenderHelp.draw_gradiant_cube(RenderHelp.get_buffer_build(),
 							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
