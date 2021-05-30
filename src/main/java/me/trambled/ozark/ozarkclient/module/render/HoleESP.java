@@ -120,18 +120,19 @@ public class HoleESP extends Module {
 			}
 
 			if (mode.in("Glow Pretty")) {
-  				outline = false;
+				outline = false;
 				solid = false;
 				glow = true;
-				glowOutline = true;                             
-                        }
+				glowOutline = true;
+			}
 
-                        if (mode.in("Glow Line)) {
-                            	outline = false;
+			if (mode.in("Glow Line")) {
+				outline = false;
 				solid = false;
 				glow = false;
 				glowOutline = true;
-                        }
+			}
+		}
                             
 
 			int colapso_range = (int) Math.ceil(range.get_value(1));
@@ -241,7 +242,7 @@ public class HoleESP extends Module {
 				}
 			}
 		}
-	}
+
 
 	private int oppositeIntOrient(int orient_count) {
 
