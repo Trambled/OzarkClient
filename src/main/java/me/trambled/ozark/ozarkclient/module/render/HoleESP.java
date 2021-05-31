@@ -389,7 +389,7 @@ public class HoleESP extends Module {
 					RenderHelp.draw_gradiant_cube(RenderHelp.get_buffer_build(),
 							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
 							1, off_set_h, 1,
-							new Color(color_r, color_g, color_b, color_a), new Color(0, 0, 0, glow_solid_.get_value(1)),
+							new Color(color_r, color_g, color_b, color_a), new Color(0, 0, 0, glow_solid_a.get_value(1)),
 							"all"
 					);
 
