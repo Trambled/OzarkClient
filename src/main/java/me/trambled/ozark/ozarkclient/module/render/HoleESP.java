@@ -26,7 +26,7 @@ public class HoleESP extends Module {
 	}
 
 	Setting mode = create("Mode", "HoleESPMode", "Pretty", combobox("Pretty", "Solid", "Outline", "Glow", "Glow Line", "Glow Pretty", "Glow Pretty2"));
-	Setting off_set = create("Height", "HoleESPOffSetSide", 0.2, -1.0, 1.5);
+	Setting off_set = create("Height", "HoleESPOffSetSide", 0.2, -1.0, 5.0);
 	Setting range = create("Range", "HoleESPRange", 6, 1, 12);
 	Setting hide_own = create("Hide Own", "HoleESPHideOwn", true);
 	Setting dual_enable = create("Dual holes", "HoleESPDualHoles", true);
@@ -45,8 +45,11 @@ public class HoleESP extends Module {
 	Setting bo = create("B", "HoleESPBo", 0, 0, 255);
 	Setting ao = create("A", "HoleESPAo", 50, 0, 255);
 
-	Setting line_a = create("Outline A", "HoleESPLineOutlineA", 255, 0, 255);
-	Setting rainbow_ob = create("Rainbow Obsidian", "Rainbow1", true);
+	
+        Setting line_a = create("Outline A", "HoleESPLineOutlineA", 255, 0, 255);
+	Setting glow_line_a = create("Glow Outline A", "HoleESPLineOutlineAGlow", 0, 0, 255);	
+	Setting glow_solid_a = create("Glow Solid A", "HoleESPSolidAGlow", 0, 0, 255);	        
+        Setting rainbow_ob = create("Rainbow Obsidian", "Rainbow1", true);
 	Setting rainbow_bed = create("Rainbow Bedrock", "Rainbow2", true);
 	Setting sat = create("Satiation", "Satiation", 0.8, 0, 1);
 	Setting brightness = create("Brightness", "Brightness", 0.8, 0, 1);
@@ -386,7 +389,7 @@ public class HoleESP extends Module {
 					RenderHelp.draw_gradiant_cube(RenderHelp.get_buffer_build(),
 							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
 							1, off_set_h, 1,
-							new Color(color_r, color_g, color_b, color_a), new Color(0, 0, 0, 0),
+							new Color(color_r, color_g, color_b, color_a), new Color(0, 0, 0, glow_solid_.get_value(1)),
 							"all"
 					);
 
@@ -398,7 +401,7 @@ public class HoleESP extends Module {
 					RenderHelp.draw_gradiant_outline(RenderHelp.get_buffer_build(), hole.getKey().getX(),
 							hole.getKey().getY(), hole.getKey().getZ(), off_set_h,
 							new Color(color_r, color_g, color_b, line_a.get_value(1)),
-							new Color(0, 0, 0, 0), "all");
+							new Color(0, 0, 0, glow_line_a.get_value(1)), "all");
 					RenderHelp.release();
 
 				}
