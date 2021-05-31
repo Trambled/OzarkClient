@@ -136,7 +136,7 @@ public class AutoCrystal extends Module {
     Setting rubberband = create("Detect Rubberband", "CaRotateDetectRubberband", true);
     Setting quick_restore = create("Quick Restore", "CaRestoreRotationInstant", false);
 
-    Setting render_mode = create("Render", "CaRenderMode", "Glow", combobox("Pretty", "Solid", "Outline", "Glow", "Glow 2", "None", "GlowOutline", "GlowPretty", "BothOutline"));
+    Setting render_mode = create("Render", "CaRenderMode", "Glow", combobox("Pretty", "Solid", "Outline", "Glow", "Glow 2", "None", "GlowOutline", "GlowPretty", "GlowSolid"));
     Setting old_render = create("Old Render", "CaOldRender", false);
     Setting future_render = create("Future Render", "CaFutureRender", false);
     Setting top_block = create("Top Block", "CaTopBlock", false);
@@ -885,9 +885,9 @@ public class AutoCrystal extends Module {
             glow = true;
             glowLines = false;
         }
-        if (render_mode.in("BothOutline")) {
-            outline = true;
-            solid = false;
+        if (render_mode.in("GlowSolid")) {
+            outline = false;
+            solid = true;
             glow = false;
             glowLines = true;
         }
