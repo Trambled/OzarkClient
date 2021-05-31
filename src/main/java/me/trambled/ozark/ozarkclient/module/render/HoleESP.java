@@ -25,7 +25,7 @@ public class HoleESP extends Module {
 		this.description = "lets you know where holes are";
 	}
 
-	Setting mode = create("Mode", "HoleESPMode", "Pretty", combobox("Pretty", "Solid", "Outline", "Glow", "Glow Line", "Glow Pretty"));
+	Setting mode = create("Mode", "HoleESPMode", "Pretty", combobox("Pretty", "Solid", "Outline", "Glow", "Glow Line", "Glow Pretty", "Glow Pretty2"));
 	Setting off_set = create("Height", "HoleESPOffSetSide", 0.2, -1.0, 1.5);
 	Setting range = create("Range", "HoleESPRange", 6, 1, 12);
 	Setting hide_own = create("Hide Own", "HoleESPHideOwn", true);
@@ -46,8 +46,8 @@ public class HoleESP extends Module {
 	Setting ao = create("A", "HoleESPAo", 50, 0, 255);
 
 	Setting line_a = create("Outline A", "HoleESPLineOutlineA", 255, 0, 255);
-	Setting rainbow_ob = create("Rainbow Obsidian", "Rainbow", true);
-	Setting rainbow_bed = create("Rainbow Bedrock", "Rainbow", true);
+	Setting rainbow_ob = create("Rainbow Obsidian", "Rainbow1", true);
+	Setting rainbow_bed = create("Rainbow Bedrock", "Rainbow2", true);
 	Setting sat = create("Satiation", "Satiation", 0.8, 0, 1);
 	Setting brightness = create("Brightness", "Brightness", 0.8, 0, 1);
 
@@ -60,6 +60,7 @@ public class HoleESP extends Module {
 	boolean solid = false;
 	boolean glow = false;
 	boolean glowOutline = false;
+	boolean testGlow = false;
 
 	int color_r_o;
 	int color_g_o;
@@ -131,6 +132,13 @@ public class HoleESP extends Module {
 				solid = false;
 				glow = false;
 				glowOutline = true;
+			}
+
+			if (mode.in("Glow Pretty2")) {
+				outline = true;
+				solid = false;
+				glow = true;
+				glowOutline = false;
 			}
 		}
                             
@@ -392,6 +400,7 @@ public class HoleESP extends Module {
 							new Color(color_r, color_g, color_b, line_a.get_value(1)),
 							new Color(0, 0, 0, 0), "all");
 					RenderHelp.release();
+
 				}
 			}
 
