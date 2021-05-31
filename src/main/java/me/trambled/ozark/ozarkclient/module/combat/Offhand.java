@@ -56,8 +56,9 @@ public class Offhand extends Module {
             if (mc.gameSettings.keyBindUseItem.pressed || !only_when_right_click.get_value(true)) {
                 if (hp > totem_switch.get_value(1)) {
                  if (switch_mode.in("Crystal") && !Ozark.get_module_manager().get_module_with_tag("AutoCrystal").is_active() && module_check.get_value(true)) {
-                        swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), 0);
-                        return;
+                     swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), 0);
+                     return;
+                 }
 
 
                 } else if (switch_mode.in("Crystal") && !module_check.get_value(true)) {
