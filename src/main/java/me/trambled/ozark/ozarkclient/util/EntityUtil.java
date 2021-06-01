@@ -146,6 +146,9 @@ public class EntityUtil {
             }
         }
     }
+    public static BlockPos getRoundedBlockPos(Entity entity) {
+        return new BlockPos(MathUtil.roundVec(entity.getPositionVector(), 0));
+    }
 
     //salhack
     public static boolean is_entity_trapped(Entity entity)
