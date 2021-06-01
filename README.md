@@ -22,10 +22,10 @@
 
 You also need a JDK, a free one is adopt open JDK https://adoptopenjdk.net/ and gradle to build
 
-## Issues and Crashes
+## Downloads 
 
-If you have certain issues, send someone who helps contribute to here your crash log,
-This will help us know what caused said crash and why it happened.
+Download the stable release from here[https://github.com/Trambled/OzarkClient/releases]
+
 
 Join this if u already aren't in it for some reason:
 https://discord.gg/yHcBBDKDtY
