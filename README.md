@@ -24,11 +24,7 @@ You also need a JDK, a free one is adopt open JDK https://adoptopenjdk.net/ and 
 
 ## Downloads 
 
-Download the stable release from here[https://github.com/Trambled/OzarkClient/releases]
-
-
-Join this if u already aren't in it for some reason:
-https://discord.gg/yHcBBDKDtY
+Download the latest and stable release from [here](https://github.com/Trambled/OzarkClient/releases)
 
 ## How to use
 
@@ -52,8 +48,8 @@ Default Command Prefix?
   Xray - With commands and opacity feature. <br>
   PastGUI - Another GUI originally from past. <br>
   Anticrystal - Originally from xenon but added minhealth and crystal calculations to make it better, also supports string.<br>
-  Some other skidded shit and bug fixes. <br>
-  Instantburrow - made by ObsidianBreaker from nekohax and leux but added to ozark. <br><br>
+  Instantburrow - made by ObsidianBreaker from nekohax and leux but added to ozark. <br>
+  Some other skidded shit and bug fixes. <br><br>
 </details>
 
 ## Configuring
@@ -135,4 +131,4 @@ Offhand health is based on preference but 16-17 is the best u can get for an off
 Elytrafly if it lags back with the default speed try lowering it, Setting the glide speed higher might also fix it, Also Elytrafly isn't compatible with nofall, Thats why Ozark Elytrafly auto toggles nofall, So make sure that no other clients have the nofall module toggled when you're using Elytrafly. Elytrafly also can bug out with strafe enabled.
 
 ## Capes
-U can give cape designs and i can add u to the pastebin of uuids for capes.
+you can give cape designs and i can add u to the pastebin of uuids for capes.
