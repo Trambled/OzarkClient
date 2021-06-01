@@ -494,7 +494,7 @@ public class AutoCrystal extends Module {
                     mc.world.setBlockToAir(EntityUtil.getRoundedBlockPos(target));
                 }   
                 
-                if (ignore_terrain.get_value(true) && !(mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.OBSIDIAN || mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.BEDROCK) || mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.BARRIER)) {
+                if (ignore_terrain.get_value(true) && !(mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.OBSIDIAN || mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.BEDROCK) || mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.BARRIER || mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.ENCHANTING_TABLE || mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.ENDER_CHEST || mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.ANVIL) {
                      mc.world.setBlockToAir(EntityUtil.getRoundedBlockPos(target));
                 }   
 
