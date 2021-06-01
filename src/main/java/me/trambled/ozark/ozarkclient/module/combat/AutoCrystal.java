@@ -86,7 +86,7 @@ public class AutoCrystal extends Module {
     Setting required_health = create("Required Health", "CaRequiredHealth", 1, 1, 36);
     
     Setting ignore_web = create("Ignore Webs", "CaWebIgnore", true);
-    Setting ignore_terrain = create("Ignore Terrain", "CaWebIgnore", true);
+    Setting ignore_terrain = create("Ignore Terrain", "CaTerrainIgnore", false);
 
     Setting packet_place = create("Packet Place", "CaPacketPlace", true);
     Setting packet_break = create("Packet Break", "CaPacketBreak", true);
