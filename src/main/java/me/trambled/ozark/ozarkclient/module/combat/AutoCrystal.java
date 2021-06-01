@@ -950,7 +950,7 @@ public class AutoCrystal extends Module {
             RenderHelp.draw_gradiant_cube(RenderHelp.get_buffer_build(),
                     render_block.getX(), render_block.getY(), render_block.getZ(),
                     1, h, 1,  new Color(r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1)),
-                    new Color(0, 0, 0, 0),
+                    new Color(0, 0, 0, glow_a.get_value(1)),
                     "all"
             );
             RenderHelp.release();
@@ -961,7 +961,7 @@ public class AutoCrystal extends Module {
             RenderHelp.draw_gradiant_outline(RenderHelp.get_buffer_build(),
                     render_block.getX(), render_block.getY(), render_block.getZ(),
                     h, new Color(r.get_value(1), g.get_value(1), b.get_value(1), a_out.get_value(1)),
-                    new Color(0, 0, 0, 0),
+                    new Color(0, 0, 0, glow_a_out.get_value(1)),
                     "all"
             );
             RenderHelp.release();
