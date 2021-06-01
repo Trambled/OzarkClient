@@ -82,9 +82,11 @@ public class AutoCrystal extends Module {
     Setting min_player_place = create("Min Enemy Place", "CaMinEnemyPlace", 6, 0, 20);
     Setting min_player_break = create("Min Enemy Break", "CaMinEnemyBreak", 6, 0, 20);
     Setting max_self_damage = create("Max Self Damage", "CaMaxSelfDamage", 8, 0, 36);
-    Setting ignore_web = create("WebIgnore", "CaWebIgnore", true);
     Setting min_health_pause = create("Min Health Pause", "CaMinHealthPause", true);
     Setting required_health = create("Required Health", "CaRequiredHealth", 1, 1, 36);
+    
+    Setting ignore_web = create("Ignore Webs", "CaWebIgnore", true);
+    Setting ignore_terrain = create("Ignore Terrain", "CaWebIgnore", true);
 
     Setting packet_place = create("Packet Place", "CaPacketPlace", true);
     Setting packet_break = create("Packet Break", "CaPacketBreak", true);
@@ -490,6 +492,10 @@ public class AutoCrystal extends Module {
                 
                 if (ignore_web.get_value(true) && mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.WEB) {
                     mc.world.setBlockToAir(EntityUtil.getRoundedBlockPos(target));
+                }   
+                
+                if (ignore_terrain.get_value(true) && !(mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.OBSIDIAN || mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.BEDROCK) || mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.BARRIER)) {
+                     mc.world.setBlockToAir(EntityUtil.getRoundedBlockPos(target));
                 }   
 
                 double target_damage = CrystalUtil.calculateDamage((double) block.getX() + 0.5, (double) block.getY() + 1, (double) block.getZ() + 0.5, target);
