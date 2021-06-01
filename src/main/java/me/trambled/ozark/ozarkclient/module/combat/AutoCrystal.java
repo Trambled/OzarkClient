@@ -48,34 +48,33 @@ public class AutoCrystal extends Module {
         this.tag         = "AutoCrystal";
         this.description = "Kills people (if ur good).";
     }
-    Setting setting = create("Setting", "CaSettingMode", "General", combobox("General", "Predicts", "Inhibit", "Ranges"));
-    Setting debug = create("Debug", "CaDebug", false); //general
-    Setting place_crystal = create("Place", "CaPlace", true); //general
-    Setting break_crystal = create("Break", "CaBreak", true); //general
-    Setting anti_weakness = create("Anti-Weakness", "CaAntiWeakness", true); //general
-    Setting alternative = create("Alternative", "CaAlternative", false); //general
-    Setting module_check = create("Module Check", "CaModuleCheck", true); //general
-    Setting break_predict = create("Break Predict", "CaBreakPredict", true); //predicts
-    Setting place_predict = create("Place Predict", "CaPlacePredict", false); //predicts
-    Setting sound_predict = create("Sound Predict", "CaSoundPredict", true);//predicts
-    Setting city_predict = create("City Predict", "CaCityPredict", true);//predicts
+    Setting debug = create("Debug", "CaDebug", false); 
+    Setting place_crystal = create("Place", "CaPlace", true); 
+    Setting break_crystal = create("Break", "CaBreak", true); 
+    Setting anti_weakness = create("Anti-Weakness", "CaAntiWeakness", true); 
+    Setting alternative = create("Alternative", "CaAlternative", false); 
+    Setting module_check = create("Module Check", "CaModuleCheck", true); 
+    Setting break_predict = create("Break Predict", "CaBreakPredict", true); 
+    Setting place_predict = create("Place Predict", "CaPlacePredict", false); 
+    Setting sound_predict = create("Sound Predict", "CaSoundPredict", true);
+    Setting city_predict = create("City Predict", "CaCityPredict", true);
 
-    Setting motion_predict = create("Motion Predict", "CaMotionPredict", true);//predicts
-    Setting motion_predict_factor = create("Motion Factor", "CaMotionPredictFactor", 1f, 0f, 2f);//predicts
-    Setting verify_place = create("Verify Place", "CaVerifyPlace", false);//predicts
+    Setting motion_predict = create("Motion Predict", "CaMotionPredict", true);
+    Setting motion_predict_factor = create("Motion Factor", "CaMotionPredictFactor", 1f, 0f, 2f);
+    Setting verify_place = create("Verify Place", "CaVerifyPlace", false);
 
-    Setting inhibit = create("Inhibit", "CaInhibit", true); //inhibit
-    Setting inhibit_delay = create("Inhibit Delay", "CaInhibitDelay", 0, 0, 10); //inhibit
-    Setting inhibit_swings = create("Inhibit Swings", "CaInhibitSwings", 50, 1, 100); //inhibit
+    Setting inhibit = create("Inhibit", "CaInhibit", true);
+    Setting inhibit_delay = create("Inhibit Delay", "CaInhibitDelay", 0, 0, 10);
+    Setting inhibit_swings = create("Inhibit Swings", "CaInhibitSwings", 50, 1, 100);
 
-    Setting break_trys = create("Break Attempts", "CaBreakAttempts", 1, 1, 6); //general
-    Setting place_trys = create("Place Attempts", "CaPlaceAttempts", 1, 1, 6); //general
-
-    Setting hit_range = create("Hit Range", "CaHitRange", 5f, 1f, 6f); //ranges
-    Setting place_range = create("Place Range", "CaPlaceRange", 5f, 1f, 6f);//ranges
-    Setting hit_range_wall = create("Hit Range Wall", "CaHitRangeWall", 3.5f, 1f, 6f);//ranges
-    Setting place_range_wall = create("Place Range Wall", "CaPlaceRangeWall", 3.5f, 1f, 6f);//ranges
-    Setting player_range = create("Player Range", "CaPlayerRange", 10, 1, 20);//ranges
+    Setting break_trys = create("Break Attempts", "CaBreakAttempts", 1, 1, 6);
+    Setting place_trys = create("Place Attempts", "CaPlaceAttempts", 1, 1, 6);  
+    
+    Setting hit_range = create("Hit Range", "CaHitRange", 5f, 1f, 6f); 
+    Setting place_range = create("Place Range", "CaPlaceRange", 5f, 1f, 6f);
+    Setting hit_range_wall = create("Hit Range Wall", "CaHitRangeWall", 3.5f, 1f, 6f);
+    Setting place_range_wall = create("Place Range Wall", "CaPlaceRangeWall", 3.5f, 1f, 6f);
+    Setting player_range = create("Player Range", "CaPlayerRange", 10, 1, 20);
 
     Setting place_delay = create("Place Delay", "CaPlaceDelay", 0, 0, 10);
     Setting break_delay = create("Break Delay", "CaBreakDelay", 1, 0, 10);
@@ -145,6 +144,8 @@ public class AutoCrystal extends Module {
     Setting b = create("B", "CaB", 255, 0, 255);
     Setting a = create("Solid A", "CaA", 100, 0, 255);
     Setting a_out = create("Outline A", "CaOutlineA", 255, 0, 255);
+    Setting glow_a = create("Glow Solid A", "CaGlowA", 0, 0, 255);
+    Setting glow_a_out = create("Glow Outline A", "CaGlowOutlineA", 0, 0, 255);
     Setting rainbow_mode = create("Rainbow", "CaRainbow", true);
     Setting sat = create("Satiation", "CaSatiation", 0.8, 0, 1);
     Setting brightness = create("Brightness", "CaBrightness", 0.8, 0, 1);
@@ -273,10 +274,6 @@ public class AutoCrystal extends Module {
         BlockPos target_block;
 
         target_block = get_best_block();
-
-        if (ignore_web.get_value(true) && mc.world.getBlockState(EntityUtil.getRoundedBlockPos(ca_target)).getBlock() == Blocks.WEB) {
-            mc.world.setBlockToAir(EntityUtil.getRoundedBlockPos(ca_target));
-        }
 
         if (target_block == null) {
             return;
@@ -490,6 +487,10 @@ public class AutoCrystal extends Module {
                 } else {
                     minimum_damage = this.min_player_place.get_value(1);
                 }
+                
+                if (ignore_web.get_value(true) && mc.world.getBlockState(EntityUtil.getRoundedBlockPos(ca_target)).getBlock() == Blocks.WEB) {
+                    mc.world.setBlockToAir(EntityUtil.getRoundedBlockPos(target));
+                }   
 
                 double target_damage = CrystalUtil.calculateDamage((double) block.getX() + 0.5, (double) block.getY() + 1, (double) block.getZ() + 0.5, target);
 
