@@ -488,7 +488,7 @@ public class AutoCrystal extends Module {
                     minimum_damage = this.min_player_place.get_value(1);
                 }
                 
-                if (ignore_web.get_value(true) && mc.world.getBlockState(EntityUtil.getRoundedBlockPos(ca_target)).getBlock() == Blocks.WEB) {
+                if (ignore_web.get_value(true) && mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.WEB) {
                     mc.world.setBlockToAir(EntityUtil.getRoundedBlockPos(target));
                 }   
 
