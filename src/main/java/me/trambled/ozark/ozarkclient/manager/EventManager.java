@@ -45,6 +45,7 @@ public class EventManager {
 		}
 
 		Ozark.get_module_manager().update();
+		Ozark.get_rotation_manager().update();
 	}
 
 	@SubscribeEvent

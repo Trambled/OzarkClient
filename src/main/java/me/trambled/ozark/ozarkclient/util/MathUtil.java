@@ -335,12 +335,12 @@ public class MathUtil {
         return pos1.equals(pos2);
     }
 
-    public static float[] calcAngle(final Vec3d from, final Vec3d to) {
-        final double difX = to.x - from.x;
-        final double difY = (to.y - from.y) * -1.0;
-        final double difZ = to.z - from.z;
-        final double dist = MathHelper.sqrt(difX * difX + difZ * difZ);
-        return new float[] { (float)MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(difZ, difX)) - 90.0), (float)MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(difY, dist))) };
+    public static float[] calcAngle(Vec3d from, Vec3d to) {
+        double difX = to.x - from.x;
+        double difY = (to.y - from.y) * -1.0;
+        double difZ = to.z - from.z;
+        double dist = MathHelper.sqrt(difX * difX + difZ * difZ);
+        return new float[]{(float) MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(difZ, difX)) - 90.0), (float) MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(difY, dist)))};
     }
 	
     // Seppuku.

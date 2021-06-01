@@ -37,8 +37,7 @@ public class RotationManager implements Listenable {
 
     public int tick = 5;
 
-    @SubscribeEvent
-    public void onUpdate(TickEvent.ClientTickEvent event) {
+    public void update() {
         if (!Ozark.get_module_manager().get_module_with_tag("AutoCrystal").is_active()) {
             rotationQueue.clear();
             return;

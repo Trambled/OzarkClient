@@ -48,19 +48,20 @@ public class AutoCrystal extends Module {
         this.tag         = "AutoCrystal";
         this.description = "Kills people (if ur good).";
     }
-    Setting debug = create("Debug", "CaDebug", false); 
-    Setting place_crystal = create("Place", "CaPlace", true); 
-    Setting break_crystal = create("Break", "CaBreak", true); 
-    Setting anti_weakness = create("Anti-Weakness", "CaAntiWeakness", true); 
-    Setting alternative = create("Alternative", "CaAlternative", false); 
-    Setting module_check = create("Module Check", "CaModuleCheck", true); 
-    Setting break_predict = create("Break Predict", "CaBreakPredict", true); 
-    Setting place_predict = create("Place Predict", "CaPlacePredict", false); 
+
+    Setting setting = create("Setting", "CaSetting", "Place", combobox("Place", "Break", "Place & Break", "Rotations", "Pause", "Render", "Misc"));
+    Setting debug = create("Debug", "CaDebug", false);
+    Setting place_crystal = create("Place", "CaPlace", true);
+    Setting break_crystal = create("Break", "CaBreak", true);
+    Setting anti_weakness = create("Anti-Weakness", "CaAntiWeakness", true);
+    Setting alternative = create("Alternative", "CaAlternative", false);
+    Setting module_check = create("Module Check", "CaModuleCheck", true);
+    Setting break_predict = create("Break Predict", "CaBreakPredict", true);
+    Setting place_predict = create("Place Predict", "CaPlacePredict", false);
     Setting sound_predict = create("Sound Predict", "CaSoundPredict", true);
     Setting city_predict = create("City Predict", "CaCityPredict", true);
 
     Setting motion_predict = create("Motion Predict", "CaMotionPredict", true);
-    Setting motion_predict_factor = create("Motion Factor", "CaMotionPredictFactor", 1f, 0f, 2f);
     Setting verify_place = create("Verify Place", "CaVerifyPlace", false);
 
     Setting inhibit = create("Inhibit", "CaInhibit", true);
@@ -86,7 +87,6 @@ public class AutoCrystal extends Module {
     Setting required_health = create("Required Health", "CaRequiredHealth", 1, 1, 36);
     
     Setting ignore_web = create("Ignore Webs", "CaWebIgnore", true);
-    Setting ignore_terrain = create("Ignore Terrain", "CaTerrainIgnore", false);
 
     Setting packet_place = create("Packet Place", "CaPacketPlace", true);
     Setting packet_break = create("Packet Break", "CaPacketBreak", true);
@@ -137,7 +137,10 @@ public class AutoCrystal extends Module {
     Setting rubberband = create("Detect Rubberband", "CaRotateDetectRubberband", true);
     Setting quick_restore = create("Quick Restore", "CaRestoreRotationInstant", false);
 
-    Setting render_mode = create("Render", "CaRenderMode", "Glow", combobox("Pretty", "Solid", "Outline", "Glow", "Glow 2", "None", "GlowOutline", "GlowPretty", "GlowSolid"));
+    Setting solid = create("Solid", "CaSolid", true);
+    Setting outline = create("Outline", "CaOutline", true);
+    Setting glow_solid = create("Glow Solid", "CaGlowSolid", false);
+    Setting glow_outline = create("Glow Outline", "CaGlowOutline", false);
     Setting old_render = create("Old Render", "CaOldRender", false);
     Setting future_render = create("Future Render", "CaFutureRender", false);
     Setting top_block = create("Top Block", "CaTopBlock", false);
@@ -154,6 +157,7 @@ public class AutoCrystal extends Module {
     Setting height = create("Height", "CaHeight", 1.0, 0.0, 1.0);
     Setting render_damage = create("Render Damage", "CaRenderDamage", "Normal", combobox("Normal", "Heuristic", "None"));
 
+    Setting clean_mode = create("Clean Settings", "CaCleanMode", true);
     Setting switch_bind = create("Switch Bind", "CaSwitchBind", 0);
     Setting faceplace_bind = create("Faceplace Bind", "CaFaceBind", 0);
 
@@ -181,10 +185,6 @@ public class AutoCrystal extends Module {
     private boolean do_switch_bind = false;
     private boolean face_place_bind = false;
     private boolean did_anything;
-    private boolean outline;
-    private boolean solid;
-    private boolean glow;
-    private boolean glowLines;
 
     private int place_timeout;
     private int break_timeout;
@@ -306,7 +306,7 @@ public class AutoCrystal extends Module {
         }
 
         if (rotate_during.in("Both") || rotate_during.in("Place")) {
-            handle_rotations(false);
+            handle_rotations(false, target_block, null);
         }
 
         did_anything = true;
@@ -314,7 +314,7 @@ public class AutoCrystal extends Module {
             BlockUtil.placeCrystalOnBlock(target_block, offhand_check ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, packet_place.get_value(true));
         }
         if (sync.in("Semi")) {
-            EntityEnderCrystal crystal = new EntityEnderCrystal(mc.world,(double) get_best_block().getX() + 0.5, (double) get_best_block().getY() + 1, (double) get_best_block().getZ() + 0.5);
+            EntityEnderCrystal crystal = new EntityEnderCrystal(mc.world,(double) target_block.getX() + 0.5, (double) target_block.getY() + 1, (double) target_block.getZ() + 0.5);
             mc.world.addEntityToWorld(-101, crystal);
             crystal.setInvisible(true);
             fake_crystals.add(crystal);
@@ -377,7 +377,7 @@ public class AutoCrystal extends Module {
         did_anything = true;
 
         if (rotate_during.in("Break") || rotate_during.in("Both")) {
-            handle_rotations(true);
+            handle_rotations(true, null, crystal);
         }
 
         for (int i = 0; i < break_trys.get_value(1); i++) {
@@ -409,13 +409,14 @@ public class AutoCrystal extends Module {
                 return;
             }
         }
-        if (get_best_block() == null) return;
+        BlockPos block = get_best_block();
+        if (block == null) return;
         if (mc.world == null) return;
         if (mc.player.getHeldItemOffhand().getItem() != Items.END_CRYSTAL && mc.player.getHeldItemMainhand().getItem() != Items.END_CRYSTAL) return;
         if (debug.get_value(true)) {
             MessageUtil.send_client_message("Doing fake crystal");
         }
-        EntityEnderCrystal crystal = new EntityEnderCrystal(mc.world,(double) get_best_block().getX() + 0.5, (double) get_best_block().getY() + 1, (double) get_best_block().getZ() + 0.5);
+        EntityEnderCrystal crystal = new EntityEnderCrystal(mc.world,(double) block.getX() + 0.5, (double) block.getY() + 1, (double) block.getZ() + 0.5);
         mc.world.addEntityToWorld(-101, crystal);
         crystal.setDead();
         if (mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
@@ -445,8 +446,13 @@ public class AutoCrystal extends Module {
 
         BlockPos best_block = null;
 
-        List<BlockPos> blocks_momentum = CrystalUtil.crystalBlocksMomentum(mc.player, place_range.get_value(1), motion_predict.get_value(true), motion_predict_factor.get_value(1), !multi_place.get_value(true), endcrystal.get_value(true));
-        List<BlockPos> blocks = CrystalUtil.possiblePlacePositions(place_range.get_value(1), endcrystal.get_value(true), !multi_place.get_value(true));
+        List<BlockPos> blocks;
+
+        if (momentum.get_value(true)) {
+            blocks = CrystalUtil.crystalBlocksMomentum(mc.player, place_range.get_value(1), motion_predict.get_value(true), 1, !multi_place.get_value(true), endcrystal.get_value(true));
+        } else {
+            blocks = CrystalUtil.possiblePlacePositions(place_range.get_value(1), endcrystal.get_value(true), !multi_place.get_value(true));
+        }
 
         for (Entity player : mc.world.playerEntities) {
 
@@ -454,7 +460,7 @@ public class AutoCrystal extends Module {
                 if (FriendUtil.isFriend(player.getName())) continue;
             }
 
-            for (BlockPos block : momentum.get_value(true) ? blocks_momentum : blocks) {
+            for (BlockPos block : blocks) {
 
                 if (player.getDistance(mc.player) >= player_range.get_value(1)) continue;
 
@@ -492,11 +498,7 @@ public class AutoCrystal extends Module {
                 
                 if (ignore_web.get_value(true) && mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.WEB) {
                     mc.world.setBlockToAir(EntityUtil.getRoundedBlockPos(target));
-                }   
-                
-                if (ignore_terrain.get_value(true) && !(mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.OBSIDIAN || mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.BEDROCK) || mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.BARRIER || mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.ENCHANTING_TABLE || mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.ENDER_CHEST || mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.ANVIL) {
-                     mc.world.setBlockToAir(EntityUtil.getRoundedBlockPos(target));
-                }   
+                }
 
                 double target_damage = CrystalUtil.calculateDamage((double) block.getX() + 0.5, (double) block.getY() + 1, (double) block.getZ() + 0.5, target);
 
@@ -687,8 +689,9 @@ public class AutoCrystal extends Module {
                         render_block_init = null;
                     }
                     inhibit_delay_counter++;
-                    if (sync.in("Inhibit") && get_best_crystal() != null) {
-                        get_best_crystal().setDead();
+                    EntityEnderCrystal crystal = get_best_crystal();
+                    if (sync.in("Inhibit") && crystal != null) {
+                        crystal.setDead();
                     }
                     return true;
                 }
@@ -796,9 +799,9 @@ public class AutoCrystal extends Module {
         return closestTarget;
     }
 
-    public void handle_rotations(boolean target) {
-        if (target && get_best_crystal() == null) return;
-        if (!target && get_best_block() == null) return;
+    public void handle_rotations(boolean target, BlockPos pos, EntityEnderCrystal crystal) {
+        if (target && crystal == null) return;
+        if (!target && pos == null) return;
         if (rotate_mode.in("Off")) return;
         if (debug.get_value(true)) {
             if (target) {
@@ -809,27 +812,24 @@ public class AutoCrystal extends Module {
         }
 
         if (ca_target != null) {
-            float crystal_yaw = 0;
-            float crystal_pitch = 0;
-            float block_yaw = 0;
-            float block_pitch = 0;
+            float yaw;
+            float pitch;
             if (target) {
-                crystal_yaw = RotationUtil.getAngles(get_best_crystal())[0];
-                crystal_pitch = RotationUtil.getAngles(get_best_crystal())[1];
+                yaw = RotationUtil.getAngles(crystal)[0];
+                pitch = RotationUtil.getAngles(crystal)[1];
             } else {
-                block_yaw = RotationUtil.getPositionAngles(get_best_block())[0];
-                block_pitch = RotationUtil.getPositionAngles(get_best_block())[1];
+                yaw = RotationUtil.getPositionAngles(pos)[0];
+                pitch = RotationUtil.getPositionAngles(pos)[1];
             }
 
-            if (target && crystal_pitch == pitch && crystal_yaw == yaw && anti_waste.get_value(true)) return;
-            if (!target && block_pitch == pitch && block_yaw == yaw && anti_waste.get_value(true)) return;
+            if (pitch == this.pitch && yaw == this.yaw && !anti_waste.get_value(true)) return;
 
             if (rotate_mode.in("Off")) {
                 ca_rotation = new RotationUtil.Rotation(0, 0, RotationUtil.RotationMode.None, RotationUtil.RotationPriority.Lowest);
             } else if (rotate_mode.in("Packet")) {
-                ca_rotation = new RotationUtil.Rotation((target ? crystal_yaw : block_yaw), (target ? crystal_pitch : block_pitch), RotationUtil.RotationMode.Packet, RotationUtil.RotationPriority.Highest);
+                ca_rotation = new RotationUtil.Rotation(yaw, pitch, RotationUtil.RotationMode.Packet, RotationUtil.RotationPriority.Highest);
             } else if (rotate_mode.in("Seizure")) {
-                ca_rotation = new RotationUtil.Rotation((target ? crystal_yaw : block_yaw), (target ? crystal_pitch : block_pitch), RotationUtil.RotationMode.Legit, RotationUtil.RotationPriority.Highest);
+                ca_rotation = new RotationUtil.Rotation(yaw, pitch, RotationUtil.RotationMode.Legit, RotationUtil.RotationPriority.Highest);
             }
         }
 
@@ -848,60 +848,9 @@ public class AutoCrystal extends Module {
     public void render(EventRender event) {
         if (render_block_init == null) return;
 
-        if (render_mode.in("None")) return;
+        boolean render_render = outline.get_value(true) || solid.get_value(true) || glow_solid.get_value(true) || glow_outline.get_value(true);
 
-        if (render_mode.in("Pretty")) {
-            outline = true;
-            solid = true;
-            glow = false;
-            glowLines = false;
-        }
-
-        if (render_mode.in("Solid")) {
-            outline = false;
-            solid = true;
-            glow = false;
-            glowLines = false;
-        }
-
-        if (render_mode.in("Outline")) {
-            outline = true;
-            solid = false;
-            glow = false;
-            glowLines = false;
-        }
-
-        if (render_mode.in("Glow")) {
-            outline = false;
-            solid = false;
-            glow = true;
-            glowLines = false;
-        }
-
-        if (render_mode.in("Glow 2")) {
-            outline = false;
-            solid = false;
-            glow = true;
-            glowLines = true;
-        }
-        if (render_mode.in("GlowOutline")) {
-            outline = false;
-            solid = false;
-            glow = false;
-            glowLines = true;
-        }
-        if (render_mode.in("GlowPretty")) {
-            outline = true;
-            solid = false;
-            glow = true;
-            glowLines = false;
-        }
-        if (render_mode.in("GlowSolid")) {
-            outline = false;
-            solid = true;
-            glow = false;
-            glowLines = true;
-        }
+        if (!render_render) return;
 
         render_block(render_block_init);
 
@@ -922,7 +871,7 @@ public class AutoCrystal extends Module {
 
         float h = (float) height.get_value(1.0);
 
-        if (solid) {
+        if (solid.get_value(true)) {
             RenderHelp.prepare("quads");
             RenderHelp.draw_cube(RenderHelp.get_buffer_build(),
                     render_block.getX(), render_block.getY(), render_block.getZ(),
@@ -933,7 +882,7 @@ public class AutoCrystal extends Module {
             RenderHelp.release();
         }
 
-        if (outline) {
+        if (outline.get_value(true)) {
             RenderHelp.prepare("lines");
             RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
                     render_block.getX(), render_block.getY(), render_block.getZ(),
@@ -943,15 +892,8 @@ public class AutoCrystal extends Module {
             );
             RenderHelp.release();
         }
-        if (glow) {
-            RenderHelp.prepare("lines");
-            RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
-                    render_block.getX(), render_block.getY(), render_block.getZ(),
-                    1, 0, 1,
-                    r.get_value(1), g.get_value(1), b.get_value(1), a_out.get_value(1),
-                    "all"
-            );
-            RenderHelp.release();
+        if (glow_solid.get_value(true)) {
+
             RenderHelp.prepare("quads");
             RenderHelp.draw_gradiant_cube(RenderHelp.get_buffer_build(),
                     render_block.getX(), render_block.getY(), render_block.getZ(),
@@ -962,7 +904,7 @@ public class AutoCrystal extends Module {
             RenderHelp.release();
         }
 
-        if (glowLines) {
+        if (glow_outline.get_value(true)) {
             RenderHelp.prepare("lines");
             RenderHelp.draw_gradiant_outline(RenderHelp.get_buffer_build(),
                     render_block.getX(), render_block.getY(), render_block.getZ(),
@@ -1189,44 +1131,113 @@ public class AutoCrystal extends Module {
 
     @Override
     public void update_always() {
-        inhibit_delay.set_shown(inhibit.get_value(true));
-        inhibit_swings.set_shown(inhibit.get_value(true));
-        old_render.set_shown(!render_mode.in("None"));
-        future_render.set_shown(!render_mode.in("None"));
-        top_block.set_shown(!render_mode.in("None"));
-        r.set_shown(!render_mode.in("None"));
-        g.set_shown(!render_mode.in("None"));
-        b.set_shown(!render_mode.in("None"));
-        a.set_shown(!render_mode.in("None"));
-        a_out.set_shown(!render_mode.in("None"));
-        rainbow_mode.set_shown(!render_mode.in("None"));
-        sat.set_shown(!render_mode.in("None"));
-        brightness.set_shown(!render_mode.in("None"));
-        height.set_shown(!render_mode.in("None"));
-        render_damage.set_shown(!render_mode.in("None"));
-        faceplace_mode_damage.set_shown(faceplace_mode.get_value(true));
-        faceplace_check.set_shown(faceplace_mode.get_value(true));
-        fuck_armor_mode_precent.set_shown(fuck_armor_mode.get_value(true));
-        fuck_armor_mode_precent_self.set_shown(fuck_armor_mode.get_value(true));
-        limiter.set_shown(!rotate_mode.in("Off"));
-        rotate_during.set_shown(!rotate_mode.in("Off"));
-        max_angle.set_shown(!rotate_mode.in("Off") && !limiter.in("None"));
-        min_angle.set_shown(!rotate_mode.in("Off") && !limiter.in("None"));
-        random_rotate.set_shown(!rotate_mode.in("Off") && !limiter.in("None"));
-        rubberband.set_shown(!rotate_mode.in("Off"));
-        anti_waste.set_shown(!rotate_mode.in("Off"));
-        quick_restore.set_shown(!rotate_mode.in("Off"));
-        queue.set_shown(!rotate_mode.in("Off"));
-        accurate.set_shown(!rotate_mode.in("Off") && queue.get_value(true));
-        anti_stuck_time.set_shown(anti_stuck.get_value(true));
-        anti_stuck_tries.set_shown(anti_stuck.get_value(true));
-        motion_predict_factor.set_shown(motion_predict.get_value(true));
-        required_health.set_shown(min_health_pause.get_value(true));
-        rainbow_mode.set_shown(!render_mode.in("None"));
-        sat.set_shown(rainbow_mode.get_value(true) && !render_mode.in("None"));
-        brightness.set_shown(rainbow_mode.get_value(true) && !render_mode.in("None"));
-        a.set_shown(!render_mode.in("Outline") && !render_mode.in("None") );
-        a_out.set_shown(!render_mode.in("Solid") && !render_mode.in("None"));
+        // PLACE
+        place_crystal.set_shown((!clean_mode.get_value(true) || setting.in("Place")));
+        place_trys.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        place_range.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        place_range_wall.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        place_delay.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        min_player_place.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        packet_place.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        endcrystal.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        momentum.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        multi_place.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        faceplace_mode.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        faceplace_mode_damage.set_shown(faceplace_mode.get_value(true) && (!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        faceplace_check.set_shown(faceplace_mode.get_value(true) && (!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        heuristic.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        heuristic_min_health.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true) && !heuristic.in("Damage"));
+        fast_place.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        sound_predict.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        motion_predict.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        verify_place.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        city_predict.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        switch_mode.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        place_predict.set_shown((!clean_mode.get_value(true) || setting.in("Place")));
+        ignore_web.set_shown((!clean_mode.get_value(true) || setting.in("Place")));
+
+        // BREAK
+        break_crystal.set_shown((!clean_mode.get_value(true) || setting.in("Break")));
+        break_trys.set_shown((!clean_mode.get_value(true) || setting.in("Break")) && break_crystal.get_value(true));
+        break_predict.set_shown((!clean_mode.get_value(true) || setting.in("Break")));
+        break_all.set_shown((!clean_mode.get_value(true) || setting.in("Break")) && break_crystal.get_value(true));
+        swing.set_shown((!clean_mode.get_value(true) || setting.in("Break")) && break_crystal.get_value(true));
+        packet_break.set_shown((!clean_mode.get_value(true) || setting.in("Break")) && break_crystal.get_value(true));
+        min_player_break.set_shown((!clean_mode.get_value(true) || setting.in("Break")) && break_crystal.get_value(true));
+        break_delay.set_shown((!clean_mode.get_value(true) || setting.in("Break")) && break_crystal.get_value(true));
+        hit_range.set_shown((!clean_mode.get_value(true) || setting.in("Break")) && break_crystal.get_value(true));
+        hit_range_wall.set_shown((!clean_mode.get_value(true) || setting.in("Break")) && break_crystal.get_value(true));
+        anti_weakness.set_shown((!clean_mode.get_value(true) || setting.in("Break")) && break_crystal.get_value(true));
+
+        // PLACE & BREAK
+        target_mode.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));
+        anti_suicide.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));
+        alternative.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));
+        player_range.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));
+        raytrace.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));
+        fast_mode.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));
+        sync.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));
+        anti_stuck.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));
+        anti_stuck_time.set_shown(anti_stuck.get_value(true) && (!clean_mode.get_value(true) || setting.in("Place & Break")));
+        anti_stuck_tries.set_shown(anti_stuck.get_value(true) && (!clean_mode.get_value(true) || setting.in("Place & Break")));
+        fuck_armor_mode.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));
+        fuck_armor_mode_precent.set_shown(fuck_armor_mode.get_value(true) && (!clean_mode.get_value(true) || setting.in("Place & Break")));
+        fuck_armor_mode_precent_self.set_shown(fuck_armor_mode.get_value(true) && (!clean_mode.get_value(true) || setting.in("Place & Break")));
+        max_self_damage.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));
+
+        // ROTATIONS
+        rotate_mode.set_shown(!clean_mode.get_value(true) || setting.in("Rotations"));
+        limiter.set_shown(!rotate_mode.in("Off") && (!clean_mode.get_value(true) || setting.in("Rotations")));
+        rotate_during.set_shown(!rotate_mode.in("Off") && (!clean_mode.get_value(true) || setting.in("Rotations")));
+        max_angle.set_shown(!rotate_mode.in("Off") && !limiter.in("None") && (!clean_mode.get_value(true) || setting.in("Rotations")));
+        min_angle.set_shown(!rotate_mode.in("Off") && !limiter.in("None") && (!clean_mode.get_value(true) || setting.in("Rotations")));
+        random_rotate.set_shown(!rotate_mode.in("Off") && !limiter.in("None") && (!clean_mode.get_value(true) || setting.in("Rotations")));
+        rubberband.set_shown(!rotate_mode.in("Off") && (!clean_mode.get_value(true) || setting.in("Rotations")));
+        anti_waste.set_shown(!rotate_mode.in("Off") && (!clean_mode.get_value(true) || setting.in("Rotations")));
+        quick_restore.set_shown(!rotate_mode.in("Off") && (!clean_mode.get_value(true) || setting.in("Rotations")));
+        queue.set_shown(!rotate_mode.in("Off") && (!clean_mode.get_value(true) || setting.in("Rotations")));
+        accurate.set_shown(!rotate_mode.in("Off") && queue.get_value(true) && (!clean_mode.get_value(true) || setting.in("Rotations")));
+
+        // PAUSE
+        inhibit.set_shown(!clean_mode.get_value(true) || setting.in("Pause"));
+        inhibit_delay.set_shown(inhibit.get_value(true) && (!clean_mode.get_value(true) || setting.in("Pause")));
+        inhibit_swings.set_shown(inhibit.get_value(true) && (!clean_mode.get_value(true) || setting.in("Pause")));
+        module_check.set_shown(!clean_mode.get_value(true) || setting.in("Pause"));
+        min_health_pause.set_shown(!clean_mode.get_value(true) || setting.in("Pause"));
+        required_health.set_shown(min_health_pause.get_value(true) && (!clean_mode.get_value(true) || setting.in("Pause")));
+        stop_while_mining.set_shown(!clean_mode.get_value(true) || setting.in("Pause"));
+        stop_while_eating.set_shown(!clean_mode.get_value(true) || setting.in("Pause"));
+
+        // RENDER
+        boolean render_render = outline.get_value(true) || solid.get_value(true) || glow_solid.get_value(true) || glow_outline.get_value(true);
+        old_render.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        future_render.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        top_block.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        r.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        g.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        b.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        a.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        a_out.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        rainbow_mode.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        sat.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        brightness.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        height.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        render_damage.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        rainbow_mode.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        sat.set_shown(rainbow_mode.get_value(true) && render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        brightness.set_shown(rainbow_mode.get_value(true) && render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        a.set_shown((solid.get_value(true) || glow_solid.get_value(true)) && (!clean_mode.get_value(true) || setting.in("Render")));
+        a_out.set_shown((outline.get_value(true) || glow_outline.get_value(true)) && (!clean_mode.get_value(true) || setting.in("Render")));
+        glow_a.set_shown(glow_solid.get_value(true) && (!clean_mode.get_value(true) || setting.in("Render")));
+        glow_a_out.set_shown(glow_outline.get_value(true) && (!clean_mode.get_value(true) || setting.in("Render")));
+
+
+        // MISC
+        debug.set_shown(!clean_mode.get_value(true) || setting.in("Misc"));
+        switch_bind.set_shown(!clean_mode.get_value(true) || setting.in("Misc"));
+        faceplace_bind.set_shown(!clean_mode.get_value(true) || setting.in("Misc"));
+        clean_mode.set_shown(!clean_mode.get_value(true) || setting.in("Misc"));
+        setting.set_shown(clean_mode.get_value(true));
     }
 
     @Override

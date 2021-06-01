@@ -25,45 +25,41 @@ public class HoleESP extends Module {
 		this.description = "lets you know where holes are";
 	}
 
-	Setting mode = create("Mode", "HoleESPMode", "Pretty", combobox("Pretty", "Solid", "Outline", "Glow", "Glow Line", "Glow Pretty", "Glow Pretty2"));
+	Setting glow_solid = create("Glow Solid", "HoleESPGlowSolid", false);
+	Setting glow_out = create("Glow Outline", "HoleESPGlowOutline", false);
+	Setting outline = create("Solid", "HoleESPSolid", true);
+	Setting solid = create("Outline", "HoleESPOutline", true);
+
 	Setting off_set = create("Height", "HoleESPOffSetSide", 0.2, -1.0, 5.0);
 	Setting range = create("Range", "HoleESPRange", 6, 1, 12);
 	Setting hide_own = create("Hide Own", "HoleESPHideOwn", true);
 	Setting dual_enable = create("Dual holes", "HoleESPDualHoles", true);
 
 	Setting bedrock_enable = create("Bedrock Holes", "HoleESPBedrockHoles", true);
-	// Setting rgb_b 				= create("RGB Effect", "HoleColorRGBEffect", true);
 	Setting rb = create("R", "HoleESPRb", 0, 0, 255);
 	Setting gb = create("G", "HoleESPGb", 255, 0, 255);
 	Setting bb = create("B", "HoleESPBb", 0, 0, 255);
 	Setting ab = create("A", "HoleESPAb", 50, 0, 255);
 
 	Setting obsidian_enable = create("Obsidian Holes", "HoleESPObsidianHoles", true);
-	// Setting rgb_o 				= create("RGB Effect", "HoleColorRGBEffect", true);
 	Setting ro = create("R", "HoleESPRo", 255, 0, 255);
 	Setting go = create("G", "HoleESPGo", 0, 0, 255);
 	Setting bo = create("B", "HoleESPBo", 0, 0, 255);
 	Setting ao = create("A", "HoleESPAo", 50, 0, 255);
 
 	
-        Setting line_a = create("Outline A", "HoleESPLineOutlineA", 255, 0, 255);
+	Setting line_a = create("Outline A", "HoleESPLineOutlineA", 255, 0, 255);
 	Setting glow_line_a = create("Glow Outline A", "HoleESPLineOutlineAGlow", 0, 0, 255);	
 	Setting glow_solid_a = create("Glow Solid A", "HoleESPSolidAGlow", 0, 0, 255);	        
-        Setting rainbow_ob = create("Rainbow Obsidian", "Rainbow1", true);
-	Setting rainbow_bed = create("Rainbow Bedrock", "Rainbow2", true);
-	Setting sat = create("Satiation", "Satiation", 0.8, 0, 1);
-	Setting brightness = create("Brightness", "Brightness", 0.8, 0, 1);
+	Setting rainbow_ob = create("Rainbow Obsidian", "HoleESPRainbowOb", true);
+	Setting rainbow_bed = create("Rainbow Bedrock", "HoleESPRainbowBed", true);
+	Setting sat = create("Satiation", "HoleESPSatiation", 0.8, 0, 1);
+	Setting brightness = create("Brightness", "HoleESPBrightness", 0.8, 0, 1);
 
 
 	ArrayList<PairUtil<BlockPos, Boolean>> holes = new ArrayList<>();
 	ArrayList<PairUtil<BlockPos, Boolean>> dual_holes = new ArrayList<>();
 	Map<BlockPos, Integer> dual_hole_sides = new HashMap<>();
-
-	boolean outline = false;
-	boolean solid = false;
-	boolean glow = false;
-	boolean glowOutline = false;
-	boolean testGlow = false;
 
 	int color_r_o;
 	int color_g_o;
@@ -94,57 +90,6 @@ public class HoleESP extends Module {
 		dual_holes.clear();
 		dual_hole_sides.clear();
 
-		if (mc.player != null || mc.world != null) {
-			if (mode.in("Pretty")) {
-				outline = true;
-				solid = true;
-				glow = false;
-				glowOutline = false;
-			}
-
-			if (mode.in("Solid")) {
-				outline = false;
-				solid = true;
-				glow = false;
-				glowOutline = false;
-			}
-
-			if (mode.in("Outline")) {
-				outline = true;
-				solid = false;
-				glow = false;
-				glowOutline = false;
-			}
-
-			if (mode.in("Glow")) {
-				outline = false;
-				solid = false;
-				glow = true;
-				glowOutline = false;
-			}
-
-			if (mode.in("Glow Pretty")) {
-				outline = false;
-				solid = false;
-				glow = true;
-				glowOutline = true;
-			}
-
-			if (mode.in("Glow Line")) {
-				outline = false;
-				solid = false;
-				glow = false;
-				glowOutline = true;
-			}
-
-			if (mode.in("Glow Pretty2")) {
-				outline = true;
-				solid = false;
-				glow = true;
-				glowOutline = false;
-			}
-		}
-                            
 
 			int colapso_range = (int) Math.ceil(range.get_value(1));
 
@@ -356,11 +301,11 @@ public class HoleESP extends Module {
 					color_a = ao.get_value(1);
 				} else continue;
 
-				if (hide_own.get_value(true) && hole.getKey().equals(new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ))) {
+				if (hide_own.get_value(true) && hole.getKey().equals(new BlockPos(mc.player.posX,  hole.getKey().getY(), mc.player.posZ))) {
 					continue;
 				}
 
-				if (solid) {
+				if (solid.get_value(true)) {
 					RenderHelp.prepare("quads");
 					RenderHelp.draw_cube(RenderHelp.get_buffer_build(),
 							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
@@ -372,7 +317,7 @@ public class HoleESP extends Module {
 					RenderHelp.release();
 				}
 
-				if (outline) {
+				if (outline.get_value(true)) {
 					RenderHelp.prepare("lines");
 					RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
 							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
@@ -384,7 +329,7 @@ public class HoleESP extends Module {
 					RenderHelp.release();
 				}
 
-				if (glow) {
+				if (glow_solid.get_value(true)) {
 					RenderHelp.prepare("quads");
 					RenderHelp.draw_gradiant_cube(RenderHelp.get_buffer_build(),
 							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
@@ -396,7 +341,7 @@ public class HoleESP extends Module {
 					RenderHelp.release();
 				}
 
-				if (glowOutline) {
+				if (glow_out.get_value(true)) {
 					RenderHelp.prepare("lines");
 					RenderHelp.draw_gradiant_outline(RenderHelp.get_buffer_build(), hole.getKey().getX(),
 							hole.getKey().getY(), hole.getKey().getZ(), off_set_h,
@@ -427,7 +372,7 @@ public class HoleESP extends Module {
 					color_a = ao.get_value(1);
 				} else continue;
 
-				if (solid) {
+				if (solid.get_value(true)) {
 					RenderHelp.prepare("quads");
 					RenderHelp.draw_cube(RenderHelp.get_buffer_build(),
 							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
@@ -438,7 +383,7 @@ public class HoleESP extends Module {
 					RenderHelp.release();
 				}
 
-				if (outline) {
+				if (outline.get_value(true)) {
 					RenderHelp.prepare("lines");
 					RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
 							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
@@ -450,15 +395,7 @@ public class HoleESP extends Module {
 					RenderHelp.release();
 				}
 
-				if (glow) {
-					RenderHelp.prepare("lines");
-					RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
-							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
-							1, 0, 1,
-							color_r, color_g, color_b, line_a.get_value(1),
-							getDirectionsToRenderOutline(hole.getKey())
-					);
-					RenderHelp.release();
+				if (glow_solid.get_value(true)) {
 
 					RenderHelp.prepare("quads");
 					RenderHelp.draw_gradiant_cube(RenderHelp.get_buffer_build(),
@@ -470,7 +407,7 @@ public class HoleESP extends Module {
 					RenderHelp.release();
 				}
 
-				if (glowOutline) {
+				if (glow_out.get_value(true)) {
 					RenderHelp.prepare("lines");
 					RenderHelp.draw_gradiant_outline(RenderHelp.get_buffer_build(), hole.getKey().getX(),
 							hole.getKey().getY(), hole.getKey().getZ(), off_set_h,
@@ -548,14 +485,6 @@ public class HoleESP extends Module {
 		return new BlockPos(Math.floor(mc.player.posX), Math.floor(mc.player.posY), Math.floor(mc.player.posZ));
 	}
 
-	public boolean isBlockHole(BlockPos block) {
-		if (!is_active()) {
-			update();
-		}
-
-		return holes.contains(new PairUtil<BlockPos, Boolean>(block, true)) || holes.contains(new PairUtil<BlockPos, Boolean>(block, false));
-	}
-
 	public void cycle_rainbow() {
 		float[] tick_color = {
 				(System.currentTimeMillis() % (360 * 32)) / (360f * 32)
@@ -583,15 +512,28 @@ public class HoleESP extends Module {
 
 	@Override
 	public void update_always() {
-		rb.set_shown(bedrock_enable.get_value(false));
-		gb.set_shown(bedrock_enable.get_value(false));
-		bb.set_shown(bedrock_enable.get_value(false));
-		ab.set_shown(bedrock_enable.get_value(false));
-		ro.set_shown(obsidian_enable.get_value(false));
-		go.set_shown(obsidian_enable.get_value(false));
-		bo.set_shown(obsidian_enable.get_value(false));
-		ao.set_shown(obsidian_enable.get_value(false));
-
+		boolean render = glow_solid.get_value(true) || glow_out.get_value(true) || solid.get_value(true) || outline.get_value(true);
+		rb.set_shown(bedrock_enable.get_value(true) && render);
+		gb.set_shown(bedrock_enable.get_value(true) && render);
+		bb.set_shown(bedrock_enable.get_value(true) && render);
+		ab.set_shown(bedrock_enable.get_value(true) && render);
+		ro.set_shown(obsidian_enable.get_value(true) && render);
+		go.set_shown(obsidian_enable.get_value(true) && render);
+		bo.set_shown(obsidian_enable.get_value(true) && render);
+		ao.set_shown(obsidian_enable.get_value(true) && render);
+		glow_line_a.set_shown(glow_out.get_value(true));
+		glow_solid_a.set_shown(glow_solid.get_value(true));
+		line_a.set_shown(outline.get_value(true));
+		obsidian_enable.set_shown(render);
+		bedrock_enable.set_shown(render);
+		rainbow_bed.set_shown(render);
+		rainbow_ob.set_shown(render);
+		dual_enable.set_shown(render);
+		range.set_shown(render);
+		off_set.set_shown(render);
+		hide_own.set_shown(render);
+		sat.set_shown((rainbow_bed.get_value(true) || rainbow_ob.get_value(true)) && render);
+		brightness.set_shown((rainbow_bed.get_value(true) || rainbow_ob.get_value(true)) && render);
 
 	}
 }
