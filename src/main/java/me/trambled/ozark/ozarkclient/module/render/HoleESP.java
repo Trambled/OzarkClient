@@ -27,8 +27,8 @@ public class HoleESP extends Module {
 
 	Setting glow_solid = create("Glow Solid", "HoleESPGlowSolid", false);
 	Setting glow_out = create("Glow Outline", "HoleESPGlowOutline", false);
-	Setting outline = create("Solid", "HoleESPSolid", true);
-	Setting solid = create("Outline", "HoleESPOutline", true);
+	Setting outline = create("Outline", "HoleESPOutline", true);
+	Setting solid = create("Solid", "HoleESPSolid", true);
 
 	Setting off_set = create("Height", "HoleESPOffSetSide", 0.2, -1.0, 5.0);
 	Setting range = create("Range", "HoleESPRange", 6, 1, 12);
