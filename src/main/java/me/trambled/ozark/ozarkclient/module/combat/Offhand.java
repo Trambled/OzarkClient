@@ -6,6 +6,7 @@ import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
 import me.trambled.ozark.ozarkclient.util.PlayerUtil;
+import me.trambled.ozark.ozarkclient.util.CrystalUtil;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -31,6 +32,8 @@ public class Offhand extends Module {
     Setting only_when_right_click = create("Right Click", "OffhandRightClick", false);
     Setting sword_gap = create("Sword Gap", "OffhandSwordGap", true);
     Setting step = create("Step", "OffhandStep", false);
+    Setting crystal_check = create("Crystal Check", "OffhandCrystalCheck", true);
+    Setting damage_multiplier = create("Damage Multiplier", "OffhandDamageMultiplier", 1, 1, 3);
 
     private boolean switching = false;
     private int last_slot;
@@ -54,6 +57,10 @@ public class Offhand extends Module {
 
             if (mc.gameSettings.keyBindUseItem.pressed || !only_when_right_click.get_value(true)) {
                 if (hp > totem_switch.get_value(1)) {
+                    if (lethal_crystal() && crystal_check.get_value(true)) {
+                        swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), step.get_value(true) ? 1 : 0);
+                        return;
+                    }
                     if (sword_gap.get_value(true) && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD) {
                         swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
                         return;
@@ -151,6 +158,19 @@ public class Offhand extends Module {
         only_when_right_click.set_shown(!switch_mode.in("Totem"));
         step.set_shown(!switch_mode.in("Totem"));
         sword_gap.set_shown(!switch_mode.in("Gapple"));
+        crystal_check.set_shown(!switch_mode.in("Totem"));
+        damage_multiplier.set_shown(!switch_mode.in("Totem") && crystal_check.get_value(true));
+    }
+    
+    private boolean lethal_crystal() {
+        for (Entity t : mc.world.loadedEntityList) {
+            if (t instanceof EntityEnderCrystal && mc.player.getDistance(t) <= 12) {
+                if (CrystalUtil.calculateDamage(t, mc.player) * damage_multiplier.get_value(1) >= mc.player.getHealth()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }
