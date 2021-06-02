@@ -2,7 +2,7 @@ package me.trambled.ozark.mixins.accessor;
 
 import net.minecraft.item.*;
 
-public interface ItemRenderer
+public interface IItemRenderer
 {
     float getPrevEquippedProgressMainHand();
     
