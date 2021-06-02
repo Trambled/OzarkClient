@@ -7,14 +7,11 @@ import me.trambled.ozark.ozarkclient.guiscreen.gui.past.Panel;
 import me.trambled.ozark.ozarkclient.util.FontUtil;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Module;
-import me.trambled.turok.draw.RenderHelp;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.init.SoundEvents;
-import org.lwjgl.opengl.GL11;
-
 import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 
@@ -37,25 +34,25 @@ public class ModuleButton extends Component {
         this.subcomponents = new ArrayList<>();
         this.open = false;
         int opY = offset + 15;
-        for (Setting settings : Ozark.get_setting_manager().get_settings_with_module(mod)) {
-            if (settings.is_shown()) {
-                if (settings.get_type().equals("button")) {
-                    this.subcomponents.add(new BooleanComponent(settings, this, opY));
-                } else if (settings.get_type().equals("integerslider")) {
-                    this.subcomponents.add(new IntegerComponent(settings, this, opY));
-                } else if (settings.get_type().equals("doubleslider")) {
-                    this.subcomponents.add(new DoubleComponent(settings, this, opY));
-                } else if (settings.get_type().equals("combobox")) {
-                    this.subcomponents.add(new ModeComponent(settings, this, opY));
-                } else if (settings.get_type().equals("label")) {
-                    this.subcomponents.add(new InfoComponent(settings, this, opY));
-                } else if (settings.get_type().equals("bind")) {
-                    this.subcomponents.add(new KeybindSettingComponent(settings, this, opY));
-                } else if (settings.get_type().equals("string")) {
-                    this.subcomponents.add(new StringComponent(settings, this, opY));
+            for (Setting settings : Ozark.get_setting_manager().get_settings_with_module(mod)) {
+                if (settings.is_shown()) {
+                    if (settings.get_type().equals("button")) {
+                        this.subcomponents.add(new BooleanComponent(settings, this, opY));
+                    } else if (settings.get_type().equals("integerslider")) {
+                        this.subcomponents.add(new IntegerComponent(settings, this, opY));
+                    } else if (settings.get_type().equals("doubleslider")) {
+                        this.subcomponents.add(new DoubleComponent(settings, this, opY));
+                    } else if (settings.get_type().equals("combobox")) {
+                        this.subcomponents.add(new ModeComponent(settings, this, opY));
+                    } else if (settings.get_type().equals("label")) {
+                        this.subcomponents.add(new InfoComponent(settings, this, opY));
+                    } else if (settings.get_type().equals("bind")) {
+                        this.subcomponents.add(new KeybindSettingComponent(settings, this, opY));
+                    } else if (settings.get_type().equals("string")) {
+                        this.subcomponents.add(new StringComponent(settings, this, opY));
+                    }
                 }
             }
-        }
         this.subcomponents.add(new KeybindComponent(this, opY));
     }
 
@@ -97,19 +94,14 @@ public class ModuleButton extends Component {
             FontUtil.drawText(this.mod.get_name(), parent.getX() + 4, parent.getY() + offset + 4, -1);
         }
 
-
-        if (this.open) {
-            RenderHelp.drawTriangleOutline(parent.getX() + 90f, parent.getY() + offset + 12f, 5f, 2, 1, 1,0XFFFFFF);
+        if (this.subcomponents.size() > 1) {
+            FontUtil.drawText("...", parent.getX() + parent.getWidth() - 10, (parent.getY() + offset + 4), -1);
         }
 
         if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIDescriptions").get_value(true) && hovered) {
             FontUtil.drawText(mod.get_description(), 2, (new ScaledResolution(mc).getScaledHeight() - FontUtil.getFontHeight() - 2), -1);
         }
-        else if(this.subcomponents.size() > 1) {
-            if (!this.open) {
-                FontUtil.drawText("...", parent.getX() + parent.getWidth() - 10, (parent.getY() + offset + 4), -1);
-            }
-        }
+
         if (this.open && !this.subcomponents.isEmpty()) {
             for (Component comp : this.subcomponents) {
                 if (comp.is_shown()) {
@@ -209,7 +201,4 @@ public class ModuleButton extends Component {
     public void setOpen(boolean open) {
         this.open = open;
     }
-
-
-    }
-
+}
