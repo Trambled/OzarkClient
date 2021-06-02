@@ -588,8 +588,8 @@ public class BedAura extends Module {
         solid_a.set_shown(!render_mode.in("None"));
         line_a.set_shown(!render_mode.in("None"));
         rainbow_mode.set_shown(!render_mode.in("None"));
-        solid_a.set_shown(!render_mode.in("Outline"));
-        line_a.set_shown(!render_mode.in("Solid"));
+        solid_a.set_shown(!render_mode.in("Outline") && !render_mode.in("None"));
+        line_a.set_shown(!render_mode.in("Solid") && !render_mode.in("None"));
     }
 
     enum spoof_face {
