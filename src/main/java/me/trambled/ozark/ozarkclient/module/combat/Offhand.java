@@ -25,11 +25,11 @@ public class Offhand extends Module {
 
     Setting switch_mode = create("Offhand", "OffhandOffhand", "Totem", combobox("Totem", "Crystal", "Gapple", "Pressure Plate"));
     Setting totem_switch = create("Totem HP", "OffhandTotemHP", 16, 0, 36);
-
     Setting module_check = create("ModuleCheck", "OffhandModuleCheck", false);
     Setting gapple_in_hole = create("Gapple In Hole", "OffhandGapple", false);
     Setting gapple_hole_hp = create("Gapple Hole HP", "OffhandGappleHP", 8, 0, 36);
     Setting only_when_right_click = create("Right Click", "OffhandRightClick", false);
+    Setting sword_gap = create("Sword Gap", "OffhandSwordGap", true);
     Setting step = create("Step", "OffhandStep", false);
 
     private boolean switching = false;
@@ -54,15 +54,14 @@ public class Offhand extends Module {
 
             if (mc.gameSettings.keyBindUseItem.pressed || !only_when_right_click.get_value(true)) {
                 if (hp > totem_switch.get_value(1)) {
-                    if (module_check.get_value(true)) {
-                        if (switch_mode.in("Crystal") && Ozark.get_module_manager().get_module_with_tag("AutoCrystal").is_active()) {
-                            swap_items(get_item_slot(Items.END_CRYSTAL), 0);
-                            return;
-                        }
-                    } else if (switch_mode.in("Crystal") && !module_check.get_value(true)) {
-                        swap_items(get_item_slot(Items.END_CRYSTAL), 0);
+                    if (sword_gap.get_value(true) && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD) {
+                        swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
                         return;
                     }
+                    if (switch_mode.in("Crystal") && (Ozark.get_module_manager().get_module_with_tag("AutoCrystal").is_active() || !module_check.get_value(true))) {
+                        swap_items(get_item_slot(Items.END_CRYSTAL), 0);
+                        return;
+                    }    
                     if (gapple_in_hole.get_value(true) && hp > gapple_hole_hp.get_value(1) && is_in_hole()) {
                         swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
                         return;
@@ -87,7 +86,6 @@ public class Offhand extends Module {
                 if (mc.player.getHeldItemOffhand().getItem() == Items.AIR) {
                     swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), step.get_value(true) ? 1 : 0);
                 }
-
             } else {
                 swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), step.get_value(true) ? 1 : 0);
             }
@@ -152,6 +150,7 @@ public class Offhand extends Module {
         gapple_hole_hp.set_shown(!switch_mode.in("Gapple") && gapple_in_hole.get_value(true));
         only_when_right_click.set_shown(!switch_mode.in("Totem"));
         step.set_shown(!switch_mode.in("Totem"));
+        sword_gap.set_shown(!switch_mode.in("Gapple));
     }
 
 }
