@@ -20,10 +20,10 @@ public class PastGUIModule extends Module {
 		set_bind(Ozark.KEY_GUI);
 	}
 
-	Setting red = create("Red", "PastGUIR", 245, 0, 255);
-	Setting green = create("Green", "PastGUIG", 127, 0, 255);
-	Setting blue = create("Blue", "PastGUIB", 142, 0, 255);
-	Setting alpha = create("Alpha", "PastGUIA", 255, 0, 255);
+	Setting red = create("Red", "PastGUIR", 140, 0, 255);
+	Setting green = create("Green", "PastGUIG", 0, 0, 255);
+	Setting blue = create("Blue", "PastGUIB", 0, 0, 255);
+	Setting alpha = create("Alpha", "PastGUIA", 132, 0, 255);
 	Setting rainbow = create("Rainbow", "PastGUIRainbow", false);
 
 	Setting font = create("Font", "PastGUIFont", "Lato", combobox("Lato", "Verdana", "Arial", "None"));

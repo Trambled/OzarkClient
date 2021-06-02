@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.math.BlockPos;
+import org.lwjgl.opengl.GL11;
 
 import java.util.Arrays;
 
@@ -92,6 +93,28 @@ public class RenderHelp extends Tessellator {
 
     public static void draw_cube(BlockPos blockPos, int r, int g, int b, int a, String sides) {
         draw_cube(INSTANCE.getBuffer(), blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1, 1, 1, r, g, b, a, sides);
+    }
+    public static void drawTriangleOutline(float x, float y, float size, float widthDiv, float heightDiv, float outlineWidth, int color) {
+        boolean blend = GL11.glIsEnabled(3042);
+        GL11.glEnable(3042);
+        GL11.glDisable(3553);
+        GL11.glBlendFunc(770, 771);
+        GL11.glEnable(2848);
+        GL11.glPushMatrix();
+        GL11.glLineWidth(outlineWidth);
+        GL11.glBegin(2);
+        GL11.glVertex2d(x, y);
+        GL11.glVertex2d(x - size / widthDiv, y - size);
+        GL11.glVertex2d(x, y - size / heightDiv);
+        GL11.glVertex2d(x + size / widthDiv, y - size);
+        GL11.glVertex2d(x, y);
+        GL11.glEnd();
+        GL11.glPopMatrix();
+        GL11.glEnable(3553);
+        if (!blend) {
+            GL11.glDisable(3042);
+        }
+        GL11.glDisable(2848);
     }
 
     public static void draw_cube_line(BlockPos blockPos, int argb, String sides) {
