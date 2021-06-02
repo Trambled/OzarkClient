@@ -21,7 +21,6 @@ public class AutoGroom extends Module {
     }
 
     Setting delay = create("Delay", "Delay", 10, 0, 100);
-    Setting test = create("Test", "Test", "big wall of text", "");
 
     List<String> chants = new ArrayList<>();
 
