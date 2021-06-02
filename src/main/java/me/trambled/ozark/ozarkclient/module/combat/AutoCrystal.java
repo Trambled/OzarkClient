@@ -1215,6 +1215,10 @@ public class AutoCrystal extends Module {
 
         // RENDER
         boolean render_render = outline.get_value(true) || solid.get_value(true) || glow_solid.get_value(true) || glow_outline.get_value(true);
+        outline.set_shown(!clean_mode.get_value(true) || setting.in("Render"));
+        solid.set_shown(!clean_mode.get_value(true) || setting.in("Render"));
+        glow_solid.set_shown(!clean_mode.get_value(true) || setting.in("Render"));
+        glow_outline.set_shown(!clean_mode.get_value(true) || setting.in("Render"));
         old_render.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
         future_render.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
         top_block.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
