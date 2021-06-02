@@ -150,7 +150,7 @@ public class Offhand extends Module {
         gapple_hole_hp.set_shown(!switch_mode.in("Gapple") && gapple_in_hole.get_value(true));
         only_when_right_click.set_shown(!switch_mode.in("Totem"));
         step.set_shown(!switch_mode.in("Totem"));
-        sword_gap.set_shown(!switch_mode.in("Gapple));
+        sword_gap.set_shown(!switch_mode.in("Gapple"));
     }
 
 }
