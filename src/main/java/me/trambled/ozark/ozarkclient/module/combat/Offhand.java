@@ -54,7 +54,7 @@ public class Offhand extends Module {
 
             if (mc.gameSettings.keyBindUseItem.pressed || !only_when_right_click.get_value(true)) {
                 if (hp > totem_switch.get_value(1)) {
-                    if (sword_gap.get_value(true) && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD) {
+                    if (sword_gap.get_value(true) && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD && mc.gameSettings.keyBindUseItem.isKeyDown()) {
                         swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
                         return;
                     }
