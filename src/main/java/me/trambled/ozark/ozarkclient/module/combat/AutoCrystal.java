@@ -1110,6 +1110,8 @@ public class AutoCrystal extends Module {
         anti_stuck_timer.reset();
         detail_name = null;
         detail_hp = 20;
+
+       
     }
 
     @Override
@@ -1117,6 +1119,9 @@ public class AutoCrystal extends Module {
         render_block_init = null;
         ca_target = null;
         Ozark.TARGET_NAME = "NULL";
+        if (ca_rotation != null) {
+            ca_rotation.restoreRotation();
+        }
     }
 
     @Override
