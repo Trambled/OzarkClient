@@ -35,7 +35,7 @@ public class Offhand extends Module {
     Setting sword_gap = create("Sword Gap", "OffhandSwordGap", true);
     Setting step = create("Step", "OffhandStep", false);
     Setting crystal_check = create("Crystal Check", "OffhandCrystalCheck", true);
-    Setting damage_multiplier = create("Damage Multiplier", "OffhandDamageMultiplier", 1, 1, 3);
+    Setting damage_multiplier = create("Damage Multiplier", "OffhandDamageMultiplier", 1f, 1f, 3f);
 
     private boolean switching = false;
     private int last_slot;
