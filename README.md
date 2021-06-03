@@ -170,7 +170,7 @@ CaFastPlace:true <br>
 CaBreakAll:false <br> 
 CaMomentumMode:true <br> 
 CaSync:Sound <br> 
-CaHeuristic:Damage <br> 
+CaHeuristic:Distance <br> 
 CaHeuristicMinHealth:12 <br> 
 CaAntiStuck:true <br> 
 CaAntiStuckTries:1 <br> 
