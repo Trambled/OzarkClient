@@ -224,7 +224,7 @@ turn rotate mode to none if you want
   
 
 
-Offhand health is based on preference but 16-17 is the best u can get for an offhand to rarely fail without a crystal check anything higher is pretty unnecessary unless u get like 500+ ping or something.
+Offhand health is based on preference but 16-17 is the best u can get for an offhand to rarely fail without a crystal check anything higher is pretty unnecessary unless u get like 500+ ping or something. Also if ur so scared of totfail turn on crystal check and set damage multiplier to ~1.06 - ~1.50
 
 Elytrafly if it lags back with the default speed try lowering it, Setting the glide speed higher might also fix it, Also Elytrafly isn't compatible with nofall, Thats why Ozark Elytrafly auto toggles nofall, So make sure that no other clients have the nofall module toggled when you're using Elytrafly. Elytrafly also can bug out with strafe enabled.
 
