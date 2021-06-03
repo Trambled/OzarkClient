@@ -167,7 +167,7 @@ public class Offhand extends Module {
     private boolean lethal_crystal() {
         for (Entity t : mc.world.loadedEntityList) {
             if (t instanceof EntityEnderCrystal && mc.player.getDistance(t) <= 12) {
-                if (CrystalUtil.calculateDamage(t.posX, t.posY, t.posZ, mc.player) * damage_multiplier.get_value(1) >= mc.player.getHealth()) {
+                if (CrystalUtil.calculateDamage(t.posX, t.posY, t.posZ, mc.player) * damage_multiplier.get_value(1d) >= mc.player.getHealth()) {
                     return true;
                 }
             }
