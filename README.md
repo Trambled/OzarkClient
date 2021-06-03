@@ -187,7 +187,7 @@ CaStopWhileMining:false <br>
 CaStopWhileEatin:false <br> 
 CaSwing:Offhand <br> 
 CaRotateMode:Packet <br> 
-CaRotateDuring:Break <br> 
+CaRotateDuring:BOTH <br> 
 CaRotateAntiWaste:false <br> 
 CaRotateLimiter:None <br> 
 CaMaxAngle:0.0 <br> 
