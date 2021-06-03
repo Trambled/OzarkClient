@@ -171,7 +171,7 @@ CaBreakAll:false <br>
 CaMomentumMode:true <br> 
 CaSync:Sound <br> 
 CaHeuristic:Damage <br> 
-CaHeuristicMinHealth:12
+CaHeuristicMinHealth:12 <br> 
 CaAntiStuck:true <br> 
 CaAntiStuckTries:1 <br> 
 CaAntiStuckTime:1000 <br> 
