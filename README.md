@@ -125,6 +125,104 @@ CaHeight:1.0 <br>
 RenderDamage:true <br>
 </details>
 
+<details>
+  <summary>trampled autocrystal config</summary> <br>
+  
+CaSetting:Rotations <br> 
+CaDebug:false <br> 
+CaPlace:true <br> 
+CaBreak:true <br> 
+CaAntiWeakness:true <br> 
+CaAlternative:false <br> 
+CaModuleCheck:true <br> 
+CaBreakPredict:true <br> 
+CaPlacePredict:false <br> 
+CaSoundPredict:false <br> 
+CaCityPredict:true <br> 
+CaMotionPredict:true <br> 
+CaVerifyPlace:false <br> 
+CaInhibit:false <br> 
+CaInhibitDelay:0 <br> 
+CaInhibitSwings:50 <br> 
+CaBreakAttempts:1 <br> 
+CaPlaceAttempts:1 <br> 
+CaHitRange:5.0 <br> 
+CaPlaceRange:5.0 <br> 
+CaHitRangeWall:3.5 <br> 
+CaPlaceRangeWall:3.5 <br> 
+CaPlayerRange:10 <br> 
+CaPlaceDelay:0 <br> 
+CaBreakDelay:1 <br> 
+CaMinEnemyPlace:6 <br> 
+CaMinEnemyBreak:6 <br> 
+CaMaxSelfDamage:8 <br> 
+CaMinHealthPause:true <br> 
+CaRequiredHealth:1 <br> 
+CaWebIgnore:true <br> 
+CaPacketPlace:true <br> 
+CaPacketBreak:true <br> 
+CaTargetMode:Health <br> 
+CaRaytrace:false <br> 
+CaSwitchMode:None <br> 
+CaAntiSuicide:true <br> 
+CaFastMode:true <br> 
+CaFastPlace:true <br> 
+CaBreakAll:false <br> 
+CaMomentumMode:true <br> 
+CaSync:Sound <br> 
+CaHeuristic:Damage <br> 
+CaHeuristicMinHealth:12
+CaAntiStuck:true <br> 
+CaAntiStuckTries:1 <br> 
+CaAntiStuckTime:1000 <br> 
+CaThirteen:false <br> 
+CaMultiplace:false <br> 
+CaTabbottMode:true <br> 
+CaTabbottModeHealth:10 <br> 
+CaJumpyFaceMode:false <br> 
+CaArmorDestroy:true <br> 
+CaArmorPercent:25 <br> 
+CaArmorPercentSelf:0 <br> 
+CaStopWhileMining:false <br> 
+CaStopWhileEatin:false <br> 
+CaSwing:Offhand <br> 
+CaRotateMode:Packet <br> 
+CaRotateDuring:Break <br> 
+CaRotateAntiWaste:false <br> 
+CaRotateLimiter:None <br> 
+CaMaxAngle:0.0 <br> 
+CaMinAngle:360.0 <br> 
+CaRandomRotate:false <br> 
+CaQueue:true <br> 
+CaAccurate:true <br> 
+CaRotateDetectRubberband:false <br> 
+CaRestoreRotationInstant:false <br> 
+CaSolid:true <br> 
+CaOutline:false <br> 
+CaGlowSolid:false <br> 
+CaGlowOutline:false <br> 
+CaOldRender:false <br> 
+CaFutureRender:false <br> 
+CaTopBlock:false <br> 
+CaR:255 <br> 
+CaG:149 <br> 
+CaB:0 <br> 
+CaA:255 <br> 
+CaOutlineA:255 <br> 
+CaGlowA:0 <br> 
+CaGlowOutlineA:0 <br> 
+CaRainbow:true <br> 
+CaSatiation:1.0 <br> 
+CaBrightness:1.0 <br> 
+CaHeight:1.0 <br> 
+CaRenderDamage:Normal <br> 
+CaCleanMode:true <br> 
+CaSwitchBind:0 <br> 
+CaFaceBind:0 <br> 
+</details>  
+turn rotate mode to none if you want
+  
+
 
 Offhand health is based on preference but 16-17 is the best u can get for an offhand to rarely fail without a crystal check anything higher is pretty unnecessary unless u get like 500+ ping or something.
 
