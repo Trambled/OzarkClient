@@ -15,7 +15,6 @@
     "MixinRenderPlayer",
     "MixinPlayer",
     "MixinItemRenderer",
-    "MixinGuiPlayerTabOverlay",
     "MixinRenderLivingBase",
     "MixinAbstractClientPlayer",
     "MixinAbstractHorse",
