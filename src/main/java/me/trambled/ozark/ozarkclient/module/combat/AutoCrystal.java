@@ -149,8 +149,6 @@ public class AutoCrystal extends Module {
     Setting b = create("B", "CaB", 255, 0, 255);
     Setting a = create("Solid A", "CaA", 100, 0, 255);
     Setting a_out = create("Outline A", "CaOutlineA", 255, 0, 255);
-    Setting glow_a = create("Glow Solid A", "CaGlowA", 0, 0, 255);
-    Setting glow_a_out = create("Glow Outline A", "CaGlowOutlineA", 0, 0, 255);
     Setting rainbow_mode = create("Rainbow", "CaRainbow", true);
     Setting sat = create("Satiation", "CaSatiation", 0.8, 0, 1);
     Setting brightness = create("Brightness", "CaBrightness", 0.8, 0, 1);
@@ -887,7 +885,7 @@ public class AutoCrystal extends Module {
             RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
                     render_block.getX(), render_block.getY(), render_block.getZ(),
                     1, h, 1,
-                    r.get_value(1), g.get_value(1), b.get_value(1), a_out.get_value(1),
+                    r.get_value(1), g.get_value(1), b.get_value(1), a_out.get_value(1), 1,
                     "all"
             );
             RenderHelp.release();
@@ -898,7 +896,7 @@ public class AutoCrystal extends Module {
             RenderHelp.draw_gradiant_cube(RenderHelp.get_buffer_build(),
                     render_block.getX(), render_block.getY(), render_block.getZ(),
                     1, h, 1,  new Color(r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1)),
-                    new Color(0, 0, 0, glow_a.get_value(1)),
+                    new Color(0, 0, 0, 0),
                     "all"
             );
             RenderHelp.release();
@@ -909,7 +907,7 @@ public class AutoCrystal extends Module {
             RenderHelp.draw_gradiant_outline(RenderHelp.get_buffer_build(),
                     render_block.getX(), render_block.getY(), render_block.getZ(),
                     h, new Color(r.get_value(1), g.get_value(1), b.get_value(1), a_out.get_value(1)),
-                    new Color(0, 0, 0, glow_a_out.get_value(1)),
+                    new Color(0, 0, 0, 0),
                     "all"
             );
             RenderHelp.release();
@@ -1237,8 +1235,7 @@ public class AutoCrystal extends Module {
         brightness.set_shown(rainbow_mode.get_value(true) && render_render && (!clean_mode.get_value(true) || setting.in("Render")));
         a.set_shown((solid.get_value(true) || glow_solid.get_value(true)) && (!clean_mode.get_value(true) || setting.in("Render")));
         a_out.set_shown((outline.get_value(true) || glow_outline.get_value(true)) && (!clean_mode.get_value(true) || setting.in("Render")));
-        glow_a.set_shown(glow_solid.get_value(true) && (!clean_mode.get_value(true) || setting.in("Render")));
-        glow_a_out.set_shown(glow_outline.get_value(true) && (!clean_mode.get_value(true) || setting.in("Render")));
+
 
 
         // MISC

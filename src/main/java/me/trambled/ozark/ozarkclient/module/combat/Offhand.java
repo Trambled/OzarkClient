@@ -60,7 +60,7 @@ public class Offhand extends Module {
             if (mc.gameSettings.keyBindUseItem.pressed || !only_when_right_click.get_value(true)) {
                 if (hp > totem_switch.get_value(1)) {
                     if (lethal_crystal() && crystal_check.get_value(true)) {
-                        swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), step.get_value(true) ? 1 : 0);
+                        swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), 0);
                         return;
                     }
                     if (sword_gap.get_value(true) && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD) {

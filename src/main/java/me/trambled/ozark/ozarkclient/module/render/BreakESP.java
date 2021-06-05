@@ -74,7 +74,7 @@ public class BreakESP extends Module {
                     RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
                             destroyBlockProgress.getPosition().getX(), destroyBlockProgress.getPosition().getY(), destroyBlockProgress.getPosition().getZ(),
                             1, 1, 1,
-                            r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1),
+                            r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1),1,
                             "all"
                     );
 

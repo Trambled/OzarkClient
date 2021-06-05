@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.Arrays;
 
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import static org.lwjgl.opengl.GL11.*;
 import java.util.List;
 import java.awt.*;
@@ -130,12 +131,14 @@ public class RenderHelp extends Tessellator {
         final int r = (argb >>> 16) & 0xFF;
         final int g = (argb >>> 8) & 0xFF;
         final int b = argb & 0xFF;
-        draw_cube_line(INSTANCE.getBuffer(), x, y, z, 1, 1, 1, r, g, b, a, sides);
+        draw_cube_line(INSTANCE.getBuffer(), x, y, z, 1, 1, 1, r, g, b, a, 1, sides);
     }
 
     public static void draw_cube_line(BlockPos blockPos, int r, int g, int b, int a, String sides) {
-        draw_cube_line(INSTANCE.getBuffer(), blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1, 1, 1, r, g, b, a, sides);
+        draw_cube_line(INSTANCE.getBuffer(), blockPos.getX(), blockPos.getY(), blockPos.getZ(), 1, 1, 1, r, g, b, a, 1, sides);
     }
+
+
 
     public static BufferBuilder get_buffer_build() {
         return INSTANCE.getBuffer();
@@ -185,7 +188,10 @@ public class RenderHelp extends Tessellator {
         }
     }
 
-    public static void draw_cube_line(final BufferBuilder buffer, float x, float y, float z, float w, float h, float d, int r, int g, int b, int a, String sides) {
+
+
+    public static void draw_cube_line(final BufferBuilder buffer, float x, float y, float z, float w, float h, float d, int r, int g, int b, int a, float width, String sides) {
+        GL11.glLineWidth(width);
         if (((boolean) Arrays.asList(sides.split("-")).contains("downwest")) || sides.equalsIgnoreCase("all")) {
             buffer.pos(x, y, z).color(r, g, b, a).endVertex();
             buffer.pos(x, y, z + d).color(r, g, b, a).endVertex();
@@ -299,5 +305,9 @@ public class RenderHelp extends Tessellator {
     public static void draw_gradiant_line(final BufferBuilder buffer, double x1, double y1, double z1, double x2, double y2, double z2, Color startColor, Color endColor) {
         buffer.pos(x1, y1, z1).color(startColor.getRed(), startColor.getGreen(), startColor.getBlue(), startColor.getAlpha()).endVertex();
         buffer.pos(x2, y2, z2).color(endColor.getRed(), endColor.getGreen(), endColor.getBlue(), endColor.getAlpha()).endVertex();
+    }
+
+    private static void colorVertex(double x, double y, double z, Color color, int alpha, BufferBuilder bufferbuilder) {
+        bufferbuilder.pos(x - mc.getRenderManager().viewerPosX, y - mc.getRenderManager().viewerPosY, z - mc.getRenderManager().viewerPosZ).color(color.getRed(), color.getGreen(), color.getBlue(), alpha).endVertex();
     }
 }

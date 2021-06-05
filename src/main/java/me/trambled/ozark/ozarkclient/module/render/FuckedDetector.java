@@ -140,7 +140,7 @@ public class FuckedDetector extends Module {
                 RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
                         render_block.getX(), render_block.getY(), render_block.getZ(),
                         1, 1, 1,
-                        r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1),
+                        r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1),1,
                         "all"
                 );
                 RenderHelp.release();

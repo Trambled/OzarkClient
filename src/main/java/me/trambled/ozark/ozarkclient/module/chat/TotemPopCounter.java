@@ -28,7 +28,7 @@ public class TotemPopCounter extends Module {
     }
 
     Setting mode = create("Mode", "Mode", "Normal", combobox("Normal", "GayNigger"));
-
+    Setting stack = create("Stack", "Stack", false);
 
     public static final HashMap<String, Integer> totem_pop_counter = new HashMap<String, Integer>();
     
@@ -96,15 +96,15 @@ public class TotemPopCounter extends Module {
 
                 if (mode.in("GayNigger")) {
                     if (FriendUtil.isFriend(player.getName())) {
-                        MessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + green + player.getName() + reset + " has popped " + bold + count + reset + " totems. so dog water but idk there a homie");
+                        client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + green + player.getName() + reset + " has popped " + bold + count + reset + " totems. so dog water but idk there a homie");
                     } else {
-                        MessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + red + player.getName() + reset + " has popped " + bold + count + reset + " totems. Stupid fucking retard");
+                        client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + red + player.getName() + reset + " has popped " + bold + count + reset + " totems. Stupid fucking retard");
                     }
                 } else {
                     if (FriendUtil.isFriend(player.getName())) {
-                        MessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "" + bold + aqua + player.getName() + reset + " died after popping " + bold + count + reset + " totems.");
+                        client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "" + bold + aqua + player.getName() + reset + " died after popping " + bold + count + reset + " totems.");
                     } else {
-                        MessageUtil.send_client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "" + bold + red + player.getName() + reset + " died after popping " + bold + count + reset + " totems");
+                        client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "" + bold + red + player.getName() + reset + " died after popping " + bold + count + reset + " totems");
                     }
                 }
 
@@ -113,5 +113,13 @@ public class TotemPopCounter extends Module {
         }
 
 	}
+
+	public void client_message(String message) {
+        if (stack.get_value(true)) {
+            MessageUtil.send_client_message_simple(message);
+        } else {
+            MessageUtil.send_client_message(message);
+        }
+    }
 
 }

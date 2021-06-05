@@ -25,12 +25,16 @@ public class HoleESP extends Module {
 		this.description = "lets you know where holes are";
 	}
 
-	Setting glow_solid = create("Glow Solid", "HoleESPGlowSolid", false);
+	Setting glow_solid = create("Glow Solid", "HoleESPGlowSolid", true);
 	Setting glow_out = create("Glow Outline", "HoleESPGlowOutline", false);
-	Setting outline = create("Outline", "HoleESPOutline", true);
-	Setting solid = create("Solid", "HoleESPSolid", true);
+
+	Setting solid = create("Solid", "HoleESPSolid", false);
+	Setting outline = create("Outline", "HoleESPOutline", false);
+	Setting flat_outline = create("Flat Outline", "HoleESPFlatOutline", true);
 
 	Setting off_set = create("Height", "HoleESPOffSetSide", 0.2, -1.0, 5.0);
+	Setting off_set_glow = create("Glow Height", "HoleESPOffSetSideGlow", 0.2, -1.0, 5.0);
+
 	Setting range = create("Range", "HoleESPRange", 6, 1, 12);
 	Setting hide_own = create("Hide Own", "HoleESPHideOwn", true);
 	Setting dual_enable = create("Dual holes", "HoleESPDualHoles", true);
@@ -46,11 +50,9 @@ public class HoleESP extends Module {
 	Setting go = create("G", "HoleESPGo", 0, 0, 255);
 	Setting bo = create("B", "HoleESPBo", 0, 0, 255);
 	Setting ao = create("A", "HoleESPAo", 50, 0, 255);
-
 	
 	Setting line_a = create("Outline A", "HoleESPLineOutlineA", 255, 0, 255);
-	Setting glow_line_a = create("Glow Outline A", "HoleESPLineOutlineAGlow", 0, 0, 255);	
-	Setting glow_solid_a = create("Glow Solid A", "HoleESPSolidAGlow", 0, 0, 255);	        
+	Setting line_width = create("Outline Width", "HoleESPLineWidth", 1f, 0.1f, 5f);
 	Setting rainbow_ob = create("Rainbow Obsidian", "HoleESPRainbowOb", true);
 	Setting rainbow_bed = create("Rainbow Bedrock", "HoleESPRainbowBed", true);
 	Setting sat = create("Satiation", "HoleESPSatiation", 0.8, 0, 1);
@@ -286,7 +288,6 @@ public class HoleESP extends Module {
 	public void render(EventRender event) {
 		float off_set_h;
 		if (!holes.isEmpty() || !dual_holes.isEmpty()) {
-			off_set_h = (float) off_set.get_value(1.0);
 
 			for (PairUtil<BlockPos, Boolean> hole : holes) {
 				if (hole.getValue()) {
@@ -306,6 +307,8 @@ public class HoleESP extends Module {
 				}
 
 				if (solid.get_value(true)) {
+					off_set_h = (float) off_set.get_value(1.0);
+
 					RenderHelp.prepare("quads");
 					RenderHelp.draw_cube(RenderHelp.get_buffer_build(),
 							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
@@ -318,23 +321,38 @@ public class HoleESP extends Module {
 				}
 
 				if (outline.get_value(true)) {
+					off_set_h = (float) off_set.get_value(1.0);
+
 					RenderHelp.prepare("lines");
 					RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
 							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
 							1, off_set_h, 1,
-							color_r, color_g, color_b, line_a.get_value(1),
+							color_r, color_g, color_b, line_a.get_value(1), (float) line_width.get_value(1d),
 							"all"
 					);
 
 					RenderHelp.release();
 				}
 
+				if (flat_outline.get_value(true)) {
+					RenderHelp.prepare("lines");
+					RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
+							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
+							1, 1, 1,
+							color_r, color_g, color_b, line_a.get_value(1),  (float) line_width.get_value(1d),
+							"downwest-downeast-downnorth-downsouth"
+					);
+
+					RenderHelp.release();
+				}
+
 				if (glow_solid.get_value(true)) {
+					off_set_h = (float) off_set_glow.get_value(1.0);
 					RenderHelp.prepare("quads");
 					RenderHelp.draw_gradiant_cube(RenderHelp.get_buffer_build(),
 							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
 							1, off_set_h, 1,
-							new Color(color_r, color_g, color_b, color_a), new Color(0, 0, 0, glow_solid_a.get_value(1)),
+							new Color(color_r, color_g, color_b, color_a), new Color(0, 0, 0, 0),
 							"all"
 					);
 
@@ -342,11 +360,12 @@ public class HoleESP extends Module {
 				}
 
 				if (glow_out.get_value(true)) {
+					off_set_h = (float) off_set_glow.get_value(1.0);
 					RenderHelp.prepare("lines");
 					RenderHelp.draw_gradiant_outline(RenderHelp.get_buffer_build(), hole.getKey().getX(),
 							hole.getKey().getY(), hole.getKey().getZ(), off_set_h,
 							new Color(color_r, color_g, color_b, line_a.get_value(1)),
-							new Color(0, 0, 0, glow_line_a.get_value(1)), "all");
+							new Color(0, 0, 0, 0), "all");
 					RenderHelp.release();
 
 				}
@@ -373,6 +392,8 @@ public class HoleESP extends Module {
 				} else continue;
 
 				if (solid.get_value(true)) {
+					off_set_h = (float) off_set.get_value(1.0);
+
 					RenderHelp.prepare("quads");
 					RenderHelp.draw_cube(RenderHelp.get_buffer_build(),
 							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
@@ -384,19 +405,32 @@ public class HoleESP extends Module {
 				}
 
 				if (outline.get_value(true)) {
+					off_set_h = (float) off_set.get_value(1.0);
 					RenderHelp.prepare("lines");
 					RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
 							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
 							1, off_set_h, 1,
-							color_r, color_g, color_b, line_a.get_value(1),
+							color_r, color_g, color_b, line_a.get_value(1), (float) line_width.get_value(1d),
 							getDirectionsToRenderOutline(hole.getKey())
 					);
 
 					RenderHelp.release();
 				}
 
-				if (glow_solid.get_value(true)) {
+				if (flat_outline.get_value(true)) {
+					RenderHelp.prepare("lines");
+					RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
+							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
+							1, 1, 1,
+							color_r, color_g, color_b, line_a.get_value(1), (float) line_width.get_value(1d),
+							getDirectionsToRenderOutlineFlat(hole.getKey())
+					);
 
+					RenderHelp.release();
+				}
+
+				if (glow_solid.get_value(true)) {
+					off_set_h = (float) off_set_glow.get_value(1.0);
 					RenderHelp.prepare("quads");
 					RenderHelp.draw_gradiant_cube(RenderHelp.get_buffer_build(),
 							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
@@ -408,6 +442,7 @@ public class HoleESP extends Module {
 				}
 
 				if (glow_out.get_value(true)) {
+					off_set_h = (float) off_set_glow.get_value(1.0);
 					RenderHelp.prepare("lines");
 					RenderHelp.draw_gradiant_outline(RenderHelp.get_buffer_build(), hole.getKey().getX(),
 							hole.getKey().getY(), hole.getKey().getZ(), off_set_h,
@@ -432,6 +467,23 @@ public class HoleESP extends Module {
 				return "upnorth-downnorth-upeast-downeast-upwest-downwest-northeast-northwest";
 			case 4:
 				return "upnorth-downnorth-upeast-downeast-upsouth-downsouth-northeast-southeast";
+			default:
+				break;
+		}
+		return "all";
+	}
+
+	private String getDirectionsToRenderOutlineFlat(BlockPos hole) {
+		int sideNoToDraw = dual_hole_sides.get(hole);
+		switch (sideNoToDraw) {
+			case 1:
+				return "downeast-downsouth-downwest";
+			case 2:
+				return "downnorth-downsouth-downwest";
+			case 3:
+				return "downnorth-downeast-downwest";
+			case 4:
+				return "downnorth-downeast-downsouth";
 			default:
 				break;
 		}
@@ -512,7 +564,7 @@ public class HoleESP extends Module {
 
 	@Override
 	public void update_always() {
-		boolean render = glow_solid.get_value(true) || glow_out.get_value(true) || solid.get_value(true) || outline.get_value(true);
+		boolean render = glow_solid.get_value(true) || glow_out.get_value(true) || solid.get_value(true) || outline.get_value(true) || flat_outline.get_value(true);
 		rb.set_shown(bedrock_enable.get_value(true) && render);
 		gb.set_shown(bedrock_enable.get_value(true) && render);
 		bb.set_shown(bedrock_enable.get_value(true) && render);
@@ -521,8 +573,6 @@ public class HoleESP extends Module {
 		go.set_shown(obsidian_enable.get_value(true) && render);
 		bo.set_shown(obsidian_enable.get_value(true) && render);
 		ao.set_shown(obsidian_enable.get_value(true) && render);
-		glow_line_a.set_shown(glow_out.get_value(true));
-		glow_solid_a.set_shown(glow_solid.get_value(true));
 		line_a.set_shown(outline.get_value(true));
 		obsidian_enable.set_shown(render);
 		bedrock_enable.set_shown(render);
@@ -534,6 +584,8 @@ public class HoleESP extends Module {
 		hide_own.set_shown(render);
 		sat.set_shown((rainbow_bed.get_value(true) || rainbow_ob.get_value(true)) && render);
 		brightness.set_shown((rainbow_bed.get_value(true) || rainbow_ob.get_value(true)) && render);
-
+		line_width.set_shown(outline.get_value(true) || flat_outline.get_value(true));
+		off_set_glow.set_shown(glow_out.get_value(true) || glow_solid.get_value(true));
+		off_set.set_shown(outline.get_value(true) || solid.get_value(true));
 	}
 }

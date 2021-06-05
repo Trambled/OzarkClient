@@ -94,7 +94,7 @@ public class CityESP extends Module {
                 RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
                     pos.getX(), pos.getY(), pos.getZ(),
                     1, off_set_h, 1,
-                    r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1),
+                    r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1),1,
                     "all"
                 );
 

@@ -538,7 +538,7 @@ public class BedAura extends Module {
             RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
                     render_pos.getX(), render_pos.getY(), render_pos.getZ(),
                     1, .2f, 1,
-                    r.get_value(1), g.get_value(1), b.get_value(1), line_a.get_value(1),
+                    r.get_value(1), g.get_value(1), b.get_value(1), line_a.get_value(1), 1,
                     "all"
             );
             if (place_mode.in("New")) {
@@ -546,7 +546,7 @@ public class BedAura extends Module {
                     RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
                             render_pos.getX() - 1, render_pos.getY(), render_pos.getZ(),
                             1, .2f, 1,
-                            r.get_value(1), g.get_value(1), b.get_value(1), line_a.get_value(1),
+                            r.get_value(1), g.get_value(1), b.get_value(1), line_a.get_value(1), 1,
                             "all"
                     );
                 }
@@ -554,7 +554,7 @@ public class BedAura extends Module {
                     RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
                             render_pos.getX(), render_pos.getY(), render_pos.getZ() + 1,
                             1, .2f, 1,
-                            r.get_value(1), g.get_value(1), b.get_value(1), line_a.get_value(1),
+                            r.get_value(1), g.get_value(1), b.get_value(1), line_a.get_value(1),1,
                             "all"
                     );
                 }
@@ -562,7 +562,7 @@ public class BedAura extends Module {
                     RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
                             render_pos.getX() + 1, render_pos.getY(), render_pos.getZ(),
                             1, .2f, 1,
-                            r.get_value(1), g.get_value(1), b.get_value(1), line_a.get_value(1),
+                            r.get_value(1), g.get_value(1), b.get_value(1), line_a.get_value(1),1,
                             "all"
                     );
                 }
@@ -570,7 +570,7 @@ public class BedAura extends Module {
                     RenderHelp.draw_cube_line(RenderHelp.get_buffer_build(),
                             render_pos.getX(), render_pos.getY(), render_pos.getZ() - 1,
                             1, .2f, 1,
-                            r.get_value(1), g.get_value(1), b.get_value(1), line_a.get_value(1),
+                            r.get_value(1), g.get_value(1), b.get_value(1), line_a.get_value(1), 1,
                             "all"
                     );
                 }
