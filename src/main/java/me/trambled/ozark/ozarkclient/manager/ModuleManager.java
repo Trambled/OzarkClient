@@ -98,7 +98,7 @@ public class ModuleManager {
 		add_module(new AutoStackDupe());
 		add_module(new EntityDesync());
 		add_module(new Timer());
-		add_module(new Burrow());
+		add_module(new BurrowBypass());
 		add_module(new Freecam());
 		add_module(new EChestBP());
 		add_module(new Ghost());
