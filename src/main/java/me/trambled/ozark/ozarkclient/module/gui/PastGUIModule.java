@@ -35,6 +35,7 @@ public class PastGUIModule extends Module {
 	Setting descriptions = create("Descriptions", "PastGUIDescriptions", true);
 	Setting hover_change = create("Hover Change", "PastGUIHoverChange", true);
 	Setting pause_game = create("Pause Game", "PastGUIPauseGame", false);
+	Setting kambing = create("Kambingware Mode", "PastGUIKambing", false);
 
 	@Override
 	protected void enable() {
