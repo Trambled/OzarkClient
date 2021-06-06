@@ -14,11 +14,12 @@ public class NoVoid extends Module {
     
     public NoVoid() {
         super(Category.MOVEMENT);
-        this.height = this.create("Height", "Height", 0, 0, 256);
         this.name = "NoVoid";
         this.tag = "NoVoid";
         this.description = "avoids getting voided";
     }
+    
+    Setting Height = create("Height", "Height", 0, 0, 256);
     
     @Override
     public void update() {
