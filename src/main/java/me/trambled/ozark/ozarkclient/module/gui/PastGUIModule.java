@@ -28,6 +28,10 @@ public class PastGUIModule extends Module {
 	Setting green2 = create("ButtonGreen", "PastGUIG2", 0, 0, 255);
 	Setting blue2 = create("ButtonBlue", "PastGUIB2", 0, 0, 255);
 	Setting alpha2 = create("ButtonAlpha", "PastGUIA2", 132, 0, 255);
+	Setting red3 = create("FrameRed", "PastGUIR3", 140, 0, 255);
+	Setting green3 = create("FrameGreen", "PastGUIG3", 0, 0, 255);
+	Setting blue3 = create("FrameBlue", "PastGUIB3", 0, 0, 255);
+	Setting alpha3 = create("FrameAlpha", "PastGUIA3", 132, 0, 255);
 	Setting rainbow = create("Rainbow", "PastGUIRainbow", false);
 	Setting rainbow2 = create("ButtonRainbow", "PastGUIRainbow2", false);
 
@@ -69,7 +73,7 @@ public class PastGUIModule extends Module {
 		if (rainbow.get_value(true)) {
 			cycle_rainbow();
 		}
-		if (rainbow.get_value(true)) {
+		if (rainbow2.get_value(true)) {
 			cycle_rainbow2();
 		}
 	}
