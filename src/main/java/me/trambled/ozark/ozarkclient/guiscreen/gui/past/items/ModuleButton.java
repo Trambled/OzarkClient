@@ -101,8 +101,10 @@ public class ModuleButton extends Component {
 
         if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIKambing").get_value(true)) {
             FontUtil.drawText("...", parent.getX() + parent.getWidth() - 10, (parent.getY() + offset + 4), -1);
-        }else if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIKambing").get_value(false) && this.subcomponents.size() > 1) {
+        }else if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIKambing").get_value(false)) {
+            if(this.subcomponents.size() > 1) {
             FontUtil.drawText("...", parent.getX() + parent.getWidth() - 10, (parent.getY() + offset + 4), -1);
+        }
         }
         
 
