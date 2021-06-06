@@ -14,8 +14,8 @@ public class PastGUIModule extends Module {
 	public PastGUIModule() {
 		super(Category.GUI);
 
-		this.name        = "PastGUI";
-		this.tag         = "PastGUI";
+		this.name = "PastGUI";
+		this.tag = "PastGUI";
 		this.description = "CUSTOM Past Gui.";
 		set_bind(Ozark.KEY_GUI);
 	}
@@ -24,7 +24,12 @@ public class PastGUIModule extends Module {
 	Setting green = create("Green", "PastGUIG", 0, 0, 255);
 	Setting blue = create("Blue", "PastGUIB", 0, 0, 255);
 	Setting alpha = create("Alpha", "PastGUIA", 132, 0, 255);
+	Setting red2 = create("ButtonRed", "PastGUIR2", 140, 0, 255);
+	Setting green2 = create("ButtonGreen", "PastGUIG2", 0, 0, 255);
+	Setting blue2 = create("ButtonBlue", "PastGUIB2", 0, 0, 255);
+	Setting alpha2 = create("ButtonAlpha", "PastGUIA2", 132, 0, 255);
 	Setting rainbow = create("Rainbow", "PastGUIRainbow", false);
+	Setting rainbow2 = create("ButtonRainbow", "PastGUIRainbow2", false);
 
 	Setting font = create("Font", "PastGUIFont", "Lato", combobox("Lato", "Verdana", "Arial", "None"));
 	Setting scroll_speed = create("Scroll Speed", "PastGUIScrollSpeed", 10, 0, 20);
@@ -47,7 +52,8 @@ public class PastGUIModule extends Module {
 				if (blur.get_value(true)) {
 					mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
 				}
-			} catch (Exception ignored) {}
+			} catch (Exception ignored) {
+			}
 		}
 	}
 
@@ -63,6 +69,9 @@ public class PastGUIModule extends Module {
 		if (rainbow.get_value(true)) {
 			cycle_rainbow();
 		}
+		if (rainbow.get_value(true)) {
+			cycle_rainbow2();
+		}
 	}
 
 	public void cycle_rainbow() {
@@ -77,5 +86,18 @@ public class PastGUIModule extends Module {
 		green.set_value((color_rgb_o >> 8) & 0xFF);
 		blue.set_value(color_rgb_o & 0xFF);
 
+	}
+
+	public void cycle_rainbow2() {
+
+		float[] tick_color = {
+				(System.currentTimeMillis() % (360 * 32)) / (360f * 32)
+		};
+
+		int color_rgb_o = Color.HSBtoRGB(tick_color[0], 0.8f, 0.8f);
+
+		red2.set_value((color_rgb_o >> 16) & 0xFF);
+		green2.set_value((color_rgb_o >> 8) & 0xFF);
+		blue2.set_value(color_rgb_o & 0xFF);
 	}
 }
