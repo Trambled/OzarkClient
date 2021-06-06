@@ -10,7 +10,6 @@ import me.tranbled.ozark.ozarkclient.module.Module;
 // listedhack again, thx listed 
 
 public class NoVoid extends Module {
-    Setting height;
     
     public NoVoid() {
         super(Category.MOVEMENT);
