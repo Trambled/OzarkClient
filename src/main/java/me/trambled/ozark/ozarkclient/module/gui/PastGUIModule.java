@@ -20,20 +20,21 @@ public class PastGUIModule extends Module {
 		set_bind(Ozark.KEY_GUI);
 	}
 
-	Setting red = create("Red", "PastGUIR", 140, 0, 255);
+	Setting red = create("Red", "PastGUIR", 255, 0, 255);
 	Setting green = create("Green", "PastGUIG", 0, 0, 255);
 	Setting blue = create("Blue", "PastGUIB", 0, 0, 255);
-	Setting alpha = create("Alpha", "PastGUIA", 132, 0, 255);
-	Setting red2 = create("ButtonRed", "PastGUIR2", 140, 0, 255);
+	Setting alpha = create("Alpha", "PastGUIA", 255, 0, 255);
+	Setting red2 = create("ButtonRed", "PastGUIR2", 255, 0, 255);
 	Setting green2 = create("ButtonGreen", "PastGUIG2", 0, 0, 255);
 	Setting blue2 = create("ButtonBlue", "PastGUIB2", 0, 0, 255);
-	Setting alpha2 = create("ButtonAlpha", "PastGUIA2", 132, 0, 255);
-	Setting red3 = create("FrameRed", "PastGUIR3", 140, 0, 255);
-	Setting green3 = create("FrameGreen", "PastGUIG3", 0, 0, 255);
-	Setting blue3 = create("FrameBlue", "PastGUIB3", 0, 0, 255);
-	Setting alpha3 = create("FrameAlpha", "PastGUIA3", 132, 0, 255);
+	Setting alpha2 = create("ButtonAlpha", "PastGUIA2", 124, 0, 255);
+	Setting red3 = create("FrameRed", "PastGUIR3", 255, 0, 255);
+	Setting green3 = create("FrameGreen", "PastGUIG3", 255, 0, 255);
+	Setting blue3 = create("FrameBlue", "PastGUIB3", 255, 0, 255);
+	Setting alpha3 = create("FrameAlpha", "PastGUIA3", 73, 0, 255);
 	Setting rainbow = create("Rainbow", "PastGUIRainbow", false);
 	Setting rainbow2 = create("ButtonRainbow", "PastGUIRainbow2", false);
+	Setting rainbow3 = create("FrameRainbow", "PastGUIRainbow3", false);
 
 	Setting font = create("Font", "PastGUIFont", "Lato", combobox("Lato", "Verdana", "Arial", "None"));
 	Setting scroll_speed = create("Scroll Speed", "PastGUIScrollSpeed", 10, 0, 20);
@@ -44,7 +45,7 @@ public class PastGUIModule extends Module {
 	Setting descriptions = create("Descriptions", "PastGUIDescriptions", true);
 	Setting hover_change = create("Hover Change", "PastGUIHoverChange", true);
 	Setting pause_game = create("Pause Game", "PastGUIPauseGame", false);
-	Setting kambing = create("Kambingware Mode", "PastGUIKambing", false);
+	Setting kambing = create("Listed Gay Mode", "PastGUIKambing", false);
 
 	@Override
 	protected void enable() {
@@ -76,6 +77,9 @@ public class PastGUIModule extends Module {
 		if (rainbow2.get_value(true)) {
 			cycle_rainbow2();
 		}
+		if (rainbow3.get_value(true)) {
+			cycle_rainbow3();
+		}
 	}
 
 	public void cycle_rainbow() {
@@ -93,6 +97,19 @@ public class PastGUIModule extends Module {
 	}
 
 	public void cycle_rainbow2() {
+
+		float[] tick_color = {
+				(System.currentTimeMillis() % (360 * 32)) / (360f * 32)
+		};
+
+		int color_rgb_o = Color.HSBtoRGB(tick_color[0], 0.8f, 0.8f);
+
+		red2.set_value((color_rgb_o >> 16) & 0xFF);
+		green2.set_value((color_rgb_o >> 8) & 0xFF);
+		blue2.set_value(color_rgb_o & 0xFF);
+	}
+
+	public void cycle_rainbow3() {
 
 		float[] tick_color = {
 				(System.currentTimeMillis() % (360 * 32)) / (360f * 32)
