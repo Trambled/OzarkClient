@@ -15,14 +15,14 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.Cylinder;
+import net.minecraft.util.math.RayTraceResult.Type;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
+//author:Perry
 
-import java.awt.*;
-
-// zori i think
 public class Trajectories extends Module {
 
     public Trajectories() {
@@ -32,164 +32,172 @@ public class Trajectories extends Module {
         this.tag         = "Trajectories";
         this.description = "Shows where you are aiming.";
     }
-
-    Setting r = create("R", "TrajectoriesR", 0, 0, 255);
-    Setting g = create("G", "TrajectoriesG", 255, 0, 255);
-    Setting b = create("B", "TrajectoriesB", 0, 0, 255);
-    Setting a = create("A", "TrajectoriesA", 255, 0, 255);
-    Setting landing_r = create("Landing R", "TrajectoriesLandingR", 255, 0, 255);
-    Setting landing_g = create("Landing G", "TrajectoriesLandingG", 0, 0, 255);
-    Setting landing_b = create("Landing B", "TrajectoriesLandingB", 0, 0, 255);
-    Setting landing_a = create("Landing A", "TrajectoriesLandingA", 255, 0, 255);
+    Setting innerSize = create("Inner Size", "TrajectoriesInnersize", 1, - 5, 5);
+    Setting slices = create("Slices", "TrajectoriesSlices", 3, 2, 50);
+    Setting size = create("Size", "TrajectoriesSize", 1, - 5, 5);
 
     @Override
     public void render(EventRender event) {
         if (Trajectories.mc.world != null && Trajectories.mc.player != null && mc.getRenderManager() != null) {
-            final double renderPosX = Trajectories.mc.player.lastTickPosX + (Trajectories.mc.player.posX - Trajectories.mc.player.lastTickPosX) * event.get_partial_ticks();
-            final double renderPosY = Trajectories.mc.player.lastTickPosY + (Trajectories.mc.player.posY - Trajectories.mc.player.lastTickPosY) * event.get_partial_ticks();
-            final double renderPosZ = Trajectories.mc.player.lastTickPosZ + (Trajectories.mc.player.posZ - Trajectories.mc.player.lastTickPosZ) * event.get_partial_ticks();
-            Trajectories.mc.player.getHeldItem(EnumHand.MAIN_HAND);
-            if (Trajectories.mc.gameSettings.thirdPersonView == 0 && (Trajectories.mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemBow || Trajectories.mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemFishingRod || Trajectories.mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemEnderPearl || Trajectories.mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemEgg || Trajectories.mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemSnowball || Trajectories.mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemExpBottle)) {
-                GL11.glPushMatrix();
-                final Item item = Trajectories.mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem();
-                double posX = renderPosX - MathHelper.cos(Trajectories.mc.player.rotationYaw / 180.0f * 3.1415927f) * 0.16f;
-                double posY = renderPosY + Trajectories.mc.player.getEyeHeight() - 0.1000000014901161;
-                double posZ = renderPosZ - MathHelper.sin(Trajectories.mc.player.rotationYaw / 180.0f * 3.1415927f) * 0.16f;
-                double motionX = -MathHelper.sin(Trajectories.mc.player.rotationYaw / 180.0f * 3.1415927f) * MathHelper.cos(Trajectories.mc.player.rotationPitch / 180.0f * 3.1415927f) * ((item instanceof ItemBow) ? 1.0 : 0.4);
-                double motionY = -MathHelper.sin(Trajectories.mc.player.rotationPitch / 180.0f * 3.1415927f) * ((item instanceof ItemBow) ? 1.0 : 0.4);
-                double motionZ = MathHelper.cos(Trajectories.mc.player.rotationYaw / 180.0f * 3.1415927f) * MathHelper.cos(Trajectories.mc.player.rotationPitch / 180.0f * 3.1415927f) * ((item instanceof ItemBow) ? 1.0 : 0.4);
-                final int var6 = 72000 - Trajectories.mc.player.getItemInUseCount();
-                float power = var6 / 20.0f;
-                power = (power * power + power * 2.0f) / 3.0f;
-                if (power > 1.0f) {
-                    power = 1.0f;
+            mc.getRenderManager ( );
+            double var2 = mc.player.lastTickPosX + ( mc.player.posX - mc.player.lastTickPosX ) * (double) event.get_partial_ticks ( );
+            double var4 = mc.player.lastTickPosY + ( mc.player.posY - mc.player.lastTickPosY ) * (double) event.get_partial_ticks ( );
+            double var6 = mc.player.lastTickPosZ + ( mc.player.posZ - mc.player.lastTickPosZ ) * (double) event.get_partial_ticks ( );
+            mc.player.getHeldItem ( EnumHand.MAIN_HAND );
+            if ( mc.gameSettings.thirdPersonView == 0 && ( mc.player.getHeldItem ( EnumHand.MAIN_HAND ).getItem ( ) instanceof ItemBow || mc.player.getHeldItem ( EnumHand.MAIN_HAND ).getItem ( ) instanceof ItemFishingRod || mc.player.getHeldItem ( EnumHand.MAIN_HAND ).getItem ( ) instanceof ItemEnderPearl || mc.player.getHeldItem ( EnumHand.MAIN_HAND ).getItem ( ) instanceof ItemEgg || mc.player.getHeldItem ( EnumHand.MAIN_HAND ).getItem ( ) instanceof ItemSnowball || mc.player.getHeldItem ( EnumHand.MAIN_HAND ).getItem ( ) instanceof ItemExpBottle ) ) {
+                GL11.glPushMatrix ( );
+                Item var8 = mc.player.getHeldItem ( EnumHand.MAIN_HAND ).getItem ( );
+                double var9 = var2 - (double) ( MathHelper.cos ( mc.player.rotationYaw / 180.0F * 3.1415927F ) * 0.16F );
+                double var11 = var4 + (double) mc.player.getEyeHeight ( ) - 0.1000000014901161D;
+                double var13 = var6 - (double) ( MathHelper.sin ( mc.player.rotationYaw / 180.0F * 3.1415927F ) * 0.16F );
+                double var15 = (double) ( - MathHelper.sin ( mc.player.rotationYaw / 180.0F * 3.1415927F ) * MathHelper.cos ( mc.player.rotationPitch / 180.0F * 3.1415927F ) ) * ( var8 instanceof ItemBow ? 1.0D : 0.4D );
+                double var17 = (double) ( - MathHelper.sin ( mc.player.rotationPitch / 180.0F * 3.1415927F ) ) * ( var8 instanceof ItemBow ? 1.0D : 0.4D );
+                double var19 = (double) ( MathHelper.cos ( mc.player.rotationYaw / 180.0F * 3.1415927F ) * MathHelper.cos ( mc.player.rotationPitch / 180.0F * 3.1415927F ) ) * ( var8 instanceof ItemBow ? 1.0D : 0.4D );
+                int var21 = 72000 - mc.player.getItemInUseCount ( );
+                float var22 = (float) var21 / 20.0F;
+                var22 = ( var22 * var22 + var22 * 2.0F ) / 3.0F;
+                if ( var22 > 1.0F ) {
+                    var22 = 1.0F;
                 }
-                final float distance = MathHelper.sqrt(motionX * motionX + motionY * motionY + motionZ * motionZ);
-                motionX /= distance;
-                motionY /= distance;
-                motionZ /= distance;
-                final float pow = (item instanceof ItemBow) ? (power * 2.0f) : ((item instanceof ItemFishingRod) ? 1.25f : ((Trajectories.mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() == Items.EXPERIENCE_BOTTLE) ? 0.9f : 1.0f));
-                motionX *= pow * ((item instanceof ItemFishingRod) ? 0.75f : ((Trajectories.mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() == Items.EXPERIENCE_BOTTLE) ? 0.75f : 1.5f));
-                motionY *= pow * ((item instanceof ItemFishingRod) ? 0.75f : ((Trajectories.mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() == Items.EXPERIENCE_BOTTLE) ? 0.75f : 1.5f));
-                motionZ *= pow * ((item instanceof ItemFishingRod) ? 0.75f : ((Trajectories.mc.player.getHeldItem(EnumHand.MAIN_HAND).getItem() == Items.EXPERIENCE_BOTTLE) ? 0.75f : 1.5f));
-                this.enableGL3D(2.0f);
-                GlStateManager.color((float) r.get_value(1) / 0xFF, (float) g.get_value(1) / 0xFF, (float) b.get_value(1) / 0xFF, (float) a.get_value(1) / 0xFF);
-                GL11.glEnable(2848);
-                final float size = (float) ((item instanceof ItemBow) ? 0.3 : 0.25);
-                boolean hasLanded = false;
-                Entity landingOnEntity = null;
-                RayTraceResult landingPosition = null;
-                while (!hasLanded && posY > 0.0) {
-                    final Vec3d present = new Vec3d(posX, posY, posZ);
-                    final Vec3d future = new Vec3d(posX + motionX, posY + motionY, posZ + motionZ);
-                    final RayTraceResult possibleLandingStrip = Trajectories.mc.world.rayTraceBlocks(present, future, false, true, false);
-                    if (possibleLandingStrip != null && possibleLandingStrip.typeOfHit != RayTraceResult.Type.MISS) {
-                        landingPosition = possibleLandingStrip;
-                        hasLanded = true;
+
+                float var23 = MathHelper.sqrt ( var15 * var15 + var17 * var17 + var19 * var19 );
+                var15 /= var23;
+                var17 /= var23;
+                var19 /= var23;
+                float var24 = var8 instanceof ItemBow ? var22 * 2.0F : ( var8 instanceof ItemFishingRod ? 1.25F : ( mc.player.getHeldItem ( EnumHand.MAIN_HAND ).getItem ( ) == Items.EXPERIENCE_BOTTLE ? 0.9F : 1.0F ) );
+                var15 *= var24 * ( var8 instanceof ItemFishingRod ? 0.75F : ( mc.player.getHeldItem ( EnumHand.MAIN_HAND ).getItem ( ) == Items.EXPERIENCE_BOTTLE ? 0.75F : 1.5F ) );
+                var17 *= var24 * ( var8 instanceof ItemFishingRod ? 0.75F : ( mc.player.getHeldItem ( EnumHand.MAIN_HAND ).getItem ( ) == Items.EXPERIENCE_BOTTLE ? 0.75F : 1.5F ) );
+                var19 *= var24 * ( var8 instanceof ItemFishingRod ? 0.75F : ( mc.player.getHeldItem ( EnumHand.MAIN_HAND ).getItem ( ) == Items.EXPERIENCE_BOTTLE ? 0.75F : 1.5F ) );
+                this.enableGL3D ( 2.0F );
+                GlStateManager.color ( 0.0F , 1.0F , 0.0F , 1.0F );
+                GL11.glEnable ( 2848 );
+                float var25 = (float) ( var8 instanceof ItemBow ? 0.3D : 0.25D );
+                boolean var26 = false;
+                Entity var27 = null;
+                RayTraceResult var28 = null;
+
+                while ( ! var26 && var11 > 0.0D ) {
+                    Vec3d var29 = new Vec3d ( var9 , var11 , var13 );
+                    Vec3d var30 = new Vec3d ( var9 + var15 , var11 + var17 , var13 + var19 );
+                    RayTraceResult var31 = mc.world.rayTraceBlocks ( var29 , var30 , false , true , false );
+                    if ( var31 != null && var31.typeOfHit != Type.MISS ) {
+                        var28 = var31;
+                        var26 = true;
                     }
-                    final AxisAlignedBB arrowBox = new AxisAlignedBB(posX - size, posY - size, posZ - size, posX + size, posY + size, posZ + size);
-                    final List entities = this.getEntitiesWithinAABB(arrowBox.offset(motionX, motionY, motionZ).expand(1.0, 1.0, 1.0));
-                    for (final Object entity : entities) {
-                        final Entity boundingBox = (Entity) entity;
-                        if (boundingBox.canBeCollidedWith() && boundingBox != Trajectories.mc.player) {
-                            final float var8 = 0.3f;
-                            final AxisAlignedBB var9 = boundingBox.getEntityBoundingBox().expand(var8, var8, var8);
-                            final RayTraceResult possibleEntityLanding = var9.calculateIntercept(present, future);
-                            if (possibleEntityLanding == null) {
-                                continue;
+
+                    AxisAlignedBB var32 = new AxisAlignedBB ( var9 - (double) var25 , var11 - (double) var25 , var13 - (double) var25 , var9 + (double) var25 , var11 + (double) var25 , var13 + (double) var25 );
+                    List < Entity > var33 = this.getEntitiesWithinAABB ( var32.offset ( var15 , var17 , var19 ).expand ( 1.0D , 1.0D , 1.0D ) );
+
+                    for (Entity var35 : var33) {
+                        if ( var35.canBeCollidedWith ( ) && var35 != mc.player ) {
+                            AxisAlignedBB var38 = var35.getEntityBoundingBox ( ).expand ( 0.30000001192092896D , 0.30000001192092896D , 0.30000001192092896D );
+                            RayTraceResult var39 = var38.calculateIntercept ( var29 , var30 );
+                            if ( var39 != null ) {
+                                var26 = true;
+                                var27 = var35;
+                                var28 = var39;
                             }
-                            hasLanded = true;
-                            landingOnEntity = boundingBox;
-                            landingPosition = possibleEntityLanding;
                         }
                     }
-                    if (landingOnEntity != null) {
-                        GlStateManager.color((float) landing_r.get_value(1) / 0xFF, (float) landing_g.get_value(1) / 0xFF, (float) landing_b.get_value(1) / 0xFF, (float) landing_a.get_value(1) / 0xFF);
+
+                    if ( var27 != null ) {
+                        GlStateManager.color ( 1.0F , 0.0F , 0.0F , 255.0F );
                     }
-                    posX += motionX;
-                    posY += motionY;
-                    posZ += motionZ;
-                    final float motionAdjustment = 0.99f;
-                    motionX *= motionAdjustment;
-                    motionY *= motionAdjustment;
-                    motionZ *= motionAdjustment;
-                    motionY -= ((item instanceof ItemBow) ? 0.05 : 0.03);
-                    this.drawLine3D(posX - renderPosX, posY - renderPosY, posZ - renderPosZ);
+
+                    var9 += var15;
+                    var11 += var17;
+                    var13 += var19;
+                    var15 *= 0.9900000095367432D;
+                    var17 *= 0.9900000095367432D;
+                    var19 *= 0.9900000095367432D;
+                    var17 -= var8 instanceof ItemBow ? 0.05D : 0.03D;
+                    this.drawLine3D ( var9 - var2 , var11 - var4 , var13 - var6 );
                 }
-                if (landingPosition != null && landingPosition.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    GlStateManager.translate(posX - renderPosX, posY - renderPosY, posZ - renderPosZ);
-                    final int side = landingPosition.sideHit.getIndex();
-                    if (side == 2) {
-                        GlStateManager.rotate(90.0f, 1.0f, 0.0f, 0.0f);
-                    } else if (side == 3) {
-                        GlStateManager.rotate(90.0f, 1.0f, 0.0f, 0.0f);
-                    } else if (side == 4) {
-                        GlStateManager.rotate(90.0f, 0.0f, 0.0f, 1.0f);
-                    } else if (side == 5) {
-                        GlStateManager.rotate(90.0f, 0.0f, 0.0f, 1.0f);
+
+                if ( var28 != null && var28.typeOfHit == Type.BLOCK ) {
+                    GlStateManager.translate ( var9 - var2 , var11 - var4 , var13 - var6 );
+                    int var40 = var28.sideHit.getIndex ( );
+                    if ( var40 == 2 ) {
+                        GlStateManager.rotate ( 90.0F , 1.0F , 0.0F , 0.0F );
+                    } else if ( var40 == 3 ) {
+                        GlStateManager.rotate ( 90.0F , 1.0F , 0.0F , 0.0F );
+                    } else if ( var40 == 4 ) {
+                        GlStateManager.rotate ( 90.0F , 0.0F , 0.0F , 1.0F );
+                    } else if ( var40 == 5 ) {
+                        GlStateManager.rotate ( 90.0F , 0.0F , 0.0F , 1.0F );
                     }
-                    final Cylinder c = new Cylinder();
-                    GlStateManager.rotate(-90.0f, 1.0f, 0.0f, 0.0f);
-                    c.setDrawStyle(100011);
-                    if (landingOnEntity != null) {
-                        GlStateManager.color(0.0f, 0.0f, 0.0f, 1.0f);
-                        GL11.glLineWidth(2.5f);
-                        c.draw(0.6f, 0.3f, 0.0f, 4, 1);
-                        GL11.glLineWidth(0.1f);
-                        GlStateManager.color((float) landing_r.get_value(1) / 0xFF, (float) landing_g.get_value(1) / 0xFF, (float) landing_b.get_value(1) / 0xFF, (float) landing_a.get_value(1) / 0xFF);
+
+                    Cylinder var41 = new Cylinder ( );
+                    GlStateManager.rotate ( - 90.0F , 1.0F , 0.0F , 0.0F );
+                    var41.setDrawStyle ( 100011 );
+                    if ( var27 != null ) {
+                        GlStateManager.color ( 1.0F , 0.0F , 0.0F , 1.0F );
+                        GL11.glLineWidth ( 2.5F );
+                        var41.draw ( 0.5F , 0.5F , 0.0F , (Integer) this.slices.get_value (1 ) , 1 );
+                        GL11.glLineWidth ( 0.1F );
+                        GlStateManager.color ( 1.0F , 0.0F , 0.0F , 1.0F );
                     }
-                    c.draw(0.6f, 0.3f, 0.0f, 4, 1);
+
+                    var41.draw ( (float) (Integer) this.size.get_value ( 1) , (float) (Integer) this.innerSize.get_value (1 ) , 0.0F , (Integer) this.slices.get_value ( 1) , 1 );
                 }
-                this.disableGL3D();
-                GL11.glPopMatrix();
+
+                this.disableGL3D ( );
+                GL11.glPopMatrix ( );
             }
         }
+
     }
 
-    public void enableGL3D(final float lineWidth) {
-        GL11.glDisable(3008);
-        GL11.glEnable(3042);
-        GL11.glBlendFunc(770, 771);
-        GL11.glDisable(3553);
-        GL11.glDisable(2929);
-        GL11.glDepthMask(false);
-        GL11.glEnable(2884);
-        Trajectories.mc.entityRenderer.disableLightmap();
-        GL11.glEnable(2848);
-        GL11.glHint(3154, 4354);
-        GL11.glHint(3155, 4354);
-        GL11.glLineWidth(lineWidth);
+    public
+    void drawLine3D ( double var1 , double var3 , double var5 ) {
+        GL11.glVertex3d ( var1 , var3 , var5 );
     }
 
-    public void disableGL3D() {
-        GL11.glEnable(3553);
-        GL11.glEnable(2929);
-        GL11.glDisable(3042);
-        GL11.glEnable(3008);
-        GL11.glDepthMask(true);
-        GL11.glCullFace(1029);
-        GL11.glDisable(2848);
-        GL11.glHint(3154, 4352);
-        GL11.glHint(3155, 4352);
+    public
+    void enableGL3D ( float var1 ) {
+        GL11.glDisable ( 3008 );
+        GL11.glEnable ( 3042 );
+        GL11.glBlendFunc ( 770 , 771 );
+        GL11.glDisable ( 3553 );
+        GL11.glDisable ( 2929 );
+        GL11.glDepthMask ( false );
+        GL11.glEnable ( 2884 );
+        mc.entityRenderer.disableLightmap ( );
+        GL11.glEnable ( 2848 );
+        GL11.glHint ( 3154 , 4354 );
+        GL11.glHint ( 3155 , 4354 );
+        GL11.glLineWidth ( var1 );
     }
 
-    public void drawLine3D(final double var1, final double var2, final double var3) {
-        GL11.glVertex3d(var1, var2, var3);
+    public
+    void disableGL3D ( ) {
+        GL11.glEnable ( 3553 );
+        GL11.glEnable ( 2929 );
+        GL11.glDisable ( 3042 );
+        GL11.glEnable ( 3008 );
+        GL11.glDepthMask ( true );
+        GL11.glCullFace ( 1029 );
+        GL11.glDisable ( 2848 );
+        GL11.glHint ( 3154 , 4352 );
+        GL11.glHint ( 3155 , 4352 );
     }
 
-    private List getEntitiesWithinAABB(final AxisAlignedBB bb) {
-        final ArrayList list = new ArrayList();
-        final int chunkMinX = MathHelper.floor((bb.minX - 2.0) / 16.0);
-        final int chunkMaxX = MathHelper.floor((bb.maxX + 2.0) / 16.0);
-        final int chunkMinZ = MathHelper.floor((bb.minZ - 2.0) / 16.0);
-        final int chunkMaxZ = MathHelper.floor((bb.maxZ + 2.0) / 16.0);
-        for (int x = chunkMinX; x <= chunkMaxX; ++x) {
-            for (int z = chunkMinZ; z <= chunkMaxZ; ++z) {
-                if (Trajectories.mc.world.getChunkProvider().getLoadedChunk(x, z) != null) {
-                    Trajectories.mc.world.getChunk(x, z).getEntitiesWithinAABBForEntity(Trajectories.mc.player, bb, list, null);
+    private
+    List < Entity > getEntitiesWithinAABB ( AxisAlignedBB var1 ) {
+        ArrayList < Entity > var2 = new ArrayList <> ( );
+        int var3 = MathHelper.floor ( ( var1.minX - 2.0D ) / 16.0D );
+        int var4 = MathHelper.floor ( ( var1.maxX + 2.0D ) / 16.0D );
+        int var5 = MathHelper.floor ( ( var1.minZ - 2.0D ) / 16.0D );
+        int var6 = MathHelper.floor ( ( var1.maxZ + 2.0D ) / 16.0D );
+
+        for (int var7 = var3; var7 <= var4; ++ var7) {
+            for (int var8 = var5; var8 <= var6; ++ var8) {
+                if ( mc.world.getChunkProvider ( ).getLoadedChunk ( var7 , var8 ) != null ) {
+                    mc.world.getChunk ( var7 , var8 ).getEntitiesWithinAABBForEntity ( mc.player , var1 , var2 , null );
                 }
             }
         }
-        return list;
+
+        return var2;
     }
 }
