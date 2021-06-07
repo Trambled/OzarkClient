@@ -14,9 +14,9 @@ public class PastGUIModule extends Module {
 	public PastGUIModule() {
 		super(Category.GUI);
 
-		this.name = "PastGUI";
+		this.name = "OzarkGUI";
 		this.tag = "PastGUI";
-		this.description = "CUSTOM Past Gui.";
+		this.description = "CUSTOM Ozark Gui.";
 		set_bind(Ozark.KEY_GUI);
 	}
 
@@ -117,8 +117,8 @@ public class PastGUIModule extends Module {
 
 		int color_rgb_o = Color.HSBtoRGB(tick_color[0], 0.8f, 0.8f);
 
-		red2.set_value((color_rgb_o >> 16) & 0xFF);
-		green2.set_value((color_rgb_o >> 8) & 0xFF);
-		blue2.set_value(color_rgb_o & 0xFF);
+		red3.set_value((color_rgb_o >> 16) & 0xFF);
+		green3.set_value((color_rgb_o >> 8) & 0xFF);
+		blue3.set_value(color_rgb_o & 0xFF);
 	}
 }
