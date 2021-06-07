@@ -85,7 +85,7 @@ public class ModuleButton extends Component {
             GuiUtil.draw_rect(parent.getX() + parent.getWidth(), parent.getY() + offset, parent.getX() + parent.getWidth() + 1, parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA2").get_value(1));
             GuiUtil.draw_rect(parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA2").get_value(1));
         } else {
-
+           
             GuiUtil.draw_rect(parent.getX() - 1, parent.getY() + offset, parent.getX() + parent.getWidth() + 1, parent.getY() + 15 + offset + 1, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA3").get_value(1));
             GuiUtil.draw_rect(parent.getX() - 1, parent.getY() + offset, parent.getX(), parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA3").get_value(1));
             GuiUtil.draw_rect(parent.getX() + parent.getWidth(), parent.getY() + offset, parent.getX() + parent.getWidth() + 1, parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA3").get_value(1));
@@ -98,11 +98,15 @@ public class ModuleButton extends Component {
         } else {
             FontUtil.drawText(this.mod.get_name(), parent.getX() + 4, parent.getY() + offset + 4, -1);
         }
+
         if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIKambing").get_value(true)) {
             FontUtil.drawText("...", parent.getX() + parent.getWidth() - 10, (parent.getY() + offset + 4), -1);
-        }else if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIKambing").get_value(false) && this.subcomponents.size() > 1) {
+        }else if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIKambing").get_value(false)) {
+            if(this.subcomponents.size() > 1) {
+            FontUtil.drawText("...", parent.getX() + parent.getWidth() - 10, (parent.getY() + offset + 4), -1);
         }
-
+        }
+        
 
         if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIDescriptions").get_value(true) && hovered) {
             FontUtil.drawText(mod.get_description(), 2, (new ScaledResolution(mc).getScaledHeight() - FontUtil.getFontHeight() - 2), -1);
