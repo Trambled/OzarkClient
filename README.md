@@ -2,7 +2,7 @@
 
 ![logo](https://github.com/Trambled/OzarkClient/blob/master/src/main/resources/ozark%20horizontal.png)
   
-  Click the logo to join our discord!
+  https://www.ozarkclient.ga/
     
 
 ## Contributing/build (only for pro coders)
