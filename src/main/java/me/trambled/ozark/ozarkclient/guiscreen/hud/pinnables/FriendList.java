@@ -23,7 +23,7 @@ public class FriendList extends Pinnable {
         int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
         int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorA").get_value(1);
 
-        String line1 = bold + "the_fellas: ";
+        String line1 = bold + "the trollas:";
         
         passes = 0;
 
