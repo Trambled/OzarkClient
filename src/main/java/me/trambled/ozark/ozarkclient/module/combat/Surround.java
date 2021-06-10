@@ -34,6 +34,7 @@ public class Surround extends Module {
 	Setting tick_for_place = create("Blocks per tick","SurroundTickToPlace", 8, 1, 8);
 	Setting tick_timeout = create("Ticks til timeout","SurroundTicks", 40, 10,50);
 	Setting swing = create("Swing", "SurroundSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
+	Setting ghost_mode = create("Ghost Switch", "GhostSwitch", true);
 
 
 	private int y_level = 0;
@@ -167,7 +168,7 @@ public class Surround extends Module {
 					break;
 				}
 
-				if (try_to_place && BlockUtil.placeBlock(targetPos, find_in_hotbar(), rotate.get_value(true), rotate.get_value(true), swing)) {
+				if (try_to_place && BlockUtil.placeBlock(targetPos, find_in_hotbar(), rotate.get_value(true), rotate.get_value(true), swing, ghost_mode.get_value(true))) {
 					blocks_placed++;
 				}
 

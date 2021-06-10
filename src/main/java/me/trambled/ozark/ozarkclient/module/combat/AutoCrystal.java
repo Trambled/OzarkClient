@@ -33,6 +33,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
+
 // credit to:
 // travis for the original w+2 base and for the idea of packet block place
 // momentum/linus for momentum calcs, sync options, heuristics, rotations, and the concept of inhibit mode
@@ -54,15 +56,16 @@ public class AutoCrystal extends Module {
     Setting place_crystal = create("Place", "CaPlace", true);
     Setting break_crystal = create("Break", "CaBreak", true);
     Setting anti_weakness = create("Anti-Weakness", "CaAntiWeakness", true);
+
     Setting alternative = create("Alternative", "CaAlternative", false);
     Setting module_check = create("Module Check", "CaModuleCheck", true);
     Setting break_predict = create("Break Predict", "CaBreakPredict", true);
     Setting place_predict = create("Place Predict", "CaPlacePredict", false);
     Setting sound_predict = create("Sound Predict", "CaSoundPredict", true);
     Setting city_predict = create("City Predict", "CaCityPredict", true);
-
     Setting motion_predict = create("Motion Predict", "CaMotionPredict", true);
     Setting verify_place = create("Verify Place", "CaVerifyPlace", false);
+    Setting fast_tick = create("Fast Tick", "CaFastTick", false);
 
     Setting inhibit = create("Inhibit", "CaInhibit", true);
     Setting inhibit_delay = create("Inhibit Delay", "CaInhibitDelay", 0, 0, 10);
@@ -94,6 +97,7 @@ public class AutoCrystal extends Module {
     Setting target_mode = create("Target Mode", "CaTargetMode", "Health", combobox("Health", "Closest"));
     Setting raytrace = create("Raytrace", "CaRaytrace", false);
     Setting switch_mode = create("Switch Mode", "CaSwitchMode", "Normal", combobox("Normal", "Ghost", "None"));
+    Setting switch_back = create("Switch Back", "CaSwitchback", true);
     Setting anti_suicide = create("Anti Suicide", "CaAntiSuicide", true);
     Setting fast_mode = create("Fast Mode", "CaFastMode", true);
     Setting fast_place = create("Fast Place", "CaFastPlace", true);
@@ -170,6 +174,7 @@ public class AutoCrystal extends Module {
     private String detail_name = null;
     private int detail_hp = 0;
 
+    private int old_slot = -1;
     private BlockPos render_block_init;
     private BlockPos render_block_old;
 
@@ -193,7 +198,16 @@ public class AutoCrystal extends Module {
 
     @Override
     public void update() {
-        do_ca();
+        if (!rotate_mode.in("Packet") && !fast_tick.get_value(true)) {
+            do_ca();
+        }
+    }
+
+    @Override
+    public void fast_update() {
+        if (!rotate_mode.in("Packet") && fast_tick.get_value(true)) {
+            do_ca();
+        }
     }
 
     public void do_ca() {
@@ -287,12 +301,13 @@ public class AutoCrystal extends Module {
         if (mc.player.getHeldItemOffhand().getItem() != Items.END_CRYSTAL) {
             if (mc.player.getHeldItemMainhand().getItem() != Items.END_CRYSTAL && !switch_mode.in("None")) {
                 if (switch_bind.get_bind("").equalsIgnoreCase("None") || do_switch_bind) {
+                    old_slot = mc.player.inventory.currentItem;
                     if (switch_mode.in("Normal")) {
                         mc.player.inventory.currentItem = find_crystals_hotbar();
+                        return;
                     } else {
                         mc.player.connection.sendPacket(new CPacketHeldItemChange(find_crystals_hotbar()));
                     }
-                    return;
                 }
             }
         } else {
@@ -316,6 +331,11 @@ public class AutoCrystal extends Module {
             mc.world.addEntityToWorld(-101, crystal);
             crystal.setInvisible(true);
             fake_crystals.add(crystal);
+        }
+
+        if ((switch_mode.in("Ghost") || switch_back.get_value(true)) && !switch_mode.in("None")) {
+            mc.player.inventory.currentItem = old_slot;
+            mc.player.connection.sendPacket(new CPacketHeldItemChange(old_slot));
         }
     }
 
@@ -360,8 +380,10 @@ public class AutoCrystal extends Module {
 
                 }
 
+
                 if (new_slot != -1) {
                     mc.player.inventory.currentItem = new_slot;
+
                 }
 
             }
@@ -399,12 +421,13 @@ public class AutoCrystal extends Module {
     public void do_fake_crystal() {
         if (mc.player.getHeldItemOffhand().getItem() != Items.END_CRYSTAL) {
             if (mc.player.getHeldItemMainhand().getItem() != Items.END_CRYSTAL && !switch_mode.in("None")) {
+                old_slot = mc.player.inventory.currentItem;
                 if (switch_mode.in("Normal")) {
                     mc.player.inventory.currentItem = find_crystals_hotbar();
+                    return;
                 } else {
                     mc.player.connection.sendPacket(new CPacketHeldItemChange(find_crystals_hotbar()));
                 }
-                return;
             }
         }
         BlockPos block = get_best_block();
@@ -423,6 +446,11 @@ public class AutoCrystal extends Module {
         } else if (mc.player.getHeldItemMainhand().getItem() == Items.END_CRYSTAL) {
             mc.player.getHeldItemMainhand().setCount(mc.player.getHeldItemMainhand().getCount() - 1);
             BlockUtil.swingArm(swing);
+        }
+        if ((switch_mode.in("Ghost") || switch_back.get_value(true)) && !switch_mode.in("None")) {
+            mc.player.inventory.currentItem = old_slot;
+            mc.player.connection.sendPacket(new CPacketHeldItemChange(old_slot));
+
         }
     }
 
@@ -797,12 +825,12 @@ public class AutoCrystal extends Module {
         return closestTarget;
     }
 
-    public void handle_rotations(boolean target, BlockPos pos, EntityEnderCrystal crystal) {
-        if (target && crystal == null) return;
-        if (!target && pos == null) return;
+    public void handle_rotations(boolean breaking_crystal, BlockPos pos, EntityEnderCrystal crystal) {
+        if (breaking_crystal && crystal == null) return;
+        if (!breaking_crystal && pos == null) return;
         if (rotate_mode.in("Off")) return;
         if (debug.get_value(true)) {
-            if (target) {
+            if (breaking_crystal) {
                 MessageUtil.send_client_message("Rotating to crystal");
             } else {
                 MessageUtil.send_client_message("Rotating to block");
@@ -812,7 +840,7 @@ public class AutoCrystal extends Module {
         if (ca_target != null) {
             float yaw;
             float pitch;
-            if (target) {
+            if (breaking_crystal) {
                 yaw = RotationUtil.getAngles(crystal)[0];
                 pitch = RotationUtil.getAngles(crystal)[1];
             } else {
@@ -955,9 +983,13 @@ public class AutoCrystal extends Module {
                 if (debug.get_value(true)) {
                     MessageUtil.send_client_message("break predicting");
                 }
+                BlockPos pos = new BlockPos(packet.getX(), packet.getY(), packet.getZ());
                 CPacketUseEntity predict = new CPacketUseEntity();
                 predict.entityId = packet.getEntityID();
                 predict.action = CPacketUseEntity.Action.ATTACK;
+                if (rotate_during.in("Break") || rotate_during.in("Both")) {
+                    handle_rotations(false, pos, null);
+                }
                 AutoCrystal.mc.player.connection.sendPacket(predict);
             }
         }
@@ -980,12 +1012,13 @@ public class AutoCrystal extends Module {
                     if (mc.player.getHeldItemOffhand().getItem() != Items.END_CRYSTAL) {
                         if (mc.player.getHeldItemMainhand().getItem() != Items.END_CRYSTAL && !switch_mode.in("None") && !place_crystal.get_value(true)) {
                             if (switch_bind.get_bind("").equalsIgnoreCase("None") || do_switch_bind) {
+                                old_slot = mc.player.inventory.currentItem;
                                 if (switch_mode.in("Normal")) {
                                     mc.player.inventory.currentItem = find_crystals_hotbar();
+                                    return;
                                 } else {
                                     mc.player.connection.sendPacket(new CPacketHeldItemChange(find_crystals_hotbar()));
                                 }
-                                return;
                             }
                         }
                     } else {
@@ -994,7 +1027,14 @@ public class AutoCrystal extends Module {
                     if (debug.get_value(true)) {
                         MessageUtil.send_client_message("Place predicting");
                     }
+                    if (rotate_during.in("Both") || rotate_during.in("Place")) {
+                        handle_rotations(false, predicted_crystal.getPosition().down(), null);
+                    }
                     BlockUtil.placeCrystalOnBlock(predicted_crystal.getPosition().down(), offhand_check ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, packet_place.get_value(true));
+                    if ((switch_mode.in("Ghost") || switch_back.get_value(true)) && !switch_mode.in("None")) {
+                        mc.player.inventory.currentItem = old_slot;
+                        mc.player.connection.sendPacket(new CPacketHeldItemChange(old_slot));
+                    }
                 }
             }
         }
@@ -1002,6 +1042,13 @@ public class AutoCrystal extends Module {
             final CPacketPlayer p = (CPacketPlayer) event.get_packet();
             yaw = p.yaw;
             pitch = p.pitch;
+        }
+    });
+
+    @EventHandler
+    private final Listener<EventRotation> motion_update = new Listener<>(event -> {
+        if (rotate_mode.in("Packet")) {
+            do_ca();
         }
     });
 
@@ -1016,11 +1063,11 @@ public class AutoCrystal extends Module {
     }
 
     private boolean is_predicting_crystal(SPacketSpawnObject packet) {
-        BlockPos packPos = new BlockPos(packet.getX(), packet.getY(), packet.getZ());
+        BlockPos pack_pos = new BlockPos(packet.getX(), packet.getY(), packet.getZ());
         if (AutoCrystal.mc.player.getDistance(packet.getX(), packet.getY(), packet.getZ()) > (double) this.hit_range.get_value(1)) {
             return false;
         }
-        if (!BlockUtil.canSeeBlock(packPos) && AutoCrystal.mc.player.getDistance(packet.getX(), packet.getY(), packet.getZ()) > (double) this.hit_range_wall.get_value(1)) {
+        if (!BlockUtil.canSeeBlock(pack_pos) && AutoCrystal.mc.player.getDistance(packet.getX(), packet.getY(), packet.getZ()) > (double) this.hit_range_wall.get_value(1)) {
             return false;
         }
         double targetDmg = CrystalUtil.calculateDamage(packet.getX() + 0.5, packet.getY() + 1.0, packet.getZ() + 0.5, this.ca_target);
@@ -1120,6 +1167,11 @@ public class AutoCrystal extends Module {
         if (ca_rotation != null) {
             ca_rotation.restoreRotation();
         }
+        if (!switch_mode.in("None") && switch_back.get_value(true) && old_slot != -1) {
+            mc.player.inventory.currentItem = old_slot;
+            mc.player.connection.sendPacket(new CPacketHeldItemChange(old_slot));
+        }
+        old_slot = -1;
     }
 
     @Override
@@ -1156,6 +1208,7 @@ public class AutoCrystal extends Module {
         verify_place.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
         city_predict.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
         switch_mode.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true));
+        switch_back.set_shown((!clean_mode.get_value(true) || setting.in("Place")) && place_crystal.get_value(true) && !switch_mode.in("None"));
         place_predict.set_shown((!clean_mode.get_value(true) || setting.in("Place")));
         ignore_web.set_shown((!clean_mode.get_value(true) || setting.in("Place")));
 
@@ -1187,6 +1240,7 @@ public class AutoCrystal extends Module {
         fuck_armor_mode_precent.set_shown(fuck_armor_mode.get_value(true) && (!clean_mode.get_value(true) || setting.in("Place & Break")));
         fuck_armor_mode_precent_self.set_shown(fuck_armor_mode.get_value(true) && (!clean_mode.get_value(true) || setting.in("Place & Break")));
         max_self_damage.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));
+        fast_tick.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));
 
         // ROTATIONS
         rotate_mode.set_shown(!clean_mode.get_value(true) || setting.in("Rotations"));

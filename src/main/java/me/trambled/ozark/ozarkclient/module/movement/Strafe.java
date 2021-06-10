@@ -1,5 +1,6 @@
 package me.trambled.ozark.ozarkclient.module.movement;
 
+import me.trambled.ozark.ozarkclient.event.Event;
 import me.trambled.ozark.ozarkclient.event.events.EventMove;
 import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.event.events.EventPlayerJump;
@@ -7,6 +8,7 @@ import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.Ozark;
+import me.trambled.ozark.ozarkclient.util.TimerUtil;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.init.Blocks;
@@ -143,8 +145,8 @@ public class Strafe extends Module {
 				}
 			}
 
-			event.set_x((move_forward * player_speed) * Math.cos(Math.toRadians((rotation_yaw + 90.0f))) + (move_strafe * player_speed) * Math.sin(Math.toRadians((rotation_yaw + 90.0f))));
-			event.set_z((move_forward * player_speed) * Math.sin(Math.toRadians((rotation_yaw + 90.0f))) - (move_strafe * player_speed) * Math.cos(Math.toRadians((rotation_yaw + 90.0f))));
+			event.set_x(((move_forward * player_speed) * Math.cos(Math.toRadians((rotation_yaw + 90.0f))) + (move_strafe * player_speed) * Math.sin(Math.toRadians((rotation_yaw + 90.0f)))));
+			event.set_z(((move_forward * player_speed) * Math.sin(Math.toRadians((rotation_yaw + 90.0f))) - (move_strafe * player_speed) * Math.cos(Math.toRadians((rotation_yaw + 90.0f)))));
 
 		}
 
@@ -172,10 +174,11 @@ public class Strafe extends Module {
 		}
 		return rotation_yaw * 0.017453292f;
 	}
-	public void disable() {
+
+	@Override
+	protected void disable() {
 		if (Ozark.get_module_manager().get_module_with_tag("Timer").is_active() && timer.get_value(true)) {
 			Ozark.get_module_manager().get_module_with_tag("Timer").set_active(false);
 		}
-
 	}
 }

@@ -8,6 +8,7 @@ import me.trambled.ozark.ozarkclient.util.FontUtil;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.gui.PastGUIModule;
+import me.trambled.turok.draw.RenderHelp;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.Gui;
@@ -74,23 +75,26 @@ public class ModuleButton extends Component {
             comp.setOff(new_offset);
 
         }
-        if (this.mod.is_active() || mod.get_tag().equalsIgnoreCase("PastGUI")) {
-            GuiUtil.draw_rect(parent.getX() - 1, parent.getY() + offset, parent.getX() + parent.getWidth() + 1, parent.getY() + 15 + offset + 1, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA").get_value(1));
-            GuiUtil.draw_rect(parent.getX() - 1, parent.getY() + offset, parent.getX(), parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA").get_value(1));
-            GuiUtil.draw_rect(parent.getX() + parent.getWidth(), parent.getY() + offset, parent.getX() + parent.getWidth() + 1, parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA").get_value(1));
-            GuiUtil.draw_rect(parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA").get_value(1));
-
-            GuiUtil.draw_rect(parent.getX() - 1, parent.getY() + offset, parent.getX() + parent.getWidth() + 1, parent.getY() + 15 + offset + 1, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA2").get_value(1));
-            GuiUtil.draw_rect(parent.getX() - 1, parent.getY() + offset, parent.getX(), parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA2").get_value(1));
-            GuiUtil.draw_rect(parent.getX() + parent.getWidth(), parent.getY() + offset, parent.getX() + parent.getWidth() + 1, parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA2").get_value(1));
+        boolean trambled_mode = Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUITrampled").get_value(true);
+        if (this.mod.is_active()) {
             GuiUtil.draw_rect(parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB2").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA2").get_value(1));
+            if (trambled_mode) GuiUtil.draw_rect(parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR4").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG4").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB4").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA4").get_value(1));
+            if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIModuleOutline").get_value(true)) {
+                GuiUtil.draw_rect(parent.getX() - 1, parent.getY() + offset, parent.getX(), parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA").get_value(1));
+                GuiUtil.draw_rect(parent.getX() + parent.getWidth(), parent.getY() + offset, parent.getX() + parent.getWidth() + 1, parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA").get_value(1));
+                if (trambled_mode) {
+                    GuiUtil.draw_rect(parent.getX() - 1, parent.getY() + offset, parent.getX(), parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR4").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG4").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB4").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA4").get_value(1));
+                    GuiUtil.draw_rect(parent.getX() + parent.getWidth(), parent.getY() + offset, parent.getX() + parent.getWidth() + 1, parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR4").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG4").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB4").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA4").get_value(1));
+                }
+            }
         } else {
-           
-            GuiUtil.draw_rect(parent.getX() - 1, parent.getY() + offset, parent.getX() + parent.getWidth() + 1, parent.getY() + 15 + offset + 1, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA3").get_value(1));
-            GuiUtil.draw_rect(parent.getX() - 1, parent.getY() + offset, parent.getX(), parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA3").get_value(1));
-            GuiUtil.draw_rect(parent.getX() + parent.getWidth(), parent.getY() + offset, parent.getX() + parent.getWidth() + 1, parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA3").get_value(1));
-            Gui.drawRect(parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + 15 + offset, 0x00000000);
-         }
+            if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIModuleOutline").get_value(true)) {
+                GuiUtil.draw_rect(parent.getX() - 1, parent.getY() + offset, parent.getX() + parent.getWidth() + 1, parent.getY() + 15 + offset + 1, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA3").get_value(1));
+                GuiUtil.draw_rect(parent.getX() - 1, parent.getY() + offset, parent.getX(), parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA3").get_value(1));
+                GuiUtil.draw_rect(parent.getX() + parent.getWidth(), parent.getY() + offset, parent.getX() + parent.getWidth() + 1, parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA3").get_value(1));
+            }
+            GuiUtil.draw_rect(parent.getX(), parent.getY() + offset, parent.getX() + parent.getWidth(), parent.getY() + 15 + offset, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB3").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA3").get_value(1));
+        }
         
 
         if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIHoverChange").get_value(true) && hovered) {
@@ -100,11 +104,11 @@ public class ModuleButton extends Component {
         }
 
         if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIKambing").get_value(true)) {
-            FontUtil.drawText("...", parent.getX() + parent.getWidth() - 10, (parent.getY() + offset + 4), -1);
-        }else if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIKambing").get_value(false)) {
+            draw_module_suffix(Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUISuffix"));
+        } else if (!Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIKambing").get_value(true)) {
             if(this.subcomponents.size() > 1) {
-            FontUtil.drawText("...", parent.getX() + parent.getWidth() - 10, (parent.getY() + offset + 4), -1);
-        }
+                draw_module_suffix(Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUISuffix"));
+            }
         }
         
 
@@ -211,4 +215,15 @@ public class ModuleButton extends Component {
     public void setOpen(boolean open) {
         this.open = open;
     }
+
+    private void draw_module_suffix(Setting setting) {
+        if (setting.in("Dots")) {
+            FontUtil.drawText("...", parent.getX() + parent.getWidth() - 10, (parent.getY() + offset + 4), -1);
+        } else if (setting.in("Angle Bracket")) {
+            FontUtil.drawText("<", parent.getX() + parent.getWidth() - 8, (parent.getY() + offset + 4), -1);
+        } else if (setting.in("Triangle")) {
+            RenderHelp.drawTriangleOutline(parent.getX() + 90f, parent.getY() + offset + 12f, 5f, 2, 1, 1,0XFFFFFF);
+        }
+    }
+
 }

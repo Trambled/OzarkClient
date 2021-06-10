@@ -35,17 +35,25 @@ public class PastGUIModule extends Module {
 	Setting rainbow = create("Rainbow", "PastGUIRainbow", false);
 	Setting rainbow2 = create("ButtonRainbow", "PastGUIRainbow2", false);
 	Setting rainbow3 = create("FrameRainbow", "PastGUIRainbow3", false);
+	Setting trambled_mode = create("Trambled Mode", "PastGUITrampled", false);
+	Setting red4 = create("TrambledRed", "PastGUIR4", 17, 0, 255);
+	Setting green4 = create("TrambledGreen", "PastGUIG4", 17, 0, 255);
+	Setting blue4 = create("TrambledBlue", "PastGUIB4", 17, 0, 255);
+	Setting trambled_mode_a = create("TrambledModeA", "PastGUIA4", 132, 0, 255);
+	Setting module_lines = create("Outline", "PastGUIModuleOutline", true);
 
-	Setting font = create("Font", "PastGUIFont", "Lato", combobox("Lato", "Verdana", "Arial", "None"));
+	Setting font = create("Font", "PastGUIFont", "Lato", combobox("Lato", "Arial", "Verdana", "None"));
 	Setting scroll_speed = create("Scroll Speed", "PastGUIScrollSpeed", 10, 0, 20);
 	Setting button_sound = create("Button Sound", "PastGUISound", true);
+	Setting suffix = create("Module Suffix", "PastGUISuffix", "Dots", combobox("Dots", "Angle Bracket", "Triangle", "None"));
 	Setting snow = create("Snow", "PastGUISnow", true);
-	Setting blur = create("Blur", "PastGUIBlur", true); // credit for ferox for blur
+	Setting blur = create("Blur", "PastGUIBlur", true); // credit to ferox for blur
 	Setting font_shadow = create("Font Shadow", "PastGUIFontShadow", true);
 	Setting descriptions = create("Descriptions", "PastGUIDescriptions", true);
 	Setting hover_change = create("Hover Change", "PastGUIHoverChange", true);
 	Setting pause_game = create("Pause Game", "PastGUIPauseGame", false);
 	Setting kambing = create("Listed Gay Mode", "PastGUIKambing", false);
+
 
 	@Override
 	protected void enable() {
@@ -57,8 +65,7 @@ public class PastGUIModule extends Module {
 				if (blur.get_value(true)) {
 					mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
 				}
-			} catch (Exception ignored) {
-			}
+			} catch (Exception ignored) {}
 		}
 	}
 
@@ -121,4 +128,14 @@ public class PastGUIModule extends Module {
 		green3.set_value((color_rgb_o >> 8) & 0xFF);
 		blue3.set_value(color_rgb_o & 0xFF);
 	}
+
+	@Override
+	public void update_always() {
+		red4.set_shown(trambled_mode.get_value(true));
+		green4.set_shown(trambled_mode.get_value(true));
+		blue4.set_shown(trambled_mode.get_value(true));
+		trambled_mode_a.set_shown(trambled_mode.get_value(true));
+
+	}
+
 }

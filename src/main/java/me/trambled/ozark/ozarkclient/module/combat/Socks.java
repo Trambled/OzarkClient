@@ -30,6 +30,7 @@ public class Socks extends Module {
 
     Setting rotate = create("Rotate", "SocksRotate", false);
     Setting swing = create("Swing", "SocksSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
+    Setting ghost_mode = create("Ghost Switch", "GhostSwitch", true);
 
     @Override
     protected void enable() {
@@ -94,7 +95,7 @@ public class Socks extends Module {
 
         }
 
-        BlockUtil.placeBlock(pos_to_fill, find_in_hotbar(), rotate.get_value(true), rotate.get_value(true), swing);
+        BlockUtil.placeBlock(pos_to_fill, find_in_hotbar(), rotate.get_value(true), rotate.get_value(true), swing, ghost_mode.get_value(true));
 
     }
 

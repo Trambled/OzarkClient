@@ -36,6 +36,7 @@ public class HoleFill extends Module {
     Setting button = create("Button", "HoleFillButton", false);
     Setting hole_range = create("Range", "HoleFillRange", 4, 1, 6);
     Setting swing = create("Swing", "HoleFillSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
+    Setting ghost_mode = create("Ghost Switch", "GhostSwitch", true);
 
     private final ArrayList<BlockPos> holes = new ArrayList<>();
 
@@ -116,7 +117,7 @@ public class HoleFill extends Module {
 
         if (do_smart || !smart_mode.get_value(true)) {
             if (pos_to_fill != null) {
-                if (BlockUtil.placeBlock(pos_to_fill, find_in_hotbar(), hole_rotate.get_value(true), hole_rotate.get_value(true), swing)) {
+                if (BlockUtil.placeBlock(pos_to_fill, find_in_hotbar(), hole_rotate.get_value(true), hole_rotate.get_value(true), swing,ghost_mode.get_value(true) )) {
                     holes.remove(pos_to_fill);
                 }
             }

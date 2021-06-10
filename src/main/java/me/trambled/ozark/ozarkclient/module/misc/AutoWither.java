@@ -35,6 +35,7 @@ public class AutoWither extends Module {
     Setting tick_for_place = create("Delay", "AutoWitherDelay", 2, 0, 10);
     Setting rotate = create("Rotate", "AutoWitherRotate", true);
     Setting swing = create("Swing", "AutoWitherSwing", "Mainhand", combobox("Mainhand", "Both", "Offhand"));
+    Setting ghost_mode = create("Ghost Switch", "GhostSwitch", true);
 
     private int delay_counter;
 
@@ -108,7 +109,7 @@ public class AutoWither extends Module {
         }
 
         if (delay_counter > this.tick_for_place.get_value(1)) {
-            BlockUtil.placeBlock(pos_to_fill, find_soulsand_hotbar(), rotate.get_value(true), false, swing);
+            BlockUtil.placeBlock(pos_to_fill, find_soulsand_hotbar(), rotate.get_value(true), false, swing, ghost_mode.get_value(true));
             delay_counter = 0;
         }
 
@@ -162,7 +163,7 @@ public class AutoWither extends Module {
         }
 
         if (delay_counter > this.tick_for_place.get_value(1)) {
-            BlockUtil.placeBlock(pos_to_fill, find_witherskull_hotbar(), rotate.get_value(true), false, swing);
+            BlockUtil.placeBlock(pos_to_fill, find_witherskull_hotbar(), rotate.get_value(true), false, swing, ghost_mode.get_value(true));
             delay_counter = 0;
         }
 

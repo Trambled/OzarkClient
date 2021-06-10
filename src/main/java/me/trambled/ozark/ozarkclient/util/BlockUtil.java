@@ -6,8 +6,11 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketEntityAction.Action;
+import net.minecraft.network.play.client.CPacketHeldItemChange;
 import net.minecraft.network.play.client.CPacketPlayer.Rotation;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
 import net.minecraft.util.EnumFacing;
@@ -95,12 +98,20 @@ public class BlockUtil {
         }
     }
 
-    public static boolean placeBlock(BlockPos pos, int slot, boolean rotate, boolean rotateBack, Setting setting) {
+    public static boolean placeBlock(BlockPos pos, int slot, boolean rotate, boolean rotateBack, Setting setting, boolean ghost_mode) {
         if (isBlockEmpty(pos)) {
             int old_slot = -1;
             if (slot != mc.player.inventory.currentItem && slot != -1) {
                 old_slot = mc.player.inventory.currentItem;
-                mc.player.inventory.currentItem = slot;
+                if (ghost_mode) {
+                    mc.player.connection.sendPacket(new CPacketHeldItemChange(slot));
+                } else {
+                    mc.player.inventory.currentItem = slot;
+                }
+            }
+
+            if (!(BlockInteractionHelper.valid(pos) == BlockInteractionHelper.ValidResult.Ok))  {
+                return false;
             }
 
             EnumFacing[] facings = EnumFacing.values();
@@ -120,7 +131,11 @@ public class BlockUtil {
                         mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, Action.START_SNEAKING));
                     }
 
-                    mc.playerController.processRightClickBlock(mc.player, mc.world, pos.offset(f), f.getOpposite(), new Vec3d(pos), EnumHand.MAIN_HAND);
+                    if (ghost_mode) {
+                        placeBlockRetardMode(pos, vec, slot, f);
+                    } else {
+                        mc.playerController.processRightClickBlock(mc.player, mc.world, pos.offset(f), f.getOpposite(), new Vec3d(pos), EnumHand.MAIN_HAND);
+                    }
                     if (rightclickableBlocks.contains(neighborBlock)) {
                         mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, Action.STOP_SNEAKING));
                     }
@@ -133,6 +148,9 @@ public class BlockUtil {
 
                     if (old_slot != -1) {
                         mc.player.inventory.currentItem = old_slot;
+                        if (ghost_mode) {
+                            mc.player.connection.sendPacket(new CPacketHeldItemChange(old_slot));
+                        }
                     }
 
                     return true;
@@ -143,6 +161,21 @@ public class BlockUtil {
 
         return false;
     }
+
+    public static void placeBlockRetardMode(BlockPos pos, Vec3d vec, int slot, EnumFacing f) {
+        float f1 = (float)(vec.x - (double)pos.getX());
+        float f2 = (float)(vec.y - (double)pos.getY());
+        float f3 = (float)(vec.z - (double)pos.getZ());
+        mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(pos.offset(f), f.getOpposite(), EnumHand.MAIN_HAND, f1, f2, f3));
+
+        ItemStack itemStack = mc.player.inventory.getStackInSlot(slot);
+        if (itemStack.getItem() instanceof ItemBlock) {
+            final Block block = ((ItemBlock) itemStack.getItem()).getBlock();
+            mc.world.setBlockState(pos, block.getDefaultState());
+        }
+    }
+
+
 
     public static boolean placeBlockShulker(BlockPos pos, int slot, boolean rotate, boolean rotateBack, Setting setting) {
         if (isBlockEmpty(pos)) {

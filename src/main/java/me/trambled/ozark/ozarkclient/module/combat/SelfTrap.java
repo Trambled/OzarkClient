@@ -31,6 +31,7 @@ public class SelfTrap extends Module {
     Setting toggle = create("Toggle", "SelfTrapToggle", true);
     Setting rotate = create("Rotate", "SelfTrapRotate", false);
     Setting swing = create("Swing", "SelfTrapSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
+    Setting ghost_mode = create("Ghost Switch", "GhostSwitch", true);
     Setting delay = create("Delay", "SelfTrapDelay", 0, 0, 10);
 
     private BlockPos trap_pos;
@@ -81,7 +82,7 @@ public class SelfTrap extends Module {
 
                     if (result_ == ValidResult.NoNeighbors || result_ == ValidResult.NoEntityCollision) continue;
 
-                    if (BlockUtil.placeBlock(pos_, find_in_hotbar(), rotate.get_value(true), rotate.get_value(true), swing)) {
+                    if (BlockUtil.placeBlock(pos_, find_in_hotbar(), rotate.get_value(true), rotate.get_value(true), swing, ghost_mode.get_value(true))) {
                         delay_counter = 0;
                         return;
                     }
@@ -93,7 +94,7 @@ public class SelfTrap extends Module {
 
             }
 
-            BlockUtil.placeBlock(trap_pos, find_in_hotbar(), rotate.get_value(true), rotate.get_value(true), swing);
+            BlockUtil.placeBlock(trap_pos, find_in_hotbar(), rotate.get_value(true), rotate.get_value(true), swing, ghost_mode.get_value(true));
             delay_counter = 0;
         }
 

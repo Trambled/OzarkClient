@@ -4,7 +4,6 @@ import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRichPresence;
 import club.minnced.discord.rpc.DiscordRPC;
 import me.trambled.ozark.Ozark;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.multiplayer.GuiConnecting;
 import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
@@ -20,7 +19,7 @@ public class DiscordUtil
     
     public static void init() {
         final DiscordEventHandlers handlers = new DiscordEventHandlers();
-        handlers.disconnected = ((var1, var2) -> System.out.println("Discord RPC disconnected, var1: " + String.valueOf(var1) + ", var2: " + var2));
+        handlers.disconnected = ((var1, var2) -> System.out.println("Discord RPC disconnected, var1: " + var1 + ", var2: " + var2));
         DiscordUtil.rpc.Discord_Initialize("785682576110518293", handlers, true, "");
         DiscordUtil.presence.startTimestamp = System.currentTimeMillis() / 1000L;
         DiscordUtil.presence.largeImageKey = "ozark_2";
@@ -78,53 +77,65 @@ public class DiscordUtil
 							int health = Math.round(mc.player.getHealth() + mc.player.getAbsorptionAmount());
 
 							// STATE
-							if (get_state().equals("Health")) {
-								DiscordUtil.state = health + " HP";
-							} else if (get_state().equals("Server")) {
-								if (mc.isIntegratedServerRunning()) {
-									DiscordUtil.state = "Playing Singleplayer";
-								} else {
-									DiscordUtil.state = "Playing " + mc.getCurrentServerData().serverIP;
-								}
-							} else if (get_state().equals("Target")) {
-								if (!Ozark.TARGET_NAME.equals("NULL")) {
-									DiscordUtil.state = "Ezing " + Ozark.TARGET_NAME;
-								} else {
-									DiscordUtil.state = "Chilling";
-								}
-							} else if (get_state().equals("User")) {
-								DiscordUtil.state = "Playing with " + Ozark.get_actual_user();
-							} else if (get_state().equals("Speed")) {
-								if (Double.parseDouble(PlayerUtil.speed()) > 15) {
-									DiscordUtil.state = "Zoomin at " + PlayerUtil.speed() + " KPH";
-								} else {
-									DiscordUtil.state = "Chilling at " + PlayerUtil.speed() + " KPH";
-								}
+							switch (get_state()) {
+								case "Health":
+									DiscordUtil.state = health + " HP";
+									break;
+								case "Server":
+									if (mc.isIntegratedServerRunning()) {
+										DiscordUtil.state = "Playing Singleplayer";
+									} else {
+										DiscordUtil.state = "Playing " + mc.getCurrentServerData().serverIP;
+									}
+									break;
+								case "Target":
+									if (!Ozark.TARGET_NAME.equals("NULL")) {
+										DiscordUtil.state = "Ezing " + Ozark.TARGET_NAME;
+									} else {
+										DiscordUtil.state = "Chilling";
+									}
+									break;
+								case "User":
+									DiscordUtil.state = "Playing with " + Ozark.get_actual_user();
+									break;
+								case "Speed":
+									if (Double.parseDouble(PlayerUtil.speed()) > 15) {
+										DiscordUtil.state = "Zoomin at " + PlayerUtil.speed() + " KPH";
+									} else {
+										DiscordUtil.state = "Chilling at " + PlayerUtil.speed() + " KPH";
+									}
+									break;
 							}
 
 							// DETAILS
-							if (get_details().equals("Health")) {
-								DiscordUtil.details = health + " HP";
-							} else if (get_details().equals("Server")) {
-								if (mc.isIntegratedServerRunning()) {
-									DiscordUtil.details = "Playing Singleplayer";
-								} else {
-									DiscordUtil.details = "Playing " + mc.getCurrentServerData().serverIP;
-								}
-							} else if (get_details().equals("Target")) {
-								if (!Ozark.TARGET_NAME.equals("NULL")) {
-									DiscordUtil.details = "Ezing " + Ozark.TARGET_NAME;
-								} else {
-									DiscordUtil.details = "Chilling";
-								}
-							} else if (get_details().equals("User")) {
-								DiscordUtil.details = "Playing with " + Ozark.get_actual_user();
-							} else if (get_details().equals("Speed")) {
-								if (Double.parseDouble(PlayerUtil.speed()) > 0) {
-									DiscordUtil.details = "Zoomin at " + PlayerUtil.speed() + " KPH";
-								} else {
-									DiscordUtil.details = "Not moving/AFK";
-								}
+							switch (get_details()) {
+								case "Health":
+									DiscordUtil.details = health + " HP";
+									break;
+								case "Server":
+									if (mc.isIntegratedServerRunning()) {
+										DiscordUtil.details = "Playing Singleplayer";
+									} else {
+										DiscordUtil.details = "Playing " + mc.getCurrentServerData().serverIP;
+									}
+									break;
+								case "Target":
+									if (!Ozark.TARGET_NAME.equals("NULL")) {
+										DiscordUtil.details = "Ezing " + Ozark.TARGET_NAME;
+									} else {
+										DiscordUtil.details = "Chilling";
+									}
+									break;
+								case "User":
+									DiscordUtil.details = "Playing with " + Ozark.get_actual_user();
+									break;
+								case "Speed":
+									if (Double.parseDouble(PlayerUtil.speed()) > 0) {
+										DiscordUtil.details = "Zoomin at " + PlayerUtil.speed() + " KPH";
+									} else {
+										DiscordUtil.details = "Not moving/AFK";
+									}
+									break;
 							}
 
 							// SMALL IMAGE
@@ -138,42 +149,64 @@ public class DiscordUtil
 								if (Ozark.get_setting_manager().get_setting_with_tag("DiscordRPC", "RPCSmallImage").in("Tudou")) {
 									DiscordUtil.presence.smallImageKey = "tudousmall";
 								} else {
-									if (mc.getCurrentServerData().serverIP.equals("aurorapvp.club") || mc.getCurrentServerData().serverIP.equals("auroraanarchy.org")) {
-										DiscordUtil.presence.smallImageKey = "aurora";
-									} else if (mc.getCurrentServerData().serverIP.equals("8b8t.xyz")) {
-										DiscordUtil.presence.smallImageKey = "8b8t";
-									} else if (mc.getCurrentServerData().serverIP.equals("0b0t.org")) {
-										DiscordUtil.presence.smallImageKey = "0b0t";
-									} else if (mc.getCurrentServerData().serverIP.equals("5b5t.org")) {
-										DiscordUtil.presence.smallImageKey = "5b5t";
-									} else if (mc.getCurrentServerData().serverIP.equals("9b9t.com") || mc.getCurrentServerData().serverIP.equals("9b9t.org")) {
-										DiscordUtil.presence.smallImageKey = "9b9t";
-									} else if (mc.getCurrentServerData().serverIP.equals("bedtrap.org")) {
-										DiscordUtil.presence.smallImageKey = "bedtrap";
-									} else if (mc.getCurrentServerData().serverIP.equals("constantiam.net")) {
-										DiscordUtil.presence.smallImageKey = "const";
-									} else if (mc.getCurrentServerData().serverIP.equals("l2x9.org")) {
-										DiscordUtil.presence.smallImageKey = "l2";
-									} else if (mc.getCurrentServerData().serverIP.equals("matrixanarchy.net")) {
-										DiscordUtil.presence.smallImageKey = "matrix";
-									} else if (mc.getCurrentServerData().serverIP.equals("cpe2.ign.gg")) {
-										DiscordUtil.presence.smallImageKey = "cpe";
-									} else if (mc.getCurrentServerData().serverIP.equals("oldfag.org")) {
-										DiscordUtil.presence.smallImageKey = "oldfag";
-									} else if (mc.getCurrentServerData().serverIP.equals("openanarchy.org")) {
-										DiscordUtil.presence.smallImageKey = "oa";
-									} else if (mc.getCurrentServerData().serverIP.equals("eliteanarchy.org")) {
-										DiscordUtil.presence.smallImageKey = "elite";
-									} else if (mc.getCurrentServerData().serverIP.equals("6b6t.co")) {
-										DiscordUtil.presence.smallImageKey = "6b6t";
-									} else if (mc.getCurrentServerData().serverIP.equals("2b2t.org")) {
-										DiscordUtil.presence.smallImageKey = "2b2t";
-									} else if (mc.getCurrentServerData().serverIP.equals("2b2tpvp.net")) {
-										DiscordUtil.presence.smallImageKey = "2bpvp";
-									} else if (mc.getCurrentServerData().serverIP.equals("us.crystalpvp.cc") || mc.getCurrentServerData().serverIP.equals("crystalpvp.cc")) {
-										DiscordUtil.presence.smallImageKey = "cc";
-									} else {
-										DiscordUtil.presence.smallImageKey = "troll";
+									switch (mc.getCurrentServerData().serverIP) {
+										case "aurorapvp.club":
+										case "auroraanarchy.org":
+											DiscordUtil.presence.smallImageKey = "aurora";
+											break;
+										case "8b8t.xyz":
+											DiscordUtil.presence.smallImageKey = "8b8t";
+											break;
+										case "0b0t.org":
+											DiscordUtil.presence.smallImageKey = "0b0t";
+											break;
+										case "5b5t.org":
+											DiscordUtil.presence.smallImageKey = "5b5t";
+											break;
+										case "9b9t.com":
+										case "9b9t.org":
+											DiscordUtil.presence.smallImageKey = "9b9t";
+											break;
+										case "bedtrap.org":
+											DiscordUtil.presence.smallImageKey = "bedtrap";
+											break;
+										case "constantiam.net":
+											DiscordUtil.presence.smallImageKey = "const";
+											break;
+										case "l2x9.org":
+											DiscordUtil.presence.smallImageKey = "l2";
+											break;
+										case "matrixanarchy.net":
+											DiscordUtil.presence.smallImageKey = "matrix";
+											break;
+										case "cpe2.ign.gg":
+											DiscordUtil.presence.smallImageKey = "cpe";
+											break;
+										case "oldfag.org":
+											DiscordUtil.presence.smallImageKey = "oldfag";
+											break;
+										case "openanarchy.org":
+											DiscordUtil.presence.smallImageKey = "oa";
+											break;
+										case "eliteanarchy.org":
+											DiscordUtil.presence.smallImageKey = "elite";
+											break;
+										case "6b6t.co":
+											DiscordUtil.presence.smallImageKey = "6b6t";
+											break;
+										case "2b2t.org":
+											DiscordUtil.presence.smallImageKey = "2b2t";
+											break;
+										case "2b2tpvp.net":
+											DiscordUtil.presence.smallImageKey = "2bpvp";
+											break;
+										case "us.crystalpvp.cc":
+										case "crystalpvp.cc":
+											DiscordUtil.presence.smallImageKey = "cc";
+											break;
+										default:
+											DiscordUtil.presence.smallImageKey = "troll";
+											break;
 									}
 								}
 							}

@@ -40,6 +40,7 @@ public class Trap extends Module {
     Setting rotate = create("Rotation", "TrapRotation", true);
     Setting chad_mode = create("Chad Mode", "TrapChadMode", true);
     Setting swing = create("Swing", "TrapSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
+    Setting ghost_mode = create("Ghost Switch", "GhostSwitch", true);
 
     private final Vec3d[] offsets_default = new Vec3d[]{
         new Vec3d(0.0, 0.0, -1.0),
@@ -209,7 +210,7 @@ public class Trap extends Module {
 
                 }
 
-                if (should_try_place && BlockUtil.placeBlock(target_pos, find_obi_in_hotbar(), rotate.get_value(true), rotate.get_value(true), swing)) {
+                if (should_try_place && BlockUtil.placeBlock(target_pos, find_obi_in_hotbar(), rotate.get_value(true), rotate.get_value(true), swing, ghost_mode.get_value(true))) {
                     ++blocks_placed;
                 }
 

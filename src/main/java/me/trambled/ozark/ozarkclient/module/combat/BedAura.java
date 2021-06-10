@@ -52,6 +52,7 @@ public class BedAura extends Module {
     Setting hard = create("Hard Rotate", "BedAuraRotate", false);
     Setting dimension_check = create("Dimension Check", "BedAuraDimensionCheck", true);
     Setting swing = create("Swing", "BedAuraSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
+    Setting ghost_mode = create("Ghost Switch", "GhostSwitch", true);
     Setting render_mode = create("Render Mode", "BedAuraRenderMode", "Outline", combobox("Pretty", "Solid", "Outline", "None"));
     Setting r = create("R", "BedAuraR", 20, 0, 255);
     Setting g = create("G", "BedAuraG", 20, 0, 255);
@@ -256,7 +257,7 @@ public class BedAura extends Module {
 
 
         if (auto_switch.get_value(true)) {
-            BlockUtil.placeBlock(best_pos, bed_slot, false, false, swing);
+            BlockUtil.placeBlock(best_pos, bed_slot, false, false, swing, ghost_mode.get_value(true));
             if (debug.get_value(true)) {
                 MessageUtil.send_client_message("Placing");
             }
@@ -264,7 +265,7 @@ public class BedAura extends Module {
 
         // wait for the user to go to the correct slot
         if (mc.player.inventory.getStackInSlot(mc.player.inventory.currentItem).getItem() instanceof ItemBed && !auto_switch.get_value(true)) {
-            BlockUtil.placeBlock(best_pos, -1, false, false, swing);
+            BlockUtil.placeBlock(best_pos, -1, false, false, swing, ghost_mode.get_value(true));
             if (debug.get_value(true)) {
                 MessageUtil.send_client_message("Placing");
             }
