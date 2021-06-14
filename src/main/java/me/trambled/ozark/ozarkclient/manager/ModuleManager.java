@@ -1,16 +1,19 @@
 package me.trambled.ozark.ozarkclient.manager;
 
-import me.trambled.turok.draw.RenderHelp;
 import me.trambled.ozark.ozarkclient.event.events.EventRender;
-import me.trambled.ozark.ozarkclient.module.*;
+import me.trambled.ozark.ozarkclient.module.Category;
+import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.chat.*;
 import me.trambled.ozark.ozarkclient.module.combat.*;
 import me.trambled.ozark.ozarkclient.module.exploit.*;
-import me.trambled.ozark.ozarkclient.module.gui.*;
+import me.trambled.ozark.ozarkclient.module.gui.CustomMainMenu;
+import me.trambled.ozark.ozarkclient.module.gui.HUD;
+import me.trambled.ozark.ozarkclient.module.gui.OldGUI;
+import me.trambled.ozark.ozarkclient.module.gui.PastGUIModule;
 import me.trambled.ozark.ozarkclient.module.misc.*;
 import me.trambled.ozark.ozarkclient.module.movement.*;
 import me.trambled.ozark.ozarkclient.module.render.*;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
+import me.trambled.turok.draw.RenderHelp;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
@@ -19,6 +22,8 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class ModuleManager {
 
