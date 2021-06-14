@@ -2,7 +2,6 @@ package me.trambled.ozark.ozarkclient.guiscreen.gui.past;
 
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.past.items.*;
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.util.FontUtil;
 import me.trambled.ozark.ozarkclient.module.Category;
@@ -58,7 +57,7 @@ public class Panel {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 
         GuiUtil.draw_rect(x - 1, y - 1, x + width + 1, y + height + 1, Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIR").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIG").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIB").get_value(1), Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIA").get_value(1));
-        Gui.drawRect(x, y, x + width, y + height, 0x75101010);
+            Gui.drawRect(x, y, x + width, y + height, 0x75101010);
 
         if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIFont").in("Lato")) {
             FontUtil.drawText(title, x + 4 ,y + height / 2 - FontUtil.getFontHeight() / 2, -1);

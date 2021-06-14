@@ -6,6 +6,7 @@ import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.util.DrawnUtil;
+import me.trambled.ozark.ozarkclient.util.RainbowUtil;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.Comparator;
@@ -33,6 +34,7 @@ public class Arraylist extends Pinnable {
 		int nl_g = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorG").get_value(1);
 		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
 		int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorA").get_value(1);
+		boolean rainbow = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFlow").get_value(true);
 
 		List<Module> pretty_modules = Ozark.get_module_manager().get_array_active_modules().stream()
 			.sorted(Comparator.comparing(modules -> get(modules.array_detail() == null ? modules.get_tag() : modules.get_tag() + Ozark.g + " [" + Ozark.r + modules.array_detail() + Ozark.g + "]" + Ozark.r, "width")))
@@ -87,19 +89,35 @@ public class Arraylist extends Pinnable {
 					this.set_height(position_update_y);
 				} else {
 					if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Top R")) {
-						mc.fontRenderer.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), 3 + count * 10, new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).color_int());
+						if (rainbow) {
+							RainbowUtil.drawRainbowStringChat(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), 3 + count * 10, new GuiUtil.OzarkColor(nl_r, nl_g, nl_b, nl_a).hex(), 100f);
+						} else {
+							mc.fontRenderer.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), 3 + count * 10, new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
+						}
 						count++;
 					}
 					if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Top L")) {
-						mc.fontRenderer.drawStringWithShadow(module_name, 2, 3 + count * 10, new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).color_int());
+						if (rainbow) {
+							RainbowUtil.drawRainbowStringChat(module_name, 2, 3 + count * 10, new GuiUtil.OzarkColor(nl_r, nl_g, nl_b, nl_a).hex(), 100f);
+						} else {
+							mc.fontRenderer.drawStringWithShadow(module_name, 2, 3 + count * 10, new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
+						}
 						count++;
 					}
 					if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom R")) {
-						mc.fontRenderer.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).color_int());
+						if (rainbow) {
+							RainbowUtil.drawRainbowString(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex(), 100f);
+						} else {
+							mc.fontRenderer.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
+						}
 						count++;
 					}
 					if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom L")) {
-						mc.fontRenderer.drawStringWithShadow(module_name, 2, scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).color_int());
+						if (rainbow) {
+							RainbowUtil.drawRainbowString(module_name, 2, scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex(), 100f);
+						} else {
+							mc.fontRenderer.drawStringWithShadow(module_name, 2, scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
+						}
 						count++;
 					}
 				}

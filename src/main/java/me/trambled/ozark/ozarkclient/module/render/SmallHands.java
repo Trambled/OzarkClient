@@ -18,6 +18,8 @@ public class SmallHands extends Module {
     
     @Override
     public void update() {
-        mc.player.renderArmPitch = (float)this.offset.get_value(1);
+        try {
+            mc.player.renderArmPitch = (float)this.offset.get_value(1);
+        } catch (Exception ignored) {}
     }
 }

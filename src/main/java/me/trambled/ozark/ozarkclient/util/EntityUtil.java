@@ -44,6 +44,11 @@ public class EntityUtil {
         return EntityUtil.isBlockValid(new BlockPos(entity.posX, entity.posY, entity.posZ));
     }
 
+    public static boolean isMoving() {
+        return mc.player.moveForward != 0.0 || mc.player.moveStrafing != 0.0;
+    }
+
+
     public static boolean isBlockValid(BlockPos blockPos) {
         return EntityUtil.isBedrockHole(blockPos) || EntityUtil.isObbyHole(blockPos) || EntityUtil.isBothHole(blockPos);
     }

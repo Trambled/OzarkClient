@@ -25,7 +25,7 @@ public class GuiUtil {
 	}
 
 	public static void draw_rect(int x, int y, int w, int h, int r, int g, int b, int a) {
-		Gui.drawRect(x, y, w, h, new OzarkColor(r, g, b, a).color_int());
+		Gui.drawRect(x, y, w, h, new OzarkColor(r, g, b, a).hex());
 	}
 
 	public static void draw_rect(int x, int y, int w, int h, int r, int g, int b, int a, int size, String type) {
@@ -48,11 +48,11 @@ public class GuiUtil {
 
 
 	public static void draw_rect(Rect rect, int r, int g, int b, int a) {
-		Gui.drawRect(rect.get_x(), rect.get_y(), rect.get_screen_width(), rect.get_screen_height(), new OzarkColor(r, g, b, a).color_int());
+		Gui.drawRect(rect.get_x(), rect.get_y(), rect.get_screen_width(), rect.get_screen_height(), new OzarkColor(r, g, b, a).hex());
 	}
 
 	public static void draw_string(String string, int x, int y, int r, int g, int b, int a) {
-		font_renderer.drawStringWithShadow(string, x, y, new OzarkColor(r, g, b, a).color_int());
+		font_renderer.drawStringWithShadow(string, x, y, new OzarkColor(r, g, b, a).hex());
 	}
 
 	public static void draw_string(String string, int x, int y, int color) {
@@ -64,7 +64,7 @@ public class GuiUtil {
 
 		resize_gl.resize(x, y, this.size);
 
-		font_renderer.drawString(string, x, y, new OzarkColor(r, g, b).color_int());
+		font_renderer.drawString(string, x, y, new OzarkColor(r, g, b).hex());
 
 		resize_gl.resize(x, y, this.size, "end");
 
@@ -101,7 +101,7 @@ public class GuiUtil {
 			super(r, g, b);
 		}
 
-		public int color_int() {
+		public int hex() {
 			return getRGB();
 		}
 	}

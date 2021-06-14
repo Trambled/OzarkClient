@@ -219,7 +219,7 @@ public class Pinnable {
 
 	protected void create_line(String string, int pos_x, int pos_y, int r, int g, int b, int a) {
 		if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFlow").get_value(true)) {
-			RainbowUtil.drawRainbowString(string, this.x + pos_x, this.y + pos_y, new GuiUtil.OzarkColor(r, g, b, a).color_int(), 100.0f);
+			RainbowUtil.drawRainbowString(string, this.x + pos_x, this.y + pos_y, new GuiUtil.OzarkColor(r, g, b, a).hex(), 100.0f);
 		} else {
 			GuiUtil.draw_string(string, this.x + pos_x, this.y + pos_y, r, g, b, a);
 		}

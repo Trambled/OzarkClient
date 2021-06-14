@@ -33,15 +33,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
-
 // credit to:
 // travis for the original w+2 base and for the idea of packet block place
 // momentum/linus for momentum calcs, sync options, heuristics, rotations, and the concept of inhibit mode
 // perry for settings
 // oyvey for predict break and for most of the code for predict place
-//pineaple client for glow mode render
-//kambing for the render settings
+// pineaple client for glow mode render
+// kambing for the render settings
 public class AutoCrystal extends Module {
     public AutoCrystal() {
         super(Category.COMBAT);
@@ -684,6 +682,10 @@ public class AutoCrystal extends Module {
 
         if (rainbow_mode.get_value(true)) {
             cycle_rainbow();
+        }
+
+        if (ca_rotation != null && mc.gameSettings.keyBindUseItem.pressed && (mc.player.getHeldItemMainhand().getItem() instanceof ItemBow || mc.player.getHeldItemMainhand().getItem() instanceof ItemExpBottle)) {
+            ca_rotation.restoreRotation();
         }
 
         place_timeout = this.place_delay.get_value(1);

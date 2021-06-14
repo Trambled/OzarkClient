@@ -35,12 +35,13 @@ public class PastGUIModule extends Module {
 	Setting rainbow = create("Rainbow", "PastGUIRainbow", false);
 	Setting rainbow2 = create("ButtonRainbow", "PastGUIRainbow2", false);
 	Setting rainbow3 = create("FrameRainbow", "PastGUIRainbow3", false);
-	Setting trambled_mode = create("Trambled Mode", "PastGUITrampled", false);
+	Setting trambled_mode = create("Trambled Mode", "PastGUITrampled", true);
 	Setting red4 = create("TrambledRed", "PastGUIR4", 17, 0, 255);
 	Setting green4 = create("TrambledGreen", "PastGUIG4", 17, 0, 255);
 	Setting blue4 = create("TrambledBlue", "PastGUIB4", 17, 0, 255);
 	Setting trambled_mode_a = create("TrambledModeA", "PastGUIA4", 132, 0, 255);
 	Setting module_lines = create("Outline", "PastGUIModuleOutline", true);
+	Setting bright_outline = create("Bright Outline", "PastGUIBrightOutline", true);
 
 	Setting font = create("Font", "PastGUIFont", "Lato", combobox("Lato", "Arial", "Verdana", "None"));
 	Setting scroll_speed = create("Scroll Speed", "PastGUIScrollSpeed", 10, 0, 20);
@@ -135,7 +136,7 @@ public class PastGUIModule extends Module {
 		green4.set_shown(trambled_mode.get_value(true));
 		blue4.set_shown(trambled_mode.get_value(true));
 		trambled_mode_a.set_shown(trambled_mode.get_value(true));
-
+		bright_outline.set_shown(module_lines.get_value(true));
 	}
 
 }

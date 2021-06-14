@@ -142,7 +142,7 @@ public class LogOutSpots extends Module {
             RenderUtil.drawRect(-width - 2, -(RainbowUtil.get_string_height() + 1), (float)width + 2.0f, 1.5f, 0x55000000);
         }
         GlStateManager.disableBlend();
-        RainbowUtil.drawString(displayTag, -width, -(RainbowUtil.get_string_height() - 1), new GuiUtil.OzarkColor(r.get_value(1), g.get_value(1), b.get_value(1), 255).color_int());
+        RainbowUtil.drawString(displayTag, -width, -(RainbowUtil.get_string_height() - 1), new GuiUtil.OzarkColor(r.get_value(1), g.get_value(1), b.get_value(1), 255).hex());
         camera.posX = originalPositionX;
         camera.posY = originalPositionY;
         camera.posZ = originalPositionZ;
