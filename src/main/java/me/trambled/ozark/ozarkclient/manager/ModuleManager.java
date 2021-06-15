@@ -48,7 +48,6 @@ public class ModuleManager {
 		add_module(new AutoExcuse());
 		add_module(new WeaknessAlert());
 		add_module(new RetardChat());
-		add_module(new ChatSpammer());
 		add_module(new AutoRacist());
 		add_module(new AutoSuicide());
 		add_module(new AntiHaram());
