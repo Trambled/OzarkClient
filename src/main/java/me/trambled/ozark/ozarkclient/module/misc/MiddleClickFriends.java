@@ -15,8 +15,8 @@ public class MiddleClickFriends extends Module {
     public MiddleClickFriends() {
         super(Category.MISC);
 
-		this.name        = "MCP";
-		this.tag         = "MCP";
+		this.name        = "MCF";
+		this.tag         = "MCF";
 		this.description = "You press button and the world becomes a better place :D.";
     }
 
