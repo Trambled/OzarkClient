@@ -115,9 +115,6 @@ public class AutoAnvil extends Module
             else if(blockUp) {
                 MessageUtil.send_client_error_message("Enemy head blocked!");
             }
-            else {
-                MessageUtil.send_client_message("AutoAnvil disabled");
-            }
         }
 
         if (isSneaking) {
