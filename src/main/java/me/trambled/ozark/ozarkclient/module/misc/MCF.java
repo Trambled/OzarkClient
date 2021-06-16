@@ -10,9 +10,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.RayTraceResult;
 import org.lwjgl.input.Mouse;
 
-public class MiddleClickFriends extends Module {
+public class MCF extends Module {
     
-    public MiddleClickFriends() {
+    public MCF() {
         super(Category.MISC);
 
 		this.name        = "MCF";
