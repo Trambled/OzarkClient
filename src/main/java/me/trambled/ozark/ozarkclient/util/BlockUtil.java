@@ -168,6 +168,14 @@ public class BlockUtil {
         float f3 = (float)(vec.z - (double)pos.getZ());
         mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(pos.offset(f), f.getOpposite(), EnumHand.MAIN_HAND, f1, f2, f3));
 
+        try {
+            ItemStack itemStack = mc.player.inventory.getStackInSlot(slot);
+                if (itemStack.getItem() instanceof ItemBlock) {
+                    final Block block = ((ItemBlock) itemStack.getItem()).getBlock();
+                    mc.world.setBlockState(pos, block.getDefaultState());
+                }
+        } catch (Exception ignored) {}
+            
         ItemStack itemStack = mc.player.inventory.getStackInSlot(slot);
         if (itemStack.getItem() instanceof ItemBlock) {
             final Block block = ((ItemBlock) itemStack.getItem()).getBlock();
