@@ -41,11 +41,12 @@ import java.util.concurrent.ConcurrentHashMap;
 // pineaple client for glow mode render
 // kambing for the render settings
 public class AutoCrystal extends Module {
+    private static EntityPlayer ca_target = null;
     public AutoCrystal() {
         super(Category.COMBAT);
 
-        this.name        = "AutoCrystal";
-        this.tag         = "AutoCrystal";
+        this.name = "AutoCrystal";
+        this.tag = "AutoCrystal";
         this.description = "Kills people (if ur good).";
     }
 
@@ -70,9 +71,9 @@ public class AutoCrystal extends Module {
     Setting inhibit_swings = create("Inhibit Swings", "CaInhibitSwings", 50, 1, 100);
 
     Setting break_trys = create("Break Attempts", "CaBreakAttempts", 1, 1, 6);
-    Setting place_trys = create("Place Attempts", "CaPlaceAttempts", 1, 1, 6);  
-    
-    Setting hit_range = create("Hit Range", "CaHitRange", 5f, 1f, 6f); 
+    Setting place_trys = create("Place Attempts", "CaPlaceAttempts", 1, 1, 6);
+
+    Setting hit_range = create("Hit Range", "CaHitRange", 5f, 1f, 6f);
     Setting place_range = create("Place Range", "CaPlaceRange", 5f, 1f, 6f);
     Setting hit_range_wall = create("Hit Range Wall", "CaHitRangeWall", 3.5f, 1f, 6f);
     Setting place_range_wall = create("Place Range Wall", "CaPlaceRangeWall", 3.5f, 1f, 6f);
@@ -86,7 +87,7 @@ public class AutoCrystal extends Module {
     Setting max_self_damage = create("Max Self Damage", "CaMaxSelfDamage", 8, 0, 36);
     Setting min_health_pause = create("Min Health Pause", "CaMinHealthPause", true);
     Setting required_health = create("Required Health", "CaRequiredHealth", 1, 1, 36);
-    
+
     Setting ignore_web = create("Ignore Webs", "CaWebIgnore", true);
 
     Setting packet_place = create("Packet Place", "CaPacketPlace", true);
@@ -166,7 +167,7 @@ public class AutoCrystal extends Module {
 
     private final TimerUtil anti_stuck_timer = new TimerUtil();
 
-    private EntityPlayer ca_target = null;
+
     private RotationUtil.Rotation ca_rotation = null;
 
     private String detail_name = null;
@@ -180,6 +181,10 @@ public class AutoCrystal extends Module {
 
     private float yaw;
     private float pitch;
+
+    public static EntityPlayer get_target() {
+        return ca_target;
+    }
 
     private boolean already_attacking = false;
     private boolean place_timeout_flag = false;
@@ -273,7 +278,6 @@ public class AutoCrystal extends Module {
         }
 
 
-
         render_block_old = render_block_init;
 
         if (!fast_mode.get_value(true)) {
@@ -325,7 +329,7 @@ public class AutoCrystal extends Module {
             BlockUtil.placeCrystalOnBlock(target_block, offhand_check ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, packet_place.get_value(true));
         }
         if (sync.in("Semi")) {
-            EntityEnderCrystal crystal = new EntityEnderCrystal(mc.world,(double) target_block.getX() + 0.5, (double) target_block.getY() + 1, (double) target_block.getZ() + 0.5);
+            EntityEnderCrystal crystal = new EntityEnderCrystal(mc.world, (double) target_block.getX() + 0.5, (double) target_block.getY() + 1, (double) target_block.getZ() + 0.5);
             mc.world.addEntityToWorld(-101, crystal);
             crystal.setInvisible(true);
             fake_crystals.add(crystal);
@@ -431,11 +435,12 @@ public class AutoCrystal extends Module {
         BlockPos block = get_best_block();
         if (block == null) return;
         if (mc.world == null) return;
-        if (mc.player.getHeldItemOffhand().getItem() != Items.END_CRYSTAL && mc.player.getHeldItemMainhand().getItem() != Items.END_CRYSTAL) return;
+        if (mc.player.getHeldItemOffhand().getItem() != Items.END_CRYSTAL && mc.player.getHeldItemMainhand().getItem() != Items.END_CRYSTAL)
+            return;
         if (debug.get_value(true)) {
             MessageUtil.send_client_message("Doing fake crystal");
         }
-        EntityEnderCrystal crystal = new EntityEnderCrystal(mc.world,(double) block.getX() + 0.5, (double) block.getY() + 1, (double) block.getZ() + 0.5);
+        EntityEnderCrystal crystal = new EntityEnderCrystal(mc.world, (double) block.getX() + 0.5, (double) block.getY() + 1, (double) block.getZ() + 0.5);
         mc.world.addEntityToWorld(-101, crystal);
         crystal.setDead();
         if (mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
@@ -514,12 +519,12 @@ public class AutoCrystal extends Module {
                 if (target.isDead || target.getHealth() <= 0) continue;
 
                 boolean no_place = faceplace_check.get_value(true) && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD;
-                if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true)&& !no_place) || (get_armor_fucker(target) && !no_place && !get_armor_fucker(mc.player))) {
+                if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true) && !no_place) || (get_armor_fucker(target) && !no_place && !get_armor_fucker(mc.player))) {
                     minimum_damage = 2;
                 } else {
                     minimum_damage = this.min_player_place.get_value(1);
                 }
-                
+
                 if (ignore_web.get_value(true) && mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.WEB) {
                     mc.world.setBlockToAir(EntityUtil.getRoundedBlockPos(target));
                 }
@@ -530,7 +535,8 @@ public class AutoCrystal extends Module {
 
                 final double self_damage = CrystalUtil.calculateDamage((double) block.getX() + 0.5, (double) block.getY() + 1, (double) block.getZ() + 0.5, mc.player);
 
-                if (self_damage > maximum_damage_self || (anti_suicide.get_value(true) && (mc.player.getHealth() + mc.player.getAbsorptionAmount()) - self_damage <= 0.5)) continue;
+                if (self_damage > maximum_damage_self || (anti_suicide.get_value(true) && (mc.player.getHealth() + mc.player.getAbsorptionAmount()) - self_damage <= 0.5))
+                    continue;
 
                 final double original_damage = target_damage;
                 if (target_damage > heuristic_min_health.get_value(1)) {
@@ -555,7 +561,6 @@ public class AutoCrystal extends Module {
         if (!momentum.get_value(true)) {
             blocks.clear();
         }
-
 
 
         if (render_damage.in("Heuristic")) {
@@ -593,7 +598,8 @@ public class AutoCrystal extends Module {
 
             if (crystal.isDead) continue;
 
-            if (attacked_crystals.containsKey(crystal) && attacked_crystals.get(crystal) > anti_stuck_tries.get_value(1) && anti_stuck.get_value(true)) continue;
+            if (attacked_crystals.containsKey(crystal) && attacked_crystals.get(crystal) > anti_stuck_tries.get_value(1) && anti_stuck.get_value(true))
+                continue;
 
             for (Entity player : mc.world.playerEntities) {
 
@@ -620,7 +626,7 @@ public class AutoCrystal extends Module {
                 if (target == null) continue;
 
                 boolean no_place = faceplace_check.get_value(true) && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD;
-                if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true)&& !no_place) || (get_armor_fucker(target) && !no_place && !get_armor_fucker(mc.player)) || (face_place_bind)) {
+                if ((target.getHealth() < faceplace_mode_damage.get_value(1) && faceplace_mode.get_value(true) && !no_place) || (get_armor_fucker(target) && !no_place && !get_armor_fucker(mc.player)) || (face_place_bind)) {
                     minimum_damage = 2;
                 } else {
                     minimum_damage = this.min_player_break.get_value(1);
@@ -632,7 +638,8 @@ public class AutoCrystal extends Module {
 
                 final double self_damage = CrystalUtil.calculateDamage(crystal, mc.player);
 
-                if (self_damage > maximum_damage_self || (anti_suicide.get_value(true) && (mc.player.getHealth() + mc.player.getAbsorptionAmount()) - self_damage <= 0.5)) continue;
+                if (self_damage > maximum_damage_self || (anti_suicide.get_value(true) && (mc.player.getHealth() + mc.player.getAbsorptionAmount()) - self_damage <= 0.5))
+                    continue;
 
                 if (target_damage > best_damage && !break_all.get_value(true)) {
                     ca_target = target;
@@ -662,9 +669,11 @@ public class AutoCrystal extends Module {
             final float armor_percent = ((float) (stack.getMaxDamage() - stack.getItemDamage()) / (float) stack.getMaxDamage()) * 100.0f;
 
             if (p == mc.player) {
-                if (fuck_armor_mode.get_value(true) && fuck_armor_mode_precent_self.get_value(1) >= armor_percent) return true;
+                if (fuck_armor_mode.get_value(true) && fuck_armor_mode_precent_self.get_value(1) >= armor_percent)
+                    return true;
             } else {
-                if (fuck_armor_mode.get_value(true) && fuck_armor_mode_precent.get_value(1) >= armor_percent) return true;
+                if (fuck_armor_mode.get_value(true) && fuck_armor_mode_precent.get_value(1) >= armor_percent)
+                    return true;
             }
         }
         return false;
@@ -739,7 +748,7 @@ public class AutoCrystal extends Module {
             return true;
         }
 
-        if (min_health_pause.get_value(true) && (mc.player.getHealth()+mc.player.getAbsorptionAmount()) < required_health.get_value(1)) {
+        if (min_health_pause.get_value(true) && (mc.player.getHealth() + mc.player.getAbsorptionAmount()) < required_health.get_value(1)) {
             return true;
         }
 
@@ -795,14 +804,13 @@ public class AutoCrystal extends Module {
         return false;
     }
 
-    public EntityPlayer get_closest_target()  {
+    public EntityPlayer get_closest_target() {
         if (mc.world.playerEntities.isEmpty())
             return null;
 
         EntityPlayer closestTarget = null;
 
-        for (final EntityPlayer target : mc.world.playerEntities)
-        {
+        for (final EntityPlayer target : mc.world.playerEntities) {
             if (target == mc.player)
                 continue;
 
@@ -888,8 +896,9 @@ public class AutoCrystal extends Module {
 
         if (!render_damage.in("None")) {
             try {
-                RenderUtil.drawText(render_block_init, ((Math.floor(this.render_damage_value) == this.render_damage_value) ? Integer.valueOf((int)this.render_damage_value) : String.format("%.1f", this.render_damage_value)) + "");
-            } catch (Exception ignored) {}
+                RenderUtil.drawText(render_block_init, ((Math.floor(this.render_damage_value) == this.render_damage_value) ? Integer.valueOf((int) this.render_damage_value) : String.format("%.1f", this.render_damage_value)) + "");
+            } catch (Exception ignored) {
+            }
         }
 
     }
@@ -925,7 +934,7 @@ public class AutoCrystal extends Module {
             RenderHelp.prepare("quads");
             RenderHelp.draw_gradiant_cube(RenderHelp.get_buffer_build(),
                     render_block.getX(), render_block.getY(), render_block.getZ(),
-                    1, h, 1,  new Color(r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1)),
+                    1, h, 1, new Color(r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1)),
                     new Color(0, 0, 0, 0),
                     "all"
             );
@@ -1158,7 +1167,7 @@ public class AutoCrystal extends Module {
         detail_name = null;
         detail_hp = 20;
 
-       
+
     }
 
     @Override
@@ -1293,7 +1302,6 @@ public class AutoCrystal extends Module {
         a_out.set_shown((outline.get_value(true) || glow_outline.get_value(true)) && (!clean_mode.get_value(true) || setting.in("Render")));
 
 
-
         // MISC
         debug.set_shown(!clean_mode.get_value(true) || setting.in("Misc"));
         switch_bind.set_shown(!clean_mode.get_value(true) || setting.in("Misc"));
@@ -1311,4 +1319,7 @@ public class AutoCrystal extends Module {
     public String array_detail() {
         return (detail_name != null) ? detail_name + " | " + detail_hp : "None";
     }
+
+
+
 }
