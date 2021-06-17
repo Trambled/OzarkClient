@@ -48,7 +48,6 @@ public class ModuleManager {
 		add_module(new AutoExcuse());
 		add_module(new WeaknessAlert());
 		add_module(new RetardChat());
-		add_module(new ChatSpammer());
 		add_module(new AutoRacist());
 		add_module(new AutoSuicide());
 		add_module(new AntiHaram());
@@ -164,7 +163,7 @@ public class ModuleManager {
 
 		// Misc.
 		add_module(new AutoWither());
-		add_module(new MiddleClickFriends());
+		add_module(new MCF());
 		add_module(new StopEXP());
 		add_module(new AutoReplenish());
 		add_module(new AutoNomadHut());
