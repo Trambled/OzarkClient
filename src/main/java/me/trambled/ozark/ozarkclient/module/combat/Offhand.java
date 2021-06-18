@@ -63,14 +63,15 @@ public class Offhand extends Module {
                         swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), 0);
                         return;
                     }
-                    if (sword_gap.get_value(true) && mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD) {
+                    if (sword_gap.get_value(true) && mc.gameSettings.keyBindUseItem.isKeyDown() &&  mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD) {
+
                         swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
                         return;
                     }
                     if (switch_mode.in("Crystal") && (Ozark.get_module_manager().get_module_with_tag("AutoCrystal").is_active() || !module_check.get_value(true))) {
                         swap_items(get_item_slot(Items.END_CRYSTAL), 0);
                         return;
-                    }    
+                    }
                     if (gapple_in_hole.get_value(true) && hp > gapple_hole_hp.get_value(1) && is_in_hole()) {
                         swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
                         return;
