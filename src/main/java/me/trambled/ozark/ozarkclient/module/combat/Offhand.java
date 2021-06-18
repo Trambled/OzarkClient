@@ -63,8 +63,7 @@ public class Offhand extends Module {
                         swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), 0);
                         return;
                     }
-                    if (sword_gap.get_value(true) && mc.gameSettings.keyBindUseItem.isKeyDown() &&  mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD) {
-
+                    if (sword_gap.get_value(true) &&  mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD) {
                         swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
                         return;
                     }
