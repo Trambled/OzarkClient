@@ -132,6 +132,7 @@ public class ModuleManager {
 		add_module(new EntitySpeed());
 		add_module(new Static());
 		add_module(new PacketFly());
+		add_module(new AutoWalk());
 
 		// Render.
 		add_module(new BlockHighlight());
