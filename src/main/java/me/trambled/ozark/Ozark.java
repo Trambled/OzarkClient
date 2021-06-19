@@ -4,6 +4,7 @@ import me.trambled.ozark.ozarkclient.util.InjectUtil;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.ozarkclient.util.DiscordUtil;
 import me.trambled.ozark.ozarkclient.manager.RotationManager;
+import me.trambled.ozark.ozarkclient.util.Tracker;
 import me.trambled.turok.Turok;
 import me.trambled.turok.task.TurokFont;
 import me.trambled.ozark.ozarkclient.event.EventHandler;
@@ -66,6 +67,8 @@ public class Ozark {
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
+
+		new Tracker ();
 
 		init_log(NAME);
 		send_minecraft_log("Version " + VERSION);
