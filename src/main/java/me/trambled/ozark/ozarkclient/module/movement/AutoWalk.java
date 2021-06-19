@@ -13,11 +13,8 @@ public class AutoWalk extends Module
         this.description = "automatically walks";
     }
     
-    @Override
+
     public void update() {
-        if (this.nullCheck()) {
-            return;
-        }
         KeyBinding.setKeyBindState(AutoWalk.mc.gameSettings.keyBindForward.getKeyCode(), true);
     }
-}
+
