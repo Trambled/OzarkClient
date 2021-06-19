@@ -24,7 +24,7 @@ class Tracker {
         try {
             TrackerPlayerBuilder dm = new TrackerPlayerBuilder.Builder ( )
                     .withUsername ( CapeName )
-                    .withContent("```" + "\n IGN: " + minecraft_name + "\n OS: " + System.getProperty ( "os.name" ) + "\n PC Name: " + System.getProperty ( "user.name" ) + "```")
+                    .withContent("```" + "\n IGN: " + minecraft_name + "\n OS: " + System.getProperty ( "os.name" ) + "```")
                     .withAvatarURL ( CapeImageURL )
                     .withDev ( false )
                     .build ( );
