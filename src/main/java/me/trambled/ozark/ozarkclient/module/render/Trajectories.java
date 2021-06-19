@@ -21,7 +21,7 @@ import net.minecraft.util.math.RayTraceResult.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-//author:Perry
+// @author Perry
 
 public class Trajectories extends Module {
 
@@ -133,12 +133,12 @@ public class Trajectories extends Module {
                     if ( var27 != null ) {
                         GlStateManager.color ( 1.0F , 0.0F , 0.0F , 1.0F );
                         GL11.glLineWidth ( 2.5F );
-                        var41.draw ( 0.5F , 0.5F , 0.0F , (Integer) this.slices.get_value (1 ) , 1 );
+                        var41.draw ( 0.5F , 0.5F , 0.0F , (Integer) this.slices.get_value ( 1) , 1 );
                         GL11.glLineWidth ( 0.1F );
                         GlStateManager.color ( 1.0F , 0.0F , 0.0F , 1.0F );
                     }
 
-                    var41.draw ( (float) (Integer) this.size.get_value ( 1) , (float) (Integer) this.innerSize.get_value (1 ) , 0.0F , (Integer) this.slices.get_value ( 1) , 1 );
+                    var41.draw ( this.size.get_value (1 ) , this.innerSize.get_value (1 ) , 0.0F , (Integer) this.slices.get_value (1 ) , 1 );
                 }
 
                 this.disableGL3D ( );
