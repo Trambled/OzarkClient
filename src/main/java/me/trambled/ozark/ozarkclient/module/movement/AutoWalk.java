@@ -17,4 +17,4 @@ public class AutoWalk extends Module
     public void update() {
         KeyBinding.setKeyBindState(AutoWalk.mc.gameSettings.keyBindForward.getKeyCode(), true);
     }
-
+}
