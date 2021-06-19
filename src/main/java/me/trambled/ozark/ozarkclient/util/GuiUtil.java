@@ -3,7 +3,6 @@ package me.trambled.ozark.ozarkclient.util;
 import me.trambled.turok.Turok;
 import me.trambled.turok.draw.RenderHelp;
 import me.trambled.turok.task.Rect;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
@@ -11,6 +10,8 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 import java.util.Arrays;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 // Travis
 

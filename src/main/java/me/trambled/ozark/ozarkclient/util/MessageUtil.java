@@ -3,7 +3,6 @@ package me.trambled.ozark.ozarkclient.util;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.module.Module;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentBase;
@@ -12,6 +11,8 @@ import net.minecraft.util.text.event.HoverEvent;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class MessageUtil {
 

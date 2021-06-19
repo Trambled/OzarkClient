@@ -1,6 +1,7 @@
 package me.trambled.ozark.ozarkclient.event;
 
-import me.trambled.ozark.ozarkclient.manager.*;
+import me.trambled.ozark.ozarkclient.manager.CommandManager;
+import me.trambled.ozark.ozarkclient.manager.EventManager;
 import me.trambled.ozark.ozarkclient.manager.RotationManager;
 import net.minecraftforge.common.MinecraftForge;
 

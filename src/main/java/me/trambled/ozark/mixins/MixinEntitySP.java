@@ -2,7 +2,10 @@ package me.trambled.ozark.mixins;
 
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.Eventbus;
-import me.trambled.ozark.ozarkclient.event.events.*;
+import me.trambled.ozark.ozarkclient.event.events.EventMove;
+import me.trambled.ozark.ozarkclient.event.events.EventPlayerPushOutOfBlocks;
+import me.trambled.ozark.ozarkclient.event.events.EventRotation;
+import me.trambled.ozark.ozarkclient.event.events.EventSwing;
 import me.trambled.ozark.ozarkclient.util.RotationUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;

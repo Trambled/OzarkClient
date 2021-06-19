@@ -1,16 +1,16 @@
 package me.trambled.ozark.mixins;
 
 import me.trambled.ozark.Ozark;
-import net.minecraft.util.math.BlockPos;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.client.shader.ShaderGroup;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.client.multiplayer.WorldClient;
-import org.spongepowered.asm.mixin.Shadow;
-import net.minecraft.client.shader.ShaderGroup;
-import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(value = { RenderGlobal.class }, priority = 9999)
 public class MixinRenderGlobal

@@ -1,9 +1,11 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
-import me.trambled.ozark.ozarkclient.util.*;
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
+import me.trambled.ozark.ozarkclient.util.BlockInteractionHelper;
+import me.trambled.ozark.ozarkclient.util.FriendUtil;
+import me.trambled.ozark.ozarkclient.util.MessageUtil;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,6 +19,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+
 import java.util.ArrayList;
 import java.util.List;
 

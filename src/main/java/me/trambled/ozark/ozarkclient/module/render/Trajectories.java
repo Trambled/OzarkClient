@@ -1,8 +1,8 @@
 package me.trambled.ozark.ozarkclient.module.render;
 
+import me.trambled.ozark.ozarkclient.event.events.EventRender;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
-import me.trambled.ozark.ozarkclient.event.events.EventRender;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
@@ -12,11 +12,10 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.Cylinder;
-import net.minecraft.util.math.RayTraceResult.Type;
-
 
 import java.util.ArrayList;
 import java.util.List;

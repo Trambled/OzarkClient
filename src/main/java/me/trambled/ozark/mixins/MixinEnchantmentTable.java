@@ -1,5 +1,6 @@
 package me.trambled.ozark.mixins;
 
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventRenderEnchantingTable;
 import net.minecraft.client.renderer.tileentity.TileEntityEnchantmentTableRenderer;
 import net.minecraft.tileentity.TileEntityEnchantmentTable;
@@ -7,8 +8,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import me.trambled.ozark.ozarkclient.event.Eventbus;
 
 @Mixin(TileEntityEnchantmentTableRenderer.class)
 public class MixinEnchantmentTable {

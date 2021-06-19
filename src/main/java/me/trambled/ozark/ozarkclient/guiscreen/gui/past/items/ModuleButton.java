@@ -1,21 +1,16 @@
 package me.trambled.ozark.ozarkclient.guiscreen.gui.past.items;
 
-import me.trambled.ozark.ozarkclient.util.GuiUtil;
-import me.trambled.ozark.ozarkclient.guiscreen.gui.past.Component;
 import me.trambled.ozark.Ozark;
+import me.trambled.ozark.ozarkclient.guiscreen.gui.past.Component;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.past.Panel;
-import me.trambled.ozark.ozarkclient.util.FontUtil;
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Module;
-import me.trambled.ozark.ozarkclient.module.gui.PastGUIModule;
+import me.trambled.ozark.ozarkclient.module.Setting;
+import me.trambled.ozark.ozarkclient.util.FontUtil;
+import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.turok.draw.RenderHelp;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.init.SoundEvents;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
-
 
 import java.util.ArrayList;
 

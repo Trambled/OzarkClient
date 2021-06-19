@@ -1,9 +1,9 @@
 package me.trambled.ozark.ozarkclient.guiscreen.gui.past.items;
 
-import java.util.Random;
-
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
+
+import java.util.Random;
 
 public class Snow
 {

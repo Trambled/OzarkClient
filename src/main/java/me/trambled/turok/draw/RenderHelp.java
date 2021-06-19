@@ -7,12 +7,12 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.opengl.GL11;
 
+import java.awt.*;
 import java.util.Arrays;
+import java.util.List;
 
 import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import static org.lwjgl.opengl.GL11.*;
-import java.util.List;
-import java.awt.*;
 
 /**
 * @author 086

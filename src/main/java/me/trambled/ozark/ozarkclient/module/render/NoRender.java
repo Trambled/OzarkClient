@@ -1,19 +1,18 @@
 package me.trambled.ozark.ozarkclient.module.render;
 
 import me.trambled.ozark.ozarkclient.event.events.*;
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
-
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.boss.EntityWither;
+import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.EntityWitherSkull;
-import net.minecraft.entity.boss.EntityWither;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
-import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent.OverlayType;
 
 //mostly from salhack and creepy salhack

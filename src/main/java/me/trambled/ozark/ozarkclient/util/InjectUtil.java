@@ -17,12 +17,12 @@
 package me.trambled.ozark.ozarkclient.util;
 
 import me.trambled.ozark.ozarkclient.guiscreen.GuiBetterChat;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+
 import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 // full credit goes to llamalad7

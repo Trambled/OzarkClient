@@ -2,11 +2,10 @@ package me.trambled.ozark.ozarkclient.guiscreen.gui.past.items;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.past.Component;
-import me.trambled.ozark.ozarkclient.util.FontUtil;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import net.minecraft.client.gui.Gui;
+import me.trambled.ozark.ozarkclient.util.FontUtil;
+import me.trambled.ozark.ozarkclient.util.GuiUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -1,23 +1,24 @@
 package me.trambled.ozark.ozarkclient.util;
 
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.Packet;
-import net.minecraft.network.play.client.CPacketPlayer;
-import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemFood;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.client.CPacketEntityAction;
+import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class PlayerUtil
 {

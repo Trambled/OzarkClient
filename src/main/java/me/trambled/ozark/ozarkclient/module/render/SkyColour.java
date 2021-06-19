@@ -1,10 +1,9 @@
 package me.trambled.ozark.ozarkclient.module.render;
 
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.awt.*;

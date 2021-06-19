@@ -1,15 +1,14 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
-
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.PlayerUtil;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 
 /**
  * Made by @Trambled on 1/27/2021

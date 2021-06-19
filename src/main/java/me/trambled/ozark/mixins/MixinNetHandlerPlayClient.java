@@ -1,13 +1,13 @@
 package me.trambled.ozark.mixins;
 
 import me.trambled.ozark.Ozark;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.client.multiplayer.WorldClient;
-import org.spongepowered.asm.mixin.injection.At;
-import net.minecraft.client.network.NetHandlerPlayClient;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin({ NetHandlerPlayClient.class })
 public class MixinNetHandlerPlayClient

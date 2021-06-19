@@ -1,11 +1,12 @@
 package me.trambled.ozark.ozarkclient.util;
 
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.client.renderer.texture.ITextureObject;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class TextureUtil {
 

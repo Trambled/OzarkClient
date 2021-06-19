@@ -1,12 +1,12 @@
 package me.trambled.ozark.ozarkclient.module.chat;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import com.mojang.realmsclient.gui.ChatFormatting;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,7 +2,6 @@ package me.trambled.turok.values;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 /**
 * @author me

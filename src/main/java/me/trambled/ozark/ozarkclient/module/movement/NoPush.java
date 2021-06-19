@@ -1,13 +1,13 @@
 package me.trambled.ozark.ozarkclient.module.movement;
 
+import me.trambled.ozark.ozarkclient.event.events.EventPlayerPushOutOfBlocks;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.event.events.EventPlayerPushOutOfBlocks;
-import net.minecraft.init.Blocks;
-import net.minecraft.util.math.BlockPos;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.math.BlockPos;
 
 //from salhack basically
 public class NoPush extends Module {

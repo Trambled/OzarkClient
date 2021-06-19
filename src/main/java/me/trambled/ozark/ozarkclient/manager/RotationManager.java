@@ -4,15 +4,12 @@ import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.event.events.EventRotation;
-import me.trambled.ozark.ozarkclient.util.MessageUtil;
 import me.trambled.ozark.ozarkclient.util.RotationUtil;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listenable;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.Comparator;
 import java.util.concurrent.LinkedBlockingQueue;

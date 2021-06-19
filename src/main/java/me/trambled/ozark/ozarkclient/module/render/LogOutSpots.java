@@ -11,10 +11,11 @@ import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.server.SPacketPlayerListItem;
 import net.minecraft.util.math.AxisAlignedBB;
+
 import java.awt.*;
 import java.util.List;
 import java.util.Objects;

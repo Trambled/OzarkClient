@@ -1,14 +1,16 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
-import me.trambled.turok.draw.RenderHelp;
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.event.events.*;
-import me.trambled.ozark.ozarkclient.module.Setting;
+import me.trambled.ozark.ozarkclient.event.events.EventEntityRemoved;
+import me.trambled.ozark.ozarkclient.event.events.EventPacket;
+import me.trambled.ozark.ozarkclient.event.events.EventRender;
+import me.trambled.ozark.ozarkclient.event.events.EventRotation;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.chat.AutoEz;
 import me.trambled.ozark.ozarkclient.util.*;
-
+import me.trambled.turok.draw.RenderHelp;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.entity.Entity;

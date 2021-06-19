@@ -1,20 +1,16 @@
 package me.trambled.ozark.ozarkclient.module.movement;
 
-import me.trambled.ozark.ozarkclient.event.Event;
+import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.events.EventMove;
-import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.event.events.EventPlayerJump;
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
-import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.TimerUtil;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.network.play.client.CPacketPlayer;
-import net.minecraft.network.play.server.SPacketExplosion;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 

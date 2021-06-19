@@ -1,11 +1,12 @@
 package me.trambled.ozark.ozarkclient.util;
 
 import club.minnced.discord.rpc.DiscordEventHandlers;
-import club.minnced.discord.rpc.DiscordRichPresence;
 import club.minnced.discord.rpc.DiscordRPC;
+import club.minnced.discord.rpc.DiscordRichPresence;
 import me.trambled.ozark.Ozark;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.multiplayer.GuiConnecting;
+
 import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 // originally from emphack but most of that has been removed

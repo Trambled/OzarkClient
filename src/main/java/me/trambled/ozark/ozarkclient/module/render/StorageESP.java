@@ -1,12 +1,11 @@
 package me.trambled.ozark.ozarkclient.module.render;
 
-import net.minecraft.tileentity.*;
-
-import me.trambled.ozark.ozarkclient.module.Setting;
+import me.trambled.ozark.ozarkclient.event.events.EventRender;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
-import me.trambled.ozark.ozarkclient.event.events.EventRender;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.turok.draw.RenderHelp;
+import net.minecraft.tileentity.*;
 
 /**
 * @author Rina

@@ -2,10 +2,11 @@ package me.trambled.ozark.ozarkclient.manager;
 
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
 import me.trambled.ozark.ozarkclient.guiscreen.hud.pinnables.*;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 
 public class HUDManager {

@@ -3,7 +3,6 @@ package me.trambled.ozark.ozarkclient.util;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.events.EventRotation;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayer;
@@ -11,6 +10,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.*;
 
 import java.util.Random;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 /**
  * @author linustouchtips

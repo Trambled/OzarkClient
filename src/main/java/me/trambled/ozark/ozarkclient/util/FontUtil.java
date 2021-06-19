@@ -1,6 +1,7 @@
 package me.trambled.ozark.ozarkclient.util;
 
 import me.trambled.ozark.Ozark;
+
 import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class FontUtil {

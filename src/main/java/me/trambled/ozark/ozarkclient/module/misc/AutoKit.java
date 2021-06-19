@@ -8,7 +8,6 @@ import me.trambled.ozark.ozarkclient.util.AutoKitUtil;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.network.play.server.SPacketRespawn;
-import net.minecraftforge.common.MinecraftForge;
 
 public class AutoKit extends Module {
 

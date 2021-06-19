@@ -1,7 +1,6 @@
 package me.trambled.ozark.ozarkclient.util;
 
 import me.trambled.ozark.ozarkclient.module.Setting;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -20,6 +19,8 @@ import net.minecraft.util.math.*;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class BlockUtil {
     public static List<Block> emptyBlocks;

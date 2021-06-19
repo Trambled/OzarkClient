@@ -1,9 +1,10 @@
 package me.trambled.ozark.ozarkclient.module;
 
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import org.lwjgl.input.Keyboard;
 
 import java.util.List;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class Setting {
 	private Module master;

@@ -1,5 +1,8 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
+import me.trambled.ozark.ozarkclient.module.Category;
+import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.BlockInteractionHelper;
 import me.trambled.ozark.ozarkclient.util.CrystalUtil;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
@@ -7,16 +10,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockPressurePlate;
 import net.minecraft.block.BlockWeb;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityEnderCrystal;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.init.Blocks;
-import net.minecraft.entity.item.EntityEnderCrystal;
-import java.util.ArrayList;
-import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.module.Category;
-import me.trambled.ozark.ozarkclient.module.Module;
 import net.minecraft.network.play.client.CPacketHeldItemChange;
+
+import java.util.ArrayList;
 
 //xenon
 public class AntiCrystal extends Module

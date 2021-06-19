@@ -2,8 +2,8 @@ package me.trambled.ozark.ozarkclient.guiscreen.hud.pinnables;
 
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
+import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.util.MathUtil;
 
 public class Compass extends Pinnable {

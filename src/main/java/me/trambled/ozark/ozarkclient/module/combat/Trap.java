@@ -1,9 +1,9 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
 
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.BlockUtil;
 import me.trambled.ozark.ozarkclient.util.EntityUtil;
 import me.trambled.ozark.ozarkclient.util.FriendUtil;

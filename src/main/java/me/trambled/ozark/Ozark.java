@@ -1,20 +1,18 @@
 package me.trambled.ozark;
 
-import me.trambled.ozark.ozarkclient.util.InjectUtil;
 import com.mojang.realmsclient.gui.ChatFormatting;
-import me.trambled.ozark.ozarkclient.util.DiscordUtil;
-import me.trambled.ozark.ozarkclient.manager.RotationManager;
-import me.trambled.ozark.ozarkclient.util.Tracker;
-import me.trambled.turok.Turok;
-import me.trambled.turok.task.TurokFont;
 import me.trambled.ozark.ozarkclient.event.EventHandler;
 import me.trambled.ozark.ozarkclient.event.EventRegister;
 import me.trambled.ozark.ozarkclient.guiscreen.MainGUI;
 import me.trambled.ozark.ozarkclient.guiscreen.MainHUD;
 import me.trambled.ozark.ozarkclient.guiscreen.PastGUI;
-import me.trambled.ozark.ozarkclient.util.CustomFontRenderer;
 import me.trambled.ozark.ozarkclient.manager.*;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
+import me.trambled.ozark.ozarkclient.util.CustomFontRenderer;
+import me.trambled.ozark.ozarkclient.util.DiscordUtil;
+import me.trambled.ozark.ozarkclient.util.InjectUtil;
+import me.trambled.ozark.ozarkclient.util.Tracker;
+import me.trambled.turok.Turok;
+import me.trambled.turok.task.TurokFont;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -24,6 +22,8 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import java.awt.*;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 @Mod(modid = "ozarkclient", version = Ozark.VERSION)
 public class Ozark {

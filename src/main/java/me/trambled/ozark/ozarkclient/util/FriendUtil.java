@@ -4,9 +4,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.util.UUIDTypeAdapter;
 import me.trambled.ozark.Ozark;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.client.network.NetworkPlayerInfo;
+import net.minecraft.entity.player.EntityPlayer;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
@@ -14,9 +13,11 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.UUID;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class FriendUtil {
 

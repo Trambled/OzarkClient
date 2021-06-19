@@ -1,12 +1,16 @@
 package me.trambled.ozark.ozarkclient.command.commands;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.ozarkclient.command.Command;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import net.minecraft.item.ItemStack;
-import java.io.*;
+
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class AutoGearCommand extends Command {
 	public AutoGearCommand() {

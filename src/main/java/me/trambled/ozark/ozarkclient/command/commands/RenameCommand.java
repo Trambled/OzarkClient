@@ -3,7 +3,6 @@ package me.trambled.ozark.ozarkclient.command.commands;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.command.Command;
-import me.trambled.ozark.ozarkclient.util.AutoKitUtil;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
 
 public class RenameCommand extends Command {

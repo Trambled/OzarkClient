@@ -1,9 +1,11 @@
 package me.trambled.ozark.ozarkclient.module.movement;
 
-import me.trambled.ozark.ozarkclient.module.Setting;
+import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
-import me.trambled.ozark.ozarkclient.event.events.EventPacket;
+import me.trambled.ozark.ozarkclient.module.Setting;
+import me.zero.alpine.fork.listener.EventHandler;
+import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.client.gui.GuiIngameMenu;
 import net.minecraft.client.gui.GuiOptions;
 import net.minecraft.client.gui.GuiScreenOptionsSounds;
@@ -16,8 +18,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.InputUpdateEvent;
 import org.lwjgl.input.Keyboard;
-import me.zero.alpine.fork.listener.EventHandler;
-import me.zero.alpine.fork.listener.Listener;
 
 //TODO: add timer to noweb like in konas
 public class NoSlowDown extends Module {

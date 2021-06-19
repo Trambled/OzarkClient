@@ -1,9 +1,8 @@
 package me.trambled.ozark.ozarkclient.module.chat;
 
-import me.trambled.ozark.ozarkclient.util.MessageUtil;
-import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.util.MessageUtil;
 
 public class AutoDDOS extends Module {
     public AutoDDOS() {

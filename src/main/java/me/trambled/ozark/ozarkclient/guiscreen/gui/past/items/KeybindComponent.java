@@ -2,10 +2,9 @@ package me.trambled.ozark.ozarkclient.guiscreen.gui.past.items;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.past.Component;
 import me.trambled.ozark.ozarkclient.util.FontUtil;
-import net.minecraft.client.gui.Gui;
+import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import org.lwjgl.input.Keyboard;
 
 public class KeybindComponent extends Component {

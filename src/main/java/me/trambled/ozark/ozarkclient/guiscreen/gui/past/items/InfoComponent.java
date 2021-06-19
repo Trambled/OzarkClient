@@ -2,11 +2,10 @@ package me.trambled.ozark.ozarkclient.guiscreen.gui.past.items;
 
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.past.Component;
-import me.trambled.ozark.ozarkclient.util.FontUtil;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import net.minecraft.client.gui.Gui;
+import me.trambled.ozark.ozarkclient.util.FontUtil;
+import me.trambled.ozark.ozarkclient.util.GuiUtil;
 
 public class InfoComponent extends Component {
     private final Setting op;

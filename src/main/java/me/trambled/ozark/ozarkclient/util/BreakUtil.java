@@ -2,7 +2,6 @@ package me.trambled.ozark.ozarkclient.util;
 
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.state.IBlockState;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.CPacketPlayerDigging;
 import net.minecraft.util.EnumFacing;
@@ -10,6 +9,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class BreakUtil {
 

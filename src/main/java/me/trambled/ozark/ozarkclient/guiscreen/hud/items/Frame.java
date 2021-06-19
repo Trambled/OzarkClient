@@ -2,10 +2,11 @@ package me.trambled.ozark.ozarkclient.guiscreen.hud.items;
 
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.util.GuiUtil;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 import java.awt.*;
 import java.util.ArrayList;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 
 public class Frame {

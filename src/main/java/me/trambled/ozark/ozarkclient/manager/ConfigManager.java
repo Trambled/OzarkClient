@@ -3,17 +3,15 @@ package me.trambled.ozark.ozarkclient.manager;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.*;
 import me.trambled.ozark.Ozark;
+import me.trambled.ozark.ozarkclient.guiscreen.PastGUI;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.Frame;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.past.Panel;
-import me.trambled.ozark.ozarkclient.guiscreen.PastGUI;
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.render.Xray;
 import me.trambled.ozark.ozarkclient.util.*;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
 import java.io.*;
@@ -25,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import static me.trambled.ozark.Ozark.send_minecraft_log;
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class ConfigManager {
 

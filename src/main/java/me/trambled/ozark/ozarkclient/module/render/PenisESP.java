@@ -4,12 +4,11 @@ package me.trambled.ozark.ozarkclient.module.render;
 import me.trambled.ozark.ozarkclient.event.events.EventRender;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.Cylinder;
 import org.lwjgl.util.glu.Sphere;
-import net.minecraft.client.renderer.RenderHelper;
-
-import org.lwjgl.opengl.GL11;
 
 // xatz
 public class PenisESP extends Module {

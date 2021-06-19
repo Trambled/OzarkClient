@@ -1,9 +1,10 @@
 package me.trambled.ozark.ozarkclient.util;
 
 import net.minecraft.client.gui.FontRenderer;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 import java.awt.*;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 // Travis
 

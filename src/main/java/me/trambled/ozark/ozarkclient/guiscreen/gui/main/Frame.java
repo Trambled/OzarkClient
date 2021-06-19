@@ -1,13 +1,14 @@
 package me.trambled.ozark.ozarkclient.guiscreen.gui.main;
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
+import me.trambled.ozark.ozarkclient.util.GuiUtil;
 
 import java.awt.*;
 import java.util.ArrayList;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 
 public class Frame {

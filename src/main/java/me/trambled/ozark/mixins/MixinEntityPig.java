@@ -1,10 +1,9 @@
 package me.trambled.ozark.mixins;
 
 import me.trambled.ozark.ozarkclient.event.Eventbus;
-import me.trambled.ozark.ozarkclient.event.events.EventSteerEntity;
 import me.trambled.ozark.ozarkclient.event.events.EventHorseSaddled;
+import me.trambled.ozark.ozarkclient.event.events.EventSteerEntity;
 import net.minecraft.entity.passive.EntityPig;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

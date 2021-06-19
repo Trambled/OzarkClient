@@ -1,6 +1,5 @@
 package me.trambled.ozark.ozarkclient.util;
 
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -19,6 +18,8 @@ import net.minecraft.world.Explosion;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class CrystalUtil {
 

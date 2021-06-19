@@ -1,13 +1,13 @@
 package me.trambled.ozark.ozarkclient.guiscreen.gui.main.widgets;
 
 
-import me.trambled.turok.values.TurokDouble;
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.GuiUtil;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.AbstractWidget;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.Frame;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.ModuleButton;
 import me.trambled.ozark.ozarkclient.module.Setting;
+import me.trambled.ozark.ozarkclient.util.GuiUtil;
+import me.trambled.turok.values.TurokDouble;
 
 // Travis.
 

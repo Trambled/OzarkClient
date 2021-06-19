@@ -12,11 +12,12 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 import java.awt.*;
 import java.util.List;
 import java.util.Objects;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class EntityUtil {
 

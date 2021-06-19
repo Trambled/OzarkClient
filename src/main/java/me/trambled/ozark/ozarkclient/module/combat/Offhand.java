@@ -1,20 +1,20 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
+import me.trambled.ozark.ozarkclient.util.CrystalUtil;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
 import me.trambled.ozark.ozarkclient.util.PlayerUtil;
-import me.trambled.ozark.ozarkclient.util.CrystalUtil;
 import net.minecraft.client.gui.inventory.GuiInventory;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityEnderCrystal;
 
 public class Offhand extends Module {
 

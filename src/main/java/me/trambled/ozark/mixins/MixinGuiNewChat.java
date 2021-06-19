@@ -4,15 +4,10 @@ import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
 import me.trambled.ozark.ozarkclient.util.RainbowUtil;
 import net.minecraft.client.gui.*;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 /**

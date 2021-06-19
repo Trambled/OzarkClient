@@ -3,9 +3,8 @@ package me.trambled.ozark.ozarkclient.util;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.state.IBlockState;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
-import net.minecraft.init.Blocks;
 import net.minecraft.entity.Entity;
+import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketPlayerDigging;
@@ -18,6 +17,8 @@ import net.minecraft.util.math.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class BlockInteractionHelper {
     

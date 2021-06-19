@@ -1,11 +1,12 @@
 package me.trambled.ozark.ozarkclient.event.events;
 
 import me.trambled.ozark.ozarkclient.event.Event;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.math.Vec3d;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 // External.
 

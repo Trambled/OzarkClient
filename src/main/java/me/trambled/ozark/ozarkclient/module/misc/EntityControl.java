@@ -1,9 +1,9 @@
 package me.trambled.ozark.ozarkclient.module.misc;
 
+import me.trambled.ozark.ozarkclient.event.events.EventHorseSaddled;
+import me.trambled.ozark.ozarkclient.event.events.EventSteerEntity;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
-import me.trambled.ozark.ozarkclient.event.events.EventSteerEntity;
-import me.trambled.ozark.ozarkclient.event.events.EventHorseSaddled;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 

@@ -4,15 +4,15 @@ import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventBlockGetRenderLayer;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPortal;
 import net.minecraft.util.BlockRenderLayer;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
-import net.minecraft.block.BlockPortal;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin({ BlockPortal.class })

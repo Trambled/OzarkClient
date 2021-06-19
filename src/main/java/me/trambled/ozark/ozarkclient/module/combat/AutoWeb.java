@@ -1,8 +1,8 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;

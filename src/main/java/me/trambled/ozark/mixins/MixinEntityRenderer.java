@@ -1,9 +1,9 @@
 package me.trambled.ozark.mixins;
 
 import me.trambled.ozark.ozarkclient.event.Eventbus;
-import me.trambled.ozark.ozarkclient.event.events.EventSetupFog;
 import me.trambled.ozark.ozarkclient.event.events.EventRenderHurtCameraEffect;
 import me.trambled.ozark.ozarkclient.event.events.EventRenderUpdateLightMap;
+import me.trambled.ozark.ozarkclient.event.events.EventSetupFog;
 import net.minecraft.client.renderer.EntityRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

@@ -1,6 +1,5 @@
 package me.trambled.ozark.ozarkclient.util;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.culling.ICamera;
@@ -11,10 +10,10 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.GL11;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 import java.awt.*;
 
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glHint;
 

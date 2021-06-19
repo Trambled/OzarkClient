@@ -1,7 +1,6 @@
 package me.trambled.ozark.ozarkclient.event.events;
 
 import me.trambled.ozark.ozarkclient.event.Event;
-
 import net.minecraft.block.Block;
 import net.minecraft.util.BlockRenderLayer;
 

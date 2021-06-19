@@ -1,7 +1,7 @@
 package me.trambled.ozark.ozarkclient.command;
 
-import me.trambled.turok.values.TurokString;
 import me.trambled.ozark.ozarkclient.command.commands.*;
+import me.trambled.turok.values.TurokString;
 import net.minecraft.util.text.Style;
 
 import java.util.ArrayList;

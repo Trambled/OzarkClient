@@ -1,8 +1,6 @@
 package me.trambled.ozark.ozarkclient.guiscreen.hud.pinnables;
 
-import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.events.EventPacket;
-import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
 import me.trambled.ozark.ozarkclient.module.combat.AutoCrystal;
 import me.zero.alpine.fork.listener.EventHandler;

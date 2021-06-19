@@ -1,5 +1,6 @@
 package me.trambled.ozark.ozarkclient.module.movement;
 
+import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import net.minecraft.block.BlockLiquid;
@@ -10,7 +11,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import me.trambled.ozark.Ozark;
 
 public class HoleTP extends Module //made by gamesense
 {

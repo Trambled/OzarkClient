@@ -1,7 +1,7 @@
 package me.trambled.ozark.ozarkclient.manager;
 
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
 
 import java.util.ArrayList;
 

@@ -1,8 +1,8 @@
 package me.trambled.ozark.ozarkclient.module.movement;
 
-import net.minecraft.client.settings.KeyBinding;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import net.minecraft.client.settings.KeyBinding;
 
 public class AutoWalk extends Module
 {

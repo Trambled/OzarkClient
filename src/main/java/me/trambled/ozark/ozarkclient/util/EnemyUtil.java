@@ -3,9 +3,7 @@ package me.trambled.ozark.ozarkclient.util;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mojang.util.UUIDTypeAdapter;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 import java.io.BufferedInputStream;
 import java.io.InputStream;
@@ -14,6 +12,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.UUID;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class EnemyUtil {
 

@@ -3,15 +3,14 @@ package me.trambled.ozark.mixins;
 import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventRenderPutColorMultiplier;
 import net.minecraft.client.renderer.BufferBuilder;
-
-import java.nio.ByteOrder;
-import java.nio.IntBuffer;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.nio.ByteOrder;
+import java.nio.IntBuffer;
 
 @Mixin(BufferBuilder.class)
 public abstract class MixinBufferBuilder

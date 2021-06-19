@@ -1,7 +1,7 @@
 package me.trambled.ozark.ozarkclient.event;
 
 import me.zero.alpine.fork.event.type.Cancellable;
-import net.minecraft.client.Minecraft;
+
 import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 

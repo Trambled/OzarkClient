@@ -1,11 +1,11 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
-import me.trambled.turok.draw.RenderHelp;
 import me.trambled.ozark.ozarkclient.event.events.EventRender;
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.*;
+import me.trambled.turok.draw.RenderHelp;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.Entity;

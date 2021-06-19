@@ -2,9 +2,9 @@ package me.trambled.ozark.ozarkclient.module.combat;
 
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.FriendUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

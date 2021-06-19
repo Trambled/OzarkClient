@@ -1,6 +1,5 @@
 package me.trambled.ozark.ozarkclient.util;
 
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -14,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class MathUtil {
 

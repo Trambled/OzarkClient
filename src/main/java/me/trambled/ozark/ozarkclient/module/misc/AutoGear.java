@@ -1,9 +1,9 @@
 package me.trambled.ozark.ozarkclient.module.misc;
 
 import me.trambled.ozark.ozarkclient.command.commands.AutoGearCommand;
-import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.ContainerChest;
