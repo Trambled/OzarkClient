@@ -73,7 +73,9 @@ public class PastGUIModule extends Module {
 	@Override
 	protected void disable() {
 		if (!full_null_check()) {
-			mc.displayGuiScreen(null);
+			mc.displayGuiScreen(null)
+                        mc.entityRenderer.getShaderGroup().deleteShaderGroup();
+
 		}
 	}
 
