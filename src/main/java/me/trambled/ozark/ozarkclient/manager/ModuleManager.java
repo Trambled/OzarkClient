@@ -43,7 +43,6 @@ public class ModuleManager {
 		add_module(new TotemPopCounter());
 		add_module(new ChatMods());
 		add_module(new AutoEz());
-		add_module(new AntiRacist());
 		add_module(new Announcer());
 		add_module(new AutoExcuse());
 		add_module(new WeaknessAlert());
@@ -55,7 +54,6 @@ public class ModuleManager {
 		add_module(new FactSpammer());
 		add_module(new AutoGroom());
 		add_module(new Shrug());
-		add_module(new AutoDDOS());
 		add_module(new BurrowAlert());
 		add_module(new RainbowChat());
 		add_module(new BetterChat());
@@ -68,7 +66,6 @@ public class ModuleManager {
 		add_module(new AutoCrystal());
 		add_module(new HoleFill());
 		add_module(new Trap());
-		add_module(new Socks());
 		add_module(new SelfTrap());
 		add_module(new AutoArmour());
 		add_module(new Auto32K());
@@ -80,7 +77,6 @@ public class ModuleManager {
 		add_module(new AutoMine());
 		add_module(new FastBow());
 		add_module(new AntiCrystal());
-		add_module(new ManualQuiver());
 		add_module(new OffhandBypass());
 		add_module(new AntiTrap());
 		add_module(new AutoAnvil());
@@ -102,7 +98,6 @@ public class ModuleManager {
 		add_module(new AutoStackDupe());
 		add_module(new EntityDesync());
 		add_module(new Timer());
-		add_module(new Burrow());
 		add_module(new Freecam());
 		add_module(new EChestBP());
 		add_module(new Ghost());
@@ -111,7 +106,6 @@ public class ModuleManager {
 		add_module(new CoordExploit());
 		add_module(new InstantBurrow());
 		add_module(new AntiWeb());
-		add_module(new AutoRat());
 
 		// Movement.
 		add_module(new Strafe());
@@ -156,7 +150,6 @@ public class ModuleManager {
 		add_module(new Xray());
 		add_module(new Weather());
 		add_module(new BreakESP());
-		add_module(new SmallHands());
 		add_module(new LogOutSpots());
 		add_module(new Trajectories());
 		add_module(new PenisESP());
@@ -167,27 +160,21 @@ public class ModuleManager {
 		add_module(new MCF());
 		add_module(new StopEXP());
 		add_module(new AutoReplenish());
-		add_module(new AutoNomadHut());
 		add_module(new FastUtil());
 		add_module(new Speedmine());
 		add_module(new DiscordRPC());
 		add_module(new FakePlayer());
 		add_module(new EntityControl());
 		add_module(new PacketCanceller());
-		add_module(new AutoKit());
 		add_module(new AutoEat());
 		add_module(new DupeIStack());
-		add_module(new AutoTool());
 		add_module(new AutoBuilder());
 		add_module(new AutoRespawn());
-		add_module(new InventorySort());
-		add_module(new AutoGear());
 		add_module(new AntiSound());
 		add_module(new Friends());
 		add_module(new EntityAlert());
 		add_module(new Portals());
 		add_module(new AntiAFK());
-		add_module(new AutoEthoDupe());
 		
 		array_modules.sort(Comparator.comparing(Module::get_name));
 	}
