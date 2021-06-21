@@ -31,6 +31,8 @@ public class Commands {
 		add_command(new EnemyCommand());
 		add_command(new ConfigCommand());
 		add_command(new ServerCommand());
+		add_command(new AutoKitCommand());
+		add_command(new AutoGearCommand());
 		add_command(new XrayCommand());
 		add_command(new RenameCommand());
 
