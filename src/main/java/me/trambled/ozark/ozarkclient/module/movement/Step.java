@@ -22,6 +22,7 @@ public class Step extends Module {
 
     @Override
     public void update() {
+        if (full_null_check()) return;
         if (mode.in("Vanilla")) {
 			mc.player.stepHeight = 2f;
 		} else {

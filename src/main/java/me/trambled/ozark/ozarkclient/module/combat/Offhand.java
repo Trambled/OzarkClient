@@ -125,7 +125,7 @@ public class Offhand extends Module {
 
     private boolean is_in_hole() {
 
-        BlockPos player_block = PlayerUtil.GetLocalPlayerPosFloored();
+        BlockPos player_block = PlayerUtil.getLocalPlayerPosFloored();
 
         return mc.world.getBlockState(player_block.east()).getBlock() != Blocks.AIR
                 && mc.world.getBlockState(player_block.west()).getBlock() != Blocks.AIR

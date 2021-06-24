@@ -43,7 +43,6 @@ import java.util.concurrent.ConcurrentHashMap;
 // pineaple client for glow mode render
 // kambing for the render settings
 public class AutoCrystal extends Module {
-    private static EntityPlayer ca_target = null;
     public AutoCrystal() {
         super(Category.COMBAT);
 
@@ -61,6 +60,7 @@ public class AutoCrystal extends Module {
     Setting alternative = create("Alternative", "CaAlternative", false);
     Setting module_check = create("Module Check", "CaModuleCheck", true);
     Setting break_predict = create("Break Predict", "CaBreakPredict", true);
+    Setting break_predict_2 =  create("Break Predict 2", "CaBreakPredict2", false);
     Setting place_predict = create("Place Predict", "CaPlacePredict", false);
     Setting sound_predict = create("Sound Predict", "CaSoundPredict", true);
     Setting city_predict = create("City Predict", "CaCityPredict", true);
@@ -105,7 +105,7 @@ public class AutoCrystal extends Module {
 
     Setting break_all = create("Break All", "CaBreakAll", false);
     Setting momentum = create("Momentum Calcs", "CaMomentumMode", false);
-    Setting sync = create("Sync", "CaSync", "Sound", combobox("Sound", "Instant", "Inhibit", "Attack", "Full", "Semi", "None"));
+    Setting sync = create("Sync", "CaSync", "Sound", combobox("Sound", "Instant", "Inhibit", "Attack", "High Ping", "Full", "Semi", "None"));
     Setting heuristic = create("Heuristic", "CaHeuristic", "Damage", combobox("Damage", "MinMax", "Distance", "Atomic"));
     Setting heuristic_min_health = create("Heuristic Min Health", "CaHeuristicMinHealth", 6, 0, 120);
 
@@ -183,10 +183,7 @@ public class AutoCrystal extends Module {
 
     private float yaw;
     private float pitch;
-
-    public static EntityPlayer get_target() {
-        return ca_target;
-    }
+    private static EntityPlayer ca_target = null;
 
     private boolean already_attacking = false;
     private boolean place_timeout_flag = false;
@@ -200,6 +197,7 @@ public class AutoCrystal extends Module {
     private int break_delay_counter;
     private int place_delay_counter;
     private int attack_swings;
+    private int id = 0;
 
     @Override
     public void update() {
@@ -341,6 +339,21 @@ public class AutoCrystal extends Module {
             mc.player.inventory.currentItem = old_slot;
             mc.player.connection.sendPacket(new CPacketHeldItemChange(old_slot));
         }
+        if (id != 0 && break_predict_2.get_value(true)) {
+            CPacketUseEntity predict = new CPacketUseEntity();
+            if (debug.get_value(true)) {
+                MessageUtil.send_client_message("attacking predicted entity id");
+            }
+            if (mc.isIntegratedServerRunning()) {
+                predict.entityId = id + 2;
+            } else {
+                predict.entityId = id + 1;
+            }
+            predict.action = CPacketUseEntity.Action.ATTACK;
+            mc.player.connection.sendPacket(predict);
+            BlockUtil.swingArm(swing, offhand_check ? EnumHand.OFF_HAND : EnumHand.OFF_HAND);
+            attack_swings++;
+        }
     }
 
     public void break_crystal() {
@@ -410,8 +423,12 @@ public class AutoCrystal extends Module {
         }
         add_attacked_crystal(crystal);
 
-        if (sync.in("Instant") && crystal.isEntityAlive()) {
+        if ((sync.in("Instant") || sync.in("High Ping")) && crystal.isEntityAlive()) {
             crystal.setDead();
+            if (sync.in("High Ping")) {
+                mc.world.removeAllEntities();
+                mc.world.getLoadedEntityList();
+            }
         }
 
         if (fake_crystals.contains(crystal) && sync.in("Semi")) {
@@ -456,6 +473,24 @@ public class AutoCrystal extends Module {
             mc.player.inventory.currentItem = old_slot;
             mc.player.connection.sendPacket(new CPacketHeldItemChange(old_slot));
 
+        }
+    }
+
+    public void break_predict_id() {
+        if (id != 0 && break_predict_2.get_value(true)) {
+            CPacketUseEntity predict = new CPacketUseEntity();
+            if (debug.get_value(true)) {
+                MessageUtil.send_client_message("attacking predicted entity id");
+            }
+            if (mc.isIntegratedServerRunning()) {
+                predict.entityId = id + 2;
+            } else {
+                predict.entityId = id + 1;
+            }
+            predict.action = CPacketUseEntity.Action.ATTACK;
+            mc.player.connection.sendPacket(predict);
+            BlockUtil.swingArm(swing, EnumHand.MAIN_HAND);
+            attack_swings++;
         }
     }
 
@@ -697,6 +732,11 @@ public class AutoCrystal extends Module {
 
         if (ca_rotation != null && mc.gameSettings.keyBindUseItem.pressed && (mc.player.getHeldItemMainhand().getItem() instanceof ItemBow || mc.player.getHeldItemMainhand().getItem() instanceof ItemExpBottle)) {
             ca_rotation.restoreRotation();
+        }
+
+        for (Entity entity : mc.world.loadedEntityList) {
+            if (entity.getEntityId() <= this.id) continue;
+            this.id = entity.getEntityId();
         }
 
         place_timeout = this.place_delay.get_value(1);
@@ -989,7 +1029,7 @@ public class AutoCrystal extends Module {
 
         if (event.get_packet() instanceof SPacketSpawnObject) {
             final SPacketSpawnObject packet = (SPacketSpawnObject) event.get_packet();
-            if (packet.getType() == 51 && this.ca_target != null && break_predict.get_value(true)) {
+            if (packet.getType() == 51 && ca_target != null && break_predict.get_value(true)) {
                 if (!this.is_predicting_crystal(packet)) {
                     return;
                 }
@@ -1003,7 +1043,13 @@ public class AutoCrystal extends Module {
                 if (rotate_during.in("Break") || rotate_during.in("Both")) {
                     handle_rotations(false, pos, null);
                 }
+                boolean offhand_check = false;
+                if (mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
+                    offhand_check = true;
+                }
                 AutoCrystal.mc.player.connection.sendPacket(predict);
+                attack_swings++;
+                BlockUtil.swingArm(swing, offhand_check ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND);
             }
         }
         if (event.get_packet() instanceof SPacketPlayerPosLook && rubberband.get_value(true)) {
@@ -1083,7 +1129,7 @@ public class AutoCrystal extends Module {
         if (!BlockUtil.canSeeBlock(pack_pos) && AutoCrystal.mc.player.getDistance(packet.getX(), packet.getY(), packet.getZ()) > (double) this.hit_range_wall.get_value(1)) {
             return false;
         }
-        double targetDmg = CrystalUtil.calculateDamage(packet.getX() + 0.5, packet.getY() + 1.0, packet.getZ() + 0.5, this.ca_target);
+        double targetDmg = CrystalUtil.calculateDamage(packet.getX() + 0.5, packet.getY() + 1.0, packet.getZ() + 0.5, ca_target);
         if (EntityUtil.isInHole(AutoCrystal.mc.player) && targetDmg >= 1.0) {
             return true;
         }
@@ -1092,13 +1138,13 @@ public class AutoCrystal extends Module {
         if (get_armor_fucker(ca_target) && !get_armor_fucker(mc.player)) {
             return true;
         }
-        if (selfDmg + d < (double) (AutoCrystal.mc.player.getHealth() + AutoCrystal.mc.player.getAbsorptionAmount()) && targetDmg >= (double) (this.ca_target.getAbsorptionAmount() + this.ca_target.getHealth())) {
+        if (selfDmg + d < (double) (AutoCrystal.mc.player.getHealth() + AutoCrystal.mc.player.getAbsorptionAmount()) && targetDmg >= (double) (ca_target.getAbsorptionAmount() + ca_target.getHealth())) {
             return true;
         }
         if (targetDmg >= (double) this.min_player_break.get_value(1) && selfDmg <= (double) this.max_self_damage.get_value(1)) {
             return true;
         }
-        return faceplace_mode.get_value(true) && EntityUtil.isInHole(this.ca_target) && this.ca_target.getHealth() + this.ca_target.getAbsorptionAmount() <= this.faceplace_mode.get_value(1);
+        return faceplace_mode.get_value(true) && EntityUtil.isInHole(ca_target) && ca_target.getHealth() + ca_target.getAbsorptionAmount() <= this.faceplace_mode.get_value(1);
     }
 
     private boolean is_predicting_block(EntityEnderCrystal crystal) {
@@ -1109,7 +1155,7 @@ public class AutoCrystal extends Module {
         if (!BlockUtil.canSeeBlock(packPos) && AutoCrystal.mc.player.getDistance(crystal.posX, crystal.posY, crystal.posZ) > (double) this.hit_range_wall.get_value(1)) {
             return false;
         }
-        double targetDmg = CrystalUtil.calculateDamage(crystal.posX + 0.5, crystal.posY + 1.0, crystal.posZ + 0.5, this.ca_target);
+        double targetDmg = CrystalUtil.calculateDamage(crystal.posX + 0.5, crystal.posY + 1.0, crystal.posZ + 0.5, ca_target);
         if (EntityUtil.isInHole(AutoCrystal.mc.player) && targetDmg >= 1.0) {
             return true;
         }
@@ -1118,13 +1164,13 @@ public class AutoCrystal extends Module {
         if (get_armor_fucker(ca_target) && !get_armor_fucker(mc.player)) {
             return true;
         }
-        if (selfDmg + d < (double) (AutoCrystal.mc.player.getHealth() + AutoCrystal.mc.player.getAbsorptionAmount()) && targetDmg >= (double) (this.ca_target.getAbsorptionAmount() + this.ca_target.getHealth())) {
+        if (selfDmg + d < (double) (AutoCrystal.mc.player.getHealth() + AutoCrystal.mc.player.getAbsorptionAmount()) && targetDmg >= (double) (ca_target.getAbsorptionAmount() + ca_target.getHealth())) {
             return true;
         }
         if (targetDmg >= (double) this.min_player_break.get_value(1) && selfDmg <= (double) this.max_self_damage.get_value(1)) {
             return true;
         }
-        return faceplace_mode.get_value(true) && EntityUtil.isInHole(this.ca_target) && this.ca_target.getHealth() + this.ca_target.getAbsorptionAmount() <= this.faceplace_mode.get_value(1);
+        return faceplace_mode.get_value(true) && EntityUtil.isInHole(ca_target) && ca_target.getHealth() + ca_target.getAbsorptionAmount() <= this.faceplace_mode.get_value(1);
     }
 
     public void cycle_rainbow() {
@@ -1228,7 +1274,8 @@ public class AutoCrystal extends Module {
         // BREAK
         break_crystal.set_shown((!clean_mode.get_value(true) || setting.in("Break")));
         break_trys.set_shown((!clean_mode.get_value(true) || setting.in("Break")) && break_crystal.get_value(true));
-        break_predict.set_shown((!clean_mode.get_value(true) || setting.in("Break")));
+        break_predict.set_shown((!clean_mode.get_value(true) || setting.in("Break")) && break_crystal.get_value(true));
+        break_predict_2.set_shown((!clean_mode.get_value(true) || setting.in("Break")) && break_crystal.get_value(true));
         break_all.set_shown((!clean_mode.get_value(true) || setting.in("Break")) && break_crystal.get_value(true));
         swing.set_shown((!clean_mode.get_value(true) || setting.in("Break")) && break_crystal.get_value(true));
         packet_break.set_shown((!clean_mode.get_value(true) || setting.in("Break")) && break_crystal.get_value(true));
@@ -1315,11 +1362,16 @@ public class AutoCrystal extends Module {
     @Override
     public void log_out() {
         this.set_disable();
+        id = 0;
     }
 
     @Override
     public String array_detail() {
         return (detail_name != null) ? detail_name + " | " + detail_hp : "None";
+    }
+
+    public static EntityPlayer get_target() {
+        return ca_target;
     }
 
 

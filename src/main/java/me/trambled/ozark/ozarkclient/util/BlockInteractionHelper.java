@@ -2,6 +2,7 @@ package me.trambled.ozark.ozarkclient.util;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
@@ -24,6 +25,8 @@ public class BlockInteractionHelper {
     
     public static final List<Block> blackList;
     public static final List<Block> shulkerList;
+    public static final List<Material> replaceableList;
+
 
     public enum ValidResult
     {
@@ -81,7 +84,27 @@ public class BlockInteractionHelper {
             }
         }
     }
-    
+
+    public static List<BlockPos> getSphereList(final float range) {
+        final BlockPos selfPos = new BlockPos(mc.player.posX, mc.player.posY, mc.player.posZ);
+        final List<BlockPos> sphereList = new ArrayList<>();
+
+        for (int x = (int) (selfPos.getX() - range); x <= selfPos.getX() + range; x++) {
+            for (int z = (int) (selfPos.getZ() - range); z <= selfPos.getZ() + range; z++) {
+                for (int y = (int) (selfPos.getY() - range); y <= selfPos.getY() + range; y++) {
+                    double dist = (selfPos.getX() - x) * (selfPos.getX() - x) + (selfPos.getZ() - z) * (selfPos.getZ() - z) + (selfPos.getY() - y) * (selfPos.getY() - y);
+
+                    if (dist < range * range) {
+                        sphereList.add(new BlockPos(x, y, z));
+                    }
+                }
+            }
+        }
+
+        return sphereList;
+    }
+
+
     @SuppressWarnings("deprecation")
     public static BlockResistance getBlockResistance(BlockPos block) {
         if (mc.world.isAirBlock(block))
@@ -446,10 +469,88 @@ public class BlockInteractionHelper {
         }
         return circleblocks;
     }
+
+    public static List<BlockPos> getSphereList(BlockPos blockPos, float r, int h, boolean hollow, boolean sphere) {
+        List<BlockPos> sphereList = new ArrayList<>();
+
+        int cx = blockPos.getX();
+        int cy = blockPos.getY();
+        int cz = blockPos.getZ();
+
+        for (int x = cx - (int) r; x <= cx + r; ++x) {
+            for (int z = cz - (int) r; z <= cz + r; ++z) {
+                for (int y = sphere ? (cy - (int) r) : cy; y < (sphere ? (cy + r) : ((float) (cy + h))); ++y) {
+                    double dist = (cx - x) * (cx - x) + (cz - z) * (cz - z) + (sphere ? ((cy - y) * (cy - y)) : 0);
+                    if (dist < r * r && (!hollow || dist >= (r - 1.0f) * (r - 1.0f))) {
+                        BlockPos spheres = new BlockPos(x, y, z);
+
+                        sphereList.add(spheres);
+                    }
+                }
+            }
+        }
+
+        return sphereList;
+    }
+
+    public static EnumFacing getBedPlaceableFaces(BlockPos pos, boolean airPlace) {
+        final Block blockMain = getBlock(pos);
+        final Block blockMainUp = getBlock(pos.up());
+
+        final boolean bed = blockMainUp == Blocks.BED;
+
+        if (!bed) {
+            if (blockMain == Blocks.AIR || blockMainUp != Blocks.AIR || replaceableList.contains(getState(pos).getMaterial()) || replaceableList.contains(getState(pos.up()).getMaterial()) || blackList.contains(blockMain) || blackList.contains(blockMainUp)) {
+                return null;
+            }
+        }
+
+        EnumFacing facing = null;
+
+        for (EnumFacing faces : EnumFacing.values()) {
+            if (faces == EnumFacing.UP || faces == EnumFacing.DOWN) {
+                continue;
+            }
+
+            final BlockPos offset = pos.offset(faces);
+
+            final Block blockOffset = getBlock(offset);
+            final Block blockOffsetUp = getBlock(offset.up());
+
+            if (bed && blockOffsetUp == Blocks.BED) {
+                facing = faces;
+
+                break;
+            }
+
+            if (bed) {
+                continue;
+            }
+
+            if (blackList.contains(blockOffset) || blackList.contains(blockOffsetUp)) {
+                continue;
+            }
+
+            if ((blockOffset == Blocks.AIR && !airPlace) || replaceableList.contains(getState(offset).getMaterial())) {
+                continue;
+            }
+
+            if (blockOffsetUp != Blocks.AIR && !replaceableList.contains(getState(offset.up()).getMaterial())) {
+                continue;
+            }
+
+            facing = faces;
+
+            break;
+        }
+
+        return facing;
+    }
     
     static {
         blackList = Arrays.asList(Blocks.ENDER_CHEST, Blocks.CHEST, Blocks.TRAPPED_CHEST, Blocks.CRAFTING_TABLE, Blocks.ANVIL, Blocks.BREWING_STAND, Blocks.HOPPER, Blocks.DROPPER, Blocks.DISPENSER);
         shulkerList = Arrays.asList(Blocks.WHITE_SHULKER_BOX, Blocks.ORANGE_SHULKER_BOX, Blocks.MAGENTA_SHULKER_BOX, Blocks.LIGHT_BLUE_SHULKER_BOX, Blocks.YELLOW_SHULKER_BOX, Blocks.LIME_SHULKER_BOX, Blocks.PINK_SHULKER_BOX, Blocks.GRAY_SHULKER_BOX, Blocks.SILVER_SHULKER_BOX, Blocks.CYAN_SHULKER_BOX, Blocks.PURPLE_SHULKER_BOX, Blocks.BLUE_SHULKER_BOX, Blocks.BROWN_SHULKER_BOX, Blocks.GREEN_SHULKER_BOX, Blocks.RED_SHULKER_BOX, Blocks.BLACK_SHULKER_BOX);
+        replaceableList = Arrays.asList(Material.WATER, Material.LAVA, Material.PLANTS, Material.FIRE, Material.CIRCUITS, Material.GLASS, Material.PACKED_ICE, Material.SNOW);
     }
 
 }

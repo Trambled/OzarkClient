@@ -28,6 +28,7 @@ public class Panel {
     public int dragY;
     public Category cat;
     public int tY;
+    public int rainbowOff;
 
     public Panel(String title, int x, int y, int width, int height, Category cat) {
         this.components = new ArrayList<>();
@@ -69,9 +70,12 @@ public class Panel {
             FontUtil.drawText(title, x + 4, y + height / 2 - FontUtil.getFontHeight() / 2, -1);
         }
 
+        rainbowOff = 0;
+
         if (this.open && !this.components.isEmpty()) {
             for (Component component : components) {
                 component.renderComponent();
+                rainbowOff++;
             }
         }
     }
@@ -101,7 +105,7 @@ public class Panel {
 
         for (Panel panels : Ozark.past_gui.panels) {
             if (scrollWheel < 0) {
-                panels.setY((int) (panels.getY() - Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIScrollSpeed").get_value(1)));
+                panels.setY((panels.getY() - Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIScrollSpeed").get_value(1)));
                 continue;
             }
             if (scrollWheel <= 0) continue;

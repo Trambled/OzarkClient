@@ -51,7 +51,7 @@ public class AutoBuilder extends Module {
             }
         }
 
-        BlockPos center_pos = PlayerUtil.GetLocalPlayerPosFloored();
+        BlockPos center_pos = PlayerUtil.getLocalPlayerPosFloored();
         ArrayList<BlockPos> blocks_to_fill = new ArrayList<>();
 
         if (mode.in("Penis"))

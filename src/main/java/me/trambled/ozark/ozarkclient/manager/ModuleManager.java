@@ -55,7 +55,6 @@ public class ModuleManager {
 		add_module(new FactSpammer());
 		add_module(new AutoGroom());
 		add_module(new Shrug());
-		add_module(new AutoDDOS());
 		add_module(new BurrowAlert());
 		add_module(new RainbowChat());
 		add_module(new BetterChat());
@@ -68,7 +67,6 @@ public class ModuleManager {
 		add_module(new AutoCrystal());
 		add_module(new HoleFill());
 		add_module(new Trap());
-		add_module(new Socks());
 		add_module(new SelfTrap());
 		add_module(new AutoArmour());
 		add_module(new Auto32K());
@@ -88,7 +86,6 @@ public class ModuleManager {
 		add_module(new Blocker());
 		add_module(new Quiver());
 		add_module(new CevBreaker());
-		add_module(new ArmorSwitch());
 		add_module(new OffhandPlus());
 		add_module(new ShulkerCrystal());
 
@@ -111,7 +108,6 @@ public class ModuleManager {
 		add_module(new CoordExploit());
 		add_module(new InstantBurrow());
 		add_module(new AntiWeb());
-		add_module(new AutoRat());
 
 		// Movement.
 		add_module(new Strafe());

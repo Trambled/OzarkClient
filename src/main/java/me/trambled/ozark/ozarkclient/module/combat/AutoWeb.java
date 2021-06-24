@@ -72,7 +72,7 @@ public class AutoWeb extends Module {
                 int last_slot = mc.player.inventory.currentItem;
                 mc.player.inventory.currentItem = new_slot;
                 mc.playerController.updateController();
-                place_blocks(PlayerUtil.GetLocalPlayerPosFloored());
+                place_blocks(PlayerUtil.getLocalPlayerPosFloored());
                 mc.player.inventory.currentItem = last_slot;
             }
 
@@ -80,7 +80,7 @@ public class AutoWeb extends Module {
             int last_slot = mc.player.inventory.currentItem;
             mc.player.inventory.currentItem = new_slot;
             mc.playerController.updateController();
-            place_blocks(PlayerUtil.GetLocalPlayerPosFloored());
+            place_blocks(PlayerUtil.getLocalPlayerPosFloored());
             mc.player.inventory.currentItem = last_slot;
             this.set_disable();
         }
@@ -134,7 +134,7 @@ public class AutoWeb extends Module {
 
     private boolean is_surround() {
 
-        BlockPos player_block = PlayerUtil.GetLocalPlayerPosFloored();
+        BlockPos player_block = PlayerUtil.getLocalPlayerPosFloored();
         return mc.world.getBlockState(player_block.east()).getBlock() != Blocks.AIR
             && mc.world.getBlockState(player_block.west()).getBlock() != Blocks.AIR
                 && mc.world.getBlockState(player_block.north()).getBlock() != Blocks.AIR

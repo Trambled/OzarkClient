@@ -24,7 +24,7 @@ public class PlayerUtil
 {
     private static DecimalFormat formatter = new DecimalFormat("#.#");
     
-    public static BlockPos GetLocalPlayerPosFloored() {
+    public static BlockPos getLocalPlayerPosFloored() {
         return new BlockPos(Math.floor(mc.player.posX), Math.floor(mc.player.posY), Math.floor(mc.player.posZ));
     }
 

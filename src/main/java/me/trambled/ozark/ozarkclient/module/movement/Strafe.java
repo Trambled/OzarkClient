@@ -1,16 +1,22 @@
 package me.trambled.ozark.ozarkclient.module.movement;
 
 import me.trambled.ozark.Ozark;
+import me.trambled.ozark.ozarkclient.event.Event;
 import me.trambled.ozark.ozarkclient.event.events.EventMove;
+import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.event.events.EventPlayerJump;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
+import me.trambled.ozark.ozarkclient.util.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.TimerUtil;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.network.play.client.CPacketPlayer;
+import net.minecraft.network.play.server.SPacketEntityVelocity;
+import net.minecraft.network.play.server.SPacketExplosion;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
@@ -31,7 +37,13 @@ public class Strafe extends Module {
 	Setting on_water = create("On Water", "StrafeOnWater", true);
 	Setting auto_jump = create("Auto Jump", "StrafeAutoJump", true);
 	Setting backward = create("Backwards", "StrafeBackwards", true);
-	Setting timer = create("Timer", "Timer", false);
+	Setting timer = create("Timer", "StrafeTimer", false);
+	Setting crystal_boost = create("Crystal Boost", "StrafeCrystalBoost", false); // cookie client
+	Setting knockback_time = create("Knockback Time", "StrafeKnockBackTime", 850, 0, 3000);
+
+	TimerUtil knockback_timer = new TimerUtil();
+	private double boosted_x;
+	private double boosted_z;
 
 	@Override
 	public void update() {
@@ -141,6 +153,12 @@ public class Strafe extends Module {
 				}
 			}
 
+
+			if (crystal_boost.get_value(true) && !knockback_timer.passed(knockback_time.get_value(1))) {
+				player_speed = (float)Math.abs(boosted_x);
+				player_speed += Math.abs(boosted_z);
+			}
+
 			event.set_x(((move_forward * player_speed) * Math.cos(Math.toRadians((rotation_yaw + 90.0f))) + (move_strafe * player_speed) * Math.sin(Math.toRadians((rotation_yaw + 90.0f)))));
 			event.set_z(((move_forward * player_speed) * Math.sin(Math.toRadians((rotation_yaw + 90.0f))) - (move_strafe * player_speed) * Math.cos(Math.toRadians((rotation_yaw + 90.0f)))));
 
@@ -176,5 +194,21 @@ public class Strafe extends Module {
 		if (Ozark.get_module_manager().get_module_with_tag("Timer").is_active() && timer.get_value(true)) {
 			Ozark.get_module_manager().get_module_with_tag("Timer").set_active(false);
 		}
+	}
+
+	@EventHandler
+	private Listener<EventPacket.ReceivePacket> packetEvent = new Listener<>(event -> {
+		if (event.get_packet() instanceof SPacketExplosion && event.get_era() == Event.Era.EVENT_PRE) {
+			SPacketExplosion packet = (SPacketExplosion)event.get_packet();
+
+			boosted_x = packet.motionX;
+			boosted_z = packet.motionZ;
+			knockback_timer.reset();
+		}
+	});
+
+	@Override
+	public void update_always() {
+		knockback_time.set_shown(crystal_boost.get_value(true));
 	}
 }

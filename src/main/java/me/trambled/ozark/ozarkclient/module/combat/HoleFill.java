@@ -124,7 +124,7 @@ public class HoleFill extends Module {
 
         holes.clear();
 
-        for (BlockPos pos : BlockInteractionHelper.getSphere(PlayerUtil.GetLocalPlayerPosFloored(), hole_range.get_value(1), hole_range.get_value(1), false, true, 0)) {
+        for (BlockPos pos : BlockInteractionHelper.getSphere(PlayerUtil.getLocalPlayerPosFloored(), hole_range.get_value(1), hole_range.get_value(1), false, true, 0)) {
 
             if (!mc.world.getBlockState(pos).getBlock().equals(Blocks.AIR)) {
                 continue;

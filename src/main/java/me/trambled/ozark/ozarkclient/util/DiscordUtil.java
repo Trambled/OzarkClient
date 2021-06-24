@@ -42,7 +42,7 @@ public class DiscordUtil
 						DiscordUtil.presence.largeImageKey = "kambing";
                 	} else if (Ozark.get_setting_manager().get_setting_with_tag("DiscordRPC", "RPCMode").in("Tudou")) {
                 		index++;
-                		if (index == 8) {
+                		if (index >= 8) {
                 			index = 1;
 						}
                 		DiscordUtil.presence.largeImageKey = "tudou" + index;

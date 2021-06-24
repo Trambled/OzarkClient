@@ -81,7 +81,9 @@ public class TotemPopCounter extends Module {
 
     @Override
 	public void update() {
-        
+
+        if (full_null_check()) return;
+        if (mc.world.playerEntities == null) return; // for some reason i get crashes because of dis??
         for (EntityPlayer player : mc.world.playerEntities) {
 
             if (!totem_pop_counter.containsKey(player.getName())) continue;

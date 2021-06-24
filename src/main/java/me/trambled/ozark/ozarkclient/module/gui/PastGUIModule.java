@@ -42,6 +42,7 @@ public class PastGUIModule extends Module {
 	Setting trambled_mode_a = create("TrambledModeA", "PastGUIA4", 132, 0, 255);
 	Setting module_lines = create("Outline", "PastGUIModuleOutline", true);
 	Setting bright_outline = create("Bright Outline", "PastGUIBrightOutline", true);
+	Setting rainbow_rolling = create("Rainbow Rolling", "PastGUIRainbowRolling", false);
 
 	Setting font = create("Font", "PastGUIFont", "Lato", combobox("Lato", "Arial", "Verdana", "None"));
 	Setting scroll_speed = create("Scroll Speed", "PastGUIScrollSpeed", 10, 0, 20);
@@ -74,8 +75,11 @@ public class PastGUIModule extends Module {
 	protected void disable() {
 		if (!full_null_check()) {
 			mc.displayGuiScreen(null);
-                        mc.entityRenderer.getShaderGroup().deleteShaderGroup();
-
+			try {
+				if (blur.get_value(true)) {
+					mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
+				}
+			} catch (Exception ignored) {}
 		}
 	}
 

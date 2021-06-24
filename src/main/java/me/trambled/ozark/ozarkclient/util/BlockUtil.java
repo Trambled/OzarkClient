@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.play.client.CPacketAnimation;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketEntityAction.Action;
 import net.minecraft.network.play.client.CPacketHeldItemChange;
@@ -99,6 +100,18 @@ public class BlockUtil {
         }
     }
 
+    public static void swingArm(Setting setting, EnumHand hand) {
+        if (setting.in("Mainhand") || setting.in("Both")) {
+            mc.player.swingArm(EnumHand.MAIN_HAND);
+        }
+        if (setting.in("Offhand") || setting.in("Both")) {
+            mc.player.swingArm(EnumHand.OFF_HAND);
+        }
+        if (setting.in("None") && hand != null) {
+            mc.player.connection.sendPacket(new CPacketAnimation(hand));
+        }
+    }
+
     public static boolean placeBlock(BlockPos pos, int slot, boolean rotate, boolean rotateBack, Setting setting, boolean ghost_mode) {
         if (isBlockEmpty(pos)) {
             int old_slot = -1;
@@ -176,12 +189,6 @@ public class BlockUtil {
                     mc.world.setBlockState(pos, block.getDefaultState());
                 }
         } catch (Exception ignored) {}
-            
-        ItemStack itemStack = mc.player.inventory.getStackInSlot(slot);
-        if (itemStack.getItem() instanceof ItemBlock) {
-            final Block block = ((ItemBlock) itemStack.getItem()).getBlock();
-            mc.world.setBlockState(pos, block.getDefaultState());
-        }
     }
 
 

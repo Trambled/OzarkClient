@@ -71,7 +71,7 @@ public class AntiTrap extends Module
     //salhack
     public static boolean is_entity_trapped()
     {
-        BlockPos l_PlayerPos = PlayerUtil.GetLocalPlayerPosFloored();
+        BlockPos l_PlayerPos = PlayerUtil.getLocalPlayerPosFloored();
 
         final BlockPos[] l_TrapPositions = {
                 l_PlayerPos.down(),

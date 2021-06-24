@@ -60,7 +60,7 @@ public class AutoWither extends Module {
     }
 
     public void do_soul_sand() {
-        BlockPos center_pos = PlayerUtil.GetLocalPlayerPosFloored();
+        BlockPos center_pos = PlayerUtil.getLocalPlayerPosFloored();
         ArrayList<BlockPos> blocks_to_fill = new ArrayList<>();
 
         switch (PlayerUtil.GetFacing())
@@ -118,7 +118,7 @@ public class AutoWither extends Module {
 
     public void do_wither_skull() {
 
-        BlockPos center_pos = PlayerUtil.GetLocalPlayerPosFloored();
+        BlockPos center_pos = PlayerUtil.getLocalPlayerPosFloored();
         ArrayList<BlockPos> blocks_to_fill = new ArrayList<>();
 
         switch (PlayerUtil.GetFacing())
@@ -204,7 +204,7 @@ public class AutoWither extends Module {
     //kinda from salhack
     public static boolean did_soul_sand()
     {
-        BlockPos player_pos = PlayerUtil.GetLocalPlayerPosFloored();
+        BlockPos player_pos = PlayerUtil.getLocalPlayerPosFloored();
 
         final BlockPos[] east_pos = {
             player_pos.east().east(),

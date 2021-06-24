@@ -14,6 +14,8 @@ import net.minecraftforge.common.MinecraftForge;
 import java.util.Comparator;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
+
 /**
  * @author linustouchtips
  * @since 01/30/2021
@@ -87,6 +89,16 @@ public class RotationManager implements Listenable {
     public void setCurrentRotation(RotationUtil.Rotation rotation) {
         currentRotation = rotation;
         currentRotation.updateRotations();
+    }
+
+    public void restoreDefaultRotation() {
+        if (currentRotation != null) {
+            currentRotation.restoreRotation();
+        }
+        CPacketPlayer packet = new CPacketPlayer(mc.player.onGround);
+        packet.yaw = mc.player.rotationYaw;
+        packet.pitch = mc.player.rotationPitch;
+        mc.player.connection.sendPacket(packet);
     }
 
 }

@@ -107,7 +107,7 @@ public class PistonCrystal extends Module
 	Setting antiWeakness = create("Anti Weakness", "PistonCrystalAntiWeakness", false);
 	Setting chatMsg = create("Chat Messages", "PistonCrystalChatMSG", true);
 
-    private final double CrystalDeltaBreak = crystalDeltaBreak.get_value(1) * 0.1;
+    private double CrystalDeltaBreak = crystalDeltaBreak.get_value(1) * 0.1;
 
     @Override
     protected void enable() {
@@ -266,6 +266,9 @@ public class PistonCrystal extends Module
             set_disable();
             return;
         }
+
+        CrystalDeltaBreak = crystalDeltaBreak.get_value(1) * 0.1;
+
 
         // Wait
         if (delayTimeTicks < delayTable[stage]){
