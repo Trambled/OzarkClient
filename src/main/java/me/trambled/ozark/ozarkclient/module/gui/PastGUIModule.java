@@ -99,7 +99,7 @@ public class PastGUIModule extends Module {
 	public void cycle_rainbow() {
 
 		float[] tick_color = {
-				(System.currentTimeMillis() % (360 * 32)) / (360f * 32)
+				(System.currentTimeMillis() % (500 * 32)) / (500f * 32)
 		};
 
 		int color_rgb_o = Color.HSBtoRGB(tick_color[0], 0.8f, 0.8f);
@@ -113,7 +113,7 @@ public class PastGUIModule extends Module {
 	public void cycle_rainbow2() {
 
 		float[] tick_color = {
-				(System.currentTimeMillis() % (360 * 32)) / (360f * 32)
+				(System.currentTimeMillis() % (500 * 32)) / (500f * 32)
 		};
 
 		int color_rgb_o = Color.HSBtoRGB(tick_color[0], 0.8f, 0.8f);
@@ -126,7 +126,7 @@ public class PastGUIModule extends Module {
 	public void cycle_rainbow3() {
 
 		float[] tick_color = {
-				(System.currentTimeMillis() % (360 * 32)) / (360f * 32)
+				(System.currentTimeMillis() % (500 * 32)) / (500f * 32)
 		};
 
 		int color_rgb_o = Color.HSBtoRGB(tick_color[0], 0.8f, 0.8f);
