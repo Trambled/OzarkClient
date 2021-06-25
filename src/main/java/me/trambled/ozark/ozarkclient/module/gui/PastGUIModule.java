@@ -20,29 +20,29 @@ public class PastGUIModule extends Module {
 		set_bind(Ozark.KEY_GUI);
 	}
 
-	Setting red = create("Red", "PastGUIR", 255, 0, 255);
-	Setting green = create("Green", "PastGUIG", 0, 0, 255);
-	Setting blue = create("Blue", "PastGUIB", 0, 0, 255);
+	Setting red = create("Red", "PastGUIR", 72, 0, 255);
+	Setting green = create("Green", "PastGUIG", 41, 0, 255);
+	Setting blue = create("Blue", "PastGUIB", 204, 0, 255);
 	Setting alpha = create("Alpha", "PastGUIA", 255, 0, 255);
-	Setting red2 = create("ButtonRed", "PastGUIR2", 255, 0, 255);
-	Setting green2 = create("ButtonGreen", "PastGUIG2", 0, 0, 255);
-	Setting blue2 = create("ButtonBlue", "PastGUIB2", 0, 0, 255);
-	Setting alpha2 = create("ButtonAlpha", "PastGUIA2", 124, 0, 255);
-	Setting red3 = create("FrameRed", "PastGUIR3", 255, 0, 255);
-	Setting green3 = create("FrameGreen", "PastGUIG3", 255, 0, 255);
-	Setting blue3 = create("FrameBlue", "PastGUIB3", 255, 0, 255);
-	Setting alpha3 = create("FrameAlpha", "PastGUIA3", 73, 0, 255);
-	Setting rainbow = create("Rainbow", "PastGUIRainbow", false);
-	Setting rainbow2 = create("ButtonRainbow", "PastGUIRainbow2", false);
+	Setting red2 = create("ButtonRed", "PastGUIR2", 72, 0, 255);
+	Setting green2 = create("ButtonGreen", "PastGUIG2", 41, 0, 255);
+	Setting blue2 = create("ButtonBlue", "PastGUIB2", 204, 0, 255);
+	Setting alpha2 = create("ButtonAlpha", "PastGUIA2", 255, 0, 255);
+	Setting red3 = create("FrameRed", "PastGUIR3", 45, 0, 255);
+	Setting green3 = create("FrameGreen", "PastGUIG3", 48, 0, 255);
+	Setting blue3 = create("FrameBlue", "PastGUIB3", 48, 0, 255);
+	Setting alpha3 = create("FrameAlpha", "PastGUIA3", 255, 0, 255);
+	Setting rainbow = create("Rainbow", "PastGUIRainbow", true);
+	Setting rainbow2 = create("ButtonRainbow", "PastGUIRainbow2", true);
 	Setting rainbow3 = create("FrameRainbow", "PastGUIRainbow3", false);
-	Setting trambled_mode = create("Trambled Mode", "PastGUITrampled", true);
-	Setting red4 = create("TrambledRed", "PastGUIR4", 17, 0, 255);
-	Setting green4 = create("TrambledGreen", "PastGUIG4", 17, 0, 255);
-	Setting blue4 = create("TrambledBlue", "PastGUIB4", 17, 0, 255);
-	Setting trambled_mode_a = create("TrambledModeA", "PastGUIA4", 132, 0, 255);
+	Setting trambled_mode = create("Trambled Mode", "PastGUITrampled", false);
+	Setting red4 = create("TrambledRed", "PastGUIR4", 255, 0, 255);
+	Setting green4 = create("TrambledGreen", "PastGUIG4", 84, 0, 255);
+	Setting blue4 = create("TrambledBlue", "PastGUIB4", 89, 0, 255);
+	Setting trambled_mode_a = create("TrambledModeA", "PastGUIA4", 255, 0, 255);
 	Setting module_lines = create("Outline", "PastGUIModuleOutline", true);
 	Setting bright_outline = create("Bright Outline", "PastGUIBrightOutline", true);
-	Setting rainbow_rolling = create("Rainbow Rolling", "PastGUIRainbowRolling", false);
+	Setting rainbow_rolling = create("Rainbow Rolling", "PastGUIRainbowRolling", true);
 
 	Setting font = create("Font", "PastGUIFont", "Lato", combobox("Lato", "Arial", "Verdana", "None"));
 	Setting scroll_speed = create("Scroll Speed", "PastGUIScrollSpeed", 10, 0, 20);
@@ -54,7 +54,7 @@ public class PastGUIModule extends Module {
 	Setting descriptions = create("Descriptions", "PastGUIDescriptions", true);
 	Setting hover_change = create("Hover Change", "PastGUIHoverChange", true);
 	Setting pause_game = create("Pause Game", "PastGUIPauseGame", false);
-	Setting kambing = create("Listed Gay Mode", "PastGUIKambing", false);
+	Setting kambing = create("All Button", "PastGUIKambing", true);
 
 
 	@Override
