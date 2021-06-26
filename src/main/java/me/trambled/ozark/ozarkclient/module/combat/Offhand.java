@@ -36,7 +36,7 @@ public class Offhand extends Module {
     Setting step = create("Step", "OffhandStep", false);
     Setting crystal_check = create("Crystal Check", "OffhandCrystalCheck", true);
     Setting damage_multiplier = create("Damage Multiplier", "OffhandDamageMultiplier", 1f, 1f, 3f);
-    Setting gapclick = create("Gap Right Click", "OffhandGRC", true);
+    Setting gapclick = create("Gap Right Click", "OffhandGRC", false);
 
     private boolean switching = false;
     private int last_slot;
@@ -64,7 +64,7 @@ public class Offhand extends Module {
                         swap_items(get_item_slot(Items.TOTEM_OF_UNDYING), 0);
                         return;
                     }
-                    if (sword_gap.get_value(true) &&  mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD && mc.gameSettings.keyBindUseItem.isKeyDown() || gapclick.get_value(true)) {
+                    if (sword_gap.get_value(true) &&  mc.player.getHeldItemMainhand().getItem() == Items.DIAMOND_SWORD && (mc.gameSettings.keyBindUseItem.isKeyDown() || !gapclick.get_value(true))) {
                         swap_items(get_item_slot(Items.GOLDEN_APPLE), step.get_value(true) ? 1 : 0);
                         return;
                     }
@@ -161,6 +161,7 @@ public class Offhand extends Module {
         only_when_right_click.set_shown(!switch_mode.in("Totem"));
         step.set_shown(!switch_mode.in("Totem"));
         sword_gap.set_shown(!switch_mode.in("Gapple"));
+        gapclick.set_shown(!switch_mode.in("Gapple") && sword_gap.get_value(true));
         crystal_check.set_shown(!switch_mode.in("Totem"));
         damage_multiplier.set_shown(!switch_mode.in("Totem") && crystal_check.get_value(true));
     }
