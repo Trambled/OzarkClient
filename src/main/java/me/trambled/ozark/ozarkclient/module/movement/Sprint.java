@@ -24,4 +24,12 @@ public class Sprint extends Module {
 			mc.player.setSprinting(true);
 		} else mc.player.setSprinting(mc.player.moveForward > 0 || mc.player.moveStrafing > 0);
 	}
-}
+	@Override
+	public String array_detail() {
+		if (rage.get_value(true )) {
+			return "Rage";
+		}else{
+			return "Legit";
+
+		}
+	}}

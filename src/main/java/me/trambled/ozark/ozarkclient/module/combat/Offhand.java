@@ -177,4 +177,16 @@ public class Offhand extends Module {
         return false;
     }
 
-}
+    @Override
+    public String array_detail() {
+        if (switch_mode.in("Crystal" )) {
+            return "Crystal";
+        }else if (switch_mode.in("Totem" )) {
+            return "Totem";
+        }else if (switch_mode.in("Gapple" )) {
+            return "Gapple";
+        }else {
+            return "Plate";
+
+        }
+    }}

@@ -59,6 +59,7 @@ public class Ozark {
 
 	public static ChatFormatting g = ChatFormatting.DARK_GRAY;
 	public static ChatFormatting r = ChatFormatting.RESET;
+	public static ChatFormatting w = ChatFormatting.WHITE;
 	
         public static int client_r = 0;
 	public static int client_g = 0;
