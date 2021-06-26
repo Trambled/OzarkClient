@@ -171,4 +171,12 @@ public class Xray extends Module {
             mc.renderGlobal.loadRenderers();
     }
 
-}
+    @Override
+    public String array_detail() {
+        if (smooth_reload.get_value(true )) {
+            return "Smooth";
+        }else{
+            return "Hard";
+
+        }
+    }}

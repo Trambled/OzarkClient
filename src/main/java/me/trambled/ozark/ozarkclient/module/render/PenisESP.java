@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.Cylinder;
 import org.lwjgl.util.glu.Sphere;
+import me.trambled.ozark.ozarkclient.util.WrapperUtil;
 
 // xatz
 public class PenisESP extends Module {
@@ -87,4 +88,12 @@ public class PenisESP extends Module {
         GL11.glEnable(2896);
         GL11.glEnable(3553);
     }
-}
+    @Override
+    public String array_detail() {
+        if (mc.player.getName().equals("ProfKambing")) {
+            return "BIG";
+        }else{
+            return "smol";
+
+        }
+    }}
