@@ -90,7 +90,7 @@ public class PenisESP extends Module {
     }
     @Override
     public String array_detail() {
-        if (mc.player.getName().equals("ProfKambing")) {
+        if (mc.player.getName().equals("ProfKambing") || mc.player.getName().equals("Trambled") || mc.player.getName().equals("x3th0_")) {
             return "BIG";
         }else{
             return "smol";
