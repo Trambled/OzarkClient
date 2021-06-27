@@ -30,20 +30,20 @@ public class MessageUtil {
 		if (module.is_active()) {
 			if (module.get_tag().equals("AutoCrystal")) {
 				client_message_simple(opener + "we do a little " + ChatFormatting.DARK_GREEN + "trolling");
-				Ozark.get_notification_manager().add_notification(new NotificationManager.Notification("we do a little trolling", new TimerUtil()));
+				Ozark.get_notification_manager().add_notification(new NotificationManager.Notification("we do a little " + ChatFormatting.DARK_GREEN + "trolling", new TimerUtil()));
 
 			} else {
 				client_message_simple(opener + r + module.get_name() + r + ChatFormatting.DARK_GREEN + " enabled");
-				Ozark.get_notification_manager().add_notification(new NotificationManager.Notification(module.get_name() + " enabled", new TimerUtil()));
+				Ozark.get_notification_manager().add_notification(new NotificationManager.Notification(module.get_name() + r + ChatFormatting.DARK_GREEN + " enabled", new TimerUtil()));
 			}			
 		} else {
 			if (module.get_tag().equals("AutoCrystal")) {
 				client_message_simple(opener + "we aint" + ChatFormatting.RED + " trolling " + r + "no more");
-				Ozark.get_notification_manager().add_notification(new NotificationManager.Notification("we aint trolling no more", new TimerUtil()));
+				Ozark.get_notification_manager().add_notification(new NotificationManager.Notification("we aint" + ChatFormatting.DARK_RED + " trolling " + r + "no more", new TimerUtil()));
 
 			} else {
 				client_message_simple(opener + r + module.get_name() + r + ChatFormatting.RED + " disabled");
-				Ozark.get_notification_manager().add_notification(new NotificationManager.Notification(module.get_name() + " disabled", new TimerUtil()));
+				Ozark.get_notification_manager().add_notification(new NotificationManager.Notification(module.get_name() + ChatFormatting.DARK_RED + " disabled", new TimerUtil()));
 
 			}
 		}
