@@ -72,18 +72,6 @@ public class PastGUIModule extends Module {
 	}
 
 	@Override
-	protected void disable() {
-		if (!full_null_check()) {
-			mc.displayGuiScreen(null);
-			try {
-				if (blur.get_value(true)) {
-					mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
-				}
-			} catch (Exception ignored) {}
-		}
-	}
-
-	@Override
 	public void update() {
 		if (rainbow.get_value(true)) {
 			cycle_rainbow();

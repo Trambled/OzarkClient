@@ -43,6 +43,7 @@ public class EventManager {
 
 		Ozark.get_module_manager().update();
 		Ozark.get_rotation_manager().update();
+		Ozark.get_notification_manager().update();
 	}
 
 	@SubscribeEvent
@@ -57,6 +58,7 @@ public class EventManager {
 		}
 
 		Ozark.get_module_manager().render(event);
+
 	}
 
 	@SubscribeEvent
@@ -82,6 +84,7 @@ public class EventManager {
 
 		if (event.getType() == target) {
 			Ozark.get_module_manager().render();
+			Ozark.get_notification_manager().render();
 
 			if (!Ozark.get_module_manager().get_module_with_tag("GUI").is_active()) {
 				Ozark.get_hud_manager().render();

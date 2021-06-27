@@ -2,6 +2,7 @@ package me.trambled.ozark.ozarkclient.util;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.Ozark;
+import me.trambled.ozark.ozarkclient.manager.NotificationManager;
 import me.trambled.ozark.ozarkclient.module.Module;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.Style;
@@ -29,14 +30,21 @@ public class MessageUtil {
 		if (module.is_active()) {
 			if (module.get_tag().equals("AutoCrystal")) {
 				client_message_simple(opener + "we do a little " + ChatFormatting.DARK_GREEN + "trolling");
+				Ozark.get_notification_manager().add_notification(new NotificationManager.Notification("we do a little trolling", new TimerUtil()));
+
 			} else {
 				client_message_simple(opener + r + module.get_name() + r + ChatFormatting.DARK_GREEN + " enabled");
+				Ozark.get_notification_manager().add_notification(new NotificationManager.Notification(module.get_name() + " enabled", new TimerUtil()));
 			}			
 		} else {
 			if (module.get_tag().equals("AutoCrystal")) {
 				client_message_simple(opener + "we aint" + ChatFormatting.RED + " trolling " + r + "no more");
+				Ozark.get_notification_manager().add_notification(new NotificationManager.Notification("we aint trolling no more", new TimerUtil()));
+
 			} else {
 				client_message_simple(opener + r + module.get_name() + r + ChatFormatting.RED + " disabled");
+				Ozark.get_notification_manager().add_notification(new NotificationManager.Notification(module.get_name() + " disabled", new TimerUtil()));
+
 			}
 		}
 	}
@@ -49,7 +57,7 @@ public class MessageUtil {
 		}
 	}
 
-        public static void send_client_message_simple(String message) {
+	public static void send_client_message_simple(String message) {
 		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + " " +  r;
 		if (mc.player != null) {
 			client_message_simple(opener + message);

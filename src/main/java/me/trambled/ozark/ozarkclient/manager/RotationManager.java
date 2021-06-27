@@ -8,6 +8,7 @@ import me.trambled.ozark.ozarkclient.util.RotationUtil;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listenable;
 import me.zero.alpine.fork.listener.Listener;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraftforge.common.MinecraftForge;
 

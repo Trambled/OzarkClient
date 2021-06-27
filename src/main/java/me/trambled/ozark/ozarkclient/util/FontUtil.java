@@ -2,6 +2,8 @@ package me.trambled.ozark.ozarkclient.util;
 
 import me.trambled.ozark.Ozark;
 
+import java.awt.*;
+
 import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class FontUtil {
@@ -18,8 +20,34 @@ public class FontUtil {
         }
     }
 
+    public static void drawString(String text, float x, float y, int r, int g, int b, int a) {
+        int colour = new Color(r, g, b, a).getRGB();
+        if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIFont").in("Lato")) {
+            Ozark.latoFont.drawString(text, x, y, colour);
+        } else if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIFont").in("Verdana")) {
+            Ozark.verdanaFont.drawString(text, x, y, colour);
+        } else if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIFont").in("Arial")) {
+            Ozark.arialFont.drawString(text, x, y, colour);
+        } else {
+            mc.fontRenderer.drawString(text, (int) x, (int) y, colour);
+        }
+    }
+
     public static void drawStringWithShadow(String text, float x, float y, int colour) {
 
+        if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIFont").in("Lato")) {
+            Ozark.latoFont.drawStringWithShadow(text, x, y, colour);
+        } else if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIFont").in("Verdana")) {
+            Ozark.verdanaFont.drawStringWithShadow(text, x, y, colour);
+        } else if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIFont").in("Arial")) {
+            Ozark.arialFont.drawStringWithShadow(text, x, y, colour);
+        } else {
+            mc.fontRenderer.drawStringWithShadow(text, (int) x, (int) y, colour);
+        }
+    }
+
+    public static void drawStringWithShadow(String text, float x, float y, int r, int g, int b, int a) {
+        int colour = new Color(r, g, b, a).getRGB();
         if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIFont").in("Lato")) {
             Ozark.latoFont.drawStringWithShadow(text, x, y, colour);
         } else if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIFont").in("Verdana")) {

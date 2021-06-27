@@ -112,6 +112,30 @@ public class RainbowUtil {
 		}
 	}
 
+	public static void drawRainbowStringCustomFont(String text, int x, int y, int color, float factor) {
+		Color currentColor = new Color(color);
+		float hueIncrement = 1.0f / factor;
+		float currentHue = Color.RGBtoHSB(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), null)[0];
+		float saturation = Color.RGBtoHSB(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), null)[1];
+		float brightness = Color.RGBtoHSB(currentColor.getRed(), currentColor.getGreen(), currentColor.getBlue(), null)[2];
+		int currentWidth = 0;
+		for (int i = 0; i < text.length(); ++i) {
+			char currentChar = text.charAt(i);
+			if (String.valueOf(currentChar).equals("\u00a7")) {
+				flag = true;
+				continue;
+			}
+			if (flag) {
+				flag = false;
+				continue;
+			}
+			FontUtil.drawString(String.valueOf(currentChar), x + currentWidth, y, currentColor.getRGB());
+			currentWidth += get_string_width(String.valueOf(currentChar));
+			currentColor = new Color(Color.HSBtoRGB(currentHue, saturation, brightness));
+			currentHue += hueIncrement;
+		}
+	}
+
 	public static int get_string_width(String string) {
 		FontRenderer fontRenderer = font_renderer;
 

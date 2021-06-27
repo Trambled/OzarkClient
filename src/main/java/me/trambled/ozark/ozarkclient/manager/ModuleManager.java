@@ -6,10 +6,7 @@ import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.chat.*;
 import me.trambled.ozark.ozarkclient.module.combat.*;
 import me.trambled.ozark.ozarkclient.module.exploit.*;
-import me.trambled.ozark.ozarkclient.module.gui.CustomMainMenu;
-import me.trambled.ozark.ozarkclient.module.gui.HUD;
-import me.trambled.ozark.ozarkclient.module.gui.OldGUI;
-import me.trambled.ozark.ozarkclient.module.gui.PastGUIModule;
+import me.trambled.ozark.ozarkclient.module.gui.*;
 import me.trambled.ozark.ozarkclient.module.misc.*;
 import me.trambled.ozark.ozarkclient.module.movement.*;
 import me.trambled.ozark.ozarkclient.module.render.*;
@@ -36,6 +33,7 @@ public class ModuleManager {
 		add_module(new HUD());
 		add_module(new PastGUIModule());
 		add_module(new CustomMainMenu());
+		add_module(new Notifications());
 
 		// Chat.
 		add_module(new ChatSuffix());

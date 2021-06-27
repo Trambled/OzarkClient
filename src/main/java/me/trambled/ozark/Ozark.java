@@ -31,7 +31,7 @@ public class Ozark {
 	private static Ozark MASTER;
 
 	public static final String NAME = "OzarkClient";
-	public static final String VERSION = "1.12.4";
+	public static final String VERSION = "1.13";
 	public static final String SIGN = " ";
 	public static String DISPLAY_NAME = "Ozark";
 	public static String TARGET_NAME = "NULL";
@@ -47,6 +47,7 @@ public class Ozark {
 	private static ModuleManager module_manager;
 	private static HUDManager hud_manager;
 	private static RotationManager rotation_manager;
+	private static NotificationManager notification_manager;
 	public static PastGUI past_gui;
 	public static MainGUI main_gui;
 	public static MainHUD main_hud;
@@ -81,6 +82,7 @@ public class Ozark {
 		module_manager = new ModuleManager();
 		hud_manager = new HUDManager();
 		rotation_manager = new RotationManager();
+		notification_manager = new NotificationManager();
 
 		EventManager event_manager = new EventManager();
 		CommandManager command_manager = new CommandManager();
@@ -214,6 +216,10 @@ public class Ozark {
 
 	public static RotationManager get_rotation_manager() {
 		return rotation_manager;
+	}
+
+	public static NotificationManager get_notification_manager() {
+		return notification_manager;
 	}
 
 	public static EventHandler get_event_handler() {

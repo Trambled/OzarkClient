@@ -339,21 +339,6 @@ public class AutoCrystal extends Module {
             mc.player.inventory.currentItem = old_slot;
             mc.player.connection.sendPacket(new CPacketHeldItemChange(old_slot));
         }
-        if (id != 0 && break_predict_2.get_value(true)) {
-            CPacketUseEntity predict = new CPacketUseEntity();
-            if (debug.get_value(true)) {
-                MessageUtil.send_client_message("attacking predicted entity id");
-            }
-            if (mc.isIntegratedServerRunning()) {
-                predict.entityId = id + 2;
-            } else {
-                predict.entityId = id + 1;
-            }
-            predict.action = CPacketUseEntity.Action.ATTACK;
-            mc.player.connection.sendPacket(predict);
-            BlockUtil.swingArm(swing, offhand_check ? EnumHand.OFF_HAND : EnumHand.OFF_HAND);
-            attack_swings++;
-        }
     }
 
     public void break_crystal() {
@@ -1095,6 +1080,23 @@ public class AutoCrystal extends Module {
                         mc.player.connection.sendPacket(new CPacketHeldItemChange(old_slot));
                     }
                 }
+            }
+        }
+        if (event.get_packet() instanceof CPacketPlayerTryUseItemOnBlock) {
+            if (id != 0 && break_predict_2.get_value(true)) {
+                CPacketUseEntity predict = new CPacketUseEntity();
+                if (debug.get_value(true)) {
+                    MessageUtil.send_client_message("attacking predicted entity id");
+                }
+                if (mc.isIntegratedServerRunning()) {
+                    predict.entityId = id + 2;
+                } else {
+                    predict.entityId = id + 1;
+                }
+                predict.action = CPacketUseEntity.Action.ATTACK;
+                mc.player.connection.sendPacket(predict);
+                BlockUtil.swingArm(swing, EnumHand.MAIN_HAND);
+                attack_swings++;
             }
         }
         if (event.get_packet() instanceof CPacketPlayer && rotate_mode.in("Packet")) {
