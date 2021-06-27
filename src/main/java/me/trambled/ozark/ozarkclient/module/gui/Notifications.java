@@ -19,6 +19,7 @@ public class Notifications extends Module {
     Setting info = create("Info", "NotifInfo", true);
     Setting max_notifs = create("Max Notifs", "NotifMaxNotifications", 5, 0, 10);
     Setting time = create("Time", "NotifTime", 3000, 0, 10000);
+    Setting y_off = create("Y Off", "NotifYOff", 0, 0, 50);
     Setting r = create("R", "NotifR", 255, 0, 255);
     Setting g = create("G", "NotifG", 0, 0, 255);
     Setting b = create("B", "NotifB", 0, 0, 255);

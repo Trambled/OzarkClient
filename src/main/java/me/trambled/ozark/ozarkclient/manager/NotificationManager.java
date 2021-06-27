@@ -36,7 +36,7 @@ public class NotificationManager {
             notifications.remove(notif);
         }
         notifications.removeIf(notification -> notification.remove);
-        int y_off = 0;
+        int y_off = 25 * Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifYOff").get_value(1);
         for (Notification notification : notifications) {
             notification.y_offset = y_off;
             notification.update();
