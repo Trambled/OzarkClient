@@ -23,7 +23,7 @@ public class Notifications extends Module {
     Setting r = create("R", "NotifR", 255, 0, 255);
     Setting g = create("G", "NotifG", 0, 0, 255);
     Setting b = create("B", "NotifB", 0, 0, 255);
-    Setting a = create("A", "NotifA", 0, 0, 255);
+    Setting a = create("A", "NotifA", 255, 0, 255);
     Setting rainbow = create("Rainbow", "NotifRainbow", true);
     Setting name_r = create("Name R", "NotifNameR", 0, 0, 255);
     Setting name_g = create("Name G", "NotifNameG", 0, 0, 255);
