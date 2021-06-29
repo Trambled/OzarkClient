@@ -199,4 +199,9 @@ public class Trajectories extends Module {
 
         return var2;
     }
-}
+    @Override
+    public String array_detail() {
+            return "Slices: " + slices.get_value(1);
+
+        }
+    }

@@ -590,6 +590,6 @@ public class HoleESP extends Module {
 	}
 	@Override
 	public String array_detail() {
-			return "" + holes.size();
+			return "Holes: " + holes.size();
 
 		}}
