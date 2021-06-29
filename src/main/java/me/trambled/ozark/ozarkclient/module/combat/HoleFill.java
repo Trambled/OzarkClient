@@ -66,9 +66,9 @@ public class HoleFill extends Module {
                 return;
 
             } else {
-                find_new_holes();
                 if (msg.get_value(true)) {
                     MessageUtil.send_client_message("Filling" + holes.size() + "holes!");
+                find_new_holes();
                 }
             }
         }
