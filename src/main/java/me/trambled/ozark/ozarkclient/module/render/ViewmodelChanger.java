@@ -113,4 +113,14 @@ public class ViewmodelChanger extends Module {
         fov.set_shown(!type.in("Value"));
         fov_hand_change.set_shown(!type.in("Value"));
     }
-}
+    @Override
+    public String array_detail() {
+        if (type.in("Value")) {
+            return "Value";
+        } else if (type.in("FOV")) {
+            return "FOV";
+        }else{
+            return "Both";
+
+        }
+    }}

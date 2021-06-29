@@ -201,7 +201,7 @@ public class Trajectories extends Module {
     }
     @Override
     public String array_detail() {
-            return "Slices: " + slices.get_value(1);
+            return "Slices:" + slices.get_value(1);
 
         }
     }

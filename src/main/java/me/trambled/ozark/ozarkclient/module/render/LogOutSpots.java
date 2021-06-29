@@ -243,4 +243,9 @@ public class LogOutSpots extends Module {
 
     }
 
-}
+    @Override
+    public String array_detail() {
+            return "Spots:" + spots.size();
+
+        }
+    }
