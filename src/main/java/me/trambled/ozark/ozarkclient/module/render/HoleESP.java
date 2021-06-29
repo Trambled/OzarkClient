@@ -588,4 +588,8 @@ public class HoleESP extends Module {
 		off_set_glow.set_shown(glow_out.get_value(true) || glow_solid.get_value(true));
 		off_set.set_shown(outline.get_value(true) || solid.get_value(true));
 	}
-}
+	@Override
+	public String array_detail() {
+			return "" + holes.size();
+
+		}}
