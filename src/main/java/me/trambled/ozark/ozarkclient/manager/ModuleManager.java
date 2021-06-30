@@ -106,6 +106,7 @@ public class ModuleManager {
 		add_module(new CoordExploit());
 		add_module(new InstantBurrow());
 		add_module(new AntiWeb());
+		add_module(new NoRotate());
 
 		// Movement.
 		add_module(new Strafe());
