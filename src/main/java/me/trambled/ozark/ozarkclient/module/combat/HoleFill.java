@@ -33,7 +33,7 @@ public class HoleFill extends Module {
     Setting hole_range = create("Range", "HoleFillRange", 4, 1, 6);
     Setting swing = create("Swing", "HoleFillSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
     Setting ghost_mode = create("Ghost Switch", "HoleFillGhostSwitch", true);
-    Setting msg = create("Chat MSG", "Holefillchat", true);
+    Setting msg = create("Chat MSG", "Holefillchat", false);
     private final ArrayList<BlockPos> holes = new ArrayList<>();
 
     @Override
@@ -64,14 +64,13 @@ public class HoleFill extends Module {
                 this.set_disable();
                 MessageUtil.toggle_message(this);
                 return;
-
-            } else {
-                if (msg.get_value(true)) {
-                    MessageUtil.send_client_message("Filling" + holes.size() + "holes!");
-                find_new_holes();
-                }
+            }
+        } else {
+            if (msg.get_value(true)) {
+                MessageUtil.send_client_message("Filling " + holes.size() + " holes");
             }
         }
+
 
         BlockPos pos_to_fill = null;
 
@@ -106,12 +105,6 @@ public class HoleFill extends Module {
             }
             pos_to_fill = pos;
             break;
-        }
-
-        if (find_in_hotbar() == -1) {
-            MessageUtil.send_client_error_message("No obby!");
-            this.set_disable();
-            return;
         }
 
         if (do_smart || !smart_mode.get_value(true)) {
