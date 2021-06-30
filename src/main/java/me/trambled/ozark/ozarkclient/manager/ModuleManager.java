@@ -157,6 +157,7 @@ public class ModuleManager {
 		add_module(new Trajectories());
 		add_module(new PenisESP());
 		add_module(new NewChunks());
+		add_module(new Chams2());
 
 		// Misc.
 		add_module(new AutoWither());
