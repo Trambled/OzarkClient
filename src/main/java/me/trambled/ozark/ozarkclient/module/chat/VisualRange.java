@@ -1,10 +1,13 @@
 package me.trambled.ozark.ozarkclient.module.chat;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+import me.trambled.ozark.Ozark;
+import me.trambled.ozark.ozarkclient.manager.NotificationManager;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.util.FriendUtil;
 import me.trambled.ozark.ozarkclient.util.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.TimerUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -44,8 +47,10 @@ public class VisualRange extends Module {
 			for (String name : peoplenew) {
 				if (!people.contains(name)) {
 					if (FriendUtil.isFriend(name)) {
+						Ozark.get_notification_manager().add_notification(new NotificationManager.Notification(ChatFormatting.AQUA + name + ChatFormatting.RESET + " has entered visual range!", new TimerUtil()));
 						MessageUtil.send_client_message( ChatFormatting.AQUA + name + ChatFormatting.RESET + " has entered visual range!");
 					} else {
+						Ozark.get_notification_manager().add_notification(new NotificationManager.Notification(ChatFormatting.DARK_RED + name + ChatFormatting.RESET + " has entered visual range!", new TimerUtil()));
 						MessageUtil.send_client_message( ChatFormatting.DARK_RED + name + ChatFormatting.RESET + " has entered visual range!");
 					}
 					people.add(name);
