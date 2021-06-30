@@ -331,4 +331,50 @@ public class BlockUtil {
 
         mc.player.connection.sendPacket(new Rotation(yaw, pitch, mc.player.onGround));
     }
-}
+    public static boolean placeBlock2(BlockPos pos, int slot, boolean rotate, boolean rotateBack, boolean sneak, Setting setting) {
+        if (isBlockEmpty(pos)) {
+            int old_slot = -1;
+            if (slot != mc.player.inventory.currentItem) {
+                old_slot = mc.player.inventory.currentItem;
+                mc.player.inventory.currentItem = slot;
+            }
+
+            EnumFacing[] facings = EnumFacing.values();
+
+            for (EnumFacing f : facings) {
+                Block neighborBlock = mc.world.getBlockState(pos.offset(f)).getBlock();
+                Vec3d vec = new Vec3d(pos.getX() + 0.5D + f.getXOffset() * 0.5D, pos.getY() + 0.5D + f.getYOffset() * 0.5D, pos.getZ() + 0.5D + (double) f.getZOffset() * 0.5D);
+
+                if (!emptyBlocks.contains(neighborBlock) && mc.player.getPositionEyes(mc.getRenderPartialTicks()).distanceTo(vec) <= 4.25D) {
+                    float[] rot = new float[]{mc.player.rotationYaw, mc.player.rotationPitch};
+
+                    if (rotate) {
+                        rotatePacket(vec.x, vec.y, vec.z);
+                    }
+
+                    if (rightclickableBlocks.contains(neighborBlock) && sneak) {
+                        mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, Action.START_SNEAKING));
+                    }
+
+                    mc.playerController.processRightClickBlock(mc.player, mc.world, pos.offset(f), f.getOpposite(), new Vec3d(pos), EnumHand.MAIN_HAND);
+                    if (rightclickableBlocks.contains(neighborBlock) && sneak) {
+                        mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, Action.STOP_SNEAKING));
+                    }
+
+                    if (rotateBack) {
+                        mc.player.connection.sendPacket(new Rotation(rot[0], rot[1], mc.player.onGround));
+                    }
+
+                    swingArm(setting);
+
+                    if (old_slot != -1) {
+                        mc.player.inventory.currentItem = old_slot;
+                    }
+
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }}
