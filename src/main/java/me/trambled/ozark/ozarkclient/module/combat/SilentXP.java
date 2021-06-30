@@ -29,7 +29,9 @@ public class SilentXP extends Module {
     Setting allowTakeOff = create("Remove Armor", "SXPRA", true);
     Setting lookPitch = create("Pitch", "SXPP", 90, 10, 360);
     Setting delay = create("Delay", "SXPDelay", 1, 0, 4);
+    Setting rightclick = create("Hold Right Click", "SXPRC", false);
 
+//kambing made rightclick option
     private int delay_count;
     int prvSlot;
 
@@ -49,8 +51,12 @@ public class SilentXP extends Module {
         }
         return slot;
     }
+    public void update() {
+        if (!rightclick.get_value(true) || mc.gameSettings.keyBindUseItem.isKeyDown()) {
+        doXp();
+    }}
 
-    public void update(){
+    public void doXp(){
         int oldPitch = (int)mc.player.rotationPitch;
         prvSlot = mc.player.inventory.currentItem; //TODO add better rotations
         mc.player.connection.sendPacket(new CPacketHeldItemChange(findExpInHotbar()));
