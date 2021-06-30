@@ -29,7 +29,7 @@ public class AutoArmour extends Module {
 
     Setting delay = create("Delay", "AADelay", 0, 0, 5);
     Setting put_back = create("Equip Armour", "AAEquipArmour", true);
-    Setting smart_mode = create("Smart Mode", "AASmartMode", true);
+    Setting smart_mode = create("Smart Mode", "AASmartMode", false);
     Setting player_range = create("Player Range", "AAPlayerRange", 7, 0, 20);
     Setting crystal_range = create("Crystal Range", "AACrystalRange", 7, 0, 20);
     Setting boot_percent = create("Boot Percent", "AATBootPercent", 80, 0, 100);

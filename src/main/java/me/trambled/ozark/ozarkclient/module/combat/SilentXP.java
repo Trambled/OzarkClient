@@ -1,6 +1,7 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
 
+import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
@@ -121,5 +122,14 @@ public class SilentXP extends Module {
         }
         return true;
     }
-}
-
+    //kambing also made this (proud)
+   public void disable() {
+     if(allowTakeOff.get_value(true)) {
+         Ozark.get_module_manager().get_module_with_tag("AutoArmour").set_active(true);
+         try{
+         wait(1000);
+     } catch (InterruptedException e)  {}{
+             Ozark.get_module_manager().get_module_with_tag("AutoArmour").set_active(false);
+     }
+   }}}
+// lmaao really shitty lol
