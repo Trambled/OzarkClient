@@ -1,10 +1,9 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
-
-import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
+import me.trambled.ozark.Ozark;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.Item;
@@ -14,7 +13,6 @@ import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItem;
 import net.minecraft.util.EnumHand;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 
 //w+3
 public class SilentXP extends Module {
@@ -26,21 +24,21 @@ public class SilentXP extends Module {
         this.tag         = "SilentXP";
         this.description = "Mends with your fourth hand.";
     }
+
+    Setting hold = create("Hold", "SXPHold", false);
+    Setting bind = create("Bind", "SXPBind", 0);
     Setting takeOffVal = create("Armor HP", "SXPAmorHP", 15, 1, 90);
     Setting allowTakeOff = create("Remove Armor", "SXPRA", true);
     Setting lookPitch = create("Pitch", "SXPP", 90, 10, 360);
     Setting delay = create("Delay", "SXPDelay", 1, 0, 4);
-    Setting rightclick = create("Hold Right Click", "SXPRC", false);
 
-//kambing made rightclick option
     private int delay_count;
     int prvSlot;
 
     @Override
-    public void enable(){
+    protected void enable(){
         delay_count = 0;
     }
-
 
     private int findExpInHotbar() {
         int slot = 0;
@@ -52,10 +50,13 @@ public class SilentXP extends Module {
         }
         return slot;
     }
+
+    @Override
     public void update() {
-        if (!rightclick.get_value(true) || mc.gameSettings.keyBindUseItem.isKeyDown()) {
-        doXp();
-    }}
+        if (Keyboard.isKeyDown(bind.get_bind(0)) || !hold.get_value(true)) {
+            doXp();
+        }
+    }
 
     public void doXp(){
         int oldPitch = (int)mc.player.rotationPitch;
@@ -122,11 +123,17 @@ public class SilentXP extends Module {
         }
         return true;
     }
-    //kambing also made this (proud)
-   public void disable() {
+	
+	@Override
+	protected void disable() {
      if(allowTakeOff.get_value(true)) {
-         Ozark.get_module_manager().get_module_with_tag("AutoArmour").set_active(true);
-             Ozark.get_module_manager().get_module_with_tag("AutoArmour").set_active(false);
-     }
-   }}
-// lmaao really shitty lol
+			Ozark.get_module_manager().get_module_with_tag("AutoArmour").set_active(true);
+		}
+	}
+
+    @Override
+    public void update_always() {
+        bind.set_shown(hold.get_value(true));
+    }
+
+}

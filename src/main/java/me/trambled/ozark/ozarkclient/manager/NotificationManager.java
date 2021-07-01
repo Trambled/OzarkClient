@@ -45,14 +45,20 @@ public class NotificationManager {
 
     }
 
+    public ArrayList<Notification> get_notifications() {
+        return notifications;
+    }
+
     public void add_notification(Notification notification) {
         notifications.add(notification);
     }
 
     public void render() {
-         for (Notification notification : notifications) {
-             notification.render();
-         }
+        try {
+            for (Notification notification : notifications) {
+                notification.render();
+            }
+        } catch (Exception ignored) {}
     }
 
     public static class Notification {
@@ -63,6 +69,7 @@ public class NotificationManager {
         public boolean remove = false;
         public boolean start_to_remove = false;
         public boolean added = false;
+        public boolean error = false;
 
         private int x;
         private int y;
@@ -163,7 +170,12 @@ public class NotificationManager {
                 }
 
                 if (Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifInfo").get_value(true)) {
-                    ResourceLocation info = new ResourceLocation("custom/info.png");
+                    ResourceLocation info;
+                    if (error) {
+                        info = new ResourceLocation("custom/error.png");
+                    } else {
+                        info = new ResourceLocation("custom/info.png");
+                    }
                     GlStateManager.enableAlpha();
                     mc.getTextureManager().bindTexture(info);
                     GlStateManager.color((float) r / 0xFF, (float) g / 0xFF, (float) b / 0xFF, (float) a / 0xFF);

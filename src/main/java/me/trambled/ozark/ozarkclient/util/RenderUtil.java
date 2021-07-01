@@ -1,17 +1,24 @@
 package me.trambled.ozark.ozarkclient.util;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.shader.Framebuffer;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 
 import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 import static org.lwjgl.opengl.GL11.glEnable;
@@ -24,6 +31,8 @@ public class RenderUtil {
     public static ICamera camera;
     static double rainbowSpeed;
     static double rainbowSpeedTicks;
+
+    public static List<String> colors = Arrays.asList("Black", "Dark Green", "Dark Red", "Gold", "Dark Gray", "Green", "Red", "Yellow", "Dark Blue", "Dark Aqua", "Dark Purple", "Gray", "Blue", "Aqua", "Light Purple", "White");
 
     public static void renderOne(final float lineWidth) {
         checkSetupFBO();
@@ -358,6 +367,235 @@ public class RenderUtil {
 
     public static AxisAlignedBB interpolateAxis(AxisAlignedBB bb) {
         return new AxisAlignedBB(bb.minX - mc.getRenderManager().viewerPosX, bb.minY - mc.getRenderManager().viewerPosY, bb.minZ - mc.getRenderManager().viewerPosZ, bb.maxX - mc.getRenderManager().viewerPosX, bb.maxY - mc.getRenderManager().viewerPosY, bb.maxZ - mc.getRenderManager().viewerPosZ);
+    }
+    public static TextFormatting settingToTextFormatting(Setting setting) {
+        if (setting.in("Black")) {
+            return TextFormatting.BLACK;
+        }
+        if (setting.in("Dark Green")) {
+            return TextFormatting.DARK_GREEN;
+        }
+        if (setting.in("Dark Red")) {
+            return TextFormatting.DARK_RED;
+        }
+        if (setting.in("Gold")) {
+            return TextFormatting.GOLD;
+        }
+        if (setting.in("Dark Gray")) {
+            return TextFormatting.DARK_GRAY;
+        }
+        if (setting.in("Green")) {
+            return TextFormatting.GREEN;
+        }
+        if (setting.in("Red")) {
+            return TextFormatting.RED;
+        }
+        if (setting.in("Yellow")) {
+            return TextFormatting.YELLOW;
+        }
+        if (setting.in("Dark Blue")) {
+            return TextFormatting.DARK_BLUE;
+        }
+        if (setting.in("Dark Aqua")) {
+            return TextFormatting.DARK_AQUA;
+        }
+        if (setting.in("Dark Purple")) {
+            return TextFormatting.DARK_PURPLE;
+        }
+        if (setting.in("Gray")) {
+            return TextFormatting.GRAY;
+        }
+        if (setting.in("Blue")) {
+            return TextFormatting.BLUE;
+        }
+        if (setting.in("Light Purple")) {
+            return TextFormatting.LIGHT_PURPLE;
+        }
+        if (setting.in("White")) {
+            return TextFormatting.WHITE;
+        }
+        if (setting.in("Aqua")) {
+            return TextFormatting.AQUA;
+        }
+        return null;
+    }
+
+    public static ChatFormatting textToChatFormatting(Setting setting) {
+        if (setting.in("Black")) {
+            return ChatFormatting.BLACK;
+        }
+        if (setting.in("Dark Green")) {
+            return ChatFormatting.DARK_GREEN;
+        }
+        if (setting.in("Dark Red")) {
+            return ChatFormatting.DARK_RED;
+        }
+        if (setting.in("Gold")) {
+            return ChatFormatting.GOLD;
+        }
+        if (setting.in("Dark Gray")) {
+            return ChatFormatting.DARK_GRAY;
+        }
+        if (setting.in("Green")) {
+            return ChatFormatting.GREEN;
+        }
+        if (setting.in("Red")) {
+            return ChatFormatting.RED;
+        }
+        if (setting.in("Yellow")) {
+            return ChatFormatting.YELLOW;
+        }
+        if (setting.in("Dark Blue")) {
+            return ChatFormatting.DARK_BLUE;
+        }
+        if (setting.in("Dark Aqua")) {
+            return ChatFormatting.DARK_AQUA;
+        }
+        if (setting.in("Dark Purple")) {
+            return ChatFormatting.DARK_PURPLE;
+        }
+        if (setting.in("Gray")) {
+            return ChatFormatting.GRAY;
+        }
+        if (setting.in("Blue")) {
+            return ChatFormatting.BLUE;
+        }
+        if (setting.in("Light Purple")) {
+            return ChatFormatting.LIGHT_PURPLE;
+        }
+        if (setting.in("White")) {
+            return ChatFormatting.WHITE;
+        }
+        if (setting.in("Aqua")) {
+            return ChatFormatting.AQUA;
+        }
+        return null;
+    }
+
+    public static Color settingToColor(Setting setting) {
+        if (setting.in("Black")) {
+            return Color.BLACK;
+        }
+        if (setting.in("Dark Green")) {
+            return Color.GREEN.darker();
+        }
+        if (setting.in("Dark Red")) {
+            return Color.RED.darker();
+        }
+        if (setting.in("Gold")) {
+            return Color.yellow.darker();
+        }
+        if (setting.in("Dark Gray")) {
+            return Color.DARK_GRAY;
+        }
+        if (setting.in("Green")) {
+            return Color.green;
+        }
+        if (setting.in("Red")) {
+            return Color.red;
+        }
+        if (setting.in("Yellow")) {
+            return Color.yellow;
+        }
+        if (setting.in("Dark Blue")) {
+            return Color.blue.darker();
+        }
+        if (setting.in("Dark Aqua")) {
+            return Color.CYAN.darker();
+        }
+        if (setting.in("Dark Purple")) {
+            return Color.MAGENTA.darker();
+        }
+        if (setting.in("Gray")) {
+            return Color.GRAY;
+        }
+        if (setting.in("Blue")) {
+            return Color.blue;
+        }
+        if (setting.in("Light Purple")) {
+            return Color.magenta;
+        }
+        if (setting.in("White")) {
+            return Color.WHITE;
+        }
+        if (setting.in("Aqua")) {
+            return Color.cyan;
+        }
+        return Color.WHITE;
+    }
+
+    public static void drawNametag(double x, double y, double z, String[] text, Color color, int r, int g, int b, double a, int type, boolean customColor, Color borderColor) {
+        double dist = mc.player.getDistance(x, y, z);
+        double scale = 1, offset = 0;
+        int start = 0;
+        switch (type) {
+            case 0:
+                scale = dist / 20 * Math.pow(1.2589254, 0.1 / (dist < 25 ? 0.5 : 2));
+                scale = Math.min(Math.max(scale, .5), 5);
+                offset = scale > 2 ? scale / 2 : scale;
+                scale /= 40;
+                start = 10;
+                break;
+            case 1:
+                scale = -((int) dist) / 6.0;
+                if (scale < 1) scale = 1;
+                scale *= 2.0 / 75.0;
+                break;
+            case 2:
+                scale = 0.0018 + 0.003 * dist;
+                if (dist <= 8.0) scale = 0.0245;
+                start = -8;
+                break;
+        }
+        GlStateManager.pushMatrix();
+        GlStateManager.translate(x - mc.getRenderManager().viewerPosX, y + offset - mc.getRenderManager().viewerPosY, z - mc.getRenderManager().viewerPosZ);
+        GlStateManager.rotate(-mc.getRenderManager().playerViewY, 0, 1, 0);
+        GlStateManager.rotate(mc.getRenderManager().playerViewX, mc.gameSettings.thirdPersonView == 2 ? -1 : 1, 0, 0);
+        GlStateManager.scale(-scale, -scale, scale);
+        if (type == 2) {
+            double width = 0;
+            Color bcolor = new Color(0, 0, 0, 51);
+
+            if (customColor) {
+                bcolor = borderColor;
+            }
+            for (int i = 0; i < text.length; i++) {
+                double w = FontUtil.getFontWidth(text[i]) / 2;
+                if (w > width) {
+                    width = w;
+                }
+            }
+            RenderUtil.drawRect((float)(-width - 2)-1, (float)(-(mc.fontRenderer.FONT_HEIGHT + 1))-1, (float) width + 3f, 2.5f, r, g, b, (float) a);
+        }
+        GlStateManager.enableTexture2D();
+        for (int i = 0; i < text.length; i++) {
+            FontUtil.drawStringWithShadow(text[i], -FontUtil.getFontWidth(text[i]) / 2, i * (mc.fontRenderer.FONT_HEIGHT + 1) + start, color.getRGB());
+        }
+        GlStateManager.disableTexture2D();
+        if (type != 2) {
+            GlStateManager.popMatrix();
+        }
+    }
+
+    private static void drawBorderedRect(double x, double y, double x1, double y1, float lineWidth, Color inside, Color border) {
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder bufferbuilder = tessellator.getBuffer();
+        GlStateManager.color(inside.getRGB() / 255.0f, inside.getGreen() / 255.0f, inside.getBlue() / 255.0f, inside.getAlpha() / 255.0f);
+        bufferbuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
+        bufferbuilder.pos(x, y1, 0).endVertex();
+        bufferbuilder.pos(x1, y1, 0).endVertex();
+        bufferbuilder.pos(x1, y, 0).endVertex();
+        bufferbuilder.pos(x, y, 0).endVertex();
+        tessellator.draw();
+        GlStateManager.color(border.getRGB() / 255.0f, border.getGreen() / 255.0f, border.getBlue() / 255.0f, border.getAlpha() / 255.0f);
+        GlStateManager.glLineWidth(lineWidth);
+        bufferbuilder.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION);
+        bufferbuilder.pos(x, y, 0).endVertex();
+        bufferbuilder.pos(x, y1, 0).endVertex();
+        bufferbuilder.pos(x1, y1, 0).endVertex();
+        bufferbuilder.pos(x1, y, 0).endVertex();
+        bufferbuilder.pos(x, y, 0).endVertex();
+        tessellator.draw();
     }
 
 

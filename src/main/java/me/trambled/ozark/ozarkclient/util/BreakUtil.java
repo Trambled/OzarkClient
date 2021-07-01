@@ -22,7 +22,11 @@ public class BreakUtil {
         current_block = pos;
     }
 
-    private static boolean is_done(IBlockState state) {
+    public static BlockPos get_current_block() {
+        return current_block;
+    }
+
+    public static boolean is_done(IBlockState state) {
         return state.getBlock() == Blocks.BEDROCK || state.getBlock() == Blocks.AIR || state.getBlock() instanceof BlockLiquid;
     }
 

@@ -98,15 +98,15 @@ public class TotemPopCounter extends Module {
 
                 if (mode.in("GayNigger")) {
                     if (FriendUtil.isFriend(player.getName())) {
-                        client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + green + player.getName() + reset + " has popped " + bold + count + reset + " totems. so dog water but idk there a homie");
+                        client_message("dude, " + bold + green + player.getName() + reset + " has popped " + bold + count + reset + " totems. so dog water but idk there a homie");
                     } else {
-                        client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "dude, " + bold + red + player.getName() + reset + " has popped " + bold + count + reset + " totems. Stupid fucking retard");
+                        client_message("dude, " + bold + red + player.getName() + reset + " has popped " + bold + count + reset + " totems. Stupid fucking retard");
                     }
                 } else {
                     if (FriendUtil.isFriend(player.getName())) {
-                        client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "" + bold + aqua + player.getName() + reset + " died after popping " + bold + count + reset + " totems.");
+                        client_message("" + bold + aqua + player.getName() + reset + " died after popping " + bold + count + reset + " totems.");
                     } else {
-                        client_message( red + "" + bold + " TotemPop " + reset + grey + " > " + reset + "" + bold + red + player.getName() + reset + " died after popping " + bold + count + reset + " totems");
+                        client_message("" + bold + red + player.getName() + reset + " died after popping " + bold + count + reset + " totems");
                     }
                 }
 

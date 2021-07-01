@@ -5,29 +5,25 @@ import me.trambled.ozark.ozarkclient.event.events.EventRenderName;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.module.chat.TotemPopCounter;
-import me.trambled.ozark.ozarkclient.util.DamageUtil;
-import me.trambled.ozark.ozarkclient.util.EnemyUtil;
-import me.trambled.ozark.ozarkclient.util.FriendUtil;
-import me.trambled.ozark.ozarkclient.util.RenderUtil;
+import me.trambled.ozark.ozarkclient.util.*;
+import me.trambled.turok.draw.RenderHelp;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
-import java.util.Objects;
 
+// gamesense
 public class NameTags extends Module {
 
     public NameTags() {
@@ -38,29 +34,33 @@ public class NameTags extends Module {
         this.description = "MORE DETAILED NAMESSSSS.";
     }
 
-    Setting show_armor = create("Armor", "NametagArmor", true);
-    Setting show_health = create("Health", "NametagHealth", true);
-    Setting show_ping = create("Ping", "NametagPing", true);
-    Setting show_totems = create("Totem Count", "NametagTotems", true);
-    Setting show_invis = create("Invis", "NametagInvis", true);
-    Setting reverse = create("Armour Reverse", "NametagReverse", true);
-    Setting simplify = create("Simplify", "NametagSimp", false);
-    Setting m_scale = create("Scale", "NametagScale", 9, 1, 15);
-    Setting range = create("Range", "NametagRange", 256, 1, 256);
 
     Setting r = create("R", "NametagR", 255, 0, 255);
     Setting g = create("G", "NametagG", 255, 0, 255);
     Setting b = create("B", "NametagB", 255, 0, 255);
     Setting a = create("A", "NametagA", 0.7f, 0f, 1f);
-    Setting enemy_r = create("Enemy R", "EnemyNametagR", 157, 0, 255);
-    Setting enemy_g = create("Enemy G", "EnemyNametagG", 99, 0, 255);
-    Setting enemy_b = create("Enemy B", "EnemyNametagB", 255, 0, 255);
-    Setting friend_r = create("Friend R", "FriendNameNametagR", 255, 0, 255);
-    Setting friend_g = create("Friend G", "FriendNameNametagG", 40, 0, 255);
-    Setting friend_b = create("Friend B", "FriendNameNametagB", 7, 0, 255);
-    Setting rainbow_mode = create("Rainbow", "NametagRainbow", false);
-    Setting sat = create("Saturation", "NametagSatiation", 0.8, 0, 1);
-    Setting brightness = create("Brightness", "NametagBrightness", 0.8, 0, 1);
+    Setting range = create("Range",  "NametagRange", 100, 10, 260);
+    Setting renderSelf = create("Render Self", "NametagRenderSelf", false);
+    Setting showDurability = create("Durability", "NametagDurability", true);
+    Setting showItems = create("Items", "NametagItems", true);
+    Setting showEnchantName = create("Enchants", "NametagEnchants", true);
+    Setting showItemName = create("Item Name", "NametagItemName", false);
+    Setting showGameMode = create("Gamemode", "NametagGamemode", false);
+    Setting showHealth = create("Health", "NametagHealth", true);
+    Setting showPing = create("Ping", "NametagPing", false);
+    Setting showEntityID = create("Entity Id", "NametagEntityID", false);
+    Setting levelColor = create("Level Color", "NametagLevelColor", "Green", RenderUtil.colors);
+    Setting customColor = create("Border Color", "NametagCustomColor", true);
+    Setting border_r = create("Border R", "NametagBorderR", 255, 0, 255);
+    Setting border_g = create("Border G", "NametagBorderG", 0, 0, 255);
+    Setting border_b = create("Border B", "NametagBorderB", 0, 0, 255);
+    Setting border_a = create("Border A", "NametagBorderA", 255, 0, 255);
+    Setting enemy_r = create("Enemy R", "NametagEnemyR", 157, 0, 255);
+    Setting enemy_g = create("Enemy G", "NametagEnemyG", 99, 0, 255);
+    Setting enemy_b = create("Enemy B", "NametagEnemyB", 255, 0, 255);
+    Setting friend_r = create("Friend R", "NametagFriendNameR", 255, 0, 255);
+    Setting friend_g = create("Friend G", "NametagFriendNameG", 40, 0, 255);
+    Setting friend_b = create("Friend B", "NametagFriendNameB", 7, 0, 255);
 
     @EventHandler
     private final Listener<EventRenderName> on_render_name = new Listener<>(event -> {
@@ -69,344 +69,315 @@ public class NameTags extends Module {
 
     @Override
     public void render(EventRender event) {
-        for (final EntityPlayer player : mc.world.playerEntities) {
-            if (player != null && !player.equals(mc.player) && player.isEntityAlive() && (!player.isInvisible() || show_invis.get_value(true)) && mc.player.getDistance(player) < range.get_value(1)) {
-                final double x = this.interpolate(player.lastTickPosX, player.posX, event.get_partial_ticks()) - mc.getRenderManager().renderPosX;
-                final double y = this.interpolate(player.lastTickPosY, player.posY, event.get_partial_ticks()) - mc.getRenderManager().renderPosY;
-                final double z = this.interpolate(player.lastTickPosZ, player.posZ, event.get_partial_ticks()) - mc.getRenderManager().renderPosZ;
-                this.renderNameTag(player, x, y, z, event.get_partial_ticks());
-            }
+        if (mc.player == null || mc.world == null) {
+            return;
         }
+
+        mc.world.playerEntities.stream().filter(this::shouldRender).forEach(entityPlayer -> {
+            Vec3d vec3d = findEntityVec3d(entityPlayer);
+            renderNameTags(entityPlayer, vec3d.x, vec3d.y, vec3d.z);
+        });
     }
 
-    @Override
-    public void update() {
-        if (rainbow_mode.get_value(true)) {
-            cycle_rainbow();
-        }
+    private boolean shouldRender(EntityPlayer entityPlayer) {
+        if (entityPlayer == mc.player && !renderSelf.get_value(true)) return false;
+
+        if (entityPlayer.isDead || entityPlayer.getHealth() <= 0) return false;
+
+        return !(entityPlayer.getDistance(mc.player) > range.get_value(1));
     }
 
-    public void cycle_rainbow() {
+    private Vec3d findEntityVec3d(EntityPlayer entityPlayer) {
+        double posX = balancePosition(entityPlayer.posX, entityPlayer.lastTickPosX);
+        double posY = balancePosition(entityPlayer.posY, entityPlayer.lastTickPosY);
+        double posZ = balancePosition(entityPlayer.posZ, entityPlayer.lastTickPosZ);
 
-        float[] tick_color = {
-                (System.currentTimeMillis() % (360 * 32)) / (360f * 32)
-        };
-
-        int color_rgb_o = Color.HSBtoRGB(tick_color[0], sat.get_value(1), brightness.get_value(1));
-
-        r.set_value((color_rgb_o >> 16) & 0xFF);
-        g.set_value((color_rgb_o >> 8) & 0xFF);
-        b.set_value(color_rgb_o & 0xFF);
-
+        return new Vec3d(posX, posY, posZ);
     }
 
-    private void renderNameTag(final EntityPlayer player, final double x, final double y, final double z, final float delta) {
-        double tempY = y;
-        tempY += (player.isSneaking() ? 0.5 : 0.7);
-        final Entity camera = mc.getRenderViewEntity();
-        assert camera != null;
-        final double originalPositionX = camera.posX;
-        final double originalPositionY = camera.posY;
-        final double originalPositionZ = camera.posZ;
-        camera.posX = this.interpolate(camera.prevPosX, camera.posX, delta);
-        camera.posY = this.interpolate(camera.prevPosY, camera.posY, delta);
-        camera.posZ = this.interpolate(camera.prevPosZ, camera.posZ, delta);
-        final String displayTag = this.getDisplayTag(player);
-        final double distance = camera.getDistance(x + mc.getRenderManager().viewerPosX, y + mc.getRenderManager().viewerPosY, z + mc.getRenderManager().viewerPosZ);
-        final int width = mc.fontRenderer.getStringWidth(displayTag) / 2;
-        double scale = (0.0018 + m_scale.get_value(1) * (distance * 0.3)) / 1000.0;
-        if (distance <= 8.0) {
-            scale = 0.0245;
-        }
-        GlStateManager.pushMatrix();
-        RenderHelper.enableStandardItemLighting();
-        GlStateManager.enablePolygonOffset();
-        GlStateManager.doPolygonOffset(1.0f, -1500000.0f);
-        GlStateManager.disableLighting();
-        GlStateManager.translate((float)x, (float)tempY + 1.4f, (float)z);
-        GlStateManager.rotate(-mc.getRenderManager().playerViewY, 0.0f, 1.0f, 0.0f);
-        GlStateManager.rotate(mc.getRenderManager().playerViewX, (mc.gameSettings.thirdPersonView == 2) ? -1.0f : 1.0f, 0.0f, 0.0f);
-        GlStateManager.scale(-scale, -scale, scale);
-        GlStateManager.disableDepth();
-        GlStateManager.enableBlend();
-        GlStateManager.enableBlend();
-        boolean is_friend = FriendUtil.isFriend(player.getName());
-        boolean is_enemy = EnemyUtil.isEnemy(player.getName());
-        int red = r.get_value(1);
-        int green = g.get_value(1);
-        int blue = b.get_value(1);
-        if (is_friend) {
-            red = friend_r.get_value(1);
-            green = friend_g.get_value(1);
-            blue = friend_b.get_value(1);
-        }
-        if (is_enemy) {
-            red = enemy_r.get_value(1);
-            green = enemy_g.get_value(1);
-            blue = enemy_b.get_value(1);
-        }
-        RenderUtil.drawRect((float)(-width - 2)-1, (float)(-(mc.fontRenderer.FONT_HEIGHT + 1))-1, width + 3f, 2.5f, red, green, blue, (float) a.get_value(1));
-        RenderUtil.drawRect((float)(-width - 2), (float)(-(mc.fontRenderer.FONT_HEIGHT + 1)), width + 2.0f, 1.5f, 1426063360);
-        GlStateManager.disableBlend();
-        final ItemStack renderMainHand = player.getHeldItemMainhand().copy();
-        if (renderMainHand.hasEffect() && (renderMainHand.getItem() instanceof ItemTool || renderMainHand.getItem() instanceof ItemArmor)) {
-            renderMainHand.stackSize = 1;
-        }
-        if (!renderMainHand.isEmpty && renderMainHand.getItem() != Items.AIR) {
-            final String stackName = renderMainHand.getDisplayName();
-            final int stackNameWidth = mc.fontRenderer.getStringWidth(stackName) / 2;
-            GL11.glPushMatrix();
-            GL11.glScalef(0.75f, 0.75f, 0.0f);
-            mc.fontRenderer.drawStringWithShadow(stackName, (float)(-stackNameWidth), -(this.getBiggestArmorTag(player) + 18.0f), -1);
-            GL11.glScalef(1.5f, 1.5f, 1.0f);
-            GL11.glPopMatrix();
-        }
-        if (show_armor.get_value(true)) {
-            GlStateManager.pushMatrix();
-            int xOffset = -8;
-            for (final ItemStack stack : player.inventory.armorInventory) {
-                if (stack != null) {
-                    xOffset -= 8;
-                }
-            }
-            xOffset -= 8;
-            final ItemStack renderOffhand = player.getHeldItemOffhand().copy();
-            if (renderOffhand.hasEffect() && (renderOffhand.getItem() instanceof ItemTool || renderOffhand.getItem() instanceof ItemArmor)) {
-                renderOffhand.stackSize = 1;
-            }
-            this.renderItemStack(renderOffhand, xOffset);
-            xOffset += 16;
-            if (reverse.get_value(true)) {
-                for (final ItemStack stack2 : player.inventory.armorInventory) {
-                    if (stack2 != null) {
-                        final ItemStack armourStack = stack2.copy();
-                        if (armourStack.hasEffect() && (armourStack.getItem() instanceof ItemTool || armourStack.getItem() instanceof ItemArmor)) {
-                            armourStack.stackSize = 1;
-                        }
-                        this.renderItemStack(armourStack, xOffset);
-                        xOffset += 16;
-                    }
-                }
-            } else {
-                for (int i = player.inventory.armorInventory.size(); i > 0; i--) {
-                    final ItemStack stack2 = player.inventory.armorInventory.get(i - 1);
-                    final ItemStack armourStack = stack2.copy();
-                    if (armourStack.hasEffect() && (armourStack.getItem() instanceof ItemTool || armourStack.getItem() instanceof ItemArmor)) {
-                        armourStack.stackSize = 1;
-                    }
-                    this.renderItemStack(armourStack, xOffset);
-                    xOffset += 16;
-                }
-            }
+    private double balancePosition(double newPosition, double oldPosition) {
+        return oldPosition + (newPosition - oldPosition) * mc.timer.renderPartialTicks;
+    }
 
-            this.renderItemStack(renderMainHand, xOffset);
-            GlStateManager.popMatrix();
-        }
-        mc.fontRenderer.drawStringWithShadow(displayTag, (float)(-width), (float)(-(mc.fontRenderer.FONT_HEIGHT - 1)), this.getDisplayColour(player));
-        camera.posX = originalPositionX;
-        camera.posY = originalPositionY;
-        camera.posZ = originalPositionZ;
-        GlStateManager.enableDepth();
-        GlStateManager.disableBlend();
-        GlStateManager.disablePolygonOffset();
-        GlStateManager.doPolygonOffset(1.0f, 1500000.0f);
+    private void renderNameTags(EntityPlayer entityPlayer, double posX, double posY, double posZ) {
+        double adjustedY = posY + (entityPlayer.isSneaking() ? 1.9 : 2.1);
+
+        String[] name = new String[1];
+        name[0] = buildEntityNameString(entityPlayer);
+
+        RenderUtil.drawNametag(posX, adjustedY, posZ, name, findTextColor(entityPlayer), r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1d),  2, customColor.get_value(true), new Color(border_r.get_value(1), border_g.get_value(1), border_b.get_value(1), border_a.get_value(1)));
+        renderItemsAndArmor(entityPlayer, 0, 0);
         GlStateManager.popMatrix();
     }
 
-    private void renderItemStack(final ItemStack stack, final int x) {
-        GlStateManager.pushMatrix();
-        GlStateManager.depthMask(true);
-        GlStateManager.clear(256);
-        RenderHelper.enableStandardItemLighting();
-        mc.getRenderItem().zLevel = -150.0f;
-        GlStateManager.disableAlpha();
-        GlStateManager.enableDepth();
-        GlStateManager.disableCull();
-        mc.getRenderItem().renderItemAndEffectIntoGUI(stack, x, -29);
-        mc.getRenderItem().renderItemOverlays(mc.fontRenderer, stack, x, -29);
-        mc.getRenderItem().zLevel = 0.0f;
-        RenderHelper.disableStandardItemLighting();
-        GlStateManager.enableCull();
-        GlStateManager.enableAlpha();
-        GlStateManager.scale(0.5f, 0.5f, 0.5f);
-        GlStateManager.disableDepth();
-        this.renderEnchantmentText(stack, x);
-        GlStateManager.enableDepth();
-        GlStateManager.scale(2.0f, 2.0f, 2.0f);
-        GlStateManager.popMatrix();
-    }
+    private String buildEntityNameString(EntityPlayer entityPlayer) {
+        String name = entityPlayer.getName();
 
-    private void renderEnchantmentText(final ItemStack stack, final int x) {
-        int enchantmentY = -37;
-        final NBTTagList enchants = stack.getEnchantmentTagList();
-        if (enchants.tagCount() > 2 && simplify.get_value(true)) {
-            mc.fontRenderer.drawStringWithShadow("god", (float)(x * 2), (float)enchantmentY, -3977919);
-            enchantmentY -= 8;
-        } else {
-            for (int index = 0; index < enchants.tagCount(); ++index) {
-                final short id = enchants.getCompoundTagAt(index).getShort("id");
-                final short level = enchants.getCompoundTagAt(index).getShort("lvl");
-                final Enchantment enc = Enchantment.getEnchantmentByID(id);
-                if (enc != null) {
-                    String encName = enc.isCurse() ? (TextFormatting.RED + enc.getTranslatedName(level).substring(11).substring(0, 1).toLowerCase()) : enc.getTranslatedName(level).substring(0, 1).toLowerCase();
-                    encName += level;
-                    mc.fontRenderer.drawStringWithShadow(encName, (float)(x * 2), (float)enchantmentY, -1);
-                    enchantmentY -= 8;
-                }
-            }
+        if (showEntityID.get_value(true)) {
+            name = name + " ID: " + entityPlayer.getEntityId();
         }
-        if (DamageUtil.hasDurability(stack)) {
-            final int percent = DamageUtil.getRoundedDamage(stack);
-            String color;
-            if (percent >= 60) {
-                color = section_sign() + "a";
+
+        if (showGameMode.get_value(true)) {
+            if (entityPlayer.isCreative()) {
+                name = name + " [C]";
             }
-            else if (percent >= 25) {
-                color = section_sign() + "e";
+            else if (entityPlayer.isSpectator()) {
+                name = name + " [I]";
             }
             else {
-                color = section_sign() + "c";
+                name = name + " [S]";
             }
-            mc.fontRenderer.drawStringWithShadow(color + percent + "%", (float)(x * 2), (enchantmentY < -62) ? (float)enchantmentY : -62 , -1);
         }
+
+        if (showPing.get_value(true)) {
+            int value = 0;
+
+            if (mc.getConnection() != null && mc.getConnection().getPlayerInfo(entityPlayer.getUniqueID()) != null) {
+                value = mc.getConnection().getPlayerInfo(entityPlayer.getUniqueID()).getResponseTime();
+            }
+
+            name = name + " " + value + "ms";
+        }
+
+        if (showHealth.get_value(true)) {
+            int health = (int) (entityPlayer.getHealth() + entityPlayer.getAbsorptionAmount());
+            TextFormatting textFormatting = findHealthColor(health);
+
+            name = name + " " + textFormatting + health;
+        }
+
+        return name;
     }
 
-    private float getBiggestArmorTag(final EntityPlayer player) {
-        float enchantmentY = 0.0f;
-        boolean arm = false;
-        for (final ItemStack stack : player.inventory.armorInventory) {
-            float encY = 0.0f;
-            if (stack != null) {
-                final NBTTagList enchants = stack.getEnchantmentTagList();
-                for (int index = 0; index < enchants.tagCount(); ++index) {
-                    final short id = enchants.getCompoundTagAt(index).getShort("id");
-                    final Enchantment enc = Enchantment.getEnchantmentByID(id);
-                    if (enc != null) {
-                        encY += 8.0f;
-                        arm = true;
-                    }
-                }
-            }
-            if (encY > enchantmentY) {
-                enchantmentY = encY;
-            }
-        }
-        final ItemStack renderMainHand = player.getHeldItemMainhand().copy();
-        if (renderMainHand.hasEffect()) {
-            float encY2 = 0.0f;
-            final NBTTagList enchants2 = renderMainHand.getEnchantmentTagList();
-            for (int index2 = 0; index2 < enchants2.tagCount(); ++index2) {
-                final short id2 = enchants2.getCompoundTagAt(index2).getShort("id");
-                final Enchantment enc2 = Enchantment.getEnchantmentByID(id2);
-                if (enc2 != null) {
-                    encY2 += 8.0f;
-                    arm = true;
-                }
-            }
-            if (encY2 > enchantmentY) {
-                enchantmentY = encY2;
-            }
-        }
-        final ItemStack renderOffHand = player.getHeldItemOffhand().copy();
-        if (renderOffHand.hasEffect()) {
-            float encY = 0.0f;
-            final NBTTagList enchants = renderOffHand.getEnchantmentTagList();
-            for (int index = 0; index < enchants.tagCount(); ++index) {
-                final short id = enchants.getCompoundTagAt(index).getShort("id");
-                final Enchantment enc = Enchantment.getEnchantmentByID(id);
-                if (enc != null) {
-                    encY += 8.0f;
-                    arm = true;
-                }
-            }
-            if (encY > enchantmentY) {
-                enchantmentY = encY;
-            }
-        }
-        return (arm ? 0 : 20) + enchantmentY;
-    }
-
-    private String getDisplayTag(final EntityPlayer player) {
-        String name = player.getDisplayNameString();
-        if (!show_health.get_value(true)) {
-            return name;
-        }
-        final float health = player.getHealth() + player.getAbsorptionAmount();
+    private TextFormatting findHealthColor(int health) {
         if (health <= 0) {
-            return name + " - DEAD";
+            return TextFormatting.DARK_RED;
+        } else if (health <= 5) {
+            return TextFormatting.RED;
+        } else if (health <= 10) {
+            return TextFormatting.GOLD;
+        } else if (health <= 15) {
+            return TextFormatting.YELLOW;
+        } else if (health <= 20) {
+            return TextFormatting.DARK_GREEN;
         }
-        String color;
-        if (health > 25.0f) {
-            color = section_sign() + "5";
+
+        return TextFormatting.GREEN;
+    }
+
+    private Color findTextColor(EntityPlayer entityPlayer) {
+        if (FriendUtil.isFriend(entityPlayer.getName())) {
+            return new Color(friend_r.get_value(1), friend_g.get_value(1), friend_b.get_value(1));
+        } else if (EnemyUtil.isEnemy(entityPlayer.getName())) {
+            return new Color(enemy_r.get_value(1), enemy_g.get_value(1), enemy_b.get_value(1));
+        } else if (entityPlayer.isInvisible()) {
+            return new Color(128, 128, 128);
+        } else if (mc.getConnection() != null && mc.getConnection().getPlayerInfo(entityPlayer.getUniqueID()) == null) {
+            return new Color(239, 1, 71);
+        } else if (entityPlayer.isSneaking()) {
+            return new Color(255, 153, 0);
         }
-        else if (health > 20.0f) {
-            color = section_sign() + "a";
-        }
-        else if (health > 15.0f) {
-            color = section_sign() + "2";
-        }
-        else if (health > 10.0f) {
-            color = section_sign() + "6";
-        }
-        else if (health > 5.0f) {
-            color = section_sign() + "c";
-        }
-        else {
-            color = section_sign() + "4";
-        }
-        String pingStr = "";
-        if (show_ping.get_value(true)) {
-            try {
-                final int responseTime = Objects.requireNonNull(mc.getConnection()).getPlayerInfo(player.getUniqueID()).getResponseTime();
-                if (responseTime > 150) {
-                    pingStr += section_sign() + "4";
-                } else if (responseTime > 100) {
-                    pingStr += section_sign() + "6";
-                } else {
-                    pingStr += section_sign() + "2";
+
+        return new Color(255, 255, 255);
+    }
+
+    private void renderItemsAndArmor(EntityPlayer entityPlayer, int posX, int posY) {
+        ItemStack mainHandItem = entityPlayer.getHeldItemMainhand();
+        ItemStack offHandItem = entityPlayer.getHeldItemOffhand();
+
+        int armorCount = 3;
+        for (int i = 0; i <= 3; i++) {
+            ItemStack itemStack = entityPlayer.inventory.armorInventory.get(armorCount);
+
+            if (!itemStack.isEmpty()) {
+                posX -= 8;
+
+                int size = EnchantmentHelper.getEnchantments(itemStack).size();
+
+                if (showItems.get_value(true) && size > posY) {
+                    posY = size;
                 }
-                pingStr += responseTime + "ms ";
             }
-            catch (Exception ignore) {}
+            armorCount --;
         }
-        String popStr = " ";
-        if (show_totems.get_value(true)) {
-            try {
-                popStr += (TotemPopCounter.totem_pop_counter.get(player.getName()) == null ? section_sign() + "70" : section_sign() + "c -" + TotemPopCounter.totem_pop_counter.get(player.getName()));
-            } catch (Exception ignore) {}
+
+        if (!mainHandItem.isEmpty() && (showItems.get_value(true) || showDurability.get_value(true) && offHandItem.isItemStackDamageable())) {
+            posX -= 8;
+
+            int enchantSize = EnchantmentHelper.getEnchantments(offHandItem).size();
+            if (showItems.get_value(true) && enchantSize > posY) {
+                posY = enchantSize;
+            }
         }
-        if (Math.floor(health) == health) {
-            name = name + color + " " + ((health > 0.0f) ? Integer.valueOf((int)Math.floor(health)) : "dead");
+
+        if (!mainHandItem.isEmpty()) {
+
+            int enchantSize = EnchantmentHelper.getEnchantments(mainHandItem).size();
+
+            if (showItems.get_value(true) && enchantSize > posY) {
+                posY = enchantSize;
+            }
+
+            int armorY = findArmorY(posY);
+
+            if (showItems.get_value(true) || (showDurability.get_value(true) && mainHandItem.isItemStackDamageable())) {
+                posX -= 8;
+            }
+
+            if (showItems.get_value(true)) {
+                renderItem(mainHandItem, posX, armorY, posY);
+                armorY -= 32;
+            }
+
+            if (showDurability.get_value(true) && mainHandItem.isItemStackDamageable()) {
+                renderItemDurability(mainHandItem, posX, armorY);
+            }
+
+            armorY -= (FontUtil.getFontHeight());
+
+            if (showItemName.get_value(true)) {
+                renderItemName(mainHandItem, armorY);
+            }
+
+            if (showItems.get_value(true) || (showDurability.get_value(true) && mainHandItem.isItemStackDamageable())) {
+                posX += 16;
+            }
         }
-        else {
-            name = name + color + " " + ((health > 0.0f) ? Integer.valueOf((int)health) : "dead");
+
+        int armorCount2 = 3;
+        for (int i = 0; i <= 3; i++) {
+            ItemStack itemStack = entityPlayer.inventory.armorInventory.get(armorCount2);
+
+            if (!itemStack.isEmpty()) {
+                int armorY = findArmorY(posY);
+
+                if (showItems.get_value(true)) {
+                    renderItem(itemStack, posX, armorY, posY);
+                    armorY -= 32;
+                }
+
+                if (showDurability.get_value(true) && itemStack.isItemStackDamageable()) {
+                    renderItemDurability(itemStack, posX, armorY);
+                }
+                posX += 16;
+            }
+            armorCount2--;
         }
-        return pingStr + section_sign() + "r" + name + section_sign() + "r" + popStr;
+
+        if (!offHandItem.isEmpty()) {
+            int armorY = findArmorY(posY);
+
+            if (showItems.get_value(true)) {
+                renderItem(offHandItem, posX, armorY, posY);
+                armorY -= 32;
+            }
+
+            if (showDurability.get_value(true) && offHandItem.isItemStackDamageable()) {
+                renderItemDurability(offHandItem, posX, armorY);
+            }
+        }
     }
 
-    private int getDisplayColour(final EntityPlayer player) {
-        int colour = -5592406;
-        if (FriendUtil.isFriend(player.getName())) {
-            return -11157267;
+    private int findArmorY(int posY) {
+        int posY2 = showItems.get_value(true) ? -26 : -27;
+        if (posY > 4) {
+            posY2 -= (posY - 4) * 8;
         }
-        if (EnemyUtil.isEnemy(player.getName())) {
-            return -49632;
-        }
-        return colour;
+
+        return posY2;
     }
 
-    private double interpolate(final double previous, final double current, final float delta) {
-        return previous + (current - previous) * delta;
+    private void renderItemName(ItemStack itemStack, int posY) {
+        GlStateManager.enableTexture2D();
+        GlStateManager.pushMatrix();
+        GlStateManager.scale(0.5, 0.5, 0.5);
+        FontUtil.drawStringWithShadow(itemStack.getDisplayName(), -FontUtil.getFontWidth(itemStack.getDisplayName()) / 2, posY, new Color(255, 255, 255).getRGB());
+        GlStateManager.popMatrix();
+        GlStateManager.disableTexture2D();
     }
 
-    public String section_sign() {
-        return "\u00A7";
+    private void renderItemDurability(ItemStack itemStack, int posX, int posY) {
+        float damagePercent = (itemStack.getMaxDamage() - itemStack.getItemDamage()) / (float) itemStack.getMaxDamage();
+
+        float green = damagePercent;
+        if (green > 1) green = 1;
+        else if (green < 0) green = 0;
+
+        float red = 1 - green;
+
+        GlStateManager.enableTexture2D();
+        GlStateManager.pushMatrix();
+        GlStateManager.scale(0.5, 0.5, 0.5);
+        FontUtil.drawStringWithShadow((int) (damagePercent * 100) + "%", posX * 2, posY, new Color((int) (red * 255), (int) (green * 255), 0).getRGB());
+        GlStateManager.popMatrix();
+        GlStateManager.disableTexture2D();
+    }
+
+    private void renderItem(ItemStack itemStack, int posX, int posY, int posY2) {
+        GlStateManager.enableTexture2D();
+        GlStateManager.depthMask(true);
+        GlStateManager.clear(GL11.GL_DEPTH_BUFFER_BIT);
+        GlStateManager.enableDepth();
+        GlStateManager.disableAlpha();
+
+        final int posY3 = (posY2 > 4) ? ((posY2 - 4) * 8 / 2) : 0;
+
+        mc.getRenderItem().zLevel = -150.0f;
+        RenderHelper.enableStandardItemLighting();
+        mc.getRenderItem().renderItemAndEffectIntoGUI(itemStack, posX, posY + posY3);
+        mc.getRenderItem().renderItemOverlays(mc.fontRenderer, itemStack, posX, posY + posY3);
+        RenderHelper.disableStandardItemLighting();
+        mc.getRenderItem().zLevel = 0.0f;
+        RenderHelp.prepare_gl_2d();
+        GlStateManager.pushMatrix();
+        GlStateManager.scale(.5, .5, .5);
+        renderEnchants(itemStack, posX, posY - 24);
+        GlStateManager.popMatrix();
+    }
+
+    private void renderEnchants(ItemStack itemStack, int posX, int posY) {
+        GlStateManager.enableTexture2D();
+
+        for (Enchantment enchantment : EnchantmentHelper.getEnchantments(itemStack).keySet()) {
+            if (enchantment == null) {
+                continue;
+            }
+
+            if (showEnchantName.get_value(true)) {
+                int level = EnchantmentHelper.getEnchantmentLevel(enchantment, itemStack);
+                FontUtil.drawStringWithShadow(findStringForEnchants(enchantment, level), posX * 2, posY, new Color(255, 255, 255).getRGB());
+            }
+            posY += 8;
+        }
+
+        if (itemStack.getItem().equals(Items.GOLDEN_APPLE) && itemStack.hasEffect()) {
+            FontUtil.drawStringWithShadow("God", posX * 2, posY, new Color(195, 77, 65).getRGB());
+        }
+
+        GlStateManager.disableTexture2D();
+    }
+
+    private String findStringForEnchants(Enchantment enchantment, int level) {
+        ResourceLocation resourceLocation = Enchantment.REGISTRY.getNameForObject(enchantment);
+
+        String string = resourceLocation == null ? enchantment.getName() : resourceLocation.toString();
+
+        int charCount = (level > 1) ? 12 : 13;
+
+        if (string.length() > charCount) {
+            string = string.substring(10, charCount);
+        }
+
+        return string.substring(0, 1).toUpperCase() + string.substring(1) + RenderUtil.settingToTextFormatting(levelColor) + ((level > 1) ? level : "");
     }
 
     @Override
     public void update_always() {
-        sat.set_shown(rainbow_mode.get_value(true));
-        brightness.set_shown(rainbow_mode.get_value(true));
+        border_r.set_shown(customColor.get_value(true));
+        border_g.set_shown(customColor.get_value(true));
+        border_b.set_shown(customColor.get_value(true));
+        border_a.set_shown(customColor.get_value(true));
+
     }
 
 }

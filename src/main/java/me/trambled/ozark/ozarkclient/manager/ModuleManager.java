@@ -181,7 +181,6 @@ public class ModuleManager {
 		add_module(new InventorySort());
 		add_module(new AutoGear());
 		add_module(new AntiSound());
-		add_module(new Friends());
 		add_module(new EntityAlert());
 		add_module(new Portals());
 		add_module(new AntiAFK());
@@ -290,6 +289,18 @@ public class ModuleManager {
 		}
 	}
 
+	public void on_server_join() {
+		for (Module modules : get_array_modules()) {
+			try {
+				if (modules.is_active()) {
+					modules.server_join();
+				}
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
+		}
+	}
+
 
 	public void fast_update() {
 		for (Module modules : get_array_modules()) {
@@ -320,6 +331,16 @@ public class ModuleManager {
 		for (Module modules : get_array_modules()) {
 			if (modules.get_bind(0) == event_key) {
 				modules.toggle();
+			}
+		}
+	}
+
+	public void on_pressed(int event_key) {
+		if (event_key == 0) return;
+
+		for (Module module : get_array_modules()) {
+			if (module.get_bind(0) == event_key) {
+				module.on_key_pressed();
 			}
 		}
 	}

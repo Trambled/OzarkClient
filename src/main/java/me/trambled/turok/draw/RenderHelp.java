@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL32;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -53,6 +54,35 @@ public class RenderHelp extends Tessellator {
         GlStateManager.disableCull();
         GlStateManager.enableAlpha();
         GlStateManager.color(1, 1, 1);
+    }
+
+    public static void prepare_gl_2d() {
+        glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_NICEST);
+        GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ZERO, GL11.GL_ONE);
+        GlStateManager.shadeModel(GL11.GL_SMOOTH);
+        GlStateManager.depthMask(false);
+        GlStateManager.enableBlend();
+        GlStateManager.disableDepth();
+        GlStateManager.disableTexture2D();
+        GlStateManager.disableLighting();
+        GlStateManager.disableCull();
+        GlStateManager.enableAlpha();
+        glEnable(GL11.GL_LINE_SMOOTH);
+        glEnable(GL32.GL_DEPTH_CLAMP);
+    }
+
+    public static void release_gl_2d() {
+        GL11.glDisable(GL32.GL_DEPTH_CLAMP);
+        GL11.glDisable(GL11.GL_LINE_SMOOTH);
+        GlStateManager.enableAlpha();
+        GlStateManager.enableCull();
+        GlStateManager.enableTexture2D();
+        GlStateManager.enableDepth();
+        GlStateManager.disableBlend();
+        GlStateManager.depthMask(true);
+        GlStateManager.glLineWidth(1.0f);
+        GlStateManager.shadeModel(GL11.GL_FLAT);
+        glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_DONT_CARE);
     }
 
     public static void begin(int mode) {

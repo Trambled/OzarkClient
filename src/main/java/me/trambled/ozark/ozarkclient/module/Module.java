@@ -219,11 +219,19 @@ public class Module implements Listenable {
 
 	}
 
+	public void server_join() {
+
+	}
+
 	public void value_change(String tag) {
 
 	}
 
 	public void on_bind(String tag) {
+
+	}
+
+	public void on_key_pressed() {
 
 	}
 

@@ -66,6 +66,11 @@ public class EventManager {
 		Ozark.get_module_manager().on_logout();
 	}
 
+	@SubscribeEvent
+	public void onClientConnect(FMLNetworkEvent.ClientConnectedToServerEvent event) {
+		Ozark.get_module_manager().on_server_join();
+		Ozark.get_notification_manager().get_notifications().clear();
+	}
 
 	@SubscribeEvent
 	public void onRender(RenderGameOverlayEvent.Post event) {
@@ -114,7 +119,6 @@ public class EventManager {
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public void onChat(ClientChatEvent event) {
 		String[] message_args = CommandManager.command_list.get_message(event.getMessage());
-
 		boolean true_command = false;
 
 		if (message_args.length > 0) {

@@ -10,6 +10,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.RayTraceResult;
 import org.lwjgl.input.Mouse;
 
+import java.util.Objects;
+
 public class MCF extends Module {
     
     public MCF() {
@@ -55,7 +57,7 @@ public class MCF extends Module {
 
             if (FriendUtil.isFriend(player.getName())) {
 
-                FriendUtil.Friend f = FriendUtil.friends.stream().filter(friend -> friend.getUsername().equalsIgnoreCase(player.getName())).findFirst().get();
+                FriendUtil.Friend f = FriendUtil.friends.stream().filter(Objects::nonNull).filter(friend -> friend.getUsername().equalsIgnoreCase(player.getName())).findFirst().get();
                 FriendUtil.friends.remove(f);
                 MessageUtil.send_client_message("Player " + red + bold + player.getName() + reset + " is now not your friend :(");
                             

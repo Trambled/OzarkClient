@@ -14,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -24,7 +25,7 @@ public class FriendUtil {
     public static ArrayList<Friend> friends = new ArrayList<>();
 
     public static boolean isFriend(String name) {
-        return friends.stream().anyMatch(friend -> friend.username.equalsIgnoreCase(name)) && Ozark.get_module_manager().get_module_with_tag("Friends").is_active();
+        return friends.stream().filter(Objects::nonNull).anyMatch(friend -> friend.getUsername().equalsIgnoreCase(name));
     }
 
     public static class Friend {

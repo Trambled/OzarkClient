@@ -22,7 +22,7 @@ public class Criticals extends Module {
 	}
 
 	Setting mode = create("Mode", "CriticalsMode", "Packet", combobox("Packet", "Jump"));
-	Setting only_when_ka = create("Only When KA", "Criticals", true);
+	Setting only_when_ka = create("Only When KA", "CriticalsOnlyWhenKA", true);
 
 	@EventHandler
 	private final Listener<EventPacket.SendPacket> listener = new Listener<>(event -> {
