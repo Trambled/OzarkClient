@@ -21,6 +21,14 @@ public class PenisESP extends Module {
         this.tag = "PenisESP";
         this.description = "Renders dicks over people.";
     }
+    private float pspin, pcumsize, pamount;
+
+    @Override
+    public void enable() {
+        pspin = 0;
+        pcumsize = 0;
+        pamount = 0;
+    }
 
 
     @Override
@@ -28,7 +36,7 @@ public class PenisESP extends Module {
 
         for (final Object o : mc.world.loadedEntityList) {
             if (o instanceof EntityPlayer) {
-                final EntityPlayer player = (EntityPlayer) o;
+                final EntityPlayer player = (EntityPlayer)o;
                 final double n = player.lastTickPosX + (player.posX - player.lastTickPosX) * mc.timer.renderPartialTicks;
                 mc.getRenderManager();
                 final double x = n - mc.getRenderManager().renderPosX;
@@ -61,12 +69,11 @@ public class PenisESP extends Module {
         GL11.glTranslated(-x, -y, -z);
         GL11.glTranslated(x, y + player.height / 2.0f - 0.22499999403953552, z);
         GL11.glColor4f(1.38f, 0.55f, 2.38f, 1.0f);
-        GL11.glRotated((player.isSneaking() ? 35 : 0), 1.0f, 0.0f, 0);
+        GL11.glRotated((player.isSneaking() ? 35 : 0) + pspin, 1.0f + pspin, 0.0f, pcumsize);
         GL11.glTranslated(0.0, 0.0, 0.07500000298023224);
         final Cylinder shaft = new Cylinder();
         shaft.setDrawStyle(100013);
         shaft.draw(0.1f, 0.11f, 0.4f, 25, 20);
-        GL11.glColor4f(1.38f, 0.85f, 1.38f, 1.0f);
         GL11.glTranslated(0.0, 0.0, -0.12500000298023223);
         GL11.glTranslated(-0.09000000074505805, 0.0, 0.0);
         final Sphere right = new Sphere();
@@ -78,7 +85,8 @@ public class PenisESP extends Module {
         left.draw(0.14f, 10, 20);
         GL11.glColor4f(1.35f, 0.0f, 0.0f, 1.0f);
         GL11.glTranslated(-0.07000000074505806, 0.0, 0.589999952316284);
-        final Sphere tip = new Sphere();
+        final
+        Sphere tip = new Sphere();
         tip.setDrawStyle(100013);
         tip.draw(0.13f, 15, 20);
         GL11.glDepthMask(true);
@@ -88,6 +96,7 @@ public class PenisESP extends Module {
         GL11.glEnable(2896);
         GL11.glEnable(3553);
     }
+
     @Override
     public String array_detail() {
         if (mc.player.getName().equals("ProfKambing") || mc.player.getName().equals("Trambled") || mc.player.getName().equals("x3th0_")) {
