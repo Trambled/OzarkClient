@@ -129,6 +129,7 @@ public class ModuleManager {
 		add_module(new Static());
 		add_module(new PacketFly());
 		add_module(new AutoWalk());
+		add_module(new Strafe2());
 
 		// Render.
 		add_module(new BlockHighlight());
