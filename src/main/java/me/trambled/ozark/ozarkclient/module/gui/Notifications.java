@@ -15,7 +15,9 @@ public class Notifications extends Module {
         this.description = "GUI for notifications";
     }
 
-    Setting mode = create("Mode", "NotifMode", "Downright", combobox("Upleft", "Upright", "Downleft", "Downright"));
+    Setting mode = create("Mode", "NotifMode", "Downright", combobox("Upleft", "Downleft"));
+    Setting regular_messages = create("Regular Messages", "NotifRegularMessages", true);
+    Setting message_width = create("Message Width", "NotifMessageWidth", false);
     Setting info = create("Info", "NotifInfo", true);
     Setting max_notifs = create("Max Notifs", "NotifMaxNotifications", 5, 1, 10);
     Setting time = create("Time", "NotifTime", 3000, 0, 10000);

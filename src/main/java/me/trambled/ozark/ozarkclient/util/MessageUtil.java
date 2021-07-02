@@ -61,7 +61,7 @@ public class MessageUtil {
 		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + " " +  r;
 		if (mc.player != null) {
 			client_message_simple(opener + message);
-			if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIRegularMessages").get_value(true)) Ozark.get_notification_manager().add_notification(new NotificationManager.Notification(message, new TimerUtil()));
+			if (Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifRegularMessages").get_value(true)) Ozark.get_notification_manager().add_notification(new NotificationManager.Notification(message, new TimerUtil()));
 		}
 	}
 
@@ -76,14 +76,14 @@ public class MessageUtil {
 		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + " " +  r;
 		if (mc.player != null) {
 			client_message(opener + message);
-			if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIRegularMessages").get_value(true)) Ozark.get_notification_manager().add_notification(new NotificationManager.Notification(message, new TimerUtil()));
+			if (Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifRegularMessages").get_value(true)) Ozark.get_notification_manager().add_notification(new NotificationManager.Notification(message, new TimerUtil()));
 		}
 	}
 
 	public static void send_client_error_message(String message) {
 		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + " " +  r;
 		client_message(opener + r + "Error: "  + message);
-		if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIRegularMessages").get_value(true)) Ozark.get_notification_manager().add_notification(new NotificationManager.Notification(message, new TimerUtil()));
+		if (Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifRegularMessages").get_value(true)) Ozark.get_notification_manager().add_notification(new NotificationManager.Notification(message, new TimerUtil()));
 
 	}
 

@@ -20,7 +20,6 @@ public class PastGUIModule extends Module {
 		set_bind(Ozark.KEY_GUI);
 	}
 
-	Setting regular_messages = create("Regular Messages", "PastGUIRegularMessages", true);
 	Setting red = create("Red", "PastGUIR", 72, 0, 255);
 	Setting green = create("Green", "PastGUIG", 41, 0, 255);
 	Setting blue = create("Blue", "PastGUIB", 204, 0, 255);

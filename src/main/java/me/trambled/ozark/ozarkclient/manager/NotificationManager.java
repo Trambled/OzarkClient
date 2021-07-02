@@ -17,6 +17,10 @@ import java.util.ArrayList;
 
 import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
+/**
+ * Made by @Trambled on 6/28/2021
+ */
+
 public class NotificationManager {
 
     public static ArrayList<Notification> notifications = new ArrayList<>();
@@ -86,7 +90,11 @@ public class NotificationManager {
             this.timer.reset();
             update_settings();
             if (mode == NotificationMode.Upleft || mode == NotificationMode.Downleft) {
-                x = -160;
+                if (Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifMessageWidth").get_value(true)) {
+                    x = -FontUtil.getFontWidth(message) - 30;
+                } else {
+                    x = -160;
+                }
                 if (mode == NotificationMode.Downleft) {
                     y = scaled_height;
                 } else {
