@@ -21,11 +21,16 @@ public class Notifications extends Module {
     Setting info = create("Info", "NotifInfo", true);
     Setting max_notifs = create("Max Notifs", "NotifMaxNotifications", 5, 1, 10);
     Setting time = create("Time", "NotifTime", 3000, 0, 10000);
+    Setting y_off_height = create("Y Off Height", "NotifYOffHeight", 25, 1, 25);
     Setting y_off = create("Y Off", "NotifYOff", 0, 0, 50);
     Setting r = create("R", "NotifR", 255, 0, 255);
     Setting g = create("G", "NotifG", 0, 0, 255);
     Setting b = create("B", "NotifB", 0, 0, 255);
     Setting a = create("A", "NotifA", 255, 0, 255);
+    Setting background_r = create("Background R", "NotifBackgroundR", 17, 0, 255);
+    Setting background_g = create("Background G", "NotifBackgroundG", 17, 0, 255);
+    Setting background_b = create("Background B", "NotifBackgroundB", 17, 0, 255);
+    Setting background_a = create("Background A", "NotifBackgroundA", 255, 0, 255);
     Setting rainbow = create("Rainbow", "NotifRainbow", true);
     Setting name_r = create("Name R", "NotifNameR", 0, 0, 255);
     Setting name_g = create("Name G", "NotifNameG", 0, 0, 255);

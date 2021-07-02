@@ -7,11 +7,9 @@ import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.shader.Framebuffer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.GL11;
@@ -597,8 +595,6 @@ public class RenderUtil {
         bufferbuilder.pos(x, y, 0).endVertex();
         tessellator.draw();
     }
-
-
 
     static {
         itemRender = mc.getRenderItem();

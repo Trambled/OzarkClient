@@ -47,6 +47,24 @@ public class GuiUtil {
 		}
 	}
 
+	public static void draw_outline(int x, int y, int x2, int y2, Color color)
+	{
+		Gui.drawRect(x - 1, y - 1, x, y2 + 1, color.getRGB());
+		Gui.drawRect(x2, y - 1, x2 + 1, y2 + 1, color.getRGB());
+		Gui.drawRect(x, y - 1, x2, y, color.getRGB());
+		Gui.drawRect(x, y2, x2, y2 + 1, color.getRGB());
+	}
+
+	public static void draw_outline(int x, int y, int x2, int y2, int r, int g, int b, int a)
+	{
+		Color color = new Color(r, g, b, a);
+		Gui.drawRect(x - 1, y - 1, x, y2 + 1, color.getRGB());
+		Gui.drawRect(x2, y - 1, x2 + 1, y2 + 1, color.getRGB());
+		Gui.drawRect(x, y - 1, x2, y, color.getRGB());
+		Gui.drawRect(x, y2, x2, y2 + 1, color.getRGB());
+	}
+
+
 	public static void draw_rect_gradient(int x, int y, int w, int h, int r, int g, int b, int a, int rainbowOff) {
 		if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIRainbowRolling").get_value(true)) {
 			float hueIncrement = 0.01f;

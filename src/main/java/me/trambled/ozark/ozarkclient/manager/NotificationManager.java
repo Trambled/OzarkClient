@@ -44,7 +44,7 @@ public class NotificationManager {
         for (Notification notification : notifications) {
             notification.y_offset = y_off;
             notification.update();
-            y_off += notification.height;
+            y_off += Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifYOffHeight").get_value(1);
         }
 
     }
@@ -153,6 +153,11 @@ public class NotificationManager {
             int b = Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifB").get_value(1);
             int a = Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifA").get_value(1);
 
+            int background_r = Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifBackgroundR").get_value(1);
+            int background_g = Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifBackgroundG").get_value(1);
+            int background_b = Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifBackgroundB").get_value(1);
+            int background_a = Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifBackgroundA").get_value(1);
+
             int name_r = Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifNameR").get_value(1);
             int name_g = Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifNameG").get_value(1);
             int name_b = Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifNameB").get_value(1);
@@ -164,8 +169,8 @@ public class NotificationManager {
             int notif_a = Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifNotifA").get_value(1);
 
             if (this.mode == NotificationMode.Upleft) {
-                GuiUtil.draw_rect(x - 1, y - 1 + y_offset, width + 11, y + y_offset + height + 1, r, g, b, a);
-                GuiUtil.draw_rect(x, y + y_offset, width + 10, y + height + y_offset, 17, 17, 17, 255);
+                GuiUtil.draw_outline(x, y + y_offset, width + 10, y + height + y_offset, r, g, b, a);
+                GuiUtil.draw_rect(x, y + y_offset, width + 10, y + height + y_offset, background_r, background_g, background_b, background_a);
                 if (Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifNameFlow").get_value(true)) {
                     RainbowUtil.drawRainbowStringCustomFont(Ozark.DISPLAY_NAME, x + 2, y + 3 + y_offset, new Color(name_r, name_g, name_b, name_a).getRGB(), 100f);
                 } else {
@@ -194,8 +199,8 @@ public class NotificationManager {
                     GlStateManager.clear(GL11.GL_DEPTH_BUFFER_BIT);
                 }
             } else {
-                GuiUtil.draw_rect(x - 1, y - 1 - y_offset, width + 11, y - y_offset - height + 1, r, g, b, a);
-                GuiUtil.draw_rect(x, y - y_offset, width + 10, y - height - y_offset, 17, 17, 17, 255);
+                GuiUtil.draw_outline(x, y + y_offset, width + 10, y + height + y_offset, r, g, b, a);
+                GuiUtil.draw_rect(x, y + y_offset, width + 10, y + height + y_offset, background_r, background_g, background_b, background_a);
                 if (Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifNameFlow").get_value(true)) {
                     RainbowUtil.drawRainbowStringCustomFont(Ozark.DISPLAY_NAME, x + 2, y - 22 - y_offset, new Color(name_r, name_g, name_b, name_a).getRGB(), 100f);
                 } else {
