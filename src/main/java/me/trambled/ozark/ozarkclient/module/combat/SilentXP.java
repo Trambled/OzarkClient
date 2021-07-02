@@ -28,6 +28,8 @@ public class SilentXP extends Module {
     Setting hold = create("Hold", "SXPHold", false);
     Setting bind = create("Bind", "SXPBind", 0);
     Setting takeOffVal = create("Armor HP", "SXPAmorHP", 15, 1, 90);
+    Setting rotate = create("Rotate", "SXPRotate", false);
+    Setting rotate_back = create("Rotate Back", "SXPRotateBack", false);
     Setting allowTakeOff = create("Remove Armor", "SXPRA", true);
     Setting lookPitch = create("Pitch", "SXPP", 90, 10, 360);
     Setting delay = create("Delay", "SXPDelay", 1, 0, 4);
@@ -62,12 +64,17 @@ public class SilentXP extends Module {
         int oldPitch = (int)mc.player.rotationPitch;
         prvSlot = mc.player.inventory.currentItem; //TODO add better rotations
         mc.player.connection.sendPacket(new CPacketHeldItemChange(findExpInHotbar()));
-        mc.player.rotationPitch = lookPitch.get_value(1);
-        mc.player.connection.sendPacket(new CPacketPlayer.Rotation(mc.player.rotationYaw, lookPitch.get_value(1), true));
+        if (rotate.get_value(true)) {
+            mc.player.rotationPitch = lookPitch.get_value(1);
+            mc.player.connection.sendPacket(new CPacketPlayer.Rotation(mc.player.rotationYaw, lookPitch.get_value(1), mc.player.onGround));
+        }
         mc.player.connection.sendPacket(new CPacketPlayerTryUseItem(EnumHand.MAIN_HAND));
-        mc.player.rotationPitch = oldPitch;
         mc.player.inventory.currentItem = prvSlot;
         mc.player.connection.sendPacket(new CPacketHeldItemChange(prvSlot));
+        if (rotate.get_value(true) && rotate_back.get_value(true)) {
+            mc.player.rotationPitch = oldPitch;
+            mc.player.connection.sendPacket(new CPacketPlayer.Rotation(mc.player.rotationYaw, mc.player.rotationPitch, mc.player.onGround));
+        }
         if (allowTakeOff.get_value(true)) {
             takeArmorOff(); //TODO add the ArmourMend take off thing
         }
@@ -134,6 +141,7 @@ public class SilentXP extends Module {
     @Override
     public void update_always() {
         bind.set_shown(hold.get_value(true));
+        rotate_back.set_shown(rotate.get_value(true));
     }
 
 }
