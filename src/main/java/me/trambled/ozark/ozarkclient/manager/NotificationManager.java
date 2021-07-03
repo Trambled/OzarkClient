@@ -177,7 +177,7 @@ public class NotificationManager {
                     FontUtil.drawString(Ozark.DISPLAY_NAME, x + 2, y + 3 + y_offset, name_r, name_g, name_b, name_a);
                 }
                 if (Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifNotifFlow").get_value(true)) {
-                    RainbowUtil.drawRainbowStringCustomFont(message, x + 2, y + 17 + y_offset, new Color(notif_r, notif_g, notif_b, notif_a).getRGB(), 100f);
+                    RainbowUtil.drawRainbowStringChatCustomFont(message, x + 2, y + 17 + y_offset, new Color(notif_r, notif_g, notif_b, notif_a).getRGB(), 100f);
                 } else {
                     FontUtil.drawString(message, x + 2, y + 15 + y_offset, notif_r, notif_g, notif_b, notif_a);
                 }
@@ -202,12 +202,12 @@ public class NotificationManager {
                 GuiUtil.draw_outline(x, y + y_offset, width + 10, y + height + y_offset, r, g, b, a);
                 GuiUtil.draw_rect(x, y + y_offset, width + 10, y + height + y_offset, background_r, background_g, background_b, background_a);
                 if (Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifNameFlow").get_value(true)) {
-                    RainbowUtil.drawRainbowStringCustomFont(Ozark.DISPLAY_NAME, x + 2, y - 22 - y_offset, new Color(name_r, name_g, name_b, name_a).getRGB(), 100f);
+                    RainbowUtil.drawRainbowStringChatCustomFont(Ozark.DISPLAY_NAME, x + 2, y - 22 - y_offset, new Color(name_r, name_g, name_b, name_a).getRGB(), 100f);
                 } else {
                     FontUtil.drawString(Ozark.DISPLAY_NAME, x + 2, y - 22 - y_offset, name_r, name_g, name_b, name_a);
                 }
                 if (Ozark.get_setting_manager().get_setting_with_tag("Notifications", "NotifNotifFlow").get_value(true)) {
-                    RainbowUtil.drawRainbowStringCustomFont(message, x + 2, y - 8 - y_offset, new Color(notif_r, notif_g, notif_b, notif_a).getRGB(), 100f);
+                    RainbowUtil.drawRainbowStringChatCustomFont(message, x + 2, y - 8 - y_offset, new Color(notif_r, notif_g, notif_b, notif_a).getRGB(), 100f);
                 } else {
                     FontUtil.drawString(message, x + 2, y - 8 - y_offset, notif_r, notif_g, notif_b, notif_a);
                 }
