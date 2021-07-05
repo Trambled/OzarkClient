@@ -130,9 +130,7 @@ public class NameTags extends Module {
                 name = name + " [S]";
             }
         }
-        if (showTotem.get_value(true)) {
-            name = name + " -" + TotemPopCounter.totem_pop_counter.get(entityPlayer.getName());
-        }
+
 
         if (showPing.get_value(true)) {
             int value = 0;
@@ -149,6 +147,14 @@ public class NameTags extends Module {
             TextFormatting textFormatting = findHealthColor(health);
 
             name = name + " " + textFormatting + health;
+        }
+        if (showTotem.get_value(true)) {
+            int pop = (TotemPopCounter.totem_pop_counter.get(entityPlayer.getName()));
+            TextFormatting textFormatting = findPopColor(pop);
+            if (TotemPopCounter.totem_pop_counter.get(entityPlayer.getName()) != null) {
+                pop = TotemPopCounter.totem_pop_counter.get(entityPlayer.getName());
+        }
+            name = name + " -" + textFormatting + pop;
         }
 
         return name;
@@ -184,6 +190,21 @@ public class NameTags extends Module {
         }
 
         return new Color(255, 255, 255);
+    }
+    private TextFormatting findPopColor(int pop) {
+        if (pop <= 0) {
+            return TextFormatting.GREEN;
+        } else if (pop <= 5) {
+            return TextFormatting.DARK_GREEN;
+        } else if (pop <= 10) {
+            return TextFormatting.GOLD;
+        } else if (pop <= 15) {
+            return TextFormatting.YELLOW;
+        } else if (pop <= 20) {
+            return TextFormatting.RED;
+        }
+
+        return TextFormatting.DARK_RED;
     }
 
     private void renderItemsAndArmor(EntityPlayer entityPlayer, int posX, int posY) {
