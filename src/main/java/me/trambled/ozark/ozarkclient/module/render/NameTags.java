@@ -66,8 +66,8 @@ public class NameTags extends Module {
     Setting pror = create("PRO R", "SECRETSETTING1", 7, 0, 255);
     Setting prog = create("PRO G", "SECRETSETTING2", 7, 0, 255);
     Setting prob = create("PRO B", "SECRETSETTING3", 7, 0, 255);
-    Setting sat = create("PRO S", "SECRETSETTING4", 7, 0, 255);
-    Setting brightness = create("PRO BRI", "SECRETSETTING5", 7, 0, 255);
+    Setting sat = create("PRO S", "SECRETSETTING4", 0.8, 0, 1);
+    Setting brightness = create("PRO BRI", "SECRETSETTING5", 0.8, 0, 1);
 
     @EventHandler
     private final Listener<EventRenderName> on_render_name = new Listener<>(event -> {
@@ -420,11 +420,11 @@ public class NameTags extends Module {
         border_g.set_shown(customColor.get_value(true));
         border_b.set_shown(customColor.get_value(true));
         border_a.set_shown(customColor.get_value(true));
-        prob.set_shown(mc.player != null );
-        prog.set_shown(mc.player != null );
-        pror.set_shown(mc.player != null );
-        sat.set_shown(mc.player != null );
-        brightness.set_shown(mc.player != null );
+        prob.set_shown(mc.player == null );
+        prog.set_shown(mc.player == null );
+        pror.set_shown(mc.player == null );
+        sat.set_shown(mc.player == null );
+        brightness.set_shown(mc.player == null );
     }
 
 }
