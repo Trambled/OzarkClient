@@ -20,6 +20,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.opengl.GL11;
+import me.trambled.ozark.ozarkclient.module.chat.TotemPopCounter;
 
 import java.awt.*;
 
@@ -41,6 +42,7 @@ public class NameTags extends Module {
     Setting a = create("A", "NametagA", 0.7f, 0f, 1f);
     Setting range = create("Range",  "NametagRange", 100, 10, 260);
     Setting renderSelf = create("Render Self", "NametagRenderSelf", false);
+    Setting showTotem = create("Totetms popped", "NametagPROMOMENTOALLAHUAKBAR", false);
     Setting showDurability = create("Durability", "NametagDurability", true);
     Setting showItems = create("Items", "NametagItems", true);
     Setting showEnchantName = create("Enchants", "NametagEnchants", true);
@@ -127,6 +129,9 @@ public class NameTags extends Module {
             else {
                 name = name + " [S]";
             }
+        }
+        if (showTotem.get_value(true)) {
+            name = name + " -" + TotemPopCounter.totem_pop_counter.get(entityPlayer.getName());
         }
 
         if (showPing.get_value(true)) {
