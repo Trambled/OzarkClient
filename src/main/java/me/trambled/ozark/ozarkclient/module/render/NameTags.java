@@ -149,7 +149,7 @@ public class NameTags extends Module {
             name = name + " " + textFormatting + health;
         }
         if (showTotem.get_value(true)) {
-            int pop = (TotemPopCounter.totem_pop_counter.get(entityPlayer.getName()));
+            int pop = 0;
             TextFormatting textFormatting = findPopColor(pop);
             if (TotemPopCounter.totem_pop_counter.get(entityPlayer.getName()) != null) {
                 pop = TotemPopCounter.totem_pop_counter.get(entityPlayer.getName());
