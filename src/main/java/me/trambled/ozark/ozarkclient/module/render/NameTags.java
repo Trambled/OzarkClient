@@ -63,11 +63,6 @@ public class NameTags extends Module {
     Setting friend_r = create("Friend R", "NametagFriendNameR", 255, 0, 255);
     Setting friend_g = create("Friend G", "NametagFriendNameG", 40, 0, 255);
     Setting friend_b = create("Friend B", "NametagFriendNameB", 7, 0, 255);
-    Setting pror = create("PRO R", "SECRETSETTING1", 7, 0, 255);
-    Setting prog = create("PRO G", "SECRETSETTING2", 7, 0, 255);
-    Setting prob = create("PRO B", "SECRETSETTING3", 7, 0, 255);
-    Setting sat = create("PRO S", "SECRETSETTING4", 0.8, 0, 1);
-    Setting brightness = create("PRO BRI", "SECRETSETTING5", 0.8, 0, 1);
 
     @EventHandler
     private final Listener<EventRenderName> on_render_name = new Listener<>(event -> {
@@ -185,8 +180,6 @@ public class NameTags extends Module {
     private Color findTextColor(EntityPlayer entityPlayer) {
         if (FriendUtil.isFriend(entityPlayer.getName())) {
             return new Color(friend_r.get_value(1), friend_g.get_value(1), friend_b.get_value(1));
-        } else if (entityPlayer.getName().equals("ProfKambing") || entityPlayer.getName().equals("Trambled")) {
-            return new Color(pror.get_value(1), prog.get_value(1), prob.get_value(1));
         } else if (EnemyUtil.isEnemy(entityPlayer.getName())) {
             return new Color(enemy_r.get_value(1), enemy_g.get_value(1), enemy_b.get_value(1));
         } else if (entityPlayer.isInvisible()) {
@@ -404,28 +397,14 @@ public class NameTags extends Module {
 
         return string.substring(0, 1).toUpperCase() + string.substring(1) + RenderUtil.settingToTextFormatting(levelColor) + ((level > 1) ? level : "");
     }
-    public void update() {
-        float[] tick_color = {
-                (System.currentTimeMillis() % (360 * 32)) / (360f * 32)
-        };
 
-        int color_rgb_o = Color.HSBtoRGB(tick_color[0], sat.get_value(1), brightness.get_value(1));
-
-        prob.set_value((color_rgb_o >> 16) & 0xFF);
-        prog.set_value((color_rgb_o >> 8) & 0xFF);
-        pror.set_value(color_rgb_o & 0xFF);
-    }
     @Override
     public void update_always() {
         border_r.set_shown(customColor.get_value(true));
         border_g.set_shown(customColor.get_value(true));
         border_b.set_shown(customColor.get_value(true));
         border_a.set_shown(customColor.get_value(true));
-        prob.set_shown(mc.player == null );
-        prog.set_shown(mc.player == null );
-        pror.set_shown(mc.player == null );
-        sat.set_shown(mc.player == null );
-        brightness.set_shown(mc.player == null );
+
     }
 
 }
