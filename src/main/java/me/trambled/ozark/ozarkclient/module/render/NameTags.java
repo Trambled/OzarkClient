@@ -159,7 +159,7 @@ public class NameTags extends Module {
             if (TotemPopCounter.totem_pop_counter.get(entityPlayer.getName()) != null) {
                 pop = TotemPopCounter.totem_pop_counter.get(entityPlayer.getName());
         }
-            if (TotemPopCounter.totem_pop_counter.get(entityPlayer.getName()) != 0) {
+            if (pop != 0) {
             name = name +  textFormatting + " -" + pop;
         }}
 
