@@ -195,13 +195,13 @@ public class NameTags extends Module {
     private TextFormatting findPopColor(int pop) {
         if (pop <= 0) {
             return TextFormatting.GREEN;
-        } else if (pop <= 3) {
+        } else if (pop <= 1) {
             return TextFormatting.DARK_GREEN;
-        } else if (pop <= 5) {
+        } else if (pop <= 2) {
             return TextFormatting.GOLD;
-        } else if (pop <= 8) {
+        } else if (pop <= 5) {
             return TextFormatting.YELLOW;
-        } else if (pop <= 10) {
+        } else if (pop <= 7) {
             return TextFormatting.RED;
         }
 
