@@ -32,7 +32,7 @@ public class NameTags extends Module {
 
         this.name = "Nametags";
         this.tag = "NameTags";
-        this.description = "MORE DETAILED NAMESSSSS.";
+        this.description = "future nametags but in OZARK HOW SNINEHACK .";
     }
 
 
@@ -194,13 +194,13 @@ public class NameTags extends Module {
     private TextFormatting findPopColor(int pop) {
         if (pop <= 0) {
             return TextFormatting.GREEN;
-        } else if (pop <= 5) {
+        } else if (pop <= 3) {
             return TextFormatting.DARK_GREEN;
-        } else if (pop <= 10) {
+        } else if (pop <= 5) {
             return TextFormatting.GOLD;
-        } else if (pop <= 15) {
+        } else if (pop <= 8) {
             return TextFormatting.YELLOW;
-        } else if (pop <= 20) {
+        } else if (pop <= 10) {
             return TextFormatting.RED;
         }
 
