@@ -8,13 +8,13 @@ import java.lang.management.ManagementFactory;
 
 //kambing
 public class ClearRamCommand extends Command {
-    long memorySize = ((com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean()).getTotalPhysicalMemorySize();
+    private static final long xd = ((com.sun.management.OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean()).getTotalPhysicalMemorySize() /1024/1024/1024;
     public ClearRamCommand() {
         super("ram",  "clear ur ram");
     }
 
     public boolean get_message(String[] message) {
-        MessageUtil.send_client_message("You have " + memorySize + " ram (buy more ram pooron)");
+        MessageUtil.send_client_message("You have " + xd + "GB of ram (buy more ram pooron)");
         MessageUtil.send_client_message("Clearing ram...");
         System.gc();
         MessageUtil.send_client_message("Ram Cleared!");

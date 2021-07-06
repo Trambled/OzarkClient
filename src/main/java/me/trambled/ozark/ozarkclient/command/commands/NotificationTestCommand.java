@@ -17,7 +17,7 @@ public class NotificationTestCommand extends Command {
             Ozark.get_notification_manager().add_notification(new NotificationManager.Notification("Ozark play 2b2t snine tudou classic 2017 (test)", new TimerUtil()));
 
 
-        }else if (message.length > 2) {
+        }else if (message.length == 2) {
             Ozark.get_notification_manager().add_notification(new NotificationManager.Notification(message[1], new TimerUtil()));
         }
     return true;
