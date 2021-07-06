@@ -36,6 +36,7 @@ public class Commands {
 		add_command(new XrayCommand());
 		add_command(new RenameCommand());
 		add_command(new NotificationTestCommand());
+		add_command(new ClearRamCommand());
 
 		command_list.sort(Comparator.comparing(Command::get_name));
 	}
