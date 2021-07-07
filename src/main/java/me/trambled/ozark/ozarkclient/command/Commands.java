@@ -37,6 +37,7 @@ public class Commands {
 		add_command(new RenameCommand());
 		add_command(new NotificationTestCommand());
 		add_command(new ClearRamCommand());
+		add_command(new NamemcCommand());
 
 		command_list.sort(Comparator.comparing(Command::get_name));
 	}
