@@ -193,6 +193,8 @@ public class NameTags extends Module {
             return new Color(239, 1, 71);
         } else if (entityPlayer.isSneaking()) {
             return new Color(255, 153, 0);
+        } else if (entityPlayer.getName() == mc.player.getName()) {
+            return new Color(0, 200, 0);
         }
 
         return new Color(255, 255, 255);
