@@ -198,15 +198,13 @@ public class NameTags extends Module {
         return new Color(255, 255, 255);
     }
     private TextFormatting findPopColor(int pop) {
-        if (pop <= 0) {
+          if (pop == 1) {
             return TextFormatting.GREEN;
-        } else if (pop <= 1) {
+        } else if (pop == 2) {
             return TextFormatting.DARK_GREEN;
-        } else if (pop <= 2) {
-            return TextFormatting.GOLD;
-        } else if (pop <= 5) {
+        } else if (pop == 3) {
             return TextFormatting.YELLOW;
-        } else if (pop <= 7) {
+        } else if (pop == 4) {
             return TextFormatting.RED;
         }
 
@@ -217,7 +215,7 @@ public class NameTags extends Module {
             return TextFormatting.GREEN;
         } else if (ping <= 150) {
             return TextFormatting.YELLOW;
-        } else if (ping <= 300) {
+        } else if (ping <= 200) {
             return TextFormatting.RED;
         }
 
@@ -395,6 +393,9 @@ public class NameTags extends Module {
 
         if (itemStack.getItem().equals(Items.GOLDEN_APPLE) && itemStack.hasEffect()) {
             FontUtil.drawStringWithShadow("God", posX * 2, posY, new Color(195, 77, 65).getRGB());
+        }
+        if (itemStack.getItem().equals(Items.END_CRYSTAL) && itemStack.hasEffect()) {
+            FontUtil.drawStringWithShadow("Crystal", posX * 2, posY, new Color(141, 65, 195).getRGB());
         }
 
         GlStateManager.disableTexture2D();
