@@ -50,6 +50,7 @@ public class NameTags extends Module {
     Setting showGameMode = create("Gamemode", "NametagGamemode", false);
     Setting showHealth = create("Health", "NametagHealth", true);
     Setting showPing = create("Ping", "NametagPing", false);
+    Setting pingcolor = create("Show Ping Color", "NametagPingcolor", true);
     Setting showEntityID = create("Entity Id", "NametagEntityID", false);
     Setting levelColor = create("Level Color", "NametagLevelColor", "Green", RenderUtil.colors);
     Setting customColor = create("Border Color", "NametagCustomColor", true);
@@ -106,7 +107,6 @@ public class NameTags extends Module {
 
         String[] name = new String[1];
         name[0] = buildEntityNameString(entityPlayer);
-
         RenderUtil.drawNametag(posX, adjustedY, posZ, name, findTextColor(entityPlayer), r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1d),  2, customColor.get_value(true), new Color(border_r.get_value(1), border_g.get_value(1), border_b.get_value(1), border_a.get_value(1)));
         renderItemsAndArmor(entityPlayer, 0, 0);
         GlStateManager.popMatrix();
@@ -137,9 +137,14 @@ public class NameTags extends Module {
 
             if (mc.getConnection() != null && mc.getConnection().getPlayerInfo(entityPlayer.getUniqueID()) != null) {
                 value = mc.getConnection().getPlayerInfo(entityPlayer.getUniqueID()).getResponseTime();
-            }
 
-            name = name + " " + value + "ms";
+            }
+            TextFormatting textFormatting = findPingColor(value);
+            if (pingcolor.get_value(false)) {
+                name = name + " " + value + "ms";
+            }else{
+                name = name + " " + textFormatting + value + "ms";
+            }
         }
 
         if (showHealth.get_value(true)) {
@@ -202,6 +207,17 @@ public class NameTags extends Module {
         } else if (pop <= 5) {
             return TextFormatting.YELLOW;
         } else if (pop <= 7) {
+            return TextFormatting.RED;
+        }
+
+        return TextFormatting.DARK_RED;
+    }
+    private TextFormatting findPingColor(int ping) {
+        if (ping <= 100) {
+            return TextFormatting.GREEN;
+        } else if (ping <= 150) {
+            return TextFormatting.YELLOW;
+        } else if (ping <= 300) {
             return TextFormatting.RED;
         }
 
