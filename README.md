@@ -26,11 +26,11 @@ Download the latest and stable release from [here](https://github.com/Trambled/O
 
 What's the default bind for ClickGUI?
 
-R-SHIFT
+`R-SHIFT`
 
 Default Command Prefix?
 
-. is the prefix
+`.` is the prefix
 
 ## Details and stuff
 
