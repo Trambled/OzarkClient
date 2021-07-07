@@ -141,9 +141,9 @@ public class NameTags extends Module {
             }
             TextFormatting textFormatting = findPingColor(value);
             if (pingcolor.get_value(false)) {
-                name = name + " " + value + "ms";
-            }else{
                 name = name + " " + textFormatting + value + "ms";
+            }else{
+                name = name + " " + value + "ms";
             }
         }
 
