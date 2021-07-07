@@ -47,10 +47,8 @@ public class VisualRange extends Module {
 			for (String name : peoplenew) {
 				if (!people.contains(name)) {
 					if (FriendUtil.isFriend(name)) {
-						Ozark.get_notification_manager().add_notification(new NotificationManager.Notification(ChatFormatting.AQUA + name + ChatFormatting.RESET + " has entered visual range!", new TimerUtil()));
 						MessageUtil.send_client_message( ChatFormatting.AQUA + name + ChatFormatting.RESET + " has entered visual range!");
 					} else {
-						Ozark.get_notification_manager().add_notification(new NotificationManager.Notification(ChatFormatting.DARK_RED + name + ChatFormatting.RESET + " has entered visual range!", new TimerUtil()));
 						MessageUtil.send_client_message( ChatFormatting.DARK_RED + name + ChatFormatting.RESET + " has entered visual range!");
 					}
 					people.add(name);
