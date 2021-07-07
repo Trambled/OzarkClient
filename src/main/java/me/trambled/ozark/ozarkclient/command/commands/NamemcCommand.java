@@ -18,13 +18,14 @@ public class NamemcCommand extends Command {
 
     public boolean get_message(String[] message) {
         if (message.length == 1) {
-MessageUtil.send_client_message("Nigga you forgot the name (expected since ur fkin dumb)");
+            try {
+                Desktop.getDesktop().browse(URI.create("https://namemc.com/profile/" + mc.player.getName()));
+            } catch (Exception ex) {}
         }else if (message.length == 2) {
-            MessageUtil.send_client_message("Sending you to namemc.com/profile/" + message[1]);
             try {
                 Desktop.getDesktop().browse(URI.create("https://namemc.com/profile/" + message[1]));
-            } catch (Exception ex) {
-            }
+            } catch (Exception ex) {}
 
         return true;
-    }return true;}}
+    }return true;}
+}
