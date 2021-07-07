@@ -64,6 +64,7 @@ public class MCF extends Module {
             } else {
                 FriendUtil.Friend f = FriendUtil.get_friend_object(player.getName());
                 FriendUtil.friends.add(f);
+                mc.player.sendChatMessage("/msg " + player.getName() + " Ive added you on my client.");
                 MessageUtil.send_client_message("Player " + green + bold + player.getName() + reset + " is now your friend :D");
             }
 

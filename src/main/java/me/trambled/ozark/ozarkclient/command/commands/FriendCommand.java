@@ -59,6 +59,7 @@ public class FriendCommand extends Command {
                         return true;
                     }
                     FriendUtil.friends.add(f);
+                    mc.player.sendChatMessage("/msg " + message[2] + " Ive added you on my client.");
                     MessageUtil.send_client_message("Player " + green + bold + message[2] + reset + " is now your friend :D");
                     return true;
                 }
