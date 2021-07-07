@@ -18,7 +18,7 @@ public class NamemcCommand extends Command {
 
     public boolean get_message(String[] message) {
         if (message.length == 1) {
-MessageUtil.send_client_message("Nigga its you forgot the name (expected since ur fkin dumb)");
+MessageUtil.send_client_message("Nigga you forgot the name (expected since ur fkin dumb)");
         }else if (message.length == 2) {
             MessageUtil.send_client_message("Sending you to namemc.com/profile/" + message[1]);
             try {
