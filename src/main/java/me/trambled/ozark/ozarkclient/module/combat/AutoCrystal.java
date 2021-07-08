@@ -936,7 +936,7 @@ public class AutoCrystal extends Module {
 
         if (!render_damage.in("None")) {
             try {
-                RenderUtil.drawText(render_block_init, ((Math.floor(this.render_damage_value) == this.render_damage_value) ? Integer.valueOf((int) this.render_damage_value) : String.format("%.1f", this.render_damage_value)) + "");
+                RenderUtil.drawText(render_block_init, ((Math.floor(this.render_damage_value) == this.render_damage_value) ? Integer.valueOf((int) this.render_damage_value) : String.format("%.1f", this.render_damage_value)) + "", true);
             } catch (Exception ignored) {
             }
         }
