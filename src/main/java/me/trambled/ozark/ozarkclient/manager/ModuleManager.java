@@ -34,6 +34,7 @@ public class ModuleManager {
 		add_module(new PastGUIModule());
 		add_module(new CustomMainMenu());
 		add_module(new Notifications());
+		add_module(new CsgoWatermark());
 
 		// Chat.
 		add_module(new ChatSuffix());
