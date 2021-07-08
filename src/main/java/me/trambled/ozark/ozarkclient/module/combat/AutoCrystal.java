@@ -960,7 +960,6 @@ public class AutoCrystal extends Module {
         }
         if (circle.get_value(true)) {
             drawCircle(render_block.getX(), (flat.get_value(true)) ? render_block.getY() + heightcircle.get_value(1) : render_block.getY(), render_block.getZ(), radius.get_value(1), new Color(r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1)));
-
         }
 
         if (outline.get_value(true)) {
@@ -1345,11 +1344,15 @@ public class AutoCrystal extends Module {
         stop_while_eating.set_shown(!clean_mode.get_value(true) || setting.in("Pause"));
 
         // RENDER
-        boolean render_render = outline.get_value(true) || solid.get_value(true) || glow_solid.get_value(true) || glow_outline.get_value(true);
+        boolean render_render = outline.get_value(true) || solid.get_value(true) || glow_solid.get_value(true) || glow_outline.get_value(true) || circle.get_value(true);
+        circle.set_shown(!clean_mode.get_value(true) || setting.in("Render"));
         outline.set_shown(!clean_mode.get_value(true) || setting.in("Render"));
         solid.set_shown(!clean_mode.get_value(true) || setting.in("Render"));
         glow_solid.set_shown(!clean_mode.get_value(true) || setting.in("Render"));
         glow_outline.set_shown(!clean_mode.get_value(true) || setting.in("Render"));
+        flat.set_shown(circle.get_value(true) && render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        heightcircle.set_shown(circle.get_value(true) && render_render && (!clean_mode.get_value(true) || setting.in("Render")));
+        radius.set_shown(circle.get_value(true) && render_render && (!clean_mode.get_value(true) || setting.in("Render")));
         old_render.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
         future_render.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
         top_block.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
