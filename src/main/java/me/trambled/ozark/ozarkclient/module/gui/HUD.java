@@ -48,7 +48,12 @@ public class HUD extends Module {
 		if (rainbow.get_value(true)) {
 			cycle_rainbow();
 		}
-	}
+		if (ram.get_value(true)) {
+			xd++;
+			if(xd == 1000) {
+				System.gc();
+				xd = 0;
+	}}}
 
 	public void cycle_rainbow() {
 
@@ -63,12 +68,4 @@ public class HUD extends Module {
 		strings_b.set_value(color_rgb_o & 0xFF);
 	}
 
-	@Override
-	public void update() {
-		if (ram.get_value(true)) {
-		xd++;
-		if(xd == 1000) {
-			System.gc();
-			xd = 0;
-	}
-}}}
+}
