@@ -84,7 +84,7 @@ public class BreakESP extends Module {
 
                 if (info_mode.in("Name")) {
                     if (mc.world.getEntityByID(integer) != null) {
-                        RenderUtil.drawText(destroyBlockProgress.getPosition(), mc.world.getEntityByID(integer).getName());
+                        RenderUtil.drawText(destroyBlockProgress.getPosition(), mc.world.getEntityByID(integer).getName(), true);
                     }
                 }
 
@@ -96,7 +96,7 @@ public class BreakESP extends Module {
                 }
 
                 if (info_mode.in("Percent")) {
-                    RenderUtil.drawText(destroyBlockProgress.getPosition(), (destroyBlockProgress.getPartialBlockDamage() * 12.5) + "%");
+                    RenderUtil.drawText(destroyBlockProgress.getPosition(), (destroyBlockProgress.getPartialBlockDamage() * 12.5) + "%", true);
                 }
 
 
