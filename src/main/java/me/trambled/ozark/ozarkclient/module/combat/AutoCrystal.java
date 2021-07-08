@@ -13,6 +13,11 @@ import me.trambled.ozark.ozarkclient.util.*;
 import me.trambled.turok.draw.RenderHelp;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,9 +30,12 @@ import net.minecraft.network.play.client.*;
 import net.minecraft.network.play.server.*;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import org.lwjgl.opengl.GL11;
+import net.minecraft.client.renderer.culling.ICamera;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -146,6 +154,10 @@ public class AutoCrystal extends Module {
     Setting outline = create("Outline", "CaOutline", true);
     Setting glow_solid = create("Glow Solid", "CaGlowSolid", false);
     Setting glow_outline = create("Glow Outline", "CaGlowOutline", false);
+    Setting circle = create("Circle", "CaCircle", false);
+    Setting flat = create("Circle Flat", "CaCircleFlat", false);
+    Setting radius = create("Circle Radius", "CaCircleRadius", 0.7, 0.5, 1.0);
+    Setting heightcircle = create("Circle Height", "CaCircleHeight", 1.0, 0.5, 2.0);
     Setting old_render = create("Old Render", "CaOldRender", false);
     Setting future_render = create("Future Render", "CaFutureRender", false);
     Setting top_block = create("Top Block", "CaTopBlock", false);
@@ -168,6 +180,7 @@ public class AutoCrystal extends Module {
     public static ArrayList<EntityEnderCrystal> fake_crystals = new ArrayList<>();
 
     private final TimerUtil anti_stuck_timer = new TimerUtil();
+    public static ICamera camera = new Frustum();
 
 
     private RotationUtil.Rotation ca_rotation = null;
@@ -945,6 +958,10 @@ public class AutoCrystal extends Module {
             );
             RenderHelp.release();
         }
+        if (circle.get_value(true)) {
+            drawCircle(render_block.getX(), (flat.get_value(true)) ? render_block.getY() + heightcircle.get_value(1) : render_block.getY(), render_block.getZ(), radius.get_value(1), new Color(r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1)));
+
+        }
 
         if (outline.get_value(true)) {
             RenderHelp.prepare("lines");
@@ -1376,6 +1393,47 @@ public class AutoCrystal extends Module {
         return ca_target;
     }
 
+    public static void drawCircleVertices(AxisAlignedBB bb, float radius, Color colour){
+        float r = (float) colour.getRed() / 255.0f;
+        float g = (float) colour.getGreen() / 255.0f;
+        float b = (float) colour.getBlue() / 255.0f;
+        float a = (float) colour.getAlpha() / 255.0f;
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder buffer = tessellator.getBuffer();
+        GlStateManager.pushMatrix();
+        GlStateManager.enableBlend();
+        GlStateManager.disableDepth();
+        GlStateManager.tryBlendFuncSeparate(770, 771, 0, 1);
+        GlStateManager.disableTexture2D();
+        GlStateManager.depthMask(false);
+        GL11.glEnable(2848);
+        GL11.glHint(3154, 4354);
+        GL11.glLineWidth(1f);
+        for (int i = 0; i < 360; i++) {
+            buffer.begin(3, DefaultVertexFormats.POSITION_COLOR);
+            buffer.pos(bb.getCenter().x + (Math.sin((i * 3.1415926D / 180)) * radius), bb.minY, bb.getCenter().z + (Math.cos((i * 3.1415926D / 180)) * radius)).color(r, g, b, a).endVertex();
+            buffer.pos(bb.getCenter().x + (Math.sin(((i + 1) * 3.1415926D / 180)) * radius), bb.minY, bb.getCenter().z + (Math.cos(((i + 1) * 3.1415926D / 180)) * radius)).color(r, g, b, a).endVertex();
+            tessellator.draw();
+        }
+        GL11.glDisable(2848);
+        GlStateManager.depthMask(true);
+        GlStateManager.enableDepth();
+        GlStateManager.enableTexture2D();
+        GlStateManager.disableBlend();
+        GlStateManager.popMatrix();
+    }
 
-
-}
+    public static void drawCircle(float x, float y, float z, float radius, Color colour){
+        //IBlockState iblockstate = RenderUtil.mc.world.getBlockState(new BlockPos(x, y, z));
+        //Vec3d interpPos = EntityUtil.getInterpolatedPos(RenderUtil.mc.player, RenderUtil.mc.getRenderPartialTicks());
+        BlockPos pos = new BlockPos(x, y, z);
+        //AxisAlignedBB bb = iblockstate.getSelectedBoundingBox(RenderUtil.mc.world, new BlockPos(x, y, z)).offset(-interpPos.x, -interpPos.y, -interpPos.z);
+        AxisAlignedBB bb = new AxisAlignedBB((double) pos.getX() - mc.getRenderManager().viewerPosX, (double) pos.getY() - mc.getRenderManager().viewerPosY,
+                (double) pos.getZ() - mc.getRenderManager().viewerPosZ,
+                (double) (pos.getX() + 1) - mc.getRenderManager().viewerPosX,
+                (double) (pos.getY() + 1) - mc.getRenderManager().viewerPosY, (double) (pos.getZ() + 1) - mc.getRenderManager().viewerPosZ);
+        camera.setPosition(Objects.requireNonNull(mc.getRenderViewEntity()).posX, mc.getRenderViewEntity().posY, mc.getRenderViewEntity().posZ);
+        if (camera.isBoundingBoxInFrustum(new AxisAlignedBB(bb.minX + mc.getRenderManager().viewerPosX, bb.minY + mc.getRenderManager().viewerPosY, bb.minZ + mc.getRenderManager().viewerPosZ, bb.maxX + mc.getRenderManager().viewerPosX, bb.maxY +mc.getRenderManager().viewerPosY, bb.maxZ + mc.getRenderManager().viewerPosZ))) {
+            drawCircleVertices(bb, radius, colour);
+        }
+    }}
