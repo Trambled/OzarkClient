@@ -8,15 +8,16 @@ import me.trambled.ozark.ozarkclient.module.Setting;
 import java.awt.*;
 
 public class HUD extends Module {
-
+	int xd;
 	public HUD() {
 		super(Category.GUI);
 
-		this.name        = "HUD";
-		this.tag         = "HUD";
+		this.name = "HUD";
+		this.tag = "HUD";
 		this.description = "Allows u to modify the hud.";
 	}
 
+	Setting secret = create("Secret Modules", "Secret uuuuuuuuuu", false);
 	Setting strings_r = create("Color R", "HUDStringsColorR", 245, 0, 255);
 	Setting strings_g = create("Color G", "HUDStringsColorG", 127, 0, 255);
 	Setting strings_b = create("Color B", "HUDStringsColorB", 142, 0, 255);
@@ -28,6 +29,7 @@ public class HUD extends Module {
 	Setting arraylist_mode = create("ArrayList", "HUDArrayList", "Free", combobox("Free", "Top R", "Top L", "Bottom R", "Bottom L"));
 	Setting show_all_pots = create("All Potions", "HUDAllPotions", false);
 	Setting max_player_list = create("Max Players", "HUDMaxPlayers", 24, 1, 64);
+	Setting ram = create("ClearRam(scret)", "ClearRamEvery50Seconds", false);
 
 	@Override
 	public void enable() {
@@ -42,6 +44,7 @@ public class HUD extends Module {
 
 	@Override
 	public void update_always() {
+		ram.set_shown(secret.get_value(true));
 		if (rainbow.get_value(true)) {
 			cycle_rainbow();
 		}
@@ -59,4 +62,13 @@ public class HUD extends Module {
 		strings_g.set_value((color_rgb_o >> 8) & 0xFF);
 		strings_b.set_value(color_rgb_o & 0xFF);
 	}
-}
+
+	@Override
+	public void update() {
+		if (ram.get_value(true)) {
+		xd++;
+		if(xd == 1000) {
+			System.gc();
+			xd = 0;
+	}
+}}}
