@@ -37,7 +37,7 @@ public class HelpCommand extends Command {
 		if (type.equalsIgnoreCase("list")) {
 
 			for (Command commands : Commands.get_pure_command_list()) {
-				MessageUtil.send_client_message(commands.get_name());
+				MessageUtil.send_client_message_without_notif(commands.get_name());
 
 			}
 

@@ -65,7 +65,6 @@ public class AutoCrystal extends Module {
     Setting break_crystal = create("Break", "CaBreak", true);
     Setting anti_weakness = create("Anti-Weakness", "CaAntiWeakness", true);
 
-    Setting alternative = create("Alternative", "CaAlternative", false);
     Setting module_check = create("Module Check", "CaModuleCheck", true);
     Setting break_predict = create("Break Predict", "CaBreakPredict", true);
     Setting break_predict_2 =  create("Break Predict 2", "CaBreakPredict2", false);
@@ -357,9 +356,6 @@ public class AutoCrystal extends Module {
     public void break_crystal() {
         EntityEnderCrystal crystal = get_best_crystal();
         if (crystal == null) {
-            if (alternative.get_value(true)) {
-                place_crystal();
-            }
             return;
         }
 
@@ -1306,7 +1302,6 @@ public class AutoCrystal extends Module {
         // PLACE & BREAK
         target_mode.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));
         anti_suicide.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));
-        alternative.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));
         player_range.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));
         raytrace.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));
         fast_mode.set_shown(!clean_mode.get_value(true) || setting.in("Place & Break"));

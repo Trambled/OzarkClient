@@ -56,7 +56,9 @@ public class SilentXP extends Module {
     @Override
     public void update() {
         if (Keyboard.isKeyDown(bind.get_bind(0)) || !hold.get_value(true)) {
-            doXp();
+            if (mc.currentScreen == null) {
+                doXp();
+            }
         }
     }
 

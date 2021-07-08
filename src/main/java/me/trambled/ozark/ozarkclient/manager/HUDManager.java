@@ -41,6 +41,8 @@ public class HUDManager {
 		add_pinnable(new TPS());
 		add_pinnable(new PlayerList());
 		add_pinnable(new Direction());
+		add_pinnable(new Info());
+		add_pinnable(new EnemyInfo());
 
 		array_hud.sort(Comparator.comparing(Pinnable::get_title));
 	}

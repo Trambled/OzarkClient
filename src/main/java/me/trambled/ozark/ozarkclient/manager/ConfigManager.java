@@ -636,13 +636,17 @@ public class ConfigManager {
             load_enemies();
             load_ezmessage();
             load_friends();
-            load_hud();
             load_kitmessage();
             load_past_gui();
             load_xray();
             load_display_name();
             load_modules();
             load_binds();
+            try {
+                load_hud();
+            } catch (Exception e) {
+                send_minecraft_log("something has gone wrong while loading hud");
+            }
         } catch (IOException e) {
             send_minecraft_log("Something has gone wrong while loading settings please report it to trambled");
             send_minecraft_log(e.toString());

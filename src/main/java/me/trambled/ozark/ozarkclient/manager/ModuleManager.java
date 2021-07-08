@@ -19,13 +19,14 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 
 import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class ModuleManager {
 
 	public static ArrayList<Module> array_modules = new ArrayList<>();
-
+	private static final LinkedHashMap<Class<? extends Module>, Module> class_map = new LinkedHashMap<>(); // just adding this so i can use module classes easier
 
 	public ModuleManager() {
 		// Click GUI and HUD.
@@ -130,7 +131,6 @@ public class ModuleManager {
 		add_module(new Static());
 		add_module(new PacketFly());
 		add_module(new AutoWalk());
-		add_module(new Strafe2());
 
 		// Render.
 		add_module(new BlockHighlight());
@@ -192,6 +192,7 @@ public class ModuleManager {
 
 	public void add_module(Module module) {
 		array_modules.add(module);
+		class_map.put(module.getClass(), module);
 	}
 
 	public ArrayList<Module> get_array_modules() {
@@ -358,6 +359,10 @@ public class ModuleManager {
 		return module_requested;
 	}
 
+	@SuppressWarnings("unchecked")
+	public static <T extends Module> T get_module(Class<T> clazz) {
+		return (T) class_map.get(clazz);
+	}
 
 	public ArrayList<Module> get_modules_with_category(Category category) {
 		ArrayList<Module> module_requesteds = new ArrayList<>();

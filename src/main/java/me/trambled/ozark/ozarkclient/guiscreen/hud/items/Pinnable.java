@@ -8,6 +8,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.opengl.GL11;
 
+import java.awt.*;
+
 
 // Travis.
 
@@ -225,9 +227,23 @@ public class Pinnable {
 		}
 	}
 
+	protected void create_line_regular(String string, int pos_x, int pos_y, int r, int g, int b, int a) {
+		GuiUtil.draw_string(string, this.x + pos_x, this.y + pos_y, r, g, b, a);
+
+	}
+
 	protected void create_rect(int pos_x, int pos_y, int width, int height, int r, int g, int b, int a) {
 		GuiUtil.draw_rect(this.x + pos_x, this.y + pos_y, this.x + width, this.y + height, r, g, b, a);
 	}
+
+	protected void create_outline(int pos_x, int pos_y, int width, int height, int r, int g, int b, int a) {
+		GuiUtil.draw_outline(this.x + pos_x, this.y + pos_y, this.x + width, this.y + height, r, g, b, a);
+	}
+
+	protected void create_gradient(int pos_x, int pos_y, int width, int height, int startColor, int endColor) {
+		GuiUtil.drawGradientRectP(this.x + pos_x, this.y + pos_y, this.x + width, this.y + height, startColor, endColor);
+	}
+
 
 	protected int get(String string, String type) {
 		int value_to_request = 0;

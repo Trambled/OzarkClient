@@ -80,6 +80,13 @@ public class MessageUtil {
 		}
 	}
 
+	public static void send_client_message_without_notif(String message) {
+		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + " " +  r;
+		if (mc.player != null) {
+			client_message(opener + message);
+		}
+	}
+
 	public static void send_client_error_message(String message) {
 		opener = g + "[" + Ozark.DISPLAY_NAME + "]" + " " +  r;
 		client_message(opener + r + "Error: "  + message);

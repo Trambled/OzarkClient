@@ -36,7 +36,7 @@ public class Ping extends Pinnable {
 			return "\u00A74"+Integer.toString(ping);
 		}
         } catch (Exception e) {
-            return "oh no";
+            return "0";
         }
 		
 	}

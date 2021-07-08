@@ -15,7 +15,6 @@ import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.network.play.client.CPacketPlayer;
-import net.minecraft.network.play.server.SPacketEntityVelocity;
 import net.minecraft.network.play.server.SPacketExplosion;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -42,8 +41,8 @@ public class Strafe extends Module {
 	Setting knockback_time = create("Knockback Time", "StrafeKnockBackTime", 850, 0, 3000);
 
 	TimerUtil knockback_timer = new TimerUtil();
-	private double boosted_x;
-	private double boosted_z;
+	public double boosted_x;
+	public double boosted_z;
 
 	@Override
 	public void update() {
@@ -154,9 +153,13 @@ public class Strafe extends Module {
 			}
 
 
+			//1pop stuff
 			if (crystal_boost.get_value(true) && !knockback_timer.passed(knockback_time.get_value(1))) {
-				player_speed = (float)Math.abs(boosted_x);
-				player_speed += Math.abs(boosted_z);
+				double velocityX = this.boosted_x;
+				double velocityZ = this.boosted_z;
+
+				player_speed += (float) Math.sqrt(velocityX * velocityX + velocityZ * velocityZ);
+
 			}
 
 			event.set_x(((move_forward * player_speed) * Math.cos(Math.toRadians((rotation_yaw + 90.0f))) + (move_strafe * player_speed) * Math.sin(Math.toRadians((rotation_yaw + 90.0f)))));

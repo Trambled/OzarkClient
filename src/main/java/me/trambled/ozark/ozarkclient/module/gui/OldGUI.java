@@ -56,7 +56,7 @@ public class OldGUI extends Module {
 	Setting rainbow_widget_border = create("Rainbow Border", "ClickGUIRainbowWidgetBorder", false);
 
 	@Override
-	public void update() {
+	public void update_always() {
 		// Update frame colors.
 		Ozark.main_gui.theme_frame_name_r = name_frame_r.get_value(1);
 		Ozark.main_gui.theme_frame_name_g = name_frame_g.get_value(1);
