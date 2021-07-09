@@ -19,7 +19,7 @@ public class Info extends Pinnable {
 		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
 		int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorA").get_value(1);
 
-		String info = Ozark.DISPLAY_NAME + " | " + get_ping() + "ms | " + get_fps() + "fps";
+		String info = Ozark.DISPLAY_NAME + " | " + get_ping() + "ms | " + get_fps() + "fps | " + mc.player.getName();
 
 		create_rect(-6, -6, mc.fontRenderer.getStringWidth(info) + 6, mc.fontRenderer.FONT_HEIGHT + 6, 40, 40, 40, 255);
 		create_rect(-5, -5, mc.fontRenderer.getStringWidth(info) + 5, mc.fontRenderer.FONT_HEIGHT + 5, 70, 70, 70, 255);
