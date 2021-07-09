@@ -26,7 +26,7 @@ public class Info extends Pinnable {
 		create_rect(-5, -5, mc.fontRenderer.getStringWidth(info) + 5, mc.fontRenderer.FONT_HEIGHT + 5, 70, 70, 70, 255);
 		create_rect(-4, -4, mc.fontRenderer.getStringWidth(info) + 4, mc.fontRenderer.FONT_HEIGHT + 4, 40, 40, 40, 255);
 		create_rect(-3, -3, mc.fontRenderer.getStringWidth(info) + 3, mc.fontRenderer.FONT_HEIGHT + 3, 0, 0, 0, 255);
-		this.drawHLineG(this.get_x() - padding, this.get_y() - 7, (this.get_x() + padding + this.get_width() - 2) - (this.get_x() - padding), RainbowUtil.getMultiColour().hashCode(), this.getFurtherColour(Ozark.get_setting_manager().get_setting_with_tag("HUD", "offset").get_value(1)).hashCode());
+		drawHLineG(this.get_x() - 3, this.get_y() - 3, mc.fontRenderer.getStringWidth(info) + 6, RainbowUtil.getMultiColour().hashCode(), this.getFurtherColour(Ozark.get_setting_manager().get_setting_with_tag("HUD", "offset").get_value(1)).hashCode());
 
 		create_line(info, 1, 2, nl_r, nl_g, nl_b, nl_a);
 
