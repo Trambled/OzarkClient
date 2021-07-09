@@ -24,7 +24,7 @@ public class Speedometer extends Pinnable {
         final double z = mc.player.posZ - mc.player.prevPosZ;
         final float tr = (mc.timer.tickLength / 1000.0f);
 
-        String bps = "M/s: " + new DecimalFormat("#.#").format(MathHelper.sqrt(x * x + z * z) / tr);
+        String bps = "[M/s]: " + new DecimalFormat("#.#").format(MathHelper.sqrt(x * x + z * z) / tr);
 
         create_line(bps, this.docking(1, bps), 2, nl_r, nl_g, nl_b, nl_a);
 
