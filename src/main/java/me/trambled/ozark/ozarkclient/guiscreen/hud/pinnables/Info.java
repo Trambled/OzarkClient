@@ -14,7 +14,6 @@ public class Info extends Pinnable {
 
 	@Override
 	public void render() {
-		int padding = 5;
 		int nl_r = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorR").get_value(1);
 		int nl_g = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorG").get_value(1);
 		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
@@ -26,6 +25,7 @@ public class Info extends Pinnable {
 		create_rect(-5, -5, mc.fontRenderer.getStringWidth(info) + 5, mc.fontRenderer.FONT_HEIGHT + 5, 70, 70, 70, 255);
 		create_rect(-4, -4, mc.fontRenderer.getStringWidth(info) + 4, mc.fontRenderer.FONT_HEIGHT + 4, 40, 40, 40, 255);
 		create_rect(-3, -3, mc.fontRenderer.getStringWidth(info) + 3, mc.fontRenderer.FONT_HEIGHT + 3, 0, 0, 0, 255);
+		this.drawHLineG(get_x() -3, get_y() -3, get_x() + mc.fontRenderer.getStringWidth(info) + 3, get_y() - 2, RainbowUtil.getMultiColour().getRGB(), this.getFurtherColour(500).getRGB());
 
 		create_line(info, 1, 2, nl_r, nl_g, nl_b, nl_a);
 
