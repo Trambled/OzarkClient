@@ -53,6 +53,8 @@ public abstract class MixinAbstractClientPlayer {
                 r = new ResourceLocation("custom/doge.gif");
             } else if (Ozark.get_setting_manager().get_setting_with_tag("Capes", "CapeCape").in("FrootLoop")) {
                 r = new ResourceLocation("custom/frootloop.png");
+            } else if (Ozark.get_setting_manager().get_setting_with_tag("Capes", "CapeCape").in("Ozark")) {
+                r = new ResourceLocation("custom/capeozark.png");
             } else {
                 r = new ResourceLocation("custom/ahegao.png");
             }
