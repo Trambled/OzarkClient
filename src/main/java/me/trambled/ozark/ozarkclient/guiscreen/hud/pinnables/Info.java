@@ -19,13 +19,13 @@ public class Info extends Pinnable {
 		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
 		int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorA").get_value(1);
 
-		String info = Ozark.DISPLAY_NAME + " | " + get_ping() + "ms | " + get_fps() + "fps";
+		String info = Ozark.DISPLAY_NAME + " | " + get_ping() + "ms | " + get_fps() + "fps | " + mc.player.getName();
 
 		create_rect(-6, -6, mc.fontRenderer.getStringWidth(info) + 6, mc.fontRenderer.FONT_HEIGHT + 6, 40, 40, 40, 255);
 		create_rect(-5, -5, mc.fontRenderer.getStringWidth(info) + 5, mc.fontRenderer.FONT_HEIGHT + 5, 70, 70, 70, 255);
 		create_rect(-4, -4, mc.fontRenderer.getStringWidth(info) + 4, mc.fontRenderer.FONT_HEIGHT + 4, 40, 40, 40, 255);
 		create_rect(-3, -3, mc.fontRenderer.getStringWidth(info) + 3, mc.fontRenderer.FONT_HEIGHT + 3, 0, 0, 0, 255);
-		drawHLineG(this.get_x() - 3, this.get_y() - 3, mc.fontRenderer.getStringWidth(info) + 6, RainbowUtil.getMultiColour().hashCode(), this.getFurtherColour(Ozark.get_setting_manager().get_setting_with_tag("HUD", "offset").get_value(1)).hashCode());
+		drawHLineG(this.get_x() - 3, this.get_y() - 3, mc.fontRenderer.getStringWidth(info) + 6, getColour().hashCode(), this.getFurtherColour(Ozark.get_setting_manager().get_setting_with_tag("HUD", "offset").get_value(1)).hashCode());
 
 		create_line(info, 1, 2, nl_r, nl_g, nl_b, nl_a);
 
@@ -65,4 +65,6 @@ public class Info extends Pinnable {
 	public static Color getFurtherColour(int offset) {
 		return Color.getHSBColor(((System.currentTimeMillis() + offset) % (360 * 32)) / (360f * 32), 1, 1);
 	}
-}
+	public static Color getColour() {
+		return Color.getHSBColor((System.currentTimeMillis() % (360 * 32)) / (360f * 32), 1, 1);
+	}}
