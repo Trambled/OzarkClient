@@ -1,6 +1,7 @@
 package me.trambled.ozark.ozarkclient.util;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -19,8 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glHint;
+import static org.lwjgl.opengl.GL11.*;
 
 public class RenderUtil {
 
@@ -136,7 +136,7 @@ public class RenderUtil {
         GlStateManager.pushMatrix();
         glBillboardDistanceScaled((float) pos.getX() + 0.5f, (float) pos.getY() + 0.5f, (float) pos.getZ() + 0.5f, mc.player, 1.0f);
         GlStateManager.disableDepth();
-        GlStateManager.translate(-((double)  FontUtil.getFontWidth(text) / 2.0), 0.0, 0.0);
+        GlStateManager.translate(-((double) FontUtil.getFontWidth(text) / 2.0), 0.0, 0.0);
         if (custom) {
             FontUtil.drawStringWithShadow(text, 0.0f, 0.0f, -5592406);
         } else {
@@ -144,7 +144,6 @@ public class RenderUtil {
         }
         GlStateManager.popMatrix();
     }
-
 
 
     public static void drawText(final BlockPos pos, float height, final String text) {
@@ -158,7 +157,7 @@ public class RenderUtil {
 
     public static void drawText(final BlockPos pos, final String text) {
         GlStateManager.pushMatrix();
-        glBillboardDistanceScaled(pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, (EntityPlayer)mc.player, 1.0f);
+        glBillboardDistanceScaled(pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, (EntityPlayer) mc.player, 1.0f);
         GlStateManager.disableDepth();
         GlStateManager.translate(-(mc.fontRenderer.getStringWidth(text) / 2.0), 0.0, 0.0);
         mc.fontRenderer.drawStringWithShadow(text, 0.0f, 0.0f, -5592406);
@@ -250,7 +249,7 @@ public class RenderUtil {
 
     public static void glBillboardDistanceScaled(final float x, final float y, final float z, final EntityPlayer player, final float scale) {
         glBillboard(x, y, z);
-        final int distance = (int)player.getDistance(x, y, z);
+        final int distance = (int) player.getDistance(x, y, z);
         float scaleDistance = distance / 2.0f / (2.0f + (2.0f - scale));
         if (scaleDistance < 1.0f) {
             scaleDistance = 1.0f;
@@ -282,7 +281,7 @@ public class RenderUtil {
 
     public static void drawArc(final float cx, final float cy, final float r, final float start_angle, final float end_angle, final int num_segments) {
         GL11.glBegin(4);
-        for (int i = (int)(num_segments / (360.0f / start_angle)) + 1; i <= num_segments / (360.0f / end_angle); ++i) {
+        for (int i = (int) (num_segments / (360.0f / start_angle)) + 1; i <= num_segments / (360.0f / end_angle); ++i) {
             final double previousangle = 6.283185307179586 * (i - 1) / num_segments;
             final double angle = 6.283185307179586 * i / num_segments;
             GL11.glVertex2d(cx, cy);
@@ -294,7 +293,7 @@ public class RenderUtil {
 
     public static void drawArcOutline(final float cx, final float cy, final float r, final float start_angle, final float end_angle, final int num_segments) {
         GL11.glBegin(2);
-        for (int i = (int)(num_segments / (360.0f / start_angle)) + 1; i <= num_segments / (360.0f / end_angle); ++i) {
+        for (int i = (int) (num_segments / (360.0f / start_angle)) + 1; i <= num_segments / (360.0f / end_angle); ++i) {
             final double angle = 6.283185307179586 * i / num_segments;
             GL11.glVertex2d(cx + Math.cos(angle) * r, cy + Math.sin(angle) * r);
         }
@@ -350,16 +349,15 @@ public class RenderUtil {
         EXTFramebufferObject.glFramebufferRenderbufferEXT(36160, 36096, 36161, stencilDepthBufferID);
     }
 
-    public static void drawGradientRectP(int left, int top, int right, int bottom, int startColor, int endColor)
-    {
-        float f = (float)(startColor >> 24 & 255) / 255.0F;
-        float f1 = (float)(startColor >> 16 & 255) / 255.0F;
-        float f2 = (float)(startColor >> 8 & 255) / 255.0F;
-        float f3 = (float)(startColor & 255) / 255.0F;
-        float f4 = (float)(endColor >> 24 & 255) / 255.0F;
-        float f5 = (float)(endColor >> 16 & 255) / 255.0F;
-        float f6 = (float)(endColor >> 8 & 255) / 255.0F;
-        float f7 = (float)(endColor & 255) / 255.0F;
+    public static void drawGradientRectP(int left, int top, int right, int bottom, int startColor, int endColor) {
+        float f = (float) (startColor >> 24 & 255) / 255.0F;
+        float f1 = (float) (startColor >> 16 & 255) / 255.0F;
+        float f2 = (float) (startColor >> 8 & 255) / 255.0F;
+        float f3 = (float) (startColor & 255) / 255.0F;
+        float f4 = (float) (endColor >> 24 & 255) / 255.0F;
+        float f5 = (float) (endColor >> 16 & 255) / 255.0F;
+        float f6 = (float) (endColor >> 8 & 255) / 255.0F;
+        float f7 = (float) (endColor & 255) / 255.0F;
         GlStateManager.disableTexture2D();
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha();
@@ -382,6 +380,7 @@ public class RenderUtil {
     public static AxisAlignedBB interpolateAxis(AxisAlignedBB bb) {
         return new AxisAlignedBB(bb.minX - mc.getRenderManager().viewerPosX, bb.minY - mc.getRenderManager().viewerPosY, bb.minZ - mc.getRenderManager().viewerPosZ, bb.maxX - mc.getRenderManager().viewerPosX, bb.maxY - mc.getRenderManager().viewerPosY, bb.maxZ - mc.getRenderManager().viewerPosZ);
     }
+
     public static TextFormatting settingToTextFormatting(Setting setting) {
         if (setting.in("Black")) {
             return TextFormatting.BLACK;
@@ -568,7 +567,7 @@ public class RenderUtil {
         GlStateManager.scale(-scale, -scale, scale);
         if (type == 2) {
             double width = 0;
-            Color bcolor = new Color(0, 0, 0, 51);
+            Color bcolor = new Color(Ozark.get_setting_manager().get_setting_with_tag("NameTags", "NametagBorderR").get_value(1), (Ozark.get_setting_manager().get_setting_with_tag("NameTags", "NametagBorderG").get_value(1)), (Ozark.get_setting_manager().get_setting_with_tag("NameTags", "NametagBorderB").get_value(1)), (Ozark.get_setting_manager().get_setting_with_tag("NameTags", "NametagBorderA").get_value(1)));
 
             if (customColor) {
                 bcolor = borderColor;
@@ -579,7 +578,7 @@ public class RenderUtil {
                     width = w;
                 }
             }
-            RenderUtil.drawRect((float)(-width - 2)-1, (float)(-(mc.fontRenderer.FONT_HEIGHT + 1))-1, (float) width + 3f, 2.5f, r, g, b, (float) a);
+            RenderUtil.drawRect((float) (-width - 2) - 1, (float) (-(mc.fontRenderer.FONT_HEIGHT + 1)) - 1, (float) width + 3f, 2.5f, r, g, b, (float) a);
         }
         GlStateManager.enableTexture2D();
         for (int i = 0; i < text.length; i++) {

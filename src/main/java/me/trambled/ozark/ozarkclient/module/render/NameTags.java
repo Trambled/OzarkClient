@@ -9,8 +9,11 @@ import me.trambled.ozark.ozarkclient.util.*;
 import me.trambled.turok.draw.RenderHelp;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,6 +26,8 @@ import org.lwjgl.opengl.GL11;
 import me.trambled.ozark.ozarkclient.module.chat.TotemPopCounter;
 
 import java.awt.*;
+
+import static org.lwjgl.opengl.GL11.*;
 
 // gamesense
 public class NameTags extends Module {
@@ -110,7 +115,7 @@ public class NameTags extends Module {
         RenderUtil.drawNametag(posX, adjustedY, posZ, name, findTextColor(entityPlayer), r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1d),  2, customColor.get_value(true), new Color(border_r.get_value(1), border_g.get_value(1), border_b.get_value(1), border_a.get_value(1)));
         renderItemsAndArmor(entityPlayer, 0, 0);
         GlStateManager.popMatrix();
-    }
+        }
 
     private String buildEntityNameString(EntityPlayer entityPlayer) {
         String name = entityPlayer.getName();
@@ -207,15 +212,17 @@ public class NameTags extends Module {
         } else if (pop == 3) {
             return TextFormatting.YELLOW;
         } else if (pop == 4) {
-            return TextFormatting.RED;
-        }
+            return TextFormatting.GOLD;
+          } else if (pop <= 5) {
+        return TextFormatting.RED;
+    }else{
 
         return TextFormatting.DARK_RED;
-    }
+    }}
     private TextFormatting findPingColor(int ping) {
         if (ping <= 100) {
             return TextFormatting.GREEN;
-        } else if (ping <= 150) {
+        } else if (ping <= 170) {
             return TextFormatting.YELLOW;
         } else if (ping <= 200) {
             return TextFormatting.RED;
@@ -425,5 +432,4 @@ public class NameTags extends Module {
         border_a.set_shown(customColor.get_value(true));
 
     }
-
-}
+    }
