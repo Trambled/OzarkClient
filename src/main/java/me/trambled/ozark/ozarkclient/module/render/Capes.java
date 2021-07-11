@@ -14,6 +14,6 @@ public class Capes extends Module {
         this.description = "See epic capes behind epic dudes.";
     }
 
-    Setting cape = create("Cape", "CapeCape", "Space Weed", combobox("OG", "Space Weed", "2010", "2012", "Ahegao", "Magma", "Ocean", "Amazon", "Retro", "Corona", "Mojang", "ComDoge", "FrootLoop"));
+    Setting cape = create("Cape", "CapeCape", "Ozark", combobox("Ozark", "Space Weed", "2010", "2012", "Ahegao", "Magma", "Ocean", "Amazon", "Retro", "Corona", "Mojang", "ComDoge", "FrootLoop"));
 
 }

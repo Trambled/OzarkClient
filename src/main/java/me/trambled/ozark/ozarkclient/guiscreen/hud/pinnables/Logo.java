@@ -2,8 +2,12 @@ package me.trambled.ozark.ozarkclient.guiscreen.hud.pinnables;
 
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
 import me.trambled.ozark.ozarkclient.util.TextureUtil;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+
+import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
 
 public class Logo extends Pinnable {
     
@@ -11,18 +15,23 @@ public class Logo extends Pinnable {
         super("Logo", "Logo", 1, 0, 0);
     }
 
-    ResourceLocation r = new ResourceLocation("custom/logo.png");
+    ResourceLocation r = new ResourceLocation("custom/logo2.png");
 
     @Override
 	public void render() {
 
-		GL11.glPushMatrix();
-        GL11.glTranslatef(this.get_x(), this.get_y(), 0.0F);
-        TextureUtil.drawTexture(r, this.get_x(), this.get_y(), 460, 425);
-        GL11.glPopMatrix();
+        GlStateManager.enableAlpha();
+        mc.getTextureManager().bindTexture(r);
+        GlStateManager.color(1, 1, 1, 1);
 
-		this.set_width(460);
-		this.set_height(425);
+        GL11.glPushMatrix();
+        GuiScreen.drawScaledCustomSizeModalRect(get_x(), get_y(), 0, 0, 786, 786, 100, 100, 786, 786);
+        GL11.glPopMatrix();
+        GlStateManager.disableAlpha();
+        GlStateManager.clear(GL11.GL_DEPTH_BUFFER_BIT);
+
+		this.set_width(100);
+		this.set_height(100);
 	}
 
 

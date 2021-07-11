@@ -18,7 +18,7 @@ public class HUD extends Module {
 	}
 
 	Setting secret = create("Secret Modules", "Secret uuuuuuuuuu", false);
-	Setting rainbowoffset = create("RainbowCsgoOffset", "offset", 500, 0, 20000);
+	Setting rainbowoffset = create("RainbowCsgoOffset", "offset", 4000, 0, 20000);
 	Setting strings_r = create("Color R", "HUDStringsColorR", 245, 0, 255);
 	Setting strings_g = create("Color G", "HUDStringsColorG", 127, 0, 255);
 	Setting strings_b = create("Color B", "HUDStringsColorB", 142, 0, 255);
