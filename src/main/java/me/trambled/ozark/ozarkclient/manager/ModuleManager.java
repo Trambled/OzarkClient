@@ -110,7 +110,6 @@ public class ModuleManager {
 		add_module(new InstantBurrow());
 		add_module(new AntiWeb());
 		add_module(new NoRotate());
-		add_module(new SpeedmineRewrite());
 
 		// Movement.
 		add_module(new Strafe());

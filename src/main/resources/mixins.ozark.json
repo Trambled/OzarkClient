@@ -4,7 +4,6 @@
   "package"            : "me.trambled.ozark.mixins",
   "refmap"             : "mixins.ozark.refmap.json",
   "mixins"             : [
-    "AccessorPlayerControllerMP",
     "MixinPlayerControllerMP",
     "MixinNetworkManager",
     "MixinMinecraft",
