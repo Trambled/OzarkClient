@@ -6,6 +6,7 @@ public class TimerUtil {
 
     private long time;
 
+
     public TimerUtil() {
         this.time = -1L;
     }
@@ -29,4 +30,7 @@ public class TimerUtil {
     public boolean hasPassed(long time) {
         return mc.player.ticksExisted % (int) time == 0;
     }
-}
+
+    public boolean passedMs(final long delay) {
+        return System.currentTimeMillis() - this.time >= delay;
+    }}
