@@ -160,6 +160,7 @@ public class ModuleManager {
 		add_module(new PenisESP());
 		add_module(new NewChunks());
 		add_module(new Chams2());
+		add_module(new ChorusViewer());
 
 		// Misc.
 		add_module(new AutoWither());
