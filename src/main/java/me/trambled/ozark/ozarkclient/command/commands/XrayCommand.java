@@ -2,7 +2,7 @@ package me.trambled.ozark.ozarkclient.command.commands;
 
 import me.trambled.ozark.ozarkclient.command.Command;
 import me.trambled.ozark.ozarkclient.module.render.Xray;
-import me.trambled.ozark.ozarkclient.util.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 import net.minecraft.block.Block;
 
 public class XrayCommand extends Command

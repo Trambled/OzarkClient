@@ -3,11 +3,9 @@ package me.trambled.ozark.ozarkclient.module.gui;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
-import me.trambled.ozark.ozarkclient.event.events.EventRender;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.util.FontUtil;
-import me.trambled.ozark.ozarkclient.util.GuiUtil;
-import me.trambled.ozark.ozarkclient.util.RainbowUtil;
+import me.trambled.ozark.ozarkclient.util.font.FontUtil;
+import me.trambled.ozark.ozarkclient.util.render.GuiUtil;
 import net.minecraft.client.gui.Gui;
 import org.lwjgl.opengl.GL11;
 

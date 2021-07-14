@@ -2,8 +2,8 @@ package me.trambled.ozark.ozarkclient.command.commands;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.ozarkclient.command.Command;
-import me.trambled.ozark.ozarkclient.util.FriendUtil;
-import me.trambled.ozark.ozarkclient.util.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
+import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 
 public class FriendCommand extends Command {
     

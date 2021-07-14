@@ -3,7 +3,7 @@ package me.trambled.ozark.ozarkclient.guiscreen.hud.pinnables;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
-import me.trambled.ozark.ozarkclient.util.FriendUtil;
+import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
 import net.minecraft.entity.player.EntityPlayer;
 
 import java.math.RoundingMode;

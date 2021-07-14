@@ -7,9 +7,9 @@ import me.trambled.ozark.ozarkclient.guiscreen.MainGUI;
 import me.trambled.ozark.ozarkclient.guiscreen.MainHUD;
 import me.trambled.ozark.ozarkclient.guiscreen.PastGUI;
 import me.trambled.ozark.ozarkclient.manager.*;
-import me.trambled.ozark.ozarkclient.util.CustomFontRenderer;
-import me.trambled.ozark.ozarkclient.util.DiscordUtil;
-import me.trambled.ozark.ozarkclient.util.InjectUtil;
+import me.trambled.ozark.ozarkclient.util.font.CustomFontRenderer;
+import me.trambled.ozark.ozarkclient.util.misc.DiscordUtil;
+import me.trambled.ozark.ozarkclient.util.misc.InjectUtil;
 import me.trambled.turok.Turok;
 import me.trambled.turok.task.TurokFont;
 import net.minecraftforge.common.MinecraftForge;
@@ -22,7 +22,7 @@ import org.lwjgl.opengl.Display;
 
 import java.awt.*;
 
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
+import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
 @Mod(modid = "ozarkclient", version = Ozark.VERSION)
 public class Ozark {

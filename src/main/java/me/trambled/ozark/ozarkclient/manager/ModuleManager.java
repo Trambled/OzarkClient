@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
+import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
 public class ModuleManager {
 

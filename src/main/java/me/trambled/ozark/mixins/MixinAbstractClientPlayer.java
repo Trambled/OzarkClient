@@ -1,7 +1,7 @@
 package me.trambled.ozark.mixins;
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.CapeUtil;
+import me.trambled.ozark.ozarkclient.util.render.CapeUtil;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.util.ResourceLocation;

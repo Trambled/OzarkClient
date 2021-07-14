@@ -4,7 +4,7 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.List;
 
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
+import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
 public class Setting {
 	private Module master;

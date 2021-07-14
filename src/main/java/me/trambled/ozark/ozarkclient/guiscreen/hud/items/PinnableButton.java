@@ -2,7 +2,7 @@ package me.trambled.ozark.ozarkclient.guiscreen.hud.items;
 
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.GuiUtil;
+import me.trambled.ozark.ozarkclient.util.render.GuiUtil;
 
 
 public class PinnableButton {

@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
+import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
 // External.
 

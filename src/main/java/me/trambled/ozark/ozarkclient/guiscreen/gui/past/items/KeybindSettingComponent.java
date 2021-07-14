@@ -4,8 +4,8 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.past.Component;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.util.FontUtil;
-import me.trambled.ozark.ozarkclient.util.GuiUtil;
+import me.trambled.ozark.ozarkclient.util.font.FontUtil;
+import me.trambled.ozark.ozarkclient.util.render.GuiUtil;
 import org.lwjgl.input.Keyboard;
 
 public class KeybindSettingComponent extends Component {

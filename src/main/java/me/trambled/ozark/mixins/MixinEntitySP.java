@@ -6,7 +6,7 @@ import me.trambled.ozark.ozarkclient.event.events.EventMove;
 import me.trambled.ozark.ozarkclient.event.events.EventPlayerPushOutOfBlocks;
 import me.trambled.ozark.ozarkclient.event.events.EventRotation;
 import me.trambled.ozark.ozarkclient.event.events.EventSwing;
-import me.trambled.ozark.ozarkclient.util.RotationUtil;
+import me.trambled.ozark.ozarkclient.util.player.RotationUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.SoundHandler;

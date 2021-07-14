@@ -5,7 +5,7 @@ import me.trambled.ozark.ozarkclient.guiscreen.gui.main.AbstractWidget;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.Frame;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.main.ModuleButton;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.util.GuiUtil;
+import me.trambled.ozark.ozarkclient.util.render.GuiUtil;
 
 import java.util.ArrayList;
 

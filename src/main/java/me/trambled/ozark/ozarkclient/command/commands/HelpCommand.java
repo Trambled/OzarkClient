@@ -3,7 +3,7 @@ package me.trambled.ozark.ozarkclient.command.commands;
 
 import me.trambled.ozark.ozarkclient.command.Command;
 import me.trambled.ozark.ozarkclient.command.Commands;
-import me.trambled.ozark.ozarkclient.util.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 
 
 public class HelpCommand extends Command {

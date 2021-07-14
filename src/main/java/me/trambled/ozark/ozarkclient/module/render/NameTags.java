@@ -5,15 +5,15 @@ import me.trambled.ozark.ozarkclient.event.events.EventRenderName;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.util.*;
+import me.trambled.ozark.ozarkclient.util.font.FontUtil;
+import me.trambled.ozark.ozarkclient.util.player.social.EnemyUtil;
+import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
+import me.trambled.ozark.ozarkclient.util.render.RenderUtil;
 import me.trambled.turok.draw.RenderHelp;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,8 +26,6 @@ import org.lwjgl.opengl.GL11;
 import me.trambled.ozark.ozarkclient.module.chat.TotemPopCounter;
 
 import java.awt.*;
-
-import static org.lwjgl.opengl.GL11.*;
 
 // gamesense
 public class NameTags extends Module {

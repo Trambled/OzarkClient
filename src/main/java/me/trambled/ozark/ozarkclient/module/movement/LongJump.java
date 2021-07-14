@@ -3,7 +3,7 @@ package me.trambled.ozark.ozarkclient.module.movement;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.util.EntityUtil;
+import me.trambled.ozark.ozarkclient.util.player.EntityUtil;
 import net.minecraft.network.play.client.CPacketPlayer;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

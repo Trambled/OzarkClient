@@ -3,7 +3,7 @@ package me.trambled.ozark.ozarkclient.guiscreen.hud.pinnables;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
-import me.trambled.ozark.ozarkclient.util.OnlineFriendsUtil;
+import me.trambled.ozark.ozarkclient.util.player.social.OnlineFriendsUtil;
 import net.minecraft.entity.Entity;
 
 public class FriendList extends Pinnable {

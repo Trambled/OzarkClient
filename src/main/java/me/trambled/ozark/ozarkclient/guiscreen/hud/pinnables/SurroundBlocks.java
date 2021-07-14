@@ -1,7 +1,7 @@
 package me.trambled.ozark.ozarkclient.guiscreen.hud.pinnables;
 
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
-import me.trambled.ozark.ozarkclient.util.PlayerUtil;
+import me.trambled.ozark.ozarkclient.util.player.PlayerUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;

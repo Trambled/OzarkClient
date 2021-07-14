@@ -1,8 +1,7 @@
 package me.trambled.ozark.ozarkclient.command.commands;
 
 import me.trambled.ozark.ozarkclient.command.Command;
-import me.trambled.ozark.ozarkclient.util.MessageUtil;
-import org.lwjgl.Sys;
+import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 
 import java.lang.management.ManagementFactory;
 

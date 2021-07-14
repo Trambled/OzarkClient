@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.math.Vec3d;
 
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
+import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
 // External.
 

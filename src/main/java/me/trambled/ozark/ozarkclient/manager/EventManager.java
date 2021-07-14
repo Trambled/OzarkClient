@@ -5,7 +5,7 @@ import me.trambled.ozark.ozarkclient.command.Command;
 import me.trambled.ozark.ozarkclient.command.Commands;
 import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventGameOverlay;
-import me.trambled.ozark.ozarkclient.util.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 import me.trambled.turok.draw.RenderHelp;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
+import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
 // External.
 // Travis.

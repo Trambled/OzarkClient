@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import static me.trambled.ozark.ozarkclient.event.Eventbus.EVENT_BUS;
-import static me.trambled.ozark.ozarkclient.util.TabUtil.section_sign;
+import static me.trambled.ozark.ozarkclient.util.render.TabUtil.section_sign;
 
 public class EnemyInfo extends Pinnable implements Listenable {
 

@@ -9,7 +9,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.Cylinder;
 import org.lwjgl.util.glu.Sphere;
-import me.trambled.ozark.ozarkclient.util.WrapperUtil;
 
 // xatz
 public class PenisESP extends Module {

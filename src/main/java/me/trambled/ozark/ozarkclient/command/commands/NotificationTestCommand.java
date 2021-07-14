@@ -4,7 +4,7 @@ package me.trambled.ozark.ozarkclient.command.commands;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.command.Command;
 import me.trambled.ozark.ozarkclient.manager.NotificationManager;
-import me.trambled.ozark.ozarkclient.util.TimerUtil;
+import me.trambled.ozark.ozarkclient.util.world.TimerUtil;
 
 
 public class NotificationTestCommand extends Command {

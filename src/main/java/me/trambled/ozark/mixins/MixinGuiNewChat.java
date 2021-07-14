@@ -1,8 +1,8 @@
 package me.trambled.ozark.mixins;
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.MessageUtil;
-import me.trambled.ozark.ozarkclient.util.RainbowUtil;
+import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
 import net.minecraft.client.gui.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

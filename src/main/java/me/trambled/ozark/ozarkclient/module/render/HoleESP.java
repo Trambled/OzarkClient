@@ -4,7 +4,7 @@ import me.trambled.ozark.ozarkclient.event.events.EventRender;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.util.PairUtil;
+import me.trambled.ozark.ozarkclient.util.misc.PairUtil;
 import me.trambled.turok.draw.RenderHelp;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;

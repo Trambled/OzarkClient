@@ -2,7 +2,7 @@ package me.trambled.ozark.ozarkclient.command.commands;
 
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.command.Command;
-import me.trambled.ozark.ozarkclient.util.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 
 public class ConfigCommand extends Command {
 

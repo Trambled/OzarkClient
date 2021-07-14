@@ -1,7 +1,7 @@
 package me.trambled.ozark.ozarkclient.guiscreen;
 
-import me.trambled.ozark.ozarkclient.util.RainbowUtil;
-import me.trambled.ozark.ozarkclient.util.RenderUtil;
+import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
+import me.trambled.ozark.ozarkclient.util.render.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;

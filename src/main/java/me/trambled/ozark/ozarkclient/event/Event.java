@@ -2,7 +2,7 @@ package me.trambled.ozark.ozarkclient.event;
 
 import me.zero.alpine.fork.event.type.Cancellable;
 
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
+import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
 
 public class Event extends Cancellable {

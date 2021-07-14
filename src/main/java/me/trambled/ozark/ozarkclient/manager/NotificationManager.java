@@ -2,10 +2,10 @@ package me.trambled.ozark.ozarkclient.manager;
 
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.util.FontUtil;
-import me.trambled.ozark.ozarkclient.util.GuiUtil;
-import me.trambled.ozark.ozarkclient.util.RainbowUtil;
-import me.trambled.ozark.ozarkclient.util.TimerUtil;
+import me.trambled.ozark.ozarkclient.util.font.FontUtil;
+import me.trambled.ozark.ozarkclient.util.render.GuiUtil;
+import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
+import me.trambled.ozark.ozarkclient.util.world.TimerUtil;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
@@ -15,7 +15,7 @@ import org.lwjgl.opengl.GL11;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
+import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
 /**
  * Made by @Trambled on 6/28/2021

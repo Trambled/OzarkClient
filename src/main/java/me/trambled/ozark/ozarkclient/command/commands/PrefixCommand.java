@@ -3,7 +3,7 @@ package me.trambled.ozark.ozarkclient.command.commands;
 
 import me.trambled.ozark.ozarkclient.command.Command;
 import me.trambled.ozark.ozarkclient.manager.CommandManager;
-import me.trambled.ozark.ozarkclient.util.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 
 
 public class PrefixCommand extends Command {

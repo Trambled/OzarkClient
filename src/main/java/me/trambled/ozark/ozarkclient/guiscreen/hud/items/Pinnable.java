@@ -1,14 +1,12 @@
 package me.trambled.ozark.ozarkclient.guiscreen.hud.items;
 
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.GuiUtil;
-import me.trambled.ozark.ozarkclient.util.RainbowUtil;
+import me.trambled.ozark.ozarkclient.util.render.GuiUtil;
+import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
 import me.trambled.turok.draw.RenderHelp;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import org.lwjgl.opengl.GL11;
-
-import java.awt.*;
 
 
 // Travis.

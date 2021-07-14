@@ -10,7 +10,11 @@ import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.render.Xray;
-import me.trambled.ozark.ozarkclient.util.*;
+import me.trambled.ozark.ozarkclient.util.misc.DrawnUtil;
+import me.trambled.ozark.ozarkclient.util.misc.EzMessageUtil;
+import me.trambled.ozark.ozarkclient.util.player.AutoKitUtil;
+import me.trambled.ozark.ozarkclient.util.player.social.EnemyUtil;
+import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 
@@ -23,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import static me.trambled.ozark.Ozark.send_minecraft_log;
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
+import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
 public class ConfigManager {
 

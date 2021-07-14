@@ -12,7 +12,7 @@ import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 
-import static me.trambled.ozark.ozarkclient.util.WrapperUtil.mc;
+import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 import static org.lwjgl.opengl.GL11.*;
 
 /**

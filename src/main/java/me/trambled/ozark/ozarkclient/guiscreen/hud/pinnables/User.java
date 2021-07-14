@@ -2,7 +2,7 @@ package me.trambled.ozark.ozarkclient.guiscreen.hud.pinnables;
 
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
-import me.trambled.ozark.ozarkclient.util.TimeUtil;
+import me.trambled.ozark.ozarkclient.util.world.TimeUtil;
 
 public class User extends Pinnable {
 	public User() {

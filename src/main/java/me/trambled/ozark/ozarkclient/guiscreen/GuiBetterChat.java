@@ -18,9 +18,9 @@ package me.trambled.ozark.ozarkclient.guiscreen;
 
 import com.google.common.collect.Lists;
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.MathUtil;
-import me.trambled.ozark.ozarkclient.util.MessageUtil;
-import me.trambled.ozark.ozarkclient.util.RainbowUtil;
+import me.trambled.ozark.ozarkclient.util.world.MathUtil;
+import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
