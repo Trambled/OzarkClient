@@ -29,6 +29,10 @@ public final class ChatMods extends Module {
     Setting dateformat = create("Date Format", "ChatModsDateFormat", "12HR", combobox("24HR", "12HR"));
     Setting name_highlight = create("Name BlockHighlight", "ChatModsNameHighlight", false);
     Setting infinite_chat = create("Infinite Chat", "ChatModsInfiniteChat", true);
+    Setting smooth = create("Smooth", "Smooth", true);
+    Setting clear = create("Clear", "Clear", false);
+    Setting custom_font = create("Custom Font", "customfont", true);
+    Setting rainbow = create("Rainbow Ozark", "rainbowozark", true);
 
 
     @EventHandler

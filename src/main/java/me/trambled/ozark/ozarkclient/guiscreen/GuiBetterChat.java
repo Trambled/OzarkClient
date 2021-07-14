@@ -126,14 +126,14 @@ public class GuiBetterChat extends GuiNewChat {
                             if (l1 > 3) {
                                 int i2 = 0;
                                 int j2 = -i1 * 9;
-                                if (!Ozark.get_setting_manager().get_setting_with_tag("BetterChat", "Clear").get_value(true) || !Ozark.get_module_manager().get_module_with_tag("BetterChat").is_active()) {
+                                if (!Ozark.get_setting_manager().get_setting_with_tag("ChatModifications", "Clear").get_value(true) || !Ozark.get_module_manager().get_module_with_tag("ChatModifications").is_active()) {
                                     drawRect(-2, j2 - 9, i2 + k + 4, j2, l1 / 2 << 24);
                                 }
                                 String s = chatline.getChatComponent().getFormattedText();
                                 GlStateManager.enableBlend();
-                                if (Ozark.get_setting_manager().get_setting_with_tag("BetterChat", "Smooth").get_value(true) && Ozark.get_module_manager().get_module_with_tag("BetterChat").is_active() && i1 <= newLines) {
-                                    if (s.contains(MessageUtil.opener) && Ozark.get_module_manager().get_module_with_tag("RainbowChat").is_active()) {
-                                        if (Ozark.get_setting_manager().get_setting_with_tag("RainbowChat", "RainbowChatCustomFont").get_value(true)) {
+                                if (Ozark.get_setting_manager().get_setting_with_tag("ChatModifications", "Smooth").get_value(true) && Ozark.get_module_manager().get_module_with_tag("ChatModifications").is_active() && i1 <= newLines) {
+                                    if (s.contains(MessageUtil.opener) && Ozark.get_setting_manager().get_setting_with_tag("ChatModifications", "rainbowozark").get_value(true)) {
+                                        if (Ozark.get_setting_manager().get_setting_with_tag("ChatModifications", "customfont").get_value(true)) {
                                             RainbowUtil.drawRainbowStringChatCustomFont(s, 0.0F, (float) (j2 - 8), RainbowUtil.getMultiColour().getRGB(), 100.0F);
                                         } else {
                                             RainbowUtil.drawRainbowStringChat(s, 0.0F, (float) (j2 - 8), RainbowUtil.getMultiColour().getRGB(), 100.0F);
@@ -142,8 +142,8 @@ public class GuiBetterChat extends GuiNewChat {
                                         this.mc.fontRenderer.drawStringWithShadow(s, 0.0F, (j2 - 8), 16777215 + ((int) (l1 * percent) << 24));
                                     }
                                 } else {
-                                    if (s.contains(MessageUtil.opener) && Ozark.get_module_manager().get_module_with_tag("RainbowChat").is_active()) {
-                                        if (Ozark.get_setting_manager().get_setting_with_tag("RainbowChat", "RainbowChatCustomFont").get_value(true)) {
+                                    if (s.contains(MessageUtil.opener) && Ozark.get_setting_manager().get_setting_with_tag("ChatModifications", "rainbowozark").get_value(true)) {
+                                        if (Ozark.get_setting_manager().get_setting_with_tag("ChatModifications", "customfont").get_value(true)) {
                                             RainbowUtil.drawRainbowStringChatCustomFont(s, 0.0F, (float) (j2 - 8), RainbowUtil.getMultiColour().getRGB(), 100.0F);
                                         } else {
                                             RainbowUtil.drawRainbowStringChat(s, 0.0F, (float) (j2 - 8), RainbowUtil.getMultiColour().getRGB(), 100.0F);

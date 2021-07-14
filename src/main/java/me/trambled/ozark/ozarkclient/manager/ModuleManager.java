@@ -43,20 +43,13 @@ public class ModuleManager {
 		add_module(new TotemPopCounter());
 		add_module(new ChatMods());
 		add_module(new AutoEz());
-		add_module(new AntiRacist());
 		add_module(new Announcer());
 		add_module(new AutoExcuse());
 		add_module(new WeaknessAlert());
 		add_module(new RetardChat());
-		add_module(new AutoRacist());
-		add_module(new AutoSuicide());
-		add_module(new AntiHaram());
 		add_module(new Spammer());
-		add_module(new FactSpammer());
 		add_module(new AutoGroom());
-		add_module(new Shrug());
 		add_module(new BurrowAlert());
-		add_module(new RainbowChat());
 		add_module(new BetterChat());
 
 		// Combat.

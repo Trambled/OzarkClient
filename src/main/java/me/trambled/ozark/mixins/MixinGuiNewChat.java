@@ -28,8 +28,8 @@ public class MixinGuiNewChat extends Gui {
 
     @Redirect(method = "drawChat", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/FontRenderer;drawStringWithShadow(Ljava/lang/String;FFI)I"))
     private int drawStringWithShadowMaybe(FontRenderer fontRenderer, String text, float x, float y, int color) {
-        if (text.contains(MessageUtil.opener) && Ozark.get_module_manager().get_module_with_tag("RainbowChat").is_active()) {
-            if (Ozark.get_setting_manager().get_setting_with_tag("RainbowChat", "RainbowChatCustomFont").get_value(true)) {
+        if (text.contains(MessageUtil.opener) && Ozark.get_setting_manager().get_setting_with_tag("ChatModifications", "rainbowozark").get_value(true)) {
+            if (Ozark.get_setting_manager().get_setting_with_tag("ChatModifications", "customfont").get_value(true)) {
                 RainbowUtil.drawRainbowStringChatCustomFont(text, x, y, RainbowUtil.getMultiColour().getRGB(), 100.0F);
             } else {
                 RainbowUtil.drawRainbowStringChat(text, x, y, RainbowUtil.getMultiColour().getRGB(), 100.0F);
