@@ -21,9 +21,10 @@ public class ConfigBackupCommand extends Command {
     }
 
     public boolean get_message(String[] message) {
-        String filename = "ozark-cofig-backup-" + Ozark.get_version() + "-" + new SimpleDateFormat("yyyyMMdd.HHmmss.SSS").format(new Date()) + ".zip";
+        String filename = "ozark-cofig-backup-" + Ozark.get_version() + "-" + new SimpleDateFormat("yyyyMMdd").format(new Date()) + ".zip";
         zip(new File(Ozark.get_config_manager().FILE_DIRECTORY.getPath()), new File(filename));
         MessageUtil.send_client_message("Config successfully saved in " + filename + "!");
+        MessageUtil.send_client_message("Your backup config is ready at .minecraft folder.");
         return true;}
 
 
