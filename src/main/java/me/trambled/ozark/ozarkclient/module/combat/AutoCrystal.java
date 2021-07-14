@@ -1088,12 +1088,17 @@ public class AutoCrystal extends Module {
                     }
                     BlockUtil.placeCrystalOnBlock(predicted_crystal.getPosition().down(), offhand_check ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND, packet_place.get_value(true));
                     if ((switch_mode.in("Ghost") || switch_back.get_value(true)) && !switch_mode.in("None")) {
+                        int slot = findHotbarBlock(ItemEndCrystal.class);
                         mc.player.inventory.currentItem = old_slot;
-                        mc.player.connection.sendPacket(new CPacketHeldItemChange(old_slot));
+                        if(slot != -1) {
+                            if(mc.player.isHandActive()) {
+                            mc.player.connection.sendPacket(new CPacketHeldItemChange(slot));
+                        }
+                    }
                     }
                 }
-            }
-        }
+            }}
+
         if (event.get_packet() instanceof CPacketPlayerTryUseItemOnBlock) {
             if (id != 0 && break_predict_2.get_value(true)) {
                 CPacketUseEntity predict = new CPacketUseEntity();
@@ -1434,4 +1439,17 @@ public class AutoCrystal extends Module {
         if (camera.isBoundingBoxInFrustum(new AxisAlignedBB(bb.minX + mc.getRenderManager().viewerPosX, bb.minY + mc.getRenderManager().viewerPosY, bb.minZ + mc.getRenderManager().viewerPosZ, bb.maxX + mc.getRenderManager().viewerPosX, bb.maxY +mc.getRenderManager().viewerPosY, bb.maxZ + mc.getRenderManager().viewerPosZ))) {
             drawCircleVertices(bb, radius, colour);
         }
+    }
+    public static int findHotbarBlock(Class c) {
+        for (int i = 0; i < 9; ++i) {
+            ItemStack stack = mc.player.inventory.getStackInSlot(i);
+            if (stack == ItemStack.EMPTY) continue;
+            if (c.isInstance(stack.getItem())) {
+                return i;
+            }
+            if (!(stack.getItem() instanceof ItemBlock) || !c.isInstance(((ItemBlock) stack.getItem()).getBlock()))
+                continue;
+            return i;
+        }
+        return -1;
     }}
