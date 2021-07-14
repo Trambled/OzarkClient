@@ -97,7 +97,7 @@ public class GuiBetterChat extends GuiNewChat {
                 float f1 = this.getChatScale();
                 int k = MathHelper.ceil((float) this.getChatWidth() / f1);
                 GlStateManager.pushMatrix();
-                if (Ozark.get_setting_manager().get_setting_with_tag("BetterChat", "Smooth").get_value(true) && Ozark.get_module_manager().get_module_with_tag("BetterChat").is_active() && !this.isScrolled) GlStateManager.translate(2.0F, 8.0F + (9 - 9*percent)*f1, 0.0F);
+                if (Ozark.get_setting_manager().get_setting_with_tag("ChatModifications", "Smooth").get_value(true) && Ozark.get_module_manager().get_module_with_tag("ChatModifications").is_active() && !this.isScrolled) GlStateManager.translate(2.0F, 8.0F + (9 - 9*percent)*f1, 0.0F);
                 else GlStateManager.translate(2.0F, 8.0F, 0.0F);
                 GlStateManager.scale(f1, f1, 1.0F);
                 int l = 0;
