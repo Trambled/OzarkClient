@@ -40,6 +40,7 @@ public class Commands {
 		add_command(new NamemcCommand());
 		add_command(new LoadConfigCommand());
 		add_command(new SaveConfigCommand());
+		add_command(new OpenFolderCommand());
 
 		command_list.sort(Comparator.comparing(Command::get_name));
 	}
