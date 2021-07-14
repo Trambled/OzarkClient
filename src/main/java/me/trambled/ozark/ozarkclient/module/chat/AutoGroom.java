@@ -36,17 +36,17 @@ public class AutoGroom extends Module {
 
         if (mode.in("Racist")) {
             chants.clear();
-            chants.add("PICK MY COTTON NIGGER");
-            chants.add("BLACK NIGGER COON");
-            chants.add("KIKE");
-            chants.add("I <3 THE CONFEDERACY");
-            chants.add("NIGGERS BELONG ON THE BACK OF THE BUS");
-            chants.add("KICK THAT NIGGER BITCH OFF THE PLANE!!");
-            chants.add("DEATH TO THE KIKES");
-            chants.add("HEIL HITLER");
-            chants.add("I <3 THE KKK");
-            chants.add("#FREEDEREKCHAUVIN");
-            chants.add("I HATE JEWS, FAGGOTS, NIGGERS, AND SPICS"); // hating jews is nott racist wtf is this bruh
+            chants.add("/w <player> PICK MY COTTON NIGGER");
+            chants.add("/w <player> BLACK NIGGER COON");
+            chants.add("/w <player> KIKE");
+            chants.add("/w <player> I <3 THE CONFEDERACY");
+            chants.add("/w <player> NIGGERS BELONG ON THE BACK OF THE BUS");
+            chants.add("/w <player> KICK THAT NIGGER BITCH OFF THE PLANE!!");
+            chants.add("/w <player> DEATH TO THE KIKES");
+            chants.add("/w <player> HEIL HITLER");
+            chants.add("/w <player> I <3 THE KKK");
+            chants.add("/w <player> #FREEDEREKCHAUVIN");
+            chants.add("/w <player> I HATE JEWS, FAGGOTS, NIGGERS, AND SPICS"); // hating jews is nott racist wtf is this bruh
 
         }else if (mode.in("groomer")) {
             chants.clear();
@@ -63,29 +63,29 @@ public class AutoGroom extends Module {
 
         }else if (mode.in("no racist")) {
             chants.clear();
-            chants.add("<player> you fucking racist");
-            chants.add("RIP GEORGE FLOYD");
-            chants.add("#BLM");
-            chants.add("#ICANTBREATHE");
-            chants.add("#NOJUSTICENOPEACE");
-            chants.add("IM NOT BLACK BUT I STAND WITH YOU");
-            chants.add("END RACISM, JOIN EMPERIUM");
-            chants.add("DEFUND THE POLICE");
-            chants.add("<player> I HOPE YOU POSTED YOUR BLACK SQUARE");
-            chants.add("RESPECT BLM");
-            chants.add("IF YOURE NOT WITH US, YOURE AGAINST US");
-            chants.add("DEREK CHAUVIN WAS A RACIST");
+            chants.add("/w <player> you fucking racist");
+            chants.add("/w <player> RIP GEORGE FLOYD");
+            chants.add("/w <player> #BLM");
+            chants.add("/w <player> #ICANTBREATHE");
+            chants.add("/w <player> #NOJUSTICENOPEACE");
+            chants.add("/w <player> IM NOT BLACK BUT I STAND WITH YOU");
+            chants.add("/w <player> END RACISM, JOIN EMPERIUM");
+            chants.add("/w <player> DEFUND THE POLICE");
+            chants.add("/w <player> I HOPE YOU POSTED YOUR BLACK SQUARE");
+            chants.add("/w <player> RESPECT BLM");
+            chants.add("/w <player> IF YOURE NOT WITH US, YOURE AGAINST US");
+            chants.add("/w <player> DEREK CHAUVIN WAS A RACIST");
 
         }else if (mode.in("snine mode")) {
             chants.clear();
-            chants.add("ALLAHU AKBAR");
-            chants.add("HARAM PIGGIES DIE FOR ALLAH");
-            chants.add("#FREEPALESTINE");
-            chants.add("BISMILLAH AL RAHMAN AL RAHIM");
-            chants.add("MUHAMMAD PEACE BE UPON HIM");
-            chants.add("I PRAY TO ALLAH 5 TIMES A DAY");
-            chants.add("DEATH TO STINKY HARAM INFIDELS");
-            chants.add("PORK = HARAM");
+            chants.add("/w <player> ALLAHU AKBAR");
+            chants.add("/w <player> HARAM PIGGIES DIE FOR ALLAH");
+            chants.add("/w <player> #FREEPALESTINE");
+            chants.add("/w <player> BISMILLAH AL RAHMAN AL RAHIM");
+            chants.add("/w <player> MUHAMMAD PEACE BE UPON HIM");
+            chants.add("/w <player> I PRAY TO ALLAH 5 TIMES A DAY");
+            chants.add("/w <player> DEATH TO STINKY HARAM INFIDELS");
+            chants.add("/w <player> PORK = HARAM");
 
         }
     }
