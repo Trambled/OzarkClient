@@ -22,7 +22,7 @@ public class Info extends Pinnable {
 		boolean cfont = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFont").get_value(true);
 		boolean fontrain = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayFlow").get_value(true) && Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFont").get_value(true);
 
-		String info = Ozark.DISPLAY_NAME + " | " + "ms | " + "fps | " + mc.player.getName();
+		String info = Ozark.DISPLAY_NAME + " | " +  mc.getConnection().getPlayerInfo(mc.player.getUniqueID()).getResponseTime() + "ms | " + mc.getDebugFPS() + "fps | " + mc.player.getName();
 
 		create_rect(-6, -6, mc.fontRenderer.getStringWidth(info) + 6, mc.fontRenderer.FONT_HEIGHT + 6, 40, 40, 40, 255);
 		create_rect(-5, -5, mc.fontRenderer.getStringWidth(info) + 5, mc.fontRenderer.FONT_HEIGHT + 5, 70, 70, 70, 255);
