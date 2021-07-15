@@ -93,11 +93,11 @@ public class Arraylist extends Pinnable {
 				} else {
 					if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Top R")) {
 						if (fontrain) {
-							RainbowUtil.drawRainbowStringChatCustomFont(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), 3 + count * 10, new GuiUtil.OzarkColor(nl_r, nl_g, nl_b, nl_a).hex(), 100f);
+							RainbowUtil.drawRainbowStringChatCustomFont(module_name, scaled_width - 2 - RainbowUtil.get_string_width(module_name), 3 + count * 10, new GuiUtil.OzarkColor(nl_r, nl_g, nl_b, nl_a).hex(), 100f);
 						} else if (rainbow) {
 							RainbowUtil.drawRainbowStringChat(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), 3 + count * 10, new GuiUtil.OzarkColor(nl_r, nl_g, nl_b, nl_a).hex(), 100f);
 						}else if (cfont) {
-							FontUtil.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), 3 + count * 10, new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
+							FontUtil.drawStringWithShadow(module_name, scaled_width - 2 - FontUtil.getFontWidth(module_name), 3 + count * 10, new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
 						} else {
 							mc.fontRenderer.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), 3 + count * 10, new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
 						}
@@ -117,11 +117,11 @@ public class Arraylist extends Pinnable {
 					}
 					if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom R")) {
 						if (fontrain) {
-							RainbowUtil.drawRainbowStringChatCustomFont(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r, nl_g, nl_b, nl_a).hex(), 100f);
+							RainbowUtil.drawRainbowStringChatCustomFont(module_name, scaled_width - 2 - RainbowUtil.get_string_width(module_name), scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r, nl_g, nl_b, nl_a).hex(), 100f);
 						} else if (rainbow) {
 							RainbowUtil.drawRainbowStringChat(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r, nl_g, nl_b, nl_a).hex(), 100f);
 						}else if (cfont) {
-							FontUtil.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
+							FontUtil.drawStringWithShadow(module_name, scaled_width - 2 - FontUtil.getFontWidth(module_name), scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
 						} else {
 							mc.fontRenderer.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
 						}
