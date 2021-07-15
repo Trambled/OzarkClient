@@ -219,6 +219,7 @@ public class Pinnable {
 	}
 
 	protected void create_line(String string, int pos_x, int pos_y, int r, int g, int b, int a) {
+		//TODO: ADD SEPERATE SETTIING FOR ARRAYLST FLOW BECAUSE KAMBING DOESNT LIKE ARRAYLIST FLOW
 	if(Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFont").get_value(true) && Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFlow").get_value(true)) {
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		RainbowUtil.drawRainbowStringChatCustomFont(string, this.x + pos_x, this.y + pos_y, new GuiUtil.OzarkColor(r, g, b, a).hex(), 100.0f);
