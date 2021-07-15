@@ -1,6 +1,7 @@
 package me.trambled.ozark.ozarkclient.guiscreen.hud.items;
 
 import me.trambled.ozark.Ozark;
+import me.trambled.ozark.ozarkclient.util.font.FontUtil;
 import me.trambled.ozark.ozarkclient.util.render.GuiUtil;
 import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
 import me.trambled.turok.draw.RenderHelp;
@@ -218,7 +219,13 @@ public class Pinnable {
 	}
 
 	protected void create_line(String string, int pos_x, int pos_y, int r, int g, int b, int a) {
-		if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFlow").get_value(true)) {
+	if(Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFont").get_value(true) && Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFlow").get_value(true)) {
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		RainbowUtil.drawRainbowStringChatCustomFont(string, this.x + pos_x, this.y + pos_y, new GuiUtil.OzarkColor(r, g, b, a).hex(), 100.0f);
+	}else if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFont").get_value(true)) {
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		FontUtil.drawStringWithShadow(string, this.x + pos_x, this.y + pos_y, r, g, b, a);
+	}else if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFlow").get_value(true)) {
 			RainbowUtil.drawRainbowString(string, this.x + pos_x, this.y + pos_y, new GuiUtil.OzarkColor(r, g, b, a).hex(), 100.0f);
 		} else {
 			GuiUtil.draw_string(string, this.x + pos_x, this.y + pos_y, r, g, b, a);

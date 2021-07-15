@@ -37,7 +37,7 @@ public class Arraylist extends Pinnable {
 		boolean rainbow = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFlow").get_value(true);
 
 		List<Module> pretty_modules = Ozark.get_module_manager().get_array_active_modules().stream()
-			.sorted(Comparator.comparing(modules -> get(modules.array_detail() == null ? modules.get_tag() : modules.get_tag() + Ozark.g + " [" + Ozark.r + Ozark.w + modules.array_detail() + Ozark.r + "]", "width")))
+			.sorted(Comparator.comparing(modules -> get(modules.array_detail() == null ? modules.get_tag() : modules.get_tag() + Ozark.g + " [" + Ozark.w + modules.array_detail() + "]", "width")))
 			.collect(Collectors.toList());
 
 		int count = 0;
@@ -74,7 +74,7 @@ public class Arraylist extends Pinnable {
 			if (flag) {
 				String module_name = (
 					modules.array_detail() == null ? modules.get_tag() :
-					modules.get_tag()  + " [" + Ozark.r + Ozark.w + modules.array_detail() + Ozark.r + "]"
+					modules.get_tag()  + " [" + Ozark.w + modules.array_detail() + "]"
 				);
 
 				if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Free")) {

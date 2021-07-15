@@ -25,6 +25,7 @@ public class HUD extends Module {
 	Setting strings_a = create("Alpha", "HUDStringsColorA", 230, 0, 255);
 	Setting rainbow = create("Rainbow", "HUDRainbow", true);
 	Setting flow = create("Flow", "HUDFlow", true);
+	Setting cfont = create("CFont", "HUDFont", false);
 	Setting compass_scale = create("Compass Scale", "HUDCompassScale", 16, 1, 60);
 	Setting user_mode = create("User Mode", "HUDUserMode", "Time", combobox("Time", "Simple"));
 	Setting arraylist_mode = create("ArrayList", "HUDArrayList", "Free", combobox("Free", "Top R", "Top L", "Bottom R", "Bottom L"));
