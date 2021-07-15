@@ -10,8 +10,6 @@ import me.trambled.ozark.ozarkclient.manager.*;
 import me.trambled.ozark.ozarkclient.util.font.CustomFontRenderer;
 import me.trambled.ozark.ozarkclient.util.misc.DiscordUtil;
 import me.trambled.ozark.ozarkclient.util.misc.InjectUtil;
-import me.trambled.ozark.ozarkclient.util.player.social.FriendSync;
-import me.trambled.ozark.ozarkclient.util.player.social.FriendSyncCommand;
 import me.trambled.turok.Turok;
 import me.trambled.turok.task.TurokFont;
 import net.minecraftforge.client.ClientCommandHandler;
@@ -77,8 +75,6 @@ public class Ozark {
 		send_minecraft_log("Version " + VERSION);
 
 		EventHandler.INSTANCE = new EventHandler();
-		FriendSync.init();
-		ClientCommandHandler.instance.registerCommand(new FriendSyncCommand());
 
 		send_minecraft_log("Initialising managers");
 
