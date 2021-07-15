@@ -3,6 +3,8 @@ package me.trambled.ozark.ozarkclient.guiscreen.hud.pinnables;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
 import me.trambled.ozark.ozarkclient.module.gui.CsgoWatermark;
+import me.trambled.ozark.ozarkclient.util.font.FontUtil;
+import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
 
 import java.awt.*;
 
@@ -17,8 +19,10 @@ public class Info extends Pinnable {
 		int nl_g = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorG").get_value(1);
 		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
 		int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorA").get_value(1);
+		boolean cfont = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFont").get_value(true);
+		boolean fontrain = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayFlow").get_value(true) && Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFont").get_value(true);
 
-		String info = Ozark.DISPLAY_NAME + " | " + get_ping() + "ms | " + get_fps() + "fps | " + mc.player.getName();
+		String info = Ozark.DISPLAY_NAME + " | " + "ms | " + "fps | " + mc.player.getName();
 
 		create_rect(-6, -6, mc.fontRenderer.getStringWidth(info) + 6, mc.fontRenderer.FONT_HEIGHT + 6, 40, 40, 40, 255);
 		create_rect(-5, -5, mc.fontRenderer.getStringWidth(info) + 5, mc.fontRenderer.FONT_HEIGHT + 5, 70, 70, 70, 255);
@@ -27,37 +31,18 @@ public class Info extends Pinnable {
 		drawHLineG(this.get_x() - 3, this.get_y() - 3, mc.fontRenderer.getStringWidth(info) + 6, getColour().hashCode(), this.getFurtherColour(Ozark.get_setting_manager().get_setting_with_tag("HUD", "offset").get_value(1)).hashCode());
 
 		create_line(info, 1, 2, nl_r, nl_g, nl_b, nl_a);
-
-		set_width(mc.fontRenderer.getStringWidth(info) + 3);
-		set_height(mc.fontRenderer.FONT_HEIGHT + 2);
-	}
-
-	public String get_ping() {
-		try {
-			int ping = mc.getConnection().getPlayerInfo(mc.player.getUniqueID()).getResponseTime();
-			if (ping <= 50) {
-				return "\u00A7a"+(ping);
-			} else if (ping <= 150) {
-				return "\u00A73"+(ping);
-			} else {
-				return "\u00A74"+(ping);
-			}
-		} catch (Exception e) {
-			return "0";
-		}
-
-	}
-
-	public String get_fps() {
-		int fps = mc.getDebugFPS();
-		if (fps >= 60) {
-			return "\u00A7a"+(fps);
-		} else if (fps >= 30) {
-			return "\u00A73"+(fps);
-		} else {
-			return "\u00A74"+(fps);
+		if (fontrain) {
+			set_width(RainbowUtil.get_string_width(info) + 3);
+			set_height(RainbowUtil.get_string_height() + 2);
+	}else if (cfont) {
+			set_width(FontUtil.getFontWidth(info) + 3);
+			set_height(FontUtil.getFontHeight() + 2);
+		}else {
+			set_width(mc.fontRenderer.getStringWidth(info) + 3);
+			set_height(mc.fontRenderer.FONT_HEIGHT + 2);
 		}
 	}
+
 	public static void drawHLineG(int x, int y, int length, int color, int color2){
 		CsgoWatermark.drawGradientSideways(x, y, x+length, y+1, color, color2);
 	}
