@@ -21,6 +21,7 @@ import me.trambled.ozark.ozarkclient.util.world.TimerUtil;
 import me.trambled.turok.draw.RenderHelp;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -47,6 +48,7 @@ import net.minecraft.client.renderer.culling.ICamera;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -105,7 +107,7 @@ public class AutoCrystal extends Module {
     Setting min_health_pause = create("Min Health Pause", "CaMinHealthPause", true);
     Setting required_health = create("Required Health", "CaRequiredHealth", 1, 1, 36);
 
-    Setting ignore_web = create("Ignore Webs", "CaWebIgnore", true);
+    Setting ignore_web = create("Ignore Terrain (WIP)", "CaTerrainIgnore", true);
 
     Setting packet_place = create("Packet Place", "CaPacketPlace", true);
     Setting packet_break = create("Packet Break", "CaPacketBreak", true);
@@ -564,7 +566,7 @@ public class AutoCrystal extends Module {
                     minimum_damage = this.min_player_place.get_value(1);
                 }
 
-                if (ignore_web.get_value(true) && mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() == Blocks.WEB) {
+                if (ignore_web.get_value(true) && mc.world.getBlockState(EntityUtil.getRoundedBlockPos(target)).getBlock() != getUnbreakableBlocks())  {
                     mc.world.setBlockToAir(EntityUtil.getRoundedBlockPos(target));
                 }
 
@@ -1460,4 +1462,9 @@ public class AutoCrystal extends Module {
             return i;
         }
         return -1;
+    }
+    public static List<Block> getUnbreakableBlocks() {
+        return Arrays.asList(
+                Blocks.OBSIDIAN, Blocks.BEDROCK, Blocks.COMMAND_BLOCK, Blocks.BARRIER, Blocks.ENCHANTING_TABLE, Blocks.ENDER_CHEST, Blocks.END_PORTAL_FRAME, Blocks.BEACON, Blocks.ANVIL
+        );
     }}

@@ -178,7 +178,6 @@ public class ModuleManager {
 		add_module(new EntityAlert());
 		add_module(new Portals());
 		add_module(new AntiAFK());
-		add_module(new AutoEthoDupe());
 		
 		array_modules.sort(Comparator.comparing(Module::get_name));
 	}
