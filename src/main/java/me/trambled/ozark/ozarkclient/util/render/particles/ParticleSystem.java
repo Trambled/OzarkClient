@@ -27,14 +27,14 @@ public class ParticleSystem {
     }
 
     public void tick(int delta) {
-        //if (Mouse.isButtonDown(0)) addParticles(1);
+     if (Mouse.isButtonDown(0)) addParticles(1);
         for (Particle particle : particleList) {
             particle.tick(delta, SPEED);
         }
     }
 
-    private void drawLine(float f, float f2, float f3, float f4, float f5, float f6, float f7, float f8) {
-        GL11.glColor4f(f5, f6, f7, f8);
+    private void drawLine(float f, float f2, float f3, float f4, float r, float g, float b, float a) {
+        GL11.glColor4f(r, g, b, a);
         GL11.glLineWidth(0.5f);
         GL11.glBegin(1);
         GL11.glVertex2f(f, f2);
