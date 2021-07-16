@@ -5,7 +5,6 @@ import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
@@ -57,6 +56,13 @@ public class PastGUIModule extends Module {
 	Setting pause_game = create("Pause Game", "PastGUIPauseGame", false);
 	Setting kambing = create("All Button", "PastGUIKambing", true);
 
+	Setting particles = create("Particles", "PastGUIParticles",  true);
+	Setting lines = create("Particle Lines", "PastGUIChangeLineAlpha", true);
+	Setting particle_r = create("Particle R", "PastGUIParticleR", 255, 0, 255);
+	Setting particle_g = create("Particle G", "PastGUIParticleG", 255, 0, 255);
+	Setting particle_b = create("Particle B", "PastGUIParticleB", 255, 0, 255);
+	Setting particle_a = create("Particle A", "PastGUIParticleA", 255, 0, 255);
+	Setting particle_rainbow = create("Particle Rainbow", "PastGUIParticleRainbow", true);
 
 	@Override
 	protected void enable() {
@@ -83,6 +89,9 @@ public class PastGUIModule extends Module {
 		}
 		if (rainbow3.get_value(true)) {
 			cycle_rainbow3();
+		}
+		if (particle_rainbow.get_value(true)) {
+			cycle_rainbow4();
 		}
 	}
 
@@ -126,6 +135,20 @@ public class PastGUIModule extends Module {
 		blue3.set_value(color_rgb_o & 0xFF);
 	}
 
+	public void cycle_rainbow4() {
+
+		float[] tick_color = {
+				(System.currentTimeMillis() % (500 * 32)) / (500f * 32)
+		};
+
+		int color_rgb_o = Color.HSBtoRGB(tick_color[0], 0.8f, 0.8f);
+
+		particle_r.set_value((color_rgb_o >> 16) & 0xFF);
+		particle_g.set_value((color_rgb_o >> 8) & 0xFF);
+		particle_b.set_value(color_rgb_o & 0xFF);
+
+	}
+
 	@Override
 	public void update_always() {
 		red4.set_shown(trambled_mode.get_value(true));
@@ -133,6 +156,13 @@ public class PastGUIModule extends Module {
 		blue4.set_shown(trambled_mode.get_value(true));
 		trambled_mode_a.set_shown(trambled_mode.get_value(true));
 		bright_outline.set_shown(module_lines.get_value(true));
-	}
+
+		lines.set_shown(particles.get_value(true));
+		particle_r.set_shown(particles.get_value(true));
+		particle_g.set_shown(particles.get_value(true));
+		particle_b.set_shown(particles.get_value(true));
+		particle_a.set_shown(particles.get_value(true));
 
 	}
+
+}

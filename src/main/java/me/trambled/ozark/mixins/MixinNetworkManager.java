@@ -19,7 +19,6 @@ public class MixinNetworkManager {
 	@Inject(method = "channelRead0", at = @At("HEAD"), cancellable = true)
 	private void receive(ChannelHandlerContext context, Packet<?> packet, CallbackInfo callback) {
 		EventPacket event_packet = new EventPacket.ReceivePacket(packet);
-
 		Eventbus.EVENT_BUS.post(event_packet);
 
 		if (event_packet.isCancelled()) {

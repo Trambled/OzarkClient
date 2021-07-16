@@ -1376,7 +1376,6 @@ public class AutoCrystal extends Module {
         brightness.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
         height.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
         render_damage.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
-        rainbow_mode.set_shown(render_render && (!clean_mode.get_value(true) || setting.in("Render")));
         sat.set_shown(rainbow_mode.get_value(true) && render_render && (!clean_mode.get_value(true) || setting.in("Render")));
         brightness.set_shown(rainbow_mode.get_value(true) && render_render && (!clean_mode.get_value(true) || setting.in("Render")));
         a.set_shown((solid.get_value(true) || glow_solid.get_value(true)) && (!clean_mode.get_value(true) || setting.in("Render")));

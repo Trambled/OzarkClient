@@ -5,8 +5,7 @@ import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.render.OzarkColor;
-import me.trambled.ozark.ozarkclient.util.render.RenderUtil2;
-import me.trambled.ozark.ozarkclient.util.world.GeometryMasks;
+import me.trambled.ozark.ozarkclient.util.render.RenderUtil;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -15,7 +14,7 @@ import net.minecraft.util.math.RayTraceResult;
 
 import java.awt.*;
 
-// Travis.
+// GS.
 
 
 public class BlockHighlight extends Module {
@@ -44,7 +43,8 @@ public class BlockHighlight extends Module {
 	Setting brightness = create("Brightness", "ChamsBrightness", 0.8, 0, 1);
 
 	private int lookInt;
-    @Override
+
+	@Override
 	public void render(EventRender event) {
 		RayTraceResult rayTraceResult = mc.objectMouseOver;
 
@@ -103,9 +103,9 @@ public class BlockHighlight extends Module {
 	public void renderOutline(AxisAlignedBB axisAlignedBB, int width, OzarkColor color, EnumFacing enumFacing, int lookInt) {
 
 		if (lookInt == 0) {
-			RenderUtil2.drawBoundingBox(axisAlignedBB, width, color);
+			RenderUtil.drawBoundingBox(axisAlignedBB, width, color);
 		} else if (lookInt == 1) {
-			RenderUtil2.drawBoundingBoxWithSides(axisAlignedBB, width, color, findRenderingSide(enumFacing));
+			RenderUtil.drawBoundingBoxWithSides(axisAlignedBB, width, color, findRenderingSide(enumFacing));
 		}
 	}
 
@@ -113,29 +113,29 @@ public class BlockHighlight extends Module {
 		int facing = 0;
 
 		if (lookInt == 0) {
-			facing = GeometryMasks.Quad.ALL;
+			facing = RenderUtil.GeometryMasks.Quad.ALL;
 		} else if (lookInt == 1) {
 			facing = findRenderingSide(enumFacing);
 		}
 
-		RenderUtil2.drawBox(axisAlignedBB, true, 1, color, facing);
+		RenderUtil.drawBox(axisAlignedBB, true, 1, color, facing);
 	}
 
 	private int findRenderingSide(EnumFacing enumFacing) {
 		int facing = 0;
 
 		if (enumFacing == EnumFacing.EAST) {
-			facing = GeometryMasks.Quad.EAST;
+			facing = RenderUtil.GeometryMasks.Quad.EAST;
 		} else if (enumFacing == EnumFacing.WEST) {
-			facing = GeometryMasks.Quad.WEST;
+			facing = RenderUtil.GeometryMasks.Quad.WEST;
 		} else if (enumFacing == EnumFacing.NORTH) {
-			facing = GeometryMasks.Quad.NORTH;
+			facing = RenderUtil.GeometryMasks.Quad.NORTH;
 		} else if (enumFacing == EnumFacing.SOUTH) {
-			facing = GeometryMasks.Quad.SOUTH;
+			facing = RenderUtil.GeometryMasks.Quad.SOUTH;
 		} else if (enumFacing == EnumFacing.UP) {
-			facing = GeometryMasks.Quad.UP;
+			facing = RenderUtil.GeometryMasks.Quad.UP;
 		} else if (enumFacing == EnumFacing.DOWN) {
-			facing = GeometryMasks.Quad.DOWN;
+			facing = RenderUtil.GeometryMasks.Quad.DOWN;
 		}
 
 		return facing;
@@ -144,7 +144,10 @@ public class BlockHighlight extends Module {
     public void update() {
 		if (rgb.get_value(true)) {
 			cycle_rainbow();
-}}
+
+		}
+	}
+
 	public void cycle_rainbow() {
 
 		float[] tick_color = {
@@ -157,5 +160,6 @@ public class BlockHighlight extends Module {
 		g.set_value((color_rgb_o >> 8) & 0xFF);
 		b.set_value(color_rgb_o & 0xFF);
 
-	}}
+	}
+}
 

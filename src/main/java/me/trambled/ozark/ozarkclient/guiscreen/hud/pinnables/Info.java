@@ -2,7 +2,6 @@ package me.trambled.ozark.ozarkclient.guiscreen.hud.pinnables;
 
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
-import me.trambled.ozark.ozarkclient.module.gui.CsgoWatermark;
 
 import java.awt.*;
 
@@ -32,23 +31,31 @@ public class Info extends Pinnable {
 		set_height(mc.fontRenderer.FONT_HEIGHT + 2);
 	}
 
-	public static void drawHLineG(int x, int y, int length, int color, int color2) {
-		CsgoWatermark.drawGradientSideways(x, y, x + length, y + 1, color, color2);
+	public static void drawHLineG(int x, int y, int length, int color, int color2){
+		CsgoWatermark.drawGradientSideways(x, y, x+length, y+1, color, color2);
 	}
-
 	public static Color getFurtherColour(int offset) {
 		return Color.getHSBColor(((System.currentTimeMillis() + offset) % (360 * 32)) / (360f * 32), 1, 1);
 	}
-
 	public static Color getColour() {
 		return Color.getHSBColor((System.currentTimeMillis() % (360 * 32)) / (360f * 32), 1, 1);
 	}
 
+
 	public String get_ping() {
 		try {
 			int ping = mc.getConnection().getPlayerInfo(mc.player.getUniqueID()).getResponseTime();
+			if (ping <= 50) {
+				return "\u00A7a"+(ping);
+			} else if (ping <= 150) {
+				return "\u00A73"+(ping);
+			} else {
+				return "\u00A74"+(ping);
+			}
 		} catch (Exception e) {
 			return "0";
 		}
-	return "0";}
+
+	}
+
 }

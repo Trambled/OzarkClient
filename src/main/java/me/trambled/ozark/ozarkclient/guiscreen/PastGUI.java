@@ -6,7 +6,7 @@ import me.trambled.ozark.ozarkclient.guiscreen.gui.past.Component;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.past.Panel;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.past.items.Snow;
 import me.trambled.ozark.ozarkclient.module.Category;
-import me.trambled.ozark.ozarkclient.util.render.particles.ParticleSystem;
+import me.trambled.ozark.ozarkclient.util.render.ParticleUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiScreen;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class PastGUI extends GuiScreen {
-    private final ParticleSystem particleSystem = new ParticleSystem(100);
+    private final ParticleUtil particleUtil = new ParticleUtil(100);
     public static ArrayList<Panel> panels;
     public static ArrayList<Component> components;
     private ArrayList<Snow> snow_list = new ArrayList<Snow>();
@@ -60,8 +60,8 @@ public class PastGUI extends GuiScreen {
         drawDefaultBackground();
 
         final ScaledResolution res = new ScaledResolution(mc);
-        particleSystem.tick(10);
-        particleSystem.render();
+        particleUtil.tick(10);
+        particleUtil.render();
 
         if (!snow_list.isEmpty() && Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUISnow").get_value(true))
         {
