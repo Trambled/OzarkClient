@@ -2,15 +2,35 @@ package me.trambled.ozark.ozarkclient.module.chat;
 
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
+import me.trambled.ozark.ozarkclient.module.gui.PastGUIModule;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
+import net.minecraft.client.gui.GuiChat;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.network.play.server.SPacketChat;
 import net.minecraft.util.text.TextComponentString;
+
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraftforge.fml.client.GuiModList;
+import net.minecraft.client.gui.GuiCustomizeSkin;
+import net.minecraft.client.gui.GuiControls;
+import net.minecraft.client.gui.GuiScreenOptionsSounds;
+import net.minecraft.client.gui.GuiVideoSettings;
+import net.minecraft.client.gui.GuiIngameMenu;
+import net.minecraft.client.gui.GuiOptions;
+import net.minecraft.client.gui.GuiGameOver;
+import net.minecraft.client.gui.inventory.GuiEditSign;
+import net.minecraft.client.gui.GuiConfirmOpenLink;
+import net.minecraft.client.gui.GuiChat;
+import net.minecraft.client.gui.inventory.GuiContainer;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,6 +53,7 @@ public final class ChatMods extends Module {
     Setting clear = create("Clear", "Clear", false);
     Setting custom_font = create("Custom Font", "customfont", true);
     Setting rainbow = create("Rainbow Ozark", "rainbowozark", true);
+    Setting blur = create("Blur", "blur", true);
 
 
     @EventHandler
@@ -83,5 +104,31 @@ public final class ChatMods extends Module {
             }
         }
     });
-
+@Override
+public void update_always() {
+    if (blur.get_value(true)) {
+    if (this.mc.world != null) {
+        if (Ozark.get_module_manager().get_module_with_tag("PastGUI").is_active() || this.mc.currentScreen instanceof GuiContainer || this.mc.currentScreen instanceof GuiChat || this.mc.currentScreen instanceof GuiConfirmOpenLink || this.mc.currentScreen instanceof GuiEditSign || this.mc.currentScreen instanceof GuiGameOver || this.mc.currentScreen instanceof GuiOptions || this.mc.currentScreen instanceof GuiIngameMenu || this.mc.currentScreen instanceof GuiVideoSettings || this.mc.currentScreen instanceof GuiScreenOptionsSounds || this.mc.currentScreen instanceof GuiControls || this.mc.currentScreen instanceof GuiCustomizeSkin || this.mc.currentScreen instanceof GuiModList ) {
+            if (OpenGlHelper.shadersSupported && mc.getRenderViewEntity() instanceof EntityPlayer) {
+                try {
+                    mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            else if (mc.entityRenderer.getShaderGroup() != null && mc.currentScreen == null) {
+                mc.entityRenderer.getShaderGroup().deleteShaderGroup();
+            }
+        }
+        else if (mc.entityRenderer.getShaderGroup() != null) {
+            mc.entityRenderer.getShaderGroup().deleteShaderGroup();
+        }
+    }
 }
+}
+    public void disable() {
+        if (this.mc.world != null) {
+            mc.entityRenderer.getShaderGroup().deleteShaderGroup();
+        }
+    }}

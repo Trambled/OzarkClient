@@ -62,13 +62,10 @@ public class PastGUIModule extends Module {
 		if (!full_null_check()) {
 			mc.displayGuiScreen(Ozark.past_gui);
 		}
-		if (OpenGlHelper.shadersSupported) {
-			try {
-				if (blur.get_value(true)) {
-					mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
-				}
-			} catch (Exception ignored) {}
+		if (blur.get_value(true)) {
+			Ozark.get_setting_manager().get_setting_with_tag("ChatModifications", "blur").set_value(true);
 		}
+
 	}
 
 	@Override
