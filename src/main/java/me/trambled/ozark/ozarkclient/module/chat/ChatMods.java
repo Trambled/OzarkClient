@@ -16,27 +16,12 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.network.play.server.SPacketChat;
 import net.minecraft.util.text.TextComponentString;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraftforge.fml.client.GuiModList;
-import net.minecraft.client.gui.GuiCustomizeSkin;
-import net.minecraft.client.gui.GuiControls;
-import net.minecraft.client.gui.GuiScreenOptionsSounds;
-import net.minecraft.client.gui.GuiVideoSettings;
-import net.minecraft.client.gui.GuiIngameMenu;
-import net.minecraft.client.gui.GuiOptions;
-import net.minecraft.client.gui.GuiGameOver;
-import net.minecraft.client.gui.inventory.GuiEditSign;
-import net.minecraft.client.gui.GuiConfirmOpenLink;
-import net.minecraft.client.gui.GuiChat;
-import net.minecraft.client.gui.inventory.GuiContainer;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public final class ChatMods extends Module {
-    
+
     public ChatMods() {
         super(Category.CHAT);
 
@@ -53,7 +38,6 @@ public final class ChatMods extends Module {
     Setting clear = create("Clear", "Clear", false);
     Setting custom_font = create("Custom Font", "customfont", true);
     Setting rainbow = create("Rainbow Ozark", "rainbowozark", true);
-    Setting blur = create("Blur", "blur", true);
 
 
     @EventHandler
@@ -66,7 +50,7 @@ public final class ChatMods extends Module {
             if (packet.getChatComponent() instanceof TextComponentString) {
                 final TextComponentString component = (TextComponentString) packet.getChatComponent();
 
-              if (timestamps.get_value(true)) {
+                if (timestamps.get_value(true)) {
 
                     String date = "";
 
@@ -104,28 +88,4 @@ public final class ChatMods extends Module {
             }
         }
     });
-@Override
-public void update_always() {
-    if (blur.get_value(true)) {
-        if (this.mc.world != null) {
-            if (Ozark.get_module_manager().get_module_with_tag("PastGUI").is_active() || this.mc.currentScreen instanceof GuiChat) {
-                if (OpenGlHelper.shadersSupported && mc.getRenderViewEntity() instanceof EntityPlayer) {
-                    try {
-                        mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else if (mc.entityRenderer.getShaderGroup() != null && mc.currentScreen == null && !Ozark.get_module_manager().get_module_with_tag("PastGUI").is_active()) {
-                    mc.entityRenderer.getShaderGroup().deleteShaderGroup();
-                }
-            } else if (mc.entityRenderer.getShaderGroup() != null && !Ozark.get_module_manager().get_module_with_tag("PastGUI").is_active()) {
-                mc.entityRenderer.getShaderGroup().deleteShaderGroup();
-            }
-        }
-    }
 }
-    public void disable() {
-        if (this.mc.world != null) {
-            mc.entityRenderer.getShaderGroup().deleteShaderGroup();
-        }
-    }}
