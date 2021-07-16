@@ -5,6 +5,7 @@ import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
 import java.awt.*;
@@ -63,7 +64,15 @@ public class PastGUIModule extends Module {
 			mc.displayGuiScreen(Ozark.past_gui);
 		}
 		if (blur.get_value(true)) {
-			Ozark.get_setting_manager().get_setting_with_tag("ChatModifications", "blur").set_value(true);
+			if (OpenGlHelper.shadersSupported && mc.getRenderViewEntity() instanceof EntityPlayer) {
+				try {
+					mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
 		}
 
 	}
@@ -130,4 +139,8 @@ public class PastGUIModule extends Module {
 		bright_outline.set_shown(module_lines.get_value(true));
 	}
 
-}
+	public void disable() {
+		if (this.mc.world != null) {
+			mc.entityRenderer.getShaderGroup().deleteShaderGroup();
+		}
+	}}
