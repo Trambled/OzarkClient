@@ -60,6 +60,8 @@ public class PastGUI extends GuiScreen {
         drawDefaultBackground();
 
         final ScaledResolution res = new ScaledResolution(mc);
+        particleSystem.tick(10);
+        particleSystem.render();
 
         if (!snow_list.isEmpty() && Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUISnow").get_value(true))
         {
