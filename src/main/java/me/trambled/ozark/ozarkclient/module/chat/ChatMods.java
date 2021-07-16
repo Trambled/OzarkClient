@@ -107,25 +107,22 @@ public final class ChatMods extends Module {
 @Override
 public void update_always() {
     if (blur.get_value(true)) {
-    if (this.mc.world != null) {
-        if ( this.mc.currentScreen instanceof GuiChat) {
-            if (OpenGlHelper.shadersSupported) {
-                try {
-                    mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
+        if (this.mc.world != null) {
+            if (Ozark.get_module_manager().get_module_with_tag("PastGUI").is_active() || this.mc.currentScreen instanceof GuiChat) {
+                if (OpenGlHelper.shadersSupported && mc.getRenderViewEntity() instanceof EntityPlayer) {
+                    try {
+                        mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else if (mc.entityRenderer.getShaderGroup() != null && mc.currentScreen == null && !Ozark.get_module_manager().get_module_with_tag("PastGUI").is_active()) {
+                    mc.entityRenderer.getShaderGroup().deleteShaderGroup();
                 }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            else if (mc.entityRenderer.getShaderGroup() != null && mc.currentScreen == null) {
+            } else if (mc.entityRenderer.getShaderGroup() != null && !Ozark.get_module_manager().get_module_with_tag("PastGUI").is_active()) {
                 mc.entityRenderer.getShaderGroup().deleteShaderGroup();
             }
         }
-        else if (mc.entityRenderer.getShaderGroup() != null) {
-            mc.entityRenderer.getShaderGroup().deleteShaderGroup();
-        }
     }
-}
 }
     public void disable() {
         if (this.mc.world != null) {

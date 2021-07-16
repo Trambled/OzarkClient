@@ -64,7 +64,7 @@ public class PastGUIModule extends Module {
 			mc.displayGuiScreen(Ozark.past_gui);
 		}
 		if (blur.get_value(true)) {
-			if (OpenGlHelper.shadersSupported && mc.getRenderViewEntity() instanceof EntityPlayer) {
+			if (OpenGlHelper.shadersSupported) {
 				try {
 					mc.entityRenderer.loadShader(new ResourceLocation("shaders/post/blur.json"));
 				}
@@ -139,8 +139,4 @@ public class PastGUIModule extends Module {
 		bright_outline.set_shown(module_lines.get_value(true));
 	}
 
-	public void disable() {
-		if (this.mc.world != null) {
-			mc.entityRenderer.getShaderGroup().deleteShaderGroup();
-		}
-	}}
+	}
