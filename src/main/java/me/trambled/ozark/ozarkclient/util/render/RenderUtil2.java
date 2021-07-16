@@ -102,12 +102,6 @@ public class RenderUtil2 {
         bufferbuilder.pos(x - mc.getRenderManager().viewerPosX, y - mc.getRenderManager().viewerPosY, z - mc.getRenderManager().viewerPosZ).color(color.getRed(), color.getGreen(), color.getBlue(), alpha).endVertex();
     }
 
-    private static AxisAlignedBB getBoundingBox(BlockPos bp, double width, double height, double depth) {
-        double x = bp.getX();
-        double y = bp.getY();
-        double z = bp.getZ();
-        return new AxisAlignedBB(x, y, z, x + width, y + height, z + depth);
-    }
 
     private static void doVerticies(AxisAlignedBB axisAlignedBB, OzarkColor color, int alpha, BufferBuilder bufferbuilder, int sides, boolean five) {
         if ((sides & GeometryMasks.Quad.EAST) != 0) {

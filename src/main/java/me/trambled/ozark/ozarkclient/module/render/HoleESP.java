@@ -39,28 +39,13 @@ public class HoleESP extends Module {
 	Setting flat_own = create("Hide Own", "HoleESPHideOwn", true);
 	Setting hide_own = create("Hide Own", "HoleESPHideOwn", true);
 
-	Setting toggleb = create("Bedrock Colors Setting", "HoleESPBSET", false);
-	Setting rb = create("Bedrock Red", "HoleESPRb", 0, 0, 255);
-	Setting gb = create("Bedrock Green", "HoleESPGb", 255, 0, 255);
-	Setting bb = create("Bedrock Blue", "HoleESPBb", 0, 0, 255);
-	Setting ab = create("Bedrock Alpha", "HoleESPAb", 50, 0, 255);
-
-	Setting toggleo = create("Obsidian Colors Setting", "HoleESPoSET", false);
-	Setting ro = create("Obby Red", "HoleESPRo", 255, 0, 255);
-	Setting go = create("Obby Green", "HoleESPGo", 0, 0, 255);
-	Setting bo = create("Obby Blue", "HoleESPBo", 0, 0, 255);
-	Setting ao = create("Obby Alpha", "HoleESPAo", 50, 0, 255);
-
-	Setting togglec = create("Custom Colors Setting", "HoleESPcSET", false);
-	Setting rc = create("Custom Red", "HoleESPRc", 255, 0, 255);
-	Setting gc = create("Custom Green", "HoleESPGc", 0, 0, 255);
-	Setting bc = create("Custom Blue", "HoleESPBc", 0, 0, 255);
-	Setting ac = create("Custom Alpha", "HoleESPAc", 50, 0, 255);
+	Setting rb = create("Red", "HoleESPR", 0, 0, 255);
+	Setting gb = create("Green", "HoleESPG", 255, 0, 255);
+	Setting bb = create("Blue", "HoleESPB", 0, 0, 255);
 
 	Setting width = create("Width", "HoleESPWidth", 1, 1, 10);
 	Setting slabHeight = create("Slab Height", "HoleESPSlabHeight", 0.5, 0.1, 1);
-	Setting rainbow_ob = create("Rainbow Obsidian", "HoleESPRainbowOb", true);
-	Setting rainbow_bed = create("Rainbow Bedrock", "HoleESPRainbowBed", true);
+	Setting rainbow = create("Rainbow", "HoleESPRainbow", true);
 	Setting sat = create("Satiation", "HoleESPSatiation", 0.8, 0, 1);
 	Setting brightness = create("Brightness", "HoleESPBrightness", 0.8, 0, 1);
 	Setting ufoAlpha = create("FadeAlpha", "HoleespfadeA", 50, 0, 255);
@@ -68,14 +53,18 @@ public class HoleESP extends Module {
 	private ConcurrentHashMap<AxisAlignedBB, OzarkColor> holes;
 
 	public void update() {
-		if (mc.player == null || mc.world == null) {
-			return;
-		}
+		if (rainbow.get_value(true)) {
+			cycle_rainbow();
 
-		if (holes == null) {
-			holes = new ConcurrentHashMap<>();
-		} else {
-			holes.clear();
+			if (mc.player == null || mc.world == null) {
+				return;
+			}
+
+			if (holes == null) {
+				holes = new ConcurrentHashMap<>();
+			} else {
+				holes.clear();
+			}
 		}
 
 		int range = (int) Math.ceil(this.range.get_value(1));
@@ -111,15 +100,15 @@ public class HoleESP extends Module {
 
 				if (centreBlocks == null)
 					return;
-				OzarkColor color = new OzarkColor(255,255,255);
+				OzarkColor color = new OzarkColor(rb.get_value(1), gb.get_value(1), bb.get_value(1), 255);
 
 				if (holeSafety == HoleUtil.BlockSafety.UNBREAKABLE) {
-					color = new OzarkColor(rb.get_value(1), gb.get_value(1), bb.get_value(1), ab.get_value(1));
+					color = new OzarkColor(rb.get_value(1), gb.get_value(1), bb.get_value(1), 255);
 				} else if (holeSafety == HoleUtil.BlockSafety.BREAKABLE){
-					color = new OzarkColor(ro.get_value(1), go.get_value(1), bo.get_value(1), ao.get_value(1));
+					color = new OzarkColor(rb.get_value(1), gb.get_value(1), bb.get_value(1),255);
 				}
 				if (holeType == HoleUtil.HoleType.CUSTOM) {
-					color = new OzarkColor(rc.get_value(1), gc.get_value(1), bc.get_value(1), ac.get_value(1));
+					color = new OzarkColor(rb.get_value(1), gb.get_value(1), bb.get_value(1), 255);
 				}
 
 				if (customHoles.in("Custom") && (holeType == HoleUtil.HoleType.CUSTOM || holeType == HoleUtil.HoleType.DOUBLE)) {
@@ -237,4 +226,16 @@ public class HoleESP extends Module {
 			}
 		}
 	}
-}
+	public void cycle_rainbow() {
+
+		float[] tick_color = {
+				(System.currentTimeMillis() % (360 * 32)) / (360f * 32)
+		};
+
+		int color_rgb_o = Color.HSBtoRGB(tick_color[0], sat.get_value(1), brightness.get_value(1));
+
+		rb.set_value((color_rgb_o >> 16) & 0xFF);
+		gb.set_value((color_rgb_o >> 8) & 0xFF);
+		bb.set_value(color_rgb_o & 0xFF);
+
+	}}
