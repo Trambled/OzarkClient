@@ -18,7 +18,7 @@ public class Info extends Pinnable {
 		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
 		int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorA").get_value(1);
 
-		String info = Ozark.DISPLAY_NAME + " | " + mc.getConnection().getPlayerInfo(mc.player.getUniqueID()).getResponseTime() + "ms | " + mc.getDebugFPS() + "fps | " + mc.player.getName();
+		String info = Ozark.DISPLAY_NAME + " | " + get_ping() + "ms | " + mc.getDebugFPS() + "fps | " + mc.player.getName();
 
 		create_rect(-6, -6, mc.fontRenderer.getStringWidth(info) + 6, mc.fontRenderer.FONT_HEIGHT + 6, 40, 40, 40, 255);
 		create_rect(-5, -5, mc.fontRenderer.getStringWidth(info) + 5, mc.fontRenderer.FONT_HEIGHT + 5, 70, 70, 70, 255);
@@ -32,12 +32,23 @@ public class Info extends Pinnable {
 		set_height(mc.fontRenderer.FONT_HEIGHT + 2);
 	}
 
-	public static void drawHLineG(int x, int y, int length, int color, int color2){
-		CsgoWatermark.drawGradientSideways(x, y, x+length, y+1, color, color2);
+	public static void drawHLineG(int x, int y, int length, int color, int color2) {
+		CsgoWatermark.drawGradientSideways(x, y, x + length, y + 1, color, color2);
 	}
+
 	public static Color getFurtherColour(int offset) {
 		return Color.getHSBColor(((System.currentTimeMillis() + offset) % (360 * 32)) / (360f * 32), 1, 1);
 	}
+
 	public static Color getColour() {
 		return Color.getHSBColor((System.currentTimeMillis() % (360 * 32)) / (360f * 32), 1, 1);
-	}}
+	}
+
+	public String get_ping() {
+		try {
+			int ping = mc.getConnection().getPlayerInfo(mc.player.getUniqueID()).getResponseTime();
+		} catch (Exception e) {
+			return "0";
+		}
+	return "0";}
+}

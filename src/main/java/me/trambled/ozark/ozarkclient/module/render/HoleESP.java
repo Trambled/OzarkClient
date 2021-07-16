@@ -67,7 +67,7 @@ public class HoleESP extends Module {
 
 	private ConcurrentHashMap<AxisAlignedBB, OzarkColor> holes;
 
-	public void onUpdate() {
+	public void update() {
 		if (mc.player == null || mc.world == null) {
 			return;
 		}
@@ -111,7 +111,7 @@ public class HoleESP extends Module {
 
 				if (centreBlocks == null)
 					return;
-				OzarkColor color;
+				OzarkColor color = new OzarkColor(255,255,255);
 
 				if (holeSafety == HoleUtil.BlockSafety.UNBREAKABLE) {
 					color = new OzarkColor(rb.get_value(1), gb.get_value(1), bb.get_value(1), ab.get_value(1));
@@ -132,8 +132,8 @@ public class HoleESP extends Module {
 			}
 		});
 	}
-
-	public void onWorldRender(EventRender event) {
+	@Override
+	public void render(EventRender event) {
 		if (mc.player == null || mc.world == null || holes == null || holes.isEmpty()) {
 			return;
 		}
