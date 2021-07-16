@@ -2,6 +2,7 @@ package me.trambled.ozark.ozarkclient.guiscreen.hud.pinnables;
 
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
+import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
@@ -32,7 +33,7 @@ public class Info extends Pinnable {
 	}
 
 	public static void drawHLineG(int x, int y, int length, int color, int color2){
-		CsgoWatermark.drawGradientSideways(x, y, x+length, y+1, color, color2);
+		drawGradientSideways(x, y, x+length, y+1, color, color2);
 	}
 	public static Color getFurtherColour(int offset) {
 		return Color.getHSBColor(((System.currentTimeMillis() + offset) % (360 * 32)) / (360f * 32), 1, 1);
@@ -56,6 +57,36 @@ public class Info extends Pinnable {
 			return "0";
 		}
 
+	}
+
+	public static void drawGradientSideways(final double leftpos, final double top, final double right, final double bottom, final int col1, final int col2) {
+		final float f = (col1 >> 24 & 0xFF) / 255.0f;
+		final float f2 = (col1 >> 16 & 0xFF) / 255.0f;
+		final float f3 = (col1 >> 8 & 0xFF) / 255.0f;
+		final float f4 = (col1 & 0xFF) / 255.0f;
+		final float f5 = (col2 >> 24 & 0xFF) / 255.0f;
+		final float f6 = (col2 >> 16 & 0xFF) / 255.0f;
+		final float f7 = (col2 >> 8 & 0xFF) / 255.0f;
+		final float f8 = (col2 & 0xFF) / 255.0f;
+		GL11.glEnable(3042);
+		GL11.glDisable(3553);
+		GL11.glBlendFunc(770, 771);
+		GL11.glEnable(2848);
+		GL11.glShadeModel(7425);
+		GL11.glPushMatrix();
+		GL11.glBegin(7);
+		GL11.glColor4f(f2, f3, f4, f);
+		GL11.glVertex2d(leftpos, top);
+		GL11.glVertex2d(leftpos, bottom);
+		GL11.glColor4f(f6, f7, f8, f5);
+		GL11.glVertex2d(right, bottom);
+		GL11.glVertex2d(right, top);
+		GL11.glEnd();
+		GL11.glPopMatrix();
+		GL11.glEnable(3553);
+		GL11.glDisable(3042);
+		GL11.glDisable(2848);
+		GL11.glShadeModel(7424);
 	}
 
 }
