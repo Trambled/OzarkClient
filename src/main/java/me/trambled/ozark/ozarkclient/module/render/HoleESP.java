@@ -122,9 +122,9 @@ public class HoleESP extends Module {
 					color = new OzarkColor(rc.get_value(1), gc.get_value(1), bc.get_value(1), ac.get_value(1));
 				}
 
-				if (mode.in("Custom") && (holeType == HoleUtil.HoleType.CUSTOM || holeType == HoleUtil.HoleType.DOUBLE)) {
+				if (customHoles.in("Custom") && (holeType == HoleUtil.HoleType.CUSTOM || holeType == HoleUtil.HoleType.DOUBLE)) {
 					holes.put(centreBlocks, color);
-				} else if (mode.in("Double") && holeType == HoleUtil.HoleType.DOUBLE) {
+				} else if (customHoles.in("Double") && holeType == HoleUtil.HoleType.DOUBLE) {
 					holes.put(centreBlocks, color);
 				} else if (holeType == HoleUtil.HoleType.SINGLE) {
 					holes.put(centreBlocks, color);
