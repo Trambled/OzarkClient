@@ -6,6 +6,7 @@ import me.trambled.ozark.ozarkclient.guiscreen.gui.past.Component;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.past.Panel;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.past.items.Snow;
 import me.trambled.ozark.ozarkclient.module.Category;
+import me.trambled.ozark.ozarkclient.util.render.particles.ParticleSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiScreen;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class PastGUI extends GuiScreen {
+    private final ParticleSystem particleSystem = new ParticleSystem(100);
     public static ArrayList<Panel> panels;
     public static ArrayList<Component> components;
     private ArrayList<Snow> snow_list = new ArrayList<Snow>();
