@@ -188,4 +188,12 @@ public class RenderUtil2 {
         GlStateManager.shadeModel(GL11.GL_FLAT);
         glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_DONT_CARE);
     }
-}
+    public static void drawBox(AxisAlignedBB bb, boolean check, double height, OzarkColor color, int sides) {
+        drawBox(bb, check, height, color, color.getAlpha(), sides);
+    }
+    public static void drawBoundingBoxWithSides(AxisAlignedBB axisAlignedBB, int width, OzarkColor color, int sides) {
+        drawBoundingBoxWithSides(axisAlignedBB, width, color, color.getAlpha(), sides);
+    }
+    public static void drawBoundingBox(AxisAlignedBB bb, double width, OzarkColor color) {
+        drawBoundingBox(bb, width, color, color.getAlpha());
+    }}
