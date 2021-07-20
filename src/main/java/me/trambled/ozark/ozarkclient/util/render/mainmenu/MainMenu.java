@@ -6,6 +6,7 @@ import me.trambled.ozark.ozarkclient.util.font.FontUtil;
 import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.common.Loader;
@@ -13,6 +14,7 @@ import org.lwjgl.opengl.GL11;
 
 
 import java.awt.*;
+
 
 /**
  * Created by peanut on 26/02/2021 //hyderogen client
@@ -22,6 +24,7 @@ public class MainMenu extends GuiScreen {
     public static Minecraft mc = Minecraft.getMinecraft();
 
     public static void drawMenu(int mouseX, int mouseY) {
+
         drawRect(40, 0, 140, GuiCustomMainMenu.getScaledRes().getScaledHeight(), 0x60000000);
 
         String mds = String.format("%s mods loaded, %s mods active", Loader.instance().getModList().size(), Loader.instance().getActiveModList().size());
@@ -37,7 +40,7 @@ public class MainMenu extends GuiScreen {
         FontUtil.drawStringWithShadow(mcv, GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth(mcv) - 4, GuiCustomMainMenu.getScaledRes().getScaledHeight() - 50, Color.WHITE.getRGB());
 
         RainbowUtil.drawRainbowStringChatCustomFont(name, (float) GuiCustomMainMenu.getScaledRes().getScaledWidth() - (float) FontUtil.getFontWidth(name) - 4, (float) 4, RainbowUtil.getMultiColour().getRGB(), 200f);
-        FontUtil.drawStringWithShadow("Developed by " + TextFormatting.GRAY + "Trambled, Ethan" + TextFormatting.RESET + " and " + TextFormatting.GRAY + "ProfKambing", GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth("Developed by " + "Trambled, Ethan and ProfKambing") - 4, 28, Color.WHITE.getRGB());
+        FontUtil.drawStringWithShadow("Developed by " + TextFormatting.GRAY + "Trambled, x3th0_" + TextFormatting.RESET + " and " + TextFormatting.GRAY + "ProfKambing", GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth("Developed by " + "Trambled, Ethan and ProfKambing") - 4, 28, Color.WHITE.getRGB());
         FontUtil.drawStringWithShadow(mname, GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth(mname) - 4, 16, Color.WHITE.getRGB());
 
         float scale = 5F;
@@ -49,4 +52,31 @@ public class MainMenu extends GuiScreen {
 
     }
 
-}
+    public static void rect(float x1, float y1, float x2, float y2, int fill) {
+        GlStateManager.color(0, 0, 0);
+        GL11.glColor4f(0, 0, 0, 0);
+
+        float f = (fill >> 24 & 0xFF) / 255.0F;
+        float f1 = (fill >> 16 & 0xFF) / 255.0F;
+        float f2 = (fill >> 8 & 0xFF) / 255.0F;
+        float f3 = (fill & 0xFF) / 255.0F;
+
+        GL11.glEnable(3042);
+        GL11.glDisable(3553);
+        GL11.glBlendFunc(770, 771);
+        GL11.glEnable(2848);
+
+        GL11.glPushMatrix();
+        GL11.glColor4f(f1, f2, f3, f);
+        GL11.glBegin(7);
+        GL11.glVertex2d(x2, y1);
+        GL11.glVertex2d(x1, y1);
+        GL11.glVertex2d(x1, y2);
+        GL11.glVertex2d(x2, y2);
+        GL11.glEnd();
+        GL11.glPopMatrix();
+
+        GL11.glEnable(3553);
+        GL11.glDisable(3042);
+        GL11.glDisable(2848);
+    }}
