@@ -23,6 +23,7 @@ import java.util.Random;
 import me.trambled.ozark.ozarkclient.util.font.FontUtil;
 import me.trambled.ozark.ozarkclient.util.render.ParticleUtil;
 import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
+import me.trambled.ozark.ozarkclient.util.render.RenderUtil;
 import me.trambled.ozark.ozarkclient.util.render.mainmenu.MainMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
@@ -113,7 +114,7 @@ public class GuiMainMenu extends GuiScreen
     private GuiScreen realmsNotification;
     private int widthCopyright;
     private int widthCopyrightRest;
-    private ExpandButton modButton;
+    private GuiButton modButton;
     private net.minecraftforge.client.gui.NotificationModUpdateScreen modUpdateNotification;
     private int widthCopyrightRest1;
     private double updateCounter;
@@ -252,17 +253,17 @@ public class GuiMainMenu extends GuiScreen
         int j = this.height / 4 + 48;
         this.x = this.width / 2;
         this.y = this.height / 4 + 48;
-        this.buttonList.add(new ExpandButton(1, 45, getScaledRes().getScaledHeight() / 2 - 52, 90, 20, "Singleplayer"));
-        this.buttonList.add(new ExpandButton(2, 45, getScaledRes().getScaledHeight() / 2 - 30, 90, 20, "Multiplayer"));
-        this.buttonList.add(new ExpandButton(0, 45, getScaledRes().getScaledHeight() / 2 + 14, 90, 20, "Settings"));
-        this.buttonList.add(new ExpandButton(6, 45, getScaledRes().getScaledHeight() / 2 + 36, 90, 20, "Mods"));
-        this.buttonList.add(new ExpandButton(4, 45, getScaledRes().getScaledHeight() / 2 + 72, 90, 20, "Quit"));
+        this.buttonList.add(new TextButton(1, 85, getScaledRes().getScaledHeight() / 2 - 52,  "Singleplayer"));
+        this.buttonList.add(new TextButton(2, 85, getScaledRes().getScaledHeight() / 2 - 30,  "Multiplayer"));
+        this.buttonList.add(new TextButton(0, 85, getScaledRes().getScaledHeight() / 2 + 14,  "Settings"));
+        this.buttonList.add(new TextButton(6, 85, getScaledRes().getScaledHeight() / 2 + 36,  "Mods"));
+        this.buttonList.add(new TextButton(4, 85, getScaledRes().getScaledHeight() / 2 + 72,  "Quit"));
 
         this.field_92023_s = this.mc.fontRenderer.getStringWidth(openGLWarning1);
         this.field_92024_r = this.mc.fontRenderer.getStringWidth(openGLWarning1);
         int e = Math.max(this.field_92023_s, this.field_92024_r);
         this.field_92022_t = (this.width - e) / 2;
-        this.field_92021_u = ((ExpandButton)this.buttonList.get(0)).y - 24;
+        this.field_92021_u = ((TextButton   )this.buttonList.get(0)).y - 24;
         this.field_92020_v = this.field_92022_t + e;
         this.field_92019_w = this.field_92021_u + 24;
     }
@@ -271,10 +272,10 @@ public class GuiMainMenu extends GuiScreen
      */
     private void addSingleplayerMultiplayerButtons(int p_73969_1_, int p_73969_2_)
     {
-        this.buttonList.add(new ExpandButton(1, this.width / 2 - 100, p_73969_1_, I18n.format("menu.singleplayer")));
-        this.buttonList.add(new ExpandButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 1, I18n.format("menu.multiplayer")));
-        this.realmsButton = this.addButton(new ExpandButton(14, this.width / 2 + 2, p_73969_1_ + p_73969_2_ * 2, 98, 20, I18n.format("menu.online").replace("Minecraft", "").trim()));
-        this.buttonList.add(modButton = new ExpandButton(6, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, 98, 20, I18n.format("fml.menu.mods")));
+        this.buttonList.add(new GuiButton(1, this.width / 2 - 100, p_73969_1_, I18n.format("menu.singleplayer")));
+        this.buttonList.add(new GuiButton(2, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 1, I18n.format("menu.multiplayer")));
+        this.realmsButton = this.addButton(new GuiButton(14, this.width / 2 + 2, p_73969_1_ + p_73969_2_ * 2, 98, 20, I18n.format("menu.online").replace("Minecraft", "").trim()));
+        this.buttonList.add(modButton = new GuiButton(6, this.width / 2 - 100, p_73969_1_ + p_73969_2_ * 2, 98, 20, I18n.format("fml.menu.mods")));
     }
 
     /**
@@ -631,83 +632,40 @@ public class GuiMainMenu extends GuiScreen
 
     }
 
-    public static class ExpandButton
-            extends GuiButton {
-        private int x;
-        public int y;
-        private int x1;
-        private int y1;
-        private String text;
-        int alphaInc = 100;
-        int alpha = 0;
-        public int size = 0;
-        public boolean tooltipEnabled;
-        public String tText2;
-        public boolean cfont;
 
-        public ExpandButton(int par1, int left, int top, int right, int bot, String par6Str) {
-            super(par1, left, top, right, bot, par6Str);
-            this.x = left;
-            this.y = top;
-            this.x1 = right;
-            this.y1 = bot;
-            this.text = par6Str;
-        }
-        public ExpandButton(int i, int j, int k, String stringParams) {
-            this(i, j, k, 200, 20, stringParams);
-        }
 
-        public void drawButton(Minecraft mc, int mouseX, int mouseY) {
-            boolean isOverButton = (mouseX >= this.x) && (mouseX <= this.x + this.x1) && (mouseY >= this.y) && (mouseY <= this.y + this.y1);
-            if (!this.tooltipEnabled) {
-                if ((isOverButton) && (this.alphaInc <= 150) && (this.enabled)) {
-                    this.alphaInc += 5;
-                    this.alpha = (this.alphaInc << 24);
-                } else if ((!isOverButton) && (this.alphaInc >= 100)) {
-                    this.alphaInc -= 5;
-                    this.alpha = (this.alphaInc << 24);
-                }
-                if (this.alphaInc > 150) {
-                    this.alphaInc = 150;
-                } else if (this.alphaInc < 100) {
-                    this.alphaInc = 100;
-                }
-                if ((isOverButton) && (this.size <= 1) && (this.enabled)) {
-                    this.size += 1;
-                } else if ((!isOverButton) && (this.size >= 0)) {
-                    this.size -= 1;
+
+        private static class TextButton
+        extends GuiButton {
+            private int x1;
+            private int y1;
+            private String text;
+            int alphaInc = 100;
+            int alpha = 0;
+            public int size = 0;
+            public TextButton(int buttonId, int x, int y, String buttonText) {
+                super(buttonId, x, y, RainbowUtil.get_string_width(buttonText), RainbowUtil.get_string_height(), buttonText);
+            }
+
+            public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
+                if (this.visible) {
+                    this.enabled = true;
+                    this.hovered = (float) mouseX >= (float) this.x - (float) FontUtil.getFontWidth(this.displayString) / 2.0f && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+                    FontUtil.drawStringWithShadow(this.displayString, (float) this.x - (float) FontUtil.getFontWidth(this.displayString) / 2.0f, this.y, Color.WHITE.getRGB());
+                    if (this.hovered) {
+                        RenderUtil.drawLine((float) (this.x - 1) - (float) FontUtil.getFontWidth(this.displayString) / 2.0f, this.y + 2 + FontUtil.getFontHeight(), (float) this.x + (float) FontUtil.getFontWidth(this.displayString) / 2.0f + 1.0f, this.y + 2 + FontUtil.getFontHeight(), 1.0f, Color.WHITE.getRGB());
+                    }
                 }
             }
-            rect(this.x - this.size, this.y - this.size, this.x + this.x1 + this.size, this.y + this.y1 + this.size, this.alpha);
-            if (!this.tooltipEnabled) {
-                FontUtil.drawTotalCenteredStringWithShadow3(isOverButton && this.enabled ? "§7" + this.text : this.text, this.x + this.x1 / 2, this.y + this.y1 / 2 , Color.white);
+
+            public boolean mousePressed(Minecraft mc, int mouseX, int mouseY) {
+                return this.enabled && this.visible && (float) mouseX >= (float) this.x - (float) RainbowUtil.get_string_width(this.displayString) / 2.0f && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+
+            }
+
+            public static final ScaledResolution getScaledRes() {
+                final ScaledResolution scaledRes = new ScaledResolution(Minecraft.getMinecraft());
+                return scaledRes;
             }
         }
-        public static void rect(float x1, float y1, float x2, float y2, int fill) {
-            GlStateManager.color(0, 0, 0);
-            GL11.glColor4f(0, 0, 0, 0);
-
-            float f = (fill >> 24 & 0xFF) / 255.0F;
-            float f1 = (fill >> 16 & 0xFF) / 255.0F;
-            float f2 = (fill >> 8 & 0xFF) / 255.0F;
-            float f3 = (fill & 0xFF) / 255.0F;
-
-            GL11.glEnable(3042);
-            GL11.glDisable(3553);
-            GL11.glBlendFunc(770, 771);
-            GL11.glEnable(2848);
-
-            GL11.glPushMatrix();
-            GL11.glColor4f(f1, f2, f3, f);
-            GL11.glBegin(7);
-            GL11.glVertex2d(x2, y1);
-            GL11.glVertex2d(x1, y1);
-            GL11.glVertex2d(x1, y2);
-            GL11.glVertex2d(x2, y2);
-            GL11.glEnd();
-            GL11.glPopMatrix();
-
-            GL11.glEnable(3553);
-            GL11.glDisable(3042);
-            GL11.glDisable(2848);
-        }}}
+}
