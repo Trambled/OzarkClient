@@ -6,6 +6,7 @@ import me.trambled.ozark.ozarkclient.util.font.FontUtil;
 import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.common.Loader;
 import org.lwjgl.opengl.GL11;
@@ -28,7 +29,7 @@ public class MainMenu extends GuiScreen {
         String mcp = "MCP 9.42";
         String mcv = "Minecraft 1.12.2";
         String name = String.format("%s %s", Ozark.get_name(), Ozark.get_version());
-        String mname = String.format("Logged in as %s", Minecraft.getMinecraft().getSession().getUsername());
+        String mname = String.format("Logged in as \u00A77%s", Minecraft.getMinecraft().getSession().getUsername());
 
         FontUtil.drawStringWithShadow(mds, GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth(mds) - 4, GuiCustomMainMenu.getScaledRes().getScaledHeight() - 14, Color.WHITE.getRGB());
         FontUtil.drawStringWithShadow(fml, GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth(fml) - 4, GuiCustomMainMenu.getScaledRes().getScaledHeight() - 26, Color.WHITE.getRGB());
@@ -36,8 +37,8 @@ public class MainMenu extends GuiScreen {
         FontUtil.drawStringWithShadow(mcv, GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth(mcv) - 4, GuiCustomMainMenu.getScaledRes().getScaledHeight() - 50, Color.WHITE.getRGB());
 
         RainbowUtil.drawRainbowStringChatCustomFont(name, (float) GuiCustomMainMenu.getScaledRes().getScaledWidth() - (float) FontUtil.getFontWidth(name) - 4, (float) 4, RainbowUtil.getMultiColour().getRGB(), 200f);
-        FontUtil.drawStringWithShadow("Developed by " + "Trambled", GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth("Developed by " + "Trambled") - 4, 16, Color.WHITE.getRGB());
-        FontUtil.drawStringWithShadow(mname, GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth(mname) - 4, 28, Color.WHITE.getRGB());
+        FontUtil.drawStringWithShadow("Developed by " + TextFormatting.GRAY + "Trambled, Ethan" + TextFormatting.RESET + " and " + TextFormatting.GRAY + "ProfKambing", GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth("Developed by " + "Trambled, Ethan and ProfKambing") - 4, 28, Color.WHITE.getRGB());
+        FontUtil.drawStringWithShadow(mname, GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth(mname) - 4, 16, Color.WHITE.getRGB());
 
         float scale = 5F;
 
