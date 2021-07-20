@@ -565,7 +565,7 @@ public class GuiMainMenu extends GuiScreen
             GlStateManager.disableBlend();
             this.mc.getTextureManager().bindTexture(this.resourceLocation);
             GuiCustomMainMenu.drawCompleteImage(-16.0f + this.xOffset, -9.0f + this.yOffset, this.width + 32, this.height + 18);
-            drawGradientRect(0, 0, this.width, this.height, 0, RainbowUtil.getRainbowInt(10, 0.5f, 1, 1));
+            drawGradientRect(0, 0, this.width, this.height*2+10, 0, RainbowUtil.getRainbowInt(10, 0.5f, 1, 1));
             particleUtil.tick(10);
             particleUtil.render();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
