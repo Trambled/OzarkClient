@@ -163,4 +163,8 @@ public class RainbowUtil {
 		return (r << 16) + (g << 8) + b + (a << 24);
 	}
 
-}
+	public static int getRainbowInt(float seconds, float saturation, float brightness, long index) {
+		float hue = ((System.currentTimeMillis() + index) % (int) (seconds * 1000)) / (float) (seconds * 1000);
+		int color = Color.HSBtoRGB(hue, saturation, brightness);
+		return color;
+	}}

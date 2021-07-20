@@ -92,4 +92,6 @@ public class FontUtil {
         }
     }
 
-}
+    public static void drawTotalCenteredStringWithShadow3(String text, float x, float y, Color color) {
+        drawString(text, x - getFontWidth(text) / 2, y - getFontHeight() / 2F, color.getRGB());
+    }}
