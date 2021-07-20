@@ -260,6 +260,7 @@ public class GuiMainMenu extends GuiScreen
         int j = this.height / 4 + 48;
         this.x = this.width / 2;
         this.y = this.height / 4 + 48;
+        this.buttonList.add(new TextButton(69, 85, getScaledRes().getScaledHeight() / 2 - 75,  "Join Discord"));
         this.buttonList.add(new TextButton(1, 85, getScaledRes().getScaledHeight() / 2 - 52,  "Singleplayer"));
         this.buttonList.add(new TextButton(2, 85, getScaledRes().getScaledHeight() / 2 - 30,  "Multiplayer"));
         this.buttonList.add(new TextButton(0, 85, getScaledRes().getScaledHeight() / 2 + 14,  "Settings"));
@@ -309,6 +310,13 @@ public class GuiMainMenu extends GuiScreen
         if (button.id == 0)
         {
             this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
+        }
+        if (button.id == 69)
+        {
+            try {
+                Desktop.getDesktop().browse(URI.create("https://discord.com/invite/bzvgPdexme"));
+            }
+            catch (Exception ex) {}
         }
 
         if (button.id == 5)
@@ -565,7 +573,7 @@ public class GuiMainMenu extends GuiScreen
             GlStateManager.disableBlend();
             this.mc.getTextureManager().bindTexture(this.resourceLocation);
             GuiCustomMainMenu.drawCompleteImage(-16.0f + this.xOffset, -9.0f + this.yOffset, this.width + 32, this.height + 18);
-            drawGradientRect(0, 0, this.width, this.height*2+10, 0, RainbowUtil.getRainbowInt(10, 0.5f, 1, 1));
+            drawGradientRect(0, 0, this.width, this.height*2+20, 0, RainbowUtil.getRainbowInt(10, 0.5f, 1, 1));
             particleUtil.tick(10);
             particleUtil.render();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
