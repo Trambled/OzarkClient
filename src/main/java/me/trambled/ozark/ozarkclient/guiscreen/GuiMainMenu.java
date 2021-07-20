@@ -127,8 +127,15 @@ public class GuiMainMenu extends GuiScreen
     private int field_92023_s;
     private int y;
     private int x;
+    private int x1;
+    private int y1;
+    private String text;
+    int alphaInc = 100;
+    int alpha = 0;
     private static final ResourceLocation[] titlePanoramaPaths = new ResourceLocation[]{new ResourceLocation("textures/gui/title/background/panorama_0.png"), new ResourceLocation("textures/gui/title/background/panorama_1.png"), new ResourceLocation("textures/gui/title/background/panorama_2.png"), new ResourceLocation("textures/gui/title/background/panorama_3.png"), new ResourceLocation("textures/gui/title/background/panorama_4.png"), new ResourceLocation("textures/gui/title/background/panorama_5.png")};
-
+    private final ResourceLocation resourceLocation = new ResourceLocation("custom/background.png");
+    private float xOffset;
+    private float yOffset;
 
     public GuiMainMenu()
 
@@ -552,14 +559,18 @@ public class GuiMainMenu extends GuiScreen
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
             GlStateManager.disableAlpha();
             GlStateManager.enableAlpha();
-            renderSkybox(mouseX, mouseY, partialTicks);
+            this.xOffset = -1.0f * (((float) mouseX - (float) this.width / 2.0f) / ((float) this.width / 32.0f));
+            this.yOffset = -1.0f * (((float) mouseY - (float) this.height / 2.0f) / ((float) this.height / 18.0f));
+            GlStateManager.enableTexture2D();
+            GlStateManager.disableBlend();
+            this.mc.getTextureManager().bindTexture(this.resourceLocation);
+            GuiCustomMainMenu.drawCompleteImage(-16.0f + this.xOffset, -9.0f + this.yOffset, this.width + 32, this.height + 18);
             drawGradientRect(0, 0, this.width, this.height, 0, RainbowUtil.getRainbowInt(10, 0.5f, 1, 1));
-            drawGradientRect(0, 0, this.width, this.height, 0x804DB3FF, 0x80000000);
             particleUtil.tick(10);
             particleUtil.render();
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
             GL11.glPushMatrix();
-            GL11.glTranslatef(this.width / 2, this.height - 50, 0.0F);
+            GL11.glTranslatef(this.width, this.height - 50, 0.0F);
             float var8 = 1.8F - MathHelper.abs(MathHelper.sin((float) (Minecraft.getSystemTime() % 1000L) / 1000.0F * 3.1415927F * 2.0F) * 0.1F);
             GL11.glScalef(var8, var8, var8);
             GL11.glPopMatrix();
@@ -637,11 +648,6 @@ public class GuiMainMenu extends GuiScreen
 
         private static class TextButton
         extends GuiButton {
-            private int x1;
-            private int y1;
-            private String text;
-            int alphaInc = 100;
-            int alpha = 0;
             public int size = 0;
             public TextButton(int buttonId, int x, int y, String buttonText) {
                 super(buttonId, x, y, RainbowUtil.get_string_width(buttonText), RainbowUtil.get_string_height(), buttonText);
