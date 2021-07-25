@@ -40,7 +40,7 @@ public class MainMenu extends GuiScreen {
         FontUtil.drawStringWithShadow(mcv, GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth(mcv) - 4, GuiCustomMainMenu.getScaledRes().getScaledHeight() - 50, Color.WHITE.getRGB());
 
         RainbowUtil.drawRainbowStringChatCustomFont(name, (float) GuiCustomMainMenu.getScaledRes().getScaledWidth() - (float) FontUtil.getFontWidth(name) - 4, (float) 4, RainbowUtil.getMultiColour().getRGB(), 200f);
-        FontUtil.drawStringWithShadow("Developed by " + TextFormatting.GRAY + "Trambled, x3th0_" + TextFormatting.RESET + " and " + TextFormatting.GRAY + "ProfKambing", GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth("Developed by " + "Trambled, Ethan and ProfKambing") - 4, 28, Color.WHITE.getRGB());
+        FontUtil.drawStringWithShadow("Developed by " + TextFormatting.GRAY + "Trambled, x3th0_, Perry" + TextFormatting.RESET + " and " + TextFormatting.GRAY + "ProfKambing", GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth("Developed by " + "Trambled, Ethan, Perry and ProfKambing") - 4, 28, Color.WHITE.getRGB());
         FontUtil.drawStringWithShadow(mname, GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth(mname) - 4, 16, Color.WHITE.getRGB());
 
         float scale = 5F;
