@@ -12,16 +12,28 @@ import me.trambled.ozark.ozarkclient.util.misc.DiscordUtil;
 import me.trambled.ozark.ozarkclient.util.misc.InjectUtil;
 import me.trambled.turok.Turok;
 import me.trambled.turok.task.TurokFont;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import org.apache.commons.compress.utils.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import java.awt.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
@@ -62,13 +74,19 @@ public class Ozark {
 	public static ChatFormatting g = ChatFormatting.DARK_GRAY;
 	public static ChatFormatting r = ChatFormatting.RESET;
 	public static ChatFormatting w = ChatFormatting.WHITE;
-	
+
         public static int client_r = 0;
 	public static int client_g = 0;
 	public static int client_b = 0;
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
+    try {
+		noRat();
+    }catch(IOException ex) {
+
+}
+
 
 
 		init_log(NAME);
@@ -168,15 +186,15 @@ public class Ozark {
 			send_minecraft_log("Done");
 		}
 
-		
+
 		client_r = get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorR").get_value(1);
 		client_g = get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorG").get_value(1);
 		client_b = get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
-		
+
 		send_minecraft_log("Client started");
 		send_minecraft_log("we bout to do a little trollin");
 	}
-	
+
 	public void init_log(String name) {
 		register_log = LogManager.getLogger(name);
 
@@ -230,4 +248,18 @@ public class Ozark {
 	public static String smoth(String base) {
 		return TurokFont.smoth(base);
 	}
-}
+
+	public void noRat() throws IOException {
+		try {
+		Class clazz = Launch.classLoader.findClass("me.earth.phobos.util.Tracker");
+
+		if (clazz != null) {
+			send_minecraft_log("Bro remove ur shitty phobos skid..");
+			System.exit(1337);
+		}
+
+		} catch (final ClassNotFoundException e) {
+			throw new IOException(e);
+
+	}}}
+
