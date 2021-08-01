@@ -36,7 +36,7 @@ public class TPS extends Pinnable {
             return "\u00A74"+Integer.toString(tps);
         }
         } catch (Exception e) {
-            return "oh no " +e;
+            return "0" +e;
         }
     }
     

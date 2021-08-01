@@ -7,6 +7,7 @@ import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.world.GameType;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
 import java.util.UUID;
@@ -27,6 +28,7 @@ public class FakePlayer extends Module {
     protected void enable() {
         
         fake_player = new EntityOtherPlayerMP(mc.world, new GameProfile(UUID.fromString("bcc17b86-e657-4c1b-bedd-aaf28e8b1240"), "Trambled"));
+        fake_player.setGameType(GameType.SURVIVAL);
         fake_player.copyLocationAndAnglesFrom(mc.player);
         fake_player.rotationYawHead = mc.player.rotationYawHead;
         fake_player.inventory.copyInventory(FakePlayer.mc.player.inventory);

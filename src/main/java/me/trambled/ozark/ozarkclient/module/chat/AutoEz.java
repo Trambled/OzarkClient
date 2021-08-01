@@ -1,10 +1,12 @@
 package me.trambled.ozark.ozarkclient.module.chat;
 
+import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.misc.EzMessageUtil;
+import me.trambled.ozark.ozarkclient.util.misc.SoundUtil;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.entity.Entity;
@@ -24,13 +26,14 @@ public class AutoEz extends Module {
 
         this.name = "AutoEz";
         this.tag = "AutoEz";
-        this.description = "You just got niggered by Ozark.";
+        this.description = "You just got niggered by Ozark. (da song reminds me of csgo hvh) -kambing";
     }
 
     int delay_count = 0;
 
     Setting discord = create("Discord", "EzDiscord", false);
     Setting custom = create("Custom", "EzCustom", false);
+    Setting play = create("Play Song", "Ez4EnceSong", false);
 
     private static final ConcurrentHashMap targeted_players = new ConcurrentHashMap();
 
@@ -45,6 +48,9 @@ public class AutoEz extends Module {
                 Entity target_entity = cPacketUseEntity.getEntityFromWorld(mc.world);
                 if (target_entity instanceof EntityPlayer) {
                     add_target(target_entity.getName());
+                    if (play.get_value(true)) {
+                        SoundUtil.playSound(SoundUtil.INSTANCE.ez4ence);
+                    }
                 }
             }
         }
@@ -80,10 +86,11 @@ public class AutoEz extends Module {
                 if (player.getHealth() <= 0) {
                     if (targeted_players.containsKey(player.getName())) {
                         announce(player.getName());
+                        }
                     }
                 }
             }
-        }
+
 
         targeted_players.forEach((name, timeout) -> {
             if ((int)timeout <= 0) {
@@ -111,7 +118,7 @@ public class AutoEz extends Module {
             message += "You just got niggered by OzarkClient";
         }
         if (discord.get_value(true)) {
-            message += "private disc not for u";
+            message += "private disc not for u"; //nigga what
         }
         mc.player.connection.sendPacket(new CPacketChatMessage(message));
     }

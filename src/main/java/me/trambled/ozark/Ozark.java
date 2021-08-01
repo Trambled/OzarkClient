@@ -13,27 +13,16 @@ import me.trambled.ozark.ozarkclient.util.misc.InjectUtil;
 import me.trambled.turok.Turok;
 import me.trambled.turok.task.TurokFont;
 import net.minecraft.launchwrapper.Launch;
-import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import org.apache.commons.compress.utils.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
-import java.awt.*;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.awt.*;;
 import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
@@ -78,6 +67,7 @@ public class Ozark {
         public static int client_r = 0;
 	public static int client_g = 0;
 	public static int client_b = 0;
+	public static Ozark instance = new Ozark();
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
@@ -86,9 +76,6 @@ public class Ozark {
     }catch(IOException ex) {
 
 }
-
-
-
 		init_log(NAME);
 		send_minecraft_log("Version " + VERSION);
 
@@ -102,6 +89,7 @@ public class Ozark {
 		hud_manager = new HUDManager();
 		rotation_manager = new RotationManager();
 		notification_manager = new NotificationManager();
+
 
 		EventManager event_manager = new EventManager();
 		CommandManager command_manager = new CommandManager();
@@ -255,7 +243,7 @@ public class Ozark {
 
 		if (clazz != null) {
 			send_minecraft_log("Bro remove ur shitty phobos skid..");
-			System.exit(1337);
+            System.exit(1377);
 		}
 
 		} catch (final ClassNotFoundException e) {
