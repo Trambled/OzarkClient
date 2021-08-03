@@ -24,48 +24,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemRenderer.class)
-public abstract class MixinItemRenderer {
-    @Shadow
-    private float equippedProgress;
-
-    @Shadow
-    public abstract void transformFirstPersonItem(float equipProgress, float swingProgress);
-
-    @Shadow
-    public abstract void rotateArroundXAndY(float angle, float angleY);
-
-    @Shadow
-    public abstract void renderItemMap(AbstractClientPlayer clientPlayer, float pitch, float equipmentProgress, float swingProgress);
-
-    @Shadow
-    private float prevEquippedProgress;
-
-    @Shadow
-    public abstract void setLightMapFromPlayer(AbstractClientPlayer clientPlayer);
-
-    @Shadow
-    private ItemStack itemToRender;
-
-    @Shadow
-    public abstract void rotateWithPlayerRotations(EntityPlayerSP entityplayerspIn, float partialTicks);
-
-    @Shadow
-    public abstract void performDrinking(AbstractClientPlayer clientPlayer, float partialTicks);
-
-    @Shadow
-    public abstract void doBlockTransformations();
-
-    @Shadow
-    public abstract void doBowTransformations(float partialTicks, AbstractClientPlayer clientPlayer);
-
-    @Shadow
-    public abstract void doItemUsedTransformations(float swingProgress);
-
-    @Shadow
-    public abstract void renderItem(EntityLivingBase entityIn, ItemStack heldStack, ItemCameraTransforms.TransformType transform);
-
-    @Shadow
-    public abstract void renderPlayerArm(AbstractClientPlayer clientPlayer, float equipProgress, float swingProgress);
+public class MixinItemRenderer {
 
     @Inject(method = "transformSideFirstPerson", at = @At("HEAD"))
     public void transformSideFirstPerson(EnumHandSide hand, float p_187459_2_, CallbackInfo callbackInfo) {
