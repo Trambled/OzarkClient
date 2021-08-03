@@ -5,6 +5,7 @@ import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
+import me.trambled.ozark.ozarkclient.util.misc.SoundUtil;
 import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,21 +29,23 @@ public class Aura extends Module {
 	public Aura() {
 		super(Category.COMBAT);
 
-		this.name        = "Aura";
-		this.tag         = "Aura";
+		this.name = "Aura";
+		this.tag = "Aura";
 		this.description = "Automatically hits enemies within a certain range.";
 	}
 
 	Setting mode = create("Mode", "KillAuraMode", "Normal", combobox("A32k", "Normal"));
-	Setting player    = create("Player",   "KillAuraPlayer",  true);
-	Setting hostile   = create("Hostile",  "KillAuraHostile", false);
-	Setting sync_tps  = create("Sync TPS", "KillAuraSyncTps", false);
-	Setting range     = create("Range",    "KillAuraRange",   5.0, 0.5, 6.0);
+	Setting player = create("Player", "KillAuraPlayer", true);
+	Setting hostile = create("Hostile", "KillAuraHostile", false);
+	Setting sync_tps = create("Sync TPS", "KillAuraSyncTps", false);
+	Setting range = create("Range", "KillAuraRange", 5.0, 0.5, 6.0);
 	Setting delay = create("Delay", "KillAuraDelay", 2, 0, 10);
-	Setting only_sword = create("Sword",    "AuraSword",   true);
+	Setting only_sword = create("Sword", "AuraSword", true);
+	public Setting ninja = create("Ninja animation", "Ninja", true);
 	boolean start_verify = true;
 
 	EnumHand actual_hand = EnumHand.MAIN_HAND;
+	public static final Aura INSTANCE;
 
 	double tick = 0;
 
@@ -74,7 +77,7 @@ public class Aura extends Module {
 
 				if (entity != null && start_verify) {
 					// Tick.
-					float tick_to_hit  = 20.0f - Ozark.get_event_handler().get_tick_rate();
+					float tick_to_hit = 20.0f - Ozark.get_event_handler().get_tick_rate();
 
 					// If possible hit or no.
 					boolean is_possible_attack = mc.player.getCooledAttackStrength(sync_tps.get_value(true) ? -tick_to_hit : 0.0f) >= 1;
@@ -215,5 +218,9 @@ public class Aura extends Module {
 
 		return false;
 
+	}
+
+	static {
+		INSTANCE = new Aura();
 	}
 }
