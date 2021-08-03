@@ -41,7 +41,6 @@ public class Aura extends Module {
 	Setting range = create("Range", "KillAuraRange", 5.0, 0.5, 6.0);
 	Setting delay = create("Delay", "KillAuraDelay", 2, 0, 10);
 	Setting only_sword = create("Sword", "AuraSword", true);
-	public Setting ninja = create("Ninja animation", "Ninja", true);
 	boolean start_verify = true;
 
 	EnumHand actual_hand = EnumHand.MAIN_HAND;
