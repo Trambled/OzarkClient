@@ -2,12 +2,14 @@ package me.trambled.ozark.mixins;
 
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.misc.WrapperUtil;
 import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
 import net.minecraft.client.gui.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -30,7 +32,7 @@ public class MixinGuiNewChat extends Gui {
     private int drawStringWithShadowMaybe(FontRenderer fontRenderer, String text, float x, float y, int color) {
         if (text.contains(MessageUtil.opener) && Ozark.get_setting_manager().get_setting_with_tag("ChatModifications", "rainbowozark").get_value(true)) {
             if (Ozark.get_setting_manager().get_setting_with_tag("ChatModifications", "customfont").get_value(true)) {
-                RainbowUtil.drawRainbowStringChatCustomFont(text, x, y, RainbowUtil.getMultiColour().getRGB(), 100.0F);
+                RainbowUtil.drawRainbowStringChatCustomFont(text, x, y, new Color(RainbowUtil.getMultiColour().getRed(),RainbowUtil.getMultiColour().getGreen(),RainbowUtil.getMultiColour().getBlue(), WrapperUtil.mc.gameSettings.chatOpacity).getRGB(), 100.0F);
             } else {
                 RainbowUtil.drawRainbowStringChat(text, x, y, RainbowUtil.getMultiColour().getRGB(), 100.0F);
             }
