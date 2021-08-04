@@ -147,7 +147,7 @@ public class AutoCrystal extends Module {
     Setting swing = create("Swing", "CaSwing", "Mainhand", combobox("Mainhand", "Offhand", "Both", "None"));
 
     // momentum
-    Setting rotate_mode = create("Rotate", "CaRotateMode", "Packet", combobox("Off", "Packet", "Seizure"));
+    Setting rotate_mode = create("Rotate", "CaRotateMode", "Packet", combobox("Off", "Packet", "Strict"));
     Setting rotate_during = create("Rotate During", "CaRotateDuring", "Both", combobox("Break", "Place", "Both"));
     Setting anti_waste = create("Rotate Focus", "CaRotateAntiWaste", true);
     Setting limiter = create("Limiter", "CaRotateLimiter", "None", combobox("Narrow", "Upcoming", "None"));
@@ -751,9 +751,9 @@ public class AutoCrystal extends Module {
             attacked_crystals.clear();
         }
 
-        if (rotate_mode.in("Seizure")) {
+        if (rotate_mode.in("Strict")) {
             yaw = mc.player.rotationYaw;
-            pitch = mc.player.rotationPitch;
+            pitch = mc.player.rotationPitch;  //trambled, rotation yaw and pitch is for strict servers
         }
     }
 
@@ -906,11 +906,11 @@ public class AutoCrystal extends Module {
 
             if (pitch == this.pitch && yaw == this.yaw && !anti_waste.get_value(true)) return;
 
-            if (rotate_mode.in("Off")) {
+            if (rotate_mode.in("Off")) { //                       [ why.... ]
                 ca_rotation = new RotationUtil.Rotation(0, 0, RotationUtil.RotationMode.None, RotationUtil.RotationPriority.Lowest);
             } else if (rotate_mode.in("Packet")) {
                 ca_rotation = new RotationUtil.Rotation(yaw, pitch, RotationUtil.RotationMode.Packet, RotationUtil.RotationPriority.Highest);
-            } else if (rotate_mode.in("Seizure")) {
+            } else if (rotate_mode.in("Strict")) {
                 ca_rotation = new RotationUtil.Rotation(yaw, pitch, RotationUtil.RotationMode.Legit, RotationUtil.RotationPriority.Highest);
             }
         }
