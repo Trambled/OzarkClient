@@ -43,6 +43,7 @@ public class HUDManager {
 		add_pinnable(new Direction());
 		add_pinnable(new Info());
 		add_pinnable(new EnemyInfo());
+		add_pinnable(new Pitch());
 
 		array_hud.sort(Comparator.comparing(Pinnable::get_title));
 	}
