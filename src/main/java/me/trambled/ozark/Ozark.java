@@ -12,7 +12,6 @@ import me.trambled.ozark.ozarkclient.util.misc.DiscordUtil;
 import me.trambled.ozark.ozarkclient.util.misc.InjectUtil;
 import me.trambled.turok.Turok;
 import me.trambled.turok.task.TurokFont;
-import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -21,8 +20,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
-import java.awt.*;;
-import java.io.IOException;
+import java.awt.*;
 
 import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
@@ -71,11 +69,6 @@ public class Ozark {
 
 	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
-    try {
-		noRat();
-    }catch(IOException ex) {
-
-}
 		init_log(NAME);
 		send_minecraft_log("Version " + VERSION);
 
@@ -237,17 +230,5 @@ public class Ozark {
 		return TurokFont.smoth(base);
 	}
 
-	public void noRat() throws IOException {
-		try {
-		Class clazz = Launch.classLoader.findClass("me.earth.phobos.util.Tracker");
-
-		if (clazz != null) {
-			send_minecraft_log("Bro remove ur shitty phobos skid..");
-            System.exit(1377);
-		}
-
-		} catch (final ClassNotFoundException e) {
-			throw new IOException(e);
-
-	}}}
+}
 
