@@ -59,7 +59,7 @@ public final class ElytraFly extends Module
             MessageUtil.send_client_message("Make sure you dont have nofall or antihunger on on any other clients");
         }
 
-        if (use_timer.get_value(true) && !mc.player.onGround && !mc.player.isElytraFlying() && (mc.player.getHealth() > 0) && mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() == Items.ELYTRA) {
+        if (use_timer.get_value(true)  && !mc.player.isElytraFlying() && (mc.player.getHealth() > 0) && mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() == Items.ELYTRA) {
             mc.timer.tickLength = 500.0f;
         } else {
             mc.timer.tickLength = 50.0f;
