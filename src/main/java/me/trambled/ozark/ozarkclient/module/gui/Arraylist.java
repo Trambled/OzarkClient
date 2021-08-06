@@ -5,6 +5,7 @@ import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.font.FontUtil;
+import me.trambled.ozark.ozarkclient.util.misc.DrawnUtil;
 import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
 import me.trambled.ozark.ozarkclient.util.render.RenderUtil;
 import net.minecraft.client.gui.ScaledResolution;
@@ -28,13 +29,19 @@ public class Arraylist extends Module {
     Setting mode = create("Mode", "Mode", "Konas",combobox("Konas", "Normal"));
     Setting background = create("Background", "Background", false);
     Setting rainbow = create("Rainbow", "Rainbow", false);
+    Setting animation = create("AnimationTime", "Animtime", 500, 1, 1000);
     Setting red = create("Red", "Red", 255, 0, 255);
     Setting green = create("Green", "Green",  255, 0, 255);
     Setting blue = create("Blue", "Blue", 255, 0, 255);
 
     int modCount;
+    public boolean flag;
+
+
+
 
     public void render() {
+
         if (mode.in("Konas")) {
             modCount = 0;
             int[] counter = {1};
@@ -44,8 +51,18 @@ public class Arraylist extends Module {
                     .filter(Module::is_active)
                     .sorted(Comparator.comparing(module -> FontUtil.getFontWidth(module.array_detail() == null ? module.get_name() : module.get_name() + " [" + Ozark.w + module.array_detail() + Ozark.r  + "]") * (-1)))
                     .forEach(m -> {
+                        flag = true;
+                        for (String s : DrawnUtil.hidden_tags) {
+                            if (m.get_tag().equalsIgnoreCase(s)) {
+                                flag = false;
+                                break;
+                            }
+                            if (!flag) break;
+                        }
+                        if (flag) {
+                            String mod = m.array_detail() == null ? m.get_name() : m.get_name() + " [" + Ozark.w + m.array_detail() + Ozark.r  + "]";
+
                         int x = resolution.getScaledWidth();
-                        String mod = m.array_detail() == null ? m.get_name() : m.get_name() + " [" + Ozark.w + m.array_detail() + Ozark.r  + "]";
                         int lWidth = FontUtil.getFontWidth(mod);
                         if (background.get_value(true)) {
                             drawRecta(x - 2, 1 + (modCount * 10), 2, FontUtil.getFontHeight() + 2, rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
@@ -55,7 +72,7 @@ public class Arraylist extends Module {
                         modCount++;
                         counter[0]++;
 
-                    });
+                    }});
         }else{
             modCount = 0;
             int[] counter = {1};
@@ -65,18 +82,27 @@ public class Arraylist extends Module {
                     .filter(Module::is_active)
                     .sorted(Comparator.comparing(module -> FontUtil.getFontWidth(module.array_detail() == null ? module.get_name() : module.get_name() + " [" + Ozark.w + module.array_detail() + Ozark.r  + "]") * (-1)))
                     .forEach(m -> {
-                        String mod = m.array_detail() == null ? m.get_name() : m.get_name() + " [" + Ozark.w + m.array_detail() + Ozark.r  + "]";
-                        int x = resolution.getScaledWidth() ;
-                        int lWidth = FontUtil.getFontWidth(mod);
-                        if (background.get_value(true)) {
-                            drawRecta(x - 2, 1 + (modCount * 10), 2, FontUtil.getFontHeight() + 2, rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
+                        flag = true;
+                        for (String s : DrawnUtil.hidden_tags) {
+                            if (m.get_tag().equalsIgnoreCase(s)) {
+                                flag = false;
+                                break;
+                            }
+                            if (!flag) break;
                         }
-                        FontUtil.drawStringWithShadow(mod, x - 2 - FontUtil.getFontWidth(mod), 3 + (modCount * 10), rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
-                        modCount++;
-                        counter[0]++;
-                    });
+                        if (flag) {
+                            String mod = m.array_detail() == null ? m.get_name() : m.get_name() + " [" + Ozark.w + m.array_detail() + Ozark.r + "]";
+                            int x = resolution.getScaledWidth();
+                            if (background.get_value(true)) {
+                                drawRecta(x - 2, 1 + (modCount * 10), 2, FontUtil.getFontHeight() + 2, rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
+                            }
+                            FontUtil.drawStringWithShadow(mod, x - 2 - FontUtil.getFontWidth(mod), 3 + (modCount * 10), rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
+                            modCount++;
+                            counter[0]++;
+                        }});
         }
     }
+
     public static void drawRecta(float x, float y, float w, float h, int color) { //ignore this
         float lvt_5_2_;
         float p_drawRect_2_ = x + w;
