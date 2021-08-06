@@ -60,7 +60,7 @@ public class Arraylist extends Module {
                             String mod = m.array_detail() == null ? m.get_name() : m.get_name() + " [" + Ozark.w + m.array_detail() + Ozark.r + "]";
                             int x = resolution.getScaledWidth();
                             if (background.get_value(true)) {
-                                 x = resolution.getScaledWidth() + 2;
+                                 x = resolution.getScaledWidth() - 1;
                                 drawRecta(x - 2, 1 + (modCount * 10), 2, FontUtil.getFontHeight() + 2, rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
                             }
                             FontUtil.drawStringWithShadow(mod, x - 2 - FontUtil.getFontWidth(mod), offset.get_value(1) + (modCount * 10), rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
