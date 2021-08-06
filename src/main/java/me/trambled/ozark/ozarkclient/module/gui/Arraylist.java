@@ -6,6 +6,7 @@ import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.font.FontUtil;
 import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
+import me.trambled.ozark.ozarkclient.util.render.RenderUtil;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -14,6 +15,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
 import java.awt.*;
 import java.util.Comparator;
+
 
 public class Arraylist extends Module {
     public Arraylist() {
@@ -24,6 +26,7 @@ public class Arraylist extends Module {
 
     }
     Setting mode = create("Mode", "Mode", "Konas",combobox("Konas", "Normal"));
+    Setting background = create("Background", "Background", false);
     Setting rainbow = create("Rainbow", "Rainbow", false);
     Setting red = create("Red", "Red", 255, 0, 255);
     Setting green = create("Green", "Green",  255, 0, 255);
@@ -44,7 +47,9 @@ public class Arraylist extends Module {
                         int x = resolution.getScaledWidth();
                         String mod = m.array_detail() == null ? m.get_name() : m.get_name() + " [" + Ozark.w + m.array_detail() + Ozark.r  + "]";
                         int lWidth = FontUtil.getFontWidth(mod);
-                        drawRecta(x - 5 - lWidth, 1 + (modCount * 10), lWidth + 5, FontUtil.getFontHeight() + 2, new Color(0, 0, 0, 100).getRGB());
+                        if (background.get_value(true)) {
+                            drawRecta(x - 2, 1 + (modCount * 10), 2, FontUtil.getFontHeight() + 2, rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
+                        }
                         FontUtil.drawStringWithShadow(mod, x - 4 - lWidth, 2 + (modCount * 10), rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
                         drawRecta(x - 2, 1 + (modCount * 10), 2, FontUtil.getFontHeight() + 2, rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
                         modCount++;
@@ -62,6 +67,10 @@ public class Arraylist extends Module {
                     .forEach(m -> {
                         String mod = m.array_detail() == null ? m.get_name() : m.get_name() + " [" + Ozark.w + m.array_detail() + Ozark.r  + "]";
                         int x = resolution.getScaledWidth() ;
+                        int lWidth = FontUtil.getFontWidth(mod);
+                        if (background.get_value(true)) {
+                            drawRecta(x - 2, 1 + (modCount * 10), 2, FontUtil.getFontHeight() + 2, rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
+                        }
                         FontUtil.drawStringWithShadow(mod, x - 2 - FontUtil.getFontWidth(mod), 3 + (modCount * 10), rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
                         modCount++;
                         counter[0]++;
