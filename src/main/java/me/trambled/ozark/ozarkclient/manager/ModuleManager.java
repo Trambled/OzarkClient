@@ -35,6 +35,7 @@ public class ModuleManager {
 		add_module(new PastGUIModule());
 		add_module(new CustomMainMenu());
 		add_module(new Notifications());
+		add_module(new Arraylist());
 
 		// Chat.
 		add_module(new ChatSuffix());
@@ -49,6 +50,7 @@ public class ModuleManager {
 		add_module(new Spammer());
 		add_module(new AutoGroom());
 		add_module(new BurrowAlert());
+		add_module(new Example());
 
 		// Combat.
 		add_module(new Criticals());

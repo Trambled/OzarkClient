@@ -167,4 +167,11 @@ public class RainbowUtil {
 		float hue = ((System.currentTimeMillis() + index) % (int) (seconds * 1000)) / (float) (seconds * 1000);
 		int color = Color.HSBtoRGB(hue, saturation, brightness);
 		return color;
-	}}
+	}
+
+	public static int rainbow(final int delay) {
+		double rainbowState = Math.ceil((System.currentTimeMillis() + delay) / 20.0);
+		rainbowState %= 360.0;
+		return Color.getHSBColor((float) (rainbowState / 360.0), 0.5f, 1.0f).getRGB();
+	}
+}
