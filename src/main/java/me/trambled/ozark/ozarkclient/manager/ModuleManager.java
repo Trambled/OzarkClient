@@ -50,7 +50,6 @@ public class ModuleManager {
 		add_module(new Spammer());
 		add_module(new AutoGroom());
 		add_module(new BurrowAlert());
-		add_module(new Example());
 
 		// Combat.
 		add_module(new Criticals());
