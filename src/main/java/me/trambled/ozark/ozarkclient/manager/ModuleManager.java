@@ -9,7 +9,7 @@ import me.trambled.ozark.ozarkclient.module.exploit.*;
 import me.trambled.ozark.ozarkclient.module.gui.*;
 import me.trambled.ozark.ozarkclient.module.misc.*;
 import me.trambled.ozark.ozarkclient.module.movement.*;
-import me.trambled.ozark.ozarkclient.module.render.*;
+import me.trambled.ozark.ozarkclient.module.render.*;e
 import me.trambled.turok.draw.RenderHelp;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
@@ -50,7 +50,6 @@ public class ModuleManager {
 		add_module(new Spammer());
 		add_module(new AutoGroom());
 		add_module(new BurrowAlert());
-		add_module(new Example());
 
 		// Combat.
 		add_module(new Criticals());
