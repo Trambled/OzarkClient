@@ -27,9 +27,9 @@ public class Arraylist extends Module {
 
     }
     Setting mode = create("Mode", "Mode", "Konas",combobox("Konas", "Normal"));
-    Setting background = create("Background", "Background", false);
+    Setting background = create("RainbowBackground", "Background", false);
+    Setting offset = create("YOffsetFromOtherMods", "YOffset", 3, 1, 15);
     Setting rainbow = create("Rainbow", "Rainbow", false);
-    Setting animation = create("AnimationTime", "Animtime", 500, 1, 1000);
     Setting red = create("Red", "Red", 255, 0, 255);
     Setting green = create("Green", "Green",  255, 0, 255);
     Setting blue = create("Blue", "Blue", 255, 0, 255);
@@ -41,7 +41,6 @@ public class Arraylist extends Module {
 
 
     public void render() {
-
         if (mode.in("Konas")) {
             modCount = 0;
             int[] counter = {1};
@@ -94,9 +93,10 @@ public class Arraylist extends Module {
                             String mod = m.array_detail() == null ? m.get_name() : m.get_name() + " [" + Ozark.w + m.array_detail() + Ozark.r + "]";
                             int x = resolution.getScaledWidth();
                             if (background.get_value(true)) {
+                                 x = resolution.getScaledWidth() - 1;
                                 drawRecta(x - 2, 1 + (modCount * 10), 2, FontUtil.getFontHeight() + 2, rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
                             }
-                            FontUtil.drawStringWithShadow(mod, x - 2 - FontUtil.getFontWidth(mod), 3 + (modCount * 10), rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
+                            FontUtil.drawStringWithShadow(mod, x - 4 - FontUtil.getFontWidth(mod), offset.get_value(1) + (modCount * 10), rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
                             modCount++;
                             counter[0]++;
                         }});
