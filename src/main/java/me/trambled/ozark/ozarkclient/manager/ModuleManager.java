@@ -237,6 +237,11 @@ public class ModuleManager {
 		mc.profiler.endSection();
 
 		for (Module modules : get_array_modules()) {
+			mc.profiler.startSection(modules.get_tag());
+
+			modules.render_always(event_render);
+
+			mc.profiler.endSection();
 			if (modules.is_active()) {
 				mc.profiler.startSection(modules.get_tag());
 
@@ -244,6 +249,7 @@ public class ModuleManager {
 
 				mc.profiler.endSection();
 			}
+
 		}
 
 		mc.profiler.startSection("release");

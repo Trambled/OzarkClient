@@ -187,6 +187,10 @@ public class Module implements Listenable {
 		// 3d
 	}
 
+	public void render_always(EventRender event) {
+		// 3d
+	}
+
 	public void render() {
 		// 2d
 	}

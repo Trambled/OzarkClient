@@ -1,4 +1,4 @@
-package me.trambled.ozark.ozarkclient.util.render.mainmenu;
+package me.trambled.ozark.ozarkclient.util.render;
 
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.guiscreen.GuiCustomMainMenu;

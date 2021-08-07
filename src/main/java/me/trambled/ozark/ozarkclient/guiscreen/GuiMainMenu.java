@@ -1,7 +1,6 @@
 package me.trambled.ozark.ozarkclient.guiscreen;
 
 import com.google.common.base.Charsets;
-import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.io.CharStreams;
 import com.google.common.util.concurrent.Runnables;
@@ -15,8 +14,6 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -24,7 +21,7 @@ import me.trambled.ozark.ozarkclient.util.font.FontUtil;
 import me.trambled.ozark.ozarkclient.util.render.ParticleUtil;
 import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
 import me.trambled.ozark.ozarkclient.util.render.RenderUtil;
-import me.trambled.ozark.ozarkclient.util.render.mainmenu.MainMenu;
+import me.trambled.ozark.ozarkclient.util.render.MainMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -45,7 +42,6 @@ import net.minecraft.world.WorldServerDemo;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.io.IOUtils;
