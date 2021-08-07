@@ -4,6 +4,7 @@ import me.trambled.ozark.ozarkclient.event.events.*;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
+import me.trambled.ozark.ozarkclient.module.chat.TotemPopCounter;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.entity.Entity;
@@ -17,6 +18,7 @@ import net.minecraftforge.client.event.RenderBlockOverlayEvent.OverlayType;
 
 //mostly from salhack and creepy salhack
 public class NoRender extends Module {
+    public static NoRender INSTANCE = new NoRender();
 	public NoRender() {
 		super(Category.RENDER);
 
@@ -24,6 +26,17 @@ public class NoRender extends Module {
 		this.tag         = "NoRender";
 		this.description = "Doesn't render certain shit.";
 	}
+
+    public static NoRender getINSTANCE() {
+        if (INSTANCE == null) {
+            INSTANCE = new NoRender();
+        }
+        return INSTANCE;
+    }
+
+    public void setInstance() {
+        INSTANCE = this;
+    }
 
     Setting items = create("Items", "Items", false);
     Setting withers = create("Withers", "Withers", false);
@@ -41,6 +54,7 @@ public class NoRender extends Module {
     Setting enchanting_table = create("Enchanting Table", "EnchantingTable", false);
     Setting beacon = create("Beacon", "Beacon", false);
     Setting nametags = create("Nametags", "Nametags", false);
+    public Setting totemPops = create("Totem", "Totem", false);
 	
 	@Override
     public void update() {

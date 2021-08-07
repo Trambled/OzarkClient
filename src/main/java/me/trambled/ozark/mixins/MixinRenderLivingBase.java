@@ -71,6 +71,7 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
             GL11.glDisable((int) 2929);
             GL11.glEnable((int) 10754);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+            GL11.glColor4f((float)((float)TotemPopCounter.INSTANCE.r.get_value(1) / 255.0f), (float)((float)TotemPopCounter.INSTANCE.g.get_value(1) / 255.0f), (float)((float)TotemPopCounter.INSTANCE.b.get_value(1) / 255.0f), (float)((float)TotemPopCounter.INSTANCE.a.get_value(1) / 255.0f));
             new Color(TotemPopCounter.INSTANCE.r.get_value(1), TotemPopCounter.INSTANCE.g.get_value(1), TotemPopCounter.INSTANCE.b.get_value(1), TotemPopCounter.pops.get(entity.getEntityId()));
             mainModel.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
             GL11.glEnable((int) 2929);
