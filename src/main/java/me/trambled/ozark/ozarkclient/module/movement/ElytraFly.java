@@ -14,9 +14,9 @@ import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemElytra;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.CPacketEntityAction;
+import net.minecraft.network.play.client.CPacketEntityAction.Action;
 import net.minecraft.network.play.client.CPacketPlayer;
 
 public final class ElytraFly extends Module
@@ -30,24 +30,21 @@ public final class ElytraFly extends Module
         this.description = "Makes you fly with a elytra.";
     }
 
-    Setting mode = create("Mode", "Mode", "Normal", combobox("Normal", "Tarzan", "Superior", "Packet", "Control"));
-    Setting speed = create("Speed", "SpeedEly", 1.82, 0.0, 10.0);
-    Setting DownSpeed = create("DownSpeed", "DownSpeed", 1.82, 0.0, 10.0);
-    Setting GlideSpeed = create("GlideSpeed", "GlideSpeed", 1, 0, 10);
-    Setting Accelerate = create("Accelerate", "Accelerate", true);
-    Setting vAccelerationTimer = create("Timer", "Timer", 1000, 0, 10000);
-    Setting RotationPitch = create("RotationPitch", "RotationPitch", 0.0, -90.0, 90.0);
-    Setting CancelInWater = create("CancelInWater", "CancelInWater", true);
-    Setting CancelAtHeight = create("CancelAtHeight", "CancelAtHeight", 5, 0, 10);
-    Setting InstantFly = create("InstantFly", "InstantFly", false);
-    Setting EquipElytra = create("EquipElytra", "EquipElytra", false);
-    Setting PitchSpoof = create("PitchSpoof", "PitchSpoof", false);
-    Setting use_timer = create("Timerontakeoff", "Timerontakeoff", false);
+    Setting mode = create("Mode", "ElytraFlyMode", "Superior", combobox("Superior", "Normal", "Control", "None"));
+    Setting speed = create("Speed", "ElytraFlySpeed", 2f, 0f, 10f);
+    Setting DownSpeed = create("DownSpeed", "ElytraFlyDownSpeed", 2f, 0f, 10f);
+    Setting GlideSpeed = create("GlideSpeed", "ElytraFlyGlideSpeed", 1f, 0f, 10f);
+    Setting Accelerate = create("Accelerate", "ElytraFlyAccelerate", true);
+    Setting vAccelerationTimer = create("Acceleration Timer", "ElytraFlyTimer", 1000, 0, 10000);
+    Setting RotationPitch = create("RotationPitch", "ElytraPitch", 0f, -90f, 90f);
+    Setting InstantFly = create("InstantFly", "ElytraFlyInstant", true);
+    Setting EquipElytra = create("EquipElytra", "ElytraFlyEquip", false);
+    Setting use_timer = create("UseTimer", "UseTimer", true);
+    Setting PitchSpoof = create("PitchSpoof", "SpoofPitch", false);
 
-    private TimerUtil AccelerationTimer = new TimerUtil();
-    private TimerUtil AccelerationResetTimer = new TimerUtil();
-    private TimerUtil InstantFlyTimer = new TimerUtil();
-    private boolean SendMessage = false;
+    private final TimerUtil AccelerationTimer = new TimerUtil();
+    private final TimerUtil AccelerationResetTimer = new TimerUtil();
+    private final TimerUtil InstantFlyTimer = new TimerUtil();
 
     private int ElytraSlot = -1;
 
@@ -59,7 +56,7 @@ public final class ElytraFly extends Module
             MessageUtil.send_client_message("Make sure you dont have nofall or antihunger on on any other clients");
         }
 
-        if (use_timer.get_value(true)  && !mc.player.isElytraFlying() && (mc.player.getHealth() > 0) && mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() == Items.ELYTRA) {
+        if (use_timer.get_value(true) && !mc.player.isElytraFlying() && (mc.player.getHealth() > 0) && mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() == Items.ELYTRA) {
             mc.timer.tickLength = 500.0f;
         } else {
             mc.timer.tickLength = 50.0f;
@@ -67,7 +64,7 @@ public final class ElytraFly extends Module
     }
 
     @Override
-    public void enable()
+    protected void enable()
     {
         ElytraSlot = -1;
 
@@ -81,8 +78,6 @@ public final class ElytraFly extends Module
 
                     if (l_Stack.isEmpty() || l_Stack.getItem() != Items.ELYTRA)
                         continue;
-
-                    ItemElytra l_Elytra = (ItemElytra)l_Stack.getItem();
 
                     ElytraSlot = l_I;
                     break;
@@ -103,7 +98,7 @@ public final class ElytraFly extends Module
     }
 
     @Override
-    public void disable()
+    protected void disable()
     {
         mc.timer.tickLength = 50.0f; // in case if the player disables elyfly during takeoff
 
@@ -120,20 +115,18 @@ public final class ElytraFly extends Module
             if (l_HasItem)
                 mc.playerController.windowClick(mc.player.inventoryContainer.windowId, 6, 0, ClickType.PICKUP, mc.player);
         }
-
     }
 
     @EventHandler
-    private Listener<EventPlayerTravel> OnTravel = new Listener<>(p_Event ->
+    private final Listener<EventPlayerTravel> on_travel = new Listener<>(p_Event ->
     {
         if (mc.player == null)
             return;
 
-        /// Player must be wearing an elytra.
         if (mc.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() != Items.ELYTRA)
             return;
 
-        if (!mc.player.isElytraFlying())
+        if (!mc.player.isElytraFlying() && !mode.in("2b2t"))
         {
             if (!mc.player.onGround && InstantFly.get_value(true))
             {
@@ -142,38 +135,27 @@ public final class ElytraFly extends Module
 
                 InstantFlyTimer.reset();
 
-                mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_FALL_FLYING));
+                mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, Action.START_FALL_FLYING));
             }
 
             return;
         }
-
-        if(mode.in("Normal") || mode.in("Tarzan") || mode.in("Packet")) {
+        if (mode.in("Normal")) {
             HandleNormalModeElytra(p_Event);
-        } else if(mode.in("Superior")) {
+        }
+        if (mode.in("Superior")) {
             HandleImmediateModeElytra(p_Event);
-        } else if(mode.in("Control")) {
+        }
+        if (mode.in("Control")) {
             HandleControlMode(p_Event);
         }
     });
 
+
     public void HandleNormalModeElytra(EventPlayerTravel p_Travel)
     {
-        double l_YHeight = mc.player.posY;
-
-        if (l_YHeight <= CancelAtHeight.get_value(1))
-        {
-            if (!SendMessage)
-            {
-                SendMessage = true;
-            }
-
-            return;
-        }
-
         boolean l_IsMoveKeyDown = mc.player.movementInput.moveForward > 0 || mc.player.movementInput.moveStrafe > 0;
 
-        boolean l_CancelInWater = !mc.player.isInWater() && !mc.player.isInLava() && CancelInWater.get_value(true);
 
         if (mc.player.movementInput.jump)
         {
@@ -184,9 +166,9 @@ public final class ElytraFly extends Module
 
         if (!l_IsMoveKeyDown)
         {
-            AccelerationTimer.resetTimeSkipTo(-vAccelerationTimer.get_max(1));
+            AccelerationTimer.resetTimeSkipTo(-vAccelerationTimer.get_value(1));
         }
-        else if ((mc.player.rotationPitch <= RotationPitch.get_value(1) || mode.in("Tarzan")) && l_CancelInWater)
+        else if ((mc.player.rotationPitch <= RotationPitch.get_value(1)))
         {
             if (Accelerate.get_value(true))
             {
@@ -253,10 +235,9 @@ public final class ElytraFly extends Module
         {
             AccelerationResetTimer.reset();
             AccelerationTimer.reset();
-            SendMessage = false;
         }
 
-        float l_Speed = (float)this.speed.get_value(1);
+        float l_Speed = this.speed.get_value(1);
 
         final double[] dir = MathUtil.directionSpeed(l_Speed);
 
@@ -307,6 +288,14 @@ public final class ElytraFly extends Module
         mc.player.limbSwingAmount = 0;
         mc.player.limbSwing = 0;
         p_Event.cancel();
+    }
+
+    @Override
+    public void update_always() {
+        Accelerate.set_shown(mode.in("Normal"));
+        vAccelerationTimer.set_shown(mode.in("Normal") && Accelerate.get_value(true));
+        RotationPitch.set_shown(mode.in("Normal"));
+        DownSpeed.set_shown(!mode.in("Control"));
     }
 
     @EventHandler
