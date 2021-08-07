@@ -86,6 +86,8 @@ public class NameTags extends Module {
     }
 
     private boolean shouldRender(EntityPlayer entityPlayer) {
+        if (entityPlayer.getName() == mc.player.getName() && !renderSelf.get_value(true)) return false;
+
         if (entityPlayer == mc.player && !renderSelf.get_value(true)) return false;
 
         if (entityPlayer.isDead || entityPlayer.getHealth() <= 0) return false;
