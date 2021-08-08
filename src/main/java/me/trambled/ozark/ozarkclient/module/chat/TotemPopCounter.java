@@ -112,7 +112,6 @@ public class TotemPopCounter extends Module {
                     for (Entity e : mc.world.loadedEntityList) {
                         idList.add(e.getEntityId());
                     }               //this should be the player game profile but entity doesnt have gameprofile
-                    MessageUtil.client_message("afkeplayer");
                     EntityOtherPlayerMP popCham = new EntityOtherPlayerMP(mc.world, mc.player.getGameProfile());
                     popCham.copyLocationAndAnglesFrom(ee);
                     popCham.rotationYawHead = ee.getRotationYawHead();
