@@ -44,7 +44,7 @@ public class Arraylist extends Pinnable {
                 .sorted(Comparator.comparing(module -> FontUtil.getFontWidth(module.array_detail() == null ? module.get_name() : module.get_name() + " [" + Ozark.w + module.array_detail() + Ozark.r  + "]") * (-1)))
 				.collect(Collectors.toList());
 
-		if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom R") || Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom L") ) {
+		if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Top R") || Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Top L") ) {
 			pretty_modules = Lists.reverse(pretty_modules);
 		}
 
