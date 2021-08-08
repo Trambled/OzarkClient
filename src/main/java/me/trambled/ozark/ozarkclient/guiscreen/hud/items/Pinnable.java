@@ -265,6 +265,20 @@ public class Pinnable {
 		return value_to_request;
 	}
 
+	protected int getCFONT(String string, String type) {
+		int value_to_request = 0;
+
+		if (type.equals("width")) {
+			value_to_request = FontUtil.getFontWidth(string);
+		}
+
+		if (type.equals("height")) {
+			value_to_request = FontUtil.getFontHeight();
+		}
+
+		return value_to_request;
+	}
+
 	public int docking(int position_x, String string) {
 		if (this.dock) {
 			return position_x;

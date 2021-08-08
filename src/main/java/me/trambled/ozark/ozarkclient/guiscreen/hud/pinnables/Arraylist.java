@@ -4,12 +4,14 @@ import com.google.common.collect.Lists;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
 import me.trambled.ozark.ozarkclient.module.Module;
+import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.font.FontUtil;
 import me.trambled.ozark.ozarkclient.util.misc.DrawnUtil;
-import me.trambled.ozark.ozarkclient.util.render.GuiUtil;
 import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.math.MathHelper;
 
+import java.awt.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,130 +19,72 @@ import java.util.stream.Collectors;
 
 public class Arraylist extends Pinnable {
 	public Arraylist() {
-		super("Array List", "ArrayList", 1, 0, 0);
+		super("Arraylist", "Arraylist", 1, 0, 0);
 	}
 
-	boolean flag = true;
-
+	int modCount;
+	public boolean flag;
 	private int scaled_width;
 	private int scaled_height;
 	private int scale_factor;
 
-	@Override
 	public void render() {
+		Setting mode = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Mode");
+		Setting rainbow = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Rainbow");
+		Setting red = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Red");
+		Setting green = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Green");
+		Setting blue= Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Blue");
+
 		updateResolution();
+		modCount = 0;
 		int position_update_y = 2;
-
-		int nl_r = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorR").get_value(1);
-		int nl_g = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorG").get_value(1);
-		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
-		int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorA").get_value(1);
-		boolean fontrain = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayFlow").get_value(true) && Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFont").get_value(true);
-		boolean rainbow = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayFlow").get_value(true);
-		boolean cfont = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDFont").get_value(true);
-
+		int[] counter = {1};
+		final ScaledResolution resolution = new ScaledResolution(mc);
 		List<Module> pretty_modules = Ozark.get_module_manager().get_array_active_modules().stream()
-			.sorted(Comparator.comparing(modules -> get(modules.array_detail() == null ? modules.get_tag() : modules.get_tag() + Ozark.g + " [" + Ozark.w + modules.array_detail() + Ozark.r  +"]", "width")))
-			.collect(Collectors.toList());
-
-		int count = 0;
+                .sorted(Comparator.comparing(module -> FontUtil.getFontWidth(module.array_detail() == null ? module.get_name() : module.get_name() + " [" + Ozark.w + module.array_detail() + Ozark.r  + "]") * (-1)))
+				.collect(Collectors.toList());
 
 		if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Top R") || Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Top L") ) {
 			pretty_modules = Lists.reverse(pretty_modules);
 		}
 
-		for (Module modules : pretty_modules) {
-
+		for (Module module : pretty_modules) {
 			flag = true;
-
-			if (modules.get_category().get_tag().equals("GUI")) {
-				continue;
-			}
-
-			if (modules.get_category().get_tag().equals("HUDEditor")) {
-				continue;
-			}
-
-			if (modules.get_category().get_tag().equals("HUD")) {
-				continue;
-			}
-
-
 			for (String s : DrawnUtil.hidden_tags) {
-				if (modules.get_tag().equalsIgnoreCase(s)) {
+				if (module.get_tag().equalsIgnoreCase(s)) {
 					flag = false;
 					break;
 				}
 				if (!flag) break;
 			}
-			
 			if (flag) {
-				String module_name = (
-					modules.array_detail() == null ? modules.get_tag() :
-					modules.get_tag()  + " [" + Ozark.w + modules.array_detail() + Ozark.r  + "]"
-				);
+				String mod = module.array_detail() == null ? module.get_name() : module.get_name() + " [" + Ozark.w + module.array_detail() + Ozark.r + "]";
+				int x = resolution.getScaledWidth();
+				if (mode.in("Free")) {
+					FontUtil.drawStringWithShadow(mod, get_x() + this.docking(2, module.get_name()), get_y() + position_update_y, rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
 
-				if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Free")) {
-					create_line(module_name, this.docking(2, module_name), position_update_y, nl_r, nl_g, nl_b, nl_a);
+					position_update_y += getCFONT(mod, "height") + 2;
 
-					position_update_y += get(module_name, "height") + 2;
-
-					if (get(module_name, "width") > this.get_width()) {
-						this.set_width(get(module_name, "width") + 2);
+					if (getCFONT(module.get_name(), "width") > this.get_width()) {
+						this.set_width(getCFONT(mod, "width") + 2);
 					}
 
 					this.set_height(position_update_y);
 				} else {
-					if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Top R")) {
-						if (fontrain) {
-							RainbowUtil.drawRainbowStringChatCustomFont(module_name, scaled_width - 2 - RainbowUtil.get_string_width(module_name), 3 + count * 10, new GuiUtil.OzarkColor(nl_r, nl_g, nl_b, nl_a).hex(), 100f);
-						} else if (rainbow) {
-							RainbowUtil.drawRainbowStringChat(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), 3 + count * 10, new GuiUtil.OzarkColor(nl_r, nl_g, nl_b, nl_a).hex(), 100f);
-						}else if (cfont) {
-							FontUtil.drawStringWithShadow(module_name, scaled_width - 2 - FontUtil.getFontWidth(module_name), 3 + count * 10, new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
-						} else {
-							mc.fontRenderer.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), 3 + count * 10, new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
-						}
-						count++;
-					}
-					if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Top L")) {
-						if (fontrain) {
-							RainbowUtil.drawRainbowStringChatCustomFont(module_name, 2, 3 + count * 10, new GuiUtil.OzarkColor(nl_r, nl_g, nl_b, nl_a).hex(), 100f);
-						} else if (rainbow) {
-							RainbowUtil.drawRainbowStringChat(module_name, 2, 3 + count * 10, new GuiUtil.OzarkColor(nl_r, nl_g, nl_b, nl_a).hex(), 100f);
-						}else if (cfont) {
-							FontUtil.drawStringWithShadow(module_name, 2, 3 + count * 10, new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
-						} else {
-							mc.fontRenderer.drawStringWithShadow(module_name, 2, 3 + count * 10, new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
-						}
-						count++;
-					}
-					if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom R")) {
-						if (fontrain) {
-							RainbowUtil.drawRainbowStringChatCustomFont(module_name, scaled_width - 2 - RainbowUtil.get_string_width(module_name), scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r, nl_g, nl_b, nl_a).hex(), 100f);
-						} else if (rainbow) {
-							RainbowUtil.drawRainbowStringChat(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r, nl_g, nl_b, nl_a).hex(), 100f);
-						}else if (cfont) {
-							FontUtil.drawStringWithShadow(module_name, scaled_width - 2 - FontUtil.getFontWidth(module_name), scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
-						} else {
-							mc.fontRenderer.drawStringWithShadow(module_name, scaled_width - 2 - mc.fontRenderer.getStringWidth(module_name), scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
-						}
-						count++;
-					}
-					if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom L")) {
-						if (fontrain) {
-							RainbowUtil.drawRainbowStringChatCustomFont(module_name, 2, scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r, nl_g, nl_b, nl_a).hex(), 100f);
-						} else if (rainbow) {
-							RainbowUtil.drawRainbowStringChat(module_name, 2, scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r, nl_g, nl_b, nl_a).hex(), 100f);
-						}else if (cfont) {
-							FontUtil.drawStringWithShadow(module_name, 2, scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
-						} else {
-							mc.fontRenderer.drawStringWithShadow(module_name, 2, scaled_height - (count * 10), new GuiUtil.OzarkColor(nl_r,nl_g,nl_b,nl_a).hex());
-						}
-						count++;
+					if (mode.in("Top R")) {
+						FontUtil.drawStringWithShadow(mod, x - 2 - FontUtil.getFontWidth(mod), 1 + (modCount * 10), rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
+					} else if (mode.in("Top L")){
+						FontUtil.drawStringWithShadow(mod, 2, 3 + modCount * 10, rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
+					} else if (mode.in("Bottom L")) {
+						FontUtil.drawStringWithShadow(mod, 2, scaled_height - (modCount * 10),rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
+					} else if (mode.in("Bottom R")) {
+						FontUtil.drawStringWithShadow(mod, scaled_width - 2 - FontUtil.getFontWidth(module.array_detail() == null ? module.get_name() : module.get_name() + " [" + Ozark.w + module.array_detail() + Ozark.r  + "]"), scaled_height - (modCount * 10), rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
 					}
 				}
-			}			
+
+				modCount++;
+				counter[0]++;
+			}
 		}
 	}
 
@@ -164,4 +108,5 @@ public class Arraylist extends Pinnable {
 		this.scaled_width = MathHelper.ceil(scaledWidthD);
 		this.scaled_height = MathHelper.ceil(scaledHeightD);
 	}
+
 }

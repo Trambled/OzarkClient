@@ -20,16 +20,6 @@ public class HitSound extends Module {
     }
     Setting sound = create("Sound", "Sound", "skeet", combobox("skeet", "neverlose"));
 
-    @Override
-    public void enable() {
-        MinecraftForge.EVENT_BUS.register((Object)this);
-    }
-
-    @Override
-    public void disable() {
-        MinecraftForge.EVENT_BUS.unregister((Object)this);
-    }
-
     @SubscribeEvent
     public void onAttackEntity(final AttackEntityEvent event) {
         if (!event.getEntity().equals((Object)this.mc.player)) {
