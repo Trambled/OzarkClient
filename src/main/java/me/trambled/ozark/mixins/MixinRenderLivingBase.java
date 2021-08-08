@@ -4,6 +4,8 @@ import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.events.EventRenderEntityModel;
 import me.trambled.ozark.ozarkclient.module.chat.TotemPopCounter;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.render.RenderUtil;
+import me.trambled.turok.draw.GL;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
@@ -31,6 +33,7 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
 
     @Shadow
     protected ModelBase mainModel;
+
 
     protected MixinRenderLivingBase(final RenderManager renderManagerIn, final ModelBase modelBaseIn, final float shadowSizeIn) {
         super(renderManagerIn);
@@ -63,18 +66,24 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
             }
             MessageUtil.client_message("rendering");
             GlStateManager.enableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
-            glPushMatrix();
-            glPushAttrib(GL_ALL_ATTRIB_BITS);
+            GlStateManager.pushMatrix();
+            GL11.glPushAttrib(1048575);
+            GL11.glPolygonMode(1032, 6913);
             glDisable(GL_TEXTURE_2D);
+            GlStateManager.disableAlpha();
+            GL11.glDisable(3553);
+            GL11.glDisable(2896);            // i pasted the most randomest shit to learn gl11 lol dont mind me - kambing
+            GL11.glDisable(2929);
+            GL11.glEnable(2848);
+            GL11.glEnable(3042);
+            GL11.glBlendFunc(770, 771);
+            GL11.glDepthMask(true);
+            GL11.glLineWidth(1);
             glEnable(GL_LINE_SMOOTH);
             glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-            GL11.glDisable((int) 2929);
-            GL11.glEnable((int) 10754);
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            GL11.glColor4f((float)((float)TotemPopCounter.INSTANCE.r.get_value(1) / 255.0f), (float)((float)TotemPopCounter.INSTANCE.g.get_value(1) / 255.0f), (float)((float)TotemPopCounter.INSTANCE.b.get_value(1) / 255.0f), (float)((float)TotemPopCounter.INSTANCE.a.get_value(1) / 255.0f));
-            new Color(TotemPopCounter.INSTANCE.r.get_value(1), TotemPopCounter.INSTANCE.g.get_value(1), TotemPopCounter.INSTANCE.b.get_value(1), TotemPopCounter.pops.get(entity.getEntityId()));
+            RenderUtil.setColor(new Color(TotemPopCounter.INSTANCE.r.get_value(1),TotemPopCounter.INSTANCE.g.get_value(1),TotemPopCounter.INSTANCE.b.get_value(1),TotemPopCounter.INSTANCE.a.get_value(1)));
             mainModel.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
-            GL11.glEnable((int) 2929);
+            GL11.glEnable((int) 2896);
             glEnable(GL_TEXTURE_2D);
             glPopAttrib();
             glPopMatrix();
