@@ -56,7 +56,7 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
     private void renderModel(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, CallbackInfo info) {
         if (TotemPopCounter.pops.containsKey(entity.getEntityId())) {
             if (TotemPopCounter.pops.get(entity.getEntityId()) == 0) {
-                MessageUtil.client_message("removing");
+                info.cancel(); // so it doesnt render the skin after removing
                 Minecraft.getMinecraft().world.removeEntityFromWorld(entity.getEntityId());
             } else if (TotemPopCounter.pops.get(entity.getEntityId()) < 0) {
                 //this is retarted but it doesnt instantly stop rendering sorry for messy code dont remove this
@@ -64,7 +64,6 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
                     TotemPopCounter.pops.remove(entity.getEntityId());
                 return;
             }
-            MessageUtil.client_message("rendering");
             GlStateManager.enableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
             GlStateManager.pushMatrix();
             GL11.glPushAttrib(1048575);
@@ -87,6 +86,7 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
             glEnable(GL_TEXTURE_2D);
             glPopAttrib();
             glPopMatrix();
+            info.cancel();
             TotemPopCounter.pops.computeIfPresent(entity.getEntityId(), (key, oldValue) -> oldValue - 1);
         }
     }
