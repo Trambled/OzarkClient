@@ -102,6 +102,7 @@ public class TotemPopCounter extends Module {
                 }
                 if (chams.get_value(true)) {
                     if (entity != mc.player) {
+                        if (mc.player.getDistanceSq(entity.getPosition()) > MathUtil.square(15)) {
                             Color color = EntityUtil.getColor(packet.getEntity(mc.world), r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1), false);
                             Entity ee = packet.getEntity(mc.world);
                             ArrayList<Integer> idList = new ArrayList<>();
@@ -126,6 +127,7 @@ public class TotemPopCounter extends Module {
                     }
                 }
             }
+        }
 
     });
 
