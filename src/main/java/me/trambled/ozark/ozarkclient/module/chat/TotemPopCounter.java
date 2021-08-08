@@ -90,6 +90,7 @@ public class TotemPopCounter extends Module {
                     totem_pop_counter.put(entity.getName(), count);
                 }
 
+                if (entity == mc.player) return;
 
                 if (FriendUtil.isFriend(entity.getName())) {
                     MessageUtil.send_client_message(aqua + entity.getName() + " popped " + red + count + " totems");
@@ -99,25 +100,27 @@ public class TotemPopCounter extends Module {
 
                 }
                 if (chams.get_value(true)) {
-                    if (mc.player.getDistanceSq(entity.getPosition()) > MathUtil.square(20)) {
-                        Color color = EntityUtil.getColor(packet.getEntity(mc.world), r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1), false);
-                        Entity ee = packet.getEntity(mc.world);
-                        ArrayList<Integer> idList = new ArrayList<>();
-                        for (Entity e : mc.world.loadedEntityList) {
-                            idList.add(e.getEntityId());
-                        }               //this should be the player game profile but entity doesnt have gameprofile
-                        EntityOtherPlayerMP popCham = new EntityOtherPlayerMP(mc.world, mc.player.getGameProfile());
-                        popCham.copyLocationAndAnglesFrom(ee);
-                        popCham.rotationYawHead = ee.getRotationYawHead();
-                        popCham.rotationYaw = ee.rotationYaw;
-                        popCham.rotationPitch = ee.rotationPitch;
-                        popCham.setGameType(GameType.CREATIVE);
-                        popCham.setHealth(20);
-                        for (int i = 0; i > -10000; i--) {
-                            if (!idList.contains(i)) {
-                                mc.world.addEntityToWorld(i, popCham);
-                                pops.put(i, color.getAlpha());
-                                break;
+                    if (entity.getName() != mc.player.getName()) {
+                        if (mc.player.getDistanceSq(entity.getPosition()) > MathUtil.square(15)) {
+                            Color color = EntityUtil.getColor(packet.getEntity(mc.world), r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1), false);
+                            Entity ee = packet.getEntity(mc.world);
+                            ArrayList<Integer> idList = new ArrayList<>();
+                            for (Entity e : mc.world.loadedEntityList) {
+                                idList.add(e.getEntityId());
+                            }               //this should be the player game profile but entity doesnt have gameprofile
+                            EntityOtherPlayerMP popCham = new EntityOtherPlayerMP(mc.world, mc.player.getGameProfile());
+                            popCham.copyLocationAndAnglesFrom(ee);
+                            popCham.rotationYawHead = ee.getRotationYawHead();
+                            popCham.rotationYaw = ee.rotationYaw;
+                            popCham.rotationPitch = ee.rotationPitch;
+                            popCham.setGameType(GameType.CREATIVE);
+                            popCham.setHealth(20);
+                            for (int i = 0; i > -10000; i--) {
+                                if (!idList.contains(i)) {
+                                    mc.world.addEntityToWorld(i, popCham);
+                                    pops.put(i, color.getAlpha());
+                                    break;
+                                }
                             }
                         }
                     }
