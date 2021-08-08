@@ -52,6 +52,7 @@ public class TotemPopCounter extends Module {
     public Setting g = create("G", "popChamsG", 255, 0, 255);
     public Setting b = create("B", "popChamsB", 255, 0, 255);
     public Setting a = create("A", "popChamsA", 100, 0, 255);
+    public Setting max = create("Max popchangs", "popChamsMax", 2, 1, 2);
 
     public static final HashMap<String, Integer> totem_pop_counter = new HashMap<String, Integer>();
     public static ConcurrentHashMap<Integer, Integer> pops = new ConcurrentHashMap<>();

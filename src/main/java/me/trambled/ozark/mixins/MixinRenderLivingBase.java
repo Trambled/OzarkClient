@@ -64,6 +64,11 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
                     TotemPopCounter.pops.remove(entity.getEntityId());
                 return;
             }
+                if (TotemPopCounter.pops.size() > TotemPopCounter.INSTANCE.max.get_value(1)) {
+                    TotemPopCounter.pops.remove(entity.getEntityId());
+                    Minecraft.getMinecraft().world.removeEntityFromWorld(entity.getEntityId());
+                    return;
+                }
             GlStateManager.enableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
             GlStateManager.pushMatrix();
             GL11.glPushAttrib(1048575);
