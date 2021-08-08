@@ -2,6 +2,7 @@ package me.trambled.ozark.ozarkclient.module;
 
 import org.lwjgl.input.Keyboard;
 
+import java.awt.*;
 import java.util.List;
 
 import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
@@ -26,6 +27,8 @@ public class Setting {
 	private double min;
 	private double max;
 	private int bind;
+	private Color color;
+
 
 	private String type;
 
@@ -89,6 +92,13 @@ public class Setting {
 		this.min    = min;
 		this.max    = max;
 		this.type   = "integerslider";
+	}
+	public Setting(Module master, String name, String tag, Color color) {
+		this.master   = master;
+		this.name     = name;
+		this.tag      = tag;
+		this.color    = color;
+		this.type     = "color";
 	}
 
 	public Module get_master() {
@@ -245,4 +255,6 @@ public class Setting {
 	public boolean is_shown() {
 		return this.shown;
 	}
+
+	public Color get_color() { return this.color; }
 }
