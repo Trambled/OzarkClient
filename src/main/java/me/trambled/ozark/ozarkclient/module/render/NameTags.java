@@ -86,7 +86,6 @@ public class NameTags extends Module {
     }
 
     private boolean shouldRender(EntityPlayer entityPlayer) {
-        if (entityPlayer.getEntityId() == TotemPopCounter.pops.get(entityPlayer.getEntityId()))
 
         if (entityPlayer.getName() == mc.player.getName() && !renderSelf.get_value(true)) return false;
 
