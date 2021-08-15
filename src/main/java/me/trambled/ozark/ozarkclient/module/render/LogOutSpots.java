@@ -49,7 +49,7 @@ public class LogOutSpots extends Module {
     Setting smartScale = create("Smart Scale", "LogoutSmartScale", true);
     Setting message = create("Message", "LogoutMessage", true);
 
-    private final List<LogoutPos> spots = new CopyOnWriteArrayList<LogoutPos>();
+    private final List<LogoutPos> spots = new CopyOnWriteArrayList <> ( );
 
     @Override
     public void log_out() {
@@ -64,8 +64,7 @@ public class LogOutSpots extends Module {
     @Override
     public void render(EventRender event) {
         if (!this.spots.isEmpty()) {
-            List<LogoutPos> list = this.spots;
-            synchronized (list) {
+            synchronized (this.spots) {
                 this.spots.forEach(spot -> {
                     if (spot.getEntity() != null) {
                         AxisAlignedBB bb = RenderUtil.interpolateAxis(spot.getEntity().getEntityBoundingBox());
@@ -83,7 +82,7 @@ public class LogOutSpots extends Module {
     @Override
     public void update() {
         if (!full_null_check()) {
-            this.spots.removeIf(spot -> mc.player.getDistanceSq((Entity) spot.getEntity()) >= MathUtil.square(this.range.get_value(1)));
+            this.spots.removeIf(spot -> mc.player.getDistanceSq( spot.getEntity() ) >= MathUtil.square(this.range.get_value(1)));
         }
         if (rainbow.get_value(true)) {
             cycle_rainbow();
@@ -92,21 +91,17 @@ public class LogOutSpots extends Module {
 
     public void onConnection(int stage, EntityPlayer player, UUID Uuid, String player_name) {
         if (stage == 0) {
-            UUID uuid = Uuid;
-            EntityPlayer entity = mc.world.getPlayerEntityByUUID(uuid);
+            EntityPlayer entity = mc.world.getPlayerEntityByUUID( Uuid );
             if (entity != null && this.message.get_value(true)) {
                 MessageUtil.send_client_message(player_name + " just logged in" + (this.coords.get_value(true) ? " at (" + (int)entity.posX + ", " + (int)entity.posY + ", " + (int)entity.posZ + ")!" : "!"));
             }
             this.spots.removeIf(pos -> pos.getName().equalsIgnoreCase(player_name));
         } else if (stage == 1) {
-            EntityPlayer entity = player;
-            UUID uuid = Uuid;
-            String name = player_name;
             if (this.message.get_value(true)) {
-                MessageUtil.send_client_message(player_name + " just logged out" + (this.coords.get_value(true) ? " at (" + (int)entity.posX + ", " + (int)entity.posY + ", " + (int)entity.posZ + ")!" : "!"));
+                MessageUtil.send_client_message(player_name + " just logged out" + (this.coords.get_value(true) ? " at (" + (int) player.posX + ", " + (int) player.posY + ", " + (int) player.posZ + ")!" : "!"));
             }
-            if (name != null && entity != null && uuid != null) {
-                this.spots.add(new LogoutPos(name, uuid, entity));
+            if ( player_name != null && player != null && Uuid != null) {
+                this.spots.add(new LogoutPos( player_name , Uuid , player ));
             }
         }
     }
@@ -124,22 +119,22 @@ public class LogOutSpots extends Module {
         String displayTag = name + " XYZ: " + (int)xPos + ", " + (int)yPos + ", " + (int)zPos;
         double distance = camera.getDistance(x + mc.getRenderManager().viewerPosX, y + mc.getRenderManager().viewerPosY, z + mc.getRenderManager().viewerPosZ);
         int width = RainbowUtil.get_string_width(displayTag) / 2;
-        double scale = (0.0018 + (double)this.scaling.get_value(1d) * (distance * (double)this.factor.get_value(1d))) / 1000.0;
+        double scale = (0.0018 + this.scaling.get_value(1d) * (distance * this.factor.get_value(1d) )) / 1000.0;
         if (distance <= 8.0 && this.smartScale.get_value(true)) {
             scale = 0.0245;
         }
         if (!this.scaleing.get_value(true)) {
-            scale = (double)this.scaling.get_value(1d) / 100.0;
+            scale = this.scaling.get_value(1d) / 100.0;
         }
         GlStateManager.pushMatrix();
         RenderHelper.enableStandardItemLighting();
         GlStateManager.enablePolygonOffset();
-        GlStateManager.doPolygonOffset((float)1.0f, (float)-1500000.0f);
+        GlStateManager.doPolygonOffset( 1.0f , -1500000.0f );
         GlStateManager.disableLighting();
-        GlStateManager.translate((float)((float)x), (float)((float)y + 1.4f), (float)((float)z));
-        GlStateManager.rotate((float)(-mc.getRenderManager().playerViewY), (float)0.0f, (float)1.0f, (float)0.0f);
-        GlStateManager.rotate((float)mc.getRenderManager().playerViewX, (float)(mc.gameSettings.thirdPersonView == 2 ? -1.0f : 1.0f), (float)0.0f, (float)0.0f);
-        GlStateManager.scale((double)(-scale), (double)(-scale), (double)scale);
+        GlStateManager.translate( (float)x , (float)y + 1.4f , (float)z );
+        GlStateManager.rotate( -mc.getRenderManager().playerViewY , 0.0f , 1.0f , 0.0f );
+        GlStateManager.rotate( mc.getRenderManager().playerViewX , mc.gameSettings.thirdPersonView == 2 ? -1.0f : 1.0f , 0.0f , 0.0f );
+        GlStateManager.scale( -scale , -scale , scale );
         GlStateManager.disableDepth();
         GlStateManager.enableBlend();
         GlStateManager.enableBlend();
@@ -154,7 +149,7 @@ public class LogOutSpots extends Module {
         GlStateManager.enableDepth();
         GlStateManager.disableBlend();
         GlStateManager.disablePolygonOffset();
-        GlStateManager.doPolygonOffset((float)1.0f, (float)1500000.0f);
+        GlStateManager.doPolygonOffset( 1.0f , 1500000.0f );
         GlStateManager.popMatrix();
     }
 
@@ -208,10 +203,10 @@ public class LogOutSpots extends Module {
     private final Listener<EventPacket.ReceivePacket> receive_listener = new Listener<>(event -> {
         if (event.get_packet() instanceof SPacketPlayerListItem) {
             SPacketPlayerListItem packet = (SPacketPlayerListItem) event.get_packet();
-            if (!SPacketPlayerListItem.Action.ADD_PLAYER.equals((Object) packet.getAction()) && !SPacketPlayerListItem.Action.REMOVE_PLAYER.equals((Object) packet.getAction())) {
+            if (!SPacketPlayerListItem.Action.ADD_PLAYER.equals( packet.getAction() ) && !SPacketPlayerListItem.Action.REMOVE_PLAYER.equals( packet.getAction() )) {
                 return;
             }
-            packet.getEntries().stream().filter(Objects::nonNull).filter(data -> !Strings.isNullOrEmpty((String) data.getProfile().getName()) || data.getProfile().getId() != null).forEach(data -> {
+            packet.getEntries().stream().filter(Objects::nonNull).filter(data -> !Strings.isNullOrEmpty( data.getProfile().getName() ) || data.getProfile().getId() != null).forEach( data -> {
                 UUID id = data.getProfile().getId();
                 switch (packet.getAction()) {
                     case ADD_PLAYER: {

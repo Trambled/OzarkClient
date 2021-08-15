@@ -126,7 +126,7 @@ public class AutoReplenish extends Module {
     }
 
     private Map<Integer, ItemStack> get_inv_slots(int current, final int last) {
-        final Map<Integer, ItemStack> fullInventorySlots = new HashMap<Integer, ItemStack>();
+        final Map<Integer, ItemStack> fullInventorySlots = new HashMap <> ( );
         while (current <= last) {
             fullInventorySlots.put(current, mc.player.inventoryContainer.getInventory().get(current));
             ++current;

@@ -3,8 +3,8 @@ package me.trambled.ozark.ozarkclient.module.chat;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
-import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 

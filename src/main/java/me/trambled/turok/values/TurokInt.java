@@ -8,12 +8,12 @@ package me.trambled.turok.values;
 *
 */
 public class TurokInt {
-	private TurokString name;
-	private TurokString tag;
+	private final TurokString name;
+	private final TurokString tag;
 
 	private int value;
-	private int max;
-	private int min;
+	private final int max;
+	private final int min;
 
 	public TurokInt(TurokString name, TurokString tag, int _int, int min, int max) {
 		this.name  = name;

@@ -12,11 +12,11 @@ import me.trambled.ozark.ozarkclient.module.chat.AutoEz;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 import me.trambled.ozark.ozarkclient.util.player.EntityUtil;
 import me.trambled.ozark.ozarkclient.util.player.PlayerUtil;
+import me.trambled.ozark.ozarkclient.util.player.RotationUtil;
 import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
 import me.trambled.ozark.ozarkclient.util.render.RenderUtil;
 import me.trambled.ozark.ozarkclient.util.world.BlockUtil;
 import me.trambled.ozark.ozarkclient.util.world.CrystalUtil;
-import me.trambled.ozark.ozarkclient.util.player.RotationUtil;
 import me.trambled.ozark.ozarkclient.util.world.TimerUtil;
 import me.trambled.turok.draw.RenderHelp;
 import me.zero.alpine.fork.listener.EventHandler;
@@ -26,6 +26,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;
@@ -35,8 +36,13 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.*;
-import net.minecraft.network.play.client.*;
-import net.minecraft.network.play.server.*;
+import net.minecraft.network.play.client.CPacketHeldItemChange;
+import net.minecraft.network.play.client.CPacketPlayer;
+import net.minecraft.network.play.client.CPacketPlayerTryUseItemOnBlock;
+import net.minecraft.network.play.client.CPacketUseEntity;
+import net.minecraft.network.play.server.SPacketPlayerPosLook;
+import net.minecraft.network.play.server.SPacketSoundEffect;
+import net.minecraft.network.play.server.SPacketSpawnObject;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -44,7 +50,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.GL11;
-import net.minecraft.client.renderer.culling.ICamera;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -1050,10 +1055,7 @@ public class AutoCrystal extends Module {
                 if (rotate_during.in("Break") || rotate_during.in("Both")) {
                     handle_rotations(false, pos, null);
                 }
-                boolean offhand_check = false;
-                if (mc.player.getHeldItemOffhand().getItem() == Items.END_CRYSTAL) {
-                    offhand_check = true;
-                }
+                boolean offhand_check = mc.player.getHeldItemOffhand ( ).getItem ( ) == Items.END_CRYSTAL;
                 AutoCrystal.mc.player.connection.sendPacket(predict);
                 attack_swings++;
                 BlockUtil.swingArm(swing, offhand_check ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND);

@@ -3,6 +3,8 @@ package me.trambled.ozark.ozarkclient.command.commands;
 import me.trambled.ozark.ozarkclient.command.Command;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 
+import java.util.Objects;
+
 public class ServerCommand extends Command {
 
 
@@ -15,7 +17,7 @@ public class ServerCommand extends Command {
 	public boolean get_message(String[] message) {
 		String type = "null";
                 
-                serverip = mc.getCurrentServerData().serverIP;
+                serverip = Objects.requireNonNull ( mc.getCurrentServerData ( ) ).serverIP;
 
                 MessageUtil.send_client_message("You are playing on " + serverip);
 

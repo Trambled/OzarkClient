@@ -6,7 +6,7 @@ import net.minecraft.util.BlockRenderLayer;
 
 public class EventBlockGetRenderLayer extends Event {
     private BlockRenderLayer _layer;
-    private Block _block;
+    private final Block _block;
 
     public EventBlockGetRenderLayer(Block block) {
         _block = block;

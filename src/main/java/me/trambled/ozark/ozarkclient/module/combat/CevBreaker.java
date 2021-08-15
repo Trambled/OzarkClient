@@ -4,13 +4,16 @@ import me.trambled.ozark.ozarkclient.event.events.EventDamageBlock;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.util.world.BlockInteractionHelper;
-import me.trambled.ozark.ozarkclient.util.player.EntityUtil;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.player.EntityUtil;
 import me.trambled.ozark.ozarkclient.util.player.PlayerUtil;
+import me.trambled.ozark.ozarkclient.util.world.BlockInteractionHelper;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockAir;
+import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.BlockObsidian;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;
 import net.minecraft.entity.player.EntityPlayer;
@@ -131,8 +134,7 @@ public class CevBreaker extends Module
             if (!target.in("Looking") && aimTarget == null)
                 this.set_disable();
             // If not found a target
-            if (aimTarget == null)
-                return true;
+            return aimTarget == null;
         }
         return false;
     }
@@ -468,7 +470,7 @@ public class CevBreaker extends Module
             try {
                 mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
                 mc.player.swingArm(EnumHand.MAIN_HAND);
-            } catch (NullPointerException e) {
+            } catch (NullPointerException ignored ) {
 
             }
         }

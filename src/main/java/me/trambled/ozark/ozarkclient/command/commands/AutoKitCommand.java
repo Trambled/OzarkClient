@@ -3,8 +3,8 @@ package me.trambled.ozark.ozarkclient.command.commands;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.command.Command;
-import me.trambled.ozark.ozarkclient.util.player.AutoKitUtil;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.player.AutoKitUtil;
 
 public class AutoKitCommand extends Command {
 
@@ -30,7 +30,7 @@ public class AutoKitCommand extends Command {
                 kit.append(word).append(" ");
             }
             AutoKitUtil.set_message(kit.toString());
-            MessageUtil.send_client_message("kit changed to " + ChatFormatting.BOLD + kit.toString());
+            MessageUtil.send_client_message("kit changed to " + ChatFormatting.BOLD + kit );
             Ozark.get_config_manager().save_settings();
             return true;
         }

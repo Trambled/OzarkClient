@@ -1,6 +1,5 @@
 package me.trambled.ozark.ozarkclient.module.render;
 
-import me.trambled.ozark.ozarkclient.event.events.EventRender;
 import me.trambled.ozark.ozarkclient.event.events.EventRenderEntity;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;

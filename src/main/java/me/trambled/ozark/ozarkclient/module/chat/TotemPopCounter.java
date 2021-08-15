@@ -1,16 +1,14 @@
 package me.trambled.ozark.ozarkclient.module.chat;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.event.events.EventEntityRemoved;
+import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.module.misc.FakePlayer;
+import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 import me.trambled.ozark.ozarkclient.util.player.EntityUtil;
 import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
-import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
-import me.trambled.ozark.ozarkclient.util.world.MathUtil;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
@@ -55,7 +53,7 @@ public class TotemPopCounter extends Module {
     public Setting a = create("A", "popChamsA", 100, 0, 255);
     public Setting max = create("Max popchangs", "popChamsMax", 2, 1, 2);
 
-    public static final HashMap<String, Integer> totem_pop_counter = new HashMap<String, Integer>();
+    public static final HashMap<String, Integer> totem_pop_counter = new HashMap <> ( );
     public static ConcurrentHashMap<Integer, Integer> pops = new ConcurrentHashMap<>();
     
     public static ChatFormatting red = ChatFormatting.DARK_RED;

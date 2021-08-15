@@ -14,7 +14,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.opengl.GL11;
 
-
 import java.awt.*;
 
 
@@ -49,7 +48,7 @@ public class ChorusViewer extends Module {
                 pos = null;
                 return;
             }
-            this.renderBox(pos, new Color(0xC586FF), true, 4);
+            renderBox(pos, new Color(0xC586FF), true, 4);
         }
     }
     public static void renderBox(BlockPos pos, Color color, boolean outline, int alpha) {

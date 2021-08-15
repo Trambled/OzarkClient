@@ -5,6 +5,7 @@ import me.trambled.ozark.ozarkclient.event.events.EventRenderName;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
+import me.trambled.ozark.ozarkclient.module.chat.TotemPopCounter;
 import me.trambled.ozark.ozarkclient.util.font.FontUtil;
 import me.trambled.ozark.ozarkclient.util.player.social.EnemyUtil;
 import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
@@ -23,7 +24,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.opengl.GL11;
-import me.trambled.ozark.ozarkclient.module.chat.TotemPopCounter;
 
 import java.awt.*;
 

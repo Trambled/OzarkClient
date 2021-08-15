@@ -25,7 +25,7 @@ public class Spammer extends Module {
     Setting delay = create("Delay", "SpammerDelay", 10, 0, 100);
     public File FILE_DIRECTORY;
     int tick_delay;
-    private List<String> temp_lines = new ArrayList<String>();
+    private final List<String> temp_lines = new ArrayList <> ( );
     private String[] lines;
     private static int current_line = 0;
 
@@ -44,7 +44,7 @@ public class Spammer extends Module {
             br.close();
             this.lines = this.temp_lines.toArray(new String[0]);
         }
-        catch (IOException exception) { }
+        catch (IOException ignored ) { }
     }
 
     @Override

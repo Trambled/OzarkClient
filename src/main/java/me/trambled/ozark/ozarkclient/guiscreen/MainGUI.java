@@ -15,14 +15,14 @@ import java.util.ArrayList;
 
 
 public class MainGUI extends GuiScreen {
-	private ArrayList<Frame> frame;
+	private final ArrayList<Frame> frame;
 
 	private int frame_x;
 
 	private Frame current;
 
-	private boolean event_start;
-	private boolean event_finish;
+	private final boolean event_start;
+	private final boolean event_finish;
 
 	// Frame.
 	public int theme_frame_name_r = 0;

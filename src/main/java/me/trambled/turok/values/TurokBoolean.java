@@ -10,10 +10,10 @@ package me.trambled.turok.values;
 *
 */
 public class TurokBoolean {
-	private TurokString name;
-	private TurokString tag;
+	private final TurokString name;
+	private final TurokString tag;
 
-	private TurokGeneric<Boolean> value;
+	private final TurokGeneric<Boolean> value;
 
 	public TurokBoolean(TurokString name, TurokString tag, boolean _bool) {
 		this.name  = name;

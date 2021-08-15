@@ -20,7 +20,7 @@ public class Weather extends Module {
     Setting weather = create("Weather", "Weather", "Clear", combobox("Clear", "Rain", "Thunder Storm"));
     
     @EventHandler
-    private Listener<EventRender> on_render = new Listener<>(event -> {
+    private final Listener<EventRender> on_render = new Listener<>( event -> {
         if (mc.world == null) return;
         if (weather.in("Clear")) {
             mc.world.setRainStrength(0);

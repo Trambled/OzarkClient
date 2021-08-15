@@ -16,6 +16,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.Objects;
+
 /**
  * @author linustouchtips
  * @since 11/24/2020
@@ -38,8 +40,8 @@ public class Quiver extends Module {
 
     @Override
     public void update() {
-        PotionEffect speedEffect = mc.player.getActivePotionEffect(Potion.getPotionById(1));
-        PotionEffect strengthEffect = mc.player.getActivePotionEffect(Potion.getPotionById(5));
+        PotionEffect speedEffect = mc.player.getActivePotionEffect( Objects.requireNonNull ( Potion.getPotionById ( 1 ) ) );
+        PotionEffect strengthEffect = mc.player.getActivePotionEffect( Objects.requireNonNull ( Potion.getPotionById ( 5 ) ) );
 
         boolean hasSpeed;
         boolean hasStrength;

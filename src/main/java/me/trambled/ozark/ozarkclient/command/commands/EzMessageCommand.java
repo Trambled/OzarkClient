@@ -30,7 +30,7 @@ public class EzMessageCommand extends Command {
                 ez.append(word).append(" ");
             }
             EzMessageUtil.set_message(ez.toString());
-            MessageUtil.send_client_message("ez message changed to " + ChatFormatting.BOLD + ez.toString());
+            MessageUtil.send_client_message("ez message changed to " + ChatFormatting.BOLD + ez );
             Ozark.get_config_manager().save_settings();
             return true;
         }

@@ -4,24 +4,11 @@ import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.google.common.io.CharStreams;
 import com.google.common.util.concurrent.Runnables;
-
-import java.awt.*;
-import java.io.BufferedReader;
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Random;
-
 import me.trambled.ozark.ozarkclient.util.font.FontUtil;
+import me.trambled.ozark.ozarkclient.util.render.MainMenu;
 import me.trambled.ozark.ozarkclient.util.render.ParticleUtil;
 import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
 import me.trambled.ozark.ozarkclient.util.render.RenderUtil;
-import me.trambled.ozark.ozarkclient.util.render.MainMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -50,6 +37,14 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GLContext;
 import org.lwjgl.util.glu.Project;
+
+import java.awt.*;
+import java.io.*;
+import java.net.URI;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Random;
 
 import static me.trambled.ozark.ozarkclient.guiscreen.GuiCustomMainMenu.getScaledRes;
 
@@ -162,7 +157,7 @@ public class GuiMainMenu extends GuiScreen
 
         try
         {
-            List <String>list = Lists.<String>newArrayList();
+            List <String>list = Lists.newArrayList();
             iresource = Minecraft.getMinecraft().getResourceManager().getResource(SPLASH_TEXTS);
             BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(iresource.getInputStream(), StandardCharsets.UTF_8));
             String s;
@@ -190,13 +185,12 @@ public class GuiMainMenu extends GuiScreen
                 }
             }
         }
-        catch (IOException var8)
+        catch (IOException ignored )
         {
-            ;
         }
         finally
         {
-            IOUtils.closeQuietly((Closeable)iresource);
+            IOUtils.closeQuietly( iresource );
         }
 
         this.minceraftRoll = RANDOM.nextFloat();
@@ -267,7 +261,7 @@ public class GuiMainMenu extends GuiScreen
         this.field_92024_r = this.mc.fontRenderer.getStringWidth(openGLWarning1);
         int e = Math.max(this.field_92023_s, this.field_92024_r);
         this.field_92022_t = (this.width - e) / 2;
-        this.field_92021_u = ((TextButton   )this.buttonList.get(0)).y - 24;
+        this.field_92021_u = this.buttonList.get(0).y - 24;
         this.field_92020_v = this.field_92022_t + e;
         this.field_92019_w = this.field_92021_u + 24;
     }
@@ -312,7 +306,7 @@ public class GuiMainMenu extends GuiScreen
             try {
                 Desktop.getDesktop().browse(URI.create("https://discord.com/invite/bzvgPdexme"));
             }
-            catch (Exception ex) {}
+            catch (Exception ignored ) {}
         }
 
         if (button.id == 5)
@@ -388,7 +382,7 @@ public class GuiMainMenu extends GuiScreen
                 try
                 {
                     Class oclass = Class.forName("java.awt.Desktop");
-                    Object object = oclass.getMethod("getDesktop").invoke((Object)null);
+                    Object object = oclass.getMethod("getDesktop").invoke( null );
                     oclass.getMethod("browse", URI.class).invoke(object, new URI(this.openGLWarningLink));
                 }
                 catch (Throwable throwable)
@@ -514,10 +508,10 @@ public class GuiMainMenu extends GuiScreen
             int k = this.width;
             int l = this.height;
             float f1 = (float)(j - 1) / 256.0F;
-            bufferbuilder.pos((double)k, (double)l, (double)this.zLevel).tex((double)(0.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            bufferbuilder.pos((double)k, 0.0D, (double)this.zLevel).tex((double)(1.0F + f1), 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            bufferbuilder.pos(0.0D, 0.0D, (double)this.zLevel).tex((double)(1.0F + f1), 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
-            bufferbuilder.pos(0.0D, (double)l, (double)this.zLevel).tex((double)(0.0F + f1), 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            bufferbuilder.pos( k , l , this.zLevel ).tex( 0.0F + f1 , 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            bufferbuilder.pos( k , 0.0D, this.zLevel ).tex( 1.0F + f1 , 1.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            bufferbuilder.pos(0.0D, 0.0D, this.zLevel ).tex( 1.0F + f1 , 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
+            bufferbuilder.pos(0.0D, l , this.zLevel ).tex( 0.0F + f1 , 0.0D).color(1.0F, 1.0F, 1.0F, f).endVertex();
         }
 
         tessellator.draw();
@@ -550,10 +544,10 @@ public class GuiMainMenu extends GuiScreen
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
-        bufferbuilder.pos(0.0D, (double)j, (double)this.zLevel).tex((double)(0.5F - f1), (double)(0.5F + f2)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        bufferbuilder.pos((double)i, (double)j, (double)this.zLevel).tex((double)(0.5F - f1), (double)(0.5F - f2)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        bufferbuilder.pos((double)i, 0.0D, (double)this.zLevel).tex((double)(0.5F + f1), (double)(0.5F - f2)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
-        bufferbuilder.pos(0.0D, 0.0D, (double)this.zLevel).tex((double)(0.5F + f1), (double)(0.5F + f2)).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        bufferbuilder.pos(0.0D, j , this.zLevel ).tex( 0.5F - f1 , 0.5F + f2 ).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        bufferbuilder.pos( i , j , this.zLevel ).tex( 0.5F - f1 , 0.5F - f2 ).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        bufferbuilder.pos( i , 0.0D, this.zLevel ).tex( 0.5F + f1 , 0.5F - f2 ).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        bufferbuilder.pos(0.0D, 0.0D, this.zLevel ).tex( 0.5F + f1 , 0.5F + f2 ).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
         tessellator.draw();
     }
 
@@ -597,9 +591,9 @@ public class GuiMainMenu extends GuiScreen
             int o = 274;
             int p = this.width / 2 - o / 2;
             if (this.openGLWarning1 != null && this.openGLWarning1.length() > 0) {
-                drawRect((this.width - p) / 2 - 2, ((GuiButton) this.buttonList.get(0)).y - 24 - 2, (this.width - p) / 2 + 2, this.field_92019_w - 1, 1428160512);
+                drawRect((this.width - p) / 2 - 2, this.buttonList.get(0).y - 24 - 2, (this.width - p) / 2 + 2, this.field_92019_w - 1, 1428160512);
                 this.drawString(mc.fontRenderer, this.openGLWarning1, this.field_92022_t, this.field_92021_u, -1);
-                this.drawString(this.mc.fontRenderer, this.openGLWarning2, (this.width - this.field_92024_r) / 2, ((GuiButton) this.buttonList.get(0)).y - 12, -1);
+                this.drawString(this.mc.fontRenderer, this.openGLWarning2, (this.width - this.field_92024_r) / 2, this.buttonList.get(0).y - 12, -1);
             }
 
             super.drawScreen(mouseX, mouseY, partialTicks);
@@ -623,9 +617,7 @@ public class GuiMainMenu extends GuiScreen
             }
         }
 
-        if (this.areRealmsNotificationsEnabled())
-        {
-        }
+        this.areRealmsNotificationsEnabled ( );
 
         if (mouseX > this.widthCopyrightRest && mouseX < this.widthCopyrightRest + this.widthCopyright && mouseY > this.height - 10 && mouseY < this.height)
         {
@@ -674,8 +666,7 @@ public class GuiMainMenu extends GuiScreen
             }
 
             public static final ScaledResolution getScaledRes() {
-                final ScaledResolution scaledRes = new ScaledResolution(Minecraft.getMinecraft());
-                return scaledRes;
+                return new ScaledResolution(Minecraft.getMinecraft());
             }
         }
 }

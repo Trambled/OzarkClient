@@ -9,7 +9,7 @@ import org.lwjgl.input.Keyboard;
 
 public class KeybindComponent extends Component {
     private boolean isBinding;
-    private ModuleButton parent;
+    private final ModuleButton parent;
     private int offset;
     private int x;
     private int y;

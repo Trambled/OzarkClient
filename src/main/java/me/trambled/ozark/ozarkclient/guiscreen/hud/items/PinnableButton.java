@@ -6,11 +6,11 @@ import me.trambled.ozark.ozarkclient.util.render.GuiUtil;
 
 
 public class PinnableButton {
-	private Pinnable pinnable;
-	private Frame master;
+	private final Pinnable pinnable;
+	private final Frame master;
 
-	private String name;
-	private String tag;
+	private final String name;
+	private final String tag;
 
 	private int x;
 	private int y;
@@ -20,9 +20,9 @@ public class PinnableButton {
 	private int width;
 	private int height;
 
-	private boolean first;
+	private final boolean first;
 
-	private GuiUtil font = new GuiUtil(1);
+	private final GuiUtil font = new GuiUtil(1);
 
 	public static int nc_r = 0;
 	public static int nc_g = 0;
@@ -98,19 +98,11 @@ public class PinnableButton {
 	}
 
 	public boolean motion(int mx, int my, int p_x, int p_y, int p_w, int p_h) {
-		if (mx >= p_x && my >= p_y && mx <= p_x + p_w && my <= p_y + p_h) {
-			return true;
-		}
-
-		return false;
+		return mx >= p_x && my >= p_y && mx <= p_x + p_w && my <= p_y + p_h;
 	}
 
 	public boolean motion(int mx, int my) {
-		if (mx >= get_x() && my >= get_save_y() && mx <= get_x() + get_width() && my <= get_save_y() + get_height()) {
-			return true;
-		}
-
-		return false;
+		return mx >= get_x ( ) && my >= get_save_y ( ) && mx <= get_x ( ) + get_width ( ) && my <= get_save_y ( ) + get_height ( );
 	}
 
 	public void click(int mx, int my, int mouse) {
@@ -137,11 +129,11 @@ public class PinnableButton {
 		this.save_y = this.y + this.master.get_y() - 10;
 
 		if (this.pinnable.is_active()) {
-			GuiUtil.draw_rect(this.x, this.save_y, this.x + this.width - separate, this.save_y + this.height, this.bg_r, this.bg_g, this.bg_b, this.bg_a);
+			GuiUtil.draw_rect(this.x, this.save_y, this.x + this.width - separate, this.save_y + this.height, bg_r, bg_g, bg_b, bg_a);
 		
-			GuiUtil.draw_string(this.pinnable.get_title(), this.x + separate, this.save_y, this.nc_r, this.nc_g, this.nc_b, this.nc_a);
+			GuiUtil.draw_string(this.pinnable.get_title(), this.x + separate, this.save_y, nc_r, nc_g, nc_b, nc_a);
 		} else {
-			GuiUtil.draw_string(this.pinnable.get_title(), this.x + separate, this.save_y, this.nc_r, this.nc_g, this.nc_b, this.nc_a);
+			GuiUtil.draw_string(this.pinnable.get_title(), this.x + separate, this.save_y, nc_r, nc_g, nc_b, nc_a);
 		}
 
 		this.pinnable.render(mx, my, 0);

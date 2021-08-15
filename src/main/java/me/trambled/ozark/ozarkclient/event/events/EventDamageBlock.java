@@ -6,7 +6,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class EventDamageBlock extends Event {
 
-    private BlockPos BlockPos;
+    private final BlockPos BlockPos;
     private EnumFacing Direction;
 
     public EventDamageBlock(BlockPos posBlock, EnumFacing directionFacing)

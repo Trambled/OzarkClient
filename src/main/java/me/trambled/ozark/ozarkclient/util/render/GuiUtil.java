@@ -21,9 +21,9 @@ import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
 
 public class GuiUtil {
-	private static FontRenderer font_renderer = mc.fontRenderer;
+	private static final FontRenderer font_renderer = mc.fontRenderer;
 
-	private float size;
+	private final float size;
 
 	public GuiUtil(float size) {
 		this.size = size;
@@ -134,15 +134,13 @@ public class GuiUtil {
 	}
 
 	public int get_string_height() {
-		FontRenderer fontRenderer = font_renderer;
 
-		return (int) (fontRenderer.FONT_HEIGHT * this.size);
+		return (int) ( font_renderer.FONT_HEIGHT * this.size);
 	}
 
 	public int get_string_width(String string) {
-		FontRenderer fontRenderer = font_renderer;
 
-		return (int) (fontRenderer.getStringWidth(string));
+		return font_renderer.getStringWidth(string);
 	}
 
 	public static void drawGradientRectP(int left, int top, int right, int bottom, int startColor, int endColor)

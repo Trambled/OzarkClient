@@ -46,7 +46,6 @@ public class Tracers extends Module {
 
             colour[0] = this.getColorByDistance(player);
             this.drawLineToEntity(player, colour[0][0], colour[0][1], colour[0][2], colour[0][3]);
-            return;
         });
         GlStateManager.popMatrix();
 

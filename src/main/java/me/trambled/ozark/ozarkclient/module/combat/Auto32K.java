@@ -3,8 +3,8 @@ package me.trambled.ozark.ozarkclient.module.combat;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.util.world.BlockUtil;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.world.BlockUtil;
 import net.minecraft.block.BlockShulkerBox;
 import net.minecraft.client.gui.GuiHopper;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -218,10 +218,7 @@ public class Auto32K extends Module {
                 }
 
                 if (!(gui.inventorySlots.inventorySlots.get(0).getStack().getItem() instanceof ItemAir)) {
-                    boolean swapReady = true;
-                    if (((GuiContainer)mc.currentScreen).inventorySlots.getSlot(0).getStack().isEmpty) {
-                        swapReady = false;
-                    }
+                    boolean swapReady = ! ( (GuiContainer) mc.currentScreen ).inventorySlots.getSlot ( 0 ).getStack ( ).isEmpty;
                     if (!((GuiContainer)mc.currentScreen).inventorySlots.getSlot(shulker_slot + 32).getStack().isEmpty) {
                         swapReady = false;
                     }

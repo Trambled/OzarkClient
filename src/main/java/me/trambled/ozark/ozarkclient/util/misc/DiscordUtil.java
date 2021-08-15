@@ -8,6 +8,8 @@ import me.trambled.ozark.ozarkclient.util.player.PlayerUtil;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.multiplayer.GuiConnecting;
 
+import java.util.Objects;
+
 import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
 // originally from emphack but most of that has been removed
@@ -87,7 +89,7 @@ public class DiscordUtil
 									if (mc.isIntegratedServerRunning()) {
 										DiscordUtil.state = "Playing Singleplayer";
 									} else {
-										DiscordUtil.state = "Playing " + mc.getCurrentServerData().serverIP;
+										DiscordUtil.state = "Playing " + Objects.requireNonNull ( mc.getCurrentServerData ( ) ).serverIP;
 									}
 									break;
 								case "Target":
@@ -118,7 +120,7 @@ public class DiscordUtil
 									if (mc.isIntegratedServerRunning()) {
 										DiscordUtil.details = "Playing Singleplayer";
 									} else {
-										DiscordUtil.details = "Playing " + mc.getCurrentServerData().serverIP;
+										DiscordUtil.details = "Playing " + Objects.requireNonNull ( mc.getCurrentServerData ( ) ).serverIP;
 									}
 									break;
 								case "Target":
@@ -151,7 +153,7 @@ public class DiscordUtil
 								if (Ozark.get_setting_manager().get_setting_with_tag("DiscordRPC", "RPCSmallImage").in("Tudou")) {
 									DiscordUtil.presence.smallImageKey = "tudousmall";
 								} else {
-									switch (mc.getCurrentServerData().serverIP) {
+									switch (Objects.requireNonNull ( mc.getCurrentServerData ( ) ).serverIP) {
 										case "aurorapvp.club":
 										case "auroraanarchy.org":
 											DiscordUtil.presence.smallImageKey = "aurora";

@@ -27,9 +27,7 @@ public class MixinEntityRenderer {
         EventSetupFog event = new EventSetupFog(startCoords, partialTicks);
         Eventbus.EVENT_BUS.post(event);
 
-        if (event.isCancelled()) {
-            return;
-        }
+        event.isCancelled ( );
 
     }
 

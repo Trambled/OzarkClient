@@ -14,7 +14,7 @@ import me.trambled.ozark.ozarkclient.util.world.BlockInteractionHelper;
 import me.trambled.ozark.ozarkclient.util.world.BlockUtil;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;

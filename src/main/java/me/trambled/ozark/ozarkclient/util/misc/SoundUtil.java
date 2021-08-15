@@ -1,10 +1,11 @@
 package me.trambled.ozark.ozarkclient.util.misc;
 
-import java.io.InputStream;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
+import java.io.InputStream;
 
 public class SoundUtil
 {

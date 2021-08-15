@@ -30,9 +30,7 @@ public class EventManager {
 
 	@SubscribeEvent
 	public void onUpdate(LivingEvent.LivingUpdateEvent event) {
-		if (event.isCanceled()) {
-			return;
-		}
+		event.isCanceled ( );
 	}
 
 	@SubscribeEvent

@@ -57,7 +57,7 @@ public class PlayerList extends Pinnable {
 
             sb_health.append(hp);
 
-            players.put(posString + " " + sb_health.toString() + " " + ((FriendUtil.isFriend(player.getName()) ? ChatFormatting.GREEN : ChatFormatting.RESET)) + player.getName(), (int) mc.player.getDistance(player));
+            players.put(posString + " " + sb_health + " " + ((FriendUtil.isFriend(player.getName()) ? ChatFormatting.GREEN : ChatFormatting.RESET)) + player.getName(), (int) mc.player.getDistance(player));
 
         }
 

@@ -1,7 +1,6 @@
 package me.trambled.ozark.ozarkclient.event.events;
 
 import me.trambled.ozark.ozarkclient.event.Event;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 
 public class EventRenderEntity extends Event {

@@ -10,8 +10,8 @@ import org.lwjgl.input.Keyboard;
 
 public class KeybindSettingComponent extends Component {
     private boolean isBinding;
-    private ModuleButton parent;
-    private Setting op;
+    private final ModuleButton parent;
+    private final Setting op;
     private int offset;
     private int x;
     private int y;

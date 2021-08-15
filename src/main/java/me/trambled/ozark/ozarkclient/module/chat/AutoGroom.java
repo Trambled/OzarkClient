@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class AutoGroom extends Module {
@@ -100,7 +101,7 @@ public class AutoGroom extends Module {
         
         if (name.equals(mc.player.getName())) return;
         
-        for (EntityPlayer friend : FriendUtil.get_friends()) {
+        for (EntityPlayer friend : Objects.requireNonNull ( FriendUtil.get_friends ( ) )) {
             if (name.equals(friend.getName())) return;
         }
 

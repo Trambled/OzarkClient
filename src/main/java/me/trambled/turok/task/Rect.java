@@ -8,7 +8,7 @@ package me.trambled.turok.task;
 *
 */
 public class Rect {
-	private String tag;
+	private final String tag;
 
 	private int x;
 	private int y;
@@ -35,11 +35,7 @@ public class Rect {
 	}
 
 	public boolean event_mouse(int mx, int my) {
-		if (mx >= get_x() && my >= get_y() && mx <= get_screen_width() && my <= get_screen_height()) {
-			return true;
-		}
-
-		return false;
+		return mx >= get_x ( ) && my >= get_y ( ) && mx <= get_screen_width ( ) && my <= get_screen_height ( );
 	}
 
 	public String get_tag() {
@@ -63,10 +59,10 @@ public class Rect {
 	}
 
 	public int get_screen_width() {
-		return ((int) this.x + this.width);
+		return ( this.x + this.width);
 	}
 
 	public int get_screen_height() {
-		return ((int) this.y + this.height);
+		return ( this.y + this.height);
 	}
 }

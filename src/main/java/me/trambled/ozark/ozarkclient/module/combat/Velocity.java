@@ -1,13 +1,11 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
 
-import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.Event;
 import me.trambled.ozark.ozarkclient.event.events.EventEntity;
 import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
-import me.trambled.ozark.ozarkclient.module.movement.Strafe;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.network.play.server.SPacketEntityVelocity;

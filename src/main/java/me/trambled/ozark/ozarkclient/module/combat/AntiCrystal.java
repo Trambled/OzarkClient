@@ -3,9 +3,9 @@ package me.trambled.ozark.ozarkclient.module.combat;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
+import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 import me.trambled.ozark.ozarkclient.util.world.BlockInteractionHelper;
 import me.trambled.ozark.ozarkclient.util.world.CrystalUtil;
-import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPressurePlate;
 import net.minecraft.block.BlockWeb;
@@ -80,7 +80,7 @@ public class AntiCrystal extends Module
     }
 
     public ArrayList<EntityEnderCrystal> get_crystals() {
-        final ArrayList<EntityEnderCrystal> crystals = new ArrayList<EntityEnderCrystal>();
+        final ArrayList<EntityEnderCrystal> crystals = new ArrayList <> ( );
         for (final Entity crystal : mc.world.getLoadedEntityList()) {
             if (!(crystal instanceof EntityEnderCrystal)) {
                 continue;

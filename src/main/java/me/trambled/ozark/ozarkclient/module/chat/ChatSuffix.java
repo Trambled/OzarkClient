@@ -113,7 +113,7 @@ public class ChatSuffix extends Module {
 				suffix_with_randoms.append(convert_base(random_string(random_client_name)));
 				suffix_with_randoms.append(convert_base(random_string(random_client_finish)));
 
-				message += Ozark.SIGN + suffix_with_randoms.toString();
+				message += Ozark.SIGN + suffix_with_randoms;
 			}
 
 			// If message 256 string length substring.

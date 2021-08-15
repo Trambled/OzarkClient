@@ -6,8 +6,8 @@ import me.trambled.ozark.ozarkclient.event.events.EventPlayerTravel;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.util.world.MathUtil;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.world.MathUtil;
 import me.trambled.ozark.ozarkclient.util.world.TimerUtil;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
@@ -18,6 +18,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.CPacketEntityAction;
 import net.minecraft.network.play.client.CPacketEntityAction.Action;
 import net.minecraft.network.play.client.CPacketPlayer;
+
+import java.util.Objects;
 
 public final class ElytraFly extends Module
 {
@@ -299,7 +301,7 @@ public final class ElytraFly extends Module
     }
 
     @EventHandler
-    private Listener<EventPacket> PacketEvent = new Listener<>(p_Event ->
+    private final Listener<EventPacket> PacketEvent = new Listener<>( p_Event ->
     {
         if (p_Event.get_packet() instanceof CPacketPlayer && PitchSpoof.get_value(true))
         {
@@ -310,7 +312,7 @@ public final class ElytraFly extends Module
             {
                 CPacketPlayer.PositionRotation rotation = (CPacketPlayer.PositionRotation) p_Event.get_packet();
 
-                mc.getConnection().sendPacket(new CPacketPlayer.Position(rotation.x, rotation.y, rotation.z, rotation.onGround));
+                Objects.requireNonNull ( mc.getConnection ( ) ).sendPacket(new CPacketPlayer.Position(rotation.x, rotation.y, rotation.z, rotation.onGround));
                 p_Event.cancel();
             }
             else if (p_Event.get_packet() instanceof CPacketPlayer.Rotation && PitchSpoof.get_value(true))

@@ -11,6 +11,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Objects;
 
 public class AutoGearCommand extends Command {
 	public AutoGearCommand() {
@@ -140,7 +141,7 @@ public class AutoGearCommand extends Command {
 		StringBuilder jsonInventory = new StringBuilder();
 		for(ItemStack item : mc.player.inventory.mainInventory) {
 			// Add everything
-			jsonInventory.append(item.getItem().getRegistryName().toString() + item.getMetadata()).append(" ");
+			jsonInventory.append( Objects.requireNonNull ( item.getItem ( ).getRegistryName ( ) ).toString() + item.getMetadata()).append(" ");
 		}
 		// Add to the json
 		completeJson.addProperty(name, jsonInventory.toString());

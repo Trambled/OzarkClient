@@ -4,9 +4,9 @@ import me.trambled.ozark.ozarkclient.event.events.EventRender;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.util.world.CrystalUtil;
 import me.trambled.ozark.ozarkclient.util.player.EntityUtil;
 import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
+import me.trambled.ozark.ozarkclient.util.world.CrystalUtil;
 import me.trambled.turok.draw.RenderHelp;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -91,14 +91,9 @@ public class FuckedDetector extends Module {
             
         if (CrystalUtil.canPlaceCrystal(pos.west()) || (CrystalUtil.canPlaceCrystal(pos.west().west()) && mc.world.getBlockState(pos.add(-1, 1, 0)).getBlock() == Blocks.AIR)) {
             return true;
-        } 
-            
-        if (CrystalUtil.canPlaceCrystal(pos.north()) || (CrystalUtil.canPlaceCrystal(pos.north().north()) && mc.world.getBlockState(pos.add(0, 1, -1)).getBlock() == Blocks.AIR)) {
-            return true;
         }
 
-
-        return false;
+        return CrystalUtil.canPlaceCrystal ( pos.north ( ) ) || ( CrystalUtil.canPlaceCrystal ( pos.north ( ).north ( ) ) && mc.world.getBlockState ( pos.add ( 0 , 1 , - 1 ) ).getBlock ( ) == Blocks.AIR );
 
     }
 

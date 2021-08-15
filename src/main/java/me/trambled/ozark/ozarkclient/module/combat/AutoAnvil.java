@@ -3,9 +3,9 @@ package me.trambled.ozark.ozarkclient.module.combat;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.util.world.BlockInteractionHelper;
-import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
+import me.trambled.ozark.ozarkclient.util.world.BlockInteractionHelper;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -444,7 +444,7 @@ public class AutoAnvil extends Module
         return null;
     }
 
-    private static ArrayList<Vec3d> to_place = new ArrayList<Vec3d>();
+    private static ArrayList<Vec3d> to_place = new ArrayList <> ( );
 
     private boolean getMaterialsSlot() {
 		/*

@@ -3,10 +3,10 @@ package me.trambled.ozark.ozarkclient.module.combat;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.util.world.BlockInteractionHelper;
-import me.trambled.ozark.ozarkclient.util.world.BlockInteractionHelper.ValidResult;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 import me.trambled.ozark.ozarkclient.util.player.PlayerUtil;
+import me.trambled.ozark.ozarkclient.util.world.BlockInteractionHelper;
+import me.trambled.ozark.ozarkclient.util.world.BlockInteractionHelper.ValidResult;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
@@ -36,7 +36,7 @@ public class Webfill extends Module {
     Setting web_rotate = create("Rotate", "WebFillRotate", true);
     Setting web_range = create("Range", "WebFillRange", 4, 1, 6);
 
-    private final ArrayList<BlockPos> holes = new ArrayList<BlockPos>();
+    private final ArrayList<BlockPos> holes = new ArrayList <> ( );
 
     private boolean sneak;
 
@@ -69,7 +69,7 @@ public class Webfill extends Module {
 
         BlockPos pos_to_fill = null;
 
-        for (BlockPos pos : new ArrayList<BlockPos>(holes)) {
+        for (BlockPos pos : new ArrayList <> ( holes )) {
 
             if (pos == null) continue;
 
@@ -109,7 +109,7 @@ public class Webfill extends Module {
 
         holes.clear();
 
-        for (BlockPos pos : BlockInteractionHelper.getSphere(PlayerUtil.getLocalPlayerPosFloored(), web_range.get_value(1), (int) web_range.get_value(1), false, true, 0)) {
+        for (BlockPos pos : BlockInteractionHelper.getSphere(PlayerUtil.getLocalPlayerPosFloored(), web_range.get_value(1), web_range.get_value(1) , false, true, 0)) {
 
             if (!mc.world.getBlockState(pos).getBlock().equals(Blocks.AIR)) {
                 continue;
@@ -183,12 +183,12 @@ public class Webfill extends Module {
 
             if (!BlockInteractionHelper.canBeClicked(neighbor)) continue;
 
-            if (BlockInteractionHelper.blackList.contains((Object)(neighborPos = mc.world.getBlockState(neighbor).getBlock()))) {
-                mc.player.connection.sendPacket((Packet)new CPacketEntityAction((Entity)mc.player, CPacketEntityAction.Action.START_SNEAKING));
+            if (BlockInteractionHelper.blackList.contains( neighborPos = mc.world.getBlockState(neighbor).getBlock() )) {
+                mc.player.connection.sendPacket( new CPacketEntityAction( mc.player , CPacketEntityAction.Action.START_SNEAKING) );
                 sneak = true;
             }
 
-            Vec3d hitVec = new Vec3d((Vec3i)neighbor).add(0.5, 0.5, 0.5).add(new Vec3d(side2.getDirectionVec()).scale(0.5));
+            Vec3d hitVec = new Vec3d( neighbor ).add(0.5, 0.5, 0.5).add(new Vec3d(side2.getDirectionVec()).scale(0.5));
 
             if (web_rotate.get_value(true)) {
                 BlockInteractionHelper.faceVectorPacketInstant(hitVec);

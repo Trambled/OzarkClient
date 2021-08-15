@@ -31,7 +31,7 @@ public class RenameCommand extends Command {
             String da_name = name.toString();
             da_name = da_name.replace(" ", "");
             Ozark.DISPLAY_NAME = da_name;
-            MessageUtil.send_client_message("Display name changed to " + ChatFormatting.BOLD + name.toString());
+            MessageUtil.send_client_message("Display name changed to " + ChatFormatting.BOLD + name );
             Ozark.get_config_manager().save_settings();
             return true;
         }

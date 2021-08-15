@@ -20,7 +20,7 @@ public class Timechanger extends Module {
     Setting time = create("Time", "Time", 18000, 0, 24000);
     
     @EventHandler
-    private Listener<EventRender> on_render = new Listener<>(event -> {
+    private final Listener<EventRender> on_render = new Listener<>( event -> {
         if (mc.world == null) return;
         mc.world.setWorldTime(time.get_value(1));
     });

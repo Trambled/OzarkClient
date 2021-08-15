@@ -20,6 +20,8 @@ import net.minecraft.network.play.client.CPacketPlayerDigging;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.Objects;
+
 //salhack
 public class AutoTool extends Module
 {
@@ -110,14 +112,14 @@ public class AutoTool extends Module
 
         if (mc.player.isPotionActive(MobEffects.HASTE))
         {
-            f *= 1.0F + (float) (mc.player.getActivePotionEffect(MobEffects.HASTE).getAmplifier() + 1) * 0.2F;
+            f *= 1.0F + (float) ( Objects.requireNonNull ( mc.player.getActivePotionEffect ( MobEffects.HASTE ) ).getAmplifier() + 1) * 0.2F;
         }
 
         if (mc.player.isPotionActive(MobEffects.MINING_FATIGUE))
         {
             float f1;
 
-            switch (mc.player.getActivePotionEffect(MobEffects.MINING_FATIGUE).getAmplifier())
+            switch (Objects.requireNonNull ( mc.player.getActivePotionEffect ( MobEffects.MINING_FATIGUE ) ).getAmplifier())
             {
                 case 0:
                     f1 = 0.3F;

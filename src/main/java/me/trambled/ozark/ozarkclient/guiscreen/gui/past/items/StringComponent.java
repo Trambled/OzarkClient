@@ -19,8 +19,8 @@ public class StringComponent extends Component {
     private final Setting op;
     private final ModuleButton parent;
     private int offset;
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
     public boolean listening = false;
     private boolean idling;
     private CurrentString current_string = new CurrentString("");

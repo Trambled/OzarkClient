@@ -81,16 +81,12 @@ public class MixinEntitySP extends MixinEntity {
 
     @Redirect(method = { "onLivingUpdate" }, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/entity/EntityPlayerSP;closeScreen()V"))
     public void closeScreen(final EntityPlayerSP entityPlayerSP) {
-        if (Ozark.get_module_manager().get_module_with_tag("Portals").is_active()) {
-            return;
-        }
+        Ozark.get_module_manager ( ).get_module_with_tag ( "Portals" );
     }
 
     @Redirect(method = { "onLivingUpdate" }, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;displayGuiScreen(Lnet/minecraft/client/gui/GuiScreen;)V"))
     public void closeScreen(final Minecraft minecraft, final GuiScreen screen) {
-        if (Ozark.get_module_manager().get_module_with_tag("Portals").is_active()) {
-            return;
-        }
+        Ozark.get_module_manager ( ).get_module_with_tag ( "Portals" );
     }
 
 }

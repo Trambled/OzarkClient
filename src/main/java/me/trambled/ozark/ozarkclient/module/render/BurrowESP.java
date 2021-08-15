@@ -38,7 +38,7 @@ public class BurrowESP extends Module {
     private boolean solid;
     private boolean outline;
 
-    public Set<BlockPos> burrowed_players = new HashSet<BlockPos>();
+    public Set<BlockPos> burrowed_players = new HashSet <> ( );
 
     @Override
     protected void enable() {
@@ -81,11 +81,7 @@ public class BurrowESP extends Module {
               return true;
         }
 
-        if (mc.world.getBlockState(pos).getBlock().equals(Blocks.ENDER_CHEST) && echest.get_value(true)) {
-            return true;
-        }
-
-        return false;
+        return mc.world.getBlockState ( pos ).getBlock ( ).equals ( Blocks.ENDER_CHEST ) && echest.get_value ( true );
 
     }
 

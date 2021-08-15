@@ -13,11 +13,11 @@ import me.trambled.turok.values.TurokDouble;
 
 
 public class Slider extends AbstractWidget {
-	private Frame frame;
-	private ModuleButton master;
-	private Setting setting;
+	private final Frame frame;
+	private final ModuleButton master;
+	private final Setting setting;
 
-	private String slider_name;
+	private final String slider_name;
 
 	private double double_;
 	private int    intenger;
@@ -34,9 +34,9 @@ public class Slider extends AbstractWidget {
 	private boolean compare;
 	private boolean click;
 
-	private GuiUtil font = new GuiUtil(1);
+	private final GuiUtil font = new GuiUtil(1);
 
-	private int border_size = 0;
+	private final int border_size = 0;
 
 	public Slider(Frame frame, ModuleButton master, String tag, int update_postion) {
 		this.frame   = frame;
@@ -124,11 +124,7 @@ public class Slider extends AbstractWidget {
 	}
 
 	public boolean motion(int mx, int my) {
-		if (mx >= get_x() && my >= get_save_y() && mx <= get_x() + get_width() && my <= get_save_y() + get_height()) {
-			return true;
-		}
-
-		return false;
+		return mx >= get_x ( ) && my >= get_save_y ( ) && mx <= get_x ( ) + get_width ( ) && my <= get_save_y ( ) + get_height ( );
 	}
 
 	public boolean can() {

@@ -3,7 +3,6 @@ package me.trambled.ozark.ozarkclient.util.render;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.guiscreen.GuiCustomMainMenu;
 import me.trambled.ozark.ozarkclient.util.font.FontUtil;
-import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
@@ -11,7 +10,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.common.Loader;
 import org.lwjgl.opengl.GL11;
-
 
 import java.awt.*;
 

@@ -172,27 +172,27 @@ public class HoleESP extends Module {
 				boolean low_ceiling_hole = !mc.world.getBlockState(second_pos.add(0, 1, 0)).getBlock().equals(Blocks.AIR);
 				if (safe_sides == 8) {
 					if (low_ceiling_hole) {
-						holes.add(new PairUtil<BlockPos, Boolean>(pos, true));
+						holes.add( new PairUtil <> ( pos , true ));
 					} else {
 						if (!dual_hole_sides.containsKey(pos)) {
-							dual_holes.add(new PairUtil<BlockPos, Boolean>(pos, true));
+							dual_holes.add( new PairUtil <> ( pos , true ));
 							dual_hole_sides.put(pos, air_orient);
 						}
 						if (!dual_hole_sides.containsKey(second_pos)) {
-							dual_holes.add(new PairUtil<BlockPos, Boolean>(second_pos, true));
+							dual_holes.add( new PairUtil <> ( second_pos , true ));
 							dual_hole_sides.put(second_pos, oppositeIntOrient(air_orient));
 						}
 					}
 				} else {
 					if (low_ceiling_hole) {
-						holes.add(new PairUtil<BlockPos, Boolean>(pos, false));
+						holes.add( new PairUtil <> ( pos , false ));
 					} else {
 						if (!dual_hole_sides.containsKey(pos)) {
-							dual_holes.add(new PairUtil<BlockPos, Boolean>(pos, false));
+							dual_holes.add( new PairUtil <> ( pos , false ));
 							dual_hole_sides.put(pos, air_orient);
 						}
 						if (!dual_hole_sides.containsKey(second_pos)) {
-							dual_holes.add(new PairUtil<BlockPos, Boolean>(second_pos, false));
+							dual_holes.add( new PairUtil <> ( second_pos , false ));
 							dual_hole_sides.put(second_pos, oppositeIntOrient(air_orient));
 						}
 					}

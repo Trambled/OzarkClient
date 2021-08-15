@@ -4,6 +4,8 @@ package me.trambled.ozark.ozarkclient.guiscreen.hud.pinnables;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
 
+import java.util.Objects;
+
 public class Ping extends Pinnable {
     
     public Ping() {
@@ -27,13 +29,13 @@ public class Ping extends Pinnable {
     
     public String get_ping() {
         try {
-            int ping = mc.getConnection().getPlayerInfo(mc.player.getUniqueID()).getResponseTime();
+            int ping = Objects.requireNonNull ( mc.getConnection ( ) ).getPlayerInfo(mc.player.getUniqueID()).getResponseTime();
 		if (ping <= 50) {
-			return "\u00A7a"+Integer.toString(ping);
+			return "\u00A7a"+ ping;
 		} else if (ping <= 150) {
-			return "\u00A73"+Integer.toString(ping);
+			return "\u00A73"+ ping;
 		} else {
-			return "\u00A74"+Integer.toString(ping);
+			return "\u00A74"+ ping;
 		}
         } catch (Exception e) {
             return "0";

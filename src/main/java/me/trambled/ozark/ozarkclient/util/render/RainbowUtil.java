@@ -12,7 +12,7 @@ import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
 
 public class RainbowUtil {
-	private static FontRenderer font_renderer = mc.fontRenderer;
+	private static final FontRenderer font_renderer = mc.fontRenderer;
 	private static boolean flag;
 
 
@@ -139,16 +139,14 @@ public class RainbowUtil {
 	}
 
 	public static int get_string_width(String string) {
-		FontRenderer fontRenderer = font_renderer;
 
-		return (fontRenderer.getStringWidth(string));
+		return ( font_renderer.getStringWidth(string));
 	}
 
 
 	public static int get_string_height() {
-		FontRenderer fontRenderer = font_renderer;
 
-		return (fontRenderer.FONT_HEIGHT);
+		return ( font_renderer.FONT_HEIGHT);
 	}
 
 	public static float drawString(String text, float x, float y, int color) {
@@ -164,9 +162,8 @@ public class RainbowUtil {
 	}
 
 	public static int getRainbowInt(float seconds, float saturation, float brightness, long index) {
-		float hue = ((System.currentTimeMillis() + index) % (int) (seconds * 1000)) / (float) (seconds * 1000);
-		int color = Color.HSBtoRGB(hue, saturation, brightness);
-		return color;
+		float hue = ((System.currentTimeMillis() + index) % (int) (seconds * 1000)) / (seconds * 1000);
+		return Color.HSBtoRGB(hue, saturation, brightness);
 	}
 
 	public static int rainbow(final int delay) {
