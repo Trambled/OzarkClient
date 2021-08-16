@@ -305,7 +305,7 @@ public class MathUtil {
     }
 
     public static List<Vec3d> getBlockBlocks(final Entity entity) {
-        final List<Vec3d> vec3ds = new ArrayList<Vec3d>();
+        final List<Vec3d> vec3ds = new ArrayList <> ( );
         final AxisAlignedBB bb = entity.getEntityBoundingBox();
         final double y = entity.posY;
         final double minX = round(bb.minX, 0);

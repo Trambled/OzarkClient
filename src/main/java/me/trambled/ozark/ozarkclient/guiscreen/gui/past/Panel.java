@@ -1,6 +1,7 @@
 package me.trambled.ozark.ozarkclient.guiscreen.gui.past;
 
 import me.trambled.ozark.Ozark;
+import me.trambled.ozark.ozarkclient.guiscreen.PastGUI;
 import me.trambled.ozark.ozarkclient.guiscreen.gui.past.items.ModuleButton;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
@@ -103,7 +104,7 @@ public class Panel {
     public void scroll() {
         int scrollWheel = Mouse.getDWheel();
 
-        for (Panel panels : Ozark.past_gui.panels) {
+        for (Panel panels : PastGUI.panels) {
             if (scrollWheel < 0) {
                 panels.setY((panels.getY() - Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIScrollSpeed").get_value(1)));
                 continue;
@@ -144,7 +145,7 @@ public class Panel {
         if (Ozark.get_config_manager() != null) {
             try {
                 Ozark.get_config_manager().save_past_gui();
-            } catch (Exception e) {}
+            } catch (Exception ignored ) {}
         }
     }
 
@@ -161,7 +162,7 @@ public class Panel {
         if (Ozark.get_config_manager() != null) {
             try {
                 Ozark.get_config_manager().save_past_gui();
-            } catch (Exception e) {}
+            } catch (Exception ignored ) {}
         }
     }
 
@@ -170,7 +171,7 @@ public class Panel {
         if (Ozark.get_config_manager() != null) {
             try {
                 Ozark.get_config_manager().save_past_gui();
-            } catch (Exception e) {}
+            } catch (Exception ignored ) {}
         }
     }
 

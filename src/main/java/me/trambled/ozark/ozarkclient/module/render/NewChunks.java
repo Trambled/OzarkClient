@@ -16,6 +16,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import org.lwjgl.opengl.GL11;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 // summit
@@ -29,7 +30,7 @@ public class NewChunks extends Module {
         this.description = "Highlights newly generated chunks";
     }
 
-    private List<PairUtil<Integer, Integer>> chunkDataList = new CopyOnWriteArrayList<>();
+    private final List<PairUtil<Integer, Integer>> chunkDataList = new CopyOnWriteArrayList<>();
 
 
 
@@ -42,7 +43,7 @@ public class NewChunks extends Module {
             float x = chunkData.getKey() * 16;
             float z = chunkData.getValue() * 16;
 
-            RenderUtil.camera.setPosition(mc.getRenderViewEntity().posX, mc.getRenderViewEntity().posY, mc.getRenderViewEntity().posZ);
+            RenderUtil.camera.setPosition( Objects.requireNonNull ( mc.getRenderViewEntity ( ) ).posX, mc.getRenderViewEntity().posY, mc.getRenderViewEntity().posZ);
 
             final AxisAlignedBB bb = new AxisAlignedBB(
                     x - mc.getRenderManager().viewerPosX,
@@ -77,7 +78,7 @@ public class NewChunks extends Module {
         });
     }
     @EventHandler
-    private Listener<EventPacket.ReceivePacket> onServerPacket = new Listener<>(event ->
+    private final Listener<EventPacket.ReceivePacket> onServerPacket = new Listener<>( event ->
     {
         if (event.get_era() != Event.Era.EVENT_PRE)
             return;

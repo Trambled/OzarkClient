@@ -8,8 +8,8 @@ import me.trambled.ozark.ozarkclient.util.font.FontUtil;
 import me.trambled.ozark.ozarkclient.util.render.GuiUtil;
 
 public class ModeComponent extends Component {
-    private Setting op;
-    private ModuleButton parent;
+    private final Setting op;
+    private final ModuleButton parent;
     private int offset;
     private int x;
     private int y;

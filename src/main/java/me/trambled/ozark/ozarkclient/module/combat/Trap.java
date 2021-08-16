@@ -4,10 +4,10 @@ package me.trambled.ozark.ozarkclient.module.combat;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.util.world.BlockUtil;
+import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 import me.trambled.ozark.ozarkclient.util.player.EntityUtil;
 import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
-import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.world.BlockUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEnderChest;
 import net.minecraft.block.BlockObsidian;
@@ -173,7 +173,7 @@ public class Trap extends Module {
 
         }
 
-        final List<Vec3d> place_targets = new ArrayList<Vec3d>();
+        final List<Vec3d> place_targets = new ArrayList <> ( );
 
         if (place_mode.in("Normal")) {
             Collections.addAll(place_targets, offsets_default);
@@ -194,14 +194,11 @@ public class Trap extends Module {
                 break;
             }
 
-            final BlockPos offset_pos = new BlockPos((Vec3d) place_targets.get(offset_step));
+            final BlockPos offset_pos = new BlockPos( place_targets.get(offset_step) );
             final BlockPos target_pos = new BlockPos(closest_target.getPositionVector()).down().add(offset_pos.getX(), offset_pos.getY(), offset_pos.getZ());
-            boolean should_try_place = true;
+            boolean should_try_place = mc.world.getBlockState ( target_pos ).getMaterial ( ).isReplaceable ( );
 
-            if (!mc.world.getBlockState(target_pos).getMaterial().isReplaceable()) 
-                should_try_place = false;
-            
-                for (final Entity entity : mc.world.getEntitiesWithinAABBExcludingEntity( null, new AxisAlignedBB(target_pos))) {
+            for (final Entity entity : mc.world.getEntitiesWithinAABBExcludingEntity( null, new AxisAlignedBB(target_pos))) {
 
                     if (!(entity instanceof EntityItem) && !(entity instanceof EntityXPOrb)) {
                         should_try_place = false;

@@ -11,12 +11,12 @@ import java.math.RoundingMode;
 *
 */
 public class TurokDouble {
-	private TurokString name;
-	private TurokString tag;
+	private final TurokString name;
+	private final TurokString tag;
 
 	private double value;
-	private double max;
-	private double min;
+	private final double max;
+	private final double min;
 
 	public TurokDouble(TurokString name, TurokString tag, double _double, double min, double max) {
 		this.name  = name;

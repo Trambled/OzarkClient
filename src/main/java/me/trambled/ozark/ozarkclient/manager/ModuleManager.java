@@ -157,6 +157,7 @@ public class ModuleManager {
 		// Misc.
 		add_module(new AutoWither());
 		add_module(new MCF());
+		add_module(new MCP());
 		add_module(new StopEXP());
 		add_module(new AutoReplenish());
 		add_module(new AutoNomadHut());

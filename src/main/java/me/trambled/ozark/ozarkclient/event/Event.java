@@ -24,6 +24,6 @@ public class Event extends Cancellable {
 	public enum Era {
 		EVENT_PRE,
 		EVENT_PERI,
-		EVENT_POST;
+		EVENT_POST
 	}
 }

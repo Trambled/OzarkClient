@@ -67,7 +67,7 @@ public class AlertCommand extends Command {
 
 		module_requested.set_if_can_send_message_toggle(value);
 
-		MessageUtil.send_client_message("The actual value of " + module_requested.get_name() +  " is " + Boolean.toString(module_requested.can_send_message_when_toggle()) + ".");
+		MessageUtil.send_client_message("The actual value of " + module_requested.get_name() +  " is " + module_requested.can_send_message_when_toggle ( ) + ".");
 
 		return true;
 	}

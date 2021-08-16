@@ -16,11 +16,11 @@ public class NamemcCommand extends Command {
         if (message.length == 1) {
             try {
                 Desktop.getDesktop().browse(URI.create("https://namemc.com/profile/" + mc.player.getName()));
-            } catch (Exception ex) {}
+            } catch (Exception ignored ) {}
         }else if (message.length == 2) {
             try {
                 Desktop.getDesktop().browse(URI.create("https://namemc.com/profile/" + message[1]));
-            } catch (Exception ex) {}
+            } catch (Exception ignored ) {}
 
         return true;
     }return true;}

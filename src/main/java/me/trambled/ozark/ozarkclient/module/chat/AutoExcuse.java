@@ -1,9 +1,10 @@
 package me.trambled.ozark.ozarkclient.module.chat;
 
 import me.trambled.ozark.ozarkclient.event.EventHandler;
-import me.trambled.ozark.ozarkclient.guiscreen.hud.pinnables.Info;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
+
+import java.util.Objects;
 
 public class AutoExcuse extends Module {
     int diedTime;
@@ -36,8 +37,7 @@ public class AutoExcuse extends Module {
 
     public int get_ping() {
         try {
-            int ping = mc.getConnection().getPlayerInfo(mc.player.getUniqueID()).getResponseTime();
-            return (ping);
+            return ( Objects.requireNonNull ( mc.getConnection ( ) ).getPlayerInfo(mc.player.getUniqueID()).getResponseTime() );
         } catch (Exception e) {
             return 0;
         }
@@ -45,8 +45,7 @@ public class AutoExcuse extends Module {
 
     public int tps() {
         try {
-            int tps = Math.round(EventHandler.INSTANCE.get_tick_rate());
-            return (tps);
+            return ( Math.round(EventHandler.INSTANCE.get_tick_rate()) );
         } catch (Exception e) {
             return 0;
         }

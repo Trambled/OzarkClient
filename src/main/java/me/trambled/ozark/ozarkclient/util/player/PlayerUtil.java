@@ -23,7 +23,7 @@ import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
 public class PlayerUtil
 {
-    private static DecimalFormat formatter = new DecimalFormat("#.#");
+    private static final DecimalFormat formatter = new DecimalFormat("#.#");
     
     public static BlockPos getLocalPlayerPosFloored() {
         return new BlockPos(Math.floor(mc.player.posX), Math.floor(mc.player.posY), Math.floor(mc.player.posZ));
@@ -118,7 +118,7 @@ public class PlayerUtil
             this.setTimer(speed);
         }
         for (int i = 0; i < offset.length; ++i) {
-            mc.player.connection.sendPacket((Packet)new CPacketPlayer.Position(mc.player.posX, mc.player.posY + offset[i], mc.player.posZ, mc.player.onGround));
+            mc.player.connection.sendPacket( new CPacketPlayer.Position(mc.player.posX, mc.player.posY + offset[i], mc.player.posZ, mc.player.onGround) );
         }
         mc.player.stepHeight = height;
     }

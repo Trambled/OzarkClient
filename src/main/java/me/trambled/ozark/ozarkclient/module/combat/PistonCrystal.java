@@ -4,9 +4,9 @@ import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.util.world.BlockInteractionHelper;
-import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
+import me.trambled.ozark.ozarkclient.util.world.BlockInteractionHelper;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.block.*;
@@ -137,8 +137,7 @@ public class PistonCrystal extends Module
             if (!target.in("Looking") && aimTarget == null)
                 set_disable();
             // If not found a target
-            if (aimTarget == null)
-                return true;
+            return aimTarget == null;
         }
         return false;
     }
@@ -544,7 +543,7 @@ public class PistonCrystal extends Module
             try {
                 mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
                 mc.player.swingArm(EnumHand.MAIN_HAND);
-            }catch(NullPointerException e) {
+            }catch(NullPointerException ignored ) {
 
             }
         }
@@ -839,7 +838,7 @@ public class PistonCrystal extends Module
                         // How much we are going above
                         int incr = 0;
                         // Blocks we are going to add
-                        List<Vec3d> highSup = new ArrayList<Vec3d>();
+                        List<Vec3d> highSup = new ArrayList <> ( );
                         // Create the structure until it's on us
                         while (meCoordsInt[1] > enemyCoordsInt[1] + incr) {
                             incr++;
@@ -1396,7 +1395,7 @@ public class PistonCrystal extends Module
         try {
             mc.playerController.attackEntity(mc.player, crystal);
             mc.player.swingArm(EnumHand.MAIN_HAND);
-        }catch (NullPointerException e) {
+        }catch (NullPointerException ignored ) {
 
         }
     }

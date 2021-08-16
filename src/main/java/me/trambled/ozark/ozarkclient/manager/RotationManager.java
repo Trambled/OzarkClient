@@ -58,7 +58,7 @@ public class RotationManager implements Listenable {
     }
 
     @EventHandler
-    private Listener<EventRotation> rotation = new Listener<>(event -> {
+    private final Listener<EventRotation> rotation = new Listener<>( event -> {
         if (currentRotation != null && currentRotation.mode.equals(RotationUtil.RotationMode.Packet)) {
             event.cancel();
 
@@ -75,7 +75,7 @@ public class RotationManager implements Listenable {
     });
 
     @EventHandler
-    private Listener<EventPacket.SendPacket> player_move = new Listener<>(event -> {
+    private final Listener<EventPacket.SendPacket> player_move = new Listener<>( event -> {
         if (currentRotation != null && !rotationQueue.isEmpty() && event.get_packet() instanceof CPacketPlayer) {
             if (RotationUtil.is_rotating((CPacketPlayer) event.get_packet()))
                 serverRotation = new RotationUtil.Rotation(((CPacketPlayer) event.get_packet()).yaw, ((CPacketPlayer) event.get_packet()).pitch, RotationUtil.RotationMode.Packet, RotationUtil.RotationPriority.Lowest);

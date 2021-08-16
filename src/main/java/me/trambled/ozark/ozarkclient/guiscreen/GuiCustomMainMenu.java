@@ -120,6 +120,5 @@ public class GuiCustomMainMenu extends GuiScreen {
         }
     }
     public static final ScaledResolution getScaledRes() {
-        final ScaledResolution scaledRes = new ScaledResolution(Minecraft.getMinecraft());
-        return scaledRes;
+        return new ScaledResolution(Minecraft.getMinecraft());
     }}

@@ -99,13 +99,13 @@ public class Xray extends Module {
     }
 
     @EventHandler
-    private Listener<EventRenderPutColorMultiplier> OnPutColorMultiplier = new Listener<>(event ->
+    private final Listener<EventRenderPutColorMultiplier> OnPutColorMultiplier = new Listener<>( event ->
     {
         event.cancel();
         event.setOpacity((float) opacity.get_value(1) / 0xFF);
     });
     @EventHandler
-    private Listener<EventBlockGetRenderLayer> OnGetRenderLayer  = new Listener<>(event ->
+    private final Listener<EventBlockGetRenderLayer> OnGetRenderLayer  = new Listener<>( event ->
     {
         if (!shouldXray(event.getBlock()))
         {
@@ -146,7 +146,7 @@ public class Xray extends Module {
     }
 
     static {
-        BLOCKS = new ArrayList<Block>();
+        BLOCKS = new ArrayList <> ( );
     }
 
     private void reloadWorld()

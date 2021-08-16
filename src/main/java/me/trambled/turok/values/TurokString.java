@@ -8,8 +8,8 @@ package me.trambled.turok.values;
 *
 */
 public class TurokString {
-	private java.lang.String name;
-	private java.lang.String tag;
+	private final java.lang.String name;
+	private final java.lang.String tag;
 	private java.lang.String value;
 
 	public TurokString(java.lang.String name, java.lang.String tag, java.lang.String string) {

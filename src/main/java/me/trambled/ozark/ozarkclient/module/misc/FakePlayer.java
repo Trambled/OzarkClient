@@ -6,7 +6,6 @@ import me.trambled.ozark.ozarkclient.module.Module;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.GameType;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 

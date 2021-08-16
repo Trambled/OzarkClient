@@ -12,9 +12,9 @@ import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
 
 public class Frame {
-	private Category category;
+	private final Category category;
 
-	private ArrayList<ModuleButton> module_button;
+	private final ArrayList<ModuleButton> module_button;
 
 	private int x;
 	private int y;
@@ -23,14 +23,14 @@ public class Frame {
 	private int height;
 
 	private int width_name;
-	private int width_abs;
+	private final int width_abs;
 
 	private String frame_name;
-	private String frame_tag;
+	private final String frame_tag;
 
-	private GuiUtil font = new GuiUtil(1);
+	private final GuiUtil font = new GuiUtil(1);
 
-	private boolean first = false;
+	private final boolean first = false;
 	private boolean move;
 
 	private int move_x;

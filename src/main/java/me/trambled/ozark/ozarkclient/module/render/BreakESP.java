@@ -7,6 +7,8 @@ import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.render.RenderUtil;
 import me.trambled.turok.draw.RenderHelp;
 
+import java.util.Objects;
+
 /**
  * @author linustouchtips
  * @since 11/30/2020
@@ -84,13 +86,13 @@ public class BreakESP extends Module {
 
                 if (info_mode.in("Name")) {
                     if (mc.world.getEntityByID(integer) != null) {
-                        RenderUtil.drawText(destroyBlockProgress.getPosition(), mc.world.getEntityByID(integer).getName(), true);
+                        RenderUtil.drawText(destroyBlockProgress.getPosition(), Objects.requireNonNull ( mc.world.getEntityByID ( integer ) ).getName(), true);
                     }
                 }
 
                 if (info_mode.in("Both")) {
                     if (mc.world.getEntityByID(integer) != null) {
-                        RenderUtil.drawText(destroyBlockProgress.getPosition(), 0.6f, mc.world.getEntityByID(integer).getName());
+                        RenderUtil.drawText(destroyBlockProgress.getPosition(), 0.6f, Objects.requireNonNull ( mc.world.getEntityByID ( integer ) ).getName());
                         RenderUtil.drawText(destroyBlockProgress.getPosition(), 0.2f,(destroyBlockProgress.getPartialBlockDamage() * 12.5) + "%");
                     }
                 }

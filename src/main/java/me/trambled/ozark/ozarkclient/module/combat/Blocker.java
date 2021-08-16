@@ -4,8 +4,8 @@ import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.util.world.BlockInteractionHelper;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.world.BlockInteractionHelper;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.block.*;
@@ -99,7 +99,6 @@ public class Blocker extends Module
 
         if (delayTimeTicks < tickDelay.get_value(1)) {
             delayTimeTicks++;
-            return;
         }
         else {
             delayTimeTicks = 0;

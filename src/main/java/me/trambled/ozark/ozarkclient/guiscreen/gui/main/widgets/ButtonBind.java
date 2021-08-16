@@ -10,10 +10,10 @@ import java.awt.*;
 
 
 public class ButtonBind extends AbstractWidget {
-	private Frame frame;
-	private ModuleButton master;
+	private final Frame frame;
+	private final ModuleButton master;
 
-	private String button_name;
+	private final String button_name;
 	private String points;
 
 	private int x;
@@ -29,9 +29,9 @@ public class ButtonBind extends AbstractWidget {
 	private boolean can;
 	private boolean waiting;
 
-	private GuiUtil font = new GuiUtil(1);
+	private final GuiUtil font = new GuiUtil(1);
 
-	private int border_size = 0;
+	private final int border_size = 0;
 
 	public ButtonBind(Frame frame, ModuleButton master, String tag, int update_postion) {
 		this.frame   = frame;
@@ -107,11 +107,7 @@ public class ButtonBind extends AbstractWidget {
 	}
 
 	public boolean motion(int mx, int my) {
-		if (mx >= get_x() && my >= get_save_y() && mx <= get_x() + get_width() && my <= get_save_y() + get_height()) {
-			return true;
-		}
-
-		return false;
+		return mx >= get_x ( ) && my >= get_save_y ( ) && mx <= get_x ( ) + get_width ( ) && my <= get_save_y ( ) + get_height ( );
 	}
 
 	public boolean can() {

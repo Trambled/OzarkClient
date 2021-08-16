@@ -76,7 +76,7 @@ public class StopEXP extends Module {
     }
 
     private Map<Integer, ItemStack> get_inv_slots(int current, final int last) {
-        final Map<Integer, ItemStack> full_inv_slots = new HashMap<Integer, ItemStack>();
+        final Map<Integer, ItemStack> full_inv_slots = new HashMap <> ( );
         while (current <= last) {
             full_inv_slots.put(current, mc.player.inventoryContainer.getInventory().get(current));
             current++;

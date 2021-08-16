@@ -10,7 +10,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.UUID;
 
 import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
@@ -38,7 +40,7 @@ public class EnemyUtil {
     }
 
     public static Enemy get_enemy_object(String name) {
-        ArrayList<NetworkPlayerInfo> infoMap = new ArrayList<>(mc.getConnection().getPlayerInfoMap());
+        ArrayList<NetworkPlayerInfo> infoMap = new ArrayList<>( Objects.requireNonNull ( mc.getConnection ( ) ).getPlayerInfoMap());
         NetworkPlayerInfo profile = infoMap.stream().filter(networkPlayerInfo -> networkPlayerInfo.getGameProfile().getName().equalsIgnoreCase(name)).findFirst().orElse(null);
         if (profile == null) {
             String s = request_ids("[\"" + name + "\"]");
@@ -74,7 +76,7 @@ public class EnemyUtil {
             conn.setRequestMethod("POST");
 
             OutputStream os = conn.getOutputStream();
-            os.write(data.getBytes("UTF-8"));
+            os.write(data.getBytes( StandardCharsets.UTF_8 ));
             os.close();
 
             // read the response
@@ -91,8 +93,7 @@ public class EnemyUtil {
 
     private static String convertStreamToString(InputStream is) {
         java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
-        String r = s.hasNext() ? s.next() : "/";
-        return r;
+        return s.hasNext() ? s.next() : "/";
     }
 
 }

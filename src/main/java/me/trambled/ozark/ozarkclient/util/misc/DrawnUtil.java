@@ -1,7 +1,5 @@
 package me.trambled.ozark.ozarkclient.util.misc;
 
-import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 

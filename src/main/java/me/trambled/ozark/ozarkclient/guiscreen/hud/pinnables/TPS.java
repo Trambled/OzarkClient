@@ -29,11 +29,11 @@ public class TPS extends Pinnable {
         try {
             int tps = Math.round(EventHandler.INSTANCE.get_tick_rate());
         if (tps >= 16) {
-            return "\u00A7a"+Integer.toString(tps);
+            return "\u00A7a"+ tps;
         } else if (tps >= 10) {
-            return "\u00A73"+Integer.toString(tps);
+            return "\u00A73"+ tps;
         } else {
-            return "\u00A74"+Integer.toString(tps);
+            return "\u00A74"+ tps;
         }
         } catch (Exception e) {
             return "0" +e;

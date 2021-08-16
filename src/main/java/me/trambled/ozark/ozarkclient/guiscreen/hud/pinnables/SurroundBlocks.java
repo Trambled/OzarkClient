@@ -71,37 +71,21 @@ public class SurroundBlocks extends Pinnable {
 
     public Block get_neg_x() {
         BlockPos player_block = PlayerUtil.getLocalPlayerPosFloored();
-        Block b = mc.world.getBlockState(player_block.west()).getBlock();
-        if (b != null) {
-            return b;
-        }
-        return null;
+        return mc.world.getBlockState(player_block.west()).getBlock();
     }
 
     public Block get_pos_x() {
         BlockPos player_block = PlayerUtil.getLocalPlayerPosFloored();
-        Block b = mc.world.getBlockState(player_block.east()).getBlock();
-        if (b != null) {
-            return b;
-        }
-        return null;
+        return mc.world.getBlockState(player_block.east()).getBlock();
     }
 
     public Block get_pos_z() {
         BlockPos player_block = PlayerUtil.getLocalPlayerPosFloored();
-        Block b = mc.world.getBlockState(player_block.south()).getBlock();
-        if (b != null) {
-            return b;
-        }
-        return null;
+        return mc.world.getBlockState(player_block.south()).getBlock();
     }
 
     public Block get_neg_z() {
         BlockPos player_block = PlayerUtil.getLocalPlayerPosFloored();
-        Block b = mc.world.getBlockState(player_block.north()).getBlock();
-        if (b != null) {
-            return b;
-        }
-        return null;
+        return mc.world.getBlockState(player_block.north()).getBlock();
     }
 }

@@ -44,7 +44,7 @@ public class AutoGear extends Module {
 
 	// Our inventory variables
 	private HashMap<Integer, String> planInventory = new HashMap<>();
-	private HashMap<Integer, String> containerInv = new HashMap<>();
+	private final HashMap<Integer, String> containerInv = new HashMap<>();
 	// Sort item
 	private ArrayList<Integer> sortItems = new ArrayList<>();
 

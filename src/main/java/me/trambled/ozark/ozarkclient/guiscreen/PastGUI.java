@@ -21,7 +21,7 @@ public class PastGUI extends GuiScreen {
     private final ParticleUtil particleUtil = new ParticleUtil(100);
     public static ArrayList<Panel> panels;
     public static ArrayList<Component> components;
-    private ArrayList<Snow> snow_list = new ArrayList<Snow>();
+    private final ArrayList<Snow> snow_list = new ArrayList <> ( );
 
     public PastGUI() {
         panels = new ArrayList<>();
@@ -155,11 +155,7 @@ public class PastGUI extends GuiScreen {
 
     @Override
     public boolean doesGuiPauseGame() {
-        if (Ozark.get_setting_manager().get_setting_with_tag("PastGUI", "PastGUIPauseGame").get_value(true)) {
-            return true;
-        } else {
-            return false;
-        }
+        return Ozark.get_setting_manager ( ).get_setting_with_tag ( "PastGUI" , "PastGUIPauseGame" ).get_value ( true );
     }
 
     public final ArrayList<Component> get_components() {

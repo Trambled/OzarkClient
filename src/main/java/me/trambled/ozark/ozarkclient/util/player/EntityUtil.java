@@ -328,8 +328,8 @@ public class EntityUtil {
 
     public static double getMaxSpeed() {
         double maxModifier = 0.2873;
-        if (mc.player.isPotionActive(Objects.requireNonNull(Potion.getPotionById((int)1)))) {
-            maxModifier *= 1.0 + 0.2 * (double)(Objects.requireNonNull(mc.player.getActivePotionEffect(Objects.requireNonNull(Potion.getPotionById((int)1)))).getAmplifier() + 1);
+        if (mc.player.isPotionActive(Objects.requireNonNull(Potion.getPotionById( 1 )))) {
+            maxModifier *= 1.0 + 0.2 * (double)(Objects.requireNonNull(mc.player.getActivePotionEffect(Objects.requireNonNull(Potion.getPotionById( 1 )))).getAmplifier() + 1);
         }
         return maxModifier;
     }

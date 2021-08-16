@@ -33,7 +33,7 @@ public class CityESP extends Module {
     Setting b = create("B", "CityB", 0, 0, 255);
     Setting a = create("A", "CityA", 50, 0, 255);
 
-    List<BlockPos> blocks = new ArrayList<BlockPos>();
+    List<BlockPos> blocks = new ArrayList <> ( );
 
     boolean outline = false;
     boolean solid   = false;

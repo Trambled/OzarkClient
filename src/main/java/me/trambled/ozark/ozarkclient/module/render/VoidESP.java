@@ -16,6 +16,7 @@ import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class VoidESP extends Module {
 
@@ -72,7 +73,7 @@ public class VoidESP extends Module {
                     pos.getZ() - mc.getRenderManager().viewerPosZ, pos.getX() + 1 - mc.getRenderManager().viewerPosX, pos.getY() + 1 - mc.getRenderManager().viewerPosY,
                     pos.getZ() + 1 - mc.getRenderManager().viewerPosZ);
 
-            camera.setPosition(mc.getRenderViewEntity().posX, mc.getRenderViewEntity().posY, mc.getRenderViewEntity().posZ);
+            camera.setPosition( Objects.requireNonNull ( mc.getRenderViewEntity ( ) ).posX, mc.getRenderViewEntity().posY, mc.getRenderViewEntity().posZ);
 
             if (camera.isBoundingBoxInFrustum(new AxisAlignedBB(bb.minX + mc.getRenderManager().viewerPosX, bb.minY + mc.getRenderManager().viewerPosY, bb.minZ + mc.getRenderManager().viewerPosZ,
                     bb.maxX + mc.getRenderManager().viewerPosX, bb.maxY + mc.getRenderManager().viewerPosY, bb.maxZ + mc.getRenderManager().viewerPosZ)))

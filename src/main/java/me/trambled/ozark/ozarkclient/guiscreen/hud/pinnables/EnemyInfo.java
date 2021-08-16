@@ -159,7 +159,7 @@ public class EnemyInfo extends Pinnable implements Listenable {
         GlStateManager.popMatrix();
     }
 
-    public static final HashMap<String, Integer> totem_pop_counter = new HashMap<String, Integer>();
+    public static final HashMap<String, Integer> totem_pop_counter = new HashMap <> ( );
 
 
     @EventHandler
@@ -181,7 +181,6 @@ public class EnemyInfo extends Pinnable implements Listenable {
                     totem_pop_counter.put(entity.getName(), count);
                 }
 
-                if (entity == mc.player) return;
             }
 
         }

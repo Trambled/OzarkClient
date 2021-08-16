@@ -10,7 +10,7 @@ import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
 public class OnlineFriendsUtil {
 
-    public static List<Entity> entities = new ArrayList<Entity>();
+    public static List<Entity> entities = new ArrayList <> ( );
 
     static public List<Entity> getFriends() {
         entities.clear();

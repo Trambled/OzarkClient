@@ -18,6 +18,8 @@ import net.minecraft.network.play.server.SPacketExplosion;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.Objects;
+
 public class Strafe extends Module {
 
 	public Strafe() {
@@ -103,7 +105,7 @@ public class Strafe extends Module {
 	}
 
 	@EventHandler
-	private Listener<EventPlayerJump> on_jump = new Listener<>(event -> {
+	private final Listener<EventPlayerJump> on_jump = new Listener<>( event -> {
 		if (speed_mode.in("Strafe")) {
 			event.cancel();
 		}
@@ -111,7 +113,7 @@ public class Strafe extends Module {
 
 
 	@EventHandler
-	private Listener<EventMove> player_move = new Listener<>(event -> {
+	private final Listener<EventMove> player_move = new Listener<>( event -> {
 
 		if (speed_mode.in("On Ground")) return;
 
@@ -127,7 +129,7 @@ public class Strafe extends Module {
 		float rotation_yaw = mc.player.rotationYaw;
 
 		if (mc.player.isPotionActive(MobEffects.SPEED)) {
-			final int amp = mc.player.getActivePotionEffect(MobEffects.SPEED).getAmplifier();
+			final int amp = Objects.requireNonNull ( mc.player.getActivePotionEffect ( MobEffects.SPEED ) ).getAmplifier();
 			player_speed *= (1.2f * (amp+1));
 		}
 
@@ -199,7 +201,7 @@ public class Strafe extends Module {
 	}
 
 	@EventHandler
-	private Listener<EventPacket.ReceivePacket> packetEvent = new Listener<>(event -> {
+	private final Listener<EventPacket.ReceivePacket> packetEvent = new Listener<>( event -> {
 		if (event.get_packet() instanceof SPacketExplosion && event.get_era() == Event.Era.EVENT_PRE) {
 			SPacketExplosion packet = (SPacketExplosion)event.get_packet();
 

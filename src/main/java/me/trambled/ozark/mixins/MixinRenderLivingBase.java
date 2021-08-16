@@ -3,9 +3,7 @@ package me.trambled.ozark.mixins;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.events.EventRenderEntityModel;
 import me.trambled.ozark.ozarkclient.module.chat.TotemPopCounter;
-import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 import me.trambled.ozark.ozarkclient.util.render.RenderUtil;
-import me.trambled.turok.draw.GL;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
@@ -87,7 +85,7 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
             glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
             RenderUtil.setColor(new Color(TotemPopCounter.INSTANCE.r.get_value(1),TotemPopCounter.INSTANCE.g.get_value(1),TotemPopCounter.INSTANCE.b.get_value(1),TotemPopCounter.INSTANCE.a.get_value(1)));
             mainModel.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
-            GL11.glEnable((int) 2896);
+            GL11.glEnable( 2896 );
             glEnable(GL_TEXTURE_2D);
             glPopAttrib();
             glPopMatrix();

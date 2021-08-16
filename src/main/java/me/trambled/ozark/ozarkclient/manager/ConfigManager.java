@@ -111,14 +111,14 @@ public class ConfigManager {
             final BufferedWriter out = new BufferedWriter(new FileWriter(file));
             for (final Block block : Xray.getBLOCKS()) {
                 try {
-                    out.write(((ResourceLocation)Block.REGISTRY.getNameForObject(block)).getPath());
+                    out.write( Block.REGISTRY.getNameForObject(block).getPath());
                     out.write("\r\n");
                 }
-                catch (Exception ex) {}
+                catch (Exception ignored ) {}
             }
             out.close();
         }
-        catch (Exception ex2) {}
+        catch (Exception ignored ) {}
     }
 
     private void save_spammer() throws IOException {
@@ -138,7 +138,7 @@ public class ConfigManager {
                 try {
                     Xray.getBLOCKS().add(Objects.requireNonNull(Block.getBlockFromName(line)));
                 }
-                catch (NullPointerException ex) {}
+                catch (NullPointerException ignored ) {}
             }
             br.close();
         }
@@ -248,8 +248,8 @@ public class ConfigManager {
                     printWriter.println(string);
                 }
                 printWriter.close();
-            } catch (FileNotFoundException e) {}
-        } catch (Exception e) {}
+            } catch (FileNotFoundException ignored ) {}
+        } catch (Exception ignored ) {}
     }
 
     public void load_past_gui() {
@@ -270,7 +270,7 @@ public class ConfigManager {
                 int x1 = Integer.parseInt(x);
                 int y1 = Integer.parseInt(y);
                 boolean opened = Boolean.parseBoolean(open);
-                Panel p = Ozark.past_gui.getPanelByName(name);
+                Panel p = PastGUI.getPanelByName (name);
                 if (p != null) {
                     p.x = x1;
                     p.y = y1;
@@ -279,7 +279,7 @@ public class ConfigManager {
             }
 
             br.close();
-        } catch (Exception e) {}
+        } catch (Exception ignored ) {}
     }
 
     // LOAD & SAVE PALS

@@ -1,6 +1,7 @@
 package me.trambled.ozark.mixins;
-import me.trambled.ozark.ozarkclient.event.events.EventRenderEntity;
+
 import me.trambled.ozark.ozarkclient.event.Eventbus;
+import me.trambled.ozark.ozarkclient.event.events.EventRenderEntity;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityEnderCrystal;

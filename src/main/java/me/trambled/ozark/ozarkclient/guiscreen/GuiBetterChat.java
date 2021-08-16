@@ -18,9 +18,9 @@ package me.trambled.ozark.ozarkclient.guiscreen;
 
 import com.google.common.collect.Lists;
 import me.trambled.ozark.Ozark;
-import me.trambled.ozark.ozarkclient.util.world.MathUtil;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
+import me.trambled.ozark.ozarkclient.util.world.MathUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
@@ -45,15 +45,15 @@ public class GuiBetterChat extends GuiNewChat {
     /**
      * A list of messages previously sent through the chat GUI
      */
-    private final List<String> sentMessages = Lists.<String>newArrayList();
+    private final List<String> sentMessages = Lists.newArrayList();
     /**
      * Chat lines to be displayed in the chat box
      */
-    private final List<ChatLine> chatLines = Lists.<ChatLine>newArrayList();
+    private final List<ChatLine> chatLines = Lists.newArrayList();
     /**
      * List of the ChatLines currently drawn
      */
-    private final List<ChatLine> drawnChatLines = Lists.<ChatLine>newArrayList();
+    private final List<ChatLine> drawnChatLines = Lists.newArrayList();
     private int scrollPos;
     private boolean isScrolled;
     public static float percentComplete = 0.0F;
@@ -88,11 +88,7 @@ public class GuiBetterChat extends GuiNewChat {
             float f = this.mc.gameSettings.chatOpacity * 0.9F + 0.1F;
 
             if (j > 0) {
-                boolean flag = false;
-
-                if (this.getChatOpen()) {
-                    flag = true;
-                }
+                boolean flag = this.getChatOpen ( );
 
                 float f1 = this.getChatScale();
                 int k = MathHelper.ceil((float) this.getChatWidth() / f1);
@@ -201,7 +197,7 @@ public class GuiBetterChat extends GuiNewChat {
     public void printChatMessageWithOptionalDeletion(ITextComponent chatComponent, int chatLineId) {
         percentComplete = 0.0F;
         this.setChatLine(chatComponent, chatLineId, this.mc.ingameGUI.getUpdateCounter(), false);
-        LOGGER.info("[CHAT] {}", (Object) chatComponent.getUnformattedText().replaceAll("\r", "\\\\r").replaceAll("\n", "\\\\n"));
+        LOGGER.info("[CHAT] {}", chatComponent.getUnformattedText().replaceAll("\r", "\\\\r").replaceAll("\n", "\\\\n") );
     }
 
     private void setChatLine(ITextComponent chatComponent, int chatLineId, int updateCounter, boolean displayOnly) {
@@ -257,7 +253,7 @@ public class GuiBetterChat extends GuiNewChat {
      * Adds this string to the list of sent messages, for recall using the up/down arrow keys
      */
     public void addToSentMessages(String message) {
-        if (this.sentMessages.isEmpty() || !((String) this.sentMessages.get(this.sentMessages.size() - 1)).equals(message)) {
+        if (this.sentMessages.isEmpty() || ! this.sentMessages.get(this.sentMessages.size() - 1).equals(message)) {
             this.sentMessages.add(message);
         }
     }

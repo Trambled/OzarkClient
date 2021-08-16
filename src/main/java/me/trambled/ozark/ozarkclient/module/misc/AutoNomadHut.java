@@ -4,8 +4,8 @@ package me.trambled.ozark.ozarkclient.module.misc;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.ozarkclient.util.world.BlockInteractionHelper;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.world.BlockInteractionHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEnderChest;
 import net.minecraft.block.BlockObsidian;
@@ -103,11 +103,7 @@ public class AutoNomadHut extends Module {
 				BlockPos offsetPos = new BlockPos(this.targets[this.offset_step]);
 				BlockPos targetPos = new BlockPos(mc.player.getPositionVector()).add(offsetPos.getX(), offsetPos.getY(), offsetPos.getZ()).down();
 
-				boolean try_to_place = true;
-
-				if (!mc.world.getBlockState(targetPos).getMaterial().isReplaceable()) {
-					try_to_place = false;
-				}
+				boolean try_to_place = mc.world.getBlockState ( targetPos ).getMaterial ( ).isReplaceable ( );
 
 				for (Entity entity : mc.world.getEntitiesWithinAABBExcludingEntity(null, new AxisAlignedBB(targetPos))) {
 					if (entity instanceof EntityItem || entity instanceof EntityXPOrb) continue;
@@ -153,7 +149,7 @@ public class AutoNomadHut extends Module {
 			
 			mc.player.inventory.currentItem = new_slot;
 
-            if (BlockInteractionHelper.blackList.contains((Object)(neighborPos = mc.world.getBlockState(neighbor).getBlock()))) {
+            if (BlockInteractionHelper.blackList.contains( neighborPos = mc.world.getBlockState(neighbor).getBlock() )) {
                 mc.player.connection.sendPacket(new CPacketEntityAction(mc.player, CPacketEntityAction.Action.START_SNEAKING));
                 this.sneak = true;
 			}

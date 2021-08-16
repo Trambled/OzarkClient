@@ -8,10 +8,10 @@ import java.util.List;
 import static me.trambled.ozark.ozarkclient.util.misc.WrapperUtil.mc;
 
 public class Setting {
-	private Module master;
+	private final Module master;
 
-	private String name;
-	private String tag;
+	private final String name;
+	private final String tag;
 
 	private boolean button;
 	private boolean shown = true;
@@ -30,7 +30,7 @@ public class Setting {
 	private Color color;
 
 
-	private String type;
+	private final String type;
 
 	public Setting(Module master, String name, String tag, int value) {
 		this.master = master;

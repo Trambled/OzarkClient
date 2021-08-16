@@ -1,6 +1,5 @@
 package me.trambled.ozark.ozarkclient.module.chat;
 
-import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
@@ -38,7 +37,7 @@ public class AutoEz extends Module {
     private static final ConcurrentHashMap targeted_players = new ConcurrentHashMap();
 
     @EventHandler
-    private Listener<EventPacket.SendPacket> send_listener = new Listener<>(event -> {
+    private final Listener<EventPacket.SendPacket> send_listener = new Listener<>( event -> {
 
         if (mc.player == null) return;
 
@@ -58,7 +57,7 @@ public class AutoEz extends Module {
     });
 
     @EventHandler
-    private Listener<LivingDeathEvent> living_death_listener = new Listener<>(event -> {
+    private final Listener<LivingDeathEvent> living_death_listener = new Listener<>( event -> {
 
         if (mc.player == null) return;
 

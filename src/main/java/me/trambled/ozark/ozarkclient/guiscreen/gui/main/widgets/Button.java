@@ -10,11 +10,11 @@ import me.trambled.ozark.ozarkclient.util.render.GuiUtil;
 
 
 public class Button extends AbstractWidget {
-	private Frame frame;
-	private ModuleButton master;
-	private Setting setting;
+	private final Frame frame;
+	private final ModuleButton master;
+	private final Setting setting;
 
-	private String button_name;
+	private final String button_name;
 
 	private int x;
 	private int y;
@@ -26,9 +26,9 @@ public class Button extends AbstractWidget {
 
 	private boolean can;
 
-	private GuiUtil font = new GuiUtil(1);
+	private final GuiUtil font = new GuiUtil(1);
 
-	private int border_size = 0;
+	private final int border_size = 0;
 
 	public Button(Frame frame, ModuleButton master, String tag, int update_postion) {
 		this.frame   = frame;
@@ -107,11 +107,7 @@ public class Button extends AbstractWidget {
 	}
 
 	public boolean motion(int mx, int my) {
-		if (mx >= get_x() && my >= get_save_y() && mx <= get_x() + get_width() && my <= get_save_y() + get_height()) {
-			return true;
-		}
-
-		return false;
+		return mx >= get_x ( ) && my >= get_save_y ( ) && mx <= get_x ( ) + get_width ( ) && my <= get_save_y ( ) + get_height ( );
 	}
 
 	public boolean can() {

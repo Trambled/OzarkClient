@@ -21,7 +21,7 @@ public class ModuleButton extends Component {
     public int offset;
     private boolean open;
     private boolean hovered;
-    private int all_offset;
+    private final int all_offset;
     private int rainbowOff;
 
 

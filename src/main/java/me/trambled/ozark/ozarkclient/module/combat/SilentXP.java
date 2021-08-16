@@ -1,9 +1,9 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
+import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
-import me.trambled.ozark.Ozark;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.Item;
@@ -126,11 +126,7 @@ public class SilentXP extends Module {
                 n++;
             }
         }
-        if (n >= 35) {
-
-            return false;
-        }
-        return true;
+        return n < 35;
     }
 	
 	@Override

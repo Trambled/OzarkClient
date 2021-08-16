@@ -77,7 +77,7 @@ public class NotificationManager {
 
         private int x;
         private int y;
-        private int height = 25;
+        private final int height = 25;
         private int width;
 
         private int scaled_width;

@@ -37,7 +37,8 @@ public class Trajectories extends Module {
 
     @Override
     public void render(EventRender event) {
-        if (Trajectories.mc.world != null && Trajectories.mc.player != null && mc.getRenderManager() != null) {
+        if ( Trajectories.mc.world != null && Trajectories.mc.player != null ) {
+            mc.getRenderManager ( );
             mc.getRenderManager ( );
             double var2 = mc.player.lastTickPosX + ( mc.player.posX - mc.player.lastTickPosX ) * (double) event.get_partial_ticks ( );
             double var4 = mc.player.lastTickPosY + ( mc.player.posY - mc.player.lastTickPosY ) * (double) event.get_partial_ticks ( );
@@ -132,12 +133,12 @@ public class Trajectories extends Module {
                     if ( var27 != null ) {
                         GlStateManager.color ( 1.0F , 0.0F , 0.0F , 1.0F );
                         GL11.glLineWidth ( 2.5F );
-                        var41.draw ( 0.5F , 0.5F , 0.0F , (Integer) this.slices.get_value ( 1) , 1 );
+                        var41.draw ( 0.5F , 0.5F , 0.0F , this.slices.get_value ( 1 ) , 1 );
                         GL11.glLineWidth ( 0.1F );
                         GlStateManager.color ( 1.0F , 0.0F , 0.0F , 1.0F );
                     }
 
-                    var41.draw ( this.size.get_value (1 ) , this.innerSize.get_value (1 ) , 0.0F , (Integer) this.slices.get_value (1 ) , 1 );
+                    var41.draw ( this.size.get_value ( 1 ) , this.innerSize.get_value ( 1 ) , 0.0F , this.slices.get_value ( 1 ) , 1 );
                 }
 
                 this.disableGL3D ( );

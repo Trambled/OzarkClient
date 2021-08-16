@@ -21,12 +21,12 @@ public class Coordinates extends Pinnable {
 		int nl_b = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorB").get_value(1);
 		int nl_a = Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDStringsColorA").get_value(1);
 
-		String x = Ozark.g + "[" + Ozark.r + Integer.toString((int) (mc.player.posX)) + Ozark.g + "]" + Ozark.r;
-		String y = Ozark.g + "[" + Ozark.r + Integer.toString((int) (mc.player.posY)) + Ozark.g + "]" + Ozark.r;
-		String z = Ozark.g + "[" + Ozark.r + Integer.toString((int) (mc.player.posZ)) + Ozark.g + "]" + Ozark.r;
+		String x = Ozark.g + "[" + Ozark.r + (int) ( mc.player.posX ) + Ozark.g + "]" + Ozark.r;
+		String y = Ozark.g + "[" + Ozark.r + (int) ( mc.player.posY ) + Ozark.g + "]" + Ozark.r;
+		String z = Ozark.g + "[" + Ozark.r + (int) ( mc.player.posZ ) + Ozark.g + "]" + Ozark.r;
 
-		String x_nether = Ozark.g + "[" + Ozark.r + Long.toString(Math.round(mc.player.dimension != -1 ? (mc.player.posX / 8) : (mc.player.posX * 8))) + Ozark.g + "]" + Ozark.r;
-		String z_nether = Ozark.g + "[" + Ozark.r + Long.toString(Math.round(mc.player.dimension != -1 ? (mc.player.posZ / 8) : (mc.player.posZ * 8))) + Ozark.g + "]" + Ozark.r;
+		String x_nether = Ozark.g + "[" + Ozark.r + Math.round ( mc.player.dimension != - 1 ? ( mc.player.posX / 8 ) : ( mc.player.posX * 8 ) ) + Ozark.g + "]" + Ozark.r;
+		String z_nether = Ozark.g + "[" + Ozark.r + Math.round ( mc.player.dimension != - 1 ? ( mc.player.posZ / 8 ) : ( mc.player.posZ * 8 ) ) + Ozark.g + "]" + Ozark.r;
 
 		String line = "XYZ " + x + y + z + " XZ " + x_nether + z_nether;
 

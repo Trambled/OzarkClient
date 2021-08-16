@@ -6,6 +6,8 @@ import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
 import me.trambled.ozark.ozarkclient.util.render.GuiUtil;
 import me.trambled.ozark.ozarkclient.util.world.MathUtil;
 
+import java.util.Objects;
+
 public class Compass extends Pinnable {
     
     public Compass() {
@@ -49,7 +51,7 @@ public class Compass extends Pinnable {
 
     private double get_pos_on_compass(Direction dir) {
 
-        double yaw = Math.toRadians(MathUtil.wrap(mc.getRenderViewEntity().rotationYaw));
+        double yaw = Math.toRadians(MathUtil.wrap( Objects.requireNonNull ( mc.getRenderViewEntity ( ) ).rotationYaw));
         int index = dir.ordinal();
         return yaw + (index * half_pi);
 
@@ -61,7 +63,7 @@ public class Compass extends Pinnable {
 
     private double get_y(double rad) {
 
-        final double epic_pitch = MathUtil.clamp2(mc.getRenderViewEntity().rotationPitch + 30f, -90f, 90f);
+        final double epic_pitch = MathUtil.clamp2( Objects.requireNonNull ( mc.getRenderViewEntity ( ) ).rotationPitch + 30f, -90f, 90f);
         final double pitch_radians = Math.toRadians(epic_pitch);
         return Math.cos(rad) * Math.sin(pitch_radians) * (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDCompassScale").get_value(1));
 

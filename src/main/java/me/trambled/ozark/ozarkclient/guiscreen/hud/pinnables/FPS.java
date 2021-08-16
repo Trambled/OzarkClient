@@ -3,6 +3,7 @@ package me.trambled.ozark.ozarkclient.guiscreen.hud.pinnables;
 
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
+import net.minecraft.client.Minecraft;
 
 public class FPS extends Pinnable {
     
@@ -26,13 +27,13 @@ public class FPS extends Pinnable {
 	}
 	
     public String get_fps() {
-		int fps = mc.getDebugFPS();
+		int fps = Minecraft.getDebugFPS ();
 		if (fps >= 60) {
-			return "\u00A7a"+Integer.toString(fps);
+			return "\u00A7a"+ fps;
 		} else if (fps >= 30) {
-			return "\u00A73"+Integer.toString(fps);
+			return "\u00A73"+ fps;
 		} else {
-			return "\u00A74"+Integer.toString(fps);
+			return "\u00A74"+ fps;
 		}
     }
 
