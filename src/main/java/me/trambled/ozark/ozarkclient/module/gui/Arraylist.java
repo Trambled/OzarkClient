@@ -13,7 +13,7 @@ public class Arraylist extends Module {
 
     }
     Setting mode = create("Mode", "Mode", "Free", combobox("Free", "Top R", "Top L", "Bottom R", "Bottom L"));
-    Setting rainbow = create("Rainbow", "Rainbow", false);
+    Setting rainbow = create("Rainbow", "Rainbow", true);
     Setting red = create("Red", "Red", 255, 0, 255);
     Setting green = create("Green", "Green",  255, 0, 255);
     Setting blue = create("Blue", "Blue", 255, 0, 255);
