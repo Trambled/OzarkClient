@@ -1,6 +1,7 @@
 package me.trambled.ozark.ozarkclient.guiscreen.hud.pinnables;
 
 import com.google.common.collect.Lists;
+import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.guiscreen.hud.items.Pinnable;
 import me.trambled.ozark.ozarkclient.module.Module;
@@ -9,6 +10,10 @@ import me.trambled.ozark.ozarkclient.util.font.FontUtil;
 import me.trambled.ozark.ozarkclient.util.misc.DrawnUtil;
 import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.math.MathHelper;
 
 import java.awt.*;
@@ -41,7 +46,7 @@ public class Arraylist extends Pinnable {
 		int[] counter = {1};
 		final ScaledResolution resolution = new ScaledResolution(mc);
 		List<Module> pretty_modules = Ozark.get_module_manager().get_array_active_modules().stream()
-                .sorted(Comparator.comparing(module -> FontUtil.getFontWidth(module.array_detail() == null ? module.get_name() : module.get_name() + " [" + Ozark.w + module.array_detail() + Ozark.r  + "]") * (-1)))
+                .sorted(Comparator.comparing(module -> FontUtil.getFontWidth(module.array_detail() == null ? module.get_name() : module.get_name() + ChatFormatting.GRAY + " [" + Ozark.w + module.array_detail() + Ozark.r  + ChatFormatting.GRAY + "]") * (-1)))
 				.collect(Collectors.toList());
 
 		if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom R") || Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom L") ) {
@@ -58,7 +63,7 @@ public class Arraylist extends Pinnable {
 				if (!flag) break;
 			}
 			if (flag) {
-				String mod = module.array_detail() == null ? module.get_name() : module.get_name() + " [" + Ozark.w + module.array_detail() + Ozark.r + "]";
+				String mod = module.array_detail() == null ? module.get_name() : module.get_name() +  ChatFormatting.GRAY + " [" + Ozark.w + module.array_detail() + Ozark.r  + ChatFormatting.GRAY +"]";
 				int x = resolution.getScaledWidth();
 				if (mode.in("Free")) {
 					FontUtil.drawStringWithShadow(mod, get_x() + this.docking(2, module.get_name()), get_y() + position_update_y, rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
@@ -78,7 +83,7 @@ public class Arraylist extends Pinnable {
 					} else if (mode.in("Bottom L")) {
 						FontUtil.drawStringWithShadow(mod, 2, scaled_height - (modCount * 10),rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
 					} else if (mode.in("Bottom R")) {
-						FontUtil.drawStringWithShadow(mod, scaled_width - 2 - FontUtil.getFontWidth(module.array_detail() == null ? module.get_name() : module.get_name() + " [" + Ozark.w + module.array_detail() + Ozark.r  + "]"), scaled_height - (modCount * 10), rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
+						FontUtil.drawStringWithShadow(mod, scaled_width - 2 - FontUtil.getFontWidth(module.array_detail() == null ? module.get_name() :  module.get_name() +  ChatFormatting.GRAY + " [" + Ozark.w + module.array_detail() + Ozark.r  + ChatFormatting.GRAY +"]"), scaled_height - (modCount * 10), rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
 					}
 				}
 
@@ -108,5 +113,4 @@ public class Arraylist extends Pinnable {
 		this.scaled_width = MathHelper.ceil(scaledWidthD);
 		this.scaled_height = MathHelper.ceil(scaledHeightD);
 	}
-
 }
