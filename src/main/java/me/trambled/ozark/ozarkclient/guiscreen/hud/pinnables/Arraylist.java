@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 
 
 public class Arraylist extends Pinnable {
+	public int[] counter = {1};
 	public Arraylist() {
 		super("Arraylist", "Arraylist", 1, 0, 0);
 	}
@@ -34,22 +35,22 @@ public class Arraylist extends Pinnable {
 	private int scale_factor;
 
 	public void render() {
-		Setting mode = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Mode");
-		Setting rainbow = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Rainbow");
+		Setting color = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "ColorMode");
+		Setting mode = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Mode");;
 		Setting red = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Red");
 		Setting green = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Green");
-		Setting blue= Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Blue");
+		Setting blue = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Blue");
 
 		updateResolution();
 		modCount = 0;
 		int position_update_y = 2;
-		int[] counter = {1};
+
 		final ScaledResolution resolution = new ScaledResolution(mc);
 		List<Module> pretty_modules = Ozark.get_module_manager().get_array_active_modules().stream()
-                .sorted(Comparator.comparing(module -> FontUtil.getFontWidth(module.array_detail() == null ? module.get_name() : module.get_name() + ChatFormatting.GRAY + " [" + Ozark.w + module.array_detail() + Ozark.r  + ChatFormatting.GRAY + "]") * (-1)))
+				.sorted(Comparator.comparing(module -> FontUtil.getFontWidth(module.array_detail() == null ? module.get_name() : module.get_name() + ChatFormatting.GRAY + " [" + Ozark.w + module.array_detail() + Ozark.r + ChatFormatting.GRAY + "]") * (-1)))
 				.collect(Collectors.toList());
 
-		if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom R") || Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom L") ) {
+		if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom R") || Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom L")) {
 			pretty_modules = Lists.reverse(pretty_modules);
 		}
 
@@ -63,10 +64,10 @@ public class Arraylist extends Pinnable {
 				if (!flag) break;
 			}
 			if (flag) {
-				String mod = module.array_detail() == null ? module.get_name() : module.get_name() +  ChatFormatting.GRAY + " [" + Ozark.w + module.array_detail() + Ozark.r  + ChatFormatting.GRAY +"]";
+				String mod = module.array_detail() == null ? module.get_name() : module.get_name() + ChatFormatting.GRAY + " [" + Ozark.w + module.array_detail() + Ozark.r + ChatFormatting.GRAY + "]";
 				int x = resolution.getScaledWidth();
 				if (mode.in("Free")) {
-					FontUtil.drawStringWithShadow(mod, get_x() + this.docking(2, module.get_name()), get_y() + position_update_y, rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
+					FontUtil.drawStringWithShadow(mod, get_x() + this.docking(2, module.get_name()), get_y() + position_update_y, generateColor(color));
 
 					position_update_y += getCFONT(mod, "height") + 2;
 
@@ -77,13 +78,13 @@ public class Arraylist extends Pinnable {
 					this.set_height(position_update_y);
 				} else {
 					if (mode.in("Top R")) {
-						FontUtil.drawStringWithShadow(mod, x - 2 - FontUtil.getFontWidth(mod), 1 + (modCount * 10), rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
-					} else if (mode.in("Top L")){
-						FontUtil.drawStringWithShadow(mod, 2, 3 + modCount * 10, rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
+						FontUtil.drawStringWithShadow(mod, x - 2 - FontUtil.getFontWidth(mod), 1 + (modCount * 10), generateColor(color));
+					} else if (mode.in("Top L")) {
+						FontUtil.drawStringWithShadow(mod, 2, 3 + modCount * 10,generateColor(color));
 					} else if (mode.in("Bottom L")) {
-						FontUtil.drawStringWithShadow(mod, 2, scaled_height - (modCount * 10),rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
+						FontUtil.drawStringWithShadow(mod, 2, scaled_height - (modCount * 10), generateColor(color));
 					} else if (mode.in("Bottom R")) {
-						FontUtil.drawStringWithShadow(mod, scaled_width - 2 - FontUtil.getFontWidth(module.array_detail() == null ? module.get_name() :  module.get_name() +  ChatFormatting.GRAY + " [" + Ozark.w + module.array_detail() + Ozark.r  + ChatFormatting.GRAY +"]"), scaled_height - (modCount * 10), rainbow.get_value(true) ? RainbowUtil.rainbow(counter[0] * 100) : new Color(red.get_value(1), green.get_value(1), blue.get_value(1), 255).getRGB());
+						FontUtil.drawStringWithShadow(mod, scaled_width - 2 - FontUtil.getFontWidth(module.array_detail() == null ? module.get_name() : module.get_name() + ChatFormatting.GRAY + " [" + Ozark.w + module.array_detail() + Ozark.r + ChatFormatting.GRAY + "]"), scaled_height - (modCount * 10), generateColor(color));
 					}
 				}
 
@@ -108,9 +109,24 @@ public class Arraylist extends Pinnable {
 		if (flag && this.scale_factor % 2 != 0 && this.scale_factor != 1) {
 			--this.scale_factor;
 		}
-		final double scaledWidthD = this.scaled_width / (double)this.scale_factor;
-		final double scaledHeightD = this.scaled_height / (double)this.scale_factor;
+		final double scaledWidthD = this.scaled_width / (double) this.scale_factor;
+		final double scaledHeightD = this.scaled_height / (double) this.scale_factor;
 		this.scaled_width = MathHelper.ceil(scaledWidthD);
 		this.scaled_height = MathHelper.ceil(scaledHeightD);
+	}
+
+	public int generateColor(Setting mod) {
+		Setting red = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Red");
+		Setting green = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Green");
+		Setting blue = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Blue");
+		switch (mod.get_current_value()) {
+			case "Alpha Step":
+				return RainbowUtil.alphaStep(new Color(red.get_value(1),blue.get_value(1),green.get_value(1)), 50, (modCount * 2) + 10).getRGB();
+			case "Rainbow":
+				return RainbowUtil.rainbow(modCount * 100);
+			case "Static":
+				new Color(red.get_value(1),green.get_value(1),blue.get_value(1)).getRGB();
+		}
+	return -1;
 	}
 }

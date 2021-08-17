@@ -140,13 +140,13 @@ public class RainbowUtil {
 
 	public static int get_string_width(String string) {
 
-		return ( font_renderer.getStringWidth(string));
+		return (font_renderer.getStringWidth(string));
 	}
 
 
 	public static int get_string_height() {
 
-		return ( font_renderer.FONT_HEIGHT);
+		return (font_renderer.FONT_HEIGHT);
 	}
 
 	public static float drawString(String text, float x, float y, int color) {
@@ -170,5 +170,14 @@ public class RainbowUtil {
 		double rainbowState = Math.ceil((System.currentTimeMillis() + delay) / 20.0);
 		rainbowState %= 360.0;
 		return Color.getHSBColor((float) (rainbowState / 360.0), 0.5f, 1.0f).getRGB();
+	}
+
+	public static Color alphaStep(Color color, int index, int count) {
+		float[] hsb = new float[3];
+		Color.RGBtoHSB(color.getRed(), color.getGreen(), color.getBlue(), hsb);
+		float brightness = Math.abs(((float) (System.currentTimeMillis() % 2000L) / 1000.0F + (float) index / (float) count * 2.0F) % 2.0F - 1.0F);
+		brightness = 0.5F + 0.5F * brightness;
+		hsb[2] = brightness % 2.0F;
+		return new Color(Color.HSBtoRGB(hsb[0], hsb[1], hsb[2]));
 	}
 }
