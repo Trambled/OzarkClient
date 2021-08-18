@@ -616,7 +616,7 @@ public class RenderUtil {
         tessellator.draw();
     }
 
-    public static void drawBox(AxisAlignedBB bb, boolean check, double height, OzarkColor color, int alpha, int sides) {
+    public static void drawBox(AxisAlignedBB bb, boolean check, double height, Color color, int alpha, int sides) {
         if (check) {
             drawBox(bb.minX, bb.minY, bb.minZ, bb.maxX - bb.minX, bb.maxY - bb.minY, bb.maxZ - bb.minZ, color, alpha, sides);
         } else {
@@ -624,23 +624,27 @@ public class RenderUtil {
         }
     }
 
-    public static void drawBox(double x, double y, double z, double w, double h, double d, OzarkColor color, int alpha, int sides) {
+    public static void drawBox(double x, double y, double z, double w, double h, double d, Color color, int alpha, int sides) {
         GlStateManager.disableAlpha();
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
-        color.glColor();
+        glColor(color);
         bufferbuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
         doVerticies(new AxisAlignedBB(x, y, z, x + w, y + h, z + d), color, alpha, bufferbuilder, sides, false);
         tessellator.draw();
         GlStateManager.enableAlpha();
     }
 
+    public static void glColor(Color color) {
+        GlStateManager.color(color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f, color.getAlpha() / 255.0f);
+    }
 
-    public static void drawBoundingBox(AxisAlignedBB bb, double width, OzarkColor color, int alpha) {
+
+    public static void drawBoundingBox(AxisAlignedBB bb, double width, Color color, int alpha) {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         GlStateManager.glLineWidth((float) width);
-        color.glColor();
+        glColor(color);
         bufferbuilder.begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION_COLOR);
         colorVertex(bb.minX, bb.minY, bb.minZ, color, color.getAlpha(), bufferbuilder);
         colorVertex(bb.minX, bb.minY, bb.maxZ, color, color.getAlpha(), bufferbuilder);
@@ -662,7 +666,7 @@ public class RenderUtil {
     }
 
 
-    public static void drawBoundingBoxWithSides(AxisAlignedBB axisAlignedBB, int width, OzarkColor color, int alpha, int sides) {
+    public static void drawBoundingBoxWithSides(AxisAlignedBB axisAlignedBB, int width, Color color, int alpha, int sides) {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         GlStateManager.glLineWidth(width);
@@ -678,7 +682,7 @@ public class RenderUtil {
         bufferbuilder.pos(x - mc.getRenderManager().viewerPosX, y - mc.getRenderManager().viewerPosY, z - mc.getRenderManager().viewerPosZ).endVertex();
     }
 
-    private static void colorVertex(double x, double y, double z, OzarkColor color, int alpha, BufferBuilder bufferbuilder) {
+    private static void colorVertex(double x, double y, double z, Color color, int alpha, BufferBuilder bufferbuilder) {
         bufferbuilder.pos(x - mc.getRenderManager().viewerPosX, y - mc.getRenderManager().viewerPosY, z - mc.getRenderManager().viewerPosZ).color(color.getRed(), color.getGreen(), color.getBlue(), alpha).endVertex();
     }
 
@@ -689,7 +693,7 @@ public class RenderUtil {
         return new AxisAlignedBB(x, y, z, x + width, y + height, z + depth);
     }
 
-    private static void doVerticies(AxisAlignedBB axisAlignedBB, OzarkColor color, int alpha, BufferBuilder bufferbuilder, int sides, boolean five) {
+    private static void doVerticies(AxisAlignedBB axisAlignedBB, Color color, int alpha, BufferBuilder bufferbuilder, int sides, boolean five) {
         if ((sides & GeometryMasks.Quad.EAST) != 0) {
             colorVertex(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.maxZ, color, color.getAlpha(), bufferbuilder);
             colorVertex(axisAlignedBB.maxX, axisAlignedBB.minY, axisAlignedBB.minZ, color, color.getAlpha(), bufferbuilder);
@@ -768,13 +772,13 @@ public class RenderUtil {
         GlStateManager.shadeModel(GL11.GL_FLAT);
         glHint(GL11.GL_LINE_SMOOTH_HINT, GL11.GL_DONT_CARE);
     }
-    public static void drawBox(AxisAlignedBB bb, boolean check, double height, OzarkColor color, int sides) {
+    public static void drawBox(AxisAlignedBB bb, boolean check, double height, Color color, int sides) {
         drawBox(bb, check, height, color, color.getAlpha(), sides);
     }
-    public static void drawBoundingBoxWithSides(AxisAlignedBB axisAlignedBB, int width, OzarkColor color, int sides) {
+    public static void drawBoundingBoxWithSides(AxisAlignedBB axisAlignedBB, int width, Color color, int sides) {
         drawBoundingBoxWithSides(axisAlignedBB, width, color, color.getAlpha(), sides);
     }
-    public static void drawBoundingBox(AxisAlignedBB bb, double width, OzarkColor color) {
+    public static void drawBoundingBox(AxisAlignedBB bb, double width, Color color) {
         drawBoundingBox(bb, width, color, color.getAlpha());
     }
 

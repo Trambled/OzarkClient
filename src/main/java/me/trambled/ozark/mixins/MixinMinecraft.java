@@ -4,6 +4,8 @@ import jline.internal.Nullable;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventGUIScreen;
+import me.trambled.ozark.ozarkclient.guiscreen.GuiCustomMainMenu;
+import me.trambled.ozark.ozarkclient.guiscreen.GuiCustomMainMenu2;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
@@ -34,14 +36,22 @@ public abstract class MixinMinecraft {
 		Eventbus.EVENT_BUS.post(guiscreen);
 
 		if (guiScreenIn instanceof GuiMainMenu) {
-			this.displayGuiScreen(new me.trambled.ozark.ozarkclient.guiscreen.GuiMainMenu());
+			if (Ozark.get_setting_manager().get_setting_with_tag("CustomMainMenu", "CMMPhobosMode").get_value(true)) {
+				this.displayGuiScreen(new GuiCustomMainMenu());
+			} else {
+				this.displayGuiScreen(new GuiCustomMainMenu2());
+			}
 		}
 	}
 
 	@Inject(method={"runTick()V"}, at={@At(value="RETURN")})
 	private void runTick(CallbackInfo callbackInfo) {
 		if (mc.currentScreen instanceof GuiMainMenu && Ozark.get_module_manager().get_module_with_tag("CustomMainMenu").is_active()) {
-			Minecraft.getMinecraft().displayGuiScreen(new me.trambled.ozark.ozarkclient.guiscreen.GuiMainMenu());
+			if (Ozark.get_setting_manager().get_setting_with_tag("CustomMainMenu", "CMMPhobosMode").get_value(true)) {
+				Minecraft.getMinecraft().displayGuiScreen(new GuiCustomMainMenu());
+			} else {
+				Minecraft.getMinecraft().displayGuiScreen(new GuiCustomMainMenu2());
+			}
 		}
 	}
 }

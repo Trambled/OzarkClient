@@ -18,6 +18,8 @@ public class Weather extends Module {
     }
     
     Setting weather = create("Weather", "Weather", "Clear", combobox("Clear", "Rain", "Thunder Storm"));
+
+    private int prev_weather;
     
     @EventHandler
     private final Listener<EventRender> on_render = new Listener<>( event -> {
@@ -45,5 +47,15 @@ public class Weather extends Module {
         if (weather.in("Thunder Storm")) {
             mc.world.setRainStrength(2);
         }
+    }
+
+    @Override
+    protected void enable() {
+        prev_weather = (int) mc.world.getRainStrength(1);
+    }
+
+    @Override
+    protected void disable() {
+        mc.world.setRainStrength(prev_weather);
     }
 }

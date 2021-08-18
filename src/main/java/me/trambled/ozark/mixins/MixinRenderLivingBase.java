@@ -62,11 +62,11 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
                     TotemPopCounter.pops.remove(entity.getEntityId());
                 return;
             }
-                if (TotemPopCounter.pops.size() > TotemPopCounter.INSTANCE.max.get_value(1)) {
-                    TotemPopCounter.pops.remove(entity.getEntityId());
-                    Minecraft.getMinecraft().world.removeEntityFromWorld(entity.getEntityId());
-                    return;
-                }
+            if (TotemPopCounter.pops.size() > TotemPopCounter.INSTANCE.max.get_value(1)) {
+                TotemPopCounter.pops.remove(entity.getEntityId());
+                Minecraft.getMinecraft().world.removeEntityFromWorld(entity.getEntityId());
+                return;
+            }
             GlStateManager.enableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
             GlStateManager.pushMatrix();
             GL11.glPushAttrib(1048575);
@@ -83,7 +83,7 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
             GL11.glLineWidth(1);
             glEnable(GL_LINE_SMOOTH);
             glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-            RenderUtil.setColor(new Color(TotemPopCounter.INSTANCE.r.get_value(1),TotemPopCounter.INSTANCE.g.get_value(1),TotemPopCounter.INSTANCE.b.get_value(1),TotemPopCounter.INSTANCE.a.get_value(1)));
+            RenderUtil.setColor(new Color(TotemPopCounter.INSTANCE.r.get_value(1), TotemPopCounter.INSTANCE.g.get_value(1), TotemPopCounter.INSTANCE.b.get_value(1), TotemPopCounter.INSTANCE.a.get_value(1)));
             mainModel.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
             GL11.glEnable( 2896 );
             glEnable(GL_TEXTURE_2D);

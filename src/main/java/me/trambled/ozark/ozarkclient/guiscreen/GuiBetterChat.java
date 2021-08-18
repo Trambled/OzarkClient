@@ -208,7 +208,11 @@ public class GuiBetterChat extends GuiNewChat {
         int i = MathHelper.floor((float) this.getChatWidth() / this.getChatScale());
         List<ITextComponent> list = GuiUtilRenderComponents.splitText(chatComponent, i, this.mc.fontRenderer, false, false);
         boolean flag = this.getChatOpen();
-        newLines = list.size() - 1;
+        if (Ozark.get_module_manager().get_module_with_tag("ChatModifications").is_active() && Ozark.get_setting_manager().get_setting_with_tag("ChatModifications", "ChatModsInfiniteChat").get_value(true)) {
+            newLines = -2147483642;
+        } else {
+            newLines = list.size() - 1;
+        }
 
         for (ITextComponent itextcomponent : list) {
             if (flag && this.scrollPos > 0) {
@@ -220,14 +224,18 @@ public class GuiBetterChat extends GuiNewChat {
         }
 
         while (this.drawnChatLines.size() > 100) {
-            this.drawnChatLines.remove(this.drawnChatLines.size() - 1);
+            if (!Ozark.get_module_manager().get_module_with_tag("ChatModifications").is_active() && Ozark.get_setting_manager().get_setting_with_tag("ChatModifications", "ChatModsInfiniteChat").get_value(true)) {
+                this.drawnChatLines.remove(this.drawnChatLines.size() - 1);
+            }
         }
 
         if (!displayOnly) {
             this.chatLines.add(0, new ChatLine(updateCounter, chatComponent, chatLineId));
 
             while (this.chatLines.size() > 100) {
-                this.chatLines.remove(this.chatLines.size() - 1);
+                if (!Ozark.get_module_manager().get_module_with_tag("ChatModifications").is_active() && Ozark.get_setting_manager().get_setting_with_tag("ChatModifications", "ChatModsInfiniteChat").get_value(true)) {
+                    this.chatLines.remove(this.chatLines.size() - 1);
+                }
             }
         }
     }

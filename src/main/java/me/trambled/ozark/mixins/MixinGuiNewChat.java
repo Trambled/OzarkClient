@@ -18,6 +18,8 @@ import java.util.List;
 /**
  * Phobos
  */
+
+// literally useless cuz of guibetterchat
 @Mixin(GuiNewChat.class)
 public class MixinGuiNewChat extends Gui {
 
@@ -42,7 +44,6 @@ public class MixinGuiNewChat extends Gui {
         } else {
             return fontRenderer.drawStringWithShadow(text, x, y, color);
         }
-        // does this really matter ?
         return color;
     }
 

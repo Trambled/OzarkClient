@@ -9,7 +9,7 @@ public class Arraylist extends Module {
         super(Category.GUI);
         this.name = "ArrayList";
         this.tag = "ArrayList";
-        this.description = "Working customfont araylist with rainbow rolling";
+        this.description = "Working custom font arraylist with rainbow rolling";
 
     }
     Setting color = create("ColorMode", "ColorMode", "Rainbow", combobox("Rainbow", "Alpha Step", "Static"));
