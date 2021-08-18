@@ -121,7 +121,7 @@ public class Arraylist extends Pinnable {
 		Setting blue = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Blue");
 		switch (mod.get_current_value()) {
 			case "Alpha Step":
-				return RainbowUtil.alphaStep(new Color(red.get_value(1),blue.get_value(1),green.get_value(1)), 50, (modCount * 2) + 10).getRGB();
+				return RainbowUtil.alphaStep(new Color(red.get_value(1),blue.get_value(1),green.get_value(1)), 50, (modCount * 2) + 15).getRGB();
 			case "Rainbow":
 				return RainbowUtil.rainbow(modCount * 100);
 			case "Static":
