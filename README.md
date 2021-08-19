@@ -1,5 +1,6 @@
 # Ozark Client
 
+hi can i join the discord again ): - Tuffty
 ![logo](https://github.com/Trambled/OzarkClient/blob/master/src/main/resources/ozark%20horizontal.png)
   
   https://www.ozarkclient.ga/
