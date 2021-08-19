@@ -36,6 +36,7 @@ public class ModuleManager {
 		add_module(new CustomMainMenu());
 		add_module(new Notifications());
 		add_module(new Arraylist());
+		add_module(new Safety());
 
 		// Chat.
 		add_module(new ChatSuffix());
