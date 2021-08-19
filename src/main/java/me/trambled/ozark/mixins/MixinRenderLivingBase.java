@@ -59,7 +59,8 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
                 info.cancel(); // so it doesnt render the skin after removing
                 Minecraft.getMinecraft().world.removeEntityFromWorld(entity.getEntityId());
             } else if (TotemPopCounter.pops.get(entity.getEntityId()) < 0) {
-                if (TotemPopCounter.pops.get(entity.getEntityId()) < -5)
+                if (TotemPopCounter.pops.get(entity.getEntityId()) < -5 && timer.passedMs(TotemPopCounter.INSTANCE.timr.get_value(1)))
+                    info.cancel();
                     TotemPopCounter.pops.remove(entity.getEntityId());
                     return;
                 }
