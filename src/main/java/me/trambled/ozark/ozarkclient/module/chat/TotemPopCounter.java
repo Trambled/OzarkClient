@@ -9,6 +9,7 @@ import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
 import me.trambled.ozark.ozarkclient.util.player.EntityUtil;
 import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
+import me.trambled.ozark.ozarkclient.util.world.TimerUtil;
 import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
@@ -52,6 +53,8 @@ public class TotemPopCounter extends Module {
     public Setting b = create("B", "popChamsB", 255, 0, 255);
     public Setting a = create("A", "popChamsA", 100, 0, 255);
     public Setting max = create("Max popchangs", "popChamsMax", 2, 1, 2);
+    public Setting timr = create("Alive time (ms)", "popChamstime", 350, 100, 500);
+    public Setting ytravel = create("Ytravel", "popytravel", false);
 
     public static final HashMap<String, Integer> totem_pop_counter = new HashMap <> ( );
     public static ConcurrentHashMap<Integer, Integer> pops = new ConcurrentHashMap<>();
@@ -102,6 +105,7 @@ public class TotemPopCounter extends Module {
                 if (chams.get_value(true)) {
                     if (entity != mc.player) {
                         if (entity.getDistance(mc.player) < 15) {
+                            TimerUtil timer = new TimerUtil();
                             Color color = EntityUtil.getColor(packet.getEntity(mc.world), r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1), false);
                             Entity ee = packet.getEntity(mc.world);
                             ArrayList<Integer> idList = new ArrayList<>();
@@ -115,6 +119,11 @@ public class TotemPopCounter extends Module {
                             popCham.rotationPitch = ee.rotationPitch;
                             popCham.setGameType(GameType.CREATIVE);
                             popCham.setHealth(20);
+                            if (ytravel.get_value(true)) {
+                                if (!timer.passedMs(timr.get_value(1))) {
+                                    popCham.motionY = 0.30000001192092896D;
+                                }
+                            }
                             for (int i = 0; i > -10000; i--) {
                                 if (!idList.contains(i)) {
                                     mc.world.addEntityToWorld(i, popCham);
