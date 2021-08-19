@@ -39,7 +39,6 @@ public class Commands {
 		add_command(new ClearRamCommand());
 		add_command(new NamemcCommand());
 		add_command(new OpenFolderCommand());
-		add_command(new SaveCommand());
 
 		command_list.sort(Comparator.comparing(Command::get_name));
 	}

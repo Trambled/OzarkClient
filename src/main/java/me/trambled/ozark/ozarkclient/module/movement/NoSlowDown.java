@@ -26,7 +26,7 @@ public class NoSlowDown extends Module {
         super(Category.MOVEMENT);
 
 		this.name        = "NoSlow";
-		this.tag         = "NoSlowDown";
+		this.tag         = "NoSlow";
 		this.description = "Doesn't slow you down in certain shit.";
     }
 	

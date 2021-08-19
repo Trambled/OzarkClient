@@ -4,8 +4,8 @@ import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.google.common.io.CharStreams;
 import com.google.common.util.concurrent.Runnables;
+import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.util.font.FontUtil;
-import me.trambled.ozark.ozarkclient.util.render.MainMenu;
 import me.trambled.ozark.ozarkclient.util.render.ParticleUtil;
 import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
 import me.trambled.ozark.ozarkclient.util.render.RenderUtil;
@@ -28,7 +28,9 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.WorldServerDemo;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.WorldInfo;
+import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.io.IOUtils;
@@ -49,7 +51,7 @@ import java.util.Random;
 import static me.trambled.ozark.ozarkclient.guiscreen.GuiCustomMainMenu.getScaledRes;
 
 @SideOnly(Side.CLIENT)
-public class GuiMainMenu extends GuiScreen
+public class GuiCustomMainMenu2 extends GuiScreen
 {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final Random RANDOM = new Random();
@@ -128,7 +130,7 @@ public class GuiMainMenu extends GuiScreen
     private float xOffset;
     private float yOffset;
 
-    public GuiMainMenu()
+    public GuiCustomMainMenu2()
 
     {
 
@@ -141,11 +143,11 @@ public class GuiMainMenu extends GuiScreen
                 {
                     URL url = new URL("http://dl.mcnanotech.fr/mff/tutoriels/mainmenutext.txt");
                     InputStream is = url.openStream();
-                    GuiMainMenu.this.scrollingText = CharStreams.toString(new InputStreamReader(is, Charsets.UTF_8));
+                    GuiCustomMainMenu2.this.scrollingText = CharStreams.toString(new InputStreamReader(is, Charsets.UTF_8));
                 }
                 catch(Exception e)
                 {
-                    GuiMainMenu.this.scrollingText = "Impossible de lire le texte";
+                    GuiCustomMainMenu2.this.scrollingText = "Impossible de lire le texte";
                 }
             }
         }.start();
@@ -572,7 +574,7 @@ public class GuiMainMenu extends GuiScreen
             float var8 = 1.8F - MathHelper.abs(MathHelper.sin((float) (Minecraft.getSystemTime() % 1000L) / 1000.0F * 3.1415927F * 2.0F) * 0.1F);
             GL11.glScalef(var8, var8, var8);
             GL11.glPopMatrix();
-            MainMenu.drawMenu(mouseX, mouseY);
+            drawMenu(mouseX, mouseY);
 
             GlStateManager.pushMatrix();
             GlStateManager.translate((float) (this.width / 2 + 90), 70.0F, 0.0F);
@@ -640,10 +642,38 @@ public class GuiMainMenu extends GuiScreen
     }
 
 
+    public static void drawMenu(int mouseX, int mouseY) {
+
+        drawRect(40, 0, 140, GuiCustomMainMenu.getScaledRes().getScaledHeight(), 0x60000000);
+
+        String mds = String.format("%s mods loaded, %s mods active", Loader.instance().getModList().size(), Loader.instance().getActiveModList().size());
+        String fml = String.format("Powered by Forge %s", ForgeVersion.getVersion());
+        String mcp = "MCP 9.42";
+        String mcv = "Minecraft 1.12.2";
+        String name = String.format("%s %s", Ozark.get_name(), Ozark.get_version());
+        String mname = String.format("Logged in as \u00A77%s", Minecraft.getMinecraft().getSession().getUsername());
+
+        FontUtil.drawStringWithShadow(mds, GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth(mds) - 4, GuiCustomMainMenu.getScaledRes().getScaledHeight() - 14, Color.WHITE.getRGB());
+        FontUtil.drawStringWithShadow(fml, GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth(fml) - 4, GuiCustomMainMenu.getScaledRes().getScaledHeight() - 26, Color.WHITE.getRGB());
+        FontUtil.drawStringWithShadow(mcp, GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth(mcp) - 4, GuiCustomMainMenu.getScaledRes().getScaledHeight() - 38, Color.WHITE.getRGB());
+        FontUtil.drawStringWithShadow(mcv, GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth(mcv) - 4, GuiCustomMainMenu.getScaledRes().getScaledHeight() - 50, Color.WHITE.getRGB());
+
+        RainbowUtil.drawRainbowStringChatCustomFont(name, (float) GuiCustomMainMenu.getScaledRes().getScaledWidth() - (float) FontUtil.getFontWidth(name) - 4, (float) 4, RainbowUtil.getMultiColour().getRGB(), 200f);
+        FontUtil.drawStringWithShadow("Developed by " + TextFormatting.GRAY + "Trambled, x3th0_, Perry" + TextFormatting.RESET + " and " + TextFormatting.GRAY + "ProfKambing", GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth("Developed by " + "Trambled, Ethan, Perry and ProfKambing") - 4, 28, Color.WHITE.getRGB());
+        FontUtil.drawStringWithShadow(mname, GuiCustomMainMenu.getScaledRes().getScaledWidth() - FontUtil.getFontWidth(mname) - 4, 16, Color.WHITE.getRGB());
+
+        float scale = 5F;
+
+        GL11.glScalef(scale, scale, scale);
+        RainbowUtil.drawRainbowStringChat(Ozark.DISPLAY_NAME, (int)(GuiCustomMainMenu.getScaledRes().getScaledWidth() / 2 / scale - 13), (int)(GuiCustomMainMenu.getScaledRes().getScaledHeight() / 2 / scale - 5F), RainbowUtil.getMultiColour().getRGB(), 50f);
+        GL11.glScalef(1.0F / scale, 1.0F / scale, 1.0F / scale);
 
 
-        private static class TextButton
-        extends GuiButton {
+    }
+
+
+
+    private static class TextButton extends GuiButton {
             public int size = 0;
             public TextButton(int buttonId, int x, int y, String buttonText) {
                 super(buttonId, x, y, RainbowUtil.get_string_width(buttonText), RainbowUtil.get_string_height(), buttonText);

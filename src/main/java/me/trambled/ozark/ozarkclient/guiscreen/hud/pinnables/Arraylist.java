@@ -10,10 +10,6 @@ import me.trambled.ozark.ozarkclient.util.font.FontUtil;
 import me.trambled.ozark.ozarkclient.util.misc.DrawnUtil;
 import me.trambled.ozark.ozarkclient.util.render.RainbowUtil;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.math.MathHelper;
 
 import java.awt.*;
@@ -36,21 +32,20 @@ public class Arraylist extends Pinnable {
 
 	public void render() {
 		Setting color = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "ColorMode");
-		Setting mode = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Mode");;
-		Setting red = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Red");
-		Setting green = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Green");
-		Setting blue = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Blue");
+		Setting mode = Ozark.get_setting_manager().get_setting_with_tag("Arraylist", "Mode");
 
 		updateResolution();
 		modCount = 0;
 		int position_update_y = 2;
+		boolean bottom = get_y() > scaled_height / 2;
+
 
 		final ScaledResolution resolution = new ScaledResolution(mc);
 		List<Module> pretty_modules = Ozark.get_module_manager().get_array_active_modules().stream()
 				.sorted(Comparator.comparing(module -> FontUtil.getFontWidth(module.array_detail() == null ? module.get_name() : module.get_name() + ChatFormatting.GRAY + " [" + Ozark.w + module.array_detail() + Ozark.r + ChatFormatting.GRAY + "]") * (-1)))
 				.collect(Collectors.toList());
 
-		if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom R") || Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom L")) {
+		if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Top R") || Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Top L") || (mode.in("Free") && bottom)) {
 			pretty_modules = Lists.reverse(pretty_modules);
 		}
 
@@ -67,11 +62,10 @@ public class Arraylist extends Pinnable {
 				String mod = module.array_detail() == null ? module.get_name() : module.get_name() + ChatFormatting.GRAY + " [" + Ozark.w + module.array_detail() + Ozark.r + ChatFormatting.GRAY + "]";
 				int x = resolution.getScaledWidth();
 				if (mode.in("Free")) {
-					FontUtil.drawStringWithShadow(mod, get_x() + this.docking(2, module.get_name()), get_y() + position_update_y, generateColor(color));
-
+					FontUtil.drawStringWithShadow(mod, get_x() + this.docking(2, mod), get_y() + position_update_y, generateColor(color));
 					position_update_y += getCFONT(mod, "height") + 2;
 
-					if (getCFONT(module.get_name(), "width") > this.get_width()) {
+					if (getCFONT(mod, "width") > this.get_width()) {
 						this.set_width(getCFONT(mod, "width") + 2);
 					}
 
@@ -84,7 +78,7 @@ public class Arraylist extends Pinnable {
 					} else if (mode.in("Bottom L")) {
 						FontUtil.drawStringWithShadow(mod, 2, scaled_height - (modCount * 10), generateColor(color));
 					} else if (mode.in("Bottom R")) {
-						FontUtil.drawStringWithShadow(mod, scaled_width - 2 - FontUtil.getFontWidth(module.array_detail() == null ? module.get_name() : module.get_name() + ChatFormatting.GRAY + " [" + Ozark.w + module.array_detail() + Ozark.r + ChatFormatting.GRAY + "]"), scaled_height - (modCount * 10), generateColor(color));
+						FontUtil.drawStringWithShadow(mod, scaled_width - 2 - FontUtil.getFontWidth(mod), scaled_height - (modCount * 10), generateColor(color));
 					}
 				}
 

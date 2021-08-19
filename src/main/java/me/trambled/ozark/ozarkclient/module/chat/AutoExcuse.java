@@ -26,11 +26,7 @@ public class AutoExcuse extends Module {
             this.diedTime = 500;
         }
         if (!AutoExcuse.mc.player.isDead && this.diedTime > 0) {
-            int randomNum = (int) (Math.random() * 50 + 1);
-
-            if (randomNum >= 1) {
-                AutoExcuse.mc.player.sendChatMessage("I died due to the server was processing a latency of " + get_ping() + "ms and a tick of" + tps() + " per second. Therefore, it made my AutoTotem module fails.");
-            }
+            AutoExcuse.mc.player.sendChatMessage("I died due to the server was processing a latency of " + get_ping() + "ms and a tick of" + tps() + " per second. Therefore, it made my AutoTotem module fails.");
             this.diedTime = 0;
         }
     }
