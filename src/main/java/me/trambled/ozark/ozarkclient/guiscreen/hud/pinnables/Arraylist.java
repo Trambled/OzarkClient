@@ -38,6 +38,7 @@ public class Arraylist extends Pinnable {
 		modCount = 0;
 		int position_update_y = 2;
 		boolean bottom = get_y() > scaled_height / 2;
+		boolean retard = Ozark.get_setting_manager().get_setting_with_tag("ArrayList", "ArrayListRetardMode").get_value(true);
 
 
 		final ScaledResolution resolution = new ScaledResolution(mc);
@@ -45,7 +46,7 @@ public class Arraylist extends Pinnable {
 				.sorted(Comparator.comparing(module -> FontUtil.getFontWidth(module.array_detail() == null ? module.get_name() : module.get_name() + ChatFormatting.GRAY + " [" + Ozark.w + module.array_detail() + Ozark.r + ChatFormatting.GRAY + "]") * (-1)))
 				.collect(Collectors.toList());
 
-		if (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom R") || Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom L") || (mode.in("Free") && bottom)) {
+		if ((retard && (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom R") || Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Bottom L"))) || (mode.in("Free") && bottom) || (!retard && (Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Top R") || Ozark.get_setting_manager().get_setting_with_tag("HUD", "HUDArrayList").in("Top L")))) {
 			pretty_modules = Lists.reverse(pretty_modules);
 		}
 

@@ -17,5 +17,6 @@ public class Arraylist extends Module {
     Setting red = create("Red", "Red", 255, 0, 255);
     Setting green = create("Green", "Green",  255, 0, 255);
     Setting blue = create("Blue", "Blue", 255, 0, 255);
+    Setting retard_mode = create("Reverse Mode", "ArrayListRetardMode", false);
 
 }
