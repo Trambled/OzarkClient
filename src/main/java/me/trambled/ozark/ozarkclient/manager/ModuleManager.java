@@ -82,6 +82,7 @@ public class ModuleManager {
 		add_module(new OffhandPlus());
 		add_module(new ShulkerCrystal());
 		add_module(new SilentXP());
+		add_module(new AutoCrystalRewrite());
 
 		// Exploit.
 		add_module(new XCarry());
