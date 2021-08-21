@@ -141,9 +141,8 @@ public class NameTags extends Module {
         if (showPing.get_value(true)) {
             int value = 0;
 
-            if ( mc.getConnection ( ) != null ) {
-                mc.getConnection ( ).getPlayerInfo ( entityPlayer.getUniqueID ( ) );
-                value = mc.getConnection ( ).getPlayerInfo ( entityPlayer.getUniqueID ( ) ).getResponseTime ( );
+            if (mc.getConnection() != null && mc.getConnection().getPlayerInfo(entityPlayer.getUniqueID()) != null) {
+                value = mc.getConnection().getPlayerInfo(entityPlayer.getUniqueID()).getResponseTime();
 
             }
             TextFormatting textFormatting = findPingColor(value);
@@ -165,10 +164,10 @@ public class NameTags extends Module {
             TextFormatting textFormatting = findPopColor(pop);
             if (TotemPopCounter.totem_pop_counter.get(entityPlayer.getName()) != null) {
                 pop = TotemPopCounter.totem_pop_counter.get(entityPlayer.getName());
-        }
+            }
             if (pop != 0) {
-            name = name +  textFormatting + " -" + pop;
-        }}
+                name = name +  textFormatting + " -" + pop;
+            }}
 
         return name;
     }
