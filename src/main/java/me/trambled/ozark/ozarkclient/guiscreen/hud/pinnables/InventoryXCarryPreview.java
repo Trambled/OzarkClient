@@ -29,16 +29,10 @@ public class InventoryXCarryPreview extends Pinnable {
 				// CHING CONG I CBA TO DO MATHS ITS 3 AM
 				int item_position_x = this.get_x();
 				int item_position_y = this.get_y();
-				if (i == 1) {
-					item_position_x += 0;
-					item_position_y += 0;
-				}
 				if (i == 2) {
 					item_position_x += 16;
-					item_position_y += 0;
 				}
 				if (i == 3) {
-					item_position_x += 0;
 					item_position_y += 16;
 				}
 				if (i == 4) {

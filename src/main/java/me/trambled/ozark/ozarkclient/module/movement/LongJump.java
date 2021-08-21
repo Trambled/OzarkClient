@@ -94,7 +94,7 @@ public class LongJump extends Module {
             }
 
         }
-        else if (mc.player.moveForward == 0 && mc.player.moveStrafing == 0) {
+        else if ( mc.player.moveStrafing == 0 ) {
             mc.player.motionX = 0;
             mc.player.motionZ = 0;
         }

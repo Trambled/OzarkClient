@@ -1,7 +1,6 @@
 package me.trambled.ozark.ozarkclient.module.gui;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;

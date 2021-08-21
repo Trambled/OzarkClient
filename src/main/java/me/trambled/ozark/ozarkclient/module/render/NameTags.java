@@ -141,8 +141,9 @@ public class NameTags extends Module {
         if (showPing.get_value(true)) {
             int value = 0;
 
-            if (mc.getConnection() != null && mc.getConnection().getPlayerInfo(entityPlayer.getUniqueID()) != null) {
-                value = mc.getConnection().getPlayerInfo(entityPlayer.getUniqueID()).getResponseTime();
+            if ( mc.getConnection ( ) != null ) {
+                mc.getConnection ( ).getPlayerInfo ( entityPlayer.getUniqueID ( ) );
+                value = mc.getConnection ( ).getPlayerInfo ( entityPlayer.getUniqueID ( ) ).getResponseTime ( );
 
             }
             TextFormatting textFormatting = findPingColor(value);
@@ -195,12 +196,15 @@ public class NameTags extends Module {
             return new Color(enemy_r.get_value(1), enemy_g.get_value(1), enemy_b.get_value(1));
         } else if (entityPlayer.isInvisible()) {
             return new Color(128, 128, 128);
-        } else if (mc.getConnection() != null && mc.getConnection().getPlayerInfo(entityPlayer.getUniqueID()) == null) {
-            return new Color(239, 1, 71);
-        } else if (entityPlayer.isSneaking()) {
-            return new Color(255, 153, 0);
-        } else if (entityPlayer.getName() == mc.player.getName()) {
-            return new Color(0, 200, 0);
+        } else {
+            if ( mc.getConnection ( ) != null ) {
+                mc.getConnection ( ).getPlayerInfo ( entityPlayer.getUniqueID ( ) );
+            }
+            if (entityPlayer.isSneaking()) {
+                return new Color(255, 153, 0);
+            } else if (entityPlayer.getName() == mc.player.getName()) {
+                return new Color(0, 200, 0);
+            }
         }
 
         return new Color(255, 255, 255);

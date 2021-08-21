@@ -122,7 +122,7 @@ public class SilentXP extends Module {
             if (item == itemOfChoice) {
                 return true;
 
-            } else if (item != itemOfChoice) {
+            } else {
                 n++;
             }
         }
