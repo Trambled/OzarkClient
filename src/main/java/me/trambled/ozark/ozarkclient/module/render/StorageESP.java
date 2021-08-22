@@ -55,11 +55,7 @@ public class StorageESP extends Module {
 				draw(tiles, chest_r.get_value(1), chest_g.get_value(1), chest_b.get_value(1));
 			}
 
-			if (tiles instanceof TileEntityDispenser ||
-				tiles instanceof TileEntityDropper   ||
-				tiles instanceof TileEntityHopper    ||
-				tiles instanceof TileEntityFurnace   ||
-				tiles instanceof TileEntityBrewingStand) {
+			if ( tiles instanceof TileEntityDispenser || tiles instanceof TileEntityHopper || tiles instanceof TileEntityFurnace || tiles instanceof TileEntityBrewingStand ) {
 				draw(tiles, other_r.get_value(1), other_g.get_value(1), other_b.get_value(1));
 			}
 		}

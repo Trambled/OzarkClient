@@ -218,7 +218,7 @@ public class AutoTool extends Module
                 this.position = packet.getPosition();
                 this.facing = packet.getFacing();
 
-                if (this.position != null && this.facing != null)
+                if ( this.position != null )
                 {
                     final int slot = getToolInventory(packet.getPosition());
                     if (slot != -1)
@@ -259,7 +259,7 @@ public class AutoTool extends Module
         for (int i = 9; i < 36; i++)
         {
             final ItemStack stack = mc.player.inventoryContainer.getSlot(i).getStack();
-            if (stack != null && stack != ItemStack.EMPTY)
+            if ( stack != ItemStack.EMPTY )
             {
                 final float digSpeed = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack);
                 final float destroySpeed = stack.getDestroySpeed(mc.world.getBlockState(pos));
@@ -284,7 +284,7 @@ public class AutoTool extends Module
         for (int i = 0; i <= 9; i++)
         {
             final ItemStack stack = mc.player.inventory.getStackInSlot(i);
-            if (stack != null && stack != ItemStack.EMPTY)
+            if ( stack != ItemStack.EMPTY )
             {
                 final float digSpeed = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack);
                 final float destroySpeed = stack.getDestroySpeed(mc.world.getBlockState(pos));

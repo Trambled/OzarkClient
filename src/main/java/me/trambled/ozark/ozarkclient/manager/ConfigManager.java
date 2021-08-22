@@ -16,7 +16,6 @@ import me.trambled.ozark.ozarkclient.util.player.AutoKitUtil;
 import me.trambled.ozark.ozarkclient.util.player.social.EnemyUtil;
 import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
 import net.minecraft.block.Block;
-import net.minecraft.util.ResourceLocation;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

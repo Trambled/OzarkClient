@@ -118,7 +118,7 @@ public class CustomFont {
     public int getStringWidth(String text) {
         int width = 0;
         for (char c : text.toCharArray()) {
-            if ((c < this.charData.length) && (c >= 0)) width += this.charData[c].width - 8 + this.charOffset;
+            if ( c < this.charData.length ) width += this.charData[c].width - 8 + this.charOffset;
         }
         return width / 2;
     }

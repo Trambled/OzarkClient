@@ -53,9 +53,6 @@ public class TurokDouble {
 	}
 
 	public static double round(double abs_1) {
-		if (2 < 0) {
-			throw new IllegalArgumentException();
-		}
 
 		BigDecimal decimal = new BigDecimal(abs_1);
 
