@@ -24,7 +24,7 @@ public class BlockHighlight extends Module {
 		this.description = "See what block ur targeting.";
 	}
 
-	Setting mode = create("Mode", "HighlightMode", "Pretty", combobox("Pretty", "Solid", "Outline"));
+	Setting mode = create("Mode", "HighlightMode", "Pretty", combobox("Pretty", "Solid", "Outline", "BowTie"));
 	
 	Setting rgb = create("RGB Effect", "HighlightRGBEffect", false);
 	
@@ -41,11 +41,13 @@ public class BlockHighlight extends Module {
 
 	boolean outline = false;
 	boolean solid   = false;
+	boolean bow_tie = false;
 
 	@Override
 	public void disable() {
 		outline = false;
 		solid   = false;
+		bow_tie = false;
 	}
 
 	@Override
@@ -74,16 +76,25 @@ public class BlockHighlight extends Module {
 			if (mode.in("Pretty")) {
 				outline = true;
 				solid   = true;
+				bow_tie = false;
 			}
 	
 			if (mode.in("Solid")) {
 				outline = false;
 				solid   = true;
+				bow_tie = false;
 			}
 	
 			if (mode.in("Outline")) {
 				outline = true;
 				solid   = false;
+				bow_tie = false;
+			}
+
+			if (mode.in("BowTie")) {
+				outline = false;
+				solid = false;
+				bow_tie = true;
 			}
 	
 			RayTraceResult result = mc.objectMouseOver;
@@ -103,6 +114,17 @@ public class BlockHighlight extends Module {
 					if (outline) {
 						RenderHelp.prepare("lines");
 						RenderHelp.draw_cube_line(block_pos, color_r, color_g, color_b, l_a.get_value(1), "all");
+						RenderHelp.release();
+					}
+
+					if (bow_tie) {
+						RenderHelp.prepare("lines");
+						RenderHelp.draw_triangle_line(RenderHelp.get_buffer_build(),
+								block_pos.getX(), block_pos.getY(), block_pos.getZ(),
+								1, 1, 1,
+								r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1), 1,
+								"all"
+						);
 						RenderHelp.release();
 					}
 				}

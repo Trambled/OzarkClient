@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class AutoGroom extends Module {
+public class WhisperSpam extends Module {
     
-    public AutoGroom() {
+    public WhisperSpam() {
         super(Category.CHAT);
 
         this.name = "WhisperSpam";

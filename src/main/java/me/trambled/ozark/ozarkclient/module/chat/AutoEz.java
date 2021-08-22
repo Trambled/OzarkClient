@@ -112,7 +112,7 @@ public class AutoEz extends Module {
             message += "You just got niggered by OzarkClient";
         }
         if (discord.get_value(true)) {
-            message += "private disc not for u"; //nigga what
+            message += "discord.gg/SUt67ygdY7"; //nigga what
         }
         mc.player.connection.sendPacket(new CPacketChatMessage(message));
     }

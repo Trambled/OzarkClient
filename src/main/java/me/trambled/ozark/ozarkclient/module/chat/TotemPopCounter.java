@@ -192,4 +192,16 @@ public class TotemPopCounter extends Module {
         }
     }
 
+    @Override
+    public void update_always() {
+        r.set_value(chams.get_value(true));
+        g.set_value(chams.get_value(true));
+        b.set_value(chams.get_value(true));
+        a.set_value(chams.get_value(true));
+        max.set_value(chams.get_value(true));
+        timr.set_value(chams.get_value(true));
+        ytravel.set_value(chams.get_value(true));
+
+    }
+
 }

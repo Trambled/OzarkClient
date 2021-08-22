@@ -44,12 +44,15 @@ public class HoleESP extends Module {
 	Setting gb = create("G", "HoleESPGb", 255, 0, 255);
 	Setting bb = create("B", "HoleESPBb", 0, 0, 255);
 	Setting ab = create("A", "HoleESPAb", 50, 0, 255);
+	Setting glow_alpha_b = create("Glow Alpha", "HoleESPGlowAb", 0, 0, 255);
 
 	Setting obsidian_enable = create("Obsidian Holes", "HoleESPObsidianHoles", true);
 	Setting ro = create("R", "HoleESPRo", 255, 0, 255);
 	Setting go = create("G", "HoleESPGo", 0, 0, 255);
 	Setting bo = create("B", "HoleESPBo", 0, 0, 255);
 	Setting ao = create("A", "HoleESPAo", 50, 0, 255);
+	Setting glow_alpha_o = create("Glow Alpha", "HoleESPGlowAo", 0, 0, 255);
+
 
 	Setting line_a = create("Outline A", "HoleESPLineOutlineA", 255, 0, 255);
 	Setting line_width = create("Outline Width", "HoleESPLineWidth", 1f, 0.1f, 5f);
@@ -75,6 +78,7 @@ public class HoleESP extends Module {
 	int color_g;
 	int color_b;
 	int color_a;
+	int glow_a;
 
 	int safe_sides;
 
@@ -295,11 +299,14 @@ public class HoleESP extends Module {
 					color_g = color_g_b;
 					color_b = color_b_b;
 					color_a = ab.get_value(1);
+					glow_a = glow_alpha_b.get_value(1);
+
 				} else if (!hole.getValue()) {
 					color_r = color_r_o;
 					color_g = color_g_o;
 					color_b = color_b_o;
 					color_a = ao.get_value(1);
+					glow_a = glow_alpha_o.get_value(1);
 				} else continue;
 
 				if (hide_own.get_value(true) && hole.getKey().equals(new BlockPos(mc.player.posX,  hole.getKey().getY(), mc.player.posZ))) {
@@ -352,7 +359,7 @@ public class HoleESP extends Module {
 					RenderHelp.draw_gradiant_cube(RenderHelp.get_buffer_build(),
 							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
 							1, off_set_h, 1,
-							new Color(color_r, color_g, color_b, color_a), new Color(0, 0, 0, 0),
+							new Color(color_r, color_g, color_b, color_a), new Color(color_r, color_g, color_b, glow_a),
 							"all"
 					);
 
@@ -365,7 +372,7 @@ public class HoleESP extends Module {
 					RenderHelp.draw_gradiant_outline(RenderHelp.get_buffer_build(), hole.getKey().getX(),
 							hole.getKey().getY(), hole.getKey().getZ(), off_set_h,
 							new Color(color_r, color_g, color_b, line_a.get_value(1)),
-							new Color(0, 0, 0, 0), "all");
+							new Color(color_r, color_g, color_b, glow_a), "all");
 					RenderHelp.release();
 
 				}
@@ -384,11 +391,15 @@ public class HoleESP extends Module {
 					color_g = color_g_b;
 					color_b = color_b_b;
 					color_a = ab.get_value(1);
+					glow_a = glow_alpha_b.get_value(1);
+
 				} else if (!hole.getValue()) {
 					color_r = color_r_o;
 					color_g = color_g_o;
 					color_b = color_b_o;
 					color_a = ao.get_value(1);
+					glow_a = glow_alpha_o.get_value(1);
+
 				} else continue;
 
 				if (solid.get_value(true)) {
@@ -435,7 +446,7 @@ public class HoleESP extends Module {
 					RenderHelp.draw_gradiant_cube(RenderHelp.get_buffer_build(),
 							hole.getKey().getX(), hole.getKey().getY(), hole.getKey().getZ(),
 							1, off_set_h, 1,
-							new Color(color_r, color_g, color_b, color_a), new Color(0, 0, 0, 0),
+							new Color(color_r, color_g, color_b, color_a), new Color(color_r, color_g, color_b, glow_a),
 							getDirectionsToRenderQuad(hole.getKey())
 					);
 					RenderHelp.release();
@@ -447,7 +458,7 @@ public class HoleESP extends Module {
 					RenderHelp.draw_gradiant_outline(RenderHelp.get_buffer_build(), hole.getKey().getX(),
 							hole.getKey().getY(), hole.getKey().getZ(), off_set_h,
 							new Color(color_r, color_g, color_b, line_a.get_value(1)),
-							new Color(0, 0, 0, 0),
+							new Color(color_r, color_g, color_b, glow_a),
 							getDirectionsToRenderOutline(hole.getKey())
 					);
 					RenderHelp.release();
@@ -586,6 +597,8 @@ public class HoleESP extends Module {
 		brightness.set_shown((rainbow_bed.get_value(true) || rainbow_ob.get_value(true)) && render);
 		line_width.set_shown(outline.get_value(true) || flat_outline.get_value(true));
 		off_set_glow.set_shown(glow_out.get_value(true) || glow_solid.get_value(true));
+		glow_alpha_b.set_shown(glow_out.get_value(true) || glow_solid.get_value(true));
+		glow_alpha_o.set_shown(glow_out.get_value(true) || glow_solid.get_value(true));
 		off_set.set_shown(outline.get_value(true) || solid.get_value(true));
 	}
 	@Override

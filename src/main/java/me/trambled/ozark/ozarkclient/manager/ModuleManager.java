@@ -49,7 +49,7 @@ public class ModuleManager {
 		add_module(new WeaknessAlert());
 		add_module(new RetardChat());
 		add_module(new Spammer());
-		add_module(new AutoGroom());
+		add_module(new WhisperSpam());
 		add_module(new BurrowAlert());
 
 		// Combat.
@@ -82,7 +82,6 @@ public class ModuleManager {
 		add_module(new OffhandPlus());
 		add_module(new ShulkerCrystal());
 		add_module(new SilentXP());
-		add_module(new AutoCrystalRewrite());
 
 		// Exploit.
 		add_module(new XCarry());
