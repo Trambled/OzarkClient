@@ -55,7 +55,7 @@ public class AutoGearCommand extends Command {
 //		} else if (msg.equalsIgnoreCase("del") || msg.equalsIgnoreCase("delete")) {
 //			if (message.length == 3) {
 //				delete(message[2]);
-//			}	else WurstplusMessageUtil.send_client_error_message("Not enough parameters!");
+//			}	else MessageUtil.send_client_error_message("Not enough parameters!");
 		} else {
 			MessageUtil.send_client_error_message("AutoGear message is: gear set/save/del/list [name]");
 

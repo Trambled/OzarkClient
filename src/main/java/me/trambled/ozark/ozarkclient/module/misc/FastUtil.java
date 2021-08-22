@@ -18,10 +18,10 @@ public class FastUtil extends Module {
 		this.description = "Use things faster.";
 	}
 
-	Setting fast_place = create("Place","WurstplusFastPlace", false);
-	Setting fast_break = create("Break","WurstplusFastBreak",false);
-	Setting crystal = create("Crystal", "WurstplusFastCrystal",false);
-	Setting exp = create("EXP","WurstplusFastExp",true);
+	Setting fast_place = create("Place","FastPlace", false);
+	Setting fast_break = create("Break","FastBreak",false);
+	Setting crystal = create("Crystal", "FastCrystal",false);
+	Setting exp = create("EXP","FastExp",true);
 
 	@Override
 	public void update() {

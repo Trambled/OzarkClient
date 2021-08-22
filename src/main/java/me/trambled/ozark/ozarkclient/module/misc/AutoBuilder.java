@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 /**
  * Made by @Trambled on 2/18/21
- * Modified from WurstplusSocks
+ * Modified from Socks
  * Modes taken from salhack and creepy salhack
  * no paste tho
  */

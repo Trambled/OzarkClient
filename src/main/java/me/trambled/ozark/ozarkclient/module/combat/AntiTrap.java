@@ -29,8 +29,8 @@ public class AntiTrap extends Module
     }
 
     Setting toggle = create("Toggle", "Toggle", false);
-//  WurstplusSetting switch_back = create("Switch Back", "SwitchBack", true);
-//  WurstplusSetting chat_msg = create("Chat Msg", "Chat Msg", true);
+//  Setting switch_back = create("Switch Back", "SwitchBack", true);
+//  Setting chat_msg = create("Chat Msg", "Chat Msg", true);
 
     public static boolean is_trapped; // so autocrystal can detect that its antitrapping
 

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 /**
  * Made by @Trambled on 2/17/2021
- * Modified from WurstplusSocks
+ * Modified from Socks
  */
 public class AutoWither extends Module {
 
