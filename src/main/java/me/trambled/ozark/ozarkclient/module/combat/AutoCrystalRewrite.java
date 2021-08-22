@@ -1,7 +1,6 @@
 package me.trambled.ozark.ozarkclient.module.combat;
 
 
-import javafx.util.Pair;
 import me.trambled.ozark.Ozark;
 import me.trambled.ozark.ozarkclient.event.events.*;
 import me.trambled.ozark.ozarkclient.module.Category;
@@ -9,6 +8,7 @@ import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
 import me.trambled.ozark.ozarkclient.module.chat.AutoEz;
 import me.trambled.ozark.ozarkclient.util.misc.MessageUtil;
+import me.trambled.ozark.ozarkclient.util.misc.PairUtil;
 import me.trambled.ozark.ozarkclient.util.player.EntityUtil;
 import me.trambled.ozark.ozarkclient.util.player.RotationUtil;
 import me.trambled.ozark.ozarkclient.util.player.social.FriendUtil;
@@ -354,7 +354,7 @@ public class AutoCrystalRewrite extends Module {
             return null;
         }
 
-        List<Pair<Double, BlockPos>> damage_blocks = new ArrayList<>();
+        List<PairUtil<Double, BlockPos>> damage_blocks = new ArrayList<>();
         double best_damage = 0;
         double minimum_damage;
         double maximum_damage_self = this.max_self_damage.get_value(1);
@@ -440,13 +440,13 @@ public class AutoCrystalRewrite extends Module {
 
     }
 
-    public List<Pair<Double, BlockPos>> sort_best_blocks(List<Pair<Double, BlockPos>> list) {
-        List<Pair<Double, BlockPos>> new_list = new ArrayList<>();
+    public List<PairUtil<Double, BlockPos>> sort_best_blocks(List<PairUtil<Double, BlockPos>> list) {
+        List<PairUtil<Double, BlockPos>> new_list = new ArrayList<>();
         double damage_cap = 1000;
         for (int i = 0; i < list.size(); i++) {
             double biggest_dam = 0;
-            Pair<Double, BlockPos> best_pair = null;
-            for (Pair<Double, BlockPos> pair : list) {
+            PairUtil<Double, BlockPos> best_pair = null;
+            for (PairUtil<Double, BlockPos> pair : list) {
                 if (pair.getKey() > biggest_dam && pair.getKey() < damage_cap) {
                     best_pair = pair;
                 }
