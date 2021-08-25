@@ -101,7 +101,7 @@ public class TotemPopCounter extends Module {
 
                     MessageUtil.send_client_message(white + entity.getName() + " popped " + red + count + " totems");
 
-                }
+                } // nae nae so fucking chinese
                 if (chams.get_value(true)) {
                     if (entity != mc.player) {
                         if (entity.getDistance(mc.player) < 15) {

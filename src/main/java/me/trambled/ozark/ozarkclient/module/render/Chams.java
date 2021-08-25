@@ -41,62 +41,64 @@ public class Chams extends Module {
 
     // leon/3tnt
 
-    Setting page = create("Page", "Page", "Entities", combobox("Entities", "PopChams","Color"));
+    Setting page = create("Page", "Page", "Entities", combobox("Entities", "PopChams", "Color"));
     Setting mode = create("Mode", "Mode", "Wireframe", combobox("Textured", "Wireframe", "Normal"));
     Setting wallsMode = create("WallsMode", "WallsMode", "Normal", combobox("XQZ", "Normal", "None"));
-    Setting width = create("Width", "Width", 1,0.1,4);
-    Setting cancel = create("Cancel", "Cancel",true);
+    Setting width = create("Width", "Width", 1, 0.1, 4);
+    Setting cancel = create("Cancel", "Cancel", true);
 
     //colors
-    Setting lol1 = create("info","Colors", "Info");
+    Setting lol1 = create("info", "Colors", "Info");
     Setting r = create("Red", "R", 255, 0, 255);
     Setting g = create("Green", "G", 0, 0, 255);
     Setting b = create("Blue", "B", 0, 0, 255);
     Setting a = create("Alpha", "A", 255, 0, 255);
-    Setting lol = create("info","XQZ Colors", "InfoXQZ");
+    Setting lol = create("info", "XQZ Colors", "InfoXQZ");
     Setting rx = create("Red XQZ", "RXQZ", 0, 0, 255);
     Setting gx = create("Green XQZ", "GXQZ", 255, 0, 255);
     Setting bx = create("Blue XQZ", "BXQZ", 0, 0, 255);
     Setting ax = create("Alpha XQZ", "AXQZ", 50, 0, 255);
-    Setting lol2 = create("info","PopChams Colors", "InfoPop");
+    Setting lol2 = create("info", "PopChams Colors", "InfoPop");
     Setting rp = create("Red", "Rp", 0, 0, 255);
     Setting gp = create("Green", "Gp", 255, 0, 255);
     Setting bp = create("Blue", "Bp", 0, 0, 255);
     Setting ap = create("Alpha", "Ap", 50, 0, 255);
-    Setting lo3l = create("info","PopChams XQZ Colors", "InfoPopXQZ");
+    Setting lo3l = create("info", "PopChams XQZ Colors", "InfoPopXQZ");
     Setting rxp = create("Red XQZ", "RXQZp", 0, 0, 255);
     Setting gxp = create("Green XQZ", "GXQZp", 255, 0, 255);
     Setting bxp = create("Blue XQZ", "BXQZp", 0, 0, 255);
     Setting axp = create("Alpha XQZ", "AXQZp", 50, 0, 255);
-    Setting lol2e = create("info","Extra PopChams Colors", "InfoPop");
+    Setting lol2e = create("info", "Extra PopChams Colors", "InfoPop");
     Setting rpe = create("Red", "Rpe", 0, 0, 255);
     Setting gpe = create("Green", "Gpe", 255, 0, 255);
     Setting bpe = create("Blue", "Bpe", 0, 0, 255);
     Setting ape = create("Alpha", "Ape", 50, 0, 255);
 
     //entities
-    Setting players = create("Players", "Players",true);
-    Setting crystals = create("Crystals", "Crystals",true);
+    Setting players = create("Players", "Players", true);
+    Setting crystals = create("Crystals", "Crystals", true);
 
     // popchangs
-    Setting pop = create("PopChams", "PopChams",true);
-    Setting extra = create("Extra", "Extra",true);
+    Setting pop = create("PopChams", "PopChams", true);
+    Setting extra = create("Extra", "Extra", true);
     Setting extraRender = create("ExtraRenderMode", "PRModeE", "Wireframe", combobox("Textured", "Wireframe", "Normal"));
-    Setting popExtraFade = create("Fade", "PFadeE",true);
-    Setting popExtraTime = create("SyncTime", "PSyncTime",3000,0,10000);
+    Setting popExtraMode = create("ExtraTravelMode", "PRModeET", "Heaven", combobox("Heaven","Stay"));
+    Setting height = create("Height", "PHeight", 10, 0, 20);
+    Setting popExtraFade = create("Fade", "PFadeE", true);
+    Setting popExtraTime = create("SyncTime", "PSyncTime", 3000, 0, 10000);
 
-    Setting popTime = create("Time", "PTime",3000,0,10000);
+    Setting popTime = create("Time", "PTime", 3000, 0, 10000);
     Setting popMode = create("RenderMode", "PRMode", "Wireframe", combobox("Textured", "Wireframe", "Normal"));
     Setting popWallsMode = create("Mode", "Modep", "Normal", combobox("XQZ", "Normal", "None"));
-    Setting popWidth = create("Width", "Widthp", 1,0.1,4);
-    Setting popCancel = create("Cancel", "Cancelp","Skin",combobox("Skin","All", "None"));
-    Setting popFade = create("Fade", "PFade",true);
+    Setting popWidth = create("Width", "Widthp", 1, 0.1, 4);
+    Setting popCancel = create("Cancel", "Cancelp", "Skin", combobox("Skin", "All", "None"));
+    Setting popFade = create("Fade", "PFade", true);
 
-    Color popColor = new Color(rp.get_value(1),gp.get_value(1),bp.get_value(1),ap.get_value(1));
-    Color color = new Color(r.get_value(1),g.get_value(1),b.get_value(1),a.get_value(1));
-    Color popXqzColor = new Color(rxp.get_value(1),gxp.get_value(1),bxp.get_value(1),axp.get_value(1));
-    Color xqzColor = new Color(rx.get_value(1),gx.get_value(1),bx.get_value(1),ax.get_value(1));
-    Color popExtraColor = new Color(rpe.get_value(1),gpe.get_value(1),bpe.get_value(1),ape.get_value(1));
+    Color popColor = new Color(rp.get_value(1), gp.get_value(1), bp.get_value(1), ap.get_value(1));
+    Color color = new Color(r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1));
+    Color popXqzColor = new Color(rxp.get_value(1), gxp.get_value(1), bxp.get_value(1), axp.get_value(1));
+    Color xqzColor = new Color(rx.get_value(1), gx.get_value(1), bx.get_value(1), ax.get_value(1));
+    Color popExtraColor = new Color(rpe.get_value(1), gpe.get_value(1), bpe.get_value(1), ape.get_value(1));
     private static Set<ExtraInfo> extraMap;
     private static Set<PopInfo> popMap;
 
@@ -111,10 +113,10 @@ public class Chams extends Module {
     }
 
     public boolean shouldRender(Entity e) {
-        if(Ozark.get_module_manager().get_module_with_tag("Chams").is_active()) {
-            if(e instanceof EntityEnderCrystal && crystals.get_value(true))
+        if (Ozark.get_module_manager().get_module_with_tag("Chams").is_active()) {
+            if (e instanceof EntityEnderCrystal && crystals.get_value(true))
                 return true;
-            if(e instanceof EntityPlayer && players.get_value(true))
+            if (e instanceof EntityPlayer && players.get_value(true))
                 return true;
         }
         return false;
@@ -131,7 +133,7 @@ public class Chams extends Module {
         final PopInfo info = getPop(event.entity);
         final float progress = isPop(event.entity) ? (1 - (((info.time + popTime.get_value(1)) - System.currentTimeMillis()) / popTime.get_value(1))) : 0;
 
-        if(popCancel.in("None") && !isExtra && isPop(event.entity)) {
+        if (popCancel.in("None") && !isExtra && isPop(event.entity)) {
             chams(event, event.modelBase, event.entity, event.limbSwing, event.limbSwingAmount, event.age, event.headYaw, event.headPitch, event.scale, false, 0, false);
             chams(event, event.modelBase, event.entity, event.limbSwing, event.limbSwingAmount, event.age, event.headYaw, event.headPitch, event.scale, true, progress, false);
         } else
@@ -139,23 +141,28 @@ public class Chams extends Module {
     });
 
     @EventHandler
-    private final Listener<EventTotemPop> totemListener = new Listener<>(event -> {
-        if(extra.get_value(true)) extraMap.add(new ExtraInfo(event.getEntity()));
-        if(pop.get_value(true)) {
-            if(isPop(event.getEntity())) popMap.remove(getPop(event.getEntity()));
+    private final Listener<EventTotemPop> totem_listener = new Listener<>(event -> {
+        if (extra.get_value(true)) extraMap.add(new ExtraInfo(event.getEntity()));
+        if (pop.get_value(true)) {
+            if (isPop(event.getEntity())) popMap.remove(getPop(event.getEntity()));
             popMap.add(new PopInfo(event.getEntity()));
         }
     });
 
+    @SubscribeEvent
+    public void onWorldRender(RenderWorldLastEvent event) {
+        renderExtra();
+    }
+
     private void chams(me.trambled.ozark.ozarkclient.event.Event event, final ModelBase model, final Entity entity, final float limbSwing, final float limbSwingAmount, final float ageInTicks, final float netHeadYaw, final float headPitch, final float scale, boolean pop, float progress, boolean extra) {
-        if(!shouldRender(entity)) return;
+        if (!shouldRender(entity)) return;
         boolean shadows = mc.gameSettings.entityShadows;
         renderManager.setRenderShadow(false);
 
         final String renderMode = extra ? extraRender.get_current_value() : pop ? popMode.get_current_value() : mode.get_current_value();
         final String hiddenMode = extra || pop ? popWallsMode.get_current_value() : wallsMode.get_current_value();
         final float renderWidth = extra || pop ? popWidth.get_value(1) : width.get_value(1);
-        final String cancelModel =  extra || pop ? popCancel.get_current_value() : String.valueOf((cancel.get_current_value()));
+        final String cancelModel = extra || pop ? popCancel.get_current_value() : String.valueOf((cancel.get_current_value()));
 
         final float extraProgress = extra ? (1 - (((info.time + popExtraTime.get_value(1)) - System.currentTimeMillis()) / popExtraTime.get_value(1))) : 0;
 
@@ -197,7 +204,7 @@ public class Chams extends Module {
                 } else {
                     GL11.glEnable(GL11.GL_DEPTH_TEST);
 
-                    if(hiddenMode.equalsIgnoreCase("Normal")) {
+                    if (hiddenMode.equalsIgnoreCase("Normal")) {
                         GL11.glDisable(GL11.GL_DEPTH_TEST);
                     }
 
@@ -209,7 +216,7 @@ public class Chams extends Module {
                     GL11.glEnable(GL11.GL_DEPTH_TEST);
                     GL11.glDepthMask(true);
 
-                    if(hiddenMode.equalsIgnoreCase("Normal")) {
+                    if (hiddenMode.equalsIgnoreCase("Normal")) {
                         GL11.glEnable(GL11.GL_DEPTH_TEST);
                     }
                 }
@@ -217,7 +224,8 @@ public class Chams extends Module {
                 GL11.glPopAttrib();
                 GL11.glPopMatrix();
 
-                if(cancel) event.cancel();
+                if (cancel)
+                    event.cancel();
 
                 break;
             }
@@ -250,7 +258,7 @@ public class Chams extends Module {
                     Tessellator.color(getColor(progress, extraProgress, pop, extra, false));
                     model.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
                 } else {
-                    if(hiddenMode.equalsIgnoreCase("Normal")) {
+                    if (hiddenMode.equalsIgnoreCase("Normal")) {
                         GL11.glDisable(GL11.GL_DEPTH_TEST);
                         GL11.glDepthMask(false);
                     }
@@ -258,7 +266,7 @@ public class Chams extends Module {
                     Tessellator.color(getColor(progress, extraProgress, pop, extra, false));
                     model.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 
-                    if(hiddenMode.equalsIgnoreCase("Normal")) {
+                    if (hiddenMode.equalsIgnoreCase("Normal")) {
                         GL11.glEnable(GL11.GL_DEPTH_TEST);
                         GL11.glDepthMask(true);
                     }
@@ -271,7 +279,7 @@ public class Chams extends Module {
                 GL11.glPopAttrib();
                 GL11.glPopMatrix();
 
-                if(cancel) event.cancel();
+                if (cancel) event.cancel();
                 break;
             }
             case "Normal": {
@@ -299,14 +307,14 @@ public class Chams extends Module {
     }
 
     private Color getColor(float progress, float progress0, boolean flag, boolean flag2, boolean hidden) {
-        if(flag2) {
-            if(hidden) {
+        if (flag2) {
+            if (hidden) {
                 return popExtraFade.get_value(true) ? lower(popXqzColor, progress0) : popXqzColor;
             } else {
                 return popExtraFade.get_value(true) ? lower(popExtraColor, progress0) : popExtraColor;
 
             }
-        } else if(flag) {
+        } else if (flag) {
             return popFade.get_value(true) ? lower(hidden ? popXqzColor : popColor, progress) : hidden ? popXqzColor : popColor;
         } else {
             return hidden ? xqzColor : color;
@@ -327,8 +335,8 @@ public class Chams extends Module {
     }
 
     public PopInfo getPop(Entity entity) {
-        for(PopInfo info : popMap) {
-            if(info.entity == entity) {
+        for (PopInfo info : popMap) {
+            if (info.entity == entity) {
                 return info;
             }
         }
@@ -357,6 +365,44 @@ public class Chams extends Module {
             this.entity = entity;
             this.time = System.currentTimeMillis();
         }
+    }
+
+    private void renderExtra() {
+        for (ExtraInfo extraInfo : extraMap) {
+            if (extraInfo.time + popExtraTime.get_value(1) < System.currentTimeMillis()) {
+                extraMap.remove(extraInfo);
+                return;
+            }
+
+            final Entity entity = extraInfo.entity;
+
+            final Render<Entity> renderer = renderManager.getEntityRenderObject(entity);
+            if (renderer == null) continue;
+
+            final float partialTicks = mc.getRenderPartialTicks();
+            final float yaw = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks;
+            final Vec3d pos = new Vec3d(extraInfo.x, extraInfo.y + ((1 - ((extraInfo.time + popExtraTime.get_value(1)) - System.currentTimeMillis()) / popExtraTime.get_value(1)) * (height.get_value(1) * (popExtraMode.in("Heaven") ? 1 : -1))), extraInfo.z).subtract(renderManager.renderPosX, renderManager.renderPosY, renderManager.renderPosZ);
+
+            isExtra = true;
+            info = extraInfo;
+            renderer.doRender(entity, pos.x, pos.y, pos.z, yaw, partialTicks);
+            info = null;
+            isExtra = false;
+        }
+    }
+
+    @Override
+    public void update_always() {
+        //entity page
+        mode.set_shown(page.in("Entities"));wallsMode.set_shown(page.in("Entities"));width.set_shown(page.in("Entities"));cancel.set_shown(page.in("Entities"));
+
+        //colors (lmao..)
+        lol.set_shown(page.in("Color"));lol1.set_shown(page.in("Color"));lol2.set_shown(page.in("Color"));lol2e.set_shown(page.in("Color"));lo3l.set_shown(page.in("Color"));r.set_shown(page.in("Color"));g.set_shown(page.in("Color"));b.set_shown(page.in("Color"));a.set_shown(page.in("Color"));rx.set_shown(page.in("Color"));gx.set_shown(page.in("Color"));bx.set_shown(page.in("Color"));ax.set_shown(page.in("Color"));rxp.set_shown(page.in("Color"));gxp.set_shown(page.in("Color"));bxp.set_shown(page.in("Color"));axp.set_shown(page.in("Color"));rp.set_shown(page.in("Color"));gp.set_shown(page.in("Color"));bp.set_shown(page.in("Color"));ap.set_shown(page.in("Color"));rpe.set_shown(page.in("Color"));gpe.set_shown(page.in("Color"));bpe.set_shown(page.in("Color"));ape.set_shown(page.in("Color"));
+
+        //popchangsss
+        pop.set_shown(page.in("PopChams"));extra.set_shown(page.in("PopChams"));extraRender.set_shown(page.in("PopChams"));height.set_shown(page.in("PopChams"));popExtraFade.set_shown(page.in("PopChams"));popExtraMode.set_shown(page.in("PopChams"));popExtraTime.set_shown(page.in("PopChams"));popCancel.set_shown(page.in("PopChams"));popMode.set_shown(page.in("PopChams"));popWidth.set_shown(page.in("PopChams"));popWallsMode.set_shown(page.in("PopChams"));popFade.set_shown(page.in("PopChams"));popTime.set_shown(page.in("PopChams"));
+
+
     }
 }
 
