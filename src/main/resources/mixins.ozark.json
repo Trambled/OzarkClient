@@ -5,6 +5,7 @@
   "refmap"             : "mixins.ozark.refmap.json",
   "mixins"             : [
     "MixinAbstractClientPlayer",
+    "MixinRenderEntityCrystal",
     "MixinAbstractHorse",
     "MixinBeacon",
     "MixinBlock",
