@@ -149,10 +149,10 @@ public class Chams extends Module {
         }
     });
 
-    @SubscribeEvent
-    public void onWorldRender(RenderWorldLastEvent event) {
+    @EventHandler
+    private final Listener<RenderWorldLastEvent> worldLastEventListener = new Listener<>(event -> {
         renderExtra();
-    }
+    });
 
     private void chams(me.trambled.ozark.ozarkclient.event.Event event, final ModelBase model, final Entity entity, final float limbSwing, final float limbSwingAmount, final float ageInTicks, final float netHeadYaw, final float headPitch, final float scale, boolean pop, float progress, boolean extra) {
         if (!shouldRender(entity)) return;
