@@ -1,7 +1,10 @@
 package me.trambled.ozark.mixins;
 
 import me.trambled.ozark.Ozark;
+import me.trambled.ozark.ozarkclient.event.Event;
+import me.trambled.ozark.ozarkclient.event.Eventbus;
 import me.trambled.ozark.ozarkclient.event.events.EventRenderEntityModel;
+import me.trambled.ozark.ozarkclient.manager.RotationManager;
 import me.trambled.ozark.ozarkclient.module.chat.TotemPopCounter;
 import me.trambled.ozark.ozarkclient.util.render.RenderUtil;
 import me.trambled.ozark.ozarkclient.util.world.TimerUtil;
@@ -23,6 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
 
+import static me.trambled.ozark.ozarkclient.module.Module.mc;
 import static org.lwjgl.opengl.GL11.*;
 
 @Mixin(RenderLivingBase.class)
@@ -83,4 +87,24 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
                 TotemPopCounter.pops.computeIfPresent(entity.getEntityId(), (key, oldValue) -> oldValue - 1);
             }
         }
+    @Redirect(method = {"renderModel"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/ModelBase;render(Lnet/minecraft/entity/Entity;FFFFFF)V"))
+    private void renderModelHook(final ModelBase modelBase, final Entity entityIn, final float limbSwing, final float limbSwingAmount, final float ageInTicks, final float netHeadYaw, final float headPitch, final float scale) {
+        final EventRenderEntityModel event = new EventRenderEntityModel(0,modelBase, entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+        Eventbus.EVENT_BUS.post(event);
+
+        if (!event.isCancelled()) {
+            if(entityIn == mc.player && Ozark.get_rotation_manager().currentRotation != null) {
+                modelBase.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, Ozark.get_rotation_manager().currentRotation.pitch, scale);
+            } else {
+                modelBase.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+            }
+        }
     }
+    @Inject(method = {"doRender"}, at = {@At("HEAD")})
+    public void doRenderPre(final T entity, final double x, final double y, final double z, final float entityYaw, final float partialTicks, final CallbackInfo info) {
+    }
+
+    @Inject(method = {"doRender"}, at = {@At("RETURN")})
+    public void doRenderPost(final T entity, final double x, final double y, final double z, final float entityYaw, final float partialTicks, final CallbackInfo info) {
+    }
+}
