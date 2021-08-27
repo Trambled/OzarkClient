@@ -42,7 +42,19 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
         super(renderManagerIn);
     }
 
-    // holy shit this is so chinese
+    @Redirect(method = {"renderModel"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/ModelBase;render(Lnet/minecraft/entity/Entity;FFFFFF)V"))
+    private void renderModelHook(final ModelBase modelBase, final Entity entityIn, final float limbSwing, final float limbSwingAmount, final float ageInTicks, final float netHeadYaw, final float headPitch, final float scale) {
+        if (Ozark.get_module_manager().get_module_with_tag("Chams").is_active()) {
+            final EventRenderEntityModel event = new EventRenderEntityModel(0, modelBase, entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+            Ozark.get_module_manager().get_module_with_tag("Chams").on_render_model(event);
+            if (event.isCancelled()) {
+                return;
+            }
+        }
+        modelBase.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+    }
+
+
     @Inject(method = {"renderModel"}, at = {@At(value = "INVOKE", target = "Lnet/minecraft/client/model/ModelBase;render(Lnet/minecraft/entity/Entity;FFFFFF)V")}, cancellable = true)
     private void renderModel(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, CallbackInfo info) {
         TimerUtil timer = new TimerUtil();
@@ -53,58 +65,38 @@ public abstract class MixinRenderLivingBase<T extends EntityLivingBase> extends 
             } else if (TotemPopCounter.pops.get(entity.getEntityId()) < 0) {
                 if (TotemPopCounter.pops.get(entity.getEntityId()) < -5 && timer.passedMs(TotemPopCounter.INSTANCE.timr.get_value(1)))
                     info.cancel();
-                    TotemPopCounter.pops.remove(entity.getEntityId());
-                    return;
-                }
-                if (TotemPopCounter.pops.size() > TotemPopCounter.INSTANCE.max.get_value(1)) {
-                    TotemPopCounter.pops.remove(entity.getEntityId());
-                    Minecraft.getMinecraft().world.removeEntityFromWorld(entity.getEntityId());
-                    return;
-                }
-                GlStateManager.enableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
-                GlStateManager.pushMatrix();
-                GL11.glPushAttrib(1048575);
-                GL11.glPolygonMode(1032, 6913);
-                glDisable(GL_TEXTURE_2D);
-                GlStateManager.disableAlpha();
-                GL11.glDisable(3553);
-                GL11.glDisable(2896);            // i pasted the most randomest shit to learn gl11 lol dont mind me - kambing
-                GL11.glDisable(2929);
-                GL11.glEnable(2848);
-                GL11.glEnable(3042);
-                GL11.glBlendFunc(770, 771);
-                GL11.glDepthMask(true);
-                GL11.glLineWidth(1);
-                glEnable(GL_LINE_SMOOTH);
-                glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-                RenderUtil.setColor(new Color(TotemPopCounter.INSTANCE.r.get_value(1), TotemPopCounter.INSTANCE.g.get_value(1), TotemPopCounter.INSTANCE.b.get_value(1), TotemPopCounter.INSTANCE.a.get_value(1)));
-                mainModel.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
-                GL11.glEnable(2896);
-                glEnable(GL_TEXTURE_2D);
-                glPopAttrib();
-                glPopMatrix();
-                info.cancel();
-                TotemPopCounter.pops.computeIfPresent(entity.getEntityId(), (key, oldValue) -> oldValue - 1);
+                TotemPopCounter.pops.remove(entity.getEntityId());
+                return;
             }
-        }
-    @Redirect(method = {"renderModel"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/model/ModelBase;render(Lnet/minecraft/entity/Entity;FFFFFF)V"))
-    private void renderModelHook(final ModelBase modelBase, final Entity entityIn, final float limbSwing, final float limbSwingAmount, final float ageInTicks, final float netHeadYaw, final float headPitch, final float scale) {
-        final EventRenderEntityModel event = new EventRenderEntityModel(0,modelBase, entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        Eventbus.EVENT_BUS.post(event);
-
-        if (!event.isCancelled()) {
-            if(entityIn == mc.player && Ozark.get_rotation_manager().currentRotation != null) {
-                modelBase.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, Ozark.get_rotation_manager().currentRotation.pitch, scale);
-            } else {
-                modelBase.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+            if (TotemPopCounter.pops.size() > TotemPopCounter.INSTANCE.max.get_value(1)) {
+                TotemPopCounter.pops.remove(entity.getEntityId());
+                Minecraft.getMinecraft().world.removeEntityFromWorld(entity.getEntityId());
+                return;
             }
+            GlStateManager.enableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
+            GlStateManager.pushMatrix();
+            GL11.glPushAttrib(1048575);
+            GL11.glPolygonMode(1032, 6913);
+            glDisable(GL_TEXTURE_2D);
+            GlStateManager.disableAlpha();
+            GL11.glDisable(3553);
+            GL11.glDisable(2896);            // i pasted the most randomest shit to learn gl11 lol dont mind me - kambing
+            GL11.glDisable(2929);
+            GL11.glEnable(2848);
+            GL11.glEnable(3042);
+            GL11.glBlendFunc(770, 771);
+            GL11.glDepthMask(true);
+            GL11.glLineWidth(1);
+            glEnable(GL_LINE_SMOOTH);
+            glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+            RenderUtil.setColor(new Color(TotemPopCounter.INSTANCE.r.get_value(1), TotemPopCounter.INSTANCE.g.get_value(1), TotemPopCounter.INSTANCE.b.get_value(1), TotemPopCounter.INSTANCE.a.get_value(1)));
+            mainModel.render(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
+            GL11.glEnable(2896);
+            glEnable(GL_TEXTURE_2D);
+            glPopAttrib();
+            glPopMatrix();
+            info.cancel();
+            TotemPopCounter.pops.computeIfPresent(entity.getEntityId(), (key, oldValue) -> oldValue - 1);
         }
-    }
-    @Inject(method = {"doRender"}, at = {@At("HEAD")})
-    public void doRenderPre(final T entity, final double x, final double y, final double z, final float entityYaw, final float partialTicks, final CallbackInfo info) {
-    }
-
-    @Inject(method = {"doRender"}, at = {@At("RETURN")})
-    public void doRenderPost(final T entity, final double x, final double y, final double z, final float entityYaw, final float partialTicks, final CallbackInfo info) {
     }
 }

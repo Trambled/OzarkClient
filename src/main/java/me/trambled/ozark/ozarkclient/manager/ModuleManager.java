@@ -136,6 +136,7 @@ public class ModuleManager {
 		add_module(new FuckedDetector());
 		add_module(new Tracers());
 		add_module(new SkyColour());
+		add_module(new Chams());
 		add_module(new Capes());
 		add_module(new CityESP());
 		add_module(new StorageESP());
@@ -151,8 +152,8 @@ public class ModuleManager {
 		add_module(new Trajectories());
 		add_module(new PenisESP());
 		add_module(new NewChunks());
+		add_module(new Chams2());
 		add_module(new ChorusViewer());
-		add_module(new Chams());
 
 		// Misc.
 		add_module(new AutoWither());
