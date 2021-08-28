@@ -48,6 +48,7 @@ public class Ozark {
 	private static HUDManager hud_manager;
 	private static RotationManager rotation_manager;
 	private static NotificationManager notification_manager;
+	private static TotempopManager totempop_manager;
 	public static PastGUI past_gui;
 	public static MainGUI main_gui;
 	public static MainHUD main_hud;
@@ -82,6 +83,7 @@ public class Ozark {
 		hud_manager = new HUDManager();
 		rotation_manager = new RotationManager();
 		notification_manager = new NotificationManager();
+		totempop_manager = new TotempopManager();
 
 
 		EventManager event_manager = new EventManager();
@@ -221,6 +223,8 @@ public class Ozark {
 	public static NotificationManager get_notification_manager() {
 		return notification_manager;
 	}
+
+	public static TotempopManager get_totempop_manager() {return totempop_manager;}
 
 	public static EventHandler get_event_handler() {
 		return EventHandler.INSTANCE;
