@@ -3,6 +3,8 @@ package me.trambled.ozark.ozarkclient.module.chat;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.trambled.ozark.ozarkclient.event.events.EventEntityRemoved;
 import me.trambled.ozark.ozarkclient.event.events.EventPacket;
+import me.trambled.ozark.ozarkclient.event.events.EventTotemPop;
+import me.trambled.ozark.ozarkclient.manager.TotempopManager;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
@@ -14,6 +16,7 @@ import me.zero.alpine.fork.listener.EventHandler;
 import me.zero.alpine.fork.listener.Listener;
 import net.minecraft.client.entity.EntityOtherPlayerMP;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.play.server.SPacketEntityStatus;
 import net.minecraft.world.GameType;
@@ -26,14 +29,16 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class TotemPopCounter extends Module {
     public static TotemPopCounter INSTANCE = new TotemPopCounter();
-    public TotemPopCounter() {
-		super(Category.CHAT);
 
-		this.name        = "TotemPopCounter";
-		this.tag         = "TotemPopCounter";
-		this.description = "Automatically says who ur EZZZZZZZZZZING.";
+    public TotemPopCounter() {
+        super(Category.CHAT);
+
+        this.name = "TotemPopCounter";
+        this.tag = "TotemPopCounter";
+        this.description = "Automatically says who ur EZZZZZZZZZZING.";
 
     }
+
     public static TotemPopCounter getINSTANCE() {
         if (INSTANCE == null) {
             INSTANCE = new TotemPopCounter();
@@ -45,20 +50,9 @@ public class TotemPopCounter extends Module {
         INSTANCE = this;
     }
 
-    Setting mode = create("Mode", "Mode", "Normal", combobox("Normal", "GayNigger"));
     Setting stack = create("Stack", "Stack", false);
-    Setting chams = create("Chams", "Chams", false);
-    public Setting r = create("R", "popChamsR", 255, 0, 255);
-    public Setting g = create("G", "popChamsG", 255, 0, 255);
-    public Setting b = create("B", "popChamsB", 255, 0, 255);
-    public Setting a = create("A", "popChamsA", 100, 0, 255);
-    public Setting max = create("Max popchangs", "popChamsMax", 2, 1, 2);
-    public Setting timr = create("Alive time (ms)", "popChamstime", 350, 100, 500);
-    public Setting ytravel = create("Ytravel", "popytravel", false);
 
-    public static final HashMap<String, Integer> totem_pop_counter = new HashMap <> ( );
-    public static ConcurrentHashMap<Integer, Integer> pops = new ConcurrentHashMap<>();
-    
+
     public static ChatFormatting red = ChatFormatting.DARK_RED;
     public static ChatFormatting green = ChatFormatting.GREEN;
     public static ChatFormatting gold = ChatFormatting.GOLD;
@@ -72,136 +66,46 @@ public class TotemPopCounter extends Module {
 
 
     @EventHandler
-    private final Listener<EventPacket.ReceivePacket> packet_event = new Listener<>(event -> {
+    private final Listener<EventTotemPop> packet_event = new Listener<>(event -> {
 
-
-        if (event.get_packet() instanceof SPacketEntityStatus) {
-
-            SPacketEntityStatus packet = (SPacketEntityStatus) event.get_packet();
-
-            if (packet.getOpCode() == 35) {
-
-                Entity entity = packet.getEntity(mc.world);
-
-                int count = 1;
-
-
-                if (totem_pop_counter.containsKey(entity.getName())) {
-                    count = totem_pop_counter.get(entity.getName());
-                    totem_pop_counter.put(entity.getName(), ++count);
-                } else {
-                    totem_pop_counter.put(entity.getName(), count);
-                }
+        Entity entity = event.getEntity();
+        int count = TotempopManager.getPops(event.getEntity().getName());
 
                 if (entity == mc.player) return;
 
                 if (FriendUtil.isFriend(entity.getName())) {
-                    MessageUtil.send_client_message(aqua + entity.getName() + " popped " + red + count + " totems");
+                    client_message(aqua + entity.getName() + " popped " + red + count + " totems");
                 } else {
 
-                    MessageUtil.send_client_message(white + entity.getName() + " popped " + red + count + " totems");
+                    client_message(white + entity.getName() + " popped " + red + count + " totems");
 
-                } // nae nae so fucking chinese
-                if (chams.get_value(true)) {
-                    if (entity != mc.player) {
-                        if (entity.getDistance(mc.player) < 15) {
-                            TimerUtil timer = new TimerUtil();
-                            Color color = EntityUtil.getColor(packet.getEntity(mc.world), r.get_value(1), g.get_value(1), b.get_value(1), a.get_value(1), false);
-                            Entity ee = packet.getEntity(mc.world);
-                            ArrayList<Integer> idList = new ArrayList<>();
-                            for (Entity e : mc.world.loadedEntityList) {
-                                idList.add(e.getEntityId());
-                            }               //this should be the player game profile but entity doesnt have gameprofile
-                            EntityOtherPlayerMP popCham = new EntityOtherPlayerMP(mc.world, mc.player.getGameProfile());
-                            popCham.copyLocationAndAnglesFrom(ee);
-                            popCham.rotationYawHead = ee.getRotationYawHead();
-                            popCham.rotationYaw = ee.rotationYaw;
-                            popCham.rotationPitch = ee.rotationPitch;
-                            popCham.setGameType(GameType.CREATIVE);
-                            popCham.setHealth(20);
-                            if (ytravel.get_value(true)) {
-                                if (!timer.passedMs(timr.get_value(1))) {
-                                    popCham.motionY = 0.30000001192092896D;
-                                }
-                            }
-                            for (int i = 0; i > -10000; i--) {
-                                if (!idList.contains(i)) {
-                                    mc.world.addEntityToWorld(i, popCham);
-                                    pops.put(i, color.getAlpha());
-                                    break;
-                                }
-                            }
-                        }
-                    }
                 }
-            }
-        }
-
     });
 
-    @EventHandler
-    private final Listener<EventEntityRemoved> on_entity_removed = new Listener<>(event -> {
-        if (event.get_entity() instanceof EntityPlayer) {
-            pops.remove(event.get_entity().getEntityId());
-            totem_pop_counter.remove(event.get_entity().getName());
-        }
-    });
 
     @Override
-	public void update() {
-
+    public void update() {
         if (full_null_check()) return;
-        if (mc.world.playerEntities == null) return; // for some reason i get crashes because of dis??
-        for (EntityPlayer player : mc.world.playerEntities) {
-
-            if (!totem_pop_counter.containsKey(player.getName())) continue;
-
-            if (player.isDead || player.getHealth() <= 0) {
-
-                int count = totem_pop_counter.get(player.getName());
-
-                totem_pop_counter.remove(player.getName());
-
-                if (player == mc.player) continue;
-
-                if (mode.in("GayNigger")) {
-                    if (FriendUtil.isFriend(player.getName())) {
-                        client_message("dude, " + bold + green + player.getName() + reset + " has popped " + bold + count + reset + " totems. so dog water but idk there a homie");
-                    } else {
-                        client_message("dude, " + bold + red + player.getName() + reset + " has popped " + bold + count + reset + " totems. Stupid fucking retard");
-                    }
-                } else {
-                    if (FriendUtil.isFriend(player.getName())) {
-                        client_message("" + bold + aqua + player.getName() + reset + " died after popping " + bold + count + reset + " totems.");
-                    } else {
-                        client_message("" + bold + red + player.getName() + reset + " died after popping " + bold + count + reset + " totems");
-                    }
+        for (Entity e : mc.world.loadedEntityList) {
+            if (e instanceof EntityLivingBase) {
+                if (e == mc.player) continue;
+                final EntityLivingBase living = (EntityLivingBase) e;
+                if (TotempopManager.totemMap.containsKey(e) && living.getHealth() <= 0) {
+                    final String message = ChatFormatting.DARK_RED + living.getName() + ChatFormatting.RESET + " Died after " + ChatFormatting.LIGHT_PURPLE + TotempopManager.getPops(living) + ChatFormatting.RESET
+                            + (TotempopManager.getPops(living) == 1 ? " totem" : " totems");
+                    client_message(message);
                 }
-
+                TotempopManager.totemMap.remove(living);
             }
-
         }
+    }
 
-	}
 
-	public void client_message(String message) {
+    public void client_message(String message) {
         if (stack.get_value(true)) {
             MessageUtil.send_client_message_simple(message);
         } else {
             MessageUtil.send_client_message(message);
         }
     }
-
-    @Override
-    public void update_always() {
-        r.set_value(chams.get_value(true));
-        g.set_value(chams.get_value(true));
-        b.set_value(chams.get_value(true));
-        a.set_value(chams.get_value(true));
-        max.set_value(chams.get_value(true));
-        timr.set_value(chams.get_value(true));
-        ytravel.set_value(chams.get_value(true));
-
-    }
-
 }

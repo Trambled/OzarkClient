@@ -1,8 +1,10 @@
 package me.trambled.ozark.ozarkclient.module.render;
 
 
+import com.mojang.authlib.GameProfile;
 import me.trambled.ozark.ozarkclient.event.events.EventPacket;
 import me.trambled.ozark.ozarkclient.event.events.EventRender;
+import me.trambled.ozark.ozarkclient.event.events.EventTotemPop;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
@@ -37,11 +39,28 @@ public class PopChams extends Module {
 
     public HashMap<EntityPlayer, Integer> pop = new HashMap<>();
 
+    Color color = new Color(r.get_value(1),g.get_value(1),b.get_value(1),a.get_value(1));
     /*
     so this code is actually from wp3 private repo
     but i manage to get it lol
     skid
      */
+
+    @EventHandler
+    private final Listener<EventTotemPop> tot = new Listener<>(event -> {
+        if(event.getEntity() == mc.player) return;
+        pop.put(new EntityPlayer(mc.world, new GameProfile(event.getEntity().getUniqueID(),event.getEntity().getName())) {
+            @Override
+            public boolean isSpectator() {
+                return false;
+            }
+
+            @Override
+            public boolean isCreative() {
+                return false;
+            }
+        }, color.getAlpha());
+            });
 
     @Override
     public void render(EventRender event) {
