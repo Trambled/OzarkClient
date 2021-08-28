@@ -2,6 +2,7 @@ package me.trambled.ozark.ozarkclient.module.render;
 
 import me.trambled.ozark.ozarkclient.event.events.EventRender;
 import me.trambled.ozark.ozarkclient.event.events.EventRenderName;
+import me.trambled.ozark.ozarkclient.manager.TotempopManager;
 import me.trambled.ozark.ozarkclient.module.Category;
 import me.trambled.ozark.ozarkclient.module.Module;
 import me.trambled.ozark.ozarkclient.module.Setting;
@@ -162,8 +163,8 @@ public class NameTags extends Module {
         if (showTotem.get_value(true)) {
             int pop = 0;
             TextFormatting textFormatting = findPopColor(pop);
-            if (TotemPopCounter.totem_pop_counter.get(entityPlayer.getName()) != null) {
-                pop = TotemPopCounter.totem_pop_counter.get(entityPlayer.getName());
+            if (TotempopManager.getPops(entityPlayer.getName()) != 0) {
+                pop = TotempopManager.getPops(entityPlayer.getName());
             }
             if (pop != 0) {
                 name = name +  textFormatting + " -" + pop;
